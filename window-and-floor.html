@@ -147,13 +147,14 @@
       </g>
       <circle id="i2-pt" cx="150" cy="150" r="7" fill="#6a2c91" stroke="#faf6ef" stroke-width="2" style="cursor:grab"/>
       <!-- picture panel -->
+      <defs><clipPath id="i2-clip"><rect x="330" y="40" width="270" height="240"/></clipPath></defs>
       <rect x="330" y="40" width="270" height="240" fill="#fffdf8" stroke="#e2d9c8" stroke-width="1"/>
       <circle cx="340" cy="270" r="3.5" fill="none" stroke="#6b6360" stroke-width="1"/>
       <text x="348" y="274" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="10" fill="#6b6360">seat</text>
-      <path id="i2-cam" d="" fill="none" stroke="#6a2c91" stroke-width="1.8"/>
+      <g clip-path="url(#i2-clip)"><path id="i2-cam" d="" fill="none" stroke="#6a2c91" stroke-width="1.8"/>
       <line id="i2-glide" x1="0" y1="0" x2="0" y2="0" stroke="#177f75" stroke-width="1.6"/>
       <g id="i2-cmarks"></g>
-      <g id="i2-gmarks"></g>
+      <g id="i2-gmarks"></g></g>
       <circle cx="580" cy="60" r="4.5" fill="#43203f"/>
       <text x="574" y="52" text-anchor="end" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="10" fill="#6b6360">footprint</text>
     </svg>
@@ -262,8 +263,7 @@
     camPath.setAttribute('d', d);
     var dx = -ru * x0, dy = -rv * y0;
     var r = Math.max(ru, rv);
-    var muEnd = (r > 1e-6) ? 1 / r : 6; // reach ruler range for drawing
-    var e = toSvg(x0 + Math.min(muEnd, 6) * dx, y0 + Math.min(muEnd, 6) * dy), f = toSvg(x0, y0);
+    var e = toSvg(x0 + 8 * dx, y0 + 8 * dy), f = toSvg(x0, y0);
     gl.setAttribute('x1', f.x); gl.setAttribute('y1', f.y); gl.setAttribute('x2', e.x); gl.setAttribute('y2', e.y);
     cmG.innerHTML = ''; gmG.innerHTML = '';
     var maxGap = 0;
