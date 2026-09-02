@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Window and Floor · The Reading Sessions</title>
+<style>
+  :root {
+    --cream:#faf6ef; --plum:#43203f; --purple:#6a2c91; --crimson:#c0322b;
+    --gold:#b08948; --teal:#177f75; --green:#3d8f3d; --ink:#2b2226; --grey:#6b6360; --rule:#e2d9c8;
+  }
+  html { background: var(--cream); }
+  body {
+    margin: 0; color: var(--ink); background: var(--cream);
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+    font-size: 17px; line-height: 1.6; -webkit-text-size-adjust: 100%;
+  }
+  main { max-width: 44rem; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
+  .eyebrow {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: .72rem;
+    letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin: 0 0 1rem;
+  }
+  .eyebrow a { color: var(--gold); border-bottom: none; }
+  h1 { font-size: 2.4rem; line-height: 1.06; margin: 0 0 .45rem; color: var(--plum); font-weight: 700; letter-spacing: -.01em; }
+  .sub { font-style: italic; font-size: 1.15rem; color: var(--purple); margin: 0 0 2rem; line-height: 1.4; }
+  h2 { font-size: 1.05rem; color: var(--plum); margin: 2.6rem 0 .8rem;
+       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+       letter-spacing: .14em; text-transform: uppercase; font-weight: 600; }
+  p { margin: 0 0 1rem; }
+  a { color: var(--purple); text-decoration: none; border-bottom: 1px dotted var(--gold); }
+  a:hover, a:focus-visible { color: var(--crimson); border-bottom-style: solid; }
+  a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+  .inst { margin: 1.4rem 0 1.8rem; border: 1px solid var(--gold); border-bottom-width: 3px; padding: .9rem 1rem 1rem; background: #fffdf8; }
+  .inst svg { width: 100%; height: auto; display: block; touch-action: none; }
+  .ctl { display: flex; flex-wrap: wrap; gap: .6rem 1.2rem; align-items: center; margin: .7rem 0 .3rem;
+         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: .82rem; color: var(--grey); }
+  .ctl label { display: flex; align-items: center; gap: .45rem; }
+  .ctl input[type=range] { width: 11rem; accent-color: var(--purple); }
+  .seg { display: inline-flex; border: 1px solid var(--gold); border-radius: 3px; overflow: hidden; }
+  .seg button { border: 0; background: transparent; color: var(--plum); padding: .3rem .7rem; font: inherit; cursor: pointer; }
+  .seg button[aria-pressed=true] { background: var(--plum); color: var(--cream); }
+  .seg button:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
+  .presets button { border: 1px solid var(--rule); background: transparent; color: var(--purple); border-radius: 3px;
+                    padding: .25rem .6rem; font: inherit; cursor: pointer; }
+  .presets button:hover { border-color: var(--gold); color: var(--crimson); }
+  .read { font-size: .95rem; margin: .6rem 0 0; min-height: 2.6em; line-height: 1.45; }
+  .read b { font-weight: 700; }
+  .read .welded { color: var(--green); } .read .agree { color: var(--gold); } .read .split { color: var(--crimson); }
+  .cap { font-size: .85rem; color: var(--grey); line-height: 1.5; margin: .5rem 0 0; }
+
+  table.ledger { border-collapse: collapse; width: 100%; font-size: .95rem; margin: .4rem 0 1rem; }
+  table.ledger td { padding: .45rem .5rem; border-top: 1px solid var(--rule); vertical-align: top; }
+  table.ledger td:first-child { white-space: nowrap; color: var(--gold);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; padding-top: .6rem; }
+  blockquote { margin: 1.2rem 0; padding: .2rem 0 .2rem 1rem; border-left: 3px solid var(--gold); font-style: italic; color: var(--plum); }
+  footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--gold); font-size: .85rem; color: var(--grey); line-height: 1.7; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow"><a href="index.html">The Reading Sessions</a> · companion to session 1 · 2 September 2026</p>
+    <h1>Window and floor</h1>
+    <p class="sub">The plane comes last, or the plane comes first — and why that decides what is locked and what is free</p>
+  </header>
+
+  <p>This page is the walk-through of one afternoon's leap, kept on human terms. It has two live instruments. The first shows one plane doing two jobs. The second puts the book's rate square under your finger and lets you watch the seam appear. The text between them says only what the instruments show; the theorems live in <a href="https://flyingsticks.github.io/one-congruence-two-readings/chapter-2.html">Chapter 2</a> and <a href="https://flyingsticks.github.io/one-congruence-two-readings/chapter-3.html">Chapter 3</a>.</p>
+
+  <h2>One plane, two jobs</h2>
+  <p>A camera treats the picture plane as a window. A point sits out in the world; a sight line runs from it to the eye; the mark is wherever that line happens to pierce the glass. The mark is an <em>output</em>. It is the last thing made, and the camera cannot put it anywhere else.</p>
+  <p>A glide draftsman treats the same plane as a floor. A footprint is set at level zero; a straight depth line is raised from it; depth is laid off along the line with a ruler. The mark is an <em>input</em>. The floor is the first thing made, and the ruler is the draftsman's to choose.</p>
+  <p>Slide the probe. On the left, watch the window's mark move because the ray moved. On the right, the footprint never moves; only the tick along the drawn line moves, and it moves by whichever ruler is chosen.</p>
+
+  <div class="inst" id="inst1">
+    <svg viewBox="0 0 620 270" role="img" aria-label="Left: a section through the picture plane with a station point; a ray from the station through a probe pierces the plane at a moving mark. Right: the picture plane face-on, with a fixed footprint, a straight depth line, and a tick placed by the chosen gauge.">
+      <g font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11" fill="#6b6360">
+        <text x="20" y="22">The window (section, pinhole at Z<tspan baseline-shift="sub" font-size="8">p</tspan> = 200)</text>
+        <text x="330" y="22">The floor (the sheet, face-on)</text>
+      </g>
+      <!-- left panel -->
+      <line x1="20" y1="215" x2="300" y2="215" stroke="#e2d9c8" stroke-width="1"/>
+      <line x1="210" y1="40" x2="210" y2="240" stroke="#43203f" stroke-width="2"/>
+      <text x="214" y="252" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="10" fill="#6b6360">z = 0</text>
+      <line id="w-depthline" x1="30" y1="85" x2="210" y2="85" stroke="#6b6360" stroke-width=".8" stroke-dasharray="3 3"/>
+      <line id="w-ray" x1="240" y1="215" x2="120" y2="85" stroke="#6a2c91" stroke-width="1.6"/>
+      <line id="w-ray-ext" x1="240" y1="215" x2="120" y2="85" stroke="#6a2c91" stroke-width="1.6" stroke-dasharray="4 4" opacity=".5"/>
+      <circle cx="240" cy="215" r="4" fill="#43203f"/>
+      <text x="246" y="232" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="10" fill="#6b6360">station</text>
+      <circle id="w-probe" cx="120" cy="85" r="4" fill="#6b6360"/>
+      <circle cx="210" cy="215" r="3" fill="none" stroke="#6a2c91" stroke-width="1.2"/>
+      <circle id="w-mark" cx="210" cy="150" r="5" fill="#6a2c91"/>
+      <text id="w-marklabel" x="80" y="150" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11" fill="#6a2c91">mark lands</text>
+      <!-- right panel -->
+      <rect x="330" y="40" width="270" height="200" fill="none" stroke="#e2d9c8" stroke-width="1"/>
+      <line id="f-line" x1="560" y1="80" x2="350" y2="220" stroke="#177f75" stroke-width="1.6"/>
+      <line id="f-line-ext" x1="560" y1="80" x2="600" y2="53" stroke="#177f75" stroke-width="1.2" stroke-dasharray="4 4" opacity=".5"/>
+      <circle cx="350" cy="220" r="3.5" fill="none" stroke="#177f75" stroke-width="1.2"/>
+      <text x="358" y="232" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="10" fill="#6b6360">vanishing seat</text>
+      <circle cx="560" cy="80" r="5" fill="#177f75"/>
+      <text x="520" y="66" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="10" fill="#6b6360">footprint, level 0</text>
+      <g id="f-ghost" opacity=".55"><circle id="f-ghostdot" cx="455" cy="150" r="5" fill="none" stroke="#6a2c91" stroke-width="1.4"/></g>
+      <circle id="f-tick" cx="455" cy="150" r="5" fill="#177f75"/>
+      <text id="f-ticklabel" x="470" y="140" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11" fill="#177f75">tick stands</text>
+    </svg>
+    <div class="ctl">
+      <label>probe depth z <input id="i1-z" type="range" min="0" max="1600" value="200" step="1"> <span id="i1-zv">200</span></label>
+      <span class="seg" role="group" aria-label="gauge">
+        <button id="i1-reach" aria-pressed="false">Reach (equal steps)</button>
+        <button id="i1-turn" aria-pressed="true">Turn (harmonic)</button>
+      </span>
+    </div>
+    <p class="read" id="i1-read"></p>
+    <p class="cap">The hollow purple ring on the sheet is where the window's mark would fall. Under Turn the teal tick sits on it at every depth: this rig is on the seam and welded. Under Reach the tick walks off the sheet as z grows, because equal steps leave infinity unmarked — Theorem 0.</p>
+  </div>
+
+  <h2>What is locked and what is free</h2>
+  <p>Here is the sentence the afternoon produced, checked against Chapter 2 and holding:</p>
+  <blockquote>The window has a free law and a welded gauge. The floor has a fixed law and a free gauge.</blockquote>
+  <p>A <em>law</em> is the shape of the machinery — which lines the marks run along, and how fast each channel contracts. A <em>gauge</em> is the ruler laid along those lines. The camera chooses its law by placing its slits, and once they are placed, optics fixes where every depth lands: the gauge is welded. The draftsman's law is fixed in advance — straight lines from footprints — and the ruler along them is free: equal steps (Reach) or harmonic crowding toward a marked vanishing point (Turn). So the freedom you felt on the glide side did not vanish on the projective side. It moved up a level, from the ruler to the law.</p>
+  <p>Theorem 0 says why the two rulers cannot be one ruler. A scale on a straight line cannot both mark equal steps and give infinity a finite mark. Reach keeps the steps and lets infinity go; Turn marks infinity and pays in crowding. You saw both above.</p>
+
+  <h2>The rate square</h2>
+  <p>The book draws every rig as a point (r<sub>u</sub>, r<sub>v</sub>): the rate at which each channel contracts toward its seat. That square is the camera's law-space — the two numbers the slits are free to set. The draftsman has no point on it, because the draftsman's law is not a pair of rates but a class: straight. The question the square answers is therefore not "free or welded" but "do the two laws agree?"</p>
+  <p>Drag the point. The purple curve is the camera's image of one depth line; the teal line is the draftsman's. Purple dots are the camera's marks at equal depth steps 1 to 5; teal dots are the draftsman's under the chosen ruler.</p>
+
+  <div class="inst" id="inst2">
+    <svg id="i2-svg" viewBox="0 0 620 300" role="img" aria-label="Left: the rate square with axes r u and r v, seam drawn in gold, a draggable rig point. Right: the picture of one depth line under the camera (purple curve with marks) and under the glide (teal straight line with marks).">
+      <g font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11" fill="#6b6360">
+        <text x="20" y="22">The rate square (drag)</text>
+        <text x="330" y="22">One depth line, read twice</text>
+      </g>
+      <!-- square: ru 0..1 -> x 40..260 ; rv 0..1 -> y 260..40 -->
+      <rect x="40" y="40" width="220" height="220" fill="#fffdf8" stroke="#43203f" stroke-width="1.5"/>
+      <line x1="40" y1="260" x2="260" y2="260" stroke="#b08948" stroke-width="3"/>
+      <line x1="40" y1="260" x2="40" y2="40" stroke="#b08948" stroke-width="3"/>
+      <line x1="40" y1="260" x2="260" y2="40" stroke="#b08948" stroke-width="3"/>
+      <circle cx="40" cy="260" r="4" fill="#c0322b"/>
+      <circle cx="260" cy="40" r="4" fill="#177f75"/>
+      <g font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="10" fill="#6b6360">
+        <text x="150" y="285" text-anchor="middle">r<tspan baseline-shift="sub" font-size="8">u</tspan></text>
+        <text x="24" y="154" text-anchor="middle">r<tspan baseline-shift="sub" font-size="8">v</tspan></text>
+        <text x="48" y="273">orthographic</text>
+        <text x="256" y="34" text-anchor="end">perspective</text>
+        <text x="150" y="262" text-anchor="middle" fill="#b08948">pushbroom edge</text>
+      </g>
+      <circle id="i2-pt" cx="150" cy="150" r="7" fill="#6a2c91" stroke="#faf6ef" stroke-width="2" style="cursor:grab"/>
+      <!-- picture panel -->
+      <rect x="330" y="40" width="270" height="240" fill="#fffdf8" stroke="#e2d9c8" stroke-width="1"/>
+      <circle cx="340" cy="270" r="3.5" fill="none" stroke="#6b6360" stroke-width="1"/>
+      <text x="348" y="274" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="10" fill="#6b6360">seat</text>
+      <path id="i2-cam" d="" fill="none" stroke="#6a2c91" stroke-width="1.8"/>
+      <line id="i2-glide" x1="0" y1="0" x2="0" y2="0" stroke="#177f75" stroke-width="1.6"/>
+      <g id="i2-cmarks"></g>
+      <g id="i2-gmarks"></g>
+      <circle cx="580" cy="60" r="4.5" fill="#43203f"/>
+      <text x="574" y="52" text-anchor="end" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="10" fill="#6b6360">footprint</text>
+    </svg>
+    <div class="ctl">
+      <span class="presets">
+        <button data-r="0,0">orthographic</button>
+        <button data-r="0.5,0.5">pinhole</button>
+        <button data-r="0.6,0">pushbroom</button>
+        <button data-r="0.75,0.3">off the seam</button>
+      </span>
+      <span class="seg" role="group" aria-label="gauge">
+        <button id="i2-reach" aria-pressed="false">Reach</button>
+        <button id="i2-turn" aria-pressed="true">Turn</button>
+      </span>
+      <label><input id="i2-snap" type="checkbox" checked> snap to seam</label>
+    </div>
+    <p class="read" id="i2-read"></p>
+    <p class="cap">Convention as in Chapter 2: camera C(λ) = (x₀/(1+r<sub>u</sub>λ), y₀/(1+r<sub>v</sub>λ)); glide G(μ) = F + μd with d the camera's starting direction. Both rulers are calibrated to agree at level 1. Turn takes μ = λ/(1+rλ), r the welded channel's rate; Reach takes μ = λ/(1+r), equal steps.</p>
+  </div>
+
+  <h2>The seam is two steps, not one</h2>
+  <p>The afternoon's first phrasing had the seam as the place where the draftsman's free choice equals what the camera forced. That was one step too few, and the instrument shows the missing one.</p>
+  <p>Step one is a fact about laws. Eliminate λ from the camera's curve and you get a straight line only when r<sub>u</sub> = r<sub>v</sub> or one rate is zero: the diagonal and the two edges, exactly the gold lines. On the seam the camera's law happens to fall inside the draftsman's class. Off it, the camera's line bows, and nothing done with a ruler can straighten a curve.</p>
+  <p>Step two is a turn of the free gauge. Sit on the seam with Reach and the marks still disagree — the teal dots are evenly spaced, the purple ones crowd. Turn the ruler to Turn, with the vanishing point where the camera's is, and the dots land on each other: the weld. Only then is the drawing the photograph.</p>
+  <p>Two things worth holding. The seam is a condition on the <em>camera's</em> law, because the camera is the one with a law to choose. And the weld is an act of the <em>draftsman</em>, because the draftsman is the one with a gauge to turn. Each reading contributes the freedom it has.</p>
+
+  <h2>Datum both ways</h2>
+  <p>Whatever comes first in a construction is what things are measured <em>from</em>. Whatever comes last is what things are measured <em>at</em>. The floor is the datum of depth because it is laid first, level zero of the slab. The window is the datum of scale because it is reached last, the one level where magnification is exactly 1. At z = 0 both rulers read 1 separately, which is what qualifies the plane to be the exempt reference for both readings at once. This paragraph is seasoning, not book text; it is here so the phrasing can be compared with itself in a month.</p>
+
+  <h2>Ledger</h2>
+  <table class="ledger">
+    <tr><td>Theorem</td><td>The camera's image of a depth line is straight exactly on the diagonal and the two zero edges. Algebra: y = y₀·r<sub>u</sub>x / ((r<sub>u</sub> − r<sub>v</sub>)x + r<sub>v</sub>x₀), linear iff r<sub>u</sub> = r<sub>v</sub>, r<sub>u</sub> = 0 or r<sub>v</sub> = 0. Two thousand random rigs, no exception.</td></tr>
+    <tr><td>Re-verified</td><td>The weld μ = λ/(1+rλ) puts the camera's marks on the glide's to machine precision on the seam (residual 2·10⁻¹⁶); the camera's infinity lands at the finite mark 1/r, which is what makes the welded gauge Turn and not Reach.</td></tr>
+    <tr><td>Observation</td><td>Order of construction: the window is the last thing made, so its mark is an output; the floor is the first, so its mark is an input. "Free law, welded gauge; fixed law, free gauge" is a reading of Chapter 2 §2.2, not new content.</td></tr>
+    <tr><td>Seasoning</td><td>Datum of depth against datum of scale. Held in the sessions record until walked past the chapters.</td></tr>
+  </table>
+
+  <footer>
+    <p><a href="session-01.html">← Session 1</a> · <a href="index.html">All sessions</a> · The book: <a href="https://flyingsticks.github.io/one-congruence-two-readings/">One Congruence, Two Readings</a></p>
+  </footer>
+</main>
+
+<script>
+(function () {
+  // ---------- Instrument 1: one plane, two jobs ----------
+  var Zp = 200, h0 = 130, axisY = 215, planeX = 210, stationX = 240, scale = 0.11;
+  var gauge1 = 'turn';
+  var zIn = document.getElementById('i1-z'), zv = document.getElementById('i1-zv');
+  var F = {x: 560, y: 80}, O = {x: 350, y: 220};
+  function draw1() {
+    var z = +zIn.value; zv.textContent = z;
+    var lam = z / Zp;
+    var px = planeX - z * scale, py = axisY - h0;
+    var probe = document.getElementById('w-probe'); probe.setAttribute('cx', px); probe.setAttribute('cy', py);
+    var my = axisY - h0 / (1 + lam);
+    var ray = document.getElementById('w-ray'); ray.setAttribute('x2', px); ray.setAttribute('y2', py);
+    var ext = document.getElementById('w-ray-ext'); ext.setAttribute('x2', 30); ext.setAttribute('y2', axisY - (axisY - py) * (stationX - 30) / (stationX - px));
+    document.getElementById('w-mark').setAttribute('cy', my);
+    document.getElementById('w-marklabel').setAttribute('y', my + 4);
+    // floor: turn mu = lam/(1+lam); reach calibrated at level 1: mu = lam/2
+    var muT = lam / (1 + lam), muR = lam / 2;
+    var mu = gauge1 === 'turn' ? muT : muR;
+    var gx = F.x + muT * (O.x - F.x), gy = F.y + muT * (O.y - F.y);
+    document.getElementById('f-ghostdot').setAttribute('cx', gx); document.getElementById('f-ghostdot').setAttribute('cy', gy);
+    var tick = document.getElementById('f-tick'), lab = document.getElementById('f-ticklabel');
+    var off = mu > 1.28;
+    var muD = Math.min(mu, 1.28);
+    var tx = F.x + muD * (O.x - F.x), ty = F.y + muD * (O.y - F.y);
+    tick.setAttribute('cx', tx); tick.setAttribute('cy', ty);
+    tick.setAttribute('fill', off ? 'none' : '#177f75'); tick.setAttribute('stroke', '#177f75'); tick.setAttribute('stroke-width', off ? 1.4 : 0);
+    lab.setAttribute('x', tx + 12); lab.setAttribute('y', ty - 8);
+    lab.textContent = off ? 'off the sheet, past the seat' : 'tick stands';
+    var welded = Math.abs(mu - muT) < 1e-9;
+    var r = document.getElementById('i1-read');
+    var camPos = (1 / (1 + lam)).toFixed(3);
+    if (gauge1 === 'turn') r.innerHTML = '<span class="welded"><b>Welded.</b></span> Window mark at ' + camPos + ' of the footprint height; Turn tick at μ = ' + muT.toFixed(3) + ' of the way to the seat. Same point, every depth. Infinity would land at the seat itself.';
+    else r.innerHTML = '<span class="split"><b>Split.</b></span> Window mark at ' + camPos + '; Reach tick at μ = ' + muR.toFixed(3) + ' (equal steps, calibrated to agree at z = 200). ' + (off ? 'The tick has walked past the seat: Reach never marks infinity.' : 'They part company as soon as z leaves 200.');
+    void welded;
+  }
+  function setG1(g) { gauge1 = g; document.getElementById('i1-reach').setAttribute('aria-pressed', g === 'reach'); document.getElementById('i1-turn').setAttribute('aria-pressed', g === 'turn'); draw1(); }
+  zIn.addEventListener('input', draw1);
+  document.getElementById('i1-reach').addEventListener('click', function () { setG1('reach'); });
+  document.getElementById('i1-turn').addEventListener('click', function () { setG1('turn'); });
+  draw1();
+
+  // ---------- Instrument 2: the rate square ----------
+  var ru = 0.5, rv = 0.5, gauge2 = 'turn';
+  var svg = document.getElementById('i2-svg'), pt = document.getElementById('i2-pt');
+  var snap = document.getElementById('i2-snap');
+  var x0 = 240, y0 = 210, seat = {x: 340, y: 270};
+  var camPath = document.getElementById('i2-cam'), gl = document.getElementById('i2-glide');
+  var cmG = document.getElementById('i2-cmarks'), gmG = document.getElementById('i2-gmarks');
+  function toSvg(px, py) { return {x: seat.x + px, y: seat.y - py}; }
+  function C(l) { return {x: x0 / (1 + ru * l), y: y0 / (1 + rv * l)}; }
+  function onSeam() { return Math.abs(ru - rv) < 1e-6 || ru < 1e-6 || rv < 1e-6; }
+  function circle(g, p, fill, stroke) {
+    var c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    c.setAttribute('cx', p.x); c.setAttribute('cy', p.y); c.setAttribute('r', 4.5);
+    c.setAttribute('fill', fill); if (stroke) { c.setAttribute('stroke', stroke); c.setAttribute('stroke-width', 1.5); }
+    g.appendChild(c);
+  }
+  function draw2() {
+    pt.setAttribute('cx', 40 + ru * 220); pt.setAttribute('cy', 260 - rv * 220);
+    var d = '';
+    for (var i = 0; i <= 60; i++) { var l = i * 0.1, p = toSvg(C(l).x, C(l).y); d += (i ? ' L ' : 'M ') + p.x.toFixed(1) + ' ' + p.y.toFixed(1); }
+    camPath.setAttribute('d', d);
+    var dx = -ru * x0, dy = -rv * y0;
+    var r = Math.max(ru, rv);
+    var muEnd = (r > 1e-6) ? 1 / r : 6; // reach ruler range for drawing
+    var e = toSvg(x0 + Math.min(muEnd, 6) * dx, y0 + Math.min(muEnd, 6) * dy), f = toSvg(x0, y0);
+    gl.setAttribute('x1', f.x); gl.setAttribute('y1', f.y); gl.setAttribute('x2', e.x); gl.setAttribute('y2', e.y);
+    cmG.innerHTML = ''; gmG.innerHTML = '';
+    var maxGap = 0;
+    for (var k = 1; k <= 5; k++) {
+      var cp = C(k);
+      var mu = gauge2 === 'turn' ? k / (1 + r * k) : k / (1 + r);
+      var gp = {x: x0 + mu * dx, y: y0 + mu * dy};
+      var gap = Math.hypot(cp.x - gp.x, cp.y - gp.y); if (gap > maxGap) maxGap = gap;
+      var same = gap < 1e-6;
+      circle(cmG, toSvg(cp.x, cp.y), same ? '#3d8f3d' : '#6a2c91');
+      if (!same) circle(gmG, toSvg(gp.x, gp.y), '#177f75');
+    }
+    var read = document.getElementById('i2-read');
+    var where = 'r<sub>u</sub> = ' + ru.toFixed(2) + ', r<sub>v</sub> = ' + rv.toFixed(2) + '. ';
+    if (ru < 1e-6 && rv < 1e-6) read.innerHTML = where + '<span class="welded"><b>Orthographic corner.</b></span> Depth leaves no track: every depth marks the footprint. Both rulers agree because there is nothing to graduate.';
+    else if (!onSeam()) read.innerHTML = where + '<span class="split"><b>Laws disagree.</b></span> The camera\'s line bows off the straight one; the marks split (largest gap ' + maxGap.toFixed(1) + ' units) and no ruler can close it — the gauge question never arises.';
+    else if (gauge2 === 'turn') read.innerHTML = where + '<span class="welded"><b>Welded.</b></span> On the seam the laws agree, and with the gauge turned to Turn every mark lands on the camera\'s (green). The drawing is the photograph.';
+    else read.innerHTML = where + '<span class="agree"><b>Laws agree, rulers differ.</b></span> Same straight line, but Reach spaces its ticks evenly while the camera crowds (largest gap ' + maxGap.toFixed(1) + '). Turn the gauge to weld.';
+  }
+  function setRig(u, v) {
+    ru = Math.min(1, Math.max(0, u)); rv = Math.min(1, Math.max(0, v));
+    if (snap.checked) {
+      var t = 0.05;
+      if (Math.abs(ru - rv) < t) { var m = (ru + rv) / 2; ru = rv = m; }
+      if (ru < t) ru = 0; if (rv < t) rv = 0;
+    }
+    draw2();
+  }
+  function ptFromEvent(ev) {
+    var ctm = svg.getScreenCTM(); var p = svg.createSVGPoint(); p.x = ev.clientX; p.y = ev.clientY;
+    var q = p.matrixTransform(ctm.inverse()); return {u: (q.x - 40) / 220, v: (260 - q.y) / 220};
+  }
+  var dragging = false;
+  svg.addEventListener('pointerdown', function (ev) {
+    var q = ptFromEvent(ev);
+    if (q.u < -0.1 || q.u > 1.1 || q.v < -0.1 || q.v > 1.1) return;
+    dragging = true; svg.setPointerCapture(ev.pointerId); setRig(q.u, q.v); ev.preventDefault();
+  });
+  svg.addEventListener('pointermove', function (ev) { if (!dragging) return; var q = ptFromEvent(ev); setRig(q.u, q.v); });
+  svg.addEventListener('pointerup', function () { dragging = false; });
+  svg.addEventListener('pointercancel', function () { dragging = false; });
+  Array.prototype.forEach.call(document.querySelectorAll('#inst2 .presets button'), function (b) {
+    b.addEventListener('click', function () { var a = b.getAttribute('data-r').split(','); setRig(+a[0], +a[1]); });
+  });
+  function setG2(g) { gauge2 = g; document.getElementById('i2-reach').setAttribute('aria-pressed', g === 'reach'); document.getElementById('i2-turn').setAttribute('aria-pressed', g === 'turn'); draw2(); }
+  document.getElementById('i2-reach').addEventListener('click', function () { setG2('reach'); });
+  document.getElementById('i2-turn').addEventListener('click', function () { setG2('turn'); });
+  snap.addEventListener('change', function () { setRig(ru, rv); });
+  draw2();
+})();
+</script>
+</body>
+</html>
