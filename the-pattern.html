@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Pattern · The Reading Sessions</title>
+<style>
+  :root {
+    --cream:#faf6ef; --plum:#43203f; --purple:#6a2c91; --crimson:#c0322b;
+    --gold:#b08948; --teal:#177f75; --green:#3d8f3d; --ink:#2b2226; --grey:#6b6360; --rule:#e2d9c8;
+  }
+  html { background: var(--cream); }
+  body { margin:0; color:var(--ink); background:var(--cream);
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+    font-size:17px; line-height:1.6; -webkit-text-size-adjust:100%; }
+  main { max-width:44rem; margin:0 auto; padding:3rem 1.25rem 5rem; }
+  .eyebrow { font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; font-size:.72rem;
+    letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin:0 0 1rem; }
+  .eyebrow a { color:var(--gold); border-bottom:none; }
+  .eyebrow a:hover { color:var(--crimson); }
+  h1 { font-size:2rem; line-height:1.1; margin:0 0 .45rem; color:var(--plum); font-weight:700; }
+  .sub { font-style:italic; font-size:1.1rem; color:var(--purple); margin:0 0 2rem; line-height:1.4; }
+  h2 { font-size:1.05rem; color:var(--plum); margin:2.6rem 0 .8rem;
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    letter-spacing:.14em; text-transform:uppercase; font-weight:600; }
+  p { margin:0 0 1rem; }
+  a { color:var(--purple); text-decoration:none; border-bottom:1px dotted var(--gold); }
+  a:hover, a:focus-visible { color:var(--crimson); border-bottom-style:solid; }
+  blockquote { margin:1.4rem 0; padding:.2rem 1rem; border-left:3px solid var(--gold);
+    color:var(--plum); font-style:italic; }
+
+  .inst { border:1px solid var(--gold); border-bottom-width:3px; padding:.9rem .9rem 1rem; margin:1.4rem 0 1.8rem; }
+  .ctl { display:flex; flex-wrap:wrap; gap:.5rem .8rem; align-items:center; margin:.4rem 0 .8rem;
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; font-size:.8rem; }
+  .ctl label { color:var(--grey); letter-spacing:.06em; }
+  .seg { display:inline-flex; border:1px solid var(--plum); border-radius:3px; overflow:hidden; }
+  .seg button { border:0; background:transparent; color:var(--plum); padding:.35rem .6rem;
+    font:inherit; cursor:pointer; }
+  .seg button[aria-pressed=true] { background:var(--plum); color:var(--cream); }
+  .presets { display:inline-flex; gap:.4rem; flex-wrap:wrap; }
+  .presets button { border:1px solid var(--rule); background:transparent; color:var(--purple);
+    border-radius:3px; padding:.3rem .55rem; font:inherit; cursor:pointer; }
+  .presets button:hover { border-color:var(--gold); color:var(--crimson); }
+  input[type=range] { width:120px; accent-color:#6a2c91; }
+  .read { font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; font-size:.82rem;
+    margin:.5rem 0 0; color:var(--grey); }
+  .read .welded { color:var(--green); } .read .agree { color:var(--gold); } .read .split { color:var(--crimson); }
+  .cap { font-size:.85rem; color:var(--grey); line-height:1.5; margin:.7rem 0 0; }
+  svg { width:100%; height:auto; display:block; }
+
+  /* instrument 1: the template */
+  .cards { display:flex; flex-direction:column; gap:.6rem; margin:.4rem 0 .2rem; }
+  .card { border:1px solid var(--rule); padding:.6rem .7rem .7rem; background:rgba(255,255,255,.35); }
+  .card .k { display:flex; align-items:baseline; gap:.5rem; margin-bottom:.15rem; }
+  .badge { display:inline-block; min-width:1.25rem; text-align:center;
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; font-size:.7rem; font-weight:700;
+    color:var(--cream); background:var(--gold); border-radius:50%; padding:.12rem 0; }
+  .card h3 { display:inline; font-size:.85rem; margin:0; color:var(--plum);
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; letter-spacing:.12em; text-transform:uppercase; }
+  .card p { margin:0; font-size:.95rem; line-height:1.5; }
+  .ordnote { font-size:.85rem; color:var(--grey); font-style:italic; margin:.6rem 0 0; }
+
+  footer { margin-top:3rem; padding-top:1rem; border-top:1px solid var(--gold);
+    font-size:.85rem; color:var(--grey); line-height:1.7; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow"><a href="index.html">The Reading Sessions</a> · companion</p>
+    <h1>The Pattern</h1>
+    <p class="sub">Four items, one template — and the book's title as its cleanest instance</p>
+  </header>
+
+  <p>This page develops one sentence from the porch: a shared law, a free gauge, a quarrel that mistook the gauge for the essence, and an impossibility theorem that forced the choice all along. It has two live instruments. The first holds the four items still while the cases change under them. The second draws the book's own case — one congruence, two readings — and puts perspective, cross-slit and parallel projection where your finger can find them. The theorems live in <a href="https://flyingsticks.github.io/one-congruence-two-readings/chapter-2.html">Chapter 2</a>; this page keeps to human terms.</p>
+
+  <h2>The four items</h2>
+  <p><em>A law</em> is the part of the situation that is not up to anybody: discovered, not chosen, and agreed on by all parties so completely that they never notice the agreement. Its crucial property is that it is mute. The sky's periods do not say where a month begins; the sphere does not say how to flatten itself; a family of lines does not say where along a line to write "depth 3." A law constrains everything and marks nothing, so a law alone is not yet an instrument.</p>
+  <p><em>A gauge</em> is the graduation laid along the law to make it usable — a ruler, a calibration, a reading. "Free" means the law does not pick it: several gauges are equally lawful, so the choice adds information the law does not contain. And a gauge, once chosen, disappears. Everything downstream is calibrated in it and no result ever names it, so within a generation it is inherited as if it were part of the law.</p>
+  <p><em>The quarrel</em> is what that invisibility costs. Two schools with different gauges each experience the other as wrong about reality, not different in convention — nobody can see their own datum — so the argument is conducted in essence-vocabulary: honest against lying, true against false, doctrine against drift. The freight is real, because the gauges genuinely pay different prices. The quarrel is wrongly located, one level too high, not wrongly felt. And persistence is the tell: facts eventually settle; conventions defended as facts never do.</p>
+  <p><em>The theorem</em> is what dignifies the whole pattern. If some gauge could have everything, everyone would take the perfect one and "free" would only mean "not yet decided." The theorem proves no such gauge exists — so choosing is unavoidable, even for parties who thought they were describing the world. That is what "all along" means: Caesar obeyed the quarter-day before anyone measured it. And the theorem conserves the price: the defect can be smeared thin, piled up, or pushed to the edge, but never removed. Every gauge is a distribution of a fixed cost.</p>
+
+  <div class="inst" id="inst1">
+    <div class="ctl">
+      <label>Case</label>
+      <div class="seg" id="i1-case" role="group" aria-label="Choose a case">
+        <button data-case="calendar" aria-pressed="true">Calendar</button>
+        <button data-case="map" aria-pressed="false">Map</button>
+        <button data-case="canvas" aria-pressed="false">Canvas</button>
+        <button data-case="book" aria-pressed="false">This book</button>
+      </div>
+      <label>Order</label>
+      <div class="seg" id="i1-ord" role="group" aria-label="Choose an ordering">
+        <button data-ord="logical" aria-pressed="true">Logical</button>
+        <button data-ord="discovery" aria-pressed="false">Discovery</button>
+      </div>
+    </div>
+    <div class="cards" id="i1-cards">
+      <div class="card" data-slot="law"><div class="k"><span class="badge"></span><h3>The law</h3></div><p></p></div>
+      <div class="card" data-slot="theorem"><div class="k"><span class="badge"></span><h3>The theorem</h3></div><p></p></div>
+      <div class="card" data-slot="gauge"><div class="k"><span class="badge"></span><h3>The gauge</h3></div><p></p></div>
+      <div class="card" data-slot="quarrel"><div class="k"><span class="badge"></span><h3>The quarrel</h3></div><p></p></div>
+    </div>
+    <p class="ordnote" id="i1-note"></p>
+    <p class="cap">The template holds still; only the contents change. That constancy is the claim. Note the canvas case: its theorem slot sat empty for five centuries — this book fills it from next door.</p>
+  </div>
+
+  <h2>The title as an instance</h2>
+  <p>Now read the book's title against the template. <em>One congruence</em> names the law: a single two-parameter family of lines in space, fixed by the two slits, mute about marks. <em>Two readings</em> names what must be added: each reading is a role for the lines plus a graduation along them. The glide draftsman reads the lines as <span style="color:var(--teal)">edges</span> — footprints on the floor, straight depth lines, a ruler that is his to choose: equal steps (Reach) or harmonic crowding toward a marked vanishing point (Turn). The camera reads the same lines as <span style="color:var(--purple)">rays</span> — sight lines through both slits, collapsed to marks on the window, with the ruler welded to foreshortening by the slit depths.</p>
+  <p>The camera's family is itself a family. Pull the two slits apart and it is the cross-slit camera; merge them and every ray passes one point — perspective; send both to infinity and the rays run parallel — parallel projection. The instrument below draws one box under both readings at once. The camera's two rates r<sub>u</sub>, r<sub>v</sub> are the slits' contraction speeds (rate 0 = slit at infinity); the front face sits on the picture plane at level 0 and is true-size under both readings — the one surface the two rulers share.</p>
+
+  <div class="inst" id="inst2">
+    <div class="ctl">
+      <label>r<sub>u</sub></label><input type="range" id="i2-ru" min="0" max="100" value="50" aria-label="rate r u">
+      <label>r<sub>v</sub></label><input type="range" id="i2-rv" min="0" max="100" value="20" aria-label="rate r v">
+      <div class="presets">
+        <button id="i2-p-cs">Cross-slit</button>
+        <button id="i2-p-persp">Perspective</button>
+        <button id="i2-p-par">Parallel</button>
+      </div>
+      <label>Glide ruler</label>
+      <div class="seg" id="i2-gauge" role="group" aria-label="Glide gauge">
+        <button id="i2-reach" aria-pressed="false">Reach</button>
+        <button id="i2-turn" aria-pressed="true">Turn</button>
+      </div>
+    </div>
+    <svg id="i2-svg" viewBox="0 0 640 340" role="img"
+      aria-label="Left: one box photographed by the cross-slit camera, purple, its depth edges curving toward the image of infinity. Right: the same box drawn by the glide draftsman, teal, straight depth lines from footprints with ruler ticks, and under Turn a marked vanishing point."></svg>
+    <p class="read" id="i2-read"></p>
+    <p class="cap">Camera as in Chapter 2: a point at depth λ images at (x/(1+r<sub>u</sub>λ), y/(1+r<sub>v</sub>λ)); ticks sit at depths 1–4 and the hollow crimson ring is the image of infinity — welded, the camera cannot decline to mark it. The glide draws the same depth edges straight from their footprints; Reach ticks equal steps and leaves infinity unmarked, Turn crowds harmonically toward its own crimson ring. Theorem 0 is why no ruler does both.</p>
+  </div>
+
+  <h2>What the instrument shows</h2>
+  <p>Watch the depth edges as the rates move. With two distinct slits they curve — that is the cross-slit signature, the curving depth lines of the camera views. Merge the rates and every image line straightens at once: perspective, and the four depth edges run to one vanishing point. Send both rates to zero and depth collapses entirely — the parallel camera looks straight down the depth axis and delivers the front elevation, true but flat. That collapse is why glide projection exists at all: the draftsman wants parallel light <em>and</em> visible depth, so he re-introduces depth by hand, gliding it laterally as straight lines from footprints — which is the whole 1984 construction in one clause.</p>
+  <p>And the seam is visible here in miniature. Off the special positions, the two pictures disagree about the shape of every depth edge: curve against line, the split. At perspective and at parallel, the camera's edges straighten and the two readings begin to agree about <em>form</em>, quarreling only about the ruler — and the ruler quarrel is exactly Theorem 0's forced choice, Reach letting infinity go, Turn and the welded camera marking it and paying in crowding. One law under both pictures; two gauges; the quarrel located where it belongs.</p>
+
+  <footer>
+    <p><a href="index.html">← All sessions</a> · The porch: <a href="https://flyingsticks.github.io/one-congruence-two-readings/the-porch.html">before you enter</a> · The book: <a href="https://flyingsticks.github.io/one-congruence-two-readings/">One Congruence, Two Readings</a></p>
+  </footer>
+</main>
+
+<script>
+(function(){
+  // ---------- Instrument 1: the template ----------
+  var CASES = {
+    calendar: {
+      law: "The sky's two periods: the spin gives the day, the orbit gives the year. Mute — neither says where a month begins.",
+      gauge: "The leap rule: where to hide the leftover. Julian smears one day in four; Gregorian, ninety-seven in four hundred.",
+      theorem: "The year is not a whole number of days, so no calendar closes. The leftover can be moved, never removed.",
+      quarrel: "Rome against the reformers, 1582 to 1918: a choice of count prosecuted as doctrine, by parties agreed about the sun."
+    },
+    map: {
+      law: "The sphere's own geometry. Gauss, 1827: curvature is intrinsic — it travels with the surface itself.",
+      gauge: "The projection: Mercator keeps angles, Peters keeps areas. Each exact about the sphere; each pays elsewhere.",
+      theorem: "No flat map is faithful, and none keeps angles and areas both. Every projection pays the fee somewhere.",
+      quarrel: "\u201CHonest\u201D against \u201Clying\u201D maps, prosecuted in the 1970s in moral vocabulary — over a choice of gauge."
+    },
+    canvas: {
+      law: "The plane and what falls on it.",
+      gauge: "The role assigned: window (look through), wall (look at) — and the floor, the role optics never offered.",
+      theorem: "The slot painting never filled. This book fills it from next door: Theorem 0, on what one scale can and cannot mark.",
+      quarrel: "Alberti to Greenberg to Johns: five centuries of window against wall, both sides sure the argument was about reality."
+    },
+    book: {
+      law: "The congruence: one two-parameter family of lines fixed by the two slits. Every incidence fact — and mute about marks.",
+      gauge: "The graduation of depth along a line, Reach or Turn: free in the glide, welded to foreshortening in the cross-slit.",
+      theorem: "Theorem 0: no scale on a line marks equal steps and gives infinity a finite mark. Both rulers lawful; neither has everything.",
+      quarrel: "Drawing against photograph, floor against window — two readings of one family of lines, mistaken for two geometries."
+    }
+  };
+  var ORDERS = {
+    logical: { seq:["law","theorem","gauge","quarrel"],
+      note:"Logical order: the law is given; the theorem proves it underdetermines practice; the gauge supplies what the theorem demands; the quarrel is the gauge mistaken for the law." },
+    discovery: { seq:["quarrel","law","theorem","gauge"],
+      note:"Order of discovery: a field lives inside the quarrel for centuries, slowly isolates the law, someone proves the theorem — and only then does the gauge become visible as a gauge." }
+  };
+  var curCase = "calendar", curOrd = "logical";
+  var cardsBox = document.getElementById("i1-cards");
+  function render1(){
+    var data = CASES[curCase], ord = ORDERS[curOrd];
+    var cards = cardsBox.querySelectorAll(".card");
+    for (var i=0;i<cards.length;i++){
+      var slot = cards[i].getAttribute("data-slot");
+      cards[i].querySelector("p").textContent = data[slot];
+      var pos = ord.seq.indexOf(slot);
+      cards[i].querySelector(".badge").textContent = (pos+1);
+      cards[i].style.order = pos;
+    }
+    document.getElementById("i1-note").textContent = ord.note;
+  }
+  function segWire(id, attr, cb){
+    var seg = document.getElementById(id);
+    seg.addEventListener("click", function(e){
+      var b = e.target.closest("button"); if(!b) return;
+      seg.querySelectorAll("button").forEach(function(x){ x.setAttribute("aria-pressed", x===b ? "true":"false"); });
+      cb(b.getAttribute(attr));
+    });
+  }
+  segWire("i1-case","data-case",function(v){ curCase=v; render1(); });
+  segWire("i1-ord","data-ord",function(v){ curOrd=v; render1(); });
+  render1();
+
+  // ---------- Instrument 2: one congruence, two readings ----------
+  var NS = "http://www.w3.org/2000/svg";
+  var svg = document.getElementById("i2-svg");
+  var ruEl = document.getElementById("i2-ru"), rvEl = document.getElementById("i2-rv");
+  var readEl = document.getElementById("i2-read");
+  var gauge = "turn";
+  var CX1=160, CX2=478, CY=196;           // panel centers (image origin = principal point)
+  var BX=62, BY0=-42, BY1=64, LMAX=4;     // box: x = ±BX, y in [BY0,BY1], depth λ in [0,LMAX]
+  var GD = {x:0.62, y:-0.50}, GK=36;      // glide drawn direction (up-right), px per μ unit
+  var TR = 1/3;                            // Turn rate: μ = λ/(1+TR·λ), vanishing mark at μ=3
+
+  function el(name, at){ var e=document.createElementNS(NS,name);
+    for (var k in at) e.setAttribute(k, at[k]); return e; }
+  function poly(pts, at){ at.points = pts.map(function(p){return p[0].toFixed(1)+","+p[1].toFixed(1);}).join(" ");
+    return el("polyline", at); }
+  function camPt(x,y,l,ru,rv){ return [CX1 + x/(1+ru*l), CY - y/(1+rv*l)]; }
+  // svg y grows down; scene y up; drawn dir up-right => x+, y(svg)-
+  function gPt(x,y,mu){ return [CX2 + x + GD.x*GK*mu, (CY - y) + GD.y*GK*mu]; }
+  function mu(l){ return gauge==="turn" ? l/(1+TR*l) : l; }
+
+  function corners(){ return [[-BX,BY0],[BX,BY0],[BX,BY1],[-BX,BY1]]; }
+
+  function draw(){
+    var ru = ruEl.value/100, rv = rvEl.value/100;
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+    // panel labels + baselines
+    svg.appendChild(el("text",{x:CX1,y:26,"text-anchor":"middle","font-family":"Helvetica Neue,Helvetica,Arial,sans-serif","font-size":"12","fill":"#6a2c91"})).textContent="RAYS · the camera's picture";
+    svg.appendChild(el("text",{x:CX2,y:26,"text-anchor":"middle","font-family":"Helvetica Neue,Helvetica,Arial,sans-serif","font-size":"12","fill":"#177f75"})).textContent="EDGES · the draftsman's drawing";
+    svg.appendChild(el("line",{x1:320,y1:14,x2:320,y2:326,stroke:"#e2d9c8","stroke-width":1}));
+
+    var cs = corners();
+
+    // ---- camera panel (purple) ----
+    var g1 = el("g",{stroke:"#6a2c91",fill:"none","stroke-width":1.6});
+    // front and back faces (straight: constant λ)
+    [0,LMAX].forEach(function(l){
+      var pts = cs.concat([cs[0]]).map(function(c){ return camPt(c[0],c[1],l,ru,rv); });
+      g1.appendChild(poly(pts,{opacity:l?0.9:0.55}));
+    });
+    // depth edges (sampled: these are the curves)
+    cs.forEach(function(c){
+      var pts=[]; for(var i=0;i<=24;i++){ pts.push(camPt(c[0],c[1],LMAX*i/24,ru,rv)); }
+      g1.appendChild(poly(pts,{}));
+    });
+    svg.appendChild(g1);
+    // welded ticks on the top-right depth edge + image of infinity
+    var tick1 = el("g",{fill:"#6a2c91"});
+    for (var l=1;l<=LMAX;l++){ var p=camPt(BX,BY1,l,ru,rv);
+      tick1.appendChild(el("circle",{cx:p[0],cy:p[1],r:3})); }
+    svg.appendChild(tick1);
+    if (ru>0.004 || rv>0.004){
+      var inf=[CX1 + (ru>0.004?0:BX), CY - (rv>0.004?0:BY1)];
+      svg.appendChild(el("circle",{cx:inf[0],cy:inf[1],r:4.5,fill:"none",stroke:"#c0322b","stroke-width":1.8}));
+    }
+
+    // ---- glide panel (teal) ----
+    var mumax = mu(LMAX);
+    var g2 = el("g",{stroke:"#177f75",fill:"none","stroke-width":1.6});
+    [0,mumax].forEach(function(m,i){
+      var pts = cs.concat([cs[0]]).map(function(c){ return gPt(c[0],c[1],m); });
+      g2.appendChild(poly(pts,{opacity:i?0.9:0.55}));
+    });
+    cs.forEach(function(c){ g2.appendChild(poly([gPt(c[0],c[1],0), gPt(c[0],c[1],mumax)],{})); });
+    svg.appendChild(g2);
+    var tick2 = el("g",{fill:"#177f75"});
+    for (var l2=1;l2<=LMAX;l2++){ var q=gPt(BX,BY1,mu(l2));
+      tick2.appendChild(el("circle",{cx:q[0],cy:q[1],r:3})); }
+    svg.appendChild(tick2);
+    if (gauge==="turn"){
+      var vinf = gPt(BX,BY1,3); // μ→3 as λ→∞
+      svg.appendChild(el("line",{x1:gPt(BX,BY1,mumax)[0],y1:gPt(BX,BY1,mumax)[1],x2:vinf[0],y2:vinf[1],stroke:"#177f75","stroke-dasharray":"3 4","stroke-width":1.2}));
+      svg.appendChild(el("circle",{cx:vinf[0],cy:vinf[1],r:4.5,fill:"none",stroke:"#c0322b","stroke-width":1.8}));
+    }
+
+    // readout
+    var eps=0.008, msg, cls;
+    if (ru<eps && rv<eps){ msg="r\u1D64 = r\u1D65 = 0 — parallel projection: rays parallel, depth collapses to the front view. The glide restores it by hand."; cls="agree"; }
+    else if (Math.abs(ru-rv)<eps){ msg="r\u1D64 = r\u1D65 — one slit: perspective. Every image line straight; the readings agree on form and quarrel only over the ruler."; cls="agree"; }
+    else if (ru<eps || rv<eps){ msg="one rate 0 — one slit at infinity: a hybrid camera, contraction on a single axis."; cls="welded"; }
+    else { msg="r\u1D64 \u2260 r\u1D65 — two slits: cross-slit. Depth edges curve; the split is visible."; cls="split"; }
+    readEl.innerHTML = 'r<sub>u</sub> = '+ru.toFixed(2)+' · r<sub>v</sub> = '+rv.toFixed(2)+' — <span class="'+cls+'">'+msg+'</span>';
+  }
+
+  ruEl.addEventListener("input",draw); rvEl.addEventListener("input",draw);
+  document.getElementById("i2-p-cs").addEventListener("click",function(){ ruEl.value=50; rvEl.value=20; draw(); });
+  document.getElementById("i2-p-persp").addEventListener("click",function(){ ruEl.value=35; rvEl.value=35; draw(); });
+  document.getElementById("i2-p-par").addEventListener("click",function(){ ruEl.value=0; rvEl.value=0; draw(); });
+  var segG = document.getElementById("i2-gauge");
+  segG.addEventListener("click",function(e){
+    var b=e.target.closest("button"); if(!b) return;
+    segG.querySelectorAll("button").forEach(function(x){ x.setAttribute("aria-pressed", x===b?"true":"false"); });
+    gauge = (b.id==="i2-turn") ? "turn" : "reach"; draw();
+  });
+  draw();
+})();
+</script>
+</body>
+</html>
