@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Address · The Reading Sessions</title>
+<style>
+  :root {
+    --cream:#faf6ef; --plum:#43203f; --purple:#6a2c91; --crimson:#c0322b;
+    --gold:#b08948; --teal:#177f75; --green:#3d8f3d; --ink:#2b2226; --grey:#6b6360; --rule:#e2d9c8;
+  }
+  html { background: var(--cream); }
+  body { margin:0; color:var(--ink); background:var(--cream);
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+    font-size:17px; line-height:1.6; -webkit-text-size-adjust:100%; }
+  main { max-width:44rem; margin:0 auto; padding:3rem 1.25rem 5rem; }
+  .eyebrow { font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; font-size:.72rem;
+    letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin:0 0 1rem; }
+  .eyebrow a { color:var(--gold); border-bottom:none; }
+  .eyebrow a:hover { color:var(--crimson); }
+  h1 { font-size:2rem; line-height:1.1; margin:0 0 .45rem; color:var(--plum); font-weight:700; }
+  .sub { font-style:italic; font-size:1.1rem; color:var(--purple); margin:0 0 2rem; line-height:1.4; }
+  h2 { font-size:1.05rem; color:var(--plum); margin:2.6rem 0 .8rem;
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    letter-spacing:.14em; text-transform:uppercase; font-weight:600; }
+  p { margin:0 0 1rem; }
+  a { color:var(--purple); text-decoration:none; border-bottom:1px dotted var(--gold); }
+  a:hover, a:focus-visible { color:var(--crimson); border-bottom-style:solid; }
+  .inst { border:1px solid var(--gold); border-bottom-width:3px; padding:.9rem .9rem 1rem; margin:1.4rem 0 1.8rem; }
+  .ctl { display:flex; flex-wrap:wrap; gap:.5rem .8rem; align-items:center; margin:.4rem 0 .8rem;
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; font-size:.8rem; }
+  .ctl label { color:var(--grey); letter-spacing:.06em; }
+  .seg { display:inline-flex; border:1px solid var(--plum); border-radius:3px; overflow:hidden; }
+  .seg button { border:0; background:transparent; color:var(--plum); padding:.35rem .6rem; font:inherit; cursor:pointer; }
+  .seg button[aria-pressed=true] { background:var(--plum); color:var(--cream); }
+  input[type=range] { width:150px; accent-color:#6a2c91; }
+  .read { font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; font-size:.82rem; margin:.5rem 0 0; color:var(--grey); }
+  .read b { color:var(--plum); font-weight:600; }
+  .read .agree { color:var(--green); font-weight:600; }
+  .read .defect { color:var(--crimson); }
+  .cap { font-size:.85rem; color:var(--grey); line-height:1.5; margin:.7rem 0 0; }
+  svg { width:100%; height:auto; display:block; touch-action:none; }
+  footer { margin-top:3rem; padding-top:1rem; border-top:1px solid var(--gold);
+    font-size:.85rem; color:var(--grey); line-height:1.7; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow"><a href="index.html">The Reading Sessions</a> · companion to session 4</p>
+    <h1>The Address</h1>
+    <p class="sub">The rate square, the three lines through one corner, and what only two unequal rates can show</p>
+  </header>
+
+  <p>Session 4 established three facts by audit; this page puts them under a finger. A rig is a point (r<sub>u</sub>, r<sub>v</sub>) in the rate square. The seam is not a region of that square but three concurrent lines — the diagonal and the two axes — meeting at the orthographic corner, where the 1979 miniature lives. Drag the rig and watch what the rulings do: a glide line and a camera path leave every picture-plane mark together, and either they stay one stroke or the camera peels away. The three lines are exactly where no peel happens.</p>
+
+  <div class="inst" id="inst1">
+    <div class="ctl">
+      <label>Set the rig</label>
+      <div class="seg" id="i1-pre" role="group" aria-label="Rig presets">
+        <button data-p="corner" aria-pressed="false">Corner</button>
+        <button data-p="edge" aria-pressed="false">Edge</button>
+        <button data-p="diag" aria-pressed="false">Diagonal</button>
+        <button data-p="split" aria-pressed="true">Split</button>
+      </div>
+      <label>— or drag the plum point</label>
+    </div>
+    <svg id="i1-svg" viewBox="0 0 640 340" role="img"
+      aria-label="Left, the rate square shaded by the size of the seam cubic, with three green seam lines meeting at the corner and a draggable rig point. Right, picture-plane marks each carrying a straight teal glide line and a plum camera path; the paths ride the lines on the seam and peel off it, except on the two axis marks, which stay fused everywhere."></svg>
+    <p class="read" id="i1-read"></p>
+    <p class="cap">Left: the rate square, washed <span style="color:var(--crimson)">crimson</span> by |Δ| = |r<sub>u</sub>r<sub>v</sub>(r<sub>v</sub> − r<sub>u</sub>)| and cut by the seam's three <span style="color:var(--green)">green</span> lines — two axes and the diagonal, concurrent at the corner, where the gold ring marks the 1979 miniature. Right: each mark sends out a straight <span style="color:var(--teal)">glide line</span> and a <span style="color:var(--purple)">camera path</span> that share the mark and its tangent. On the seam the camera rides the glide line — one stroke, two graduations. Off it, the camera peels — but never on the two axis marks: the fused cross survives every rig, which is why a single-channel construction can't show the split at all. The peel is drawn at true scale.</p>
+  </div>
+
+  <h2>Silence, not collision</h2>
+  <p>The theorem's §5 separates the seam's two kinds of branch. On the diagonal the two channels' gauge responses are <em>equal</em> — both meters run, in lockstep. On an edge one channel's gauge trivializes — g ≡ 1, the readout parked at its picture-plane value for every depth, while the other channel works alone. Both are fusion; only one is a collision. Run the point down the ruling and watch the meters:</p>
+
+  <div class="inst" id="inst2">
+    <div class="ctl">
+      <div class="seg" id="i2-mode" role="group" aria-label="Rig for the meters">
+        <button data-m="edge" aria-pressed="true">Edge (0.9, 0)</button>
+        <button data-m="diag" aria-pressed="false">Diagonal (0.55, 0.55)</button>
+        <button data-m="split" aria-pressed="false">Split (0.9, 0.2)</button>
+      </div>
+      <label>Depth λ</label>
+      <input type="range" id="i2-l" min="0" max="800" value="250" aria-label="Depth along the ruling, hundredths">
+    </div>
+    <svg id="i2-svg" viewBox="0 0 640 200" role="img"
+      aria-label="Two horizontal meters, one per channel, showing each image coordinate as depth runs along one ruling. On the edge rig the second meter's dot never moves; on the diagonal both dots move with equal fractional response; on the split rig both move at different rates."></svg>
+    <p class="read" id="i2-read"></p>
+    <p class="cap">One ruling, through (1.3, 0.9); each meter tracks its channel's image coordinate as λ runs. <b>Edge</b>: the v-meter is parked at 0.9 — the readout a camera would print at the picture plane — for every depth; silence. <b>Diagonal</b>: both meters run and their fractional responses are identical at every depth; the tie is drawn when it holds. <b>Split</b>: both run, at different rates — and this is the only one of the three that is off the seam.</p>
+  </div>
+
+  <h2>Two different animals</h2>
+  <p>Session 4's other discharge deserves its own dial. The miniature's green crossing and the book's seam both go by "where things agree," and they are different kinds of object. The crossing is a <em>depth</em>: at a fixed rig, the one λ where the drawing's graduation matches the camera's local scale — and the drawing unit drags it up and down the line. The seam is a <em>locus in rate space</em>: a condition on the rig itself, and it cannot see the drawing unit at all. Two sliders, two spaces:</p>
+
+  <div class="inst" id="inst3">
+    <div class="ctl">
+      <label>Unit (gauge)</label>
+      <input type="range" id="i3-u" min="500" max="1300" value="700" aria-label="Drawing unit, thousandths">
+      <label>Rate r<sub>u</sub> (rig)</label>
+      <input type="range" id="i3-r" min="0" max="1000" value="350" aria-label="u-channel rate, thousandths">
+    </div>
+    <svg id="i3-svg" viewBox="0 0 640 240" role="img"
+      aria-label="Left, the defect between the drawing and camera gauges plotted against depth, with a green crossing where they agree. Right, a vertical meter for the seam cubic of the rig. The unit slider moves the crossing but never the meter; the rate slider moves both."></svg>
+    <p class="read" id="i3-read"></p>
+    <p class="cap">Left: the miniature's line — the defect between drawing gauge and camera gauge, depth by depth, with the <span style="color:var(--green)">crossing</span> where they agree. Right: the <span style="color:var(--crimson)">Δ meter</span> for the rig (r<sub>u</sub> from the slider, r<sub>v</sub> held at 0.2). Slide the <b>unit</b>: the crossing swims, the meter does not so much as tremble — Δ is blind to the gauge. Slide the <b>rate</b>: both respond, each in its own space. Agreement-at-a-depth and agreement-of-readings are different animals, and no setting of these dials will ever make one into the other.</p>
+  </div>
+
+  <p>The address, then, in one sentence each way. Where the split lives: in the mixed rulings, at rigs with two unequal, nonzero rates — anisotropy, not mere perspective. Where the first book lived: at the corner, all three seam lines at once, both channels silent, magnification 1 at every depth — the one point of the square where the quarrel cannot even be posed, and where classifying pictures by parentage is therefore complete. The present book is what the view looks like when you step off it.</p>
+
+  <footer>
+    <p>Checks: this page draws what <a href="check-the-edge.js">check-the-edge.js</a> verified (18/18), beside the book's own seam scripts re-run live (9/9, 6/6); the peel, the parked meter, and the blind Δ are computed from the same slit convention, not illustrated.</p>
+    <p><a href="session-04.html">← Session 4</a> · <a href="index.html">All sessions</a> · Companions: <a href="the-miniature.html">The miniature</a> · <a href="the-pattern.html">The pattern</a> · <a href="the-defect.html">The defect</a> · The book: <a href="https://flyingsticks.github.io/one-congruence-two-readings/">One Congruence, Two Readings</a></p>
+  </footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var NS = "http://www.w3.org/2000/svg";
+  function el(t, a){ var e = document.createElementNS(NS, t); for (var k in a) e.setAttribute(k, a[k]); return e; }
+  function txt(svg, x, y, s, fill, size, anchor){
+    var t = el("text", {x:x, y:y, fill:fill||"#2b2226", "font-size":size||11,
+      "font-family":"Helvetica Neue,Helvetica,Arial,sans-serif"});
+    if (anchor) t.setAttribute("text-anchor", anchor);
+    t.textContent = s; svg.appendChild(t); return t;
+  }
+  function slit(x, y, ru, rv, l){ return [x/(1+ru*l), y/(1+rv*l)]; }
+  function Delta(ru, rv){ return ru*rv*(rv-ru); }
+
+  // ================= instrument 1: the rate square + the rulings =================
+  var ru = 0.9, rv = 0.2;
+  var svg1 = document.getElementById("i1-svg"), read1 = document.getElementById("i1-read");
+  // left panel: rate square
+  var SQX = 46, SQY = 300, SQW = 250;              // origin (bottom-left), side in px
+  function rx(r){ return SQX + r*SQW; }
+  function ry(r){ return SQY - r*SQW; }
+  // right panel: picture plane
+  var PCX = 480, PCY = 172, PS = 66;               // center px, px per world unit
+  function px(w){ return PCX + w*PS; }
+  function py(w){ return PCY - w*PS; }
+  var MARKS = [
+    {p:[1.7,1.4],  axis:false}, {p:[-1.7,1.4], axis:false},
+    {p:[-1.7,-1.4],axis:false}, {p:[1.7,-1.4], axis:false},
+    {p:[1.15,0],   axis:true},  {p:[0,1.0],    axis:true}
+  ];
+  var L1 = 8;
+
+  function render1(){
+    while (svg1.firstChild) svg1.removeChild(svg1.firstChild);
+    var i, j, r1, r2;
+
+    // ---- left: |Delta| wash ----
+    var N = 15, cell = SQW/N;
+    for (i=0;i<N;i++) for (j=0;j<N;j++){
+      var a = (i+0.5)/N, b = (j+0.5)/N, op = Math.abs(Delta(a,b))/0.25;
+      if (op > 0.01) svg1.appendChild(el("rect",{x:rx(i/N), y:ry((j+1)/N),
+        width:cell+0.5, height:cell+0.5, fill:"#c0322b", opacity:(op*0.45).toFixed(3)}));
+    }
+    svg1.appendChild(el("rect",{x:SQX, y:SQY-SQW, width:SQW, height:SQW,
+      fill:"none", stroke:"#b08948","stroke-width":1}));
+    // seam lines
+    svg1.appendChild(el("line",{x1:rx(0),y1:ry(0),x2:rx(1),y2:ry(1),stroke:"#3d8f3d","stroke-width":2.2}));
+    svg1.appendChild(el("line",{x1:rx(0),y1:ry(0),x2:rx(1),y2:ry(0),stroke:"#3d8f3d","stroke-width":2.2}));
+    svg1.appendChild(el("line",{x1:rx(0),y1:ry(0),x2:rx(0),y2:ry(1),stroke:"#3d8f3d","stroke-width":2.2}));
+    txt(svg1, rx(0.62), ry(0.55)-6, "diagonal", "#3d8f3d", 9);
+    txt(svg1, rx(0.55), ry(0)-6, "edge r\u1D65 = 0", "#3d8f3d", 9);
+    txt(svg1, rx(0)+6, ry(0.62), "edge r\u1D64 = 0", "#3d8f3d", 9);
+    // corner: 1979
+    svg1.appendChild(el("circle",{cx:rx(0),cy:ry(0),r:6,fill:"none",stroke:"#b08948","stroke-width":1.8}));
+    txt(svg1, rx(0)+10, ry(0)+16, "1979 · the isometric pair", "#b08948", 9);
+    txt(svg1, SQX, 24, "THE RATE SQUARE", "#43203f", 10);
+    txt(svg1, rx(1)+4, ry(0)+4, "r\u1D64", "#6b6360", 10);
+    txt(svg1, rx(0)-4, ry(1)-6, "r\u1D65", "#6b6360", 10, "end");
+    // rig point
+    svg1.appendChild(el("circle",{cx:rx(ru),cy:ry(rv),r:10,fill:"#6a2c91",opacity:0.15}));
+    svg1.appendChild(el("circle",{cx:rx(ru),cy:ry(rv),r:5.5,fill:"#6a2c91"}));
+
+    // ---- right: the rulings ----
+    txt(svg1, 348, 24, "THE RULINGS", "#43203f", 10);
+    var clip = el("clipPath",{id:"pclip"});
+    clip.appendChild(el("rect",{x:340,y:34,width:280,height:276}));
+    var defs = el("defs",{}); defs.appendChild(clip); svg1.appendChild(defs);
+    var g = el("g",{"clip-path":"url(#pclip)"}); svg1.appendChild(g);
+    g.appendChild(el("rect",{x:340,y:34,width:280,height:276,fill:"none",stroke:"#e2d9c8"}));
+    g.appendChild(el("circle",{cx:px(0),cy:py(0),r:2,fill:"#6b6360"}));
+
+    var corner = (ru < 1e-9 && rv < 1e-9), worstPeel = 0;
+    for (i=0;i<MARKS.length;i++){
+      var m = MARKS[i], x = m.p[0], y = m.p[1];
+      var d = [x*ru, y*rv], nd = Math.hypot(d[0],d[1]);
+      if (nd > 1e-9){
+        if (d[0]*x + d[1]*y < 0){ d[0]=-d[0]; d[1]=-d[1]; }       // point outward
+        var ux = d[0]/nd, uy = d[1]/nd;
+        g.appendChild(el("line",{x1:px(x+0.5*ux), y1:py(y+0.5*uy),
+          x2:px(x-2.3*ux), y2:py(y-2.3*uy), stroke:"#177f75","stroke-width":2}));
+      }
+      var path = "";
+      for (j=0;j<=48;j++){
+        var l = L1*j/48, q = slit(x,y,ru,rv,l);
+        path += (j? "L":"M") + px(q[0]).toFixed(2) + " " + py(q[1]).toFixed(2) + " ";
+      }
+      g.appendChild(el("path",{d:path, fill:"none", stroke:"#6a2c91","stroke-width":1.8,
+        opacity: m.axis ? 0.9 : 1 }));
+      g.appendChild(el("circle",{cx:px(x),cy:py(y),r:3.4,fill: m.axis ? "#b08948" : "#43203f"}));
+      if (!m.axis && nd > 1e-9){
+        var e = slit(x,y,ru,rv,L1);
+        var peel = Math.abs(d[0]*(e[1]-y) - d[1]*(e[0]-x))/nd;
+        if (peel > worstPeel) worstPeel = peel;
+      }
+    }
+    txt(svg1, 348, 322, "gold marks: the axis rulings — fused at every rig", "#b08948", 9);
+
+    // readout
+    var D = Delta(ru,rv), where;
+    if (corner) where = "<span class='agree'>the corner — all three seam lines at once; every mark parked, magnification 1: the 1979 world</span>";
+    else if (ru < 1e-9) where = "<span class='agree'>edge r\u1D64 = 0 — seam: fused by silence, the u-channel parked</span>";
+    else if (rv < 1e-9) where = "<span class='agree'>edge r\u1D65 = 0 — seam: fused by silence, the v-channel parked</span>";
+    else if (Math.abs(ru-rv) < 1e-9) where = "<span class='agree'>the diagonal — seam: fused by equality, one stroke on every ruling</span>";
+    else where = "<span class='defect'>split — the camera peels from every mixed glide line (worst peel " + worstPeel.toFixed(3) + " units, drawn at true scale)</span>";
+    read1.innerHTML = "r\u1D64 = <b>" + ru.toFixed(2) + "</b> · r\u1D65 = <b>" + rv.toFixed(2) +
+      "</b> · \u0394 = <b>" + D.toFixed(4) + "</b> — " + where;
+  }
+  // drag on the rate square
+  function setFromEvent(ev){
+    var pt = svg1.createSVGPoint(); pt.x = ev.clientX; pt.y = ev.clientY;
+    var q = pt.matrixTransform(svg1.getScreenCTM().inverse());
+    if (q.x < SQX-30 || q.x > SQX+SQW+30 || q.y < SQY-SQW-30 || q.y > SQY+30) return false;
+    ru = Math.min(1, Math.max(0, (q.x - SQX)/SQW));
+    rv = Math.min(1, Math.max(0, (SQY - q.y)/SQW));
+    if (ru < 0.035) ru = 0;                       // snap to the seam branches
+    if (rv < 0.035) rv = 0;
+    if (Math.abs(ru-rv) < 0.035) rv = ru;
+    clearPre(); render1(); return true;
+  }
+  var dragging = false;
+  svg1.addEventListener("pointerdown", function(ev){
+    if (setFromEvent(ev)){ dragging = true; svg1.setPointerCapture(ev.pointerId); ev.preventDefault(); }
+  });
+  svg1.addEventListener("pointermove", function(ev){ if (dragging){ setFromEvent(ev); ev.preventDefault(); } });
+  svg1.addEventListener("pointerup", function(){ dragging = false; });
+  var PRESETS = { corner:[0,0], edge:[0.9,0], diag:[0.55,0.55], split:[0.9,0.2] };
+  function clearPre(){
+    var bs = document.getElementById("i1-pre").querySelectorAll("button");
+    for (var i=0;i<bs.length;i++) bs[i].setAttribute("aria-pressed","false");
+  }
+  document.getElementById("i1-pre").addEventListener("click", function(e){
+    var b = e.target.closest("button"); if (!b) return;
+    var p = PRESETS[b.getAttribute("data-p")]; ru = p[0]; rv = p[1];
+    clearPre(); b.setAttribute("aria-pressed","true"); render1();
+  });
+
+  // ================= instrument 2: silence, not collision =================
+  var RIGS = { edge:[0.9,0], diag:[0.55,0.55], split:[0.9,0.2] };
+  var mode2 = "edge", X2 = 1.3, Y2 = 0.9;
+  var lEl = document.getElementById("i2-l");
+  var svg2 = document.getElementById("i2-svg"), read2 = document.getElementById("i2-read");
+  var MX0 = 120, MW = 460, MMAX = 1.5, T1 = 70, T2 = 140;
+  function mx(v){ return MX0 + (v/MMAX)*MW; }
+
+  function meter(y, label, color, start, now, parked){
+    svg2.appendChild(el("line",{x1:MX0,y1:y,x2:MX0+MW,y2:y,stroke:"#e2d9c8","stroke-width":4}));
+    for (var v=0; v<=MMAX+0.001; v+=0.5){
+      svg2.appendChild(el("line",{x1:mx(v),y1:y-6,x2:mx(v),y2:y+6,stroke:"#b08948","stroke-width":1}));
+      txt(svg2, mx(v), y+20, v.toFixed(1), "#6b6360", 9, "middle");
+    }
+    svg2.appendChild(el("line",{x1:mx(Math.min(start,now)),y1:y,x2:mx(Math.max(start,now)),y2:y,
+      stroke:color,"stroke-width":4,opacity:0.35}));
+    svg2.appendChild(el("circle",{cx:mx(start),cy:y,r:3,fill:"none",stroke:color,"stroke-width":1.2,opacity:0.7}));
+    svg2.appendChild(el("circle",{cx:mx(now),cy:y,r:6,fill:color}));
+    txt(svg2, MX0-10, y+4, label, color, 11, "end");
+    if (parked) txt(svg2, mx(now), y-14, "parked — silent", "#c0322b", 10, "middle");
+  }
+  function render2(){
+    var r = RIGS[mode2], l = lEl.value/100;
+    while (svg2.firstChild) svg2.removeChild(svg2.firstChild);
+    var q = slit(X2, Y2, r[0], r[1], l);
+    txt(svg2, MX0, 34, "one ruling, through (1.3, 0.9) · \u03BB = " + l.toFixed(2), "#43203f", 10);
+    meter(T1, "u-readout", "#6a2c91", X2, q[0], false);
+    meter(T2, "v-readout", "#177f75", Y2, q[1], r[1] === 0 && l > 0.02);
+    var fu = q[0]/X2, fv = q[1]/Y2;
+    if (r[0] === r[1] && l > 0.02){
+      svg2.appendChild(el("line",{x1:mx(q[0]),y1:T1+8,x2:mx(q[1]),y2:T2-8,
+        stroke:"#3d8f3d","stroke-width":1,"stroke-dasharray":"3 3"}));
+      txt(svg2, (mx(q[0])+mx(q[1]))/2 + 8, (T1+T2)/2 + 4, "equal response: " + fu.toFixed(3), "#3d8f3d", 10);
+    }
+    if (mode2 === "edge"){
+      read2.innerHTML = "u-readout <b>" + q[0].toFixed(3) + "</b> and falling · v-readout <b>" + q[1].toFixed(3) +
+        "</b> at every depth — <span class='agree'>fusion by silence</span>: g\u1D65 \u2261 1, one channel does all the work.";
+    } else if (mode2 === "diag"){
+      read2.innerHTML = "u-readout <b>" + q[0].toFixed(3) + "</b> · v-readout <b>" + q[1].toFixed(3) +
+        "</b> — fractional responses <b>" + fu.toFixed(3) + "</b> = <b>" + fv.toFixed(3) +
+        "</b>: <span class='agree'>fusion by equality</span>, the collision proper.";
+    } else {
+      read2.innerHTML = "u-readout <b>" + q[0].toFixed(3) + "</b> · v-readout <b>" + q[1].toFixed(3) +
+        "</b> — responses <b>" + fu.toFixed(3) + "</b> \u2260 <b>" + fv.toFixed(3) +
+        "</b>: <span class='defect'>two channels answering differently — the split, and the only rig here that is off the seam</span>.";
+    }
+  }
+  document.getElementById("i2-mode").addEventListener("click", function(e){
+    var b = e.target.closest("button"); if (!b) return;
+    mode2 = b.getAttribute("data-m");
+    var bs = this.querySelectorAll("button");
+    for (var i=0;i<bs.length;i++) bs[i].setAttribute("aria-pressed", bs[i]===b ? "true":"false");
+    render2();
+  });
+  lEl.addEventListener("input", render2);
+
+  // ================= instrument 3: two different animals =================
+  var S = Math.sqrt(2/3), RV3 = 0.2;
+  var u3El = document.getElementById("i3-u"), r3El = document.getElementById("i3-r");
+  var svg3 = document.getElementById("i3-svg"), read3 = document.getElementById("i3-read");
+  var X3 = 46, DX3 = 52, Y03 = 150, SC3 = 62, MX3 = 560, MY3 = 120, MH3 = 78, DMAX = 0.16;
+
+  function render3(){
+    var u = u3El.value/1000, r = r3El.value/1000, l, x;
+    while (svg3.firstChild) svg3.removeChild(svg3.firstChild);
+    // left: defect vs depth
+    txt(svg3, X3, 28, "depth space — the crossing", "#43203f", 10);
+    svg3.appendChild(el("line",{x1:X3,y1:Y03,x2:X3+8*DX3,y2:Y03,stroke:"#b08948","stroke-width":1}));
+    txt(svg3, X3+8*DX3+4, Y03+4, "zero", "#b08948", 9);
+    txt(svg3, X3+8*DX3-40, Y03+34, "depth \u2192", "#6b6360", 9);
+    var d = "";
+    for (l=0; l<=8.0001; l+=0.08){
+      var del = u - S/Math.pow(1+r*l, 2);
+      x = X3 + l*DX3;
+      d += (l===0 ? "M":"L") + x.toFixed(2) + " " + (Y03 - del*SC3).toFixed(2) + " ";
+    }
+    svg3.appendChild(el("path",{d:d, fill:"none", stroke:"#177f75","stroke-width":1.8}));
+    var cross = null;
+    if (r > 0 && u < S){
+      cross = (Math.sqrt(S/u)-1)/r;
+      if (cross <= 8){
+        svg3.appendChild(el("circle",{cx:X3+cross*DX3, cy:Y03, r:5, fill:"#3d8f3d"}));
+        txt(svg3, X3+cross*DX3, Y03+22, "\u03BB* = " + cross.toFixed(2), "#3d8f3d", 10, "middle");
+      }
+    }
+    // right: Delta meter
+    txt(svg3, MX3-18, 28, "rate space — \u0394", "#43203f", 10);
+    svg3.appendChild(el("line",{x1:MX3,y1:MY3-MH3,x2:MX3,y2:MY3+MH3,stroke:"#e2d9c8","stroke-width":4}));
+    svg3.appendChild(el("line",{x1:MX3-8,y1:MY3,x2:MX3+8,y2:MY3,stroke:"#b08948","stroke-width":1.4}));
+    txt(svg3, MX3+12, MY3+4, "0", "#b08948", 9);
+    var D3 = Delta(r, RV3), yD = MY3 - (D3/DMAX)*MH3;
+    yD = Math.max(MY3-MH3, Math.min(MY3+MH3, yD));
+    svg3.appendChild(el("line",{x1:MX3,y1:MY3,x2:MX3,y2:yD,stroke:"#c0322b","stroke-width":6,
+      opacity: Math.abs(D3) < 1e-9 ? 0 : 0.9 }));
+    svg3.appendChild(el("circle",{cx:MX3,cy:yD,r:5,fill: Math.abs(D3) < 1e-9 ? "#3d8f3d" : "#c0322b"}));
+    txt(svg3, MX3, MY3+MH3+18, "\u0394 = " + D3.toFixed(4), Math.abs(D3) < 1e-9 ? "#3d8f3d" : "#c0322b", 10, "middle");
+    txt(svg3, MX3, MY3+MH3+34, "(r\u1D65 held at 0.2)", "#6b6360", 9, "middle");
+
+    read3.innerHTML = "unit = <b>" + u.toFixed(3) + "</b> · r\u1D64 = <b>" + r.toFixed(3) + "</b> — " +
+      (cross !== null
+        ? "crossing at depth <b>" + cross.toFixed(2) + "</b>" + (cross > 8 ? " (off the plotted line)":"")
+        : (r === 0 ? "no crossing: the defect is flat" : "no crossing: the unit is at or above the welded scale")) +
+      "; \u0394 = <b>" + D3.toFixed(4) + "</b>. The unit slider moves only the left panel. Always.";
+  }
+  u3El.addEventListener("input", render3);
+  r3El.addEventListener("input", render3);
+
+  render1();
+  render2();
+  render3();
+})();
+</script>
+</body>
+</html>

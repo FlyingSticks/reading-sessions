@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 4 · The Reading Sessions</title>
+<style>
+  :root {
+    --cream:#faf6ef; --plum:#43203f; --purple:#6a2c91; --crimson:#c0322b;
+    --gold:#b08948; --teal:#177f75; --ink:#2b2226; --grey:#6b6360; --rule:#e2d9c8;
+  }
+  html { background: var(--cream); }
+  body {
+    margin: 0; color: var(--ink); background: var(--cream);
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+    font-size: 17px; line-height: 1.6; -webkit-text-size-adjust: 100%;
+  }
+  main { max-width: 44rem; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
+  .eyebrow {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: .72rem;
+    letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin: 0 0 1rem;
+  }
+  .eyebrow a { color: var(--gold); border-bottom: none; }
+  .eyebrow a:hover, .eyebrow a:focus-visible { color: var(--crimson); }
+  h1 { font-size: 2rem; line-height: 1.1; margin: 0 0 .45rem; color: var(--plum); font-weight: 700; letter-spacing: -.01em; }
+  .sub { font-style: italic; font-size: 1.1rem; color: var(--purple); margin: 0 0 2rem; line-height: 1.4; }
+  h2 { font-size: 1.05rem; color: var(--plum); margin: 2.6rem 0 .8rem;
+       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+       letter-spacing: .14em; text-transform: uppercase; font-weight: 600; }
+  p { margin: 0 0 1rem; }
+  a { color: var(--purple); text-decoration: none; border-bottom: 1px dotted var(--gold); }
+  a:hover, a:focus-visible { color: var(--crimson); border-bottom-style: solid; }
+  a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  .tag {
+    display: inline-block; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: .66rem; letter-spacing: .14em; text-transform: uppercase;
+    padding: .1rem .45rem; border: 1px solid var(--gold); color: var(--gold);
+    border-radius: 2px; margin-right: .4rem; vertical-align: middle;
+  }
+  .tag.landed { border-color: var(--teal); color: var(--teal); }
+  .tag.checked { border-color: var(--teal); color: var(--teal); }
+  .tag.seasoning { border-color: var(--crimson); color: var(--crimson); }
+  footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--gold);
+           font-size: .85rem; color: var(--grey); line-height: 1.7; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow"><a href="index.html">The Reading Sessions</a> · session 4 · 4 September 2026</p>
+    <h1>The edge discharged, and the miniature given its address</h1>
+    <p class="sub">Read this session: Chapter 3's seam theorem, held against two open items — both closed, one with a surprise</p>
+  </header>
+
+  <p>Second session of the day; the record numbers by order, not by date. This one walked no new material — it took the two audit items left open by sessions 2 and 3 to the seam theorem (v1.1, with its verify scripts re-run against the live repo copies before anything else was done: 9/9 and 6/6, standing). Both items discharged. The second discharge returned more than it was asked for.</p>
+
+  <h2><span class="tag checked">Discharged</span> The one-rate-zero edge</h2>
+  <p>Session 2 left the pattern page's one-rate-zero regime deliberately described, not claimed — "a hybrid camera, contraction on a single axis" — pending a check against Chapter 3. Checked: the edge is on the seam. Δ = r<sub>u</sub>r<sub>v</sub>(r<sub>v</sub> − r<sub>u</sub>) vanishes when either rate is zero; the mixed rulings go straight there (verified directly, alongside the control that they bow the moment the second rate wakes); and §5's gloss holds to machine precision — the zeroed channel's readout parks at its picture-plane value along the entire ruling while the live channel keeps working. Silence, not collision. The pattern page's guarded wording was never wrong, only cautious; whether its readout is now upgraded to say "seam" outright is the reader's call — that is a revision, not a repair, and the record does not make it for him. The theorem's own remaining edge business (§6's limit argument for self-duality) is the book's open item, distinct from this one, and untouched.</p>
+
+  <h2><span class="tag checked">Discharged</span> The crossing is not the seam — confirmed, with the reason</h2>
+  <p>Session 3 left the miniature's green crossing unaudited against Chapter 3, and the page stayed in the vocabulary of "gauges agreeing" rather than claiming the seam. Correct instinct, now with its ground: the two are different kinds of object. The seam is a locus in <em>rate space</em> — a condition on the rig, blind to any drawing gauge; the crossing is a <em>depth</em>, at a fixed rig, and the drawing unit drags it up and down the line (verified: the unit moves the crossing while Δ cannot see the unit at all). No wording upgrade is available for the miniature's crossing, ever — the page's caution was not provisional but permanent, and it can now say why.</p>
+
+  <h2><span class="tag checked">The surprise</span> The miniature's address</h2>
+  <p>Asking <em>where</em> the miniature lives in the theorem's terms returned three nested facts. First: the toy's single depth line is an axis ruling, and by Remark 2.1 the axis rulings fuse at <em>every</em> rig, seam or no seam — so a one-channel construction cannot exhibit the split at all; the split lives in the mixed rulings, where both channels act at once. Second: even the two-channel isotropic version of the toy is pinned to the seam — r<sub>u</sub> = r<sub>v</sub> fuses at every rate. Leaving the seam requires two unequal, nonzero rates; the split is not merely perspectival but <em>anisotropic</em>. Third, the address itself: the isometric pair is parallel projection, r<sub>u</sub> = r<sub>v</sub> = 0 — the orthographic corner, the one point where the seam's three lines concur and the cubic vanishes to order three. And at that corner both channels are silent, magnification identically 1 at every depth — which is <em>why</em> the 1979 defect is constant. Session 3 observed the constant defect; this session derives it from the address. The first book's territory was the corner: the deepest point of the seam, where the quarrel cannot even be posed, which is exactly the condition under which a two-column classification by parentage is complete and sufficient. The premise of 1979 was not naive about the split; it lived where the split is identically zero.</p>
+
+  <h2><span class="tag seasoning">Seasoning, sharpened</span> The building witness gains its address</h2>
+  <p>The shelf still holds three items — datum-both-ways, seam-as-zero-defect, the building witness — but the third leaves this session sharper than it arrived: <em>the first book lived at the orthographic corner, and the present book is what the view looks like when you step off it.</em> One sentence, now with a checked derivation behind each clause. It continues to season; its candidate seats (porch building line, Chapter 1) are unchanged.</p>
+
+  <h2>Open at close of session</h2>
+  <p>Whether the pattern page's one-rate-zero readout gets its upgrade is the reader's call, flagged and left. §6's edge limit argument remains the book's own open item. The placement of the building witness remains unruled. Nothing new was opened.</p>
+
+  <h2>Companion page</h2>
+  <p>Added after close, link only: <a href="the-address.html">The address</a> — the rate square with its three green lines and the 1979 corner, the glide-and-camera rulings that ride or peel at true scale, the parked meter beside the working one, and the two animals kept in their separate spaces under two sliders.</p>
+
+  <footer>
+    <p><a href="index.html">← All sessions</a> · Companion: <a href="the-address.html">The address</a> · Checks: <a href="check-the-edge.js">check-the-edge.js</a> (18/18); verify_seam.js and verify_seam_v1_1.js re-run against live copies (9/9, 6/6) · The book: <a href="https://flyingsticks.github.io/one-congruence-two-readings/">One Congruence, Two Readings</a></p>
+  </footer>
+</main>
+</body>
+</html>
