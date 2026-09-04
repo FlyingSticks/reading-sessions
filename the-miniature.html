@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Miniature · The Reading Sessions</title>
+<style>
+  :root {
+    --cream:#faf6ef; --plum:#43203f; --purple:#6a2c91; --crimson:#c0322b;
+    --gold:#b08948; --teal:#177f75; --green:#3d8f3d; --ink:#2b2226; --grey:#6b6360; --rule:#e2d9c8;
+  }
+  html { background: var(--cream); }
+  body { margin:0; color:var(--ink); background:var(--cream);
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+    font-size:17px; line-height:1.6; -webkit-text-size-adjust:100%; }
+  main { max-width:44rem; margin:0 auto; padding:3rem 1.25rem 5rem; }
+  .eyebrow { font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; font-size:.72rem;
+    letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin:0 0 1rem; }
+  .eyebrow a { color:var(--gold); border-bottom:none; }
+  .eyebrow a:hover { color:var(--crimson); }
+  h1 { font-size:2rem; line-height:1.1; margin:0 0 .45rem; color:var(--plum); font-weight:700; }
+  .sub { font-style:italic; font-size:1.1rem; color:var(--purple); margin:0 0 2rem; line-height:1.4; }
+  h2 { font-size:1.05rem; color:var(--plum); margin:2.6rem 0 .8rem;
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    letter-spacing:.14em; text-transform:uppercase; font-weight:600; }
+  p { margin:0 0 1rem; }
+  a { color:var(--purple); text-decoration:none; border-bottom:1px dotted var(--gold); }
+  a:hover, a:focus-visible { color:var(--crimson); border-bottom-style:solid; }
+  blockquote { margin:1.4rem 0; padding:.2rem 1rem; border-left:3px solid var(--gold);
+    color:var(--plum); font-style:italic; }
+  .inst { border:1px solid var(--gold); border-bottom-width:3px; padding:.9rem .9rem 1rem; margin:1.4rem 0 1.8rem; }
+  .ctl { display:flex; flex-wrap:wrap; gap:.5rem .8rem; align-items:center; margin:.4rem 0 .8rem;
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; font-size:.8rem; }
+  .ctl label { color:var(--grey); letter-spacing:.06em; }
+  .seg { display:inline-flex; border:1px solid var(--plum); border-radius:3px; overflow:hidden; }
+  .seg button { border:0; background:transparent; color:var(--plum); padding:.35rem .6rem; font:inherit; cursor:pointer; }
+  .seg button[aria-pressed=true] { background:var(--plum); color:var(--cream); }
+  .btn { border:1px solid var(--gold); border-radius:3px; background:transparent; color:var(--plum);
+    padding:.32rem .6rem; font:inherit; font-size:.8rem; cursor:pointer; }
+  .btn:hover { border-color:var(--crimson); color:var(--crimson); }
+  input[type=range] { width:150px; accent-color:#6a2c91; }
+  .read { font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; font-size:.82rem; margin:.5rem 0 0; color:var(--grey); }
+  .read b { color:var(--plum); font-weight:600; }
+  .read .agree { color:var(--green); font-weight:600; }
+  .read .defect { color:var(--crimson); }
+  .cap { font-size:.85rem; color:var(--grey); line-height:1.5; margin:.7rem 0 0; }
+  svg { width:100%; height:auto; display:block; }
+  footer { margin-top:3rem; padding-top:1rem; border-top:1px solid var(--gold);
+    font-size:.85rem; color:var(--grey); line-height:1.7; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow"><a href="index.html">The Reading Sessions</a> · companion</p>
+    <h1>The Miniature</h1>
+    <p class="sub">A chart from 1979, the isometric pair, and the pattern with its defect held constant</p>
+  </header>
+
+  <p>The author's first book, <em>Graphics for Architecture</em>, opened on a premise: every architectural graphic — plan, elevation, section, axonometric, oblique, perspective — can be generated two ways. Built with rules, step by step, constructed on the plane; or thrown by projection, out of descriptive geometry. Its classification chart set <em>efecto pictórico</em> down the left margin and <em>sistema de proyección</em> down the right, with a single column of pictures between them — the same images read from the left as effects, from the right as systems. The page's own layout says it: one column, two readings, meeting in the middle.</p>
+
+  <p>In the vocabulary this record has been building, the premise maps almost term for term. <b>Drawing built with rules</b>: the law is fixed before any object arrives — verticals stay vertical, receding edges run at 30°, parallels stay parallel — and what the draughtsman keeps is the gauge, marking the receding edge in true units at whatever scale he likes. The floor's arrangement: fixed law, free gauge. <b>Projection</b>: the apparatus is chosen freely — ray direction, plane attitude — but once chosen, the geometry hands over the graduation, and no one gets to adjust it. The window's arrangement: free law, welded gauge.</p>
+
+  <h2>The pair on the sheet</h2>
+  <p>The book's own miniature of its premise was the isometric pair: one cube, drawn and projected. The <em>isometric drawing</em> constructs the cube on the plane at full size — unit edges drawn one unit long, at 30° left and right. The <em>isometric projection</em> throws the same cube along its own diagonal onto a plane, and every edge lands foreshortened by the same welded factor. The two figures are the same figure at two sizes. One picture, two parents.</p>
+  <p>The welded factor deserves its honest record, because it is where this page began. The author's sheet annotated the pair with <b>.866</b>, pulled from memory across four decades. Audited, the edge foreshortening is <b>√(2/3) ≈ .8165</b>. But .866 is not a fiction — it is cos 30°, and it lives in the same construction: it is the <em>horizontal run</em> of a unit receding edge on the drawing, the width you would measure across the paper. Two real constants of one figure; memory reached into the right drawing and pulled out the neighboring number. The correction was accepted, and the audit went one step further than either constant: the drawing map and the projection map are not merely similar — they are <em>the same map up to one scale factor</em>, D = P / √(2/3), checked over every one of the cube's twenty-eight vertex pairs. The chart's two columns produce one congruence, in the strictest sense the word has.</p>
+
+  <div class="inst" id="inst1">
+    <div class="ctl">
+      <div class="seg" id="i1-mode" role="group" aria-label="View mode">
+        <button data-m="side" aria-pressed="true">Side by side</button>
+        <button data-m="over" aria-pressed="false">Overlay</button>
+      </div>
+      <label>Unit (drawing)</label>
+      <input type="range" id="i1-u" min="600" max="1300" value="1000" aria-label="Drawing unit, thousandths">
+      <button class="btn" id="i1-set">unit → .8165</button>
+      <label>Spin (projection)</label>
+      <input type="range" id="i1-th" min="-60" max="60" value="0" aria-label="Projection spin, degrees">
+    </div>
+    <svg id="i1-svg" viewBox="0 0 640 300" role="img"
+      aria-label="Left, an isometric drawing of a cube whose size follows the unit slider. Right, the isometric projection of the same cube, freely spun but locked at edge scale 0.8165. In overlay mode the two figures sit concentric and the defect reads as a single ratio."></svg>
+    <p class="read" id="i1-read"></p>
+    <p class="cap">One cube, two parents. Left, the <span style="color:var(--teal)">drawing</span>: the law is fixed — verticals vertical, 30° and 30° — and only the gauge answers to you; slide the unit and the figure breathes. Right, the <span style="color:var(--purple)">projection</span>: the apparatus is yours — spin it where you like — but the gauge is welded; nothing you do touches .8165. Overlay them and the whole disagreement collapses to a single ratio. Set the unit to .8165 and it is not a disagreement at all.</p>
+  </div>
+
+  <h2>The defect held constant</h2>
+  <p>Why is the disagreement <em>one number</em>? Because parallel projection is a linear map, and so is a rule-built drawing: neither can treat one part of space differently from another. The ratio between the two figures cannot depend on where the cube sits — move it anywhere and nothing changes (the check script marches it around; nothing changes). So the defect between the two gauges is constant at every depth, and a constant defect is a removable one: a single slide of the unit — redraw at .8165 — zeroes it everywhere at once. That is the normalization a century of draughtsmen performed by shrug. The distinction between drawing and projection could be treated as pedantry precisely because, in the parallel world, the defect never varies enough to charge for itself.</p>
+  <p>In the vocabulary of <a href="the-defect.html">the defect page</a>: the 1979 pair is the pattern with the bill set to a flat rate. The carpet has a bump, but the bump is the same height in every room, so one cut of the carpet fits the whole house. The book's case begins when the rate stops being flat.</p>
+
+  <div class="inst" id="inst2">
+    <div class="ctl">
+      <label>Rate r</label>
+      <input type="range" id="i2-r" min="0" max="600" value="0" aria-label="Camera rate, thousandths">
+      <button class="btn" id="i2-r0">r → 0</button>
+      <label>Unit</label>
+      <input type="range" id="i2-u" min="500" max="1300" value="1000" aria-label="Drawing unit, thousandths">
+      <button class="btn" id="i2-set">unit → .8165</button>
+    </div>
+    <svg id="i2-svg" viewBox="0 0 640 310" role="img"
+      aria-label="Two rulers show where numbered depth stations land: the drawing gauge in equal steps, the camera gauge crowding as the rate rises, with infinity marked at a finite seat. Below, the defect between them plotted against depth: a flat line at rate zero, a curve with a single green zero crossing once the rate is on."></svg>
+    <p class="read" id="i2-read"></p>
+    <p class="cap">Un-parallelling the projection, in the book's Chapter 2 convention (image coordinate x/(1+rλ)). At <b>r = 0</b> the camera's local scale is .8165 at every depth: the defect against the drawing gauge is one flat number, and the unit slider can zero it everywhere — the 1979 world. Raise the rate and the camera's scale becomes a function of depth: the flat line bends into a curve, and the unit slider can now do only one thing — relocate the curve's zero. Draw smaller than .8165 and there is exactly one depth where the two gauges agree, marked in <span style="color:var(--green)">green</span>; draw at full size and there is none, because a camera that only shrinks never climbs back to meet you. A constant defect is removable; a varying one is only movable. The whole book lives in that difference.</p>
+  </div>
+
+  <h2>What the miniature is evidence for</h2>
+  <p>Two things, and they should be kept apart. The first is a distinction. In 1979 the two columns were <em>alternatives</em>: a picture was generated one way or the other, and the chart classified it by parentage. The present book's claim is stronger — both readings live on the same picture at once, and the theorem concerns their agreement. First book: every picture has one of two parents. This book: every picture on the seam has both. The miniature is the hinge between those claims, because its two parents produce figures so nearly identical that the classification by parentage was already, quietly, a statement of congruence.</p>
+  <p>The second is a witness. The porch names building as its fourth case and holds that a porch case must be checkable against a life. This chart is that check, run against the author's own: the quarrel between rules and rays was already a two-column table in his first book, forty-seven years before the pattern had a name. Whether that fact earns a sentence in the book — the porch's building line, or Chapter 1 — is not decided here. It sits in the record and seasons.</p>
+
+  <footer>
+    <p>Checks: <a href="check-the-miniature.js">check-the-miniature.js</a> — 28/28 assertions (edge scale √(2/3); cos 30° as the drawing's horizontal run, not the edge scale; map identity D = P/√(2/3) over all 28 vertex pairs and under translation; r = 0 constancy; r &gt; 0 monotone scale and unique crossing).</p>
+    <p><a href="index.html">← All sessions</a> · Companions: <a href="window-and-floor.html">Window and floor</a> · <a href="the-pattern.html">The pattern</a> · <a href="the-defect.html">The defect</a> · The book: <a href="https://flyingsticks.github.io/one-congruence-two-readings/">One Congruence, Two Readings</a></p>
+  </footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var NS = "http://www.w3.org/2000/svg";
+  function el(t, a){ var e = document.createElementNS(NS, t); for (var k in a) e.setAttribute(k, a[k]); return e; }
+  function txt(svg, x, y, s, fill, size, anchor){
+    var t = el("text", {x:x, y:y, fill:fill||"#2b2226", "font-size":size||11,
+      "font-family":"Helvetica Neue,Helvetica,Arial,sans-serif"});
+    if (anchor) t.setAttribute("text-anchor", anchor);
+    t.textContent = s; svg.appendChild(t); return t;
+  }
+  var C30 = Math.cos(Math.PI/6);        // 0.8660254
+  var S   = Math.sqrt(2/3);             // 0.8164966
+
+  // ---- cube geometry (drawing map D; projection = same map scaled by S) ----
+  // page point of vertex (a,b,c) at pixel scale k, centered on (cx,cy), spun by th
+  function vpt(a,b,c,k,cx,cy,th){
+    var x = (a-b)*C30*k;
+    var y = -(((a+b)*0.5)+c-1)*k;       // centered: mid-height at (a+b)/2+c = 1
+    if (th){ var co=Math.cos(th), si=Math.sin(th), x2=x*co-y*si, y2=x*si+y*co; x=x2; y=y2; }
+    return [cx+x, cy+y];
+  }
+  var HEX = [[0,0,0],[1,0,0],[1,0,1],[1,1,1],[0,1,1],[0,1,0]];       // silhouette, in order
+  var YE  = [[[0,0,1],[1,0,1]],[[0,0,1],[0,1,1]],[[0,0,1],[0,0,0]]]; // visible Y at the near corner
+  var HID = [[[1,1,0],[1,0,0]],[[1,1,0],[0,1,0]],[[1,1,0],[1,1,1]]]; // hidden, dashed
+
+  function drawCube(svg,cx,cy,k,th,color,dashHidden){
+    var i, p, q, d = "";
+    for (i=0;i<HEX.length;i++){
+      p = vpt(HEX[i][0],HEX[i][1],HEX[i][2],k,cx,cy,th);
+      d += (i? "L":"M") + p[0].toFixed(2) + " " + p[1].toFixed(2) + " ";
+    }
+    svg.appendChild(el("path",{d:d+"Z",fill:"none",stroke:color,"stroke-width":1.8,"stroke-linejoin":"round"}));
+    for (i=0;i<YE.length;i++){
+      p = vpt(YE[i][0][0],YE[i][0][1],YE[i][0][2],k,cx,cy,th);
+      q = vpt(YE[i][1][0],YE[i][1][1],YE[i][1][2],k,cx,cy,th);
+      svg.appendChild(el("line",{x1:p[0],y1:p[1],x2:q[0],y2:q[1],stroke:color,"stroke-width":1.8}));
+    }
+    if (dashHidden) for (i=0;i<HID.length;i++){
+      p = vpt(HID[i][0][0],HID[i][0][1],HID[i][0][2],k,cx,cy,th);
+      q = vpt(HID[i][1][0],HID[i][1][1],HID[i][1][2],k,cx,cy,th);
+      svg.appendChild(el("line",{x1:p[0],y1:p[1],x2:q[0],y2:q[1],stroke:color,"stroke-width":1,
+        "stroke-dasharray":"3 4",opacity:0.55}));
+    }
+  }
+
+  // ================= instrument 1 =================
+  var mode = "side", K1 = 58;
+  var uEl = document.getElementById("i1-u"), thEl = document.getElementById("i1-th");
+  var svg1 = document.getElementById("i1-svg"), read1 = document.getElementById("i1-read");
+
+  function render1(){
+    var u = uEl.value/1000, th = thEl.value*Math.PI/180;
+    while (svg1.firstChild) svg1.removeChild(svg1.firstChild);
+    if (mode === "side"){
+      var kD = K1*u, kP = K1*S;
+      txt(svg1,160,22,"DRAWING — built with rules","#177f75",11,"middle");
+      drawCube(svg1,160,160,kD,0,"#177f75",true);
+      // unit label on the +e1 edge of the Y (from (0,0,1) to (1,0,1))
+      var a1 = vpt(0,0,1,kD,160,160,0), b1 = vpt(1,0,1,kD,160,160,0);
+      txt(svg1,(a1[0]+b1[0])/2+6,(a1[1]+b1[1])/2-7,"unit × "+u.toFixed(4),"#43203f",10);
+      var base = vpt(0,0,0,kD,160,160,0);
+      txt(svg1,base[0],base[1]+16,"30°   30°","#6b6360",10,"middle");
+      txt(svg1,160,286,"law fixed · gauge free","#6b6360",10,"middle");
+
+      txt(svg1,480,22,"PROJECTION — thrown by rays","#6a2c91",11,"middle");
+      drawCube(svg1,480,160,kP,th,"#6a2c91",true);
+      var a2 = vpt(0,0,1,kP,480,160,th), b2 = vpt(1,0,1,kP,480,160,th);
+      txt(svg1,(a2[0]+b2[0])/2+6,(a2[1]+b2[1])/2-7,"0.8165","#c0322b",10);
+      txt(svg1,480,286,"law free · gauge welded","#6b6360",10,"middle");
+      svg1.appendChild(el("line",{x1:320,y1:34,x2:320,y2:276,stroke:"#e2d9c8","stroke-width":1}));
+      read1.innerHTML = "Left: gauge free — unit = <b>" + u.toFixed(4) +
+        "</b>; the law (verticals, 30°/30°) is not yours to touch. Right: law free — spun <b>" +
+        thEl.value + "°</b>; the gauge reads <b>0.8165</b> whatever you do to it.";
+    } else {
+      var R = u/S;
+      drawCube(svg1,320,158,K1*S,0,"#6a2c91",false);
+      drawCube(svg1,320,158,K1*u,0,"#177f75",false);
+      txt(svg1,320,286,"projection in purple · drawing in teal — concentric, spin returned to zero","#6b6360",10,"middle");
+      if (Math.abs(R-1) < 0.006){
+        read1.innerHTML = "unit = <b>" + u.toFixed(4) + "</b> · ratio = <b>" + R.toFixed(4) +
+          "</b> — <span class='agree'>congruent: the two parents produce one figure</span>.";
+      } else {
+        read1.innerHTML = "unit = <b>" + u.toFixed(4) + "</b> · ratio = <b>" + R.toFixed(4) +
+          "</b> — similar, not congruent. <span class='defect'>The whole disagreement is one number.</span>";
+      }
+    }
+  }
+  document.getElementById("i1-mode").addEventListener("click", function(e){
+    var b = e.target.closest("button"); if (!b) return;
+    mode = b.getAttribute("data-m");
+    var bs = this.querySelectorAll("button");
+    for (var i=0;i<bs.length;i++) bs[i].setAttribute("aria-pressed", bs[i]===b ? "true":"false");
+    render1();
+  });
+  document.getElementById("i1-set").addEventListener("click", function(){ uEl.value = Math.round(S*1000); render1(); });
+  uEl.addEventListener("input", render1);
+  thEl.addEventListener("input", render1);
+
+  // ================= instrument 2 =================
+  var rEl = document.getElementById("i2-r"), u2El = document.getElementById("i2-u");
+  var svg2 = document.getElementById("i2-svg"), read2 = document.getElementById("i2-read");
+  var X0 = 52, K2 = 46, DX = 64, Y1 = 58, Y2 = 112, Y0C = 248, SC = 76;
+
+  function render2(){
+    var r = rEl.value/1000, u = u2El.value/1000, j, x, l;
+    while (svg2.firstChild) svg2.removeChild(svg2.firstChild);
+
+    // row 1: drawing gauge — equal steps
+    txt(svg2,X0,Y1-24,"where the stations land — drawing gauge (free)","#177f75",10);
+    svg2.appendChild(el("line",{x1:X0,y1:Y1,x2:X0+u*8*K2,y2:Y1,stroke:"#177f75","stroke-width":1.6}));
+    for (j=0;j<=8;j++){
+      x = X0 + u*j*K2;
+      svg2.appendChild(el("line",{x1:x,y1:Y1-6,x2:x,y2:Y1+6,stroke:"#177f75","stroke-width":1.4}));
+      if (j%2===0) txt(svg2,x,Y1+20,String(j),"#177f75",10,"middle");
+    }
+
+    // row 2: camera gauge — s·λ/(1+rλ)
+    txt(svg2,X0,Y2-24,"where the stations land — camera gauge (welded, rate r)","#6a2c91",10);
+    var xEnd = X0 + S*(8/(1+8*r))*K2;
+    svg2.appendChild(el("line",{x1:X0,y1:Y2,x2:xEnd,y2:Y2,stroke:"#6a2c91","stroke-width":1.6}));
+    for (j=0;j<=8;j++){
+      x = X0 + S*(j/(1+r*j))*K2;
+      svg2.appendChild(el("line",{x1:x,y1:Y2-6,x2:x,y2:Y2+6,stroke:"#6a2c91","stroke-width":1.4}));
+      if (j%2===0) txt(svg2,x,Y2+20,String(j),"#6a2c91",10,"middle");
+    }
+    if (r > 0.069){
+      var xs = X0 + (S/r)*K2;
+      if (xs < 615){
+        svg2.appendChild(el("circle",{cx:xs,cy:Y2,r:5,fill:"none",stroke:"#c0322b","stroke-width":1.6}));
+        txt(svg2,xs,Y2-12,"∞","#c0322b",12,"middle");
+      }
+    }
+
+    // curve: defect δ(λ) = u − s/(1+rλ)²
+    txt(svg2,X0,Y0C-88,"the defect, depth by depth","#43203f",10);
+    svg2.appendChild(el("line",{x1:X0,y1:Y0C,x2:X0+8*DX,y2:Y0C,stroke:"#b08948","stroke-width":1}));
+    txt(svg2,X0+8*DX+4,Y0C+4,"zero","#b08948",9);
+    txt(svg2,X0+8*DX+4,Y0C+42,"depth →","#6b6360",9);
+    var d = "";
+    for (l=0; l<=8.0001; l+=0.08){
+      var del = u - S/Math.pow(1+r*l,2);
+      x = X0 + l*DX;
+      var y = Y0C - del*SC;
+      d += (l===0 ? "M":"L") + x.toFixed(2) + " " + y.toFixed(2) + " ";
+    }
+    svg2.appendChild(el("path",{d:d,fill:"none",stroke:"#c0322b","stroke-width":1.8}));
+
+    var flat = Math.abs(u - S) < 0.004;
+    if (r === 0){
+      if (flat){
+        read2.innerHTML = "r = <b>0</b> · unit = <b>" + u.toFixed(4) +
+          "</b> — <span class='agree'>the defect is zero at every depth</span>: the 1979 normalization.";
+      } else {
+        read2.innerHTML = "r = <b>0</b> · unit = <b>" + u.toFixed(4) +
+          "</b> — the defect is <b>" + (u-S).toFixed(4) +
+          "</b> at every depth: one flat number. One slide of the unit removes it everywhere.";
+      }
+    } else if (u < S){
+      var lstar = (Math.sqrt(S/u)-1)/r;
+      if (lstar <= 8){
+        var gx = X0 + lstar*DX;
+        svg2.appendChild(el("circle",{cx:gx,cy:Y0C,r:5,fill:"#3d8f3d"}));
+        txt(svg2,gx,Y0C+22,"the gauges agree here","#3d8f3d",10,"middle");
+      }
+      read2.innerHTML = "r = <b>" + r.toFixed(3) + "</b> · unit = <b>" + u.toFixed(4) +
+        "</b> — the defect varies with depth; <span class='agree'>zero at depth " + lstar.toFixed(2) +
+        "</span>" + (lstar>8 ? " (beyond the plotted range)":"") +
+        " and only there. The unit moves the crossing; nothing removes it.";
+    } else {
+      read2.innerHTML = "r = <b>" + r.toFixed(3) + "</b> · unit = <b>" + u.toFixed(4) +
+        "</b> — <span class='defect'>defect positive at every depth</span>: a full-size drawing never meets a camera that only shrinks.";
+    }
+  }
+  document.getElementById("i2-r0").addEventListener("click", function(){ rEl.value = 0; render2(); });
+  document.getElementById("i2-set").addEventListener("click", function(){ u2El.value = Math.round(S*1000); render2(); });
+  rEl.addEventListener("input", render2);
+  u2El.addEventListener("input", render2);
+
+  render1();
+  render2();
+})();
+</script>
+</body>
+</html>

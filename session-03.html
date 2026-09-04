@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 3 · The Reading Sessions</title>
+<style>
+  :root {
+    --cream:#faf6ef; --plum:#43203f; --purple:#6a2c91; --crimson:#c0322b;
+    --gold:#b08948; --teal:#177f75; --ink:#2b2226; --grey:#6b6360; --rule:#e2d9c8;
+  }
+  html { background: var(--cream); }
+  body {
+    margin: 0; color: var(--ink); background: var(--cream);
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+    font-size: 17px; line-height: 1.6; -webkit-text-size-adjust: 100%;
+  }
+  main { max-width: 44rem; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
+  .eyebrow {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: .72rem;
+    letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin: 0 0 1rem;
+  }
+  .eyebrow a { color: var(--gold); border-bottom: none; }
+  .eyebrow a:hover, .eyebrow a:focus-visible { color: var(--crimson); }
+  h1 { font-size: 2rem; line-height: 1.1; margin: 0 0 .45rem; color: var(--plum); font-weight: 700; letter-spacing: -.01em; }
+  .sub { font-style: italic; font-size: 1.1rem; color: var(--purple); margin: 0 0 2rem; line-height: 1.4; }
+  h2 { font-size: 1.05rem; color: var(--plum); margin: 2.6rem 0 .8rem;
+       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+       letter-spacing: .14em; text-transform: uppercase; font-weight: 600; }
+  p { margin: 0 0 1rem; }
+  a { color: var(--purple); text-decoration: none; border-bottom: 1px dotted var(--gold); }
+  a:hover, a:focus-visible { color: var(--crimson); border-bottom-style: solid; }
+  a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  .tag {
+    display: inline-block; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: .66rem; letter-spacing: .14em; text-transform: uppercase;
+    padding: .1rem .45rem; border: 1px solid var(--gold); color: var(--gold);
+    border-radius: 2px; margin-right: .4rem; vertical-align: middle;
+  }
+  .tag.landed { border-color: var(--teal); color: var(--teal); }
+  .tag.checked { border-color: var(--teal); color: var(--teal); }
+  .tag.seasoning { border-color: var(--crimson); color: var(--crimson); }
+  footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--gold);
+           font-size: .85rem; color: var(--grey); line-height: 1.7; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow"><a href="index.html">The Reading Sessions</a> · session 3 · 4 September 2026</p>
+    <h1>The first book, and the defect held constant</h1>
+    <p class="sub">Read this session: a chart from 1979, recognized as the pattern with a flat-rate bill</p>
+  </header>
+
+  <p>This session did not walk a chapter either. It walked a photograph — diagrams from the reader's first book, <em>Graphics for Architecture</em>, held up against the vocabulary of sessions one and two. The recognition ran deeper than expected, an audit corrected a number, and one map identity fell out of the check script that neither party had gone looking for.</p>
+
+  <h2><span class="tag">Brought to the table</span> The 1979 chart</h2>
+  <p>The reader produced the Spanish-edition diagrams and the premise they carried: every architectural graphic — plan, elevation, section, axonometric, oblique, perspective — can be generated two ways, built with rules step by step on the plane, or thrown by projection out of descriptive geometry. He offered the resemblance himself: the split roughly approximates the book's two readings. Pressed, it is closer than rough. Drawing built with rules is the floor's arrangement — fixed law (verticals vertical, 30° and 30°, parallels parallel), free gauge (true units at the draughtsman's scale). Projection is the window's — free law (choose the rays, tilt the plane), welded gauge (the geometry hands over the graduation and takes no requests). And the chart's own layout carries the thesis: <em>efecto pictórico</em> down one margin, <em>sistema de proyección</em> down the other, a single column of pictures between them, read from the left as effects and from the right as systems. One column, two readings, meeting in the middle — typeset in 1979.</p>
+
+  <h2><span class="tag checked">Checked</span> The welded number</h2>
+  <p>The sheet annotated the isometric pair with .866, pulled from memory. Audited: the edge foreshortening of the isometric projection is √(2/3) ≈ .8165; the remembered .866 is cos 30°, a real constant of the same figure — the horizontal run of a unit receding edge on the drawing, not the edge scale. The reader accepted the correction on the spot ("I hadn't worked out the math. It was an educated guess"). Memory had reached into the right drawing and pulled out the neighboring number: nothing on the sheet was wrong so much as mislabeled. The check script went further than the two constants and returned the session's sharpest fact: the drawing map and the projection map are <em>the same map up to one scale factor</em>, D = P / √(2/3), verified over all twenty-eight vertex pairs of the cube and unchanged under translation. The 1979 pair is not two similar pictures; it is one congruence, in the strictest sense the word has. Checks: check-the-miniature.js, 28/28.</p>
+
+  <h2><span class="tag landed">Landed as a page</span> The miniature</h2>
+  <p>Companion: <a href="the-miniature.html">The miniature</a>. Its first instrument holds the pair itself — one cube, two parents: the drawing's gauge slides freely under a fixed law, the projection spins freely under a welded gauge, and the overlay collapses the whole disagreement to a single ratio, zeroed by redrawing at .8165. Its second instrument un-parallels the projection in the book's Chapter 2 convention: at r = 0 the defect between the gauges is one flat number, removable everywhere by one slide of the unit — the 1979 world; with the rate on, the flat line bends into a curve whose zero the unit can relocate but never remove. A constant defect is removable; a varying one is only movable. The instrument shows the book emerging from the first book by the turning of one dial.</p>
+
+  <h2><span class="tag seasoning">Seasoning</span> The constant-defect reading, and the building witness</h2>
+  <p>Two formulations set to season, kept apart deliberately. First, the reading: the 1979 dichotomy is the pattern with its defect held constant — the affine miniature, where parallelism makes both maps linear, linearity makes the disagreement position-independent, and a position-independent defect can be normalized away by shrug, which is why a century of draughtsmen could treat the distinction as pedantry. The present book begins where the rate stops being flat. Second, the distinction that keeps the claims honest: in 1979 the two columns were <em>alternatives</em>, and the chart classified pictures by parentage; the present book's claim is stronger — both readings live on one picture at once, and the theorem concerns their agreement. First book: every picture has one of two parents. This book: every picture on the seam has both.</p>
+  <p>And the witness. The porch names building as its fourth case and holds that a porch case must be checkable against a life. The chart is that check, run against the author's own: the quarrel between rules and rays was already a two-column table in his first book, forty-seven years before the pattern had a name. Whether this earns a sentence in the book — the porch's building line, or Chapter 1 — is not decided in this session. It sits here and seasons, beside datum-both-ways and seam-as-zero-defect.</p>
+
+  <h2>Open at close of session</h2>
+  <p>The placement question is deliberately unruled: if the witness stands after its walking-past, its natural size is one sentence, and where that sentence lives (porch or Chapter 1) is the reader's call. The miniature's second instrument is a one-line toy in the Chapter 2 convention, not the full rig — its crossing has not been audited against Chapter 3's seam condition, and the page says so by staying in the vocabulary of gauges agreeing rather than claiming the seam outright. Three seasoning items now sit on the shelf: datum-both-ways (session 1), seam-as-zero-defect (session 2), and the building witness (this session).</p>
+
+  <footer>
+    <p><a href="index.html">← All sessions</a> · Companion: <a href="the-miniature.html">The miniature</a> · Checks: <a href="check-the-miniature.js">check-the-miniature.js</a> (28/28) · The book: <a href="https://flyingsticks.github.io/one-congruence-two-readings/">One Congruence, Two Readings</a></p>
+  </footer>
+</main>
+</body>
+</html>
