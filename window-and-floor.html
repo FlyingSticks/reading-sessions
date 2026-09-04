@@ -105,7 +105,7 @@
       <text id="f-ticklabel" x="470" y="140" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11" fill="#177f75">tick stands</text>
     </svg>
     <div class="ctl">
-      <label>probe depth z <input id="i1-z" type="range" min="0" max="1600" value="200" step="1"> <span id="i1-zv">200</span></label>
+      <label>probe depth z <input id="i1-z" type="range" min="0" max="1000" value="200" step="1"> <span id="i1-zv">200</span></label>
       <span class="seg" role="group" aria-label="gauge">
         <button id="i1-reach" aria-pressed="false">Reach (equal steps)</button>
         <button id="i1-turn" aria-pressed="true">Turn (harmonic)</button>
@@ -200,7 +200,7 @@
 <script>
 (function () {
   // ---------- Instrument 1: one plane, two jobs ----------
-  var Zp = 200, h0 = 130, axisY = 215, planeX = 210, stationX = 240, scale = 0.11;
+  var Zp = 200, h0 = 130, axisY = 215, planeX = 210, stationX = 240, scale = 0.15;
   var gauge1 = 'turn';
   var zIn = document.getElementById('i1-z'), zv = document.getElementById('i1-zv');
   var F = {x: 560, y: 80}, O = {x: 350, y: 220};
