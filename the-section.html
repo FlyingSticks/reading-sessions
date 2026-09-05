@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The section — one point, three marks</title>
+<style>
+  body { background: #f7f2e5; color: #2c2a26; font-family: Georgia, 'Times New Roman', serif;
+         margin: 0; padding: 2rem 1rem 3rem; line-height: 1.65; }
+  .sheet { max-width: 880px; margin: 0 auto; }
+  h1 { color: #3b2c56; font-size: 2rem; margin: 0 0 .2rem; }
+  .sub { color: #6a2c91; font-style: italic; margin: 0 0 1.4rem; }
+  h2 { color: #3b2c56; font-size: 1.15rem; margin: 1.8rem 0 .5rem; }
+  p { margin: .6rem 0; }
+  .panel { border: 1px solid #b08948; border-radius: 4px; background: #fbf8ee; padding: 14px 14px 8px; margin: 1rem 0; }
+  .row { display: flex; gap: 22px; align-items: flex-start; flex-wrap: wrap; margin-top: 6px; }
+  .ledger { font-family: ui-monospace, Menlo, monospace; font-size: 14px; line-height: 2; }
+  .badge { font-family: Georgia, serif; font-weight: bold; }
+  button { font: 14px Georgia, serif; color: #2c2a26; background: transparent;
+           border: 1px solid #b08948; border-radius: 4px; padding: 6px 12px; margin: 0 8px 10px 0; cursor: pointer; }
+  button:active { background: #efe7d2; }
+  svg { display: block; width: 100%; height: auto; touch-action: none; }
+  .rsq { max-width: 220px; }
+  .foot { color: #6b675e; font-size: .85rem; border-top: 1px solid #d9cba8; margin-top: 2.2rem; padding-top: .8rem; }
+  .k { color: #177f75; } .kc { color: #6a2c91; } .kg { color: #3d8f3d; } .ku { color: #c0322b; } .kv { color: #2456a8; }
+</style>
+</head>
+<body>
+<div class="sheet">
+<h1>The section</h1>
+<p class="sub">One point, three marks — the machine in edge view: slits, screen, slab, and the address it earns</p>
+
+<p>A rig is a setting of the machine, never of the world. This sheet shows the machine in cross-section along the depth axis: the two slits (draggable), the picture plane (draggable), and one fixed scene. Every plane parallel to the picture plane appears edge-on as a vertical line. The sample point in the scene is read three ways at once, and the three marks land on the picture plane together: the camera mark <span class="kc">X<sub>c</sub></span> inside, the perpendicular projection <b>x</b>, and the glide mark <span class="k">X<sub>g</sub></span> outside — X<sub>c</sub> ≤ x ≤ X<sub>g</sub>, always, with X<sub>g</sub>·X<sub>c</sub> = x².</p>
+
+<div class="panel">
+<div>
+<button id="bEq">Equal depths (seam)</button>
+<button id="bSp">Split them</button>
+</div>
+<svg id="sec" viewBox="0 0 900 430" role="img" aria-label="Section of the two-slit machine">
+<title>Section of the machine</title>
+<desc>Depth axis with draggable slits and picture plane, the slab shaded, level planes in edge view, a lambda ruler, and the three marks of one point dimensioned.</desc>
+<rect id="slab" y="40" height="316" fill="#3d8f3d" opacity="0.08"/>
+<g id="lamRuler"></g>
+<line id="dpPt" x1="700" y1="52" x2="700" y2="384" stroke="#8a857a" stroke-width="1" stroke-dasharray="5 5"/>
+<line x1="790" y1="40" x2="790" y2="400" stroke="#3d8f3d" stroke-width="1.4" stroke-dasharray="7 5"/>
+<line x1="30" y1="340" x2="880" y2="340" stroke="#8a857a" stroke-width="0.8"/>
+<g id="boxG">
+<rect x="620" y="215" width="170" height="125" fill="none" stroke="#8a857a" stroke-width="1.4" rx="3"/>
+<text x="705" y="204" font-size="15" fill="#6b675e" text-anchor="middle" font-style="italic">the scene — fixed</text>
+<circle id="sPt" cx="700" cy="250" r="5" fill="#4a463e"/>
+</g>
+<text id="slabLbl" x="0" y="330" font-size="15" fill="#3d8f3d" font-style="italic">the slab</text>
+<line id="camRay" stroke="#6a2c91" stroke-width="1.4" stroke-dasharray="6 5"/>
+<line id="gliRay" stroke="#177f75" stroke-width="1.8"/>
+<line id="gliXfer" stroke="#177f75" stroke-width="0.8" stroke-dasharray="3 4"/>
+<line id="extX" stroke="#8a857a" stroke-width="0.7" stroke-dasharray="3 4"/>
+<line id="extXg" stroke="#8a857a" stroke-width="0.7" stroke-dasharray="3 4"/>
+<line id="extXc" stroke="#8a857a" stroke-width="0.7" stroke-dasharray="3 4"/>
+<line id="dimX" stroke="#4a463e" stroke-width="1"/>
+<line id="dimXg" stroke="#4a463e" stroke-width="1"/>
+<line id="dimXc" stroke="#4a463e" stroke-width="1"/>
+<line id="srX" stroke="#4a463e" stroke-width="1"/>
+<line id="srXg" stroke="#4a463e" stroke-width="1"/>
+<line id="srXc" stroke="#4a463e" stroke-width="1"/>
+<text id="dLx" font-size="15" fill="#2c2a26" text-anchor="middle" font-style="italic">x</text>
+<text id="dLxg" font-size="15" fill="#177f75" text-anchor="middle" font-style="italic">Xg</text>
+<text id="dLxc" font-size="15" fill="#6a2c91" text-anchor="middle" font-style="italic">Xc</text>
+<line id="plane" stroke="#3d8f3d" stroke-width="2.6"/>
+<line id="tickT" stroke="#4a463e" stroke-width="3.2"/>
+<line id="tickC" stroke="#6a2c91" stroke-width="3.2"/>
+<line id="tickG" stroke="#177f75" stroke-width="3.2"/>
+<text id="tLg" font-size="14" fill="#177f75" text-anchor="end">Xg</text>
+<text id="tLf" font-size="14" fill="#2c2a26" text-anchor="end">x</text>
+<text id="tLc" font-size="14" fill="#6a2c91" text-anchor="end">Xc</text>
+<text id="planeLbl" font-size="14" fill="#3d8f3d" text-anchor="middle">picture plane · level 0 · ×1</text>
+<text x="700" y="400" font-size="14" fill="#6b675e" text-anchor="middle">level plane of the point</text>
+<text x="790" y="418" font-size="14" fill="#3d8f3d" text-anchor="middle">back wall — deepest content</text>
+<circle id="hP" r="22" fill="transparent" style="cursor:ew-resize"/>
+<circle id="hPd" r="6" fill="#3d8f3d"/>
+<circle id="hU" r="22" fill="transparent" style="cursor:ew-resize"/>
+<circle id="hUd" r="7" fill="#c0322b"/>
+<circle id="hV" r="22" fill="transparent" style="cursor:ew-resize"/>
+<circle id="hVd" r="7" fill="#2456a8"/>
+<text id="lU" font-size="14" fill="#c0322b" text-anchor="middle">u</text>
+<text id="lV" font-size="14" fill="#2456a8" text-anchor="middle">v</text>
+<text x="30" y="362" font-size="14" fill="#6b675e">slits</text>
+<g font-size="14">
+<text x="30" y="56" fill="#2c2a26" font-style="italic">one point, three marks</text>
+<text x="30" y="80" fill="#177f75">Xg — glide image pt on P.P.</text>
+<text x="30" y="102" fill="#2c2a26">x — perpendicular projection (the corner rig)</text>
+<text x="30" y="124" fill="#6a2c91">Xc — cross-slit image pt on P.P. (u channel)</text>
+<line x1="30" y1="141" x2="56" y2="141" stroke="#8a857a" stroke-width="1" stroke-dasharray="5 5"/>
+<text x="63" y="146" fill="#6b675e">level plane of the point, edge view</text>
+<line x1="30" y1="163" x2="56" y2="163" stroke="#3d8f3d" stroke-width="1.4" stroke-dasharray="7 5"/>
+<text x="63" y="168" fill="#3d8f3d">back wall — the slab's far side</text>
+</g>
+</svg>
+<div class="row">
+<svg class="rsq" viewBox="0 0 220 220" role="img" aria-label="Rate square with the current address">
+<title>Rate square</title>
+<desc>The address point moves as the machine is re-rigged.</desc>
+<rect x="24" y="10" width="180" height="180" fill="none" stroke="#8a857a" stroke-width="0.8"/>
+<line x1="24" y1="190" x2="204" y2="10" stroke="#3d8f3d" stroke-width="1.6"/>
+<line x1="24" y1="190" x2="204" y2="190" stroke="#3d8f3d" stroke-width="1.6"/>
+<line x1="24" y1="190" x2="24" y2="10" stroke="#3d8f3d" stroke-width="1.6"/>
+<circle cx="24" cy="190" r="6" fill="none" stroke="#b08948" stroke-width="2"/>
+<circle id="addr" r="6" fill="#53357f"/>
+<text x="204" y="208" font-size="13" fill="#6b675e" text-anchor="end">r_u</text>
+<text x="8" y="20" font-size="13" fill="#6b675e">r_v</text>
+</svg>
+<div class="ledger">
+r_u = <span id="oRu"></span><br>
+r_v = <span id="oRv"></span><br>
+λ (of the point) = <span id="oL"></span><br>
+Δ = r_u·r_v·(r_v−r_u) = <span id="oD"></span><br>
+Xg·Xc / x² = <span id="oM"></span><br>
+<span id="oB" class="badge"></span>
+</div>
+</div>
+</div>
+
+<h2>What to try</h2>
+<p>Drag either slit: the scene never budges — a rig is upstream of the world. Drag the plane: both rates change together, the slab breathes, and the λ ruler re-graduates, because λ is measured from the calibration surface, not from the world. Press <i>Equal depths</i> first and slide the plane: the address stays pinned to the diagonal. Seam membership is machine data; the exact address is machine plus screen. Drag both slits far left and the three marks huddle toward x — the orthographic corner approached as a limit.</p>
+
+<h2>The three marks</h2>
+<p>Each channel's law is the linear contraction with its rate: camera x/(1+rλ), glide x·(1+rλ). The perpendicular projection x is itself a rig's reading — the corner rig r<sub>u</sub> = r<sub>v</sub> = 0, present in every section as the plumb drop. So the section shows one point under three rigs at once, and the ledger's X<sub>g</sub>·X<sub>c</sub> = x² is the mirror relation binding the trio: the glide and camera marks are inverse about true size.</p>
+
+<h2>The slab and λ</h2>
+<p>The slab is the depth interval from the picture plane to the deepest content — the working space of the apparatus, where the grain is declared and depth is bracketed 0→1. λ = (z − z<sub>plane</sub>)/L is depth from the picture plane in slab units: λ = 0 at the plane, where both gauges read 1 and the plane is metric — true size and shape, floor of depth for glide, window of scale for the camera. The laws extend beyond the slab (in front of the plane the two marks trade places about x); the one forbidden depth is a slit's own, where the glide mark collapses and the camera blows up. The slab is where the calibration lives, not where the geometry stops.</p>
+
+<h2>Notes</h2>
+<p>The two dashed verticals are level planes in edge view: the point's own — where glide evaluates before the horizontal transfer carries the height back to the plane — and the back wall, the slab's far side (level 16 on the measured board). Each rate is the reciprocal of its slit's distance to the plane in slab units, so the r = 0 edges of the square need a slit at infinity: the pushbrooms and the corner are limits, not positions. Only the u channel is drawn; the v slit sits on the axis feeding r<sub>v</sub> and Δ, its rulings living in the perpendicular plane. And the depth axis itself is the x = 0 ruling — fused at every rig, the gold cross of The Address (observation raised in session, kept here as a flag, not a theorem).</p>
+
+<p class="foot">Reading-sessions companion · 4 September 2026 · built from the session-4 thread on The Address. Reference sheet, deliberately unlinked. Checks: check_the_section.js, 12/12 (mirror identity, plane datum, seam membership under plane slides, orthographic limit with first-order rate, seam cubic, λ re-graduation).</p>
+</div>
+
+<script>
+(function(){
+"use strict";
+var L=120, axY=340, zS=700, zBack=790, hTrue=90, sY=axY-hTrue;
+var st={zU:240, zV:160, zP:400};
+function $(id){return document.getElementById(id)}
+function seg(el,x1,y1,x2,y2){el.setAttribute('x1',x1);el.setAttribute('y1',y1);el.setAttribute('x2',x2);el.setAttribute('y2',y2)}
+var NS='http://www.w3.org/2000/svg';
+function upd(){
+var Su=st.zP-st.zU, Sv=st.zP-st.zV;
+var ru=L/Su, rv=L/Sv;
+var lam=(zS-st.zP)/L;
+var yc=axY-hTrue*Su/(Su+lam*L);
+var hg=hTrue*(1+ru*lam), yg=Math.max(axY-hg,38);
+$('slab').setAttribute('x',st.zP);
+$('slab').setAttribute('width',Math.max(0,zBack-st.zP));
+$('slabLbl').setAttribute('x',st.zP+12);
+seg($('plane'),st.zP,40,st.zP,360);
+$('planeLbl').setAttribute('x',st.zP);$('planeLbl').setAttribute('y',378);
+seg($('camRay'),zS,sY,st.zU,axY);
+seg($('gliRay'),st.zU,axY,zS,axY-hg);
+seg($('gliXfer'),zS,yg,st.zP,yg);
+seg($('extX'),zS,sY,814,sY);
+seg($('extXc'),st.zP,yc,832,yc);
+seg($('extXg'),zS,yg,850,yg);
+seg($('dimX'),812,sY,812,axY);
+seg($('dimXc'),830,yc,830,axY);
+seg($('dimXg'),848,yg,848,axY);
+seg($('srX'),808,sY,816,sY);
+seg($('srXc'),826,yc,834,yc);
+seg($('srXg'),844,yg,852,yg);
+$('dLx').setAttribute('x',812);$('dLx').setAttribute('y',sY-8);
+$('dLxc').setAttribute('x',830);$('dLxc').setAttribute('y',yc+20);
+$('dLxg').setAttribute('x',848);$('dLxg').setAttribute('y',Math.max(yg-8,28));
+seg($('tickT'),st.zP-7,sY,st.zP+7,sY);
+seg($('tickC'),st.zP-7,yc,st.zP+7,yc);
+seg($('tickG'),st.zP-7,yg,st.zP+7,yg);
+$('tLg').setAttribute('x',st.zP-11);$('tLg').setAttribute('y',yg-5);
+$('tLf').setAttribute('x',st.zP-11);$('tLf').setAttribute('y',sY+5);
+$('tLc').setAttribute('x',st.zP-11);$('tLc').setAttribute('y',Math.max(yc+16,sY+24));
+['hP','hPd'].forEach(function(i){$(i).setAttribute('cx',st.zP);$(i).setAttribute('cy',axY)});
+['hU','hUd'].forEach(function(i){$(i).setAttribute('cx',st.zU);$(i).setAttribute('cy',axY)});
+['hV','hVd'].forEach(function(i){$(i).setAttribute('cx',st.zV);$(i).setAttribute('cy',axY)});
+$('lU').setAttribute('x',st.zU);$('lU').setAttribute('y',axY+24);
+$('lV').setAttribute('x',st.zV);$('lV').setAttribute('y',axY+24);
+var R=$('lamRuler');
+while(R.firstChild)R.removeChild(R.firstChild);
+for(var k=0;st.zP+k*L<=zBack+1;k++){
+var zx=st.zP+k*L;
+var t=document.createElementNS(NS,'line');
+t.setAttribute('x1',zx);t.setAttribute('y1',335);t.setAttribute('x2',zx);t.setAttribute('y2',345);
+t.setAttribute('stroke','#6b675e');t.setAttribute('stroke-width','1');
+R.appendChild(t);
+var n=document.createElementNS(NS,'text');
+n.setAttribute('x',zx);n.setAttribute('y',362);n.setAttribute('font-size','13');
+n.setAttribute('fill','#6b675e');n.setAttribute('text-anchor','middle');
+n.textContent=(k===0?'λ 0':''+k);
+R.appendChild(n);
+}
+var cru=Math.min(ru,1), crv=Math.min(rv,1);
+$('addr').setAttribute('cx',24+180*cru);$('addr').setAttribute('cy',190-180*crv);
+$('oRu').textContent=ru.toFixed(2);$('oRv').textContent=rv.toFixed(2);
+$('oL').textContent=lam.toFixed(2);
+var D=ru*rv*(rv-ru);
+$('oD').textContent=D.toFixed(4);
+var xc=hTrue*Su/(Su+lam*L);
+$('oM').textContent=(hg*xc/(hTrue*hTrue)).toFixed(4);
+var seam=Math.abs(ru-rv)<0.015;
+$('oB').textContent=seam?'seam — fused':'split — the camera peels';
+$('oB').style.color=seam?'#854F0B':'#993C1D';
+}
+var drag=null;
+function down(key){return function(e){e.preventDefault();drag={key:key,id:e.pointerId}}}
+$('hU').addEventListener('pointerdown',down('zU'));
+$('hV').addEventListener('pointerdown',down('zV'));
+$('hP').addEventListener('pointerdown',down('zP'));
+window.addEventListener('pointermove',function(e){
+if(!drag||e.pointerId!==drag.id)return;
+var svg=$('sec'),r=svg.getBoundingClientRect();
+var x=(e.clientX-r.left)*900/r.width;
+if(drag.key==='zP'){st.zP=Math.min(580,Math.max(Math.max(260,Math.max(st.zU,st.zV)+44),x));}
+else{st[drag.key]=Math.min(st.zP-44,Math.max(50,x));}
+upd();
+});
+window.addEventListener('pointerup',function(e){if(drag&&e.pointerId===drag.id)drag=null});
+window.addEventListener('pointercancel',function(){drag=null});
+$('bEq').addEventListener('click',function(){st.zV=st.zU;upd()});
+$('bSp').addEventListener('click',function(){st.zU=240;st.zV=160;st.zP=400;upd()});
+upd();
+})();
+</script>
+</body>
+</html>
