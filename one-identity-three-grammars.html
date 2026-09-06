@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>One identity, three grammars</title>
+<style>
+  body{background:#F7F2E6;color:#2A2823;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;margin:0;
+       padding:26px 16px calc(28px + env(safe-area-inset-bottom));}
+  main{max-width:880px;margin:0 auto;}
+  h1{font-size:25px;margin:0 0 4px;}
+  h2{font-size:19px;margin:2.4em 0 .5em;}
+  p{line-height:1.55;max-width:74ch;font-size:16px;}
+  .sub{color:#5c564a;font-size:15px;margin-top:2px;}
+  .thesis{border-left:4px solid #2A2823;background:#EFE7D2;padding:13px 18px;margin:22px 0;max-width:74ch;}
+  .thesis p{margin:.4em 0;}
+  .fig{background:#FDFAF1;border:1px solid #E2D8BD;border-radius:8px;padding:12px 12px 8px;margin:16px 0;}
+  .fig svg{display:block;width:100%;height:auto;}
+  .mono{font-family:Menlo,Consolas,'Courier New',monospace;font-size:13.5px;color:#3a362d;}
+  .cap{font-size:14.5px;color:#5c564a;margin:8px 2px 0;line-height:1.5;max-width:78ch;}
+  .ctrl{display:flex;align-items:center;gap:12px;margin:6px 0 10px;flex-wrap:wrap;}
+  .ctrl label{font-size:14.5px;color:#5c564a;white-space:nowrap;}
+  input[type=range]{flex:1;min-width:160px;accent-color:#0F6E56;}
+  button{background:#FBF8F0;border:1px solid #9c8f6d;border-radius:7px;padding:7px 14px;font:inherit;
+         font-size:14px;color:#2A2823;cursor:pointer;}
+  button:active{transform:scale(.98);}
+  .seam{color:#9a5f12;font-size:14px;display:none;margin:4px 0 8px;}
+  table{border-collapse:collapse;font-size:14.5px;margin:12px 0;}
+  th,td{text-align:left;padding:7px 16px 7px 0;border-bottom:1px solid #E2D8BD;vertical-align:top;}
+  th{font-weight:bold;}
+  a{color:#0F6E56;}
+  footer{margin-top:3em;padding-top:14px;border-top:1px solid #D8CDAE;font-size:13.5px;color:#6b6455;line-height:1.6;}
+  strong{color:#1f1d18;}
+</style>
+</head>
+<body>
+<main>
+
+<h1>One identity, three grammars</h1>
+<p class="sub">Xg·Xc = x² proved by areas, by the compass, and by the mirror — with the ancestor figure that held all three before they had names</p>
+
+<div class="thesis">
+  <p><strong>Thesis.</strong> The mirror identity has three proofs, and they are written in three different grammars.
+  <strong>Euclid I.43</strong> proves it with areas and a straightedge — the <strong>anchorless</strong> grammar, no circle drawn, no unit declared.
+  The <strong>semicircle altitude</strong> proves it with one compass stroke — the <strong>anchored</strong> grammar, the circle playing exactly the role of the marked-conic anchor (§8.3′): one curve that converts projective data into metric conclusions.
+  The <strong>mirror circle</strong> proves it inversively — the engine's native reading, where the identity becomes an incidence (a harmonic range) and so survives projection.
+  One identity, three tools; and the split between them is the anchorless/anchored divide of the larger program.</p>
+</div>
+
+<p><strong>The cast.</strong> One scene point, three marks on the picture plane: the glide mark <strong>Xg</strong> (teal), the perpendicular projection <strong>x</strong> (black, the corner rig's reading), and the camera mark <strong>Xc</strong> (purple). The gauges are multiplicative — Xg = x·(1+s), Xc = x/(1+s) — with <strong>s = rλ = z/d</strong>: the point's depth behind the plane measured in units of the slit's own distance in front of it. One s per channel; this page reads the u channel. One slider drives the first three figures, because the three proofs are functions of the same single variable — watching them move together is watching one identity wear three costumes.</p>
+
+<div class="ctrl">
+  <label>s = rλ</label>
+  <input type="range" id="s" min="0" max="1.6" step="0.01" value="1">
+  <span class="mono" id="sval">1.00</span>
+  <button id="bseam">Seam · s = 0</button>
+  <button id="bsplit">Split · s = 1</button>
+</div>
+<div class="mono" id="r0">Xg = 2.00·x &nbsp; Xc = 0.50·x &nbsp; Xg·Xc / x² = 1.0000</div>
+<div class="seam" id="seamnote">s = 0 — the seam: the three marks fuse at x and every proof below collapses to a tautology. A tautology needs no proof in any grammar.</div>
+
+<h2>Grammar I — areas. Euclid I.43, straightedge only</h2>
+<div class="fig">
+<svg viewBox="0 0 720 352" role="img" aria-label="Two diagonals from the slit; complements about each are equal areas A and B">
+  <line x1="40" y1="300" x2="690" y2="300" stroke="#8f8874" stroke-width="0.75"/>
+  <rect id="f1AL" x="80" y="118" width="150" height="112" fill="#534AB7" fill-opacity="0.14" stroke="#534AB7" stroke-width="1.2"/>
+  <rect id="f1AR" x="230" y="230" width="150" height="70" fill="#534AB7" fill-opacity="0.14" stroke="#534AB7" stroke-width="1.2"/>
+  <rect id="f1BL" x="80" y="230" width="150" height="35" fill="#B8791A" fill-opacity="0.16" stroke="#B8791A" stroke-width="1.2"/>
+  <rect id="f1BR" x="230" y="265" width="150" height="35" fill="#B8791A" fill-opacity="0.16" stroke="#B8791A" stroke-width="1.2"/>
+  <line id="f1lvl" x1="380" y1="118" x2="380" y2="300" stroke="#8f8874" stroke-width="0.75" stroke-dasharray="4 4"/>
+  <line id="f1g" x1="80" y1="300" x2="380" y2="118" stroke="#147A5C" stroke-width="1.6"/>
+  <line id="f1c" x1="80" y1="300" x2="380" y2="230" stroke="#534AB7" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <line x1="230" y1="96" x2="230" y2="318" stroke="#2A2823" stroke-width="1.2"/>
+  <circle cx="80" cy="300" r="4" fill="#7a3c1d"/>
+  <circle id="f1pt" cx="380" cy="230" r="4" fill="#C7401F"/>
+  <text id="f1tXg" x="222" y="122" text-anchor="end" font-size="13" fill="#0F6E56">Xg</text>
+  <text id="f1tX"  x="222" y="234" text-anchor="end" font-size="13" fill="#2A2823">x</text>
+  <text id="f1tXc" x="222" y="269" text-anchor="end" font-size="13" fill="#534AB7">Xc</text>
+  <text id="f1A1" x="155" y="180" text-anchor="middle" font-size="14" fill="#534AB7">A</text>
+  <text id="f1A2" x="300" y="268" text-anchor="middle" font-size="14" fill="#534AB7">A</text>
+  <text id="f1B1" x="155" y="252" text-anchor="middle" font-size="14" fill="#B8791A">B</text>
+  <text x="80" y="320" text-anchor="middle" font-size="13" fill="#5c564a">u</text>
+  <text x="230" y="336" text-anchor="middle" font-size="12" fill="#8f8874">picture plane</text>
+  <text id="f1lbl" x="388" y="316" text-anchor="start" font-size="12" fill="#8f8874">level plane of the point</text>
+</svg>
+<div class="mono" id="r1">A = A = 1.000·dx &nbsp; B = B = 0.500·dx</div>
+<div class="cap"><strong>The glide diagonal</strong> (teal, from the slit u through x on the plane to Xg at the point's level) is the diameter of one rectangle; <strong>the camera diagonal</strong> (purple, from u straight to the point through Xc) is the diameter of another. By I.43 the complements about each diagonal are equal: d(Xg − x) = z·x and d(x − Xc) = z·Xc. Divide the two equalities and Xg·Xc = x² falls out. Every move is incidence and area bookkeeping — no compass, no unit. Left of the plane the paired strips sit <strong>adjacent</strong>; right of it they sit <strong>stacked</strong> — the same trade the marks make about x in front of the plane.</div>
+</div>
+
+<h2>Grammar II — the compass. Semicircle altitude</h2>
+<div class="fig">
+<svg viewBox="0 0 720 300" role="img" aria-label="Xg and Xc laid end to end as diameter; the altitude at the junction has length x">
+  <line x1="90" y1="250" x2="630" y2="250" stroke="#8f8874" stroke-width="0.75"/>
+  <path id="f2arc" d="" fill="none" stroke="#5c564a" stroke-width="1.2"/>
+  <line id="f2chL" x1="0" y1="0" x2="0" y2="0" stroke="#8f8874" stroke-width="0.7"/>
+  <line id="f2chR" x1="0" y1="0" x2="0" y2="0" stroke="#8f8874" stroke-width="0.7"/>
+  <polyline id="f2sq" points="0,0 0,0 0,0" fill="none" stroke="#8f8874" stroke-width="0.7"/>
+  <line id="f2sg" x1="0" y1="250" x2="0" y2="250" stroke="#147A5C" stroke-width="4"/>
+  <line id="f2sc" x1="0" y1="250" x2="0" y2="250" stroke="#534AB7" stroke-width="4"/>
+  <line id="f2alt" x1="0" y1="250" x2="0" y2="180" stroke="#2A2823" stroke-width="1.8"/>
+  <text id="f2tG" x="0" y="272" text-anchor="middle" font-size="13" fill="#0F6E56">Xg</text>
+  <text id="f2tC" x="0" y="272" text-anchor="middle" font-size="13" fill="#534AB7">Xc</text>
+  <text id="f2tX" x="0" y="0" text-anchor="start" font-size="13" fill="#2A2823">x</text>
+</svg>
+<div class="cap"><strong>Lay Xg and Xc end to end</strong> as a diameter and erect the perpendicular at the junction. Thales gives a right angle where it meets the arc; similarity at the altitude gives Xg : x = x : Xc directly. Slide s and watch the invariant this grammar exposes: <strong>the diameter redistributes, the altitude never changes length</strong>. The proof cannot be run with a straightedge alone — the circle is the added instrument, the anchor that turns a product into a length.</div>
+</div>
+
+<h2>Grammar III — the mirror. Inversion and the tangent witness</h2>
+<div class="fig">
+<svg viewBox="0 0 720 306" role="img" aria-label="Xg and Xc as an inverse pair in the mirror circle of radius x; tangent from the origin touches on the mirror; harmonic range with minus x">
+  <line x1="60" y1="150" x2="600" y2="150" stroke="#8f8874" stroke-width="0.75"/>
+  <circle cx="210" cy="150" r="70" fill="none" stroke="#2A2823" stroke-width="1.2"/>
+  <circle id="f3c2" cx="0" cy="150" r="1" fill="none" stroke="#534AB7" stroke-width="1.2"/>
+  <line id="f3tan" x1="210" y1="150" x2="0" y2="0" stroke="#147A5C" stroke-width="1.6"/>
+  <polyline id="f3sq" points="0,0 0,0 0,0" fill="none" stroke="#8f8874" stroke-width="0.7"/>
+  <circle id="f3P" cx="0" cy="0" r="3.5" fill="#0F6E56"/>
+  <circle cx="210" cy="150" r="3" fill="#2A2823"/>
+  <line x1="140" y1="143" x2="140" y2="157" stroke="#5c564a" stroke-width="1.2"/>
+  <line id="f3kC" x1="0" y1="143" x2="0" y2="157" stroke="#534AB7" stroke-width="1.2"/>
+  <line x1="280" y1="143" x2="280" y2="157" stroke="#2A2823" stroke-width="1.2"/>
+  <line id="f3kG" x1="0" y1="143" x2="0" y2="157" stroke="#0F6E56" stroke-width="1.2"/>
+  <line x1="140" y1="160" x2="140" y2="238" stroke="#b5ab8e" stroke-width="0.6" stroke-dasharray="2 3"/>
+  <line x1="280" y1="160" x2="280" y2="238" stroke="#b5ab8e" stroke-width="0.6" stroke-dasharray="2 3"/>
+  <line id="f3lC0" x1="0" y1="160" x2="0" y2="260" stroke="#b5ab8e" stroke-width="0.6" stroke-dasharray="2 3"/>
+  <line id="f3lG0" x1="0" y1="160" x2="0" y2="260" stroke="#b5ab8e" stroke-width="0.6" stroke-dasharray="2 3"/>
+  <text x="140" y="254" text-anchor="middle" font-size="13" fill="#5c564a">−x</text>
+  <text x="280" y="254" text-anchor="middle" font-size="13" fill="#2A2823">x</text>
+  <text id="f3lC" x="0" y="276" text-anchor="middle" font-size="13" fill="#534AB7">Xc</text>
+  <text id="f3lG" x="0" y="276" text-anchor="middle" font-size="13" fill="#0F6E56">Xg</text>
+  <text x="210" y="136" text-anchor="middle" font-size="12" fill="#8f8874">0</text>
+</svg>
+<div class="mono" id="r3">(Xg, Xc; x, −x) = −1.000 &nbsp; tangent length = 1.000·x</div>
+<div class="cap"><strong>Xg and Xc are inverse in the mirror circle</strong> of radius x about the slits-axis origin. Two witnesses, both incidences. The <strong>tangent witness</strong>: the tangent from 0 to any circle through the pair touches exactly on the mirror circle, its length locked at x wherever the slider sits (equivalently, that circle is orthogonal to the mirror). The <strong>harmonic witness</strong>: (Xg, Xc; x, −x) = −1 — the mark and its reflection through the slits axis separate the pair harmonically. The axis acts as <strong>mirror, not floor</strong>. Grammar II states the identity as a length; this grammar states it as an incidence, which is what survives projection.</div>
+</div>
+
+<h2>The ancestor — OAB + BPD = OP2</h2>
+<p>The <a href="https://flyingsticks.github.io/Overflow/harmonic_area_identity.html">Overflow figure</a> held all three grammars in one drawing before they had names. B slides on the top edge; P is pinned where the diagonal OD meets the line from B to the corner; the two pink triangles always sum to the blue one.</p>
+
+<div class="ctrl">
+  <label>B</label>
+  <input type="range" id="b" min="0.02" max="1.98" step="0.005" value="1">
+  <span class="mono" id="bval">1.000</span>
+  <button data-b="1">B → 2 (½)</button>
+  <button data-b="1.3333333333">B → 3 (⅓)</button>
+  <button data-b="1.5">B → 4 (¼)</button>
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 720 530" role="img" aria-label="Rectangle with diagonal, sliding B, fan to the corner cutting the reciprocal ladder, square-root ladder on the bottom, semicircle on AD with altitude at B">
+  <path d="M 120 280 A 170 170 0 0 1 460 280" fill="none" stroke="#8f8874" stroke-width="0.9"/>
+  <line x1="120" y1="280" x2="120" y2="105" stroke="#8f8874" stroke-width="0.6" stroke-dasharray="3 4"/>
+  <line x1="113" y1="110" x2="127" y2="110" stroke="#5c564a" stroke-width="1"/>
+  <text x="106" y="114" text-anchor="end" font-size="12" fill="#5c564a">2</text>
+  <text x="106" y="284" text-anchor="end" font-size="12" fill="#5c564a">1</text>
+  <g id="f4fan"></g>
+  <polygon id="f4OPC" points="120,450 290,365 460,450" fill="#2F6FB0" fill-opacity="0.22" stroke="#2F6FB0" stroke-width="1"/>
+  <polygon id="f4OAB" points="120,450 120,280 290,280" fill="#D4537E" fill-opacity="0.26" stroke="#D4537E" stroke-width="1"/>
+  <polygon id="f4BPD" points="290,280 346,336 460,280" fill="#D4537E" fill-opacity="0.26" stroke="#D4537E" stroke-width="1"/>
+  <rect x="120" y="280" width="340" height="170" fill="none" stroke="#2A2823" stroke-width="1.1"/>
+  <line x1="120" y1="450" x2="460" y2="280" stroke="#2A2823" stroke-width="1"/>
+  <line id="f4BC" x1="290" y1="280" x2="460" y2="450" stroke="#7a3c1d" stroke-width="1.2"/>
+  <line id="f4chA" x1="120" y1="280" x2="290" y2="110" stroke="#8f8874" stroke-width="0.6"/>
+  <line id="f4chD" x1="460" y1="280" x2="290" y2="110" stroke="#8f8874" stroke-width="0.6"/>
+  <polyline id="f4sq" points="0,0 0,0 0,0" fill="none" stroke="#8f8874" stroke-width="0.7"/>
+  <line id="f4alt" x1="290" y1="280" x2="290" y2="110" stroke="#2A2823" stroke-width="1.6"/>
+  <circle id="f4B" cx="290" cy="280" r="4" fill="#7a3c1d"/>
+  <circle id="f4Bp" cx="290" cy="110" r="3.5" fill="#2A2823"/>
+  <circle id="f4P" cx="346" cy="336" r="3.5" fill="#2A2823"/>
+  <text id="f4tB" x="290" y="297" text-anchor="middle" font-size="13" fill="#7a3c1d">B</text>
+  <text id="f4tBp" x="300" y="106" text-anchor="start" font-size="13" fill="#2A2823">B′</text>
+  <text id="f4tP" x="356" y="342" text-anchor="start" font-size="13" fill="#2A2823">P</text>
+  <text x="106" y="456" text-anchor="end" font-size="13" fill="#2A2823">O</text>
+  <text x="474" y="456" text-anchor="start" font-size="13" fill="#2A2823">2</text>
+  <text x="106" y="270" text-anchor="end" font-size="13" fill="#2A2823">A</text>
+  <text x="466" y="270" text-anchor="start" font-size="13" fill="#2A2823">D</text>
+  <text x="500" y="266" text-anchor="start" font-size="11.5" fill="#8f8874">values → 0 · λ = ∞</text>
+  <g id="f4sqrt"></g>
+</svg>
+<div class="mono" id="r4">OAB 0.500 · BPD 0.167 · sum 0.667 · OP2 0.667 ✓ · value 0.500 · altitude BB′ 1.000</div>
+<div class="cap"><strong>Same grammar as Figure 1.</strong> Triangle OAD (half the rectangle, cut by the diagonal) and triangle OB2 both have area 1 — the second because B rides a parallel to the base, Euclid <strong>I.37</strong>. The equal totals share OBP; subtract the shared piece and the theorem is what remains. Decompose the whole two ways, cancel the common part — exactly the move by which Euclid proves I.43 itself. Anchorless: straightedge and area bookkeeping.</div>
+<div class="cap"><strong>Same compass gadget as Figure 2, cast in the dual role.</strong> There the altitude is pinned at x while the diameter Xg + Xc breathes — the gadget verifies a conjugate pair. Here the diameter AD is fixed while the split slides with B, so B′ rides the arc and the altitude √(AB·BD) varies — the gadget translates between the reciprocal register above and the √ register below. One anchor, two jobs: certify a product, or exchange currencies between graduations.</div>
+<div class="cap"><strong>Same slot machinery as Figure 3.</strong> The fan from the corner through integer heights on the left edge prints the reciprocal ladder 1, ½, ⅓, … on the top edge — equal steps in, harmonic out. Dictionary: corner = slit, left edge = the equally spaced register, top edge = picture plane, D = the accumulation point, image of λ = ∞. Each fan line crosses the diagonal at n/(n+1): the same net read from the other end. The 1/n net is constructible by incidence alone, so this layer is the projective grammar wearing older clothes.</div>
+</div>
+
+<h2>The ledger</h2>
+<table>
+  <tr><th>Grammar</th><th>Instrument</th><th>The identity appears as</th><th>Where</th></tr>
+  <tr><td>Anchorless</td><td>Straightedge, areas</td><td>Two I.43 equalities; divide and cancel</td><td>Figure 1 · ancestor (via I.37)</td></tr>
+  <tr><td>Anchored</td><td>Compass — the marked-conic anchor</td><td>A length: the altitude is the mean proportional</td><td>Figure 2 · ancestor (fixed-diameter dual)</td></tr>
+  <tr><td>Inversive / projective</td><td>Mirror circle, cross-ratio</td><td>An incidence: tangent witness; (Xg, Xc; x, −x) = −1</td><td>Figure 3 · ancestor (reciprocal ladder)</td></tr>
+</table>
+<p>At s = 0 — the seam — Xg, x, Xc fuse and all three proofs go silent at once. The identity holds there too; it just no longer needs an argument.</p>
+
+<footer>
+  Reference — one identity, three grammars · 6 September 2026 · built from the three-grammars session ·
+  companion to <a href="https://flyingsticks.github.io/reading-sessions/the-section.html">the-section.html</a> and
+  <a href="https://flyingsticks.github.io/Overflow/harmonic_area_identity.html">harmonic_area_identity.html</a> ·
+  checks: check_one_identity_three_grammars.js — 19/19 ·
+  <span id="lcheck" class="mono">live checks 8/8 ✓</span> re-run on every input
+</footer>
+
+</main>
+<script>
+(function(){
+  var X=70, DD=150, U=80, PP=230, B1=300;
+  var C2x=360, B2=250;
+  var O3=210, Y3=150;
+  var U4=170, Ox=120, Oy=450, Ay=280, Dx=460;
+  function g(id){return document.getElementById(id);}
+  function corner(id, ax,ay, cx,cy, bx,by, len){
+    var u1x=ax-cx,u1y=ay-cy,n1=Math.hypot(u1x,u1y)||1;u1x*=len/n1;u1y*=len/n1;
+    var u2x=bx-cx,u2y=by-cy,n2=Math.hypot(u2x,u2y)||1;u2x*=len/n2;u2y*=len/n2;
+    g(id).setAttribute('points',(cx+u1x)+','+(cy+u1y)+' '+(cx+u1x+u2x)+','+(cy+u1y+u2y)+' '+(cx+u2x)+','+(cy+u2y));
+  }
+  var near=function(a,b){return Math.abs(a-b)<1e-9;};
+
+  function upd(){
+    var s=parseFloat(g('s').value);
+    var Xg=X*(1+s), Xc=X/(1+s), P=PP+DD*s;
+    g('sval').textContent=s.toFixed(2);
+    g('r0').innerHTML='Xg = '+(1+s).toFixed(2)+'·x &nbsp; Xc = '+(1/(1+s)).toFixed(2)+'·x &nbsp; Xg·Xc / x² = '+((Xg*Xc)/(X*X)).toFixed(4);
+    var fused = s<0.2, hid = fused?0:1;
+    g('seamnote').style.display = (s<0.02)?'block':'none';
+
+    var e=g('f1AL'); e.setAttribute('y',B1-Xg); e.setAttribute('height',Math.max(Xg-X,0.01));
+    e=g('f1BL'); e.setAttribute('y',B1-X); e.setAttribute('height',Math.max(X-Xc,0.01));
+    e=g('f1AR'); e.setAttribute('y',B1-X); e.setAttribute('height',X); e.setAttribute('width',Math.max(P-PP,0.01));
+    e=g('f1BR'); e.setAttribute('y',B1-Xc); e.setAttribute('height',Xc); e.setAttribute('width',Math.max(P-PP,0.01));
+    g('f1g').setAttribute('x2',P); g('f1g').setAttribute('y2',B1-Xg);
+    g('f1c').setAttribute('x2',P); g('f1c').setAttribute('y2',B1-X);
+    g('f1pt').setAttribute('cx',P); g('f1pt').setAttribute('cy',B1-X);
+    g('f1lvl').setAttribute('x1',P); g('f1lvl').setAttribute('x2',P); g('f1lvl').setAttribute('y1',B1-Xg);
+    g('f1lbl').setAttribute('x',P+8);
+    g('f1tXg').setAttribute('y',B1-Xg+4); g('f1tXc').setAttribute('y',B1-Xc+4);
+    g('f1tXg').setAttribute('opacity',hid); g('f1tXc').setAttribute('opacity',hid);
+    g('f1A1').setAttribute('y',B1-(X+Xg)/2+5); g('f1B1').setAttribute('y',B1-(Xc+X)/2+5);
+    g('f1A1').setAttribute('opacity',hid); g('f1B1').setAttribute('opacity',hid);
+    g('f1A2').setAttribute('x',(PP+P)/2); g('f1A2').setAttribute('y',B1-X/2+5);
+    g('f1A2').setAttribute('opacity',fused?0:1);
+    g('r1').textContent='A = A = '+s.toFixed(3)+'\u00B7dx \u00A0 B = B = '+(s/(1+s)).toFixed(3)+'\u00B7dx';
+
+    var r=(Xg+Xc)/2, L=C2x-r, R=C2x+r, J=L+Xg, ay=B2-X;
+    g('f2arc').setAttribute('d','M '+L+' '+B2+' A '+r+' '+r+' 0 0 1 '+R+' '+B2);
+    g('f2chL').setAttribute('x1',L); g('f2chL').setAttribute('y1',B2); g('f2chL').setAttribute('x2',J); g('f2chL').setAttribute('y2',ay);
+    g('f2chR').setAttribute('x1',R); g('f2chR').setAttribute('y1',B2); g('f2chR').setAttribute('x2',J); g('f2chR').setAttribute('y2',ay);
+    corner('f2sq', L,B2, J,ay, R,B2, 9);
+    g('f2sg').setAttribute('x1',L); g('f2sg').setAttribute('x2',J);
+    g('f2sc').setAttribute('x1',J); g('f2sc').setAttribute('x2',R);
+    g('f2alt').setAttribute('x1',J); g('f2alt').setAttribute('x2',J); g('f2alt').setAttribute('y1',B2); g('f2alt').setAttribute('y2',ay);
+    g('f2tG').setAttribute('x',(L+J)/2); g('f2tC').setAttribute('x',(J+R)/2);
+    g('f2tX').setAttribute('x',J+7); g('f2tX').setAttribute('y',B2-X/2+4);
+    g('f2tG').setAttribute('opacity',hid); g('f2tC').setAttribute('opacity',hid);
+
+    var m=(Xg+Xc)/2, rho=(Xg-Xc)/2, mx=O3+m;
+    g('f3c2').setAttribute('cx',mx); g('f3c2').setAttribute('r',Math.max(rho,0.01));
+    var ca=Math.min(X/m,1), sa=Math.sqrt(Math.max(1-ca*ca,0));
+    var px=O3+X*ca, py=Y3-X*sa;
+    g('f3tan').setAttribute('x2',px); g('f3tan').setAttribute('y2',py);
+    g('f3P').setAttribute('cx',px); g('f3P').setAttribute('cy',py);
+    corner('f3sq', O3,Y3, px,py, mx,Y3, 7);
+    var pC=O3+Xc, pG=O3+Xg;
+    g('f3kC').setAttribute('x1',pC); g('f3kC').setAttribute('x2',pC);
+    g('f3kG').setAttribute('x1',pG); g('f3kG').setAttribute('x2',pG);
+    g('f3lC0').setAttribute('x1',pC); g('f3lC0').setAttribute('x2',pC);
+    g('f3lG0').setAttribute('x1',pG); g('f3lG0').setAttribute('x2',pG);
+    g('f3lC').setAttribute('x',pC); g('f3lG').setAttribute('x',pG);
+    [['f3lC',hid],['f3lG',hid],['f3lC0',hid],['f3lG0',hid]].forEach(function(a){g(a[0]).setAttribute('opacity',a[1]);});
+    var cr = s>1e-9 ? ((X-Xg)*(-X-Xc))/(((X-Xc)*(-X-Xg))) : -1;
+    var tl = Math.sqrt(Math.max(m*m-rho*rho,0))/X;
+    g('r3').innerHTML='(Xg, Xc; x, \u2212x) = '+cr.toFixed(3)+' \u00A0 tangent length = '+tl.toFixed(3)+'\u00B7x';
+    updB(); lc();
+  }
+
+  function shoe(p){var t=0;for(var i=0;i<p.length;i++){var a=p[i],b=p[(i+1)%p.length];t+=a[0]*b[1]-b[0]*a[1];}return Math.abs(t)/2;}
+
+  function updB(){
+    var b=parseFloat(g('b').value);
+    g('bval').textContent=b.toFixed(3);
+    var Bx=Ox+U4*b, Ppx=Ox+U4*4/(4-b), Ppy=Oy-U4*2/(4-b);
+    var h=Math.sqrt(b*(2-b)), Bpy=Ay-U4*h;
+    g('f4OPC').setAttribute('points',Ox+','+Oy+' '+Ppx+','+Ppy+' '+Dx+','+Oy);
+    g('f4OAB').setAttribute('points',Ox+','+Oy+' '+Ox+','+Ay+' '+Bx+','+Ay);
+    g('f4BPD').setAttribute('points',Bx+','+Ay+' '+Ppx+','+Ppy+' '+Dx+','+Ay);
+    g('f4BC').setAttribute('x1',Bx); g('f4BC').setAttribute('y1',Ay);
+    g('f4chA').setAttribute('x2',Bx); g('f4chA').setAttribute('y2',Bpy);
+    g('f4chD').setAttribute('x2',Bx); g('f4chD').setAttribute('y2',Bpy);
+    corner('f4sq', Ox,Ay, Bx,Bpy, Dx,Ay, 9);
+    g('f4alt').setAttribute('x1',Bx); g('f4alt').setAttribute('x2',Bx); g('f4alt').setAttribute('y2',Bpy);
+    g('f4B').setAttribute('cx',Bx); g('f4Bp').setAttribute('cx',Bx); g('f4Bp').setAttribute('cy',Bpy);
+    g('f4P').setAttribute('cx',Ppx); g('f4P').setAttribute('cy',Ppy);
+    g('f4tB').setAttribute('x',Bx);
+    g('f4tBp').setAttribute('x',Bx+10); g('f4tBp').setAttribute('y',Bpy-4);
+    g('f4tP').setAttribute('x',Ppx+10); g('f4tP').setAttribute('y',Ppy+6);
+    var O=[0,0],A=[0,1],D=[2,1],C=[2,0],B=[b,1],Pt=[4/(4-b),2/(4-b)];
+    var OAB=shoe([O,A,B]), BPD=shoe([B,Pt,D]), OPC=shoe([O,Pt,C]);
+    var okA = Math.abs(OAB+BPD-OPC)<1e-9;
+    g('r4').textContent='OAB '+OAB.toFixed(3)+' \u00B7 BPD '+BPD.toFixed(3)+' \u00B7 sum '+(OAB+BPD).toFixed(3)+
+      ' \u00B7 OP2 '+OPC.toFixed(3)+(okA?' \u2713':' \u2717')+' \u00B7 value '+((2-b)/2).toFixed(3)+
+      ' \u00B7 altitude BB\u2032 '+h.toFixed(3);
+  }
+
+  function lc(){
+    var s=parseFloat(g('s').value), b=parseFloat(g('b').value);
+    var x=1, Xg=1+s, Xc=1/(1+s), z=s, pass=0, tot=8;
+    if (near(Xg*Xc,1)) pass++;
+    if (near(1*(Xg-x), z*x)) pass++;
+    if (near(1*(x-Xc), z*Xc)) pass++;
+    if (near(Math.sqrt(Xg*Xc), x)) pass++;
+    var m=(Xg+Xc)/2, rho=(Xg-Xc)/2;
+    if (near(m*m-rho*rho, x*x)) pass++;
+    var cr = s>1e-9 ? ((x-Xg)*(-x-Xc))/(((x-Xc)*(-x-Xg))) : -1;
+    if (near(cr,-1)) pass++;
+    var O=[0,0],A=[0,1],D=[2,1],C=[2,0],B=[b,1],Pt=[4/(4-b),2/(4-b)];
+    if (near(shoe([O,A,B])+shoe([B,Pt,D]), shoe([O,Pt,C]))) pass++;
+    if (near(shoe([O,B,C]), shoe([O,A,D]))) pass++;
+    var el=g('lcheck');
+    el.textContent='live checks '+pass+'/'+tot+(pass===tot?' \u2713':' \u2717');
+    el.style.color = pass===tot ? '#0F6E56' : '#A32D2D';
+  }
+
+  var fan=g('f4fan');
+  for (var k=2;k<=8;k++){
+    var tx=Ox+U4*2*(k-1)/k;
+    var ex=Dx+(tx-Dx)*(Oy-258)/(Oy-Ay);
+    var ln=document.createElementNS('http://www.w3.org/2000/svg','line');
+    ln.setAttribute('x1',Dx); ln.setAttribute('y1',Oy); ln.setAttribute('x2',ex); ln.setAttribute('y2',258);
+    ln.setAttribute('stroke','#c3b895'); ln.setAttribute('stroke-width','0.7');
+    fan.appendChild(ln);
+    var tk=document.createElementNS('http://www.w3.org/2000/svg','line');
+    tk.setAttribute('x1',tx); tk.setAttribute('y1',273); tk.setAttribute('x2',tx); tk.setAttribute('y2',287);
+    tk.setAttribute('stroke','#5c564a'); tk.setAttribute('stroke-width','1');
+    fan.appendChild(tk);
+    if (k<=4){
+      var tv=document.createElementNS('http://www.w3.org/2000/svg','text');
+      tv.setAttribute('x',tx-5); tv.setAttribute('y',266); tv.setAttribute('text-anchor','end');
+      tv.setAttribute('font-size','12'); tv.setAttribute('fill','#5c564a');
+      tv.textContent = k===2?'\u00BD':(k===3?'\u2153':'\u00BC');
+      fan.appendChild(tv);
+    }
+  }
+  var sq=g('f4sqrt');
+  for (var q=1;q<=4;q++){
+    var qx=Ox+U4*Math.sqrt(q);
+    var tk2=document.createElementNS('http://www.w3.org/2000/svg','line');
+    tk2.setAttribute('x1',qx); tk2.setAttribute('y1',443); tk2.setAttribute('x2',qx); tk2.setAttribute('y2',457);
+    tk2.setAttribute('stroke','#B8791A'); tk2.setAttribute('stroke-width','1.2');
+    sq.appendChild(tk2);
+    var tq=document.createElementNS('http://www.w3.org/2000/svg','text');
+    tq.setAttribute('x',qx); tq.setAttribute('y',476); tq.setAttribute('text-anchor','middle');
+    tq.setAttribute('font-size','12'); tq.setAttribute('fill','#8a5b12');
+    tq.textContent='\u221A'+q;
+    sq.appendChild(tq);
+  }
+
+  g('s').addEventListener('input',upd);
+  g('b').addEventListener('input',function(){updB();lc();});
+  g('bseam').addEventListener('click',function(){g('s').value=0;upd();});
+  g('bsplit').addEventListener('click',function(){g('s').value=1;upd();});
+  document.querySelectorAll('button[data-b]').forEach(function(bt){
+    bt.addEventListener('click',function(){g('b').value=bt.getAttribute('data-b');updB();lc();});
+  });
+  upd();
+})();
+</script>
+</body>
+</html>
