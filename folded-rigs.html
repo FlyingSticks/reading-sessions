@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>u and v — two rigs folded onto one plane</title>
+<style>
+  :root{
+    --paper:#f6f2e7; --ink:#2a2a26; --muted:#6f6a5c;
+    --uCol:#8a5a2b;         /* sienna — the u channel (vertical slit, horizontal ruler) */
+    --vCol:#44489d;         /* indigo — the v channel (horizontal slit, vertical ruler) */
+    --ppCol:#2f5d3a;        /* dark green — picture plane */
+    --ptCol:#c0392b;        /* red — the point */
+    --slab:#3f8a4f;
+  }
+  html,body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    -webkit-text-size-adjust:100%;}
+  body{padding:14px clamp(10px,3vw,34px) calc(24px + env(safe-area-inset-bottom));}
+  header{max-width:1100px;margin:0 auto 6px;}
+  h1{font-size:clamp(20px,3.2vw,29px);font-weight:600;margin:.2em 0 .15em;letter-spacing:.01em;}
+  .dek{font-style:italic;color:var(--muted);margin:0 0 10px;font-size:clamp(14px,1.9vw,16.5px);line-height:1.45;max-width:72ch;}
+  .stage{max-width:1360px;margin:0 auto;}
+  svg{width:100%;height:auto;display:block;touch-action:none;user-select:none;-webkit-user-select:none;}
+  .controls{max-width:1100px;margin:10px auto 4px;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;}
+  .controls label{font-size:15px;font-style:italic;}
+  input[type=range]{width:min(300px,52vw);accent-color:var(--ppCol);}
+  button{font:inherit;font-size:15px;padding:7px 14px;background:#fffdf6;border:1.4px solid #7a745f;
+    border-radius:3px;color:var(--ink);cursor:pointer;}
+  button:active{transform:translateY(1px);}
+  button:focus-visible,input:focus-visible{outline:2px solid var(--ppCol);outline-offset:2px;}
+  .chk{display:flex;align-items:center;gap:6px;font-size:15px;font-style:italic;}
+  .caption{max-width:1100px;margin:2px auto 14px;font-style:italic;color:var(--ppCol);
+    font-size:clamp(14px,1.9vw,16px);min-height:1.4em;}
+  .panel{max-width:1100px;margin:0 auto 18px;display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:start;}
+  .readout{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:clamp(12.5px,1.7vw,14.5px);
+    line-height:1.85;white-space:pre;background:#fffdf6;border:1px solid #d8d2bd;padding:12px 16px;}
+  .legend{font-size:14.5px;line-height:1.8;padding-top:4px;}
+  .sw{display:inline-block;width:.85em;height:.85em;border-radius:50%;vertical-align:-1px;margin-right:.45em;}
+  .prose{max-width:76ch;margin:6px auto 0;font-size:clamp(15px,2vw,17px);line-height:1.62;}
+  .prose h2{font-size:1.12em;font-weight:600;font-style:italic;margin:1.35em 0 .3em;}
+  .prose p{margin:.45em 0;}
+  .prose .math{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:.9em;}
+  @media (max-width:760px){.panel{grid-template-columns:1fr;}}
+  @media (prefers-reduced-motion:reduce){ *{animation:none!important;transition:none!important;} }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>one axis, two pencils — the rigs of u and v, folded together</h1>
+  <p class="dek">u and v each mark a cross-slit on the slits axis; the two slits stand at right
+  angles in space. Here the v-plane is rotated 90° about the axis until it lies flat in the
+  u-plane, the way an elevation is folded onto a plan. Drag u, v, and the point; work the fold.</p>
+</header>
+
+<div class="stage"><svg id="sheet" viewBox="0 0 1320 742" aria-label="Interactive folded diagram of the u and v rigs"></svg></div>
+
+<div class="controls">
+  <label for="fold">fold&nbsp;θ</label>
+  <input id="fold" type="range" min="0" max="90" step="0.5" value="90" aria-label="fold angle theta in degrees">
+  <button id="btnFold">Fold flat</button>
+  <button id="btnOpen">Open 90°</button>
+  <button id="btnFuse">Fuse v → u</button>
+  <button id="btnReset">Reset</button>
+  <span class="chk"><input id="chkRay" type="checkbox"><label for="chkRay">show the 3D ray</label></span>
+</div>
+<p class="caption" id="caption"></p>
+
+<div class="panel">
+  <pre class="readout" id="readout"></pre>
+  <div class="legend">
+    <div><span class="sw" style="background:var(--uCol)"></span><b>u</b> — foot of the vertical slit ℓ<sub>u</sub>; its pencil lives in the plane of the paper and prints the image coordinate <i>x</i>.</div>
+    <div><span class="sw" style="background:var(--vCol)"></span><b>v</b> — foot of the horizontal slit ℓ<sub>v</sub>; its pencil lives in the folding plane and prints the image coordinate <i>y</i>.</div>
+    <div><span class="sw" style="background:var(--ppCol)"></span>picture plane at λ = 0 — the ×1 level of both channels; in the fold, one printed line carries both rulers.</div>
+    <div><span class="sw" style="background:var(--ptCol)"></span>the point — one scene point (λ, X, Y); its two traces stand on the same ordinate λ, tied by the dotted recall line.</div>
+  </div>
+</div>
+
+<div class="prose">
+  <h2>What the fold is</h2>
+  <p>This is Monge’s move with an unusual ground line. The two slits ℓ<sub>u</sub> and ℓ<sub>v</sub>
+  are perpendicular but skew — they never meet — and the slits axis is precisely their
+  <i>common perpendicular</i>: u and v are its feet, and the slit gap is
+  <span class="math">D&nbsp;=&nbsp;|u−v|</span>. Each rig is a plane figure: the u-rig lives in the
+  plane through the axis to which ℓ<sub>u</sub> is perpendicular, the v-rig in the plane at right
+  angles to that one. Rotating the v-plane 90° about the axis lays both figures on one drawing
+  plane — plan and elevation folded onto a shared ground line, except that here the ground line is
+  the common perpendicular of the two slits itself.</p>
+
+  <h2>Two pencils, one camera</h2>
+  <p>Seen in its own plane, each rig is a complete pencil. Every ray the camera owns, drawn in the
+  u-plane, passes through the point u; drawn in the v-plane, it passes through v. So the cross-slit
+  camera is not one pencil in space, as a pinhole is — it is the meshing of two <i>plane</i>
+  pencils hinged on their common perpendicular. The fold makes the meshing visible: two centers on
+  one axis, two fans overlapped on one plane.</p>
+
+  <h2>How the rigs interact</h2>
+  <p>One point takes out two loans. Its plan trace borrows <i>x</i> from u, its elevation trace
+  borrows <i>y</i> from v, and the two traces stand on the same ordinate λ — the dotted recall
+  line of descriptive geometry. The loans carry different interest:
+  <span class="math">x = X·(−u)/(λ−u)</span> but <span class="math">y = Y·(−v)/(λ−v)</span>.
+  Same λ, different denominators, so the per-depth aspect ratio
+  <span class="math">AR(λ) = m_v/m_u</span> runs from exactly 1 on the picture plane and settles
+  monotonically toward <span class="math">r_u/r_v</span> at depth — the distortion is anamorphic,
+  per-level, and bounded. That bound is the budget.</p>
+
+  <h2>Degenerations</h2>
+  <p>Drag v onto u (or press <i>Fuse</i>) and the two centers coincide: the pencils merge into one,
+  the denominators agree at every depth, AR pins to 1, and the rig is an ordinary perspective
+  camera. Send both feet to −∞ and each fan opens into a parallel bundle — the corner rig. The
+  cross-slit is what lives between those two collapses.</p>
+
+  <h2>Reading the folded view</h2>
+  <p>Folded flat, the two rigs superimpose but do not intersect: they share only the axis, and the
+  right angle between the slits survives only as the fold angle θ that the paper no longer shows.
+  What prints as two crossing fans on one plane remains, in space, a pair of skew lines shaking
+  hands along their common perpendicular. The overlap is a drawing convenience — planes adjacent in
+  space, stacked on the paper — and the recall line at λ is what keeps the bookkeeping honest.</p>
+</div>
+
+<script>
+(() => {
+"use strict";
+
+/* ---------------- state ---------------- */
+const S = {
+  u: -2.0,          // foot of vertical slit  (r_u = 0.50)
+  v: -1.0,          // foot of horizontal slit (r_v = 1.00)
+  lam: 0.65,        // depth of the point
+  X: 0.80,          // plan coordinate  (u channel)
+  Y: 0.55,          // elevation coordinate (v channel)
+  theta: Math.PI/2, // fold angle: 0 = folded flat, PI/2 = opened
+  showRay: false,
+  fusedFrom: null   // remembers v before a fuse
+};
+const DEF = {u:-2, v:-1, lam:0.65, X:0.80, Y:0.55};
+
+/* ---------------- geometry ---------------- */
+const mag = (s, lam) => (-s)/(lam - s);                 // channel magnification onto lambda = 0
+const dirF = t => [0.60*Math.sin(t), -(Math.cos(t) + 0.45*Math.sin(t))]; // fold basis (screen units)
+
+/* ---------------- screen mapping ---------------- */
+const W=1320, H=742, AY=486, K=198, X0=703;             // axis y, px per unit, screen x of lambda=0
+const sx = lam => X0 + lam*K;
+const plan = (lam, X) => [sx(lam), AY - X*K];           // paper-plane point
+const fold = (lam, Y) => {                              // folding-plane point at current theta
+  const d = dirF(S.theta);
+  return [sx(lam) + Y*K*d[0], AY + Y*K*d[1]];
+};
+const pt3 = (lam, X, Y) => {                            // schematic 3D point (exact at theta=90)
+  const d = dirF(S.theta);
+  return [sx(lam) + Y*K*d[0], AY - X*K + Y*K*d[1]];
+};
+
+/* ---------------- svg helpers ---------------- */
+const svg = document.getElementById("sheet");
+const NS = "http://www.w3.org/2000/svg";
+function el(name, attrs, parent){
+  const e = document.createElementNS(NS, name);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  (parent || svg).appendChild(e);
+  return e;
+}
+function txt(str, x, y, attrs, parent){
+  const e = el("text", Object.assign({x, y}, attrs), parent);
+  e.textContent = str;
+  return e;
+}
+function line(a, b, attrs, parent){
+  return el("line", Object.assign({x1:a[0], y1:a[1], x2:b[0], y2:b[1]}, attrs), parent);
+}
+const fmt = (x, d=2) => (Math.abs(x) < 5e-5 ? 0 : x).toFixed(d);
+
+/* ---------------- static scaffolding ---------------- */
+svg.innerHTML = "";
+const CSS = getComputedStyle(document.documentElement);
+const C = n => CSS.getPropertyValue(n).trim();
+const gSlab  = el("g",{}), gAxis = el("g",{}), gFan = el("g",{}), gPP = el("g",{}),
+      gRays  = el("g",{}), gSlit = el("g",{}), gTie = el("g",{}), gRay3 = el("g",{}),
+      gPts   = el("g",{}), gArc  = el("g",{}), gAnno = el("g",{}), gInset = el("g",{});
+
+const serif = 'Iowan Old Style, Palatino, Georgia, serif';
+const baseTxt = {"font-family":serif,"font-size":15,fill:C("--muted"),"font-style":"italic"};
+
+/* axis */
+line([40,AY],[1016,AY],{stroke:"#4a463c","stroke-width":1.6}, gAxis);
+el("path",{d:`M 1016 ${AY} l -10 -4 v 8 z`, fill:"#4a463c"}, gAxis);
+txt("slits axis  (fold hinge — the common perpendicular of ℓᵤ and ℓᵥ)", 46, AY+26, baseTxt, gAxis);
+txt("λ", 1002, AY-10, Object.assign({}, baseTxt, {"font-style":"normal"}), gAxis);
+
+/* ---------------- interaction plumbing ---------------- */
+let drag = null;
+function toView(ev){
+  const m = svg.getScreenCTM().inverse();
+  const p = new DOMPoint(ev.clientX, ev.clientY).matrixTransform(m);
+  return [p.x, p.y];
+}
+function grab(node, name){
+  node.style.cursor = "grab";
+  node.addEventListener("pointerdown", ev => {
+    drag = name; node.setPointerCapture(ev.pointerId); ev.preventDefault();
+  });
+}
+svg.addEventListener("pointermove", ev => {
+  if (!drag) return;
+  const [px, py] = toView(ev);
+  const clamp = (x,a,b) => Math.max(a, Math.min(b, x));
+  if (drag === "u") S.u = clamp((px - X0)/K, -3.25, -0.18);
+  if (drag === "v"){ S.v = clamp((px - X0)/K, -3.25, -0.18); S.fusedFrom = null; syncFuse(); }
+  if (drag === "P"){
+    S.lam = clamp((px - X0)/K, 0.02, 1.45);
+    S.X   = clamp((AY - py)/K, 0.05, 1.12);
+  }
+  if (drag === "Q"){
+    const d = dirF(S.theta);
+    const Y = (py - AY)/(K*d[1]);
+    S.Y   = clamp(Y, 0.05, 1.12);
+    S.lam = clamp((px - X0 - S.Y*K*d[0])/K, 0.02, 1.45);
+  }
+  render();
+});
+const drop = ev => { drag = null; };
+svg.addEventListener("pointerup", drop);
+svg.addEventListener("pointercancel", drop);
+
+/* ---------------- render ---------------- */
+const caption = document.getElementById("caption");
+const readout = document.getElementById("readout");
+
+function render(){
+  for (const g of [gSlab,gFan,gPP,gRays,gSlit,gTie,gRay3,gPts,gArc,gAnno,gInset]) g.innerHTML = "";
+  const {u, v, lam, X, Y, theta} = S;
+  const d   = dirF(theta);
+  const mu  = mag(u, lam), mv = mag(v, lam);
+  const x   = X*mu,        y  = Y*mv;
+  const AR  = mv/mu;
+  const fused = Math.abs(u - v) < 0.08;
+  const XT = 1.14;                                   // drawn extent of transverse coordinates
+
+  /* -- slab bands: paper-plane rectangle + folding-plane parallelogram -- */
+  el("rect",{x:sx(0), y:AY-XT*K, width:K, height:XT*K, fill:C("--slab"), opacity:.10}, gSlab);
+  const s0=[sx(0),AY], s1=[sx(1),AY];
+  el("polygon",{points:[s0,[s1[0],s1[1]],[s1[0]+XT*K*d[0],s1[1]+XT*K*d[1]],[s0[0]+XT*K*d[0],s0[1]+XT*K*d[1]]]
+      .map(p=>p.join(",")).join(" "), fill:C("--vCol"), opacity:.065}, gSlab);
+  /* back wall, both planes */
+  line([sx(1),AY],[sx(1),AY-XT*K],{stroke:C("--slab"),"stroke-width":1.1,"stroke-dasharray":"7 5",opacity:.7}, gSlab);
+  line(s1,[s1[0]+XT*K*d[0], s1[1]+XT*K*d[1]],{stroke:C("--vCol"),"stroke-width":1.1,"stroke-dasharray":"7 5",opacity:.5}, gSlab);
+  txt("the slab", sx(0.5)-26, AY-XT*K-8, baseTxt, gSlab);
+  txt("back wall · λ = 1", sx(1)+6, AY-XT*K+16, Object.assign({},baseTxt,{"font-size":13.5}), gSlab);
+
+  /* -- picture plane: paper trace + folding trace (they coincide when folded) -- */
+  line([sx(0),AY+26],[sx(0),AY-XT*K-30],{stroke:C("--ppCol"),"stroke-width":2.6}, gPP);
+  line([sx(0),AY],[sx(0)+ (XT*K+30)*d[0], AY + (XT*K+30)*d[1]],
+       {stroke:C("--ppCol"),"stroke-width":2.6, opacity: theta < 0.04 ? 0 : .85}, gPP);
+  txt("picture plane · λ = 0 · ×1 in both channels", sx(0)-8, AY+44,
+      Object.assign({},baseTxt,{fill:C("--ppCol"),"text-anchor":"end"}), gPP);
+
+  /* -- faint pencils (the whole rig, in each plane) -- */
+  for (const t of [0.22, 0.52, 0.82, 1.10]){
+    line(plan(u,0), plan(1.42, t), {stroke:C("--uCol"),"stroke-width":1, opacity:.16}, gFan);
+    line([sx(v),AY], fold(1.42, t), {stroke:C("--vCol"),"stroke-width":1, opacity:.16}, gFan);
+  }
+
+  /* -- the slits themselves (each slit lies in the OTHER pencil's plane) -- */
+  const uTop = [sx(u) + 0.5*K*d[0], AY + 0.5*K*d[1]];
+  line([sx(u),AY], uTop, {stroke:C("--uCol"),"stroke-width":2.4}, gSlit);          // ℓu ⟂ paper
+  line([sx(v),AY], [sx(v), AY-0.5*K], {stroke:C("--vCol"),"stroke-width":2.4}, gSlit); // ℓv in paper
+  txt("ℓᵤ", uTop[0]+6, uTop[1]-2, Object.assign({},baseTxt,{fill:C("--uCol"),"font-style":"normal"}), gSlit);
+  txt("ℓᵥ", sx(v)+7, AY-0.5*K+4, Object.assign({},baseTxt,{fill:C("--vCol"),"font-style":"normal"}), gSlit);
+
+  /* -- the point's two traces, recall line, and the two working rays -- */
+  const P = plan(lam, X), Q = fold(lam, Y);
+  line([sx(lam),AY], P, {stroke:"#7a745f","stroke-width":1,"stroke-dasharray":"2 4"}, gTie);
+  line([sx(lam),AY], Q, {stroke:"#7a745f","stroke-width":1,"stroke-dasharray":"2 4"}, gTie);
+  line([sx(lam),AY-5],[sx(lam),AY+5],{stroke:"#4a463c","stroke-width":1.4}, gTie);
+  txt("same λ — the recall line", sx(lam)+8, AY+20, Object.assign({},baseTxt,{"font-size":13.5}), gTie);
+
+  /* u-ray: u -> plan trace, extended; crosses the P.P. at x */
+  const ext = (a,b,f) => [a[0]+(b[0]-a[0])*f, a[1]+(b[1]-a[1])*f];
+  line(plan(u,0), ext(plan(u,0), P, 1.18), {stroke:C("--uCol"),"stroke-width":2}, gRays);
+  const xHit = plan(0, x);
+  line([xHit[0]-7,xHit[1]],[xHit[0]+7,xHit[1]],{stroke:C("--uCol"),"stroke-width":2.6}, gRays);
+  txt(`x = ${fmt(x)}`, xHit[0]-12, xHit[1]-7,
+      Object.assign({},baseTxt,{fill:C("--uCol"),"text-anchor":"end","font-style":"normal","font-size":14}), gRays);
+
+  /* v-ray: v -> elevation trace, extended; crosses the P.P. trace at y */
+  line([sx(v),AY], ext([sx(v),AY], Q, 1.18), {stroke:C("--vCol"),"stroke-width":2}, gRays);
+  const yHit = fold(0, y);
+  const perp = [-d[1], d[0]];
+  line([yHit[0]-7*perp[0], yHit[1]-7*perp[1]],[yHit[0]+7*perp[0], yHit[1]+7*perp[1]],
+       {stroke:C("--vCol"),"stroke-width":2.6}, gRays);
+  txt(`y = ${fmt(y)}`, yHit[0]+12, yHit[1]+(theta<0.35?26:2),
+      Object.assign({},baseTxt,{fill:C("--vCol"),"font-style":"normal","font-size":14}), gRays);
+
+  /* -- optional: the actual 3D ray (faithful in the opened view; fades as it folds) -- */
+  if (S.showRay && !fused){
+    const op = Math.max(0, Math.sin(theta) - 0.15);
+    if (op > 0){
+      const tP = (lam-u)/(v-u), sB = X/tP, aA = Y/(1-tP);
+      const A = pt3(u,0,aA), B = pt3(v,sB,0), Pw = pt3(lam,X,Y);
+      const past = ext(B, Pw, 1.9);   /* B is between A and P here (slits behind, scene in front) */
+      el("polyline",{points:[A,past].map(p=>p.join(",")).join(" "),
+         stroke:C("--ptCol"),"stroke-width":1.5,"stroke-dasharray":"6 4",fill:"none",opacity:op}, gRay3);
+      for (const [pt,lab] of [[A,"through ℓᵤ"],[B,"through ℓᵥ"]]){
+        el("circle",{cx:pt[0],cy:pt[1],r:4,fill:"none",stroke:C("--ptCol"),"stroke-width":1.5,opacity:op}, gRay3);
+        txt(lab, pt[0]+8, pt[1]-6, Object.assign({},baseTxt,{"font-size":12.5,opacity:op}), gRay3);
+      }
+      el("circle",{cx:Pw[0],cy:Pw[1],r:5,fill:C("--ptCol"),opacity:op}, gRay3);
+      txt("the point (λ, X, Y)", Pw[0]+9, Pw[1]-8,
+          Object.assign({},baseTxt,{fill:C("--ptCol"),"font-size":13,opacity:op}), gRay3);
+    }
+  }
+
+  /* -- draggable dots -- */
+  function dot(pos, r, fill, name, label, dyLab){
+    const hit = el("circle",{cx:pos[0],cy:pos[1],r:26,fill:"transparent"}, gPts);
+    el("circle",{cx:pos[0],cy:pos[1],r:r,fill}, gPts);
+    if (label) txt(label, pos[0]-6, pos[1]+(dyLab??30),
+        Object.assign({},baseTxt,{fill,"font-style":"normal","font-size":16}), gPts);
+    grab(hit, name);
+  }
+  dot([sx(u),AY], 7.5, C("--uCol"), "u", "u");
+  dot([sx(v),AY], 7.5, C("--vCol"), "v", fused ? "u = v" : "v");
+  dot(P, 6.5, C("--uCol"), "P", null);
+  txt("(λ, X)", P[0]+10, P[1]-8, Object.assign({},baseTxt,{fill:C("--uCol"),"font-size":13}), gPts);
+  dot(Q, 6.5, C("--vCol"), "Q", null);
+  txt("(λ, Y)", Q[0]+10, Q[1]+16, Object.assign({},baseTxt,{fill:C("--vCol"),"font-size":13}), gPts);
+
+  /* -- fold arc at the hinge -- */
+  const hx = 1.28, r0 = 62, steps = 18, pts = [];
+  for (let i=0;i<=steps;i++){
+    const t = theta*i/steps, dd = dirF(t);
+    pts.push([sx(hx)+r0*dd[0], AY+r0*dd[1]]);
+  }
+  el("polyline",{points:pts.map(p=>p.join(",")).join(" "),fill:"none",
+     stroke:"#4a463c","stroke-width":1.2,"stroke-dasharray":"3 3"}, gArc);
+  if (theta > 0.06){
+    const tip = pts[pts.length-1], prev = pts[pts.length-2];
+    const ang = Math.atan2(tip[1]-prev[1], tip[0]-prev[0]);
+    el("path",{d:`M ${tip[0]} ${tip[1]} l ${-9*Math.cos(ang-0.4)} ${-9*Math.sin(ang-0.4)}
+                  M ${tip[0]} ${tip[1]} l ${-9*Math.cos(ang+0.4)} ${-9*Math.sin(ang+0.4)}`,
+       stroke:"#4a463c","stroke-width":1.2,fill:"none"}, gArc);
+  }
+  txt(`θ = ${Math.round(theta*180/Math.PI)}°`, sx(hx)+18, AY-r0-8, baseTxt, gArc);
+
+  /* -- situational annotations -- */
+  if (theta < 0.05){
+    txt("folded flat: two pencils, one plane — superimposed, never intersecting.",
+        60, 120, Object.assign({},baseTxt,{"font-size":16,fill:C("--ink")}), gAnno);
+    txt("the right angle between ℓᵤ and ℓᵥ now survives only in θ.",
+        60, 143, baseTxt, gAnno);
+  } else if (theta > 1.48){
+    txt("opened: the v-plane stands on the hinge; each slit lies flat in the other pencil's plane.",
+        60, 120, Object.assign({},baseTxt,{"font-size":16,fill:C("--ink")}), gAnno);
+  }
+  if (fused){
+    txt("pencils fused (v = u): one center, one denominator — ordinary perspective, AR ≡ 1.",
+        60, theta<0.05 ? 172 : 149, Object.assign({},baseTxt,{fill:C("--ptCol")}), gAnno);
+  }
+
+  /* -- inset: the picture plane seen from the front -- */
+  const IX=1046, IY=26, IW=254, IH=254, cx=IX+IW/2, cy=IY+IH/2+8, sc=74;
+  el("rect",{x:IX,y:IY,width:IW,height:IH,fill:"#fffdf6",stroke:"#d8d2bd"}, gInset);
+  txt("the picture plane, seen from the front", IX+IW/2, IY+18,
+      Object.assign({},baseTxt,{"text-anchor":"middle","font-size":13.5}), gInset);
+  line([cx-sc*1.28,cy],[cx+sc*1.28,cy],{stroke:C("--uCol"),"stroke-width":1,opacity:.55}, gInset);
+  line([cx,cy+sc*1.28],[cx,cy-sc*1.28],{stroke:C("--vCol"),"stroke-width":1,opacity:.55}, gInset);
+  txt("x — ruled by u", cx+sc*1.26, cy+14, Object.assign({},baseTxt,{fill:C("--uCol"),"font-size":11.5,"text-anchor":"end"}), gInset);
+  txt("y — ruled by v", cx+6, cy-sc*1.26+11, Object.assign({},baseTxt,{fill:C("--vCol"),"font-size":11.5}), gInset);
+  el("rect",{x:cx-sc,y:cy-sc,width:2*sc,height:2*sc,fill:"none",
+     stroke:"#9a947f","stroke-width":1,"stroke-dasharray":"4 4"}, gInset);
+  el("rect",{x:cx-sc*mu,y:cy-sc*mv,width:2*sc*mu,height:2*sc*mv,fill:C("--slab"),opacity:.16,
+     stroke:C("--slab"),"stroke-width":1.3}, gInset);
+  el("circle",{cx:cx+sc*x, cy:cy-sc*y, r:4.5, fill:C("--ptCol")}, gInset);
+  txt("print of a square at depth λ", cx, IY+IH-24, Object.assign({},baseTxt,{"text-anchor":"middle","font-size":12.5}), gInset);
+  txt(`w = m_u   h = m_v   h/w = AR = ${fmt(AR,3)}`, cx, IY+IH-8,
+      Object.assign({},baseTxt,{"text-anchor":"middle","font-size":12.5,"font-style":"normal","font-family":"Menlo, monospace","font-size":11.5}), gInset);
+
+  /* -- readouts & caption -- */
+  const ru = 1/(-u), rv = 1/(-v);
+  readout.textContent =
+    `r_u = ${fmt(ru)}      u at λ = ${fmt(u)}\n` +
+    `r_v = ${fmt(rv)}      v at λ = ${fmt(v)}      D = |u−v| = ${fmt(Math.abs(u-v))}\n` +
+    `λ (of the point) = ${fmt(lam)}      X = ${fmt(X)}   Y = ${fmt(Y)}\n` +
+    `m_u = ${fmt(mu,4)}    m_v = ${fmt(mv,4)}    AR = m_v/m_u = ${fmt(AR,4)}\n` +
+    `x = X·m_u = ${fmt(x,4)}          y = Y·m_v = ${fmt(y,4)}\n` +
+    `AR bound at depth:  AR(∞) = r_u/r_v = ${fmt(ru/rv,4)}      fold θ = ${Math.round(theta*180/Math.PI)}°`;
+  caption.textContent =
+    fused ? "v sits on u: the two rigs are one pencil — this is a perspective camera wearing two labels."
+    : theta < 0.05 ? "Folded: the v-rig lies flat in the u-plane. Two centers on one axis, two fans on one plane."
+    : theta > 1.48 ? "Opened 90°: the true arrangement — each pencil in its own plane, hinged on the slits axis."
+    : "Mid-fold: the v-plane swinging about the hinge.";
+}
+
+/* ---------------- controls ---------------- */
+const foldSlider = document.getElementById("fold");
+const btnFuse = document.getElementById("btnFuse");
+const reduced = (typeof matchMedia === "function") && matchMedia("(prefers-reduced-motion: reduce)").matches;
+let anim = null;
+
+foldSlider.addEventListener("input", () => { S.theta = foldSlider.value*Math.PI/180; render(); });
+
+function animateTheta(target){
+  cancelAnimationFrame(anim);
+  if (reduced){ S.theta = target; foldSlider.value = target*180/Math.PI; render(); return; }
+  const from = S.theta, t0 = performance.now(), dur = 750;
+  const ease = t => t<.5 ? 2*t*t : 1-Math.pow(-2*t+2,2)/2;
+  const step = now => {
+    const t = Math.min(1,(now-t0)/dur);
+    S.theta = from + (target-from)*ease(t);
+    foldSlider.value = S.theta*180/Math.PI;
+    render();
+    if (t<1) anim = requestAnimationFrame(step);
+  };
+  anim = requestAnimationFrame(step);
+}
+document.getElementById("btnFold").addEventListener("click", () => animateTheta(0));
+document.getElementById("btnOpen").addEventListener("click", () => animateTheta(Math.PI/2));
+
+function syncFuse(){ btnFuse.textContent = S.fusedFrom === null ? "Fuse v → u" : "Un-fuse"; }
+function animateV(target, after){
+  if (reduced){ S.v = target; render(); if (after) after(); return; }
+  const from = S.v, t0 = performance.now(), dur = 600;
+  const step = now => {
+    const t = Math.min(1,(now-t0)/dur);
+    S.v = from + (target-from)*(t<.5 ? 2*t*t : 1-Math.pow(-2*t+2,2)/2);
+    render();
+    if (t<1) requestAnimationFrame(step); else if (after) after();
+  };
+  requestAnimationFrame(step);
+}
+btnFuse.addEventListener("click", () => {
+  if (S.fusedFrom === null){ S.fusedFrom = S.v; animateV(S.u, syncFuse); }
+  else { animateV(S.fusedFrom, () => { S.fusedFrom = null; syncFuse(); }); }
+});
+document.getElementById("btnReset").addEventListener("click", () => {
+  Object.assign(S, DEF); S.fusedFrom = null; syncFuse(); animateTheta(Math.PI/2);
+});
+document.getElementById("chkRay").addEventListener("change", ev => { S.showRay = ev.target.checked; render(); });
+
+render();
+})();
+</script>
+</body>
+</html>
