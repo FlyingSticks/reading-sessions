@@ -39,6 +39,8 @@
   #chipCam[aria-pressed="true"]{border-color:var(--cross);color:var(--cross);}
   #chipGld[aria-pressed="true"]{border-color:var(--glide);color:var(--glide);}
   #chipCor[aria-pressed="true"]{border-color:var(--ink);}
+  #chipLbl[aria-pressed="true"]{border-color:var(--ink);}
+  #sheet.lbl-off text{display:none;}
   #chipLad[aria-pressed="true"]{border-color:var(--shared);color:var(--shared);}
   #chipPrn[aria-pressed="true"]{border-color:var(--ppCol);color:var(--ppCol);}
   .viewrow button[aria-pressed="true"]{border-color:var(--ppCol);color:var(--ppCol);background:#fdfaf0;}
@@ -81,6 +83,7 @@
   <button class="chip" id="chipCor" aria-pressed="true">corner mark x</button>
   <button class="chip" id="chipLad" aria-pressed="false">ladders · equal depth steps</button>
   <button class="chip" id="chipPrn" aria-pressed="true">prints on the plane</button>
+  <button class="chip" id="chipLbl" aria-pressed="true">labels</button>
 </div>
 <div class="controls viewrow">
   <span class="lead" style="font-style:italic;font-size:15px;color:var(--muted)">view</span>
@@ -170,7 +173,7 @@ const S = {
   X: 0.80,          // plan coordinate  (u channel)
   Y: 0.55,          // elevation coordinate (v channel)
   theta: Math.PI/2, // fold angle: 0 = folded flat, PI/2 = opened
-  cam: true, gld: true, cor: true, lad: false, prn: true,
+  cam: true, gld: true, cor: true, lad: false, prn: true, lbl: true,
   showRay: true,
   fusedFrom: null,
   phi: 0.44, psi: -0.24, SC: 190, CX: 650, CY: 462  // orbit view
@@ -305,6 +308,7 @@ const caption = document.getElementById("caption");
 const readout = document.getElementById("readout");
 
 function render(){
+  svg.classList.toggle("lbl-off", !S.lbl);
   for (const g of [gPlane,gAxis,gFan,gLad,gRead,gSlit,gTie,gRay3,gPrn,gPts,gArc,gAnno]) g.innerHTML = "";
   const {u, v, lam, X, Y, theta} = S;
   const mu = mag(u, lam), mv = mag(v, lam);
@@ -721,7 +725,7 @@ document.getElementById("btnReset").addEventListener("click", () => {
 });
 document.getElementById("chkRay").addEventListener("change", ev => { S.showRay = ev.target.checked; render(); });
 
-for (const [id, key] of [["chipCam","cam"],["chipGld","gld"],["chipCor","cor"],["chipLad","lad"],["chipPrn","prn"]]){
+for (const [id, key] of [["chipCam","cam"],["chipGld","gld"],["chipCor","cor"],["chipLad","lad"],["chipPrn","prn"],["chipLbl","lbl"]]){
   const b = document.getElementById(id);
   b.addEventListener("click", () => {
     S[key] = !S[key];
