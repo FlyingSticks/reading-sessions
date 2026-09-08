@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>the rig in the round — orbit the fold, face the picture plane</title>
+<style>
+  :root{
+    --paper:#f6f2e7; --ink:#2a2a26; --muted:#6f6a5c;
+    --uCol:#8a5a2b;         /* sienna — the u foot / channel identity */
+    --vCol:#44489d;         /* indigo — the v foot / channel identity */
+    --ppCol:#2f5d3a;        /* dark green — picture plane */
+    --ptCol:#c0392b;        /* red — the point */
+    --slab:#3f8f4f;
+    --glide:#177f75;        /* teal — the glide reading (book palette) */
+    --cross:#6a2c91;        /* purple — the cross-slit / camera reading (book palette) */
+    --shared:#3d8f3d;       /* green — shared / level / measured */
+  }
+  html,body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    -webkit-text-size-adjust:100%;}
+  body{padding:14px clamp(10px,3vw,34px) calc(24px + env(safe-area-inset-bottom));}
+  header{max-width:1100px;margin:0 auto 6px;}
+  h1{font-size:clamp(20px,3.2vw,29px);font-weight:600;margin:.2em 0 .15em;letter-spacing:.01em;}
+  .dek{font-style:italic;color:var(--muted);margin:0 0 10px;font-size:clamp(14px,1.9vw,16.5px);line-height:1.45;max-width:76ch;}
+  .stage{max-width:1360px;margin:0 auto;}
+  svg{width:100%;height:auto;display:block;touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;}
+  .controls{max-width:1100px;margin:10px auto 4px;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;}
+  .controls label{font-size:15px;font-style:italic;}
+  input[type=range]{width:min(260px,48vw);accent-color:var(--ppCol);}
+  button{font:inherit;font-size:15px;padding:7px 14px;background:#fffdf6;border:1.4px solid #7a745f;
+    border-radius:3px;color:var(--ink);cursor:pointer;}
+  button:active{transform:translateY(1px);}
+  button:focus-visible,input:focus-visible{outline:2px solid var(--ppCol);outline-offset:2px;}
+  .chips{max-width:1100px;margin:8px auto 0;display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;}
+  .chips .lead{font-style:italic;font-size:15px;color:var(--muted);margin-right:2px;}
+  button.chip{border-radius:14px;padding:5px 13px;border-width:1.6px;opacity:.55;}
+  button.chip[aria-pressed="true"]{opacity:1;background:#fdfaf0;}
+  #chipCam[aria-pressed="true"]{border-color:var(--cross);color:var(--cross);}
+  #chipGld[aria-pressed="true"]{border-color:var(--glide);color:var(--glide);}
+  #chipCor[aria-pressed="true"]{border-color:var(--ink);}
+  #chipLad[aria-pressed="true"]{border-color:var(--shared);color:var(--shared);}
+  #chipPrn[aria-pressed="true"]{border-color:var(--ppCol);color:var(--ppCol);}
+  .viewrow button[aria-pressed="true"]{border-color:var(--ppCol);color:var(--ppCol);background:#fdfaf0;}
+  .hint{font-style:italic;color:var(--muted);font-size:14px;}
+  .caption{max-width:1100px;margin:4px auto 14px;font-style:italic;color:var(--ppCol);
+    font-size:clamp(14px,1.9vw,16px);min-height:1.4em;}
+  .panel{max-width:1100px;margin:0 auto 18px;display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:start;}
+  .readout{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:clamp(12px,1.65vw,14px);
+    line-height:1.85;white-space:pre;background:#fffdf6;border:1px solid #d8d2bd;padding:12px 16px;}
+  .legend{font-size:14.5px;line-height:1.75;padding-top:4px;}
+  .sw{display:inline-block;width:.85em;height:.85em;border-radius:50%;vertical-align:-1px;margin-right:.45em;}
+  .prose{max-width:76ch;margin:6px auto 0;font-size:clamp(15px,2vw,17px);line-height:1.62;}
+  .prose h2{font-size:1.12em;font-weight:600;font-style:italic;margin:1.35em 0 .3em;}
+  .prose p{margin:.45em 0;}
+  .prose .math{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:.9em;}
+  .prose .gld{color:var(--glide);} .prose .crs{color:var(--cross);}
+  @media (max-width:760px){.panel{grid-template-columns:1fr;}}
+  @media (prefers-reduced-motion:reduce){ *{animation:none!important;transition:none!important;} }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>the rig in the round — orbit the fold, face the picture plane</h1>
+  <p class="dek">The folded diagram of folded-rigs-v2, lifted off the sheet. Drag the empty paper to
+  orbit; everything else is the same instrument — the fold θ, the two feet, the two readings, the
+  seam meter. The new payoff is the third preset: face the picture plane and the edge view becomes
+  a picture. Both channels arrive edge-on, each delivering its mark to its own trace, and on the
+  plane itself the ray's strike, the glide pair carried home, and the ⊥ pair stand at their true
+  coordinates — the old front-view inset made literal.</p>
+</header>
+
+<div class="stage"><svg id="sheet" viewBox="0 0 1320 780" aria-label="Orbitable 3D folded diagram: camera and glide readings of the u and v rigs, with prints on the picture plane"></svg></div>
+
+<div class="chips">
+  <span class="lead">readings</span>
+  <button class="chip" id="chipCam" aria-pressed="true">camera · pull in</button>
+  <button class="chip" id="chipGld" aria-pressed="true">glide · push out</button>
+  <button class="chip" id="chipCor" aria-pressed="true">corner mark x</button>
+  <button class="chip" id="chipLad" aria-pressed="false">ladders · equal depth steps</button>
+  <button class="chip" id="chipPrn" aria-pressed="true">prints on the plane</button>
+</div>
+<div class="controls viewrow">
+  <span class="lead" style="font-style:italic;font-size:15px;color:var(--muted)">view</span>
+  <button id="btnThree" aria-pressed="true">¾ round</button>
+  <button id="btnFace" aria-pressed="false">face the picture plane</button>
+  <button id="btnSheet" aria-pressed="false">sheet (u-plane flat-on)</button>
+  <span class="hint">— or drag the empty paper to orbit</span>
+</div>
+<div class="controls">
+  <label for="fold">fold&nbsp;θ</label>
+  <input id="fold" type="range" min="0" max="90" step="0.5" value="90" aria-label="fold angle theta in degrees">
+  <button id="btnFold">Fold flat</button>
+  <button id="btnOpen">Open 90°</button>
+  <button id="btnFuse">Fuse v → u</button>
+  <button id="btnReset">Reset</button>
+  <span class="chips" style="margin:0"><input id="chkRay" type="checkbox" checked><label for="chkRay" style="font-style:italic">show the 3D ray</label></span>
+</div>
+<p class="caption" id="caption"></p>
+
+<div class="panel">
+  <pre class="readout" id="readout"></pre>
+  <div class="legend">
+    <div><span class="sw" style="background:var(--cross)"></span><b>camera reading</b> (cross-slit) — ray scene-point → slit, read at the screen. Mark <span style="color:var(--cross)">Xc = X·m</span>; equal depth steps print harmonically. Law and gauge welded by optics.</div>
+    <div><span class="sw" style="background:var(--glide)"></span><b>glide reading</b> — ray footprint → slit, read at scene depth, carried home along the level plane. Mark <span style="color:var(--glide)">Xg = X/m</span>; equal depth steps print arithmetically (Reach). Gauge free.</div>
+    <div><span class="sw" style="background:var(--ink)"></span><b>corner mark</b> x = X — the ⊥ projection, both feet at −∞; the mean proportional between the other two.</div>
+    <div><span class="sw" style="background:var(--uCol)"></span><span class="sw" style="background:var(--vCol);margin-left:-4px"></span><b>u, v</b> — the two feet on the slits axis; each channel runs both readings through its own foot. The fold lays the v-plane onto the u-plane.</div>
+    <div><span class="sw" style="background:var(--ppCol)"></span><b>prints on the plane</b> — the two channels' marks assembled into coordinates on the screen: <span style="color:var(--cross)">camera print (Xc, Yc)</span>, filled, where the 3D ray strikes; <span style="color:var(--glide)">glide print (Xg, Yg)</span>, open, both marks carried home; ⊥ print (x, y), the corner pair. The dashed square prints to the two rectangles — areas ×(mᵤ·mᵥ) and its reciprocal, product 1.</div>
+  </div>
+</div>
+
+<div class="prose">
+  <h2>What the orbit adds — and what it doesn't touch</h2>
+  <p>Nothing in the geometry changed. The fold map sending rig coordinates
+  <span class="math">(λ, X, Y)</span> to the sheet is linear at every θ, so straight lines stay
+  straight while the v-plane swings, and every incidence the flat plate drew — marks on traces,
+  the ray through both slits, the harmonic hinge — survives the orbit untouched. The view is a
+  plain orthographic turn of the same object: drafting rules, no vanishing tricks. The old sheet
+  is still here as a preset; folded-rigs-v2 remains the full argument, this plate its
+  round-the-back companion.</p>
+
+  <h2>The face-on payoff</h2>
+  <p>Face the picture plane and the depth axis projects to a single point: both channel planes
+  arrive edge-on, each collapsing onto its own trace — you literally watch the
+  <span class="crs">camera reading</span> and the <span class="gld">glide reading</span> deliver
+  their marks to the screen from the side, like two T-square blades feeding one drawing. On the
+  plane, the marks pair up into prints. The <span class="crs">camera print (Xc, Yc)</span> is not
+  a construction: it is where the physical ray through both slits strikes the screen — checked to
+  the decimal, <span class="math">strike = (X·mᵤ, Y·mᵥ)</span>. The
+  <span class="gld">glide print (Xg, Yg)</span> stands one reciprocal out on each axis, and the
+  ⊥ print (x, y) holds the geometric middle of the rectangle they span. The dashed unit square
+  printing to two rectangles — camera in, glide out, areas in reciprocal — is the v2 front-view
+  inset promoted to the object itself.</p>
+
+  <h2>Same instrument, same dials</h2>
+  <p>The fold θ still swings between camera country (open 90°, where the forward reading is
+  honest optics) and drafting country (flat, where the glide strokes never leave the paper); the
+  ray is drawn at every θ as the folded image of itself, honest optics only at 90°. Fuse v → u
+  and Δ = r_u·r_v·(r_v − r_u) goes to zero: one denominator, the prints' rectangle squares up,
+  and the readings' drawn lines fuse into perspective. The ladders still run in the u channel —
+  harmonic in, arithmetic out — and the readout still carries the hinge identity
+  <span class="math">Xg·Xc = x²</span> live in both channels.</p>
+
+  <h2>What is checked, what is a reading</h2>
+  <p>The constructions on this sheet run under check-folded-rigs-3d.js — 26 numbered assertions:
+  the ×1 picture plane, the reciprocal pair and geometric progression, the harmonic hinge, the
+  print-area product, linearity of the fold map and survival of collinearity under it, the ray's
+  incidence with both slits and the point, the strike landing exactly on the camera print at
+  every fold angle, the three view presets (face-on kills the depth axis; sheet view recovers
+  v2's drawing plane), well-posedness of every drag, the glide clip depth, both ladders, the
+  seam meter's zero set, the corner limit, the fold arc, and the grid's residence on λ = 0.
+  The framing — the face-on view as "the edge view become a picture" — is a reading of the
+  sheet, offered for the seasoning shelf, not a theorem.</p>
+</div>
+
+<script>
+(() => {
+"use strict";
+
+/* ---------------- state ---------------- */
+const S = {
+  u: -2.0,          // foot of vertical slit  (r_u = 0.50)
+  v: -1.0,          // foot of horizontal slit (r_v = 1.00)
+  lam: 0.65,        // depth of the point
+  X: 0.80,          // plan coordinate  (u channel)
+  Y: 0.55,          // elevation coordinate (v channel)
+  theta: Math.PI/2, // fold angle: 0 = folded flat, PI/2 = opened
+  cam: true, gld: true, cor: true, lad: false, prn: true,
+  showRay: true,
+  fusedFrom: null,
+  phi: 0.44, psi: -0.24, SC: 190, CX: 650, CY: 462  // orbit view
+};
+const DEF  = {u:-2, v:-1, lam:0.65, X:0.80, Y:0.55};
+const HMAX = 1.30;                                   // drawn height ceiling (sheet units)
+const XT   = 1.14;
+
+const VIEWS = {
+  three: {phi:0.44,      psi:-0.24, SC:190, CX:650, CY:462},
+  face:  {phi:Math.PI/2, psi:0.00, SC:300, CX:470, CY:600},
+  sheet: {phi:0.00,      psi:0.00, SC:198, CX:703, CY:486}
+};
+
+/* ---------------- geometry (verbatim from check-folded-rigs-3d.js) ---------------- */
+const mag  = (s, lam) => (-s)/(lam - s);             // channel gauge onto lambda = 0
+const hDir = th => [0, Math.cos(th), Math.sin(th)];  // v-plane height direction
+const pt3  = (lam, X, Y) => [lam, X + Y*Math.cos(S.theta), Y*Math.sin(S.theta)];
+
+/* orthographic orbit: world -> screen */
+function proj(w){
+  const c1=Math.cos(S.phi), s1=Math.sin(S.phi), c2=Math.cos(S.psi), s2=Math.sin(S.psi);
+  const q1 =  w[0]*c1 + w[2]*s1;
+  const q3 = -w[0]*s1 + w[2]*c1;
+  const r2 =  w[1]*c2 - q3*s2;
+  return [S.CX + q1*S.SC, S.CY - r2*S.SC];
+}
+const PW = (l, x, y) => proj(pt3(l, x, y));          // rig coords -> screen
+const scrDir = w => {                                 // screen image of a world direction
+  const o = proj([0,0,0]), p = proj(w);
+  return [p[0]-o[0], p[1]-o[1]];
+};
+const norm = v => { const n=Math.hypot(v[0],v[1])||1; return [v[0]/n, v[1]/n]; };
+
+/* ---------------- svg helpers ---------------- */
+const svg = document.getElementById("sheet");
+const NS = "http://www.w3.org/2000/svg";
+function el(name, attrs, parent){
+  const e = document.createElementNS(NS, name);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  (parent || svg).appendChild(e);
+  return e;
+}
+function txt(str, x, y, attrs, parent){
+  const e = el("text", Object.assign({x, y}, attrs), parent);
+  e.textContent = str;
+  return e;
+}
+function line(a, b, attrs, parent){
+  return el("line", Object.assign({x1:a[0], y1:a[1], x2:b[0], y2:b[1]}, attrs), parent);
+}
+function poly(pts, attrs, parent){
+  return el("polygon", Object.assign({points:pts.map(p=>p.join(",")).join(" ")}, attrs), parent);
+}
+const fmt = (x, d=2) => (Math.abs(x) < 5e-5 ? 0 : x).toFixed(d);
+
+const FALLBACK = {"--paper":"#f6f2e7","--ink":"#2a2a26","--muted":"#6f6a5c","--uCol":"#8a5a2b",
+  "--vCol":"#44489d","--ppCol":"#2f5d3a","--ptCol":"#c0392b","--slab":"#3f8f4f",
+  "--glide":"#177f75","--cross":"#6a2c91","--shared":"#3d8f3d"};
+const CSS = getComputedStyle(document.documentElement);
+const C = n => (CSS.getPropertyValue(n)||"").trim() || FALLBACK[n];
+
+svg.innerHTML = "";
+const gPlane=el("g",{}), gAxis=el("g",{}), gFan=el("g",{}), gLad=el("g",{}),
+      gRead=el("g",{}), gSlit=el("g",{}), gTie=el("g",{}), gRay3=el("g",{}),
+      gPrn=el("g",{}), gPts=el("g",{}), gArc=el("g",{}), gAnno=el("g",{});
+
+const serif = 'Iowan Old Style, Palatino, Georgia, serif';
+const baseTxt = {"font-family":serif,"font-size":15,fill:C("--muted"),"font-style":"italic"};
+
+/* ---------------- interaction plumbing ---------------- */
+let drag = null, lastPt = null;
+function toView(ev){
+  const m = svg.getScreenCTM().inverse();
+  const p = new DOMPoint(ev.clientX, ev.clientY).matrixTransform(m);
+  return [p.x, p.y];
+}
+function grab(node, name){
+  node.style.cursor = "grab";
+  node.addEventListener("pointerdown", ev => {
+    drag = name; lastPt = toView(ev);
+    node.setPointerCapture(ev.pointerId);
+    ev.stopPropagation(); ev.preventDefault();
+  });
+}
+svg.addEventListener("pointerdown", ev => {          // empty paper: orbit
+  drag = "orbit"; lastPt = toView(ev);
+  svg.setPointerCapture(ev.pointerId);
+});
+const clamp = (x,a,b) => Math.max(a, Math.min(b, x));
+const solve2 = (a, b, r) => {                        // [a b]·s = r
+  const det = a[0]*b[1] - a[1]*b[0];
+  if (Math.abs(det) < 900) return null;              // near edge-on: refuse politely
+  return [( r[0]*b[1] - r[1]*b[0])/det,
+          (-r[0]*a[1] + r[1]*a[0])/det];
+};
+svg.addEventListener("pointermove", ev => {
+  if (!drag) return;
+  const p = toView(ev);
+  const dp = [p[0]-lastPt[0], p[1]-lastPt[1]];
+  lastPt = p;
+  if (drag === "orbit"){
+    S.phi = S.phi + dp[0]*0.005;
+    S.psi = clamp(S.psi + dp[1]*0.005, -1.35, 1.35);
+    setViewPressed(null);
+  }
+  const aL = scrDir([1,0,0]);
+  if (drag === "u" || drag === "v"){
+    const n2 = aL[0]*aL[0]+aL[1]*aL[1];
+    if (n2 > 25){
+      const du = (dp[0]*aL[0]+dp[1]*aL[1])/n2;
+      if (drag === "u") S.u = clamp(S.u + du, -3.25, -0.18);
+      else { S.v = clamp(S.v + du, -3.25, -0.18); S.fusedFrom = null; syncFuse(); }
+    }
+  }
+  if (drag === "P"){
+    const s = solve2(aL, scrDir([0,1,0]), dp);
+    if (s){ S.lam = clamp(S.lam + s[0], 0.02, 1.45); S.X = clamp(S.X + s[1], 0.05, 1.12); }
+  }
+  if (drag === "Q"){
+    const s = solve2(aL, scrDir(hDir(S.theta)), dp);
+    if (s){ S.lam = clamp(S.lam + s[0], 0.02, 1.45); S.Y = clamp(S.Y + s[1], 0.05, 1.12); }
+  }
+  render();
+});
+const drop = () => { drag = null; lastPt = null; };
+svg.addEventListener("pointerup", drop);
+svg.addEventListener("pointercancel", drop);
+
+/* ---------------- render ---------------- */
+const caption = document.getElementById("caption");
+const readout = document.getElementById("readout");
+
+function render(){
+  for (const g of [gPlane,gAxis,gFan,gLad,gRead,gSlit,gTie,gRay3,gPrn,gPts,gArc,gAnno]) g.innerHTML = "";
+  const {u, v, lam, X, Y, theta} = S;
+  const mu = mag(u, lam), mv = mag(v, lam);
+  const Xc = X*mu, Xg = X/mu, Yc = Y*mv, Yg = Y/mv;
+  const ru = 1/(-u), rv = 1/(-v);
+  const Delta = ru*rv*(rv-ru);
+  const seam  = Math.abs(Delta) < 0.01;
+  const fused = Math.abs(u - v) < 0.08;
+  const vOp = S.lad ? 0.22 : 1;                      // dim the v channel while ladders run
+  const foldedTh = theta < 0.04;
+  const ext = (a,b,f) => [a[0]+(b[0]-a[0])*f, a[1]+(b[1]-a[1])*f];
+
+  const axisLen = Math.hypot(...scrDir([1,0,0]));    // screen px per unit depth
+  const axisVisible = axisLen > 34;
+  const faceView = !axisVisible;
+
+  /* -- slits axis -- */
+  {
+    const A0 = PW(-3.3,0,0), A1 = PW(1.55,0,0);
+    if (axisVisible){
+      line(A0, A1, {stroke:"#4a463c","stroke-width":1.6}, gAxis);
+      const d = norm([A1[0]-A0[0], A1[1]-A0[1]]);
+      el("path",{d:`M ${A1[0]} ${A1[1]} l ${-11*d[0]-4*d[1]} ${-11*d[1]+4*d[0]} l ${8*d[1]} ${-8*d[0]} z`,
+                 fill:"#4a463c"}, gAxis);
+      txt("slits axis (fold hinge)", A0[0]+6, A0[1]+40, baseTxt, gAxis);
+      txt("λ", A1[0]-14, A1[1]-10, Object.assign({},baseTxt,{"font-style":"normal"}), gAxis);
+    } else {
+      const O = PW(0,0,0);
+      el("circle",{cx:O[0],cy:O[1],r:3.4,fill:"#4a463c"}, gAxis);
+    }
+  }
+
+  /* -- slab bands + back walls -- */
+  poly([PW(0,0,0),PW(1,0,0),PW(1,XT,0),PW(0,XT,0)], {fill:C("--slab"), opacity:.10}, gPlane);
+  poly([PW(0,0,0),PW(1,0,0),PW(1,0,XT),PW(0,0,XT)], {fill:C("--vCol"), opacity:.065*vOp}, gPlane);
+  line(PW(1,0,0), PW(1,XT,0), {stroke:C("--slab"),"stroke-width":1.1,"stroke-dasharray":"7 5",opacity:.7}, gPlane);
+  line(PW(1,0,0), PW(1,0,XT), {stroke:C("--vCol"),"stroke-width":1.1,"stroke-dasharray":"7 5",opacity:.5*vOp}, gPlane);
+  if (axisVisible){
+    const sl = PW(0.5, XT, 0);
+    txt("the slab", sl[0]-26, sl[1]-8, baseTxt, gPlane);
+    const bw = PW(1, XT*0.55, 0);
+    txt("back wall · λ = 1", bw[0]+6, bw[1], Object.assign({},baseTxt,{"font-size":13.5}), gPlane);
+  }
+
+  /* -- picture plane: quad, grid, both traces, label -- */
+  if (!foldedTh)
+    poly([PW(0,0,0),PW(0,XT,0),PW(0,XT,XT),PW(0,0,XT)], {fill:C("--ppCol"), opacity:.06}, gPlane);
+  if (!foldedTh) for (const g of [0.25,0.5,0.75,1.0]){
+    line(PW(0,g,0), PW(0,g,XT), {stroke:C("--ppCol"),"stroke-width":.7,opacity:.13}, gPlane);
+    line(PW(0,0,g), PW(0,XT,g), {stroke:C("--ppCol"),"stroke-width":.7,opacity:.13}, gPlane);
+  }
+  line(PW(0,-0.13,0), PW(0,XT+0.15,0), {stroke:C("--ppCol"),"stroke-width":2.6}, gPlane);
+  line(PW(0,0,0), PW(0,0,XT+0.15), {stroke:C("--ppCol"),"stroke-width":2.6, opacity: foldedTh ? 0 : .85*vOp}, gPlane);
+  {
+    const a = PW(0,0,0);
+    txt("picture plane · λ = 0 · ×1 both readings, both channels", a[0]-8, a[1]+58,
+        Object.assign({},baseTxt,{fill:C("--ppCol"),"text-anchor": faceView ? "start" : "end"}), gPlane);
+  }
+
+  /* -- faint pencils -- */
+  for (const t of [0.22, 0.52, 0.82, 1.10]){
+    line(PW(u,0,0), PW(1.42,t,0), {stroke:C("--uCol"),"stroke-width":1, opacity:.13}, gFan);
+    line(PW(v,0,0), PW(1.42,0,t), {stroke:C("--vCol"),"stroke-width":1, opacity:.13*vOp}, gFan);
+  }
+
+  /* screen-perpendicular tick helper: tick across a trace whose direction is dw (world) */
+  function tick(at, dw, col, wdt, len, parent){
+    const d = norm(scrDir(dw)), p = [-d[1], d[0]];
+    line([at[0]-len*p[0], at[1]-len*p[1]], [at[0]+len*p[0], at[1]+len*p[1]],
+         {stroke:col,"stroke-width":wdt}, parent);
+  }
+  const eX = [0,1,0], eH = hDir(theta);
+
+  /* -- ladders: one depth line at height X, imaged both ways at equal steps -- */
+  if (S.lad){
+    const N = 6;
+    line(PW(0,X,0), PW(lam,X,0), {stroke:C("--shared"),"stroke-width":2.2, opacity:.75}, gLad);
+    const lm = PW(lam/2, X, 0);
+    txt("one depth line, height X", lm[0]-60, lm[1]-9,
+        Object.assign({},baseTxt,{fill:C("--shared"),"font-size":13}), gLad);
+    for (let k=1;k<=N;k++){
+      const lk = k*lam/N;
+      if (S.cam){
+        line(PW(u,0,0), PW(lk,X,0), {stroke:C("--cross"),"stroke-width":1, opacity:.30}, gLad);
+        tick(PW(0, X*mag(u,lk), 0), eX, C("--cross"), 1.6, 5, gLad);
+      }
+      if (S.gld){
+        const hg = X/mag(u,lk);
+        if (hg <= HMAX){
+          const q = PW(lk, hg, 0);
+          el("circle",{cx:q[0],cy:q[1],r:3,fill:C("--glide"),opacity:.85}, gLad);
+          line(q, PW(0,hg,0), {stroke:C("--glide"),"stroke-width":1,"stroke-dasharray":"2 4",opacity:.45}, gLad);
+          tick(PW(0,hg,0), eX, C("--glide"), 1.6, 5, gLad);
+        }
+      }
+    }
+    const lt = PW(0, XT, 0);
+    txt("equal depth steps: harmonic in, arithmetic out", lt[0]-8, lt[1]-12,
+        Object.assign({},baseTxt,{"text-anchor":"end","font-size":13.5}), gLad);
+  }
+
+  /* -- readings, u channel (in the u-plane) -- */
+  const P = PW(lam, X, 0), Q = PW(lam, 0, Y);
+
+  if (S.cor){
+    line(P, PW(0,X,0), {stroke:"#8a857a","stroke-width":1.1,"stroke-dasharray":"5 5"}, gRead);
+    const t = PW(0,X,0);
+    tick(t, eX, "#2a2a26", 2.2, 7, gRead);
+    txt(`x = ${fmt(X)}`, t[0]-12, t[1]+4,
+        Object.assign({},baseTxt,{fill:"#2a2a26","text-anchor":"end","font-style":"normal","font-size":13.5}), gRead);
+  }
+  if (S.cam){
+    line(PW(u,0,0), PW(u+1.15*(lam-u), 1.15*X, 0), {stroke:C("--cross"),"stroke-width":2}, gRead);
+    const t = PW(0, Xc, 0);
+    tick(t, eX, C("--cross"), 2.4, 7, gRead);
+    txt(`Xc = ${fmt(Xc)}`, t[0]-12, t[1]+13,
+        Object.assign({},baseTxt,{fill:C("--cross"),"text-anchor":"end","font-style":"normal","font-size":13.5}), gRead);
+  }
+  if (S.gld){
+    const foot = PW(0, X, 0);
+    const HgC = Math.min(Xg, HMAX);
+    const lamC = (Xg <= HMAX) ? lam : (-u)*(HMAX/X - 1);   // clip depth where the stroke leaves the sheet
+    const tip = PW(lamC, HgC, 0);
+    line(PW(u,0,0), tip, {stroke:C("--glide"),"stroke-width":2}, gRead);
+    el("circle",{cx:foot[0],cy:foot[1],r:4,fill:"none",stroke:C("--glide"),"stroke-width":1.6}, gRead);
+    if (axisVisible)
+      txt("footprint", foot[0]+8, foot[1]-6, Object.assign({},baseTxt,{fill:C("--glide"),"font-size":12}), gRead);
+    if (Xg <= HMAX){
+      el("circle",{cx:tip[0],cy:tip[1],r:4.5,fill:"none",stroke:C("--glide"),"stroke-width":1.8}, gRead);
+      line(tip, PW(0,Xg,0), {stroke:C("--glide"),"stroke-width":1.2,"stroke-dasharray":"5 4",opacity:.75}, gRead);
+      const t = PW(0,Xg,0);
+      tick(t, eX, C("--glide"), 2.4, 7, gRead);
+      txt(`Xg = ${fmt(Xg)}`, t[0]-12, t[1]-6,
+          Object.assign({},baseTxt,{fill:C("--glide"),"text-anchor":"end","font-style":"normal","font-size":13.5}), gRead);
+    } else {
+      el("path",{d:`M ${tip[0]} ${tip[1]} l 8 -8 m -8 8 l 11 -3 m -11 3 l 3 -11`,
+         stroke:C("--glide"),"stroke-width":1.6,fill:"none"}, gRead);
+      const t = PW(0, XT, 0);
+      txt(`Xg = ${fmt(Xg)} — off the sheet`, t[0]-12, t[1]-30,
+          Object.assign({},baseTxt,{fill:C("--glide"),"text-anchor":"end","font-size":13}), gRead);
+    }
+  }
+
+  /* -- readings, v channel (in the folding plane) -- */
+  const vo = a => Object.assign({opacity:vOp}, a);
+  if (S.cor){
+    line(Q, PW(0,0,Y), vo({stroke:"#8a857a","stroke-width":1.1,"stroke-dasharray":"5 5"}), gRead);
+    const t = PW(0,0,Y);
+    tick(t, eH, "#2a2a26", 2.2, 6, gRead);
+    txt(`y = ${fmt(Y)}`, t[0]+11, t[1]+(foldedTh?18:4),
+        vo(Object.assign({},baseTxt,{fill:"#2a2a26","font-style":"normal","font-size":13.5})), gRead);
+  }
+  if (S.cam){
+    line(PW(v,0,0), PW(v+1.15*(lam-v), 0, 1.15*Y), vo({stroke:C("--cross"),"stroke-width":2}), gRead);
+    const t = PW(0, 0, Yc);
+    tick(t, eH, C("--cross"), 2.4, 6, gRead);
+    txt(`Yc = ${fmt(Yc)}`, t[0]+11, t[1]+(foldedTh?31:17),
+        vo(Object.assign({},baseTxt,{fill:C("--cross"),"font-style":"normal","font-size":13.5})), gRead);
+  }
+  if (S.gld){
+    const YgC = Math.min(Yg, HMAX);
+    const lamCv = (Yg <= HMAX) ? lam : (-v)*(HMAX/Y - 1);
+    const tip = PW(lamCv, 0, YgC);
+    line(PW(v,0,0), tip, vo({stroke:C("--glide"),"stroke-width":2}), gRead);
+    const foot = PW(0,0,Y);
+    el("circle",{cx:foot[0],cy:foot[1],r:4,fill:"none",stroke:C("--glide"),"stroke-width":1.6,opacity:vOp}, gRead);
+    if (Yg <= HMAX){
+      el("circle",{cx:tip[0],cy:tip[1],r:4.5,fill:"none",stroke:C("--glide"),"stroke-width":1.8,opacity:vOp}, gRead);
+      line(tip, PW(0,0,Yg), vo({stroke:C("--glide"),"stroke-width":1.2,"stroke-dasharray":"5 4"}), gRead);
+      const t = PW(0,0,Yg);
+      tick(t, eH, C("--glide"), 2.4, 6, gRead);
+      txt(`Yg = ${fmt(Yg)}`, t[0]+11, t[1]-4,
+          vo(Object.assign({},baseTxt,{fill:C("--glide"),"font-style":"normal","font-size":13.5})), gRead);
+    }
+  }
+
+  /* -- slits -- */
+  line(PW(u,0,0), PW(u,0,0.5), {stroke:C("--uCol"),"stroke-width":2.4}, gSlit);
+  line(PW(v,0,0), PW(v,0.5,0), {stroke:C("--vCol"),"stroke-width":2.4,opacity:vOp}, gSlit);
+  {
+    if (axisVisible){
+      const a = PW(u,0,0.5), b = PW(v,0.5,0);
+      txt("ℓᵤ", a[0]+6, a[1]-2, Object.assign({},baseTxt,{fill:C("--uCol"),"font-style":"normal"}), gSlit);
+      txt("ℓᵥ", b[0]+7, b[1]+4, Object.assign({},baseTxt,{fill:C("--vCol"),"font-style":"normal",opacity:vOp}), gSlit);
+    }
+  }
+
+  /* -- recall line -- */
+  if (axisVisible){
+    line(PW(lam,0,0), P, {stroke:"#7a745f","stroke-width":1,"stroke-dasharray":"2 4"}, gTie);
+    line(PW(lam,0,0), Q, {stroke:"#7a745f","stroke-width":1,"stroke-dasharray":"2 4",opacity:vOp}, gTie);
+    tick(PW(lam,0,0), [1,0,0], "#4a463c", 1.4, 5, gTie);
+    const t = PW(lam,0,0);
+    txt("same λ", t[0]+8, t[1]+20, Object.assign({},baseTxt,{"font-size":13.5}), gTie);
+  }
+
+  /* -- the point and its shadows (always on) -- */
+  const R = PW(lam, X, Y);
+  line(R, P, {stroke:"#a49e8d","stroke-width":1,"stroke-dasharray":"3 4",opacity:.8}, gRay3);
+  line(R, Q, {stroke:"#a49e8d","stroke-width":1,"stroke-dasharray":"3 4",opacity:.8*vOp}, gRay3);
+  el("circle",{cx:R[0],cy:R[1],r:5,fill:C("--ptCol")}, gRay3);
+  txt("the point (λ, X, Y)", R[0]+9, R[1]-8,
+      Object.assign({},baseTxt,{fill:C("--ptCol"),"font-size":13}), gRay3);
+
+  /* -- the 3D ray (folded image at every θ; honest optics at 90°) -- */
+  if (S.showRay && !fused){
+    const tP=(lam-u)/(v-u), sB=X/tP, aA=Y/(1-tP);
+    const A = PW(u, 0, aA), B = PW(v, sB, 0);
+    const past = ext(B, R, 1.55);
+    const rOp = 0.30 + 0.55*Math.sin(theta);
+    el("polyline",{points:[A,past].map(p=>p.join(",")).join(" "),
+       stroke:C("--ptCol"),"stroke-width":1.5,"stroke-dasharray":"6 4",fill:"none",opacity:rOp}, gRay3);
+    if (theta > 0.9) for (const [pt,lab,dx,dy,anc] of [[A,"through ℓᵤ",-9,18,"end"],[B,"through ℓᵥ",-10,-6,"end"]]){
+      el("circle",{cx:pt[0],cy:pt[1],r:4,fill:"none",stroke:C("--ptCol"),"stroke-width":1.5,opacity:rOp}, gRay3);
+      txt(lab, pt[0]+dx, pt[1]+dy, Object.assign({},baseTxt,{"font-size":12.5,opacity:rOp,"text-anchor":anc}), gRay3);
+    }
+    if (!S.prn){
+      const St = PW(0, Xc, Yc);
+      el("circle",{cx:St[0],cy:St[1],r:4,fill:"none",stroke:C("--ptCol"),"stroke-width":1.5}, gRay3);
+      txt("strike (Xc, Yc)", St[0]+8, St[1]+14, Object.assign({},baseTxt,{"font-size":12.5,fill:C("--ptCol")}), gRay3);
+    }
+  }
+
+  /* -- prints on the picture plane -- */
+  if (S.prn && !foldedTh){
+    /* one square, two prints (the old inset, on the plane itself) */
+    const q = 0.45;
+    poly([PW(0,0,0),PW(0,q,0),PW(0,q,q),PW(0,0,q)],
+         {fill:"none",stroke:"#9a947f","stroke-width":1,"stroke-dasharray":"4 4"}, gPrn);
+    if (S.cam)
+      poly([PW(0,0,0),PW(0,q*mu,0),PW(0,q*mu,q*mv),PW(0,0,q*mv)],
+           {fill:C("--cross"),opacity:.10,stroke:C("--cross"),"stroke-width":1.4}, gPrn);
+    if (S.gld && q/mu <= XT+0.2 && q/mv <= XT+0.2)
+      poly([PW(0,0,0),PW(0,q/mu,0),PW(0,q/mu,q/mv),PW(0,0,q/mv)],
+           {fill:"none",stroke:C("--glide"),"stroke-width":1.4}, gPrn);
+
+    /* camera print = the strike */
+    if (S.cam){
+      line(PW(0,Xc,0), PW(0,Xc,Yc), {stroke:C("--cross"),"stroke-width":1,"stroke-dasharray":"3 4",opacity:.55*vOp}, gPrn);
+      line(PW(0,0,Yc), PW(0,Xc,Yc), {stroke:C("--cross"),"stroke-width":1,"stroke-dasharray":"3 4",opacity:.55*vOp}, gPrn);
+      const cp = PW(0, Xc, Yc);
+      el("circle",{cx:cp[0],cy:cp[1],r:4.5,fill:C("--cross")}, gPrn);
+      txt(faceView ? (S.showRay && !fused ? "camera print = the strike (Xc, Yc)" : "camera print (Xc, Yc)") : "camera print",
+          cp[0]+(faceView?10:-9), cp[1]+(faceView?18:16), Object.assign({},baseTxt,{fill:C("--cross"),"font-size":12.5,"text-anchor":faceView?"start":"end"}), gPrn);
+    }
+    /* glide print */
+    if (S.gld && Xg <= XT+0.2 && Yg <= XT+0.2){
+      line(PW(0,Xg,0), PW(0,Xg,Yg), {stroke:C("--glide"),"stroke-width":1,"stroke-dasharray":"3 4",opacity:.55*vOp}, gPrn);
+      line(PW(0,0,Yg), PW(0,Xg,Yg), {stroke:C("--glide"),"stroke-width":1,"stroke-dasharray":"3 4",opacity:.55*vOp}, gPrn);
+      const gp = PW(0, Xg, Yg);
+      el("circle",{cx:gp[0],cy:gp[1],r:4.5,fill:"none",stroke:C("--glide"),"stroke-width":1.8}, gPrn);
+      txt(faceView ? "glide print (Xg, Yg)" : "glide print", gp[0]-9, gp[1]-8, Object.assign({},baseTxt,{fill:C("--glide"),"font-size":12.5,"text-anchor":"end"}), gPrn);
+    }
+    /* the perpendicular print */
+    if (S.cor){
+      const kp = PW(0, X, Y);
+      el("rect",{x:kp[0]-3.2,y:kp[1]-3.2,width:6.4,height:6.4,fill:"none",stroke:"#2a2a26","stroke-width":1.5}, gPrn);
+      txt(faceView ? "⊥ (x, y)" : "⊥", kp[0]-8, kp[1]+4, Object.assign({},baseTxt,{fill:"#2a2a26","font-size":12,"text-anchor":"end"}), gPrn);
+    }
+  }
+
+  /* -- draggable dots -- */
+  function dot(pos, r, fill, name, label, op){
+    const hit = el("circle",{cx:pos[0],cy:pos[1],r:26,fill:"transparent"}, gPts);
+    el("circle",{cx:pos[0],cy:pos[1],r:r,fill,opacity:op??1}, gPts);
+    if (label) txt(label, pos[0]-6, pos[1]+30,
+        Object.assign({},baseTxt,{fill,"font-style":"normal","font-size":16,opacity:op??1}), gPts);
+    grab(hit, name);
+  }
+  dot(PW(u,0,0), 7.5, C("--uCol"), "u", axisVisible ? "u" : null);
+  dot(PW(v,0,0), 7.5, C("--vCol"), "v", axisVisible ? (fused ? "u = v" : "v") : null, vOp===1?1:.6);
+  dot(P, 6.5, C("--uCol"), "P", null);
+  if (axisVisible)
+    txt("(λ, X)", P[0]+10, P[1]+18, Object.assign({},baseTxt,{fill:C("--uCol"),"font-size":13}), gPts);
+  dot(Q, 6.5, C("--vCol"), "Q", null, vOp===1?1:.6);
+  if (axisVisible)
+    txt("(λ, Y)", Q[0]+10, Q[1]+16, Object.assign({},baseTxt,{fill:C("--vCol"),"font-size":13,opacity:vOp}), gPts);
+
+  /* -- fold arc -- */
+  {
+    const hx=1.28, rw=0.32, steps=18, pts=[];
+    for (let i=0;i<=steps;i++){
+      const t=theta*i/steps;
+      pts.push(proj([hx, rw*Math.cos(t), rw*Math.sin(t)]));
+    }
+    let spread = 0;
+    for (const p of pts) spread = Math.max(spread, Math.hypot(p[0]-pts[0][0], p[1]-pts[0][1]));
+    if (spread > 14){
+      el("polyline",{points:pts.map(p=>p.join(",")).join(" "),fill:"none",
+         stroke:"#4a463c","stroke-width":1.2,"stroke-dasharray":"3 3"}, gArc);
+      if (theta > 0.06){
+        const tip=pts[pts.length-1], prev=pts[pts.length-2];
+        const ang=Math.atan2(tip[1]-prev[1], tip[0]-prev[0]);
+        el("path",{d:`M ${tip[0]} ${tip[1]} l ${-9*Math.cos(ang-0.4)} ${-9*Math.sin(ang-0.4)}
+                      M ${tip[0]} ${tip[1]} l ${-9*Math.cos(ang+0.4)} ${-9*Math.sin(ang+0.4)}`,
+           stroke:"#4a463c","stroke-width":1.2,fill:"none"}, gArc);
+      }
+      const c = proj([hx,0,0]);
+      const mid = pts[Math.floor(steps/2)];
+      const md = norm([mid[0]-c[0], mid[1]-c[1]]);
+      txt(`θ = ${Math.round(theta*180/Math.PI)}°`,
+          c[0]+md[0]*(rw*S.SC+22), c[1]+md[1]*(rw*S.SC+22)-4,
+          Object.assign({},baseTxt,{"text-anchor":"middle"}), gArc);
+    }
+  }
+
+  /* -- situational annotations -- */
+  if (foldedTh){
+    txt("folded flat: drafting country — both channels on one sheet;",
+        60, 112, Object.assign({},baseTxt,{"font-size":15.5,fill:"#2a2a26"}), gAnno);
+    txt("the glide strokes never leave this plane.", 60, 133, baseTxt, gAnno);
+  } else if (theta > 1.48){
+    txt("opened 90°: camera country — a ray must thread both slits;",
+        60, 112, Object.assign({},baseTxt,{"font-size":15.5,fill:"#2a2a26"}), gAnno);
+    txt("the forward reading is honest optics only here.", 60, 133, baseTxt, gAnno);
+  }
+  if (fused){
+    txt("pencils fused (v = u): Δ = 0 — one center, readings' drawn lines fuse: perspective.",
+        60, foldedTh||theta>1.48 ? 162 : 120, Object.assign({},baseTxt,{fill:C("--ptCol")}), gAnno);
+  }
+  if (faceView){
+    const yy = foldedTh||theta>1.48 ? (fused?191:162) : (fused?149:112);
+    txt("face-on, slits axis end-on (λ into the page):",
+        60, yy, Object.assign({},baseTxt,{"font-size":14.5,fill:"#2a2a26"}), gAnno);
+    txt("both channel planes edge-on — each trace fed from the side.",
+        60, yy+21, Object.assign({},baseTxt,{"font-size":14.5}), gAnno);
+  }
+
+  /* -- readouts & caption -- */
+  readout.textContent =
+    `r_u = ${fmt(ru)}   r_v = ${fmt(rv)}   D = |u−v| = ${fmt(Math.abs(u-v))}\n` +
+    `λ = ${fmt(lam)}    X = ${fmt(X)}   Y = ${fmt(Y)}    θ = ${Math.round(theta*180/Math.PI)}°\n` +
+    `m_u = ${fmt(mu,4)}   m_v = ${fmt(mv,4)}   AR = ${fmt(mv/mu,4)}\n` +
+    `u:  Xc = ${fmt(Xc,4)}   x = ${fmt(X,4)}   Xg = ${fmt(Xg,4)}   Xg·Xc/x² = ${fmt(Xg*Xc/(X*X),4)}\n` +
+    `v:  Yc = ${fmt(Yc,4)}   y = ${fmt(Y,4)}   Yg = ${fmt(Yg,4)}   Yg·Yc/y² = ${fmt(Yg*Yc/(Y*Y),4)}\n` +
+    `Δ = r_u·r_v·(r_v−r_u) = ${fmt(Delta,4)}   [${seam ? "SEAM — readings fuse" : "SPLIT — the camera peels"}]`;
+  caption.textContent =
+    fused ? "v sits on u: Δ = 0 — one pencil, one denominator; camera and glide lines fuse into perspective."
+    : faceView ? "Face-on: the picture plane as a picture — the strike and both prints at true coordinates."
+    : foldedTh ? "Folded: drafting country. Camera pulls in, glide pushes out, on one plane — one reciprocal apart."
+    : theta > 1.48 ? "Opened 90°: camera country. The forward reading is optics; the backward reading waits in the fold."
+    : "Mid-fold: the v-plane swinging between camera country and drafting country.";
+}
+
+/* ---------------- controls ---------------- */
+const foldSlider = document.getElementById("fold");
+const btnFuse = document.getElementById("btnFuse");
+const reduced = (typeof matchMedia === "function") && matchMedia("(prefers-reduced-motion: reduce)").matches;
+let animT = null, animV2 = null;
+
+foldSlider.addEventListener("input", () => { S.theta = foldSlider.value*Math.PI/180; render(); });
+
+const ease = t => t<.5 ? 2*t*t : 1-Math.pow(-2*t+2,2)/2;
+
+function animateTheta(target){
+  cancelAnimationFrame(animT);
+  if (reduced){ S.theta = target; foldSlider.value = target*180/Math.PI; render(); return; }
+  const from = S.theta, t0 = performance.now(), dur = 750;
+  const step = now => {
+    const t = Math.min(1,(now-t0)/dur);
+    S.theta = from + (target-from)*ease(t);
+    foldSlider.value = S.theta*180/Math.PI;
+    render();
+    if (t<1) animT = requestAnimationFrame(step);
+  };
+  animT = requestAnimationFrame(step);
+}
+document.getElementById("btnFold").addEventListener("click", () => animateTheta(0));
+document.getElementById("btnOpen").addEventListener("click", () => animateTheta(Math.PI/2));
+
+const viewBtns = {three:"btnThree", face:"btnFace", sheet:"btnSheet"};
+function setViewPressed(name){
+  for (const k in viewBtns)
+    document.getElementById(viewBtns[k]).setAttribute("aria-pressed", String(k === name));
+}
+function animateView(target, name){
+  cancelAnimationFrame(animV2);
+  setViewPressed(name);
+  const keys = ["phi","psi","SC","CX","CY"];
+  if (reduced){ for (const k of keys) S[k] = target[k]; render(); return; }
+  const from = {}; for (const k of keys) from[k] = S[k];
+  const t0 = performance.now(), dur = 700;
+  const step = now => {
+    const t = Math.min(1,(now-t0)/dur), e = ease(t);
+    for (const k of keys) S[k] = from[k] + (target[k]-from[k])*e;
+    render();
+    if (t<1) animV2 = requestAnimationFrame(step);
+  };
+  animV2 = requestAnimationFrame(step);
+}
+document.getElementById("btnThree").addEventListener("click", () => animateView(VIEWS.three, "three"));
+document.getElementById("btnFace").addEventListener("click", () => { animateView(VIEWS.face, "face"); animateTheta(Math.PI/2); });
+document.getElementById("btnSheet").addEventListener("click", () => animateView(VIEWS.sheet, "sheet"));
+
+function syncFuse(){ btnFuse.textContent = S.fusedFrom === null ? "Fuse v → u" : "Un-fuse"; }
+function animateV(target, after){
+  if (reduced){ S.v = target; render(); if (after) after(); return; }
+  const from = S.v, t0 = performance.now(), dur = 600;
+  const step = now => {
+    const t = Math.min(1,(now-t0)/dur);
+    S.v = from + (target-from)*ease(t);
+    render();
+    if (t<1) requestAnimationFrame(step); else if (after) after();
+  };
+  requestAnimationFrame(step);
+}
+btnFuse.addEventListener("click", () => {
+  if (S.fusedFrom === null){ S.fusedFrom = S.v; animateV(S.u, syncFuse); }
+  else { animateV(S.fusedFrom, () => { S.fusedFrom = null; syncFuse(); }); }
+});
+document.getElementById("btnReset").addEventListener("click", () => {
+  Object.assign(S, DEF); S.fusedFrom = null; syncFuse();
+  animateTheta(Math.PI/2); animateView(VIEWS.three, "three");
+});
+document.getElementById("chkRay").addEventListener("change", ev => { S.showRay = ev.target.checked; render(); });
+
+for (const [id, key] of [["chipCam","cam"],["chipGld","gld"],["chipCor","cor"],["chipLad","lad"],["chipPrn","prn"]]){
+  const b = document.getElementById(id);
+  b.addEventListener("click", () => {
+    S[key] = !S[key];
+    b.setAttribute("aria-pressed", String(S[key]));
+    render();
+  });
+}
+
+render();
+})();
+</script>
+</body>
+</html>
