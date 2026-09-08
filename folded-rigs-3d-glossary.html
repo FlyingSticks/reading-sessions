@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>the rig in the round — glossary &amp; equations</title>
+<style>
+  :root{
+    --paper:#f6f2e7; --ink:#2a2a26; --muted:#6f6a5c;
+    --uCol:#8a5a2b;         /* sienna — the u foot / channel identity */
+    --vCol:#44489d;         /* indigo — the v foot / channel identity */
+    --ppCol:#2f5d3a;        /* dark green — picture plane */
+    --ptCol:#c0392b;        /* red — the point */
+    --glide:#177f75;        /* teal — the glide reading (book palette) */
+    --cross:#6a2c91;        /* purple — the cross-slit / camera reading (book palette) */
+    --shared:#3d8f3d;       /* green — shared / level / measured */
+  }
+  html,body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    -webkit-text-size-adjust:100%;}
+  body{padding:16px clamp(12px,4vw,40px) calc(30px + env(safe-area-inset-bottom));}
+  main{max-width:78ch;margin:0 auto;}
+  h1{font-size:clamp(20px,3.2vw,29px);font-weight:600;margin:.3em 0 .15em;letter-spacing:.01em;}
+  .dek{font-style:italic;color:var(--muted);margin:0 0 6px;font-size:clamp(14px,1.9vw,16.5px);line-height:1.5;}
+  h2{font-size:1.14em;font-weight:600;font-style:italic;margin:1.9em 0 .55em;
+     border-bottom:1.4px solid #d8d2bd;padding-bottom:.25em;color:var(--ppCol);}
+  p{font-size:clamp(15px,2vw,17px);line-height:1.6;margin:.5em 0;}
+  .math{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:.88em;white-space:nowrap;}
+  .sw{display:inline-block;width:.8em;height:.8em;border-radius:50%;vertical-align:-1px;margin-right:.4em;}
+  .swo{display:inline-block;width:.66em;height:.66em;border-radius:50%;vertical-align:-1px;margin-right:.4em;
+       background:none;border:1.7px solid currentColor;}
+  .swsq{display:inline-block;width:.62em;height:.62em;vertical-align:-1px;margin-right:.4em;
+       background:none;border:1.6px solid var(--ink);}
+
+  /* term list */
+  dl{margin:.4em 0 0;}
+  dl > div{display:grid;grid-template-columns:15.5em 1fr;gap:4px 20px;
+    padding:9px 0;border-bottom:1px solid #e6e0cd;align-items:baseline;}
+  dl > div:last-child{border-bottom:none;}
+  dt{font-weight:600;font-size:15.5px;line-height:1.45;}
+  dt .alias{font-weight:400;font-style:italic;color:var(--muted);font-size:14px;}
+  dd{margin:0;font-size:15.5px;line-height:1.58;}
+  dd .aside{font-style:italic;color:var(--muted);}
+  .crs{color:var(--cross);} .gld{color:var(--glide);}
+  .uc{color:var(--uCol);} .vc{color:var(--vCol);}
+  .pp{color:var(--ppCol);} .pt{color:var(--ptCol);} .sh{color:var(--shared);}
+
+  /* equations */
+  .eq{background:#fffdf6;border:1px solid #d8d2bd;padding:11px 16px;margin:12px 0;}
+  .eq .line{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:clamp(12.5px,1.7vw,14.5px);
+    line-height:1.8;white-space:pre-wrap;margin-bottom:5px;}
+  .eq .why{font-size:15px;line-height:1.55;}
+  .eq .why em{color:var(--muted);}
+
+  .note{border-left:3px solid var(--ppCol);padding:2px 0 2px 14px;margin:1.4em 0 0;
+    font-style:italic;color:var(--muted);font-size:15px;line-height:1.55;}
+  @media (max-width:620px){ dl > div{grid-template-columns:1fr;} dd{padding-left:.9em;} }
+  @media print{ body{padding:0.5in;} .eq{break-inside:avoid;} dl > div{break-inside:avoid;} }
+</style>
+</head>
+<body>
+<main>
+
+<h1>the rig in the round — glossary &amp; equations</h1>
+<p class="dek">Companion sheet to <span class="math">folded-rigs-3d.html</span>. Every term the plate
+draws or prints, defined in one or two sentences, followed by its equations with the reason each one
+is there. Same palette, same vocabulary; nothing new is claimed here.</p>
+
+<h2>The stage</h2>
+<dl>
+  <div><dt>slits axis <span class="alias">(fold hinge, the λ line)</span></dt>
+    <dd>The one line shared by both channel planes. Depth is measured along it, both feet sit on it,
+    and the fold swings the v-plane about it — hence the second name.</dd></div>
+  <div><dt class="pp">picture plane <span class="alias">(the screen, λ&nbsp;=&nbsp;0)</span></dt>
+    <dd>The plane where everything is read. It is the one depth at which both readings, in both
+    channels, print at ×1 — the gauge there is exactly 1, so a mark on the screen means what it says.</dd></div>
+  <div><dt>traces</dt>
+    <dd>The two lines where the channel planes meet the picture plane. Each channel delivers its
+    marks to its own trace; in the face-on view you watch this delivery happen edge-on.</dd></div>
+  <div><dt>the slab</dt>
+    <dd>The band of depths <span class="math">0 ≤ λ ≤ 1</span>, from the picture plane to the back
+    wall — the working territory where the point lives.</dd></div>
+  <div><dt>back wall <span class="alias">(λ&nbsp;=&nbsp;1)</span></dt>
+    <dd>The dashed far edge of the slab; unit depth.</dd></div>
+  <div><dt class="uc">u-plane <span class="alias">(the drawing sheet)</span></dt>
+    <dd>The channel plane that never moves. It carries the u readings, the ladders, and — in the
+    sheet preset — becomes the flat drawing of folded-rigs-v2.</dd></div>
+  <div><dt class="vc">v-plane <span class="alias">(the folding plane)</span></dt>
+    <dd>The channel plane that swings with θ. It carries the v readings; the fold lays it onto the
+    u-plane at θ&nbsp;=&nbsp;0.</dd></div>
+</dl>
+
+<h2>The actors</h2>
+<dl>
+  <div><dt><span class="uc">u</span>, <span class="vc">v</span> <span class="alias">(the feet)</span></dt>
+    <dd>The positions of the two slits on the slits axis, both behind the screen
+    (<span class="math">u, v &lt; 0</span>). Each channel runs both of its readings through its own
+    foot. Draggable along the axis.</dd></div>
+  <div><dt><span class="uc">ℓᵤ</span>, <span class="vc">ℓᵥ</span> <span class="alias">(the slits)</span></dt>
+    <dd>The slit lines themselves: ℓᵤ vertical at depth u, ℓᵥ horizontal at depth v. A camera ray
+    must thread both.</dd></div>
+  <div><dt class="pt">the point (λ, X, Y)</dt>
+    <dd>The scene point in rig coordinates: depth λ along the slits axis, plan coordinate X in the
+    u channel, elevation coordinate Y in the v channel.</dd></div>
+  <div><dt>P&nbsp;=&nbsp;(λ,&nbsp;X), Q&nbsp;=&nbsp;(λ,&nbsp;Y) <span class="alias">(the shadows)</span></dt>
+    <dd>The point's ⊥ shadows in the two channel planes — the two dots you actually drag. The dotted
+    “same λ” recall line ties them to one depth on the axis.</dd></div>
+  <div><dt>pencils</dt>
+    <dd>The faint fans of rays out of each foot — each channel's whole supply of camera lines,
+    drawn thin so the two in use stand out.</dd></div>
+  <div><dt>fold θ</dt>
+    <dd>The dihedral angle between the channel planes: 0° is folded flat (both channels on one
+    sheet of paper), 90° is fully opened (the physical rig).</dd></div>
+</dl>
+
+<h2>The three ways to read</h2>
+<dl>
+  <div><dt><span class="sw" style="background:var(--cross)"></span><span class="crs">camera reading</span> <span class="alias">(cross-slit)</span></dt>
+    <dd>Ray from the scene point to the slit, read where it crosses the screen. It <i>pulls in</i>:
+    mark <span class="math crs">Xc = X·m</span>. Equal depth steps print harmonically.
+    <span class="aside">Law and gauge welded by optics — the physical ray fixes both the incidence
+    and the scale in one act.</span></dd></div>
+  <div><dt><span class="sw" style="background:var(--glide)"></span><span class="gld">glide reading</span></dt>
+    <dd>Ray from the footprint to the slit, read at the scene's own depth, then carried home along
+    the level plane to the trace. It <i>pushes out</i>: mark <span class="math gld">Xg = X/m</span>.
+    Equal depth steps print arithmetically (Reach). <span class="aside">Gauge free — the
+    carrying-home is a level translation and imposes no scale of its own.</span></dd></div>
+  <div><dt><span class="swsq"></span>corner mark <span class="alias">(the ⊥ reading)</span></dt>
+    <dd><span class="math">x = X</span>, <span class="math">y = Y</span> — the perpendicular
+    projection, i.e. the reading with both feet pushed to −∞. It is the mean proportional between
+    the other two marks.</dd></div>
+  <div><dt><span class="swo" style="color:var(--glide)"></span><span class="gld">footprint</span></dt>
+    <dd>The ⊥ landing of the point in its channel plane — where the glide stroke starts. Drawn as
+    an open circle on the trace.</dd></div>
+  <div><dt class="gld">carried home</dt>
+    <dd>The dashed level segment that transports the glide mark from scene depth back to the
+    trace — same height, no rescaling.</dd></div>
+  <div><dt>channel gauge <span class="math">m</span></dt>
+    <dd>The one number a channel assigns to a depth: <span class="math">m = (−s)/(λ − s)</span> for
+    foot s. Written <span class="math">m_u</span>, <span class="math">m_v</span>. Both readings are
+    this same gauge, applied in opposite directions.</dd></div>
+</dl>
+
+<h2>On the plane: marks, prints, ladders</h2>
+<dl>
+  <div><dt>marks on traces</dt>
+    <dd>The six tick readings the traces carry: <span class="crs">Xc</span>, x,
+    <span class="gld">Xg</span> on the u trace; <span class="crs">Yc</span>, y,
+    <span class="gld">Yg</span> on the v trace. On each trace the three form a geometric
+    progression — camera in, corner mid, glide out.</dd></div>
+  <div><dt><span class="sw" style="background:var(--cross)"></span><span class="crs">camera print (Xc, Yc)</span></dt>
+    <dd>The two camera marks assembled into a plane coordinate; filled dot. Not a construction:
+    it is the strike.</dd></div>
+  <div><dt class="pt">the strike</dt>
+    <dd>Where the physical 3D ray through both slits meets the screen — checked to the decimal,
+    <span class="math">strike = (X·mᵤ, Y·mᵥ)</span>, at every fold angle.</dd></div>
+  <div><dt><span class="swo" style="color:var(--glide)"></span><span class="gld">glide print (Xg, Yg)</span></dt>
+    <dd>The two glide marks assembled; open dot. It stands one reciprocal out from the corner
+    print on each axis.</dd></div>
+  <div><dt><span class="swsq"></span>⊥ print (x, y)</dt>
+    <dd>The corner pair; small square. The geometric middle of the rectangle the other two prints
+    span.</dd></div>
+  <div><dt>one square, two rectangles</dt>
+    <dd>The dashed square on the plane prints twice: the <span class="crs">camera rectangle</span>
+    (area ×&nbsp;mᵤ·mᵥ, filled wash) and the <span class="gld">glide rectangle</span> (area
+    ×&nbsp;1/(mᵤ·mᵥ), outline). The two area factors multiply to 1. This is the v2 front-view inset
+    promoted to the object itself.</dd></div>
+  <div><dt class="sh">ladders <span class="alias">(equal depth steps)</span></dt>
+    <dd>One depth line at height X, sampled at equal steps of λ and imaged both ways in the u
+    channel: the <span class="crs">camera ticks</span> crowd harmonically, the
+    <span class="gld">glide circles</span> march out arithmetically.</dd></div>
+</dl>
+
+<h2>Meters, identities, countries</h2>
+<dl>
+  <div><dt><span class="math">r_u, r_v</span></dt>
+    <dd>Reciprocal foot distances, <span class="math">r_u = 1/(−u)</span>,
+    <span class="math">r_v = 1/(−v)</span> — the natural strengths of the two feet (a foot at −∞
+    has strength 0).</dd></div>
+  <div><dt><span class="math">D = |u − v|</span></dt>
+    <dd>The separation of the feet along the slits axis — the rig's baseline.</dd></div>
+  <div><dt><span class="math">AR = m_v/m_u</span></dt>
+    <dd>The aspect between the two channels' gauges at the current depth — how anisotropically the
+    rig is printing right now.</dd></div>
+  <div><dt>seam meter <span class="math">Δ</span></dt>
+    <dd><span class="math">Δ = r_u·r_v·(r_v − r_u)</span>. Zero exactly when the readings fuse
+    (SEAM); away from zero the camera peels off the glide (SPLIT).</dd></div>
+  <div><dt>fuse v&nbsp;→&nbsp;u</dt>
+    <dd>Slide the v foot onto the u foot: Δ&nbsp;=&nbsp;0, one center and one denominator, the
+    prints' rectangle squares up, and the readings' drawn lines fuse into perspective.</dd></div>
+  <div><dt>hinge identity</dt>
+    <dd><span class="math"><span class="gld">Xg</span>·<span class="crs">Xc</span> = x²</span> —
+    the corner mark is the geometric mean of the other two. The readout carries it live in both
+    channels as <span class="math">Xg·Xc/x² = 1</span>.</dd></div>
+  <div><dt>drafting country</dt>
+    <dd>θ&nbsp;=&nbsp;0, folded flat: both channels on one sheet of paper; the glide strokes never
+    leave this plane.</dd></div>
+  <div><dt>camera country</dt>
+    <dd>θ&nbsp;=&nbsp;90°, fully opened: a ray must thread both slits; only here is the forward
+    reading honest optics.</dd></div>
+  <div><dt class="pt">the 3D ray</dt>
+    <dd>The unique line through the point meeting both slits, drawn at every θ as the folded image
+    of itself — honest optics only at 90°. It disappears when the feet fuse (no unique ray through
+    one center).</dd></div>
+  <div><dt>view presets</dt>
+    <dd>¾ round (the orbit's home); <i>face the picture plane</i> (depth axis projects to a single
+    point, both channel planes arrive edge-on, prints at true coordinates); <i>sheet</i> (u-plane
+    flat-on, recovering v2's drawing). The orbit itself is a plain orthographic turn — drafting
+    rules, no vanishing tricks.</dd></div>
+</dl>
+
+<h2>The equations</h2>
+
+<div class="eq">
+  <div class="line">m = (−s)/(λ − s)        m_u = m(u, λ)   m_v = m(v, λ)</div>
+  <div class="why">The channel gauge: what a foot at s does to material at depth λ when it is
+  brought to the screen. At λ&nbsp;=&nbsp;0 it is exactly 1 (the ×1 picture plane); it shrinks as
+  the point goes deeper.</div>
+</div>
+
+<div class="eq">
+  <div class="line"><span class="crs">Xc = X·m_u    Yc = Y·m_v</span>      (camera — pull in)
+<span class="gld">Xg = X/m_u    Yg = Y/m_v</span>      (glide — push out)
+x  = X        y  = Y          (corner — both feet at −∞)</div>
+  <div class="why">The three readings of one point. One gauge, used three ways: multiplied,
+  divided, ignored.</div>
+</div>
+
+<div class="eq">
+  <div class="line"><span class="gld">Xg</span>·<span class="crs">Xc</span> = x²        <span class="gld">Yg</span>·<span class="crs">Yc</span> = y²</div>
+  <div class="why">The harmonic hinge: (X/m)(X·m)&nbsp;=&nbsp;X². Equivalently
+  <span class="math">Xc, x, Xg</span> is a geometric progression with ratio
+  <span class="math">1/m</span> — the reciprocal pair with the corner as mean proportional.</div>
+</div>
+
+<div class="eq">
+  <div class="line"><span class="pt">strike = (X·m_u, Y·m_v)</span> = <span class="crs">camera print</span></div>
+  <div class="why">The physical ray through both slits lands on the screen exactly at the camera
+  print, at every fold angle — the plate's central check, and the reason the print is drawn
+  filled.</div>
+</div>
+
+<div class="eq">
+  <div class="line">r_u = 1/(−u)    r_v = 1/(−v)    D = |u − v|
+Δ = r_u·r_v·(r_v − r_u)</div>
+  <div class="why">The seam meter and its ingredients. Δ&nbsp;=&nbsp;0 exactly when the feet
+  coincide (or a foot retreats to infinity, killing its strength) — the zero set where camera and
+  glide stop being distinguishable and perspective takes over.</div>
+</div>
+
+<div class="eq">
+  <div class="line">(λ, X, Y)  ↦  (λ,  X + Y·cos θ,  Y·sin θ)</div>
+  <div class="why">The fold map, sending rig coordinates to space at fold angle θ. It is linear at
+  every θ, so straight lines stay straight and every incidence the flat plate drew survives the
+  orbit untouched. Its height direction is <span class="math">h(θ) = (0, cos θ, sin θ)</span>; at
+  θ&nbsp;=&nbsp;0 the v-plane lies in the u-plane, at 90° it stands perpendicular.</div>
+</div>
+
+<div class="eq">
+  <div class="line">λ_k = k·λ/N,  k = 1…N
+<span class="crs">camera:  X·m(u, λ_k) = X/(1 + λ_k·r_u)</span>   — harmonic
+<span class="gld">glide:   X/m(u, λ_k) = X·(1 + λ_k·r_u)</span>   — arithmetic (Reach)</div>
+  <div class="why">The ladders. Equal steps of depth print as a harmonic progression under the
+  camera (its reciprocals are equally spaced) and as an arithmetic progression under the glide,
+  with common difference <span class="math">X·r_u·λ/N</span> — the foot's strength r_u appearing
+  as the glide's slope.</div>
+</div>
+
+<div class="eq">
+  <div class="line"><span class="crs">camera area = q²·(m_u·m_v)</span>    <span class="gld">glide area = q²/(m_u·m_v)</span>    product of factors = 1</div>
+  <div class="why">The dashed square of side q printing to its two rectangles: camera in, glide
+  out, areas in exact reciprocal. Fusing the feet makes m_u&nbsp;=&nbsp;m_v and both rectangles
+  square up.</div>
+</div>
+
+<div class="eq">
+  <div class="line">t = (λ − u)/(v − u)
+ray ∩ ℓ_u = (u, 0, Y/(1−t))      ray ∩ ℓ_v = (v, X/t, 0)</div>
+  <div class="why">The 3D ray's two slit crossings, parametrized by how far along the baseline the
+  depth λ sits. It needs u&nbsp;≠&nbsp;v — with the feet fused there is no unique ray, which is
+  why the plate hides it.</div>
+</div>
+
+<p class="note">Everything above transcribes what folded-rigs-3d.html draws and what
+check-folded-rigs-3d.js asserts (26 numbered assertions). The country names, “pull in / push
+out,” and the face-on view as “the edge view become a picture” are readings of the sheet, offered
+for the seasoning shelf — not theorems.</p>
+
+</main>
+</body>
+</html>
