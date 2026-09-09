@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>the slab printed twice — glide construction and cross-slit projection</title>
+<style>
+  :root{
+    --paper:#f6f2e7; --ink:#2a2a26; --muted:#6f6a5c;
+    --uCol:#8a5a2b;         /* sienna — the u foot / channel identity */
+    --vCol:#44489d;         /* indigo — the v foot / channel identity */
+    --ppCol:#2f5d3a;        /* dark green — picture plane furniture */
+    --frame:#c0392b;        /* red — the mediating rectangle */
+    --glide:#177f75;        /* teal — the glide reading (book palette) */
+    --gcons:#3f9b45;        /* construction green — the glide construction, as drawn */
+    --cross:#6a2c91;        /* purple — the cross-slit projection (book palette) */
+    --shared:#3d8f3d;
+  }
+  html,body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    -webkit-text-size-adjust:100%;}
+  body{padding:14px clamp(10px,3vw,34px) calc(24px + env(safe-area-inset-bottom));}
+  header{max-width:1100px;margin:0 auto 6px;}
+  h1{font-size:clamp(20px,3.2vw,29px);font-weight:600;margin:.2em 0 .15em;letter-spacing:.01em;}
+  .dek{font-style:italic;color:var(--muted);margin:0 0 10px;font-size:clamp(14px,1.9vw,16.5px);line-height:1.45;max-width:76ch;}
+  .stage{max-width:1360px;margin:0 auto;}
+  svg{width:100%;height:auto;display:block;touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;}
+  .controls{max-width:1100px;margin:10px auto 4px;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;}
+  .controls label{font-size:15px;font-style:italic;}
+  input[type=range]{width:min(260px,48vw);accent-color:var(--ppCol);}
+  button{font:inherit;font-size:15px;padding:7px 14px;background:#fffdf6;border:1.4px solid #7a745f;
+    border-radius:3px;color:var(--ink);cursor:pointer;}
+  button:active{transform:translateY(1px);}
+  button:focus-visible,input:focus-visible{outline:2px solid var(--ppCol);outline-offset:2px;}
+  .chips{max-width:1100px;margin:8px auto 0;display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;}
+  .chips .lead{font-style:italic;font-size:15px;color:var(--muted);margin-right:2px;}
+  button.chip{border-radius:14px;padding:5px 13px;border-width:1.6px;opacity:.55;}
+  button.chip[aria-pressed="true"]{opacity:1;background:#fdfaf0;}
+  #chipGld[aria-pressed="true"]{border-color:var(--gcons);color:var(--gcons);}
+  #chipCrs[aria-pressed="true"]{border-color:var(--cross);color:var(--cross);}
+  #chipFlr[aria-pressed="true"]{border-color:var(--ppCol);color:var(--ppCol);}
+  #chipLbl[aria-pressed="true"]{border-color:var(--ink);}
+  #sheet.lbl-off text{display:none;}
+  .viewrow button[aria-pressed="true"]{border-color:var(--ppCol);color:var(--ppCol);background:#fdfaf0;}
+  .hint{font-style:italic;color:var(--muted);font-size:14px;}
+  .caption{max-width:1100px;margin:4px auto 14px;font-style:italic;color:var(--ppCol);
+    font-size:clamp(14px,1.9vw,16px);min-height:1.4em;}
+  .panel{max-width:1100px;margin:0 auto 18px;display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:start;}
+  .readout{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:clamp(12px,1.65vw,14px);
+    line-height:1.85;white-space:pre;background:#fffdf6;border:1px solid #d8d2bd;padding:12px 16px;}
+  .legend{font-size:14.5px;line-height:1.75;padding-top:4px;}
+  .sw{display:inline-block;width:.85em;height:.85em;border-radius:50%;vertical-align:-1px;margin-right:.45em;}
+  .prose{max-width:76ch;margin:6px auto 0;font-size:clamp(15px,2vw,17px);line-height:1.62;}
+  .prose h2{font-size:1.12em;font-weight:600;font-style:italic;margin:1.35em 0 .3em;}
+  .prose p{margin:.45em 0;}
+  .prose .math{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:.9em;}
+  .prose .gld{color:var(--gcons);} .prose .crs{color:var(--cross);} .prose .red{color:var(--frame);}
+  a{color:var(--ppCol);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;}
+  @media (max-width:760px){.panel{grid-template-columns:1fr;}}
+  @media (prefers-reduced-motion:reduce){ *{animation:none!important;transition:none!important;} }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>the slab printed twice — glide construction and cross-slit projection</h1>
+  <p class="dek">The slab from λ&nbsp;=&nbsp;0 to 1, square in section, printed on the picture plane
+  under both readings and mediated by the <b style="color:var(--frame)">red rectangle</b> — the
+  slab's near face, which is its own ×1 print and the shared first member of both families. The
+  <b style="color:var(--cross)">cross-slit projection</b> hangs inward from it: graduated
+  (harmonic) and closed by its far frame, its corner connectors bowing — they are trail
+  hyperbolas. The <b style="color:var(--gcons)">glide construction</b> splays outward: equal
+  intervals (arithmetic), straight corners, and open — it runs off the sheet. Drag the paper to
+  orbit; drag the feet; fuse them and both constructions straighten and square.</p>
+</header>
+
+<div class="stage"><svg id="sheet" viewBox="0 0 1320 780" aria-label="Orbitable 3D diagram: the slab imaged twice on the picture plane — cross-slit projection inward, glide construction outward, mediated by the red rectangle"></svg></div>
+
+<div class="chips">
+  <span class="lead">constructions</span>
+  <button class="chip" id="chipGld" aria-pressed="true">glide construction · out, open</button>
+  <button class="chip" id="chipCrs" aria-pressed="true">cross-slit projection · in, closed</button>
+  <button class="chip" id="chipFlr" aria-pressed="true">floor grids</button>
+  <button class="chip" id="chipLbl" aria-pressed="true">labels</button>
+</div>
+<div class="controls viewrow">
+  <span class="lead" style="font-style:italic;font-size:15px;color:var(--muted)">view</span>
+  <button id="btnThree" aria-pressed="true">¾ round</button>
+  <button id="btnFace" aria-pressed="false">face the picture plane</button>
+  <button id="btnSheet" aria-pressed="false">edge-on (plane as a line)</button>
+  <span class="hint">— or drag the empty paper to orbit</span>
+</div>
+<div class="controls">
+  <label for="grad">graduations&nbsp;N</label>
+  <input id="grad" type="range" min="4" max="12" step="1" value="8" aria-label="number of depth graduations">
+  <button id="btnFuse">Fuse v → u</button>
+  <button id="btnReset">Reset</button>
+</div>
+<p class="caption" id="caption"></p>
+
+<div class="panel">
+  <pre class="readout" id="readout"></pre>
+  <div class="legend">
+    <div><span class="sw" style="background:var(--frame)"></span><b>the red rectangle</b> — the slab's near face on the picture plane, its own ×1 print, and the shared λ&nbsp;=&nbsp;0 frame of both constructions: the mediator.</div>
+    <div><span class="sw" style="background:var(--cross)"></span><b>cross-slit projection</b> — the slab printed forward through the two slits: frames graduated harmonically inward, closed by the far frame ×(mᵤ·mᵥ) in area; the corner connectors are hyperbolic arcs (a two-slit camera bends depth lines). It represents the far side of the picture plane — the view into the slab.</div>
+    <div><span class="sw" style="background:var(--gcons)"></span><b>glide construction</b> — the same slab carried home by the glide: frames in equal strides outward, straight corner lines, area factor the exact reciprocal, and open — the family continues past its λ&nbsp;=&nbsp;1 frame and off the sheet. It represents the near side: the slab unfolded toward the viewer.</div>
+    <div><span class="sw" style="background:var(--uCol)"></span><span class="sw" style="background:var(--vCol);margin-left:-4px"></span><b>u, v</b> — the two feet on the slits axis; each channel scales its own direction, so frames are rectangles and AR = m_v/m_u shows in their shape. Fused, everything squares.</div>
+    <div><span class="sw" style="background:var(--ink)"></span><b>the slab, in space</b> — the ink wireframe: far square at λ = 1, corner depth edges dashed. The picture plane carries everything else.</div>
+  </div>
+</div>
+
+<div class="prose">
+  <h2>One slab, two constructions</h2>
+  <p>Take the slab: depth 0 to 1, section the centered square of half-width q. Print it on the
+  picture plane under each reading and one figure appears twice. Every depth λ prints as a frame
+  — <span class="crs">camera-wise at ×(m_u,&nbsp;m_v)</span>, <span class="gld">glide-wise at the
+  reciprocal</span> — and the slab's four corner edges, which are depth lines, print as the
+  connectors between frames. The whole of it is drawn on the plane; the ink wireframe behind is
+  the slab itself, for reference.</p>
+
+  <h2>Mediated by the red rectangle</h2>
+  <p>At λ&nbsp;=&nbsp;0 both gauges are ×1, so both families begin at the same rectangle — which
+  is also the slab's own near face, sitting on the plane. That triple identity is the hinge of
+  the figure: the <span class="red">red rectangle</span> is object and image at once, and the two
+  constructions attach to it from opposite sides, sharing it as their first frame. Everything
+  the two readings disagree about, they disagree about starting from this common ground.</p>
+
+  <h2>Opposite sides of the picture plane</h2>
+  <p>The <span class="crs">cross-slit projection</span> is the view into the slab: frames
+  graduated harmonically, crowding as depth grows, closed by the bold far frame — a room seen
+  from its doorway. Its corner connectors bow, because a two-slit camera bends depth lines into
+  hyperbolic arcs. The <span class="gld">glide construction</span> is the same slab represented
+  on the viewer's side: frames in equal strides outward, corner lines dead straight, and no
+  closing — past its λ&nbsp;=&nbsp;1 frame the family simply continues, arrowed off the sheet.
+  Graduated and closed against equal-interval and open: the harmonic and arithmetic ladders of
+  the parent plates, here as whole figures. The frame areas stay in exact reciprocal, product 1
+  at every graduation, and when the feet fuse the arcs straighten, the rectangles square, and
+  the inward figure becomes the one-point perspective room of the drawing books.</p>
+
+  <h2>What is checked, what is a reading</h2>
+  <p>The constructions run under check-folded-rigs-3d-slab.js — 22 numbered assertions: the
+  triple identity of the red rectangle (near face, ×1 print, shared frame); strict nesting,
+  camera inside red inside glide, at every depth and any feet; harmonic graduation inward and
+  equal strides outward; the corner connectors' endpoints on their frames, the arcs' hyperbola
+  relation and their convex bow toward the origin against the glide's exact straightness; the
+  far camera frame's corners as physical strikes of the slab's far corners; the area product;
+  closedness (camera frames converge on the origin) against openness (glide frames unbounded);
+  the floor-grid lines' membership in the same two families; straightening and squaring exactly
+  at u&nbsp;=&nbsp;v; the seam meter's zero set; and containment of the drawing in all three
+  view presets. The framings — "a room seen from its doorway," the glide as "the slab unfolded
+  toward the viewer," and the two constructions as representing opposite sides of the picture
+  plane — are readings of the sheet, offered for the seasoning shelf, not theorems.</p>
+
+  <p style="font-style:italic;color:var(--muted)">Companions: the parent plate
+  <a href="folded-rigs-3d.html">folded-rigs-3d.html</a>, its four-quadrant sequel
+  <a href="folded-rigs-3d-4q.html">folded-rigs-3d-4q.html</a>, and the
+  <a href="folded-rigs-3d-glossary.html">glossary &amp; equations</a>.</p>
+</div>
+
+<script>
+(() => {
+"use strict";
+
+/* ---------------- state ---------------- */
+const S = {
+  u: -2.0,          // foot of vertical slit  (r_u = 0.50)
+  v: -1.0,          // foot of horizontal slit (r_v = 1.00)
+  N: 8,             // depth graduations of the slab
+  gld: true, crs: true, flr: true, lbl: true,
+  fusedFrom: null,
+  phi: 0.44, psi: -0.24, SC: 145, CX: 759, CY: 390
+};
+const DEF = {u:-2, v:-1, N:8};
+const XT  = 1.14;                                    // plane half-extent (sheet units)
+const Q   = 0.5;                                     // slab half-width
+const LAM = 1.0;                                     // slab depth
+
+const VIEWS = {
+  three: {phi:0.44,      psi:-0.24, SC:145, CX:759, CY:390},
+  face:  {phi:Math.PI/2, psi:0.00, SC:270, CX:660, CY:390},
+  sheet: {phi:0.00,      psi:0.00, SC:155, CX:760, CY:390}
+};
+
+/* ---------------- geometry (verbatim from check-folded-rigs-3d-slab.js) ---------------- */
+const mag = (s, lam) => (-s)/(lam - s);              // channel gauge onto lambda = 0
+
+/* orthographic orbit: world -> screen (theta fixed at 90 deg on this plate) */
+function proj(w){
+  const c1=Math.cos(S.phi), s1=Math.sin(S.phi), c2=Math.cos(S.psi), s2=Math.sin(S.psi);
+  const q1 =  w[0]*c1 + w[2]*s1;
+  const q3 = -w[0]*s1 + w[2]*c1;
+  const r2 =  w[1]*c2 - q3*s2;
+  return [S.CX + q1*S.SC, S.CY - r2*S.SC];
+}
+const PW = (l, x, y) => proj([l, x, y]);
+const scrDir = w => {
+  const o = proj([0,0,0]), p = proj(w);
+  return [p[0]-o[0], p[1]-o[1]];
+};
+const norm = v => { const n=Math.hypot(v[0],v[1])||1; return [v[0]/n, v[1]/n]; };
+
+/* ---------------- svg helpers ---------------- */
+const svg = document.getElementById("sheet");
+const NS = "http://www.w3.org/2000/svg";
+function el(name, attrs, parent){
+  const e = document.createElementNS(NS, name);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  (parent || svg).appendChild(e);
+  return e;
+}
+function txt(str, x, y, attrs, parent){
+  const e = el("text", Object.assign({x, y}, attrs), parent);
+  e.textContent = str;
+  return e;
+}
+function line(a, b, attrs, parent){
+  return el("line", Object.assign({x1:a[0], y1:a[1], x2:b[0], y2:b[1]}, attrs), parent);
+}
+function poly(pts, attrs, parent){
+  return el("polygon", Object.assign({points:pts.map(p=>p.join(",")).join(" ")}, attrs), parent);
+}
+const fmt = (x, d=2) => (Math.abs(x) < 5e-5 ? 0 : x).toFixed(d);
+
+const FALLBACK = {"--paper":"#f6f2e7","--ink":"#2a2a26","--muted":"#6f6a5c","--uCol":"#8a5a2b",
+  "--vCol":"#44489d","--ppCol":"#2f5d3a","--frame":"#c0392b","--glide":"#177f75",
+  "--gcons":"#3f9b45","--cross":"#6a2c91","--shared":"#3d8f3d"};
+const CSS = getComputedStyle(document.documentElement);
+const C = n => (CSS.getPropertyValue(n)||"").trim() || FALLBACK[n];
+
+svg.innerHTML = "";
+const defs = el("defs",{});
+const clipEl = el("clipPath",{id:"ppClip"}, defs);
+const gPlane=el("g",{}), gAxis=el("g",{}), gSlab=el("g",{}),
+      gNet=el("g",{"clip-path":"url(#ppClip)"}),
+      gSlit=el("g",{}), gPts=el("g",{}), gAnno=el("g",{});
+
+const serif = 'Iowan Old Style, Palatino, Georgia, serif';
+const baseTxt = {"font-family":serif,"font-size":15,fill:C("--muted"),"font-style":"italic"};
+
+/* ---------------- interaction plumbing ---------------- */
+let drag = null, lastPt = null;
+function toView(ev){
+  const m = svg.getScreenCTM().inverse();
+  const p = new DOMPoint(ev.clientX, ev.clientY).matrixTransform(m);
+  return [p.x, p.y];
+}
+function grab(node, name){
+  node.style.cursor = "grab";
+  node.addEventListener("pointerdown", ev => {
+    drag = name; lastPt = toView(ev);
+    node.setPointerCapture(ev.pointerId);
+    ev.stopPropagation(); ev.preventDefault();
+  });
+}
+svg.addEventListener("pointerdown", ev => {          // empty paper: orbit
+  drag = "orbit"; lastPt = toView(ev);
+  svg.setPointerCapture(ev.pointerId);
+});
+const clamp = (x,a,b) => Math.max(a, Math.min(b, x));
+svg.addEventListener("pointermove", ev => {
+  if (!drag) return;
+  const p = toView(ev);
+  const dp = [p[0]-lastPt[0], p[1]-lastPt[1]];
+  lastPt = p;
+  if (drag === "orbit"){
+    S.phi = S.phi + dp[0]*0.005;
+    S.psi = clamp(S.psi + dp[1]*0.005, -1.35, 1.35);
+    setViewPressed(null);
+  }
+  const aL = scrDir([1,0,0]);
+  if (drag === "u" || drag === "v"){
+    const n2 = aL[0]*aL[0]+aL[1]*aL[1];
+    if (n2 > 25){
+      const du = (dp[0]*aL[0]+dp[1]*aL[1])/n2;
+      if (drag === "u") S.u = clamp(S.u + du, -3.25, -0.30);
+      else { S.v = clamp(S.v + du, -3.25, -0.30); S.fusedFrom = null; syncFuse(); }
+    }
+  }
+  render();
+});
+const drop = () => { drag = null; lastPt = null; };
+svg.addEventListener("pointerup", drop);
+svg.addEventListener("pointercancel", drop);
+
+/* ---------------- render ---------------- */
+const caption = document.getElementById("caption");
+const readout = document.getElementById("readout");
+
+function render(){
+  svg.classList.toggle("lbl-off", !S.lbl);
+  for (const g of [gPlane,gAxis,gSlab,gNet,gSlit,gPts,gAnno]) g.innerHTML = "";
+  clipEl.innerHTML = "";
+  const {u, v, N} = S;
+  const ru = 1/(-u), rv = 1/(-v);
+  const mu1 = mag(u, LAM), mv1 = mag(v, LAM);
+  const Delta = ru*rv*(rv-ru);
+  const seam  = Math.abs(Delta) < 0.01;
+  const fused = Math.abs(u - v) < 0.08;
+
+  const axisLen = Math.hypot(...scrDir([1,0,0]));
+  const axisVisible = axisLen > 34;
+  const faceView = !axisVisible;
+
+  /* -- slits axis -- */
+  {
+    const A0 = PW(-3.3,0,0), A1 = PW(1.55,0,0);
+    if (axisVisible){
+      line(A0, A1, {stroke:"#4a463c","stroke-width":1.6}, gAxis);
+      const d = norm([A1[0]-A0[0], A1[1]-A0[1]]);
+      el("path",{d:`M ${A1[0]} ${A1[1]} l ${-11*d[0]-4*d[1]} ${-11*d[1]+4*d[0]} l ${8*d[1]} ${-8*d[0]} z`,
+                 fill:"#4a463c"}, gAxis);
+      txt("slits axis", A0[0]+6, A0[1]+40, baseTxt, gAxis);
+      txt("λ", A1[0]-14, A1[1]-10, Object.assign({},baseTxt,{"font-style":"normal"}), gAxis);
+    } else {
+      const O = PW(0,0,0);
+      el("circle",{cx:O[0],cy:O[1],r:3.4,fill:"#4a463c"}, gAxis);
+    }
+  }
+
+  /* -- picture plane: four quadrants — quad, grid, traces, origin -- */
+  const ppc = [PW(0,-XT,-XT),PW(0,XT,-XT),PW(0,XT,XT),PW(0,-XT,XT)];
+  el("polygon",{points:ppc.map(p=>p.join(",")).join(" ")}, clipEl);
+  poly(ppc, {fill:C("--ppCol"), opacity:.05}, gPlane);
+  for (const g of [0.25,0.5,0.75,1.0]) for (const sgn of [g,-g]){
+    line(PW(0,sgn,-XT), PW(0,sgn,XT), {stroke:C("--ppCol"),"stroke-width":.7,opacity:.10}, gPlane);
+    line(PW(0,-XT,sgn), PW(0,XT,sgn), {stroke:C("--ppCol"),"stroke-width":.7,opacity:.10}, gPlane);
+  }
+  line(PW(0,-XT-0.13,0), PW(0,XT+0.15,0), {stroke:C("--ppCol"),"stroke-width":2.2,opacity:.8}, gPlane);
+  line(PW(0,0,-XT-0.13), PW(0,0,XT+0.15), {stroke:C("--ppCol"),"stroke-width":2.2,opacity:.7}, gPlane);
+  {
+    const O2 = PW(0,0,0);
+    el("circle",{cx:O2[0],cy:O2[1],r:2.8,fill:C("--ppCol")}, gPlane);
+    txt(faceView ? "origin — the slits axis, end-on" : "origin — the axis pierces the screen",
+        O2[0]+9, O2[1]-9, Object.assign({},baseTxt,{fill:C("--ppCol"),"font-size":12.5}), gPlane);
+    const a = PW(0,-XT,0);
+    txt("picture plane · λ = 0 · ×1 both readings", a[0]-8, a[1]+34,
+        Object.assign({},baseTxt,{fill:C("--ppCol"),"text-anchor": faceView ? "start" : "end"}), gPlane);
+  }
+
+  /* -- the slab, in space (ink wireframe) -- */
+  {
+    const far = [PW(LAM,-Q,-Q),PW(LAM,Q,-Q),PW(LAM,Q,Q),PW(LAM,-Q,Q)];
+    poly(far, {fill:"none",stroke:C("--ink"),"stroke-width":1.2,opacity:.75}, gSlab);
+    for (const sx of [-Q,Q]) for (const sy of [-Q,Q])
+      line(PW(0,sx,sy), PW(LAM,sx,sy),
+           {stroke:C("--ink"),"stroke-width":.8,"stroke-dasharray":"5 4",opacity:.45}, gSlab);
+    if (axisVisible){
+      const fl = PW(LAM, Q, Q);
+      txt("the slab, in space · far square at λ = 1", fl[0]+9, fl[1]-8,
+          Object.assign({},baseTxt,{"font-size":12.5}), gSlab);
+    }
+  }
+
+  /* corner list of the section square */
+  const CRN = [[-Q,-Q],[Q,-Q],[Q,Q],[-Q,Q]];
+  const frameAt = (a, b, at, parent) =>
+    poly([PW(0,-a,-b),PW(0,a,-b),PW(0,a,b),PW(0,-a,b)], at, parent);
+
+  /* -- cross-slit projection: graduated in, closed -- */
+  if (S.crs){
+    for (let k=1;k<N;k++){
+      const l = k*LAM/N;
+      frameAt(Q*mag(u,l), Q*mag(v,l),
+        {fill:"none",stroke:C("--cross"),"stroke-width":1,opacity:.42}, gNet);
+    }
+    frameAt(Q*mu1, Q*mv1, {fill:"none",stroke:C("--cross"),"stroke-width":2.2}, gNet);
+    for (const [sx,sy] of CRN){
+      const pts=[];
+      for (let i=0;i<=40;i++){
+        const l = LAM*i/40;
+        pts.push(PW(0, sx*mag(u,l), sy*mag(v,l)));
+      }
+      el("polyline",{points:pts.map(p=>p.join(",")).join(" "),fill:"none",
+         stroke:C("--cross"),"stroke-width":1.7,opacity:.9}, gNet);
+    }
+    const cl = PW(0, 0, -Q*mv1);
+    txt("cross-slit projection — graduated, closed by the far frame", cl[0], cl[1]+18,
+        Object.assign({},baseTxt,{fill:C("--cross"),"font-size":12.5,"text-anchor":"middle"}), gNet);
+    if (!fused){
+      const bl = PW(0, Q*mag(u,LAM*0.45), Q*mag(v,LAM*0.45));
+      txt("corner connectors bow — trail hyperbolas", bl[0]+8, bl[1]-6,
+          Object.assign({},baseTxt,{fill:C("--cross"),"font-size":11.5}), gNet);
+    }
+  }
+
+  /* -- glide construction: equal intervals out, open -- */
+  if (S.gld){
+    for (let k=1;k<N;k++){
+      const l = k*LAM/N;
+      frameAt(Q/mag(u,l), Q/mag(v,l),
+        {fill:"none",stroke:C("--gcons"),"stroke-width":1,opacity:.42}, gNet);
+    }
+    frameAt(Q/mu1, Q/mv1, {fill:"none",stroke:C("--gcons"),"stroke-width":2.2}, gNet);
+    for (const [sx,sy] of CRN){
+      const p0 = PW(0, sx, sy), p1 = PW(0, sx*(1+LAM*ru), sy*(1+LAM*rv));
+      line(p0, p1, {stroke:C("--gcons"),"stroke-width":1.7,opacity:.9}, gNet);
+      /* open: the family continues — dashed run past λ = 1, arrowed */
+      const p2 = PW(0, sx*(1+2.1*ru), sy*(1+2.1*rv));
+      line(p1, p2, {stroke:C("--gcons"),"stroke-width":1.3,"stroke-dasharray":"6 5",opacity:.6}, gNet);
+      const d = norm([p2[0]-p1[0], p2[1]-p1[1]]);
+      el("path",{d:`M ${p2[0]} ${p2[1]} l ${-9*d[0]-4*d[1]} ${-9*d[1]+4*d[0]} M ${p2[0]} ${p2[1]} l ${-9*d[0]+4*d[1]} ${-9*d[1]-4*d[0]}`,
+         stroke:C("--gcons"),"stroke-width":1.4,fill:"none",opacity:.6}, gNet);
+    }
+    const glb = PW(0, 0, Q/mv1);
+    txt("glide construction — equal intervals, open", glb[0], glb[1]-10,
+        Object.assign({},baseTxt,{fill:C("--gcons"),"font-size":12.5,"text-anchor":"middle"}), gNet);
+  }
+
+  /* -- the mediator: the red rectangle (drawn above both) -- */
+  frameAt(Q, Q, {fill:"none",stroke:C("--frame"),"stroke-width":2.6}, gNet);
+  {
+    const rl = PW(0, -Q, Q);
+    txt("the red rectangle — near face and ×1 print: the mediator", rl[0]-8, rl[1]-10,
+        Object.assign({},baseTxt,{fill:C("--frame"),"font-size":12.5,"text-anchor":"end"}), gNet);
+  }
+
+  /* -- floor grids: the bottom wall's depth lines, both readings -- */
+  if (S.flr){
+    for (let j=-2;j<=2;j++){
+      const x = j*Q/2;
+      if (S.crs){
+        const pts=[];
+        for (let i=0;i<=30;i++){
+          const l = LAM*i/30;
+          pts.push(PW(0, x*mag(u,l), -Q*mag(v,l)));
+        }
+        el("polyline",{points:pts.map(p=>p.join(",")).join(" "),fill:"none",
+           stroke:C("--cross"),"stroke-width":.9,opacity:.35}, gNet);
+      }
+      if (S.gld)
+        line(PW(0, x, -Q), PW(0, x*(1+LAM*ru), -Q*(1+LAM*rv)),
+             {stroke:C("--gcons"),"stroke-width":.9,opacity:.35}, gNet);
+    }
+  }
+
+  /* -- slits and feet -- */
+  line(PW(u,0,-0.5), PW(u,0,0.5), {stroke:C("--uCol"),"stroke-width":2.4}, gSlit);
+  line(PW(v,-0.5,0), PW(v,0.5,0), {stroke:C("--vCol"),"stroke-width":2.4}, gSlit);
+  if (axisVisible){
+    const a = PW(u,0,0.5), b = PW(v,0.5,0);
+    txt("ℓᵤ", a[0]+6, a[1]-2, Object.assign({},baseTxt,{fill:C("--uCol"),"font-style":"normal"}), gSlit);
+    txt("ℓᵥ", b[0]+7, b[1]+4, Object.assign({},baseTxt,{fill:C("--vCol"),"font-style":"normal"}), gSlit);
+  }
+  function dot(pos, r, fill, name, label){
+    const hit = el("circle",{cx:pos[0],cy:pos[1],r:26,fill:"transparent"}, gPts);
+    el("circle",{cx:pos[0],cy:pos[1],r:r,fill}, gPts);
+    if (label) txt(label, pos[0]-6, pos[1]+30,
+        Object.assign({},baseTxt,{fill,"font-style":"normal","font-size":16}), gPts);
+    grab(hit, name);
+  }
+  dot(PW(u,0,0), 7.5, C("--uCol"), "u", axisVisible ? "u" : null);
+  dot(PW(v,0,0), 7.5, C("--vCol"), "v", axisVisible ? (fused ? "u = v" : "v") : null);
+
+  /* -- situational annotations -- */
+  if (fused){
+    txt("pencils fused (v = u): Δ = 0 — arcs straighten, frames square:",
+        60, 112, Object.assign({},baseTxt,{"font-size":15,fill:C("--frame")}), gAnno);
+    txt("the cross-slit room becomes one-point perspective.",
+        60, 133, Object.assign({},baseTxt,{fill:C("--cross")}), gAnno);
+  }
+  if (faceView){
+    const yy = fused ? 162 : 112;
+    txt("face-on: both constructions at true coordinates,", 60, yy,
+        Object.assign({},baseTxt,{"font-size":14.5,fill:"#2a2a26"}), gAnno);
+    txt("sharing the red rectangle from opposite sides.", 60, yy+21,
+        Object.assign({},baseTxt,{"font-size":14.5}), gAnno);
+  }
+
+  /* -- readouts & caption -- */
+  readout.textContent =
+    `r_u = ${fmt(ru)}   r_v = ${fmt(rv)}   D = |u−v| = ${fmt(Math.abs(u-v))}\n` +
+    `m_u(1) = ${fmt(mu1,4)}   m_v(1) = ${fmt(mv1,4)}   AR = ${fmt(mv1/mu1,4)}\n` +
+    `far frames:  camera ×${fmt(mu1*mv1,4)}   glide ×${fmt(1/(mu1*mv1),4)}   product = ${fmt(mu1*mv1*(1/(mu1*mv1)),4)}\n` +
+    `graduations N = ${N}   (camera: harmonic in · glide: equal strides out)\n` +
+    `Δ = r_u·r_v·(r_v−r_u) = ${fmt(Delta,4)}   [${seam ? "SEAM — the two constructions fuse" : "SPLIT — they part at the red rectangle"}]`;
+  caption.textContent =
+    fused ? "Fused: one denominator — straight corners both sides; the room is honest one-point perspective."
+    : faceView ? "Face-on: one slab, two constructions — graduated and closed inward, equal and open outward."
+    : "The slab in space, printed twice on the plane; the red rectangle mediates.";
+}
+
+/* ---------------- controls ---------------- */
+const gradSlider = document.getElementById("grad");
+const btnFuse = document.getElementById("btnFuse");
+const reduced = (typeof matchMedia === "function") && matchMedia("(prefers-reduced-motion: reduce)").matches;
+let animV2 = null;
+
+gradSlider.addEventListener("input", () => { S.N = Math.round(+gradSlider.value); render(); });
+
+const ease = t => t<.5 ? 2*t*t : 1-Math.pow(-2*t+2,2)/2;
+
+const viewBtns = {three:"btnThree", face:"btnFace", sheet:"btnSheet"};
+function setViewPressed(name){
+  for (const k in viewBtns)
+    document.getElementById(viewBtns[k]).setAttribute("aria-pressed", String(k === name));
+}
+function animateView(target, name){
+  cancelAnimationFrame(animV2);
+  setViewPressed(name);
+  const keys = ["phi","psi","SC","CX","CY"];
+  if (reduced){ for (const k of keys) S[k] = target[k]; render(); return; }
+  const from = {}; for (const k of keys) from[k] = S[k];
+  const t0 = performance.now(), dur = 700;
+  const step = now => {
+    const t = Math.min(1,(now-t0)/dur), e = ease(t);
+    for (const k of keys) S[k] = from[k] + (target[k]-from[k])*e;
+    render();
+    if (t<1) animV2 = requestAnimationFrame(step);
+  };
+  animV2 = requestAnimationFrame(step);
+}
+document.getElementById("btnThree").addEventListener("click", () => animateView(VIEWS.three, "three"));
+document.getElementById("btnFace").addEventListener("click", () => animateView(VIEWS.face, "face"));
+document.getElementById("btnSheet").addEventListener("click", () => animateView(VIEWS.sheet, "sheet"));
+
+function syncFuse(){ btnFuse.textContent = S.fusedFrom === null ? "Fuse v → u" : "Un-fuse"; }
+function animateV(target, after){
+  if (reduced){ S.v = target; render(); if (after) after(); return; }
+  const from = S.v, t0 = performance.now(), dur = 600;
+  const step = now => {
+    const t = Math.min(1,(now-t0)/dur);
+    S.v = from + (target-from)*ease(t);
+    render();
+    if (t<1) requestAnimationFrame(step); else if (after) after();
+  };
+  requestAnimationFrame(step);
+}
+btnFuse.addEventListener("click", () => {
+  if (S.fusedFrom === null){ S.fusedFrom = S.v; animateV(S.u, syncFuse); }
+  else { animateV(S.fusedFrom, () => { S.fusedFrom = null; syncFuse(); }); }
+});
+document.getElementById("btnReset").addEventListener("click", () => {
+  Object.assign(S, DEF); S.fusedFrom = null; syncFuse();
+  gradSlider.value = S.N;
+  animateView(VIEWS.three, "three");
+});
+
+for (const [id, key] of [["chipGld","gld"],["chipCrs","crs"],["chipFlr","flr"],["chipLbl","lbl"]]){
+  const b = document.getElementById(id);
+  b.addEventListener("click", () => {
+    S[key] = !S[key];
+    b.setAttribute("aria-pressed", String(S[key]));
+    render();
+  });
+}
+
+render();
+})();
+</script>
+</body>
+</html>
