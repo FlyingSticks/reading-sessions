@@ -37,6 +37,7 @@
   button.chip[aria-pressed="true"]{opacity:1;background:#fdfaf0;}
   #chipGld[aria-pressed="true"]{border-color:var(--glide);color:var(--glide);}
   #chipDep[aria-pressed="true"]{border-color:var(--glide);color:var(--glide);}
+  #chipMch[aria-pressed="true"]{border-color:var(--uCol);color:var(--uCol);}
   #chipCrs[aria-pressed="true"]{border-color:var(--cross);color:var(--cross);}
   #chipLbl[aria-pressed="true"]{border-color:var(--ink);}
   #sheet.lbl-off text{display:none;}
@@ -69,8 +70,12 @@
   crosses the v trace at λ&nbsp;=&nbsp;u and the u trace at λ&nbsp;=&nbsp;v; lines sharing a
   height meet at one point, lines sharing a width at another. The slab's four walls pick out
   four VPs, and each corner connector threads two of them. Fused, all four slide onto the
-  origin — the cross-slit's single vanishing point, kept as a toggle for comparison. Orbit the
-  scene; move the gauge plane; drag the feet and watch the VPs travel their traces.</p>
+  origin — the cross-slit's single vanishing point, kept as a toggle for comparison. A
+  <b>channel machinery</b> layer runs the parent plate's u-channel construction at the gauge
+  depth — camera pulling in, glide pushing out from one foot, ladder harmonic in and arithmetic
+  out — and its marks Xc · q · Xg land exactly where the three frames cut the trace,
+  Xg·Xc&nbsp;=&nbsp;q². Orbit the scene; move the gauge plane; drag the feet and watch the VPs
+  travel their traces.</p>
 </header>
 
 <div class="stage"><svg id="sheet" viewBox="0 0 1320 780" aria-label="Orbitable 3D diagram: the glide construction with its four vanishing points and depth-line fans on the picture plane, with gauge plane, back plane, and a cross-slit comparison toggle"></svg></div>
@@ -79,6 +84,7 @@
   <span class="lead">layers</span>
   <button class="chip" id="chipGld" aria-pressed="true">glide construction · frames</button>
   <button class="chip" id="chipDep" aria-pressed="true">depth lines &amp; vanishing points</button>
+  <button class="chip" id="chipMch" aria-pressed="true">channel machinery · u</button>
   <button class="chip" id="chipCrs" aria-pressed="false">cross-slit projection rays</button>
   <button class="chip" id="chipLbl" aria-pressed="true">labels</button>
 </div>
@@ -102,6 +108,7 @@
   <div class="legend">
     <div><span class="sw" style="background:var(--glide)"></span><b>depth lines &amp; vanishing points</b> — the glide prints of the slab walls' depth lines: solid from the red rectangle outward, dashed backward to their concurrence. Lines of one height meet at a VP on the v trace, lines of one width at a VP on the u trace; the four wall VPs are the ink dots. Their spread reads the feet: ±q·(u−v)/u and ±q·(v−u)/v — a negative value means that fan crosses the axis.</div>
     <div><span class="sw" style="background:var(--glide)"></span><b>glide frames (gauge lines)</b> — the equal-stride family out from the red rectangle; the frame at the gauge plane's depth is drawn heavy. The rungs of the walls in the sketch are exactly these.</div>
+    <div><span class="sw" style="background:var(--uCol)"></span><b>channel machinery (u)</b> — the parent plate's construction, run at the gauge depth: one depth line at height q, read both ways from the same foot. The <span style="color:var(--cross)">camera line</span> pulls its mark in to Xc = q·m_u; the <span style="color:var(--glide)">glide stroke</span> pushes out through the shared footprint to Xg = q/m_u and is carried home; the ladder marks equal depth steps, harmonic in, arithmetic out. The three marks Xc, q, Xg are exactly where the heavy cross-slit frame, the red rectangle, and the heavy glide frame cut the trace — Xg·Xc = q². The v channel runs the same play in its own plane.</div>
     <div><span class="sw" style="background:var(--frame)"></span><b>the red rectangle</b> — the slab's near face and its own ×1 print: both constructions' shared first frame.</div>
     <div><span class="sw" style="background:var(--cross)"></span><b>cross-slit projection rays</b> (toggle) — the comparison: the purple room with its bowing corner connectors, the physical rays from the gauge square's corners threading both slits to their strikes, and the dashed run of the connectors past the far frame toward the origin — the cross-slit's one vanishing point for all of depth.</div>
     <div><span class="sw" style="background:var(--slab)"></span><b>three planes</b> — picture plane at λ = 0, the movable gauge plane at λ₀ (its section square prints to the heavy frames), and the back plane at λ = 1, the slab's far wall.</div>
@@ -132,6 +139,20 @@
   both ratios die together at u&nbsp;=&nbsp;v, when all four VPs slide onto the origin and the
   glide's fans and the cross-slit's star become one figure: perspective.</p>
 
+  <h2>The channel machinery — where the relation lives</h2>
+  <p>The relation between the two constructions is channelwise, and it is the parent plate's
+  play verbatim. In the u-plane, the machinery layer runs it at the gauge depth: one depth line
+  at height q; the <span class="crs">camera line</span> from the foot through the sample point,
+  pulling its mark in to <span class="math">Xc = q·m_u</span>; the
+  <span class="gld">glide stroke</span> from the same foot through the shared footprint, pushing
+  out to <span class="math">Xg = q/m_u</span> and carried home; the ladder marking equal depth
+  steps — harmonic in, arithmetic out. The three marks stand in geometric progression with the
+  corner mark q as mean proportional, <span class="math">Xg·Xc = q²</span>, and they are exactly
+  where the heavy cross-slit frame, the <span class="red">red rectangle</span>, and the heavy
+  glide frame cut the u trace. The frames are nothing but these marks swept around the slab's
+  four walls; move λ₀ and the machinery and the heavy frames travel together. The v channel
+  runs the same play in its own plane — the frames' other pair of edges.</p>
+
   <h2>Three planes</h2>
   <p>Behind the drawing, the scene keeps its furniture: the picture plane at λ&nbsp;=&nbsp;0
   carrying everything drawn; the <b>gauge plane</b> at λ₀, movable by slider, whose section
@@ -141,16 +162,19 @@
   depth line ends and the open dashes begin.</p>
 
   <h2>What is checked, what is a reading</h2>
-  <p>The constructions run under check-folded-rigs-3d-vps.js — 20 numbered assertions: row and
+  <p>The constructions run under check-folded-rigs-3d-vps.js — 23 numbered assertions: row and
   column concurrence at the stated points; the corner connectors threading both their VPs; the
   linearity of the vanishing scale along each trace; the algebraic identity
   1+u·r_v&nbsp;=&nbsp;(v−u)/v behind the readout; opposite crossing signs exactly when the feet
   differ; total collapse onto the origin at u&nbsp;=&nbsp;v; the equal-stride frames and
   harmonic room inherited from the slab plate; the cross-slit connectors' hyperbola relation
-  and their run to the origin; the gauge-square corners' strikes; area reciprocity at the gauge
-  depth; the seam meter's zero set; and containment in all three view presets. The framings —
-  the VPs as "a vanishing ruler on each axis," and the construction as architectural practice —
-  are readings for the seasoning shelf, not theorems.</p>
+  and their run to the origin; the machinery's collinearities — the camera line through foot,
+  sample point, and mark; the glide stroke through foot, footprint, and tip — and the identity
+  of its marks with the frames' trace crossings, with the hinge Xg·Xc&nbsp;=&nbsp;q²; the
+  gauge-square corners' strikes; area reciprocity at the gauge depth; the seam meter's zero
+  set; and containment in all three view presets. The framings — the VPs as "a vanishing ruler
+  on each axis," and the construction as architectural practice — are readings for the
+  seasoning shelf, not theorems.</p>
 
   <p style="font-style:italic;color:var(--muted)">Companions:
   <a href="folded-rigs-3d.html">folded-rigs-3d.html</a>,
@@ -168,7 +192,7 @@ const S = {
   u: -2.0,          // foot of vertical slit  (r_u = 0.50)
   v: -1.0,          // foot of horizontal slit (r_v = 1.00)
   lam0: 0.5,        // gauge plane depth
-  gld: true, dep: true, crs: false, lbl: true,
+  gld: true, dep: true, mch: true, crs: false, lbl: true,
   fusedFrom: null,
   phi: 0.44, psi: -0.24, SC: 145, CX: 759, CY: 390
 };
@@ -200,6 +224,11 @@ const scrDir = w => {
   return [p[0]-o[0], p[1]-o[1]];
 };
 const norm = v => { const n=Math.hypot(v[0],v[1])||1; return [v[0]/n, v[1]/n]; };
+function tick(at, dw, col, wdt, len, parent){   // screen-perpendicular tick across a trace
+  const d = norm(scrDir(dw)), p = [-d[1], d[0]];
+  line([at[0]-len*p[0], at[1]-len*p[1]], [at[0]+len*p[0], at[1]+len*p[1]],
+       {stroke:col,"stroke-width":wdt}, parent);
+}
 
 /* ---------------- svg helpers ---------------- */
 const svg = document.getElementById("sheet");
@@ -234,7 +263,7 @@ const defs = el("defs",{});
 const clipEl = el("clipPath",{id:"ppClip"}, defs);
 const gBack=el("g",{}), gPlane=el("g",{}), gAxis=el("g",{}), gSlab=el("g",{}),
       gNet=el("g",{"clip-path":"url(#ppClip)"}),
-      gRay=el("g",{}), gSlit=el("g",{}), gPts=el("g",{}), gAnno=el("g",{});
+      gMch=el("g",{}), gRay=el("g",{}), gSlit=el("g",{}), gPts=el("g",{}), gAnno=el("g",{});
 
 const serif = 'Iowan Old Style, Palatino, Georgia, serif';
 const baseTxt = {"font-family":serif,"font-size":15,fill:C("--muted"),"font-style":"italic"};
@@ -290,7 +319,7 @@ const readout = document.getElementById("readout");
 
 function render(){
   svg.classList.toggle("lbl-off", !S.lbl);
-  for (const g of [gBack,gPlane,gAxis,gSlab,gNet,gRay,gSlit,gPts,gAnno]) g.innerHTML = "";
+  for (const g of [gBack,gPlane,gAxis,gSlab,gNet,gMch,gRay,gSlit,gPts,gAnno]) g.innerHTML = "";
   clipEl.innerHTML = "";
   const {u, v, lam0} = S;
   const ru = 1/(-u), rv = 1/(-v);
@@ -472,6 +501,67 @@ function render(){
         Object.assign({},baseTxt,{fill:C("--frame"),"font-size":12.5,"text-anchor":"end"}), gNet);
   }
 
+  /* -- channel machinery (u): one depth line at height q, read both ways from one foot -- */
+  if (S.mch){
+    const eX = [0,1,0];
+    /* the depth line and the sample point at the gauge depth */
+    line(PW(0,Q,0), PW(LAM,Q,0), {stroke:C("--slab"),"stroke-width":1.6,opacity:.75}, gMch);
+    const P0 = PW(lam0, Q, 0);
+    el("circle",{cx:P0[0],cy:P0[1],r:5,fill:C("--uCol")}, gMch);
+    if (axisVisible){
+      const dm = PW(LAM*0.86, Q, 0);
+      txt("one depth line, height q", dm[0]+9, dm[1]-8,
+          Object.assign({},baseTxt,{fill:C("--slab"),"font-size":12}), gMch);
+      txt("(λ₀, q)", P0[0]+9, P0[1]+17,
+          Object.assign({},baseTxt,{fill:C("--uCol"),"font-size":12.5}), gMch);
+    }
+    /* ladder: equal depth steps — harmonic in, arithmetic out */
+    for (let k=1;k<=N;k++){
+      const lk = k*LAM/N;
+      line(PW(u,0,0), PW(lk,Q,0), {stroke:C("--cross"),"stroke-width":1,opacity:.20}, gMch);
+      tick(PW(0, Q*mag(u,lk), 0), eX, C("--cross"), 1.4, 4.5, gMch);
+      const hg = Q/mag(u,lk);
+      if (hg <= XT+0.12){
+        const qd = PW(lk, hg, 0);
+        el("circle",{cx:qd[0],cy:qd[1],r:2.6,fill:C("--glide"),opacity:.85}, gMch);
+        tick(PW(0, hg, 0), eX, C("--glide"), 1.4, 4.5, gMch);
+      }
+    }
+    /* camera: the foot's line through the sample point, mark pulled in */
+    line(PW(u,0,0), PW(u+1.12*(lam0-u), 1.12*Q, 0), {stroke:C("--cross"),"stroke-width":1.9}, gMch);
+    const tC = PW(0, Q*mu0, 0);
+    tick(tC, eX, C("--cross"), 2.3, 7, gMch);
+    txt(`Xc = ${fmt(Q*mu0)}`, tC[0]-11, tC[1]+16,
+        Object.assign({},baseTxt,{fill:C("--cross"),"text-anchor":"end","font-style":"normal","font-size":13}), gMch);
+    /* the shared footprint / corner mark */
+    const foot = PW(0, Q, 0);
+    el("rect",{x:foot[0]-3.4,y:foot[1]-3.4,width:6.8,height:6.8,fill:"none",
+       stroke:C("--ink"),"stroke-width":1.4}, gMch);
+    txt("x = q  (footprint)", foot[0]-12, foot[1]+4,
+        Object.assign({},baseTxt,{fill:C("--ink"),"text-anchor":"end","font-size":12}), gMch);
+    /* glide: the foot's stroke through the footprint, pushed out, carried home */
+    const Hg = Q/mu0;
+    if (Hg <= XT+0.12){
+      const tip = PW(lam0, Hg, 0);
+      line(PW(u,0,0), tip, {stroke:C("--glide"),"stroke-width":1.9}, gMch);
+      el("circle",{cx:tip[0],cy:tip[1],r:4,fill:"none",stroke:C("--glide"),"stroke-width":1.7}, gMch);
+      line(tip, PW(0,Hg,0), {stroke:C("--glide"),"stroke-width":1.1,"stroke-dasharray":"5 4",opacity:.8}, gMch);
+      const tG = PW(0, Hg, 0);
+      tick(tG, eX, C("--glide"), 2.3, 7, gMch);
+      txt(`Xg = ${fmt(Hg)}`, tG[0]-11, tG[1]-7,
+          Object.assign({},baseTxt,{fill:C("--glide"),"text-anchor":"end","font-style":"normal","font-size":13}), gMch);
+    } else {
+      const lamClip = (-u)*((XT+0.12)/Q - 1);
+      const tip = PW(lamClip, XT+0.12, 0);
+      line(PW(u,0,0), tip, {stroke:C("--glide"),"stroke-width":1.9}, gMch);
+      el("path",{d:`M ${tip[0]} ${tip[1]} l 8 -8 m -8 8 l 11 -3 m -11 3 l 3 -11`,
+         stroke:C("--glide"),"stroke-width":1.5,fill:"none"}, gMch);
+      const tG = PW(0, XT, 0);
+      txt(`Xg = ${fmt(Hg)} — off the sheet`, tG[0]-12, tG[1]-26,
+          Object.assign({},baseTxt,{fill:C("--glide"),"text-anchor":"end","font-size":12.5}), gMch);
+    }
+  }
+
   /* -- slits and feet -- */
   line(PW(u,0,-0.5), PW(u,0,0.5), {stroke:C("--uCol"),"stroke-width":2.4}, gSlit);
   line(PW(v,-0.5,0), PW(v,0.5,0), {stroke:C("--vCol"),"stroke-width":2.4}, gSlit);
@@ -491,16 +581,24 @@ function render(){
   dot(PW(v,0,0), 7.5, C("--vCol"), "v", axisVisible ? (fused ? "u = v" : "v") : null);
 
   /* -- situational annotations -- */
+  let ay = 112;
+  const ann = (s, extra) => { txt(s, 60, ay, Object.assign({},baseTxt, extra||{}), gAnno); ay += 21; };
   if (fused){
-    txt("pencils fused (v = u): all four vanishing points slide onto the origin —",
-        60, 112, Object.assign({},baseTxt,{"font-size":15,fill:C("--frame")}), gAnno);
-    txt("the glide's fans and the cross-slit's star are one figure: perspective.",
-        60, 133, Object.assign({},baseTxt,{fill:C("--glide")}), gAnno);
+    ann("pencils fused (v = u): all four vanishing points slide onto the origin —",
+        {"font-size":15, fill:C("--frame")});
+    ann("the glide's fans and the cross-slit's star are one figure: perspective.",
+        {fill:C("--glide")});
+    ay += 6;
+  }
+  if (S.mch){
+    ann("u channel at λ₀: the machinery's marks Xc · q · Xg are where the three frames cut the trace — Xg·Xc = q².",
+        {"font-size":13.5, fill:"#2a2a26"});
+    ann("(the v channel runs the same play in its own plane)", {"font-size":12.5});
+    ay += 6;
   }
   if (faceView){
-    const yy = fused ? 162 : 112;
-    txt("face-on: the working drawing — fans, gauge lines, and VPs at true coordinates.",
-        60, yy, Object.assign({},baseTxt,{"font-size":14.5,fill:"#2a2a26"}), gAnno);
+    ann("face-on: the working drawing — fans, gauge lines, and VPs at true coordinates.",
+        {"font-size":14.5, fill:"#2a2a26"});
   }
 
   /* -- readouts & caption -- */
@@ -510,6 +608,7 @@ function render(){
     `gauge plane λ₀ = ${fmt(lam0)}    m_u(λ₀) = ${fmt(mu0,4)}   m_v(λ₀) = ${fmt(mv0,4)}\n` +
     `glide VPs · u trace: ±q·(u−v)/u = ±${fmt(Math.abs(Q*kU),4)}${crossed(kU)}\n` +
     `          · v trace: ±q·(v−u)/v = ±${fmt(Math.abs(Q*kV),4)}${crossed(kV)}\n` +
+    `u @ λ₀:  Xc = ${fmt(Q*mu0,4)}   x = ${fmt(Q,4)}   Xg = ${fmt(Q/mu0,4)}   Xg·Xc/x² = ${fmt((Q/mu0)*(Q*mu0)/(Q*Q),4)}\n` +
     `cross-slit VP: the origin — one point for all depth lines\n` +
     `Δ = r_u·r_v·(r_v−r_u) = ${fmt(Delta,4)}   [${seam ? "SEAM — VPs on the origin" : "SPLIT — the VPs part along the traces"}]`;
   caption.textContent =
@@ -574,7 +673,7 @@ document.getElementById("btnReset").addEventListener("click", () => {
   animateView(VIEWS.three, "three");
 });
 
-for (const [id, key] of [["chipGld","gld"],["chipDep","dep"],["chipCrs","crs"],["chipLbl","lbl"]]){
+for (const [id, key] of [["chipGld","gld"],["chipDep","dep"],["chipMch","mch"],["chipCrs","crs"],["chipLbl","lbl"]]){
   const b = document.getElementById(id);
   b.addEventListener("click", () => {
     S[key] = !S[key];

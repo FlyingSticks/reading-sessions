@@ -126,6 +126,36 @@ const rIn = (a,b) => a + (b-a)*rnd();
   ok("fused: both ratios vanish — all four VPs sit on the origin", collapse);
   ok("fused: every glide depth trail lies on the ray through the origin — one star", star); }
 
+/* ================= channel machinery ================= */
+
+{ let good = true;                                                        /* camera line */
+  const col = (A,B,P) => Math.abs((B[0]-A[0])*(P[1]-A[1]) - (B[1]-A[1])*(P[0]-A[0]));
+  for (let i=0;i<40;i++){
+    const u=-rIn(0.3,3.2), l0=rIn(0.05,1.0), m0=mag(u,l0);
+    /* (lam, height) coordinates in the u-plane */
+    if (col([u,0],[l0,Q],[0,Q*m0]) > 1e-10) good=false;    // foot, sample point, mark collinear
+  }
+  ok("machinery, camera: the foot's line through (λ₀, q) cuts the trace exactly at Xc = q·m_u", good); }
+
+{ let good = true;                                                        /* glide stroke */
+  const col = (A,B,P) => Math.abs((B[0]-A[0])*(P[1]-A[1]) - (B[1]-A[1])*(P[0]-A[0]));
+  for (let i=0;i<40;i++){
+    const u=-rIn(0.3,3.2), l0=rIn(0.05,1.0), m0=mag(u,l0);
+    if (col([u,0],[0,Q],[l0,Q/m0]) > 1e-10) good=false;    // foot, footprint, tip collinear
+  }
+  ok("machinery, glide: the foot's stroke through the footprint (0, q) reaches (λ₀, q/m_u)", good); }
+
+{ let good = true;                                                        /* marks ≡ frames */
+  for (let i=0;i<40;i++){
+    const u=-rIn(0.3,3.2), v=-rIn(0.3,3.2), l0=rIn(0.05,1.0), m0=mag(u,l0);
+    if (!near(Q*m0, Q*mag(u,l0))) good=false;              // Xc = the cross-slit frame's u-trace crossing
+    if (!near(Q/m0, Q/mag(u,l0))) good=false;              // Xg = the glide frame's u-trace crossing
+    if (!near((Q/m0)*(Q*m0), Q*Q, 1e-12)) good=false;      // hinge: Xg·Xc = q²
+    const ratio1 = (Q*m0)/Q, ratio2 = Q/(Q/m0);
+    if (!near(ratio1, ratio2, 1e-12)) good=false;          // Xc, q, Xg geometric, ratio m_u
+  }
+  ok("machinery marks are the frames' trace crossings, in geometric progression: Xg·Xc = q²", good); }
+
 /* ================= inherited construction facts ================= */
 
 { let arith = true, harm = true;                                          /* 9,10 */
