@@ -156,6 +156,43 @@ const rIn = (a,b) => a + (b-a)*rnd();
   }
   ok("machinery marks are the frames' trace crossings, in geometric progression: Xg·Xc = q²", good); }
 
+/* ================= the level combs ================= */
+
+{ let good = true;                                                        /* teal comb rides the stroke */
+  const col = (A,B,P) => Math.abs((B[0]-A[0])*(P[1]-A[1]) - (B[1]-A[1])*(P[0]-A[0]));
+  for (let i=0;i<30;i++){
+    const u=-rIn(0.3,3.2), Nn=8;
+    for (let k=1;k<=Nn;k++){
+      const lk=k*LAM/Nn;
+      if (col([u,0],[0,Q],[lk, Q/mag(u,lk)]) > 1e-10) good=false;   // rung's right end on the glide stroke
+    }
+  }
+  ok("teal comb: each rung's right end (λk, q/m_u(λk)) rides the straight glide stroke", good); }
+
+{ let bow = true, bent = true;                                            /* purple comb bows on the chain */
+  const col = (A,B,P) => Math.abs((B[0]-A[0])*(P[1]-A[1]) - (B[1]-A[1])*(P[0]-A[0]));
+  for (let i=0;i<30;i++){
+    const u=-rIn(0.3,3.2);
+    const h = l => Q*mag(u,l);
+    for (const l of [0.2,0.5,0.8]){
+      const mid = h(l), chord = (h(l-0.15)+h(l+0.15))/2;
+      if (!(mid < chord)) bow=false;                        // convex profile: mid-depth inside the chord
+    }
+    if (col([0.2,h(0.2)],[0.6,h(0.6)],[1.0,h(1.0)]) < 1e-8) bent=false;  // and genuinely not straight
+  }
+  ok("purple comb: the rung ends' profile (λ, q·m_u(λ)) bows convexly — the chain, not a stroke", bow && bent); }
+
+{ let good = true;                                                        /* welded at the shared rung */
+  for (let i=0;i<40;i++){
+    const u=-rIn(0.3,3.2), Nn=4+Math.floor(rnd()*9);
+    for (let k=1;k<=Nn;k++){
+      const lk=k*LAM/Nn, hc=Q*mag(u,lk), hg=Q/mag(u,lk);
+      if (!(hc < Q && Q < hg)) good=false;                  // combs strictly astride the shared rung
+      if (!near(hc*hg, Q*Q, 1e-12)) good=false;             // inverse images rung by rung
+    }
+  }
+  ok("the combs sit astride the shared rung and are inverse images rung by rung: hc·hg = q²", good); }
+
 /* ================= inherited construction facts ================= */
 
 { let arith = true, harm = true;                                          /* 9,10 */
