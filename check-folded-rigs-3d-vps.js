@@ -1,4 +1,4 @@
-/* check-folded-rigs-3d-vps.js — assertions for "the glide vanishing points".
+/* check-folded-rigs-3d-vps.js — assertions for "the glide seats".
    Dependency-free. Run: node check-folded-rigs-3d-vps.js
    Geometry below is the master copy; folded-rigs-3d-vps.html mirrors it verbatim. */
 "use strict";
@@ -46,7 +46,7 @@ const rnd = () => { seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
   return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
 const rIn = (a,b) => a + (b-a)*rnd();
 
-/* ================= the vanishing points ================= */
+/* ================= the seats ================= */
 
 { let good = true;                                                        /* 1 */
   for (let i=0;i<50;i++){
@@ -82,7 +82,7 @@ const rIn = (a,b) => a + (b-a)*rnd();
       if (!near(pv[0],colVP[0],1e-9)||!near(pv[1],colVP[1],1e-9)) good=false;
     }
   }
-  ok("each corner connector threads two vanishing points: its row's and its column's", good); }
+  ok("each corner connector threads two seats: its row's and its column's", good); }
 
 { let good = true;                                                        /* 4 */
   for (let i=0;i<40;i++){
@@ -94,7 +94,7 @@ const rIn = (a,b) => a + (b-a)*rnd();
     const t1=X*(1+v*ru), t2=(0.4*X)*(1+v*ru);
     if (!near(t2/t1, 0.4, 1e-9)) good=false;
   }
-  ok("a vanishing scale, not a point: VP position is proportional to height (and to width)", good); }
+  ok("the seats lie in scale along the traces: seat position proportional to height (and to width)", good); }
 
 { let good = true;                                                        /* 5 */
   for (let i=0;i<40;i++){
@@ -123,7 +123,7 @@ const rIn = (a,b) => a + (b-a)*rnd();
       if (Math.abs(cross2(p,[X,Y])) > 1e-10) star=false;   // through the origin, direction (X, Y)
     }
   }
-  ok("fused: both ratios vanish — all four VPs sit on the origin", collapse);
+  ok("fused: both ratios die — all four seats come home to the origin", collapse);
   ok("fused: every glide depth trail lies on the ray through the origin — one star", star); }
 
 /* ================= channel machinery ================= */
@@ -186,8 +186,8 @@ const rIn = (a,b) => a + (b-a)*rnd();
     const pF=[sx*mag(u,1e7), sy*mag(v,1e7)];
     if (Math.hypot(pF[0],pF[1]) > 1e-5) toO=false;
   }
-  ok("cross-slit connectors lie on trail hyperbolas", hyp);
-  ok("cross-slit connectors run to the origin — its one vanishing point for all of depth", toO); }
+  ok("cross-slit connectors lie on chains (trail hyperbolas, axis-parallel asymptotes)", hyp);
+  ok("cross-slit connectors run to the origin — seat and vanishing point welded, one for all of depth", toO); }
 
 { let good = true;                                                        /* 13 */
   for (let i=0;i<40;i++){
@@ -226,7 +226,7 @@ const rIn = (a,b) => a + (b-a)*rnd();
 {                                                                          /* 17 */
   const u=-2, v=-1;
   const kU=(u-v)/u, kV=(v-u)/v;
-  ok("at default feet the four VPs sit on the sheet: |q·(u−v)/u|, |q·(v−u)/v| ≤ plane extent",
+  ok("at default feet the four seats sit on the sheet: |q·(u−v)/u|, |q·(v−u)/v| ≤ plane extent",
      Math.abs(Q*kU) <= XT && Math.abs(Q*kV) <= XT); }
 
 /* ================= view containment ================= */
