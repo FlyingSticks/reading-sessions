@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The rate square, in the round · The Reading Sessions</title>
+<style>
+  body { background:#f7f3ec; color:#33322c; font-family:Helvetica, Arial, sans-serif;
+         margin:0; padding:24px 16px 48px; }
+  .wrap { max-width:760px; margin:0 auto; }
+  .crumb { font-size:13px; color:#7a7668; margin-bottom:14px; }
+  .crumb a { color:#7a7668; }
+  h1 { font-size:26px; margin:0 0 6px; }
+  .dek { font-size:15px; color:#5c584c; margin:0 0 18px; }
+  .thesis { border-left:4px solid #b08948; background:#f1ece0; padding:10px 14px;
+            font-size:15px; margin:0 0 18px; }
+  figure { margin:0; }
+  svg.scene { width:100%; height:auto; display:block; background:#f7f3ec; touch-action:none;
+        border:1px solid #e2ddcf; border-radius:6px; cursor:grab; }
+  svg.scene:active { cursor:grabbing; }
+  .controls { margin-top:12px; }
+  .row { display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:10px; }
+  .row label.slab { font-size:14px; min-width:110px; }
+  input[type=range] { flex:1; min-width:180px; accent-color:#177f75; }
+  button { font-family:inherit; font-size:14px; padding:7px 14px; border-radius:18px;
+           border:1px solid #b6b1a0; background:#fdfbf5; color:#33322c; cursor:pointer; }
+  button.on { background:#177f75; border-color:#177f75; color:#fdfbf5; }
+  button.quiet { border-color:#d5d0bf; color:#7a7668; }
+  .padrow { display:flex; gap:16px; flex-wrap:wrap; align-items:flex-start; margin-bottom:10px; }
+  svg.pad { width:250px; height:250px; background:#fdfbf5; border:1px solid #e2ddcf;
+            border-radius:6px; touch-action:none; flex:0 0 auto; }
+  .readout { font-size:14px; background:#efece1; border:1px solid #e2ddcf; border-radius:6px;
+             padding:10px 12px; flex:1; min-width:220px; line-height:1.6; }
+  .readout .seamon { color:#3d8f3d; font-weight:bold; }
+  .readout .seamoff { color:#c0322b; font-weight:bold; }
+  .readout .weld { color:#177f75; font-weight:bold; }
+  .readout .split { color:#c0322b; font-weight:bold; }
+  .check { font-size:13px; color:#7a7668; margin-top:2px; }
+  .check .ok { color:#3d8f3d; font-weight:bold; }
+  .check .bad { color:#c0322b; font-weight:bold; }
+  h2 { font-size:19px; margin:30px 0 8px; }
+  p { font-size:15px; line-height:1.55; }
+  .notes { font-size:13.5px; color:#5c584c; border-top:1px solid #e2ddcf; margin-top:28px; padding-top:14px; }
+  .notes p { font-size:13.5px; }
+  a { color:#0E6E6E; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="crumb"><a href="index.html">The Reading Sessions</a> · companion to <a href="window-and-floor.html">Window and Floor</a> and <a href="the-pattern.html">The pattern</a>, in the round · 10 September 2026</div>
+  <h1>The rate square, in the round</h1>
+  <p class="dek">The abstract square (r<sub>u</sub>, r<sub>v</sub>) put back on the machine it describes. Drag the point and the slits move; drag the scene to orbit; slide the probe and watch one ray thread both slits.</p>
+
+  <div class="thesis">The square is the camera's law-space: two numbers the slits are free to set. Each point of it <b>is</b> a rig. On the gold lines the camera's image of a depth line is straight — inside the draftsman's class — and Turn welds tick to mark. Off them the dark curve bows, and no ruler on the teal line can follow it.</div>
+
+  <figure>
+    <svg id="scene" class="scene" viewBox="0 0 720 640" xmlns="http://www.w3.org/2000/svg" aria-label="Orbitable rig: picture plane, two slits, threaded ray, camera curve and glide line"></svg>
+  </figure>
+
+  <div class="controls">
+    <div class="row">
+      <label class="slab" for="zslider">probe depth z <span id="zval">300</span></label>
+      <input id="zslider" type="range" min="0" max="800" step="1" value="300">
+    </div>
+    <div class="row">
+      <button data-preset="cross" class="on">cross-slit (the book rig)</button>
+      <button data-preset="pinhole">pinhole</button>
+      <button data-preset="pushbroom">pushbroom</button>
+      <button data-preset="ortho">orthographic</button>
+      <button data-preset="off">off the seam</button>
+    </div>
+    <div class="row">
+      <button id="btnReach">Reach (equal steps)</button>
+      <button id="btnTurn" class="on">Turn (harmonic)</button>
+      <button id="btnFan" class="quiet">ray fan</button>
+      <button id="btnReset" class="quiet">reset view</button>
+    </div>
+    <div class="padrow">
+      <svg id="pad" class="pad" viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg" aria-label="Draggable rate square"></svg>
+      <div class="readout" id="readout"></div>
+    </div>
+    <div class="row"><button id="btnSnap" class="quiet">snap to seam</button></div>
+    <div class="check" id="selfcheck"></div>
+  </div>
+
+  <h2>What to look for</h2>
+  <p>The crimson bar is the vertical slit, which owns the u-channel; the purple bar is the horizontal slit, which owns v. The dark ray from the probe is the unique line through both — its crossing point rides each bar as the probe moves, which is the whole optics of the rig. Where the ray pierces the glass is the mark, and the dark curve is the trail of marks the depth line leaves: <b>the camera's image of a straight line</b>.</p>
+  <p>On the diagonal the slits coincide — a pinhole — and the curve is straight. On either edge one slit has gone to infinity — a pushbroom — and the curve is straight again. Everywhere else it bows, and the teal line (the draftsman's law: straight from the footprint) can carry ticks under any ruler you like without ever landing them on the marks. Drag the point off the seam and watch the residual in the readout refuse to close; snap back and turn the ruler to Turn, and the weld returns.</p>
+  <p>At the orthographic corner both rates are zero, both channels fall silent, and the mark never leaves the footprint: depth unread. That corner is where the 1984 board re-introduces depth by hand — the reason glide exists.</p>
+
+  <div class="notes">
+    <p><b>Conventions.</b> Chapter 2 throughout: mark M(z) = (x₀/(1+r<sub>u</sub>z), y₀/(1+r<sub>v</sub>z)); slit depths are the reciprocal rates, Z = 1/r; the cross-slit preset is the book rig, vertical slit crimson at depth 150, horizontal purple at 250; pinhole at 200. Glide G(μ) = F + μd with d the camera's starting direction; Turn μ = z/(1+rz) with r the welded channel's rate, Reach calibrated to agree with Turn at the first drawn level z = 100 (as in the window-and-floor plate). Judgment calls flagged: off the seam Turn is drawn with the u-channel's rate (no choice welds there, which is the point); the camera's reading is drawn in dark neutral rather than the flat pages' purple, since purple here belongs to the horizontal slit; slit bars are drawn at their true depths up to 560 and annotated beyond; depth compressed 0.55× for display, affine only.</p>
+    <p><b>Checks.</b> check_rate_square_3d.js extracts the CORE and DRAW blocks from this file and re-verifies: the threaded ray (built only from slit incidence) lands on the closed-form mark; straight-iff-seam over random rigs; the weld on the diagonal and both edges; no weld off the seam; Reach's equal steps; the silent corner; and the projection. The page re-runs a live micro-check on every interaction.</p>
+    <p><a href="window-and-floor-3d.html">← Window and floor, in the round</a> · <a href="the-pattern.html">The pattern</a> · <a href="session-02.html">Session 2</a> · <a href="index.html">All sessions</a></p>
+  </div>
+</div>
+
+<script>
+/*CORE*/
+// Law-space and rig — Chapter 2 convention
+var RMAX = 0.01;                    // rate ceiling: slit depth floor of 100
+var F = { x: 100, y: 70 };          // footprint, level 0
+var Z1 = 100;                       // Reach agreement level (drawn-scale choice; see notes)
+var ZMAXP = 800;                    // probe range
+var ZTICKS = [100, 200, 300, 400, 500];
+var ZSLITDRAW = 560;                // slits drawn at true depth up to here
+var PRESETS = {
+  cross:     { ru: 1 / 150, rv: 1 / 250 },   // the book rig
+  pinhole:   { ru: 1 / 200, rv: 1 / 200 },
+  pushbroom: { ru: 1 / 200, rv: 0 },
+  ortho:     { ru: 0, rv: 0 },
+  off:       { ru: 1 / 120, rv: 1 / 350 }
+};
+function mark(z, ru, rv) { return { x: F.x / (1 + ru * z), y: F.y / (1 + rv * z) }; }
+// The unique ray through the probe meeting both slit lines, built from incidence alone:
+// x is affine in zeta and zero at zeta = -1/ru (the vertical slit); same for y.
+function rayFn(z, ru, rv) {
+  var ax = (ru > 0) ? F.x / (z + 1 / ru) : 0;
+  var ay = (rv > 0) ? F.y / (z + 1 / rv) : 0;
+  return function (zeta) {
+    return { x: (ru > 0) ? ax * (zeta + 1 / ru) : F.x,
+             y: (rv > 0) ? ay * (zeta + 1 / rv) : F.y,
+             z: zeta };
+  };
+}
+function seamKind(ru, rv) {
+  var e = 1e-12;
+  if (ru < e && rv < e) return 'corner';
+  if (rv < e) return 'uedge';
+  if (ru < e) return 'vedge';
+  if (Math.abs(ru - rv) < e) return 'diagonal';
+  return 'off';
+}
+function weldedRate(ru, rv) {
+  var k = seamKind(ru, rv);
+  if (k === 'corner') return null;
+  if (k === 'vedge') return rv;
+  return ru;                        // diagonal, u-edge, and (by convention) off the seam
+}
+function glideDir(ru, rv) { return { x: -ru * F.x, y: -rv * F.y }; }   // camera's starting direction
+function muTurn(z, r) { return z / (1 + r * z); }
+function muReach(z, r) { return (z / Z1) * muTurn(Z1, r); }
+function glideTick(z, ru, rv, ruler) {
+  var r = weldedRate(ru, rv);
+  if (r === null) return { x: F.x, y: F.y };
+  var mu = (ruler === 'turn') ? muTurn(z, r) : muReach(z, r);
+  var d = glideDir(ru, rv);
+  return { x: F.x + mu * d.x, y: F.y + mu * d.y };
+}
+function camSeat(ru, rv) {          // camera's image of depth-infinity
+  var k = seamKind(ru, rv);
+  if (k === 'corner') return null;
+  return { x: (ru > 0) ? 0 : F.x, y: (rv > 0) ? 0 : F.y };
+}
+function curveDeviation(ru, rv) {   // max distance of the mark trail from its own chord
+  var a = mark(0, ru, rv), b = mark(ZMAXP, ru, rv);
+  var vx = b.x - a.x, vy = b.y - a.y, L = Math.hypot(vx, vy);
+  if (L < 1e-9) return 0;
+  var worst = 0;
+  for (var i = 1; i < 60; i++) {
+    var m = mark(ZMAXP * i / 60, ru, rv);
+    worst = Math.max(worst, Math.abs((m.x - a.x) * vy - (m.y - a.y) * vx) / L);
+  }
+  return worst;
+}
+// View — axonometric orbit; depth compressed for display (affine, incidence-safe)
+var ZC = 0.55;
+var DEFAULT_VIEW = { yaw: 0.62, pitch: 0.35, scale: 1.05, cx: 330, cy: 305 };
+function rotY(p, a) { var c = Math.cos(a), s = Math.sin(a);
+  return { x: c * p.x + s * p.z, y: p.y, z: -s * p.x + c * p.z }; }
+function rotX(p, a) { var c = Math.cos(a), s = Math.sin(a);
+  return { x: p.x, y: c * p.y - s * p.z, z: s * p.y + c * p.z }; }
+function project(p, v) {
+  var q = rotX(rotY({ x: p.x, y: p.y, z: (p.z || 0) * ZC }, v.yaw), v.pitch);
+  return { X: v.cx + v.scale * q.x, Y: v.cy - v.scale * q.y, depth: q.z };
+}
+/*ENDCORE*/
+
+/*DRAW*/
+// Pure scene builder: state -> inner SVG markup. No DOM access; testable headlessly.
+function sceneSVG(state) {
+  var v = state.view, z = state.z, ru = state.ru, rv = state.rv;
+  function P(x, y, zz) { return project({ x: x, y: y, z: zz }, v); }
+  function pt(q) { return q.X.toFixed(2) + ',' + q.Y.toFixed(2); }
+  function seg(a, b, style) { return '<line x1="' + a.X.toFixed(2) + '" y1="' + a.Y.toFixed(2) +
+    '" x2="' + b.X.toFixed(2) + '" y2="' + b.Y.toFixed(2) + '" ' + style + '/>'; }
+  function dot(q, r, fill) { return '<circle cx="' + q.X.toFixed(2) + '" cy="' + q.Y.toFixed(2) +
+    '" r="' + r + '" fill="' + fill + '"/>'; }
+  var out = [];
+  var kind = seamKind(ru, rv);
+  var Zu = (ru > 0) ? 1 / ru : Infinity, Zv = (rv > 0) ? 1 / rv : Infinity;
+  var farZ = -(Math.min(Math.max(Zu === Infinity ? 0 : Zu, Zv === Infinity ? 0 : Zv, 200), ZSLITDRAW) * 1.15 + 60);
+
+  // Sheet (picture plane, z = 0)
+  var SX = 140, SY = 100, GRID = 40;
+  var c1 = P(-SX, -SY, 0), c2 = P(SX, -SY, 0), c3 = P(SX, SY, 0), c4 = P(-SX, SY, 0);
+  out.push('<polygon points="' + pt(c1) + ' ' + pt(c2) + ' ' + pt(c3) + ' ' + pt(c4) +
+           '" fill="#eceadd" stroke="#d8d3c2" stroke-width="1"/>');
+  var g;
+  for (g = -SX + GRID; g < SX; g += GRID)
+    out.push(seg(P(g, -SY, 0), P(g, SY, 0), 'stroke="#dbd8c8" stroke-width="1"'));
+  for (g = -SY + GRID; g < SY; g += GRID)
+    out.push(seg(P(-SX, g, 0), P(SX, g, 0), 'stroke="#dbd8c8" stroke-width="1"'));
+  out.push(seg(P(-SX, 0, 0), P(SX, 0, 0), 'stroke="#8b917e" stroke-width="2"'));
+  out.push(seg(P(0, -SY, 0), P(0, SY, 0), 'stroke="#8b917e" stroke-width="2"'));
+
+  // Principal axis
+  out.push(seg(P(0, 0, farZ - 40), P(0, 0, ZMAXP + 60), 'stroke="#5a6152" stroke-width="1.6"'));
+
+  // Ray fan (optional): tick-depth points threaded through both slits
+  if (state.fan && kind !== 'corner') {
+    ZTICKS.forEach(function (zi) {
+      var rf = rayFn(zi, ru, rv);
+      var a = rf(zi), b = rf(farZ);
+      out.push(seg(P(a.x, a.y, a.z), P(b.x, b.y, b.z), 'stroke="#a9c39a" stroke-width="1"'));
+    });
+  }
+
+  // World depth line with equal-step beads
+  out.push(seg(P(F.x, F.y, 0), P(F.x, F.y, ZMAXP), 'stroke="#3d8f3d" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.6"'));
+  out.push(seg(P(F.x, F.y, 0), P(F.x, F.y, z), 'stroke="#3d8f3d" stroke-width="3"'));
+  ZTICKS.forEach(function (zi) {
+    var q = P(F.x, F.y, zi);
+    out.push('<circle cx="' + q.X.toFixed(2) + '" cy="' + q.Y.toFixed(2) + '" r="3" fill="#f7f3ec" stroke="#3d8f3d" stroke-width="1.8"/>');
+  });
+
+  // Slits: vertical crimson (u), horizontal purple (v); annotate infinity / beyond draw range
+  function slitBar(depth, vertical, col) {
+    var zDraw = Math.min(depth, ZSLITDRAW), faded = depth > ZSLITDRAW;
+    var a = vertical ? P(0, -85, -zDraw) : P(-85, 0, -zDraw);
+    var b = vertical ? P(0, 85, -zDraw) : P(85, 0, -zDraw);
+    out.push(seg(a, b, 'stroke="#f7f3ec" stroke-width="7.5"'));
+    out.push(seg(a, b, 'stroke="' + col + '" stroke-width="4"' + (faded ? ' opacity="0.35" stroke-dasharray="6 5"' : '')));
+    return { a: a, b: b, faded: faded, zDraw: zDraw };
+  }
+  var uBar = null, vBar = null;
+  if (ru > 0) uBar = slitBar(Zu, true, '#c0322b');
+  if (rv > 0) vBar = slitBar(Zv, false, '#6a2c91');
+
+  // Camera curve: trail of marks, solid to ZMAXP, dashed on to the seat
+  if (kind !== 'corner') {
+    var pts = [];
+    for (var i = 0; i <= 60; i++) {
+      var m = mark(ZMAXP * i / 60, ru, rv);
+      pts.push(pt(P(m.x, m.y, 0)));
+    }
+    out.push('<polyline points="' + pts.join(' ') + '" fill="none" stroke="#3a3a34" stroke-width="2.6"/>');
+    var seat = camSeat(ru, rv);
+    var dpts = [];
+    for (var j = 0; j <= 24; j++) {
+      var zz = ZMAXP * Math.pow(40, j / 24);           // log march toward infinity
+      var md = mark(zz, ru, rv);
+      dpts.push(pt(P(md.x, md.y, 0)));
+    }
+    dpts.push(pt(P(seat.x, seat.y, 0)));
+    out.push('<polyline points="' + dpts.join(' ') + '" fill="none" stroke="#3a3a34" stroke-width="1.3" stroke-dasharray="4 4" opacity="0.65"/>');
+  }
+
+  // Glide line: straight from the footprint along the camera's starting direction
+  var d = glideDir(ru, rv), rW = weldedRate(ru, rv);
+  if (rW !== null) {
+    var gEnd = { x: F.x + d.x / rW, y: F.y + d.y / rW };            // Turn's seat for this ruler
+    var gFar = { x: F.x + d.x * muReach(ZMAXP, rW), y: F.y + d.y * muReach(ZMAXP, rW) };
+    out.push(seg(P(F.x, F.y, 0), P(gEnd.x, gEnd.y, 0), 'stroke="#177f75" stroke-width="2.2"'));
+    if (muReach(ZMAXP, rW) > 1 / rW)
+      out.push(seg(P(gEnd.x, gEnd.y, 0), P(gFar.x, gFar.y, 0), 'stroke="#177f75" stroke-width="1.3" stroke-dasharray="4 4" opacity="0.7"'));
+  }
+
+  // Camera marks at equal depth steps; ruler ticks at the same depths
+  if (kind !== 'corner') {
+    ZTICKS.forEach(function (zi) {
+      var m = mark(zi, ru, rv);
+      out.push(dot(P(m.x, m.y, 0), 3.4, '#3a3a34'));
+    });
+    ZTICKS.forEach(function (zi) {
+      var t = glideTick(zi, ru, rv, state.ruler);
+      if (Math.abs(t.x) <= SX && Math.abs(t.y) <= SY) {
+        var q = P(t.x, t.y, 0);
+        out.push('<rect x="' + (q.X - 3.4).toFixed(2) + '" y="' + (q.Y - 3.4).toFixed(2) +
+                 '" width="6.8" height="6.8" fill="none" stroke="#177f75" stroke-width="1.8"/>');
+      }
+    });
+  }
+
+  // Active ray threading both slits, with crossing markers on the bars
+  var rf0 = rayFn(z, ru, rv);
+  var pA = rf0(z), pB = rf0(farZ);
+  out.push(seg(P(pA.x, pA.y, pA.z), P(pB.x, pB.y, pB.z), 'stroke="#3a3a34" stroke-width="1.8"'));
+  if (ru > 0 && Zu <= ZSLITDRAW) { var cu = rf0(-Zu); out.push(dot(P(cu.x, cu.y, cu.z), 4.4, '#c0322b')); }
+  if (rv > 0 && Zv <= ZSLITDRAW) { var cv = rf0(-Zv); out.push(dot(P(cv.x, cv.y, cv.z), 4.4, '#6a2c91')); }
+
+  // Seat, footprint, probe, moving pair
+  var seat2 = camSeat(ru, rv);
+  if (seat2) {
+    var s = P(seat2.x, seat2.y, 0);
+    out.push('<path d="M ' + s.X + ' ' + (s.Y - 7) + ' L ' + (s.X + 7) + ' ' + s.Y +
+             ' L ' + s.X + ' ' + (s.Y + 7) + ' L ' + (s.X - 7) + ' ' + s.Y +
+             ' Z" fill="none" stroke="#b08948" stroke-width="2.4"/>');
+  }
+  var f0 = P(F.x, F.y, 0);
+  out.push('<rect x="' + (f0.X - 5) + '" y="' + (f0.Y - 5) + '" width="10" height="10" fill="#177f75"/>');
+  var probe = P(F.x, F.y, z);
+  out.push(dot(probe, 6, '#2f5a2f'));
+  var mNow = mark(z, ru, rv);
+  var tNow = glideTick(z, ru, rv, state.ruler);
+  var tP = P(tNow.x, tNow.y, 0);
+  out.push('<circle id="tickDot" cx="' + tP.X.toFixed(2) + '" cy="' + tP.Y.toFixed(2) + '" r="5.5" fill="#177f75"/>');
+  var mP = P(mNow.x, mNow.y, 0);
+  out.push('<circle id="markRing" cx="' + mP.X.toFixed(2) + '" cy="' + mP.Y.toFixed(2) +
+           '" r="8" fill="none" stroke="#3a3a34" stroke-width="3"/>');
+
+  // Labels, screen-space
+  function label(q, dx2, dy2, txt, col) {
+    out.push('<text x="' + (q.X + dx2) + '" y="' + (q.Y + dy2) +
+      '" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="' + (col || '#5c584c') +
+      '" stroke="#f7f3ec" stroke-width="3" paint-order="stroke">' + txt + '</text>');
+  }
+  if (uBar) label(uBar.b, 6, 16, 'vertical slit' + (uBar.faded ? ' (depth ' + Math.round(Zu) + ')' : ''), '#c0322b');
+  else label(P(0, 0, farZ - 20), -6, -12, 'vertical slit at infinity', '#c0322b');
+  if (vBar) label(vBar.b, 6, -8, 'horizontal slit' + (vBar.faded ? ' (depth ' + Math.round(Zv) + ')' : ''), '#6a2c91');
+  else label(P(0, 0, farZ - 20), -6, 20, 'horizontal slit at infinity', '#6a2c91');
+  label(probe, 11, -11, 'probe');
+  label(f0, 8, 20, 'footprint, level 0', '#177f75');
+  if (seat2) label(P(seat2.x, seat2.y, 0), 10, -10, 'seat', '#b08948');
+  label(mP, -46, -10, 'mark');
+  label(tP, 11, 22, 'tick', '#177f75');
+  return out.join('');
+}
+
+// Rate square pad: state -> inner SVG markup for the 260 x 260 pad
+var PAD = { x0: 40, y0: 16, size: 200 };
+function padXY(ru, rv) {
+  return { X: PAD.x0 + (ru / RMAX) * PAD.size, Y: PAD.y0 + PAD.size - (rv / RMAX) * PAD.size };
+}
+function padRates(X, Y) {
+  var ru = Math.min(Math.max((X - PAD.x0) / PAD.size, 0), 1) * RMAX;
+  var rv = Math.min(Math.max((PAD.y0 + PAD.size - Y) / PAD.size, 0), 1) * RMAX;
+  return { ru: ru, rv: rv };
+}
+function padSVG(state) {
+  var out = [];
+  var x0 = PAD.x0, y0 = PAD.y0, S = PAD.size;
+  out.push('<rect x="' + x0 + '" y="' + y0 + '" width="' + S + '" height="' + S +
+           '" fill="#f7f3ec" stroke="#b6b1a0" stroke-width="1"/>');
+  // The seam: diagonal and the two zero edges, gold
+  out.push('<line x1="' + x0 + '" y1="' + (y0 + S) + '" x2="' + (x0 + S) + '" y2="' + y0 +
+           '" stroke="#b08948" stroke-width="2.5"/>');
+  out.push('<line x1="' + x0 + '" y1="' + y0 + '" x2="' + x0 + '" y2="' + (y0 + S) +
+           '" stroke="#b08948" stroke-width="2.5"/>');
+  out.push('<line x1="' + x0 + '" y1="' + (y0 + S) + '" x2="' + (x0 + S) + '" y2="' + (y0 + S) +
+           '" stroke="#b08948" stroke-width="2.5"/>');
+  // Presets as hollow anchors
+  Object.keys(PRESETS).forEach(function (k) {
+    var q = padXY(PRESETS[k].ru, PRESETS[k].rv);
+    out.push('<circle cx="' + q.X + '" cy="' + q.Y + '" r="3.2" fill="none" stroke="#8b917e" stroke-width="1.4"/>');
+  });
+  // Crosshairs and the rig point
+  var p = padXY(state.ru, state.rv);
+  out.push('<line x1="' + p.X + '" y1="' + p.Y + '" x2="' + p.X + '" y2="' + (y0 + S) +
+           '" stroke="#c0322b" stroke-width="1" stroke-dasharray="3 3"/>');
+  out.push('<line x1="' + x0 + '" y1="' + p.Y + '" x2="' + p.X + '" y2="' + p.Y +
+           '" stroke="#6a2c91" stroke-width="1" stroke-dasharray="3 3"/>');
+  out.push('<circle cx="' + p.X + '" cy="' + p.Y + '" r="7" fill="#33322c"/>');
+  out.push('<circle cx="' + p.X + '" cy="' + p.Y + '" r="11" fill="none" stroke="#33322c" stroke-width="1" opacity="0.4"/>');
+  // Axis labels and corner names
+  function txt(x, y, s, col, size, anchor) {
+    out.push('<text x="' + x + '" y="' + y + '" font-size="' + (size || 11) +
+      '" font-family="Helvetica, Arial, sans-serif" fill="' + (col || '#5c584c') +
+      '"' + (anchor ? ' text-anchor="' + anchor + '"' : '') + '>' + s + '</text>');
+  }
+  txt(x0 + S / 2, y0 + S + 30, 'r&#7524; — vertical slit rate', '#c0322b', 12, 'middle');
+  out.push('<text x="14" y="' + (y0 + S / 2) + '" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#6a2c91" text-anchor="middle" transform="rotate(-90 14 ' + (y0 + S / 2) + ')">r&#7525; — horizontal slit rate</text>');
+  txt(x0 - 4, y0 + S + 12, 'orthographic', '#8b917e', 9.5);
+  txt(x0 + S - 60, y0 - 4, 'pinhole', '#8b917e', 9.5);
+  txt(x0 + S - 74, y0 + S + 12, 'pushbroom edge', '#8b917e', 9.5);
+  return out.join('');
+}
+/*ENDDRAW*/
+
+// ---- Page wiring (DOM only below this line) ----
+var state = { z: 300, ru: PRESETS.cross.ru, rv: PRESETS.cross.rv, ruler: 'turn', fan: false,
+              view: { yaw: DEFAULT_VIEW.yaw, pitch: DEFAULT_VIEW.pitch,
+                      scale: DEFAULT_VIEW.scale, cx: DEFAULT_VIEW.cx, cy: DEFAULT_VIEW.cy } };
+var svg = document.getElementById('scene');
+var pad = document.getElementById('pad');
+var readout = document.getElementById('readout');
+var selfcheck = document.getElementById('selfcheck');
+
+function seamText(kind) {
+  if (kind === 'diagonal') return '<span class="seamon">on the seam — diagonal: the slits coincide, a pinhole</span>';
+  if (kind === 'uedge') return '<span class="seamon">on the seam — edge: horizontal slit at infinity, a pushbroom</span>';
+  if (kind === 'vedge') return '<span class="seamon">on the seam — edge: vertical slit at infinity, a pushbroom</span>';
+  if (kind === 'corner') return '<span class="seamon">the orthographic corner — both channels silent</span>';
+  return '<span class="seamoff">off the seam — the camera&#39;s line bows</span>';
+}
+function render() {
+  svg.innerHTML = sceneSVG(state);
+  pad.innerHTML = padSVG(state);
+  document.getElementById('zval').textContent = state.z;
+  var kind = seamKind(state.ru, state.rv);
+  var Zu = (state.ru > 0) ? (1 / state.ru).toFixed(0) : '&#8734;';
+  var Zv = (state.rv > 0) ? (1 / state.rv).toFixed(0) : '&#8734;';
+  var line1 = 'r&#7524; = ' + state.ru.toFixed(5) + ' (slit depth ' + Zu + ') · r&#7525; = ' +
+              state.rv.toFixed(5) + ' (slit depth ' + Zv + ')';
+  var line2 = seamText(kind);
+  var line3;
+  if (kind === 'corner') {
+    line3 = 'the mark never leaves the footprint — depth unread';
+  } else {
+    var worst = 0;
+    ZTICKS.concat([state.z]).forEach(function (zi) {
+      var m = mark(zi, state.ru, state.rv), t = glideTick(zi, state.ru, state.rv, state.ruler);
+      worst = Math.max(worst, Math.hypot(t.x - m.x, t.y - m.y));
+    });
+    if (kind !== 'off' && state.ruler === 'turn') {
+      line3 = '<span class="weld">welded — every tick on its mark</span> (worst residual ' + worst.toExponential(1) + ')';
+    } else if (kind !== 'off') {
+      line3 = '<span class="split">Reach: worst tick misses its mark by ' + worst.toFixed(1) + ' sheet-units</span>';
+    } else {
+      line3 = '<span class="split">no ruler welds here: worst miss ' + worst.toFixed(1) + ' sheet-units under ' +
+              (state.ruler === 'turn' ? 'Turn' : 'Reach') + '</span>';
+    }
+  }
+  readout.innerHTML = line1 + '<br>' + line2 + '<br>' + line3;
+
+  // Live micro-check: threaded ray lands on the closed-form mark; bowing matches the seam predicate
+  var rf = rayFn(state.z, state.ru, state.rv);
+  var p0 = rf(0), m0 = mark(state.z, state.ru, state.rv);
+  var e1 = Math.hypot(p0.x - m0.x, p0.y - m0.y);
+  var dev = curveDeviation(state.ru, state.rv);
+  var straight = dev < 1e-6, onSeam = (kind !== 'off');
+  var ok = (e1 < 1e-9) && (straight === onSeam);
+  selfcheck.innerHTML = 'live check: threaded ray lands on M(z) to ' + e1.toExponential(1) +
+    '; curve deviation ' + dev.toExponential(1) + ' (' + (straight ? 'straight' : 'bowed') +
+    ', seam predicate agrees) — ' + (ok ? '<span class="ok">passing</span>' : '<span class="bad">FAILING</span>');
+}
+
+document.getElementById('zslider').addEventListener('input', function (e) {
+  state.z = +e.target.value; render();
+});
+document.querySelectorAll('button[data-preset]').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var p = PRESETS[b.dataset.preset];
+    state.ru = p.ru; state.rv = p.rv;
+    document.querySelectorAll('button[data-preset]').forEach(function (x) { x.classList.remove('on'); });
+    b.classList.add('on');
+    render();
+  });
+});
+var bReach = document.getElementById('btnReach'), bTurn = document.getElementById('btnTurn');
+bReach.addEventListener('click', function () {
+  state.ruler = 'reach'; bReach.classList.add('on'); bTurn.classList.remove('on'); render();
+});
+bTurn.addEventListener('click', function () {
+  state.ruler = 'turn'; bTurn.classList.add('on'); bReach.classList.remove('on'); render();
+});
+var bFan = document.getElementById('btnFan');
+bFan.addEventListener('click', function () {
+  state.fan = !state.fan; bFan.classList.toggle('quiet'); bFan.classList.toggle('on'); render();
+});
+document.getElementById('btnReset').addEventListener('click', function () {
+  state.view.yaw = DEFAULT_VIEW.yaw; state.view.pitch = DEFAULT_VIEW.pitch; render();
+});
+document.getElementById('btnSnap').addEventListener('click', function () {
+  var m2 = (state.ru + state.rv) / 2;
+  var cands = [ { ru: m2, rv: m2 }, { ru: state.ru, rv: 0 }, { ru: 0, rv: state.rv } ];
+  var best = cands[0], bd = Infinity;
+  cands.forEach(function (c) {
+    var dd = Math.hypot(c.ru - state.ru, c.rv - state.rv);
+    if (dd < bd) { bd = dd; best = c; }
+  });
+  state.ru = best.ru; state.rv = best.rv;
+  document.querySelectorAll('button[data-preset]').forEach(function (x) { x.classList.remove('on'); });
+  render();
+});
+
+// Pad drag
+function padPointFromEvent(e) {
+  var r = pad.getBoundingClientRect();
+  var X = (e.clientX - r.left) * 260 / r.width;
+  var Y = (e.clientY - r.top) * 260 / r.height;
+  return padRates(X, Y);
+}
+var padDrag = false;
+pad.addEventListener('pointerdown', function (e) {
+  padDrag = true; pad.setPointerCapture(e.pointerId);
+  var q = padPointFromEvent(e); state.ru = q.ru; state.rv = q.rv;
+  document.querySelectorAll('button[data-preset]').forEach(function (x) { x.classList.remove('on'); });
+  render();
+});
+pad.addEventListener('pointermove', function (e) {
+  if (!padDrag) return;
+  var q = padPointFromEvent(e); state.ru = q.ru; state.rv = q.rv; render();
+});
+pad.addEventListener('pointerup', function () { padDrag = false; });
+pad.addEventListener('pointercancel', function () { padDrag = false; });
+
+// Scene orbit
+var dragging = false, lastX = 0, lastY = 0;
+svg.addEventListener('pointerdown', function (e) {
+  dragging = true; lastX = e.clientX; lastY = e.clientY; svg.setPointerCapture(e.pointerId);
+});
+svg.addEventListener('pointermove', function (e) {
+  if (!dragging) return;
+  state.view.yaw += (e.clientX - lastX) * 0.006;
+  state.view.pitch += (e.clientY - lastY) * 0.006;
+  state.view.pitch = Math.max(-1.35, Math.min(1.35, state.view.pitch));
+  lastX = e.clientX; lastY = e.clientY; render();
+});
+svg.addEventListener('pointerup', function () { dragging = false; });
+svg.addEventListener('pointercancel', function () { dragging = false; });
+
+render();
+</script>
+</body>
+</html>
