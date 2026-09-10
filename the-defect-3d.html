@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The defect, in the round · The Reading Sessions</title>
+<style>
+  body { background:#f7f3ec; color:#33322c; font-family:Helvetica, Arial, sans-serif;
+         margin:0; padding:24px 16px 48px; }
+  .wrap { max-width:760px; margin:0 auto; }
+  .crumb { font-size:13px; color:#7a7668; margin-bottom:14px; }
+  .crumb a { color:#7a7668; }
+  h1 { font-size:26px; margin:0 0 6px; }
+  .dek { font-size:15px; color:#5c584c; margin:0 0 18px; }
+  .thesis { border-left:4px solid #b08948; background:#f1ece0; padding:10px 14px;
+            font-size:15px; margin:0 0 18px; }
+  figure { margin:0; }
+  svg { width:100%; height:auto; display:block; background:#f7f3ec; touch-action:none;
+        border:1px solid #e2ddcf; border-radius:6px; cursor:grab; }
+  svg:active { cursor:grabbing; }
+  .controls { margin-top:12px; }
+  .row { display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:10px; }
+  .row label.slab { font-size:14px; min-width:170px; }
+  input[type=range] { flex:1; min-width:170px; accent-color:#177f75; }
+  input#tslider { accent-color:#c0322b; }
+  .endcap { font-size:13px; color:#7a7668; min-width:44px; }
+  button { font-family:inherit; font-size:14px; padding:7px 14px; border-radius:18px;
+           border:1px solid #b6b1a0; background:#fdfbf5; color:#33322c; cursor:pointer; }
+  button.on { background:#177f75; border-color:#177f75; color:#fdfbf5; }
+  button.quiet { border-color:#d5d0bf; color:#7a7668; }
+  .readout { font-size:14px; background:#efece1; border:1px solid #e2ddcf; border-radius:6px;
+             padding:10px 12px; line-height:1.6; }
+  .readout .seated { color:#177f75; font-weight:bold; }
+  .readout .exiled { color:#c0322b; font-weight:bold; }
+  .check { font-size:13px; color:#7a7668; margin-top:6px; }
+  .check .ok { color:#3d8f3d; font-weight:bold; }
+  .check .bad { color:#c0322b; font-weight:bold; }
+  h2 { font-size:19px; margin:30px 0 8px; }
+  p { font-size:15px; line-height:1.55; }
+  .notes { font-size:13.5px; color:#5c584c; border-top:1px solid #e2ddcf; margin-top:28px; padding-top:14px; }
+  .notes p { font-size:13.5px; }
+  a { color:#0E6E6E; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="crumb"><a href="index.html">The Reading Sessions</a> · companion to <a href="the-defect.html">The Defect</a>, in the round · 10 September 2026</div>
+  <h1>The defect, in the round</h1>
+  <p class="dek">The count out in the world, the account in crimson, and the placement morph — the flat page's bottom strips, stood up in the scene they were strips of. Drag to orbit; stop the count; slide the placement.</p>
+
+  <div class="thesis">The crimson is the account: everything past the count, fixed in the world before any ruler is chosen. The ruler only chooses its <b>address on the glass</b>. Slide the placement to <b>Reach</b> and the account is piled past the open end, no mark anywhere. Slide it to <b>Turn</b> and infinity is seated at the crimson ring, the payment graded into every crowding interval. The numbers ride the whole way unchanged — the count survives; only the placement moves.</div>
+
+  <figure>
+    <svg id="scene" viewBox="0 0 720 640" xmlns="http://www.w3.org/2000/svg" aria-label="Orbitable scene: counted depth line with crimson tail, numbered ticks morphing between Reach and Turn placement"></svg>
+  </figure>
+
+  <div class="controls">
+    <div class="row">
+      <label class="slab" for="nslider">stop the count at N = <span id="nval">5</span></label>
+      <input id="nslider" type="range" min="1" max="8" step="1" value="5">
+    </div>
+    <div class="row">
+      <label class="slab" for="tslider">placement</label>
+      <span class="endcap">Reach</span>
+      <input id="tslider" type="range" min="0" max="1" step="0.01" value="0">
+      <span class="endcap">Turn</span>
+    </div>
+    <div class="row">
+      <button id="btnRays" class="quiet">sight lines</button>
+      <button id="btnReset" class="quiet">reset view</button>
+    </div>
+    <div class="readout" id="readout"></div>
+    <div class="check" id="selfcheck"></div>
+  </div>
+
+  <h2>What to look for</h2>
+  <p>The green run of the depth line is the counted part of the world — beads at whole steps, numbered. The crimson beyond the last bead is the account: the rest of infinity, the part every closure test fails on. Move the count stop and the boundary moves; nothing a ruler does can shrink what lies past it.</p>
+  <p>On the glass, the teal ticks carry the same numbers. At the Reach end their steps are equal and the line stays open — always one more step available, the end never an object — so the crimson runs off along the dashed extension to no address at all: the account piled at the unreachable end, the wolf at the end of the line. Slide toward Turn and watch the numbers crowd without ever exchanging places, until at pure Turn infinity snaps to a finite seat: the crimson ring closes around the gold diamond, and the account becomes a visible sliver from the last tick to the ring — shrinking at every stop of the count, nonzero at every stop. That snap happens only at the very end of the slider: any blend short of pure Turn still leaves infinity unmarked, which is Theorem 0 watched along a whole family of rulers, not just its two endpoints.</p>
+  <p>The dark dots never move. They are the camera's marks at the counted depths — welded to the graded placement by the optics, holding the Turn positions while the teal ticks travel to meet them. The camera runs no slider: it is the one party in the scene with no policy of its own. Turn the sight lines on to see the fan that welds it.</p>
+
+  <div class="notes">
+    <p><b>Conventions.</b> Same rig and rulers as <a href="window-and-floor-3d.html">window and floor, in the round</a>: seam pinhole at Z<sub>p</sub> = 200, footprint F = (100, 70), Turn w = z/(Z<sub>p</sub>+z), Reach calibrated to agree with Turn at the first counted level z = 100, count steps of 100. Judgment calls flagged: the flat page's three policies include smear, which this plate leaves to the page's calendar and keyboard cases — the depth line here runs pile (Reach) and grade (Turn), which is all the page assigns it; the placement slider's interior is a plate observation one step past the page's sentence — that every blend of the two placements short of pure Turn leaves infinity unmarked — stated because the check proves it, not because the page says it; depth compressed 0.5× for display, affine only.</p>
+    <p><b>Checks.</b> check_the_defect_3d.js extracts the CORE and DRAW blocks from this file and re-verifies: the welded camera (its marks are the Turn placements exactly); the morph's endpoints, monotone slide, and preserved order; unbounded placement for every blend short of Turn against the finite seat at Turn; the sliver shrinking at every count stop and vanishing at none; Turn's grading and Reach's equal steps; the telescoping partition of the drawn line; and the projection. The page re-runs a live micro-check on every interaction.</p>
+    <p><a href="the-defect.html">← The Defect</a> · <a href="rate-square-3d.html">The rate square, in the round</a> · <a href="session-02.html">Session 2</a> · <a href="index.html">All sessions</a></p>
+  </div>
+</div>
+
+<script>
+/*CORE*/
+// Rig and rulers — same seam pinhole as window-and-floor-3d
+var ZP = 200;
+var R  = 1 / ZP;
+var F  = { x: 100, y: 70 };
+var SEAT = { x: 0, y: 0 };
+var Z1 = 100;                       // Reach agreement level (drawn-scale choice; see notes)
+var DZ = 100;                       // one counted step of depth
+var NMAX = 8;
+var ZWORLD = NMAX * DZ;             // world line drawn this far; the account continues beyond
+function wTurn(z)  { return (R * z) / (1 + R * z); }
+function wReach(z) { return (z / Z1) * wTurn(Z1); }
+function wMix(z, t) { return (1 - t) * wReach(z) + t * wTurn(z); }   // the placement family
+function tickPos(w) { return { x: F.x * (1 - w) + SEAT.x * w,
+                               y: F.y * (1 - w) + SEAT.y * w }; }
+function markOnSheet(z) { return { x: F.x / (1 + R * z), y: F.y / (1 + R * z) }; }
+function sliver(N) { return 1 - wTurn(N * DZ); }   // the account's price at pure Turn: last tick to the ring
+// View — identical family to the sibling plates
+var ZC = 0.5;
+var DEFAULT_VIEW = { yaw: 0.62, pitch: 0.35, scale: 1.15, cx: 300, cy: 320 };
+function rotY(p, a) { var c = Math.cos(a), s = Math.sin(a);
+  return { x: c * p.x + s * p.z, y: p.y, z: -s * p.x + c * p.z }; }
+function rotX(p, a) { var c = Math.cos(a), s = Math.sin(a);
+  return { x: p.x, y: c * p.y - s * p.z, z: s * p.y + c * p.z }; }
+function project(p, v) {
+  var q = rotX(rotY({ x: p.x, y: p.y, z: (p.z || 0) * ZC }, v.yaw), v.pitch);
+  return { X: v.cx + v.scale * q.x, Y: v.cy - v.scale * q.y, depth: q.z };
+}
+/*ENDCORE*/
+
+/*DRAW*/
+// Pure scene builder: state -> inner SVG markup. No DOM access; testable headlessly.
+function sceneSVG(state) {
+  var v = state.view, N = state.N, t = state.t;
+  function P(x, y, zz) { return project({ x: x, y: y, z: zz }, v); }
+  function pt(q) { return q.X.toFixed(2) + ',' + q.Y.toFixed(2); }
+  function seg(a, b, style) { return '<line x1="' + a.X.toFixed(2) + '" y1="' + a.Y.toFixed(2) +
+    '" x2="' + b.X.toFixed(2) + '" y2="' + b.Y.toFixed(2) + '" ' + style + '/>'; }
+  function arrow(a, b, col, w) {     // segment with a head at b
+    var s2 = seg(a, b, 'stroke="' + col + '" stroke-width="' + w + '" stroke-dasharray="5 4"');
+    var dx = b.X - a.X, dy = b.Y - a.Y, L = Math.sqrt(dx * dx + dy * dy) || 1;
+    dx /= L; dy /= L;
+    return s2 + '<polygon points="' + (b.X + 9 * dx) + ',' + (b.Y + 9 * dy) + ' ' +
+      (b.X - 4 * dy) + ',' + (b.Y + 4 * dx) + ' ' + (b.X + 4 * dy) + ',' + (b.Y - 4 * dx) +
+      '" fill="' + col + '"/>';
+  }
+  function label(q, dx2, dy2, txt, col, size) {
+    return '<text x="' + (q.X + dx2) + '" y="' + (q.Y + dy2) +
+      '" font-size="' + (size || 12) + '" font-family="Helvetica, Arial, sans-serif" fill="' + (col || '#5c584c') +
+      '" stroke="#f7f3ec" stroke-width="2.5" paint-order="stroke">' + txt + '</text>';
+  }
+  var out = [];
+  var zN = N * DZ;
+
+  // Sheet
+  var SX = 160, SY = 120, GRID = 40;
+  var c1 = P(-SX, -SY, 0), c2 = P(SX, -SY, 0), c3 = P(SX, SY, 0), c4 = P(-SX, SY, 0);
+  out.push('<polygon points="' + pt(c1) + ' ' + pt(c2) + ' ' + pt(c3) + ' ' + pt(c4) +
+           '" fill="#eceadd" stroke="#d8d3c2" stroke-width="1"/>');
+  var g;
+  for (g = -SX + GRID; g < SX; g += GRID)
+    out.push(seg(P(g, -SY, 0), P(g, SY, 0), 'stroke="#dbd8c8" stroke-width="1"'));
+  for (g = -SY + GRID; g < SY; g += GRID)
+    out.push(seg(P(-SX, g, 0), P(SX, g, 0), 'stroke="#dbd8c8" stroke-width="1"'));
+  out.push(seg(P(-SX, 0, 0), P(SX, 0, 0), 'stroke="#8b917e" stroke-width="2"'));
+  out.push(seg(P(0, -SY, 0), P(0, SY, 0), 'stroke="#8b917e" stroke-width="2"'));
+
+  // Principal axis
+  out.push(seg(P(0, 0, -ZP - 90), P(0, 0, ZWORLD + 60), 'stroke="#5a6152" stroke-width="1.6"'));
+
+  // Sight lines (optional): counted world beads to the pinhole — why the camera crowds
+  if (state.rays) {
+    for (var i = 1; i <= N; i++)
+      out.push(seg(P(F.x, F.y, i * DZ), P(0, 0, -ZP), 'stroke="#a9c39a" stroke-width="1"'));
+  }
+
+  // The world depth line: counted part green, the account crimson, continuing to infinity
+  out.push(seg(P(F.x, F.y, 0), P(F.x, F.y, zN), 'stroke="#3d8f3d" stroke-width="3"'));
+  if (zN < ZWORLD)
+    out.push(seg(P(F.x, F.y, zN), P(F.x, F.y, ZWORLD), 'stroke="#c0322b" stroke-width="3" opacity="0.85"'));
+  out.push(arrow(P(F.x, F.y, ZWORLD), P(F.x, F.y, ZWORLD + 70), '#c0322b', 2));
+  for (i = 1; i <= N; i++) {
+    var qb = P(F.x, F.y, i * DZ);
+    out.push('<circle cx="' + qb.X.toFixed(2) + '" cy="' + qb.Y.toFixed(2) +
+             '" r="3" fill="#f7f3ec" stroke="#3d8f3d" stroke-width="1.8"/>');
+    out.push(label(qb, 6, -7, String(i), '#3d8f3d', 10.5));
+  }
+
+  // The drawn line: footprint to the seat, with the open extension fading as Turn closes it
+  var extW = 2.9;
+  var extPos = tickPos(extW);
+  out.push(seg(P(F.x, F.y, 0), P(SEAT.x, SEAT.y, 0), 'stroke="#177f75" stroke-width="2.4"'));
+  out.push(seg(P(SEAT.x, SEAT.y, 0), P(extPos.x, extPos.y, 0),
+    'stroke="#177f75" stroke-width="1.4" stroke-dasharray="4 4" opacity="' + (0.7 * (1 - t) + 0.12).toFixed(2) + '"'));
+
+  // The camera's marks: welded to the graded placement, no slider of their own
+  for (i = 1; i <= N; i++) {
+    var mc = markOnSheet(i * DZ);
+    var mq = P(mc.x, mc.y, 0);
+    out.push('<circle cx="' + mq.X.toFixed(2) + '" cy="' + mq.Y.toFixed(2) + '" r="3.4" fill="#3a3a34"/>');
+  }
+
+  // The account's address on the glass
+  var wLast = wMix(zN, t);
+  var lastQ = tickPos(wLast);
+  if (t >= 0.999) {
+    var ringQ0 = tickPos(1);
+    out.push(seg(P(lastQ.x, lastQ.y, 0), P(ringQ0.x, ringQ0.y, 0),
+      'stroke="#c0322b" stroke-width="6" opacity="0.7" stroke-linecap="round"'));
+  } else {
+    var toQ = tickPos(Math.max(extW, wLast + 0.15));
+    out.push(arrow(P(lastQ.x, lastQ.y, 0), P(toQ.x, toQ.y, 0), '#c0322b', 2.4));
+  }
+
+  // Seat: gold diamond always; the crimson ring closes over it as the placement turns
+  var s = P(SEAT.x, SEAT.y, 0);
+  out.push('<path d="M ' + s.X + ' ' + (s.Y - 7) + ' L ' + (s.X + 7) + ' ' + s.Y +
+           ' L ' + s.X + ' ' + (s.Y + 7) + ' L ' + (s.X - 7) + ' ' + s.Y +
+           ' Z" fill="none" stroke="#b08948" stroke-width="2.4"/>');
+  out.push('<circle id="infinityRing" cx="' + s.X.toFixed(2) + '" cy="' + s.Y.toFixed(2) +
+           '" r="11" fill="none" stroke="#c0322b" stroke-width="3" opacity="' + t.toFixed(2) + '"/>');
+
+  // Footprint and pinhole
+  var f0 = P(F.x, F.y, 0);
+  out.push('<rect x="' + (f0.X - 5) + '" y="' + (f0.Y - 5) + '" width="10" height="10" fill="#177f75"/>');
+  var eye = P(0, 0, -ZP);
+  out.push('<circle cx="' + eye.X.toFixed(2) + '" cy="' + eye.Y.toFixed(2) + '" r="5" fill="#33322c"/>');
+
+  // The numbered ticks, riding the morph; numerals thin out where the crowding leaves no room
+  var lastNum = null;
+  for (i = 1; i <= N; i++) {
+    var w = wMix(i * DZ, t);
+    var q2 = tickPos(w);
+    var tq = P(q2.x, q2.y, 0);
+    out.push('<rect x="' + (tq.X - 3.6).toFixed(2) + '" y="' + (tq.Y - 3.6).toFixed(2) +
+             '" width="7.2" height="7.2" fill="#177f75"/>');
+    if (lastNum === null || Math.hypot(tq.X - lastNum.X, tq.Y - lastNum.Y) >= 15) {
+      out.push(label(tq, 6, -8, String(i), '#177f75', 10.5));
+      lastNum = tq;
+    }
+  }
+
+  // Labels
+  out.push(label(eye, 10, 18, 'pinhole'));
+  out.push(label(f0, 8, 20, 'footprint, level 0', '#177f75'));
+  out.push(label(s, -42, 24, 'seat', '#b08948'));
+  out.push(label(P(F.x, F.y, ZWORLD + 70), 8, -8, 'the account: the rest of infinity', '#c0322b'));
+  return out.join('');
+}
+/*ENDDRAW*/
+
+// ---- Page wiring (DOM only below this line) ----
+var state = { N: 5, t: 0, rays: false,
+              view: { yaw: DEFAULT_VIEW.yaw, pitch: DEFAULT_VIEW.pitch,
+                      scale: DEFAULT_VIEW.scale, cx: DEFAULT_VIEW.cx, cy: DEFAULT_VIEW.cy } };
+var svg = document.getElementById('scene');
+var readout = document.getElementById('readout');
+var selfcheck = document.getElementById('selfcheck');
+
+function render() {
+  svg.innerHTML = sceneSVG(state);
+  document.getElementById('nval').textContent = state.N;
+  var zN = state.N * DZ;
+  var pName = state.t <= 0.001 ? 'Reach' : (state.t >= 0.999 ? 'Turn' : 'blend, ' + Math.round(state.t * 100) + '% toward Turn');
+  var line1 = 'count stopped at N = ' + state.N + ' · last tick at depth ' + zN + ' · placement: ' + pName;
+  var line2;
+  if (state.t >= 0.999) {
+    var sv = sliver(state.N);
+    line2 = '<span class="seated">the account seated</span> — infinity at the ring; the tail\'s price is the sliver from tick ' +
+      state.N + ' to the ring: ' + (sv * 100).toFixed(1) + '% of the drawn line, shrinking with N, never zero';
+  } else {
+    line2 = '<span class="exiled">the account exiled</span> — this placement leaves infinity unmarked; the crimson runs past the open end to no address';
+  }
+  var line3 = 'the dark marks hold still: the camera is welded to the graded placement — the optics chose its policy';
+  readout.innerHTML = line1 + '<br>' + line2 + '<br>' + line3;
+
+  // Live micro-check: welded camera; unbounded blends vs the finite seat; Turn's partition
+  var e1 = 0;
+  for (var i = 1; i <= state.N; i++) {
+    var m = markOnSheet(i * DZ), q = tickPos(wTurn(i * DZ));
+    e1 = Math.max(e1, Math.hypot(m.x - q.x, m.y - q.y));
+  }
+  var addrOK = (state.t >= 0.999) ? Math.abs(wMix(1e12, state.t) - 1) < 1e-6
+                                  : wMix(1e9, state.t) > 1e3;
+  var partSum = 0, prev = 0;
+  for (i = 1; i <= state.N; i++) { partSum += wTurn(i * DZ) - prev; prev = wTurn(i * DZ); }
+  var partOK = Math.abs(partSum + sliver(state.N) - 1) < 1e-12;
+  var ok = e1 < 1e-10 && addrOK && partOK;
+  selfcheck.innerHTML = 'live check: camera = Turn placement to ' + e1.toExponential(1) +
+    '; infinity ' + (state.t >= 0.999 ? 'finite at this placement' : 'unmarked at this placement') +
+    ' as claimed; intervals + sliver = whole line — ' +
+    (ok ? '<span class="ok">passing</span>' : '<span class="bad">FAILING</span>');
+}
+
+document.getElementById('nslider').addEventListener('input', function (e) {
+  state.N = +e.target.value; render();
+});
+document.getElementById('tslider').addEventListener('input', function (e) {
+  state.t = +e.target.value; render();
+});
+var bRays = document.getElementById('btnRays');
+bRays.addEventListener('click', function () {
+  state.rays = !state.rays; bRays.classList.toggle('quiet'); bRays.classList.toggle('on'); render();
+});
+document.getElementById('btnReset').addEventListener('click', function () {
+  state.view.yaw = DEFAULT_VIEW.yaw; state.view.pitch = DEFAULT_VIEW.pitch; render();
+});
+
+var dragging = false, lastX = 0, lastY = 0;
+svg.addEventListener('pointerdown', function (e) {
+  dragging = true; lastX = e.clientX; lastY = e.clientY; svg.setPointerCapture(e.pointerId);
+});
+svg.addEventListener('pointermove', function (e) {
+  if (!dragging) return;
+  state.view.yaw += (e.clientX - lastX) * 0.006;
+  state.view.pitch += (e.clientY - lastY) * 0.006;
+  state.view.pitch = Math.max(-1.35, Math.min(1.35, state.view.pitch));
+  lastX = e.clientX; lastY = e.clientY; render();
+});
+svg.addEventListener('pointerup', function () { dragging = false; });
+svg.addEventListener('pointercancel', function () { dragging = false; });
+
+render();
+</script>
+</body>
+</html>
