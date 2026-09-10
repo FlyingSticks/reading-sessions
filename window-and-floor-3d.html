@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Window and Floor, in the round · The Reading Sessions</title>
+<style>
+  body { background:#f7f3ec; color:#33322c; font-family:Helvetica, Arial, sans-serif;
+         margin:0; padding:24px 16px 48px; }
+  .wrap { max-width:760px; margin:0 auto; }
+  .crumb { font-size:13px; color:#7a7668; margin-bottom:14px; }
+  .crumb a { color:#7a7668; }
+  h1 { font-size:26px; margin:0 0 6px; }
+  .dek { font-size:15px; color:#5c584c; margin:0 0 18px; }
+  .thesis { border-left:4px solid #b08948; background:#f1ece0; padding:10px 14px;
+            font-size:15px; margin:0 0 18px; }
+  .thesis b { color:#33322c; }
+  figure { margin:0; }
+  svg { width:100%; height:auto; display:block; background:#f7f3ec; touch-action:none;
+        border:1px solid #e2ddcf; border-radius:6px; cursor:grab; }
+  svg:active { cursor:grabbing; }
+  .controls { margin-top:12px; }
+  .row { display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:10px; }
+  .row label.slab { font-size:14px; min-width:110px; }
+  input[type=range] { flex:1; min-width:180px; accent-color:#177f75; }
+  button { font-family:inherit; font-size:14px; padding:7px 16px; border-radius:18px;
+           border:1px solid #b6b1a0; background:#fdfbf5; color:#33322c; cursor:pointer; }
+  button.on { background:#177f75; border-color:#177f75; color:#fdfbf5; }
+  button.quiet { border-color:#d5d0bf; color:#7a7668; }
+  .readout { font-size:14px; background:#efece1; border:1px solid #e2ddcf; border-radius:6px;
+             padding:9px 12px; min-height:20px; }
+  .readout .weld { color:#177f75; font-weight:bold; }
+  .readout .split { color:#c0322b; font-weight:bold; }
+  .check { font-size:13px; color:#7a7668; margin-top:6px; }
+  .check .ok { color:#3d8f3d; font-weight:bold; }
+  .check .bad { color:#c0322b; font-weight:bold; }
+  h2 { font-size:19px; margin:30px 0 8px; }
+  p { font-size:15px; line-height:1.55; }
+  .notes { font-size:13.5px; color:#5c584c; border-top:1px solid #e2ddcf; margin-top:28px; padding-top:14px; }
+  .notes p { font-size:13.5px; }
+  a { color:#0E6E6E; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="crumb"><a href="index.html">The Reading Sessions</a> · companion to <a href="window-and-floor.html">Window and Floor</a>, in the round · 10 September 2026</div>
+  <h1>Window and floor, in the round</h1>
+  <p class="dek">The two panels of the companion page, reassembled into the one scene they were sections of. Drag to orbit; slide the probe; turn the ruler.</p>
+
+  <div class="thesis">One plane, two jobs, one scene. The <b>purple ring</b> is where the sight line lands — an output, the window's mark. The <b>teal dot</b> is where the ruler says to stand — an input, the floor's tick. <b>Turn</b> welds them at every depth; <b>Reach</b> lets the tick walk off the sheet.</div>
+
+  <figure>
+    <svg id="scene" viewBox="0 0 720 640" xmlns="http://www.w3.org/2000/svg" aria-label="Orbitable scene: picture plane with drawn depth line, probe point, sight line to the pinhole"></svg>
+  </figure>
+
+  <div class="controls">
+    <div class="row">
+      <label class="slab" for="zslider">probe depth z <span id="zval">300</span></label>
+      <input id="zslider" type="range" min="0" max="800" step="1" value="300">
+    </div>
+    <div class="row">
+      <button id="btnReach">Reach (equal steps)</button>
+      <button id="btnTurn" class="on">Turn (harmonic)</button>
+      <button id="btnRays" class="quiet">sight lines</button>
+      <button id="btnReset" class="quiet">reset view</button>
+    </div>
+    <div class="readout" id="readout"></div>
+    <div class="check" id="selfcheck"></div>
+  </div>
+
+  <h2>What to look for</h2>
+  <p>The green line standing off the plane is the world's depth line: it rises from its <b>footprint</b> at level zero and carries the probe. The camera reads it through the pinhole — each sight line pierces the glass, and the purple ring is the pierce point at the current depth. The draftsman reads the same line by drawing its trace on the plane, from footprint to <b>seat</b>, and laying a ruler along it.</p>
+  <p>The small purple dots are the camera's marks at equal depth steps 100 to 500 — crowding toward the seat, because that is the law the pinhole welds. The small teal squares are the ruler's ticks at the same depths. Under <b>Turn</b> they sit on the purple dots and the moving pair travels welded. Under <b>Reach</b> the ticks spread equally, the moving tick overtakes the seat near z = 300, and it leaves the sheet along the dashed extension — equal steps leave infinity unmarked, Theorem 0 seen from three-quarter view.</p>
+  <p>Turn the sight lines on to see <i>why</i> the purple marks crowd: equal steps in the world arrive at the glass through an ever-narrower fan.</p>
+
+  <div class="notes">
+    <p><b>Conventions.</b> Rig as in <a href="window-and-floor.html">Window and Floor</a> and Chapter 2: pinhole at Z<sub>p</sub> = 200 behind the plane, r = 1/Z<sub>p</sub>, mark M(z) = F/(1+rz), Turn tick at μ = z/(1+rz). One drawing decision to flag: the companion page calibrates Reach to agree with Turn at level 1; here Reach is calibrated to agree at the first drawn level, z = 100, so that its equal steps are visible at this sheet scale. The identities checked are unchanged. Depth is compressed 0.5× for display only, and the probe range capped at 800 to keep the whole line on the canvas — an affine scaling, so every straightness and incidence in the scene is honest.</p>
+    <p><b>Checks.</b> check_window_floor_3d.js extracts the CORE and DRAW blocks from this file and re-verifies the weld identity, the parametric pierce point, Reach's equal steps and exit, Turn's finite seat, and the projection. The page also re-runs a live micro-check on every interaction (line beneath the readout).</p>
+    <p><a href="window-and-floor.html">← Window and Floor</a> · <a href="session-02.html">Session 2</a> · <a href="index.html">All sessions</a></p>
+  </div>
+</div>
+
+<script>
+/*CORE*/
+// Rig — Chapter 2 convention, matching window-and-floor.html
+var ZP = 200;                 // pinhole depth behind the plane
+var R  = 1 / ZP;              // channel rate (both channels; this rig is on the seam)
+var F  = { x: 100, y: 70 };   // footprint, level 0
+var SEAT = { x: 0, y: 0 };    // seat: the camera's image of depth-infinity
+var Z1 = 100;                 // Reach agreement level (drawn-scale choice; see notes)
+var ZMAX = 800;
+var ZTICKS = [100, 200, 300, 400, 500];
+
+function wTurn(z)  { return (R * z) / (1 + R * z); }                 // harmonic: seats infinity at w = 1
+function wReach(z) { return (z / Z1) * wTurn(Z1); }                  // equal steps: affine in z
+function tickPos(w) { return { x: F.x * (1 - w) + SEAT.x * w,
+                               y: F.y * (1 - w) + SEAT.y * w }; }
+function markOnSheet(z) { return { x: F.x / (1 + R * z), y: F.y / (1 + R * z) }; }
+function sightIntersect(z) {            // pierce point computed independently, by parameters
+  var P = { x: F.x, y: F.y, z: z };
+  var E = { x: 0, y: 0, z: -ZP };
+  var t = P.z / (P.z - E.z);            // solves P.z + t(E.z - P.z) = 0
+  return { x: P.x + t * (E.x - P.x), y: P.y + t * (E.y - P.y) };
+}
+function reachExitZ() { return Z1 / wTurn(Z1); }   // where the Reach tick reaches the seat
+
+// View — axonometric orbit; depth compressed for display (affine, incidence-safe)
+var ZC = 0.5;
+var DEFAULT_VIEW = { yaw: 0.62, pitch: 0.35, scale: 1.15, cx: 300, cy: 320 };
+function rotY(p, a) { var c = Math.cos(a), s = Math.sin(a);
+  return { x: c * p.x + s * p.z, y: p.y, z: -s * p.x + c * p.z }; }
+function rotX(p, a) { var c = Math.cos(a), s = Math.sin(a);
+  return { x: p.x, y: c * p.y - s * p.z, z: s * p.y + c * p.z }; }
+function project(p, v) {
+  var q = rotX(rotY({ x: p.x, y: p.y, z: (p.z || 0) * ZC }, v.yaw), v.pitch);
+  return { X: v.cx + v.scale * q.x, Y: v.cy - v.scale * q.y, depth: q.z };
+}
+/*ENDCORE*/
+
+/*DRAW*/
+// Pure scene builder: state -> inner SVG markup. No DOM access; testable headlessly.
+function sceneSVG(state) {
+  var v = state.view, z = state.z;
+  function P(x, y, zz) { return project({ x: x, y: y, z: zz }, v); }
+  function pt(q) { return q.X.toFixed(2) + ',' + q.Y.toFixed(2); }
+  function seg(a, b, style) { return '<line x1="' + a.X.toFixed(2) + '" y1="' + a.Y.toFixed(2) +
+    '" x2="' + b.X.toFixed(2) + '" y2="' + b.Y.toFixed(2) + '" ' + style + '/>'; }
+  var out = [];
+
+  // Sheet (picture plane, z = 0)
+  var SX = 160, SY = 120, GRID = 40;
+  var c1 = P(-SX, -SY, 0), c2 = P(SX, -SY, 0), c3 = P(SX, SY, 0), c4 = P(-SX, SY, 0);
+  out.push('<polygon points="' + pt(c1) + ' ' + pt(c2) + ' ' + pt(c3) + ' ' + pt(c4) +
+           '" fill="#eceadd" stroke="#d8d3c2" stroke-width="1"/>');
+  var g;
+  for (g = -SX + GRID; g < SX; g += GRID)
+    out.push(seg(P(g, -SY, 0), P(g, SY, 0), 'stroke="#dbd8c8" stroke-width="1"'));
+  for (g = -SY + GRID; g < SY; g += GRID)
+    out.push(seg(P(-SX, g, 0), P(SX, g, 0), 'stroke="#dbd8c8" stroke-width="1"'));
+  // Sheet axes through the seat (principal point)
+  out.push(seg(P(-SX, 0, 0), P(SX, 0, 0), 'stroke="#8b917e" stroke-width="2"'));
+  out.push(seg(P(0, -SY, 0), P(0, SY, 0), 'stroke="#8b917e" stroke-width="2"'));
+
+  // Principal axis in depth
+  out.push(seg(P(0, 0, -ZP - 90), P(0, 0, ZMAX + 60), 'stroke="#5a6152" stroke-width="1.6"'));
+
+  // Sight lines fan (optional): world tick depths to the pinhole
+  if (state.rays) {
+    ZTICKS.forEach(function (zi) {
+      out.push(seg(P(F.x, F.y, zi), P(0, 0, -ZP), 'stroke="#a9c39a" stroke-width="1"'));
+    });
+  }
+
+  // World depth line: footprint upward through the probe
+  out.push(seg(P(F.x, F.y, 0), P(F.x, F.y, ZMAX), 'stroke="#3d8f3d" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.6"'));
+  out.push(seg(P(F.x, F.y, 0), P(F.x, F.y, z), 'stroke="#3d8f3d" stroke-width="3"'));
+  ZTICKS.forEach(function (zi) {                      // equal steps in the world
+    var q = P(F.x, F.y, zi);
+    out.push('<circle cx="' + q.X.toFixed(2) + '" cy="' + q.Y.toFixed(2) + '" r="3" fill="#f7f3ec" stroke="#3d8f3d" stroke-width="1.8"/>');
+  });
+
+  // Drawn line on the sheet: footprint to seat, dashed extension past the seat
+  var exitW = 2.9; // extension far enough for the Reach tick at z = ZMAX
+  var ext = tickPos(exitW);
+  out.push(seg(P(F.x, F.y, 0), P(SEAT.x, SEAT.y, 0), 'stroke="#177f75" stroke-width="2.4"'));
+  out.push(seg(P(SEAT.x, SEAT.y, 0), P(ext.x, ext.y, 0), 'stroke="#177f75" stroke-width="1.4" stroke-dasharray="4 4" opacity="0.7"'));
+
+  // Camera marks at equal depth steps (welded law: crowding)
+  ZTICKS.forEach(function (zi) {
+    var m = P(markOnSheet(zi).x, markOnSheet(zi).y, 0);
+    out.push('<circle cx="' + m.X.toFixed(2) + '" cy="' + m.Y.toFixed(2) +
+             '" r="3.6" fill="#6a2c91" opacity="0.85"/>');
+  });
+  // Ruler ticks at the same depths (free gauge: Reach or Turn)
+  ZTICKS.forEach(function (zi) {
+    var w = (state.ruler === 'turn') ? wTurn(zi) : wReach(zi);
+    var q = tickPos(w);
+    if (Math.abs(q.x) <= SX && Math.abs(q.y) <= SY) {
+      var t = P(q.x, q.y, 0);
+      out.push('<rect x="' + (t.X - 3.4).toFixed(2) + '" y="' + (t.Y - 3.4).toFixed(2) +
+               '" width="6.8" height="6.8" fill="none" stroke="#177f75" stroke-width="1.8"/>');
+    }
+  });
+
+  // Sight line: probe to pinhole, arrow carried past
+  var probe = P(F.x, F.y, z), eye = P(0, 0, -ZP);
+  var far = P(-0.4 * F.x, -0.4 * F.y, -ZP - 0.4 * (z + ZP));
+  out.push(seg(probe, far, 'stroke="#3a3a34" stroke-width="1.8"'));
+  var dx = far.X - eye.X, dy = far.Y - eye.Y, L = Math.sqrt(dx * dx + dy * dy) || 1;
+  dx /= L; dy /= L;
+  out.push('<polygon points="' + (far.X + 9 * dx) + ',' + (far.Y + 9 * dy) + ' ' +
+    (far.X - 4 * dy) + ',' + (far.Y + 4 * dx) + ' ' + (far.X + 4 * dy) + ',' + (far.Y - 4 * dx) +
+    '" fill="#3a3a34"/>');
+
+  // Seat, footprint, pinhole, probe
+  var s = P(SEAT.x, SEAT.y, 0);
+  out.push('<path d="M ' + s.X + ' ' + (s.Y - 7) + ' L ' + (s.X + 7) + ' ' + s.Y +
+           ' L ' + s.X + ' ' + (s.Y + 7) + ' L ' + (s.X - 7) + ' ' + s.Y +
+           ' Z" fill="none" stroke="#b08948" stroke-width="2.4"/>');
+  var f0 = P(F.x, F.y, 0);
+  out.push('<rect x="' + (f0.X - 5) + '" y="' + (f0.Y - 5) +
+           '" width="10" height="10" fill="#177f75"/>');
+  out.push('<circle cx="' + eye.X.toFixed(2) + '" cy="' + eye.Y.toFixed(2) + '" r="5" fill="#33322c"/>');
+  out.push('<circle cx="' + probe.X.toFixed(2) + '" cy="' + probe.Y.toFixed(2) + '" r="6" fill="#2f5a2f"/>');
+
+  // The moving pair: window mark (output) and ruler tick (input)
+  var mNow = sightIntersect(z);
+  var mP = P(mNow.x, mNow.y, 0);
+  var wNow = (state.ruler === 'turn') ? wTurn(z) : wReach(z);
+  var tNow = tickPos(wNow);
+  var tP = P(tNow.x, tNow.y, 0);
+  out.push('<circle id="tickDot" cx="' + tP.X.toFixed(2) + '" cy="' + tP.Y.toFixed(2) +
+           '" r="5.5" fill="#177f75"/>');
+  out.push('<circle id="markRing" cx="' + mP.X.toFixed(2) + '" cy="' + mP.Y.toFixed(2) +
+           '" r="8" fill="none" stroke="#6a2c91" stroke-width="3"/>');
+
+  // Labels, screen-space
+  function label(q, dx2, dy2, txt, col) {
+    out.push('<text x="' + (q.X + dx2) + '" y="' + (q.Y + dy2) +
+      '" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="' + (col || '#5c584c') +
+      '" stroke="#f7f3ec" stroke-width="3" paint-order="stroke">' + txt + '</text>');
+  }
+  label(eye, 10, 18, 'pinhole');
+  label(probe, 11, -11, 'probe');
+  label(f0, 8, 20, 'footprint, level 0', '#177f75');
+  label(s, 10, -10, 'seat', '#b08948');
+  label(mP, -46, -10, 'mark', '#6a2c91');
+  label(tP, 11, 22, 'tick', '#177f75');
+  return out.join('');
+}
+/*ENDDRAW*/
+
+// ---- Page wiring (DOM only below this line) ----
+var state = { z: 300, ruler: 'turn', rays: false,
+              view: { yaw: DEFAULT_VIEW.yaw, pitch: DEFAULT_VIEW.pitch,
+                      scale: DEFAULT_VIEW.scale, cx: DEFAULT_VIEW.cx, cy: DEFAULT_VIEW.cy } };
+var svg = document.getElementById('scene');
+var readout = document.getElementById('readout');
+var selfcheck = document.getElementById('selfcheck');
+
+function render() {
+  svg.innerHTML = sceneSVG(state);
+  document.getElementById('zval').textContent = state.z;
+  var m = sightIntersect(state.z);
+  var w = (state.ruler === 'turn') ? wTurn(state.z) : wReach(state.z);
+  var t = tickPos(w);
+  var d = Math.hypot(t.x - m.x, t.y - m.y);
+  var offSheet = (Math.abs(t.x) > 160 || Math.abs(t.y) > 120);
+  if (state.ruler === 'turn') {
+    readout.innerHTML = 'z = ' + state.z + ' · mark (' + m.x.toFixed(1) + ', ' + m.y.toFixed(1) +
+      ') · <span class="weld">welded — the tick sits on the mark</span> (residual ' + d.toExponential(1) + ')';
+  } else {
+    readout.innerHTML = 'z = ' + state.z + ' · mark (' + m.x.toFixed(1) + ', ' + m.y.toFixed(1) +
+      ') · <span class="split">tick is ' + d.toFixed(1) + ' sheet-units away</span>' +
+      (offSheet ? ' — off the sheet (exit z = ' + reachExitZ().toFixed(0) + ')' : '') +
+      ' · equal steps leave infinity unmarked';
+  }
+  // Live micro-check: pierce point (parametric) vs closed form; weld identity under Turn
+  var closed = markOnSheet(state.z);
+  var e1 = Math.hypot(m.x - closed.x, m.y - closed.y);
+  var e2 = Math.hypot(tickPos(wTurn(state.z)).x - closed.x, tickPos(wTurn(state.z)).y - closed.y);
+  var ok = (e1 < 1e-9 && e2 < 1e-9);
+  selfcheck.innerHTML = 'live check: pierce = F/(1+rz) to ' + e1.toExponential(1) +
+    '; Turn tick = mark to ' + e2.toExponential(1) + ' — ' +
+    (ok ? '<span class="ok">passing</span>' : '<span class="bad">FAILING</span>');
+}
+
+document.getElementById('zslider').addEventListener('input', function (e) {
+  state.z = +e.target.value; render();
+});
+var bReach = document.getElementById('btnReach'), bTurn = document.getElementById('btnTurn');
+bReach.addEventListener('click', function () {
+  state.ruler = 'reach'; bReach.classList.add('on'); bTurn.classList.remove('on'); render();
+});
+bTurn.addEventListener('click', function () {
+  state.ruler = 'turn'; bTurn.classList.add('on'); bReach.classList.remove('on'); render();
+});
+var bRays = document.getElementById('btnRays');
+bRays.addEventListener('click', function () {
+  state.rays = !state.rays; bRays.classList.toggle('quiet'); bRays.classList.toggle('on'); render();
+});
+document.getElementById('btnReset').addEventListener('click', function () {
+  state.view.yaw = DEFAULT_VIEW.yaw; state.view.pitch = DEFAULT_VIEW.pitch; render();
+});
+
+// Orbit: pointer drag (touch-friendly)
+var dragging = false, lastX = 0, lastY = 0;
+svg.addEventListener('pointerdown', function (e) {
+  dragging = true; lastX = e.clientX; lastY = e.clientY; svg.setPointerCapture(e.pointerId);
+});
+svg.addEventListener('pointermove', function (e) {
+  if (!dragging) return;
+  state.view.yaw += (e.clientX - lastX) * 0.006;
+  state.view.pitch += (e.clientY - lastY) * 0.006;
+  state.view.pitch = Math.max(-1.35, Math.min(1.35, state.view.pitch));
+  lastX = e.clientX; lastY = e.clientY; render();
+});
+svg.addEventListener('pointerup', function () { dragging = false; });
+svg.addEventListener('pointercancel', function () { dragging = false; });
+
+render();
+</script>
+</body>
+</html>
