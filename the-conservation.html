@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Conservation · The Reading Sessions</title>
+<style>
+  :root {
+    --cream:#faf6ef; --plum:#43203f; --purple:#6a2c91; --crimson:#c0322b;
+    --gold:#b08948; --teal:#177f75; --green:#3d8f3d; --ink:#2b2226; --grey:#6b6360; --rule:#e2d9c8;
+  }
+  html { background: var(--cream); }
+  body { margin:0; color:var(--ink); background:var(--cream);
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+    font-size:17px; line-height:1.6; -webkit-text-size-adjust:100%; }
+  main { max-width:44rem; margin:0 auto; padding:3rem 1.25rem 5rem; }
+  .eyebrow { font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; font-size:.72rem;
+    letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin:0 0 1rem; }
+  .eyebrow a { color:var(--gold); border-bottom:none; }
+  .eyebrow a:hover { color:var(--crimson); }
+  h1 { font-size:2rem; line-height:1.1; margin:0 0 .45rem; color:var(--plum); font-weight:700; }
+  .sub { font-style:italic; font-size:1.1rem; color:var(--purple); margin:0 0 2rem; line-height:1.4; }
+  h2 { font-size:1.05rem; color:var(--plum); margin:2.6rem 0 .8rem;
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    letter-spacing:.14em; text-transform:uppercase; font-weight:600; }
+  p { margin:0 0 1rem; }
+  a { color:var(--purple); text-decoration:none; border-bottom:1px dotted var(--gold); }
+  a:hover, a:focus-visible { color:var(--crimson); border-bottom-style:solid; }
+  blockquote { margin:1.4rem 0; padding:.2rem 1rem; border-left:3px solid var(--gold);
+    color:var(--plum); font-style:italic; }
+  .thm { border:1px solid var(--gold); border-left-width:4px; padding:.8rem 1rem .5rem; margin:1.4rem 0 1.8rem; }
+  .thm h3 { font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; font-size:.78rem;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin:0 0 .5rem; font-weight:600; }
+  .thm ol { margin:.2rem 0 .6rem 1.2rem; padding:0; }
+  .thm li { margin:0 0 .35rem; }
+  .inst { border:1px solid var(--gold); border-bottom-width:3px; padding:.9rem .9rem 1rem; margin:1.4rem 0 1.8rem; }
+  .ctl { display:flex; flex-wrap:wrap; gap:.5rem .8rem; align-items:center; margin:.4rem 0 .8rem;
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; font-size:.8rem; }
+  .ctl label { color:var(--grey); letter-spacing:.06em; }
+  .seg { display:inline-flex; border:1px solid var(--plum); border-radius:3px; overflow:hidden; }
+  .seg button { border:0; background:transparent; color:var(--plum); padding:.35rem .6rem; font:inherit; cursor:pointer; }
+  .seg button[aria-pressed=true] { background:var(--plum); color:var(--cream); }
+  .read { font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; font-size:.82rem; margin:.5rem 0 0; color:var(--grey); }
+  .read b { color:var(--plum); font-weight:600; }
+  .read .defect { color:var(--crimson); }
+  .cap { font-size:.85rem; color:var(--grey); line-height:1.5; margin:.7rem 0 0; }
+  svg { width:100%; height:auto; display:block; touch-action:none; }
+  .handle { cursor:ew-resize; }
+  .handle:focus { outline:none; }
+  .handle:focus circle { stroke-width:3; }
+  dl.gloss { margin:1rem 0 0; }
+  dl.gloss dt { color:var(--plum); font-weight:700; margin:.75rem 0 .1rem; }
+  dl.gloss dd { margin:0 0 0 0; font-size:.95rem; }
+  .tag { font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; font-size:.66rem;
+    letter-spacing:.1em; text-transform:uppercase; font-weight:400; margin-left:.45rem; }
+  .tag.book { color:var(--purple); }
+  .tag.sessions { color:var(--teal); }
+  .tag.sheet { color:var(--gold); }
+  footer { margin-top:3rem; padding-top:1rem; border-top:1px solid var(--gold);
+    font-size:.85rem; color:var(--grey); line-height:1.7; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow"><a href="index.html">The Reading Sessions</a> · companion</p>
+    <h1>The Conservation</h1>
+    <p class="sub">The area identity from the sketch sheet — adjacent, overlapping, and the account that ignores its arrangement</p>
+  </header>
+
+  <p>This page makes exact the top-left panel of the 11 September sketch sheet: <em>the sum of overlapping areas equals the sum of adjacent areas</em>, with two patches marked in yellow and the word <em>defect</em> beside each. It is the instrument <a href="the-defect.html">the defect page</a> names but never draws. That page gives the defect three properties — provable, conserved, quantitative — and shows the first and third at the closure test; for the second it offers only the carpet: flatten the bump here and it rises there, the mismatch fixed before you knelt down. The sketch's panel proposes the measure the carpet lacks. Cut one figure into strips two ways and weigh them: the difference is an area, it sits in nameable cells, and no rearrangement changes its total.</p>
+
+  <p>The figure is the sketch's own grid. A constant count runs down the side — levels 0 through 4, step <i>h</i> = 1, the ordinal skeleton. A placement runs along the top — ticks <i>b</i><sub>0</sub> … <i>b</i><sub>4</sub>, ends pinned at 0 and the span <i>S</i>, the interior free: smear them, pile them, grade them toward a seat. Each level owns a horizontal strip, each placement gap a vertical one. Everything then turns on one small question the hand hides and the algebra cannot: <em>where does each strip stop?</em> Anchor the horizontal strips one tick short of their level's own gap and the two families tile the rectangle exactly — that is the <em>adjacent</em> arrangement. Let each run to its own tick and the families double-pay the diagonal — <em>overlapping</em>. Hold both families short and the diagonal is missed entirely — <em>starved</em>. The diagonal is a staircase of corner cells, one per level, each <i>h</i> wide by one gap deep: the sketch's yellow squares, drawn crimson here by palette discipline.</p>
+
+  <div class="thm">
+    <h3>The area identity</h3>
+    <p style="font-style:italic; color:var(--plum); margin-bottom:.6rem;">For a constant count of step <i>h</i> against any monotone placement <i>b</i><sub>0</sub> &lt; … &lt; <i>b</i><sub><i>N</i></sub>:</p>
+    <ol>
+      <li>the <b>adjacent</b> strips tile the rectangle: their sum is <i>N</i>·<i>S</i>, no gap, no double-cover;</li>
+      <li>the <b>overlapping</b> strips exceed it by the corner cells: overlapping = adjacent + <i>A</i>;</li>
+      <li>the <b>starved</b> strips miss the same cells: starved = adjacent − <i>A</i>;</li>
+      <li>the account is <b><i>A</i> = <i>h</i> · (<i>b</i><sub><i>N</i></sub> − <i>b</i><sub>0</sub>)</b> — one count-step of span, blind to every interior choice.</li>
+    </ol>
+    <p class="cap" style="margin-top:.2rem;">Checked in <a href="check-the-area-identity.js">check-the-area-identity.js</a>, 33/33, 11 September 2026. The anchoring conventions are the auditor's reading of the hand sketch; the instrument computes all three side by side, so a different cut of the strips argues with it rather than replaces it.</p>
+  </div>
+
+  <p>The fourth line is the conservation. The account does not merely resist rearrangement — it never sees the arrangement at all. Drag the interior ticks below, or jump between the three policies, and watch the strip sums swing while the crimson total holds at one count-step of span: <i>A</i> = 1 × 187.5. The corner cells relocate — four equal cells under smear, one swollen cell under pile, a graded run shrinking toward the seat — and their sum is bit-identical in every case. The bill was fixed before you knelt down; here is the ledger that proves it.</p>
+
+  <div class="inst" id="inst1">
+    <div class="ctl">
+      <label>Arrangement</label>
+      <div class="seg" id="i1-arr" role="group" aria-label="Choose an anchoring of the strips">
+        <button data-a="adjacent" aria-pressed="true">Adjacent</button>
+        <button data-a="overlapping" aria-pressed="false">Overlapping</button>
+        <button data-a="starved" aria-pressed="false">Starved</button>
+      </div>
+      <label>Placement</label>
+      <div class="seg" id="i1-pol" role="group" aria-label="Choose a placement policy">
+        <button data-p="smear" aria-pressed="false">Smear</button>
+        <button data-p="pile" aria-pressed="false">Pile</button>
+        <button data-p="grade" aria-pressed="true">Grade</button>
+      </div>
+    </div>
+    <svg id="i1-svg" viewBox="0 0 640 392" role="img"
+      aria-label="A rectangle gridded by a constant count down the side and a draggable placement along the top. Teal cells are covered by a horizontal strip, purple by a vertical strip, crimson cells are paid twice, dashed cells missed. The crimson total holds at 187.5 under every drag and policy."></svg>
+    <p class="read" id="i1-read"></p>
+    <p class="cap">Drag the gold ticks (or focus one and use the arrow keys) — the interior placement is yours; the ends are pinned. Teal, one payment from a level's strip; purple, one from a gap's strip; <span style="color:var(--crimson)">crimson, paid twice</span>; dashed, paid never. Adjacent tiles for every placement you can reach. Overlapping always exceeds by the crimson exactly; starved always falls short by the same figure. The account line in the readout is the number that refuses to move.</p>
+  </div>
+
+  <h2>The joint, priced</h2>
+  <p>The defect page ends its count-and-placement section with a sentence this identity turns into arithmetic: the defect is born at the joint between the two. A corner cell <em>is</em> that joint — the one place a level's strip and its own gap's strip meet, <i>h</i> of count wide, one gap of placement deep. Sum the joints and the placement telescopes away; only the ends survive. That is why the account reads <i>h</i> × span: the count contributes its step, the placement contributes only its extremities, and everything a policy can decide — where the gaps sit, which joints are fat — cancels. Smear, pile and grade are placements of the bill, not sizes of it, which is the sketch's smear-pile-grade panel and the carpet in one figure.</p>
+  <p>And the count keeps its other promise: it is the only party that can starve the bill. Press a finer count against the same span — halve the step, halve every corner cell's width — and the account halves with it, exactly, linearly. No interior cleverness required, none possible. Only the completed count zeroes it, and a completed count is the Turn side of Theorem 0: you may refine forever, or you may finish; the instrument below refines.</p>
+
+  <div class="inst" id="inst2">
+    <div class="ctl">
+      <label>Count step</label>
+      <div class="seg" id="i2-h" role="group" aria-label="Choose the count step">
+        <button data-m="1" aria-pressed="true">h = 1</button>
+        <button data-m="2" aria-pressed="false">h = 1/2</button>
+        <button data-m="4" aria-pressed="false">h = 1/4</button>
+        <button data-m="8" aria-pressed="false">h = 1/8</button>
+      </div>
+    </div>
+    <svg id="i2-svg" viewBox="0 0 640 260" role="img"
+      aria-label="The same rectangle under the graded placement with an ever finer count. The crimson corner cells shrink and multiply along the diagonal; a bill bar at the right drops by exactly half at each halving of the step."></svg>
+    <p class="read" id="i2-read"></p>
+    <p class="cap">The graded placement, refined. Each halving of the count step doubles the corner cells and halves each one's width; the bill bar drops 187.5 → 93.75 → 46.88 → 23.44, ratio 2.0000 at every stage. The defect page's sentence — counting is how the law's refusal becomes a number — acquires its rate: the number is one count-step's worth of span, and only the step can spend it down.</p>
+  </div>
+
+  <h2>Two defects, two spaces</h2>
+  <p>A discipline note, so the panels stay consistent. This page's account is written <i>A</i>, not <i>D</i> — the rig reserves <i>D</i> for the slit separation (<i>D</i> = 100) — and <i>A</i> is not the book's cubic. The cover's split-measure Δ = <i>r<sub>u</sub>r<sub>v</sub></i>(<i>r<sub>v</sub></i> − <i>r<sub>u</sub></i>) lives in rate space and prices the disagreement between the two readings of one congruence; <i>A</i> lives in count-versus-placement space and prices the disagreement between two anchorings of one gauge. Session 4 already caught this species of confusion once — the miniature's crossing is not the seam — and the same care applies here. What the two measures share is the grammar, which is the point of the sheet: a total fixed by the law before any choice, a policy that relocates it, and zero available only on a locus, never by arrangement.</p>
+
+  <h2>The shelf of terms</h2>
+  <p>One line each, for cross-panel consistency. The tag marks where a term lives: <span class="tag book" style="margin-left:0">book</span> is the book's vocabulary and its <a href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html">glossary</a> governs; <span class="tag sessions" style="margin-left:0">sessions</span> is coinage of these pages; <span class="tag sheet" style="margin-left:0">sheet</span> enters with the 11 September sketch and this page.</p>
+  <dl class="gloss">
+    <dt>reading<span class="tag book">book</span></dt><dd>A way of turning the congruence into marks: a law plus a gauge.</dd>
+    <dt>law<span class="tag book">book</span></dt><dd>The part fixed before any choice; refusals live here.</dd>
+    <dt>gauge<span class="tag book">book</span></dt><dd>The free graduation of a reading; decomposes into a count and a placement.</dd>
+    <dt>count<span class="tag sessions">sessions</span></dt><dd>The ordinal skeleton — a zero, a unit, a successor. A constant count has equal step <i>h</i>.</dd>
+    <dt>placement<span class="tag sessions">sessions</span></dt><dd>Where each numbered tick physically sits; the metric flesh of the gauge.</dd>
+    <dt>Reach<span class="tag book">book</span></dt><dd>The equal-step placement: open end, the potential infinite as a ruler.</dd>
+    <dt>Turn<span class="tag book">book</span></dt><dd>The harmonic placement: a seat at a finite mark, the actual infinite as a ruler.</dd>
+    <dt>seat<span class="tag sessions">sessions</span></dt><dd>Floor-vocabulary for a vanishing point: infinity given a finite address. Reach leaves the chair vacant.</dd>
+    <dt>limit, crowding<span class="tag sheet">sheet</span></dt><dd>The sketch's words: the limit is the seat's line; crowding is the Turn placement condensing against it. Same count, two placements — the glide-vanishing-axis panels.</dd>
+    <dt>closure test<span class="tag sessions">sessions</span></dt><dd>Go around; measure the miss.</dd>
+    <dt>defect<span class="tag sessions">sessions</span></dt><dd>The residue of a closure test: provable, conserved, the theorem made quantitative.</dd>
+    <dt>policy — smear, pile, grade<span class="tag sessions">sessions</span></dt><dd>The three arrangements of a fixed defect: divide it finely, sacrifice one place, grade it toward a boundary.</dd>
+    <dt>adjacent, overlapping, starved<span class="tag sheet">sheet</span></dt><dd>The three anchorings of the strips: tile the rectangle exactly, double-pay the diagonal, miss it.</dd>
+    <dt>corner cell<span class="tag sheet">sheet</span></dt><dd>The diagonal cell where a level's strip meets its own gap's strip — <i>h</i> wide, one gap deep. The account's local quantum; the sketch's yellow square.</dd>
+    <dt>span<span class="tag sheet">sheet</span></dt><dd>The placement's total run, <i>b</i><sub><i>N</i></sub> − <i>b</i><sub>0</sub>. Here <i>S</i> = 187.5, the rig's neutral surface, borrowed as a witness value.</dd>
+    <dt>the account, <i>A</i><span class="tag sheet">sheet</span></dt><dd>The conserved total of the corner cells: <i>A</i> = <i>h</i> · span. Written <i>A</i> because the rig reserves <i>D</i> for the slit separation.</dd>
+    <dt>conservation<span class="tag sheet">sheet</span></dt><dd><i>A</i> is blind to the interior placement: policies relocate the corner cells; none changes the total.</dd>
+    <dt>seam<span class="tag book">book</span></dt><dd>The locus where the two readings fuse — the diagonal and the two zero edges of the rate square; Δ = 0.</dd>
+    <dt>Δ, the cubic<span class="tag book">book</span></dt><dd>The split's one measure in rate space, <i>r<sub>u</sub>r<sub>v</sub></i>(<i>r<sub>v</sub></i> − <i>r<sub>u</sub></i>). A different animal from <i>A</i>: same grammar, different space.</dd>
+  </dl>
+
+  <h2>Notes</h2>
+  <p>Status. The identity and its conservation are checked, 33/33, from the live script. Its framing as the defect page's missing second-property instrument, and the sheet's other panels — the Type A/B/C fans, the two-placement glide-vanishing-axis construction, the reading of the policies as placements of the count — are session material for the shelf, not yet absorbed anywhere. The judgment calls open for a ruling: the anchoring conventions as read from the sketch; the choice of witness values (<i>N</i> = 4 as drawn, <i>S</i> = 187.5, the graded seat at <i>Z<sub>p</sub></i> = 200); and the yellow-to-crimson repaint.</p>
+
+  <footer>
+    <p><a href="index.html">← All sessions</a> · Siblings: <a href="the-defect.html">the defect</a> · <a href="the-pattern.html">the pattern</a> · <a href="window-and-floor.html">window and floor</a> · The book: <a href="https://flyingsticks.github.io/one-congruence-two-readings/">One Congruence, Two Readings</a></p>
+  </footer>
+</main>
+
+<script>
+(function(){
+  var NS="http://www.w3.org/2000/svg";
+  function el(n,a){ var e=document.createElementNS(NS,n); for(var k in a)e.setAttribute(k,a[k]); return e; }
+  function txt(parent,x,y,s,fill,size,anchor){ var t=el("text",{x:x,y:y,"font-family":"Helvetica Neue,Helvetica,Arial,sans-serif","font-size":size||11,fill:fill||"#6b6360","text-anchor":anchor||"start"}); t.textContent=s; parent.appendChild(t); return t; }
+
+  var CRIM="#c0322b", TEAL="#177f75", PURP="#6a2c91", GOLD="#b08948", PLUM="#43203f", GREY="#6b6360", RULE="#e2d9c8";
+  var N=4, S=187.5, SEAT=200, RECT=N*S;
+
+  function smear(){ var b=[]; for(var k=0;k<=N;k++) b.push(k*S/N); return b; }
+  function pile(){ var d=S/(8*N), b=[]; for(var k=0;k<=N;k++) b.push(k*d); b[N]=S; return b; }
+  function grade(n){ n=n||N; var r=1/SEAT, c=S*(1+r*n)/n, b=[]; for(var k=0;k<=n;k++) b.push(c*k/(1+r*k)); return b; }
+  function sums(b){
+    var adj=0, ovl=0, stv=0;
+    for(var k=1;k<=N;k++){ var dv=b[k]-b[k-1];
+      adj+=b[k-1]+k*dv; ovl+=b[k]+k*dv; stv+=b[k-1]+(k-1)*dv; }
+    return {adjacent:adj, overlapping:ovl, starved:stv};
+  }
+
+  /* ---------------- Instrument 1: the ledger ---------------- */
+  var svg1=document.getElementById("i1-svg"), read1=document.getElementById("i1-read");
+  var X0=84, X1=596, Y0=56, ROW=66, Y1=Y0+N*ROW;      // plot frame
+  var xOf=function(v){ return X0+(X1-X0)*v/S; };
+  var b1=grade(), arr="adjacent", pol="grade", dragK=-1;
+
+  function mult(j,k){ // coverage multiplicity of cell (gap j, level k)
+    if(arr==="adjacent")    return (j<=k-1?1:0)+(k<=j?1:0);
+    if(arr==="overlapping") return (j<=k  ?1:0)+(k<=j?1:0);
+    return (j<=k-1?1:0)+(k<=j-1?1:0);
+  }
+  function horizCovers(j,k){ return arr==="overlapping" ? j<=k : j<=k-1; }
+
+  function draw1(){
+    while(svg1.firstChild) svg1.removeChild(svg1.firstChild);
+    var g=el("g",{}); svg1.appendChild(g);
+
+    // frame + axis labels
+    txt(g,X0,20,"placement →",GREY,11);
+    txt(g,X0-24,Y0-8,"count ↓",GREY,11,"end");
+    txt(g,X0,Y1+34,"0",GREY,11,"middle");
+    txt(g,X1,Y1+34,"S = 187.5",GREY,11,"end");
+    for(var k=0;k<=N;k++) txt(g,X0-12,Y0+k*ROW+4,String(k),GREY,11,"end");
+
+    // cells by multiplicity
+    for(var j=1;j<=N;j++){
+      for(var k=1;k<=N;k++){
+        var x=xOf(b1[j-1]), w=xOf(b1[j])-x, y=Y0+(k-1)*ROW;
+        var m=mult(j,k), r=el("rect",{x:x,y:y,width:Math.max(w,0),height:ROW,stroke:RULE,"stroke-width":.7});
+        if(m===2){ r.setAttribute("fill","rgba(192,50,43,.55)"); }
+        else if(m===1){ r.setAttribute("fill", horizCovers(j,k) ? "rgba(23,127,117,.26)" : "rgba(106,44,145,.22)"); }
+        else { r.setAttribute("fill","none"); r.setAttribute("stroke",CRIM); r.setAttribute("stroke-dasharray","4 3"); r.setAttribute("stroke-width",1.2); }
+        g.appendChild(r);
+      }
+    }
+    g.appendChild(el("rect",{x:X0,y:Y0,width:X1-X0,height:Y1-Y0,fill:"none",stroke:PLUM,"stroke-width":1.2}));
+
+    // annotation on the diagonal
+    var jj=(pol==="pile")?N:2, ax=xOf((b1[jj-1]+b1[jj])/2), ay=Y0+(jj-1)*ROW+ROW/2;
+    var note = arr==="adjacent" ? "tiles exactly — the account off the floor"
+             : arr==="overlapping" ? "corner cells — the account, paid twice"
+             : "corner cells — the account, missed";
+    var nx=Math.min(ax+16,X1-190);
+    g.appendChild(el("line",{x1:ax,y1:ay,x2:nx,y2:Y1+52,stroke:GOLD,"stroke-width":1}));
+    txt(g,nx+3,Y1+56,note,arr==="adjacent"?GREY:CRIM,11);
+
+    // tick stems + handles
+    for(var t=0;t<=N;t++){
+      var hx=xOf(b1[t]);
+      g.appendChild(el("line",{x1:hx,y1:Y0-14,x2:hx,y2:Y1,stroke:GOLD,"stroke-width":t===0||t===N?1:1.4,"stroke-dasharray":t===0||t===N?"2 3":"none",opacity:.9}));
+      if(t>0&&t<N){
+        var h=el("g",{"class":"handle",tabindex:0,role:"slider","aria-label":"placement tick b"+t,
+          "aria-valuemin":0,"aria-valuemax":S,"aria-valuenow":b1[t].toFixed(1),"data-k":t});
+        h.appendChild(el("circle",{cx:hx,cy:Y0-22,r:8,fill:GOLD,stroke:PLUM,"stroke-width":1.5}));
+        g.appendChild(h);
+      } else {
+        g.appendChild(el("rect",{x:hx-3,y:Y0-25,width:6,height:6,fill:GREY}));
+      }
+    }
+
+    var s=sums(b1), cur=s[arr], A=s.overlapping-s.adjacent;
+    read1.innerHTML="<b>"+arr+"</b> strips: <b>"+cur.toFixed(2)+"</b> · rectangle N·S: <b>"+RECT.toFixed(2)+
+      "</b> · adjacent "+s.adjacent.toFixed(2)+" / overlapping "+s.overlapping.toFixed(2)+" / starved "+s.starved.toFixed(2)+
+      " · <span class='defect'>the account A = "+A.toFixed(2)+" — unchanged</span>";
+  }
+
+  // dragging (pointer events, with capture) + keyboard
+  var GAPPX=8, GAP=GAPPX*S/(X1-X0);
+  function setTick(k,v){
+    v=Math.max(b1[k-1]+GAP,Math.min(b1[k+1]-GAP,v));
+    b1[k]=v; pol="custom"; setSeg(seg1p,null); draw1();
+  }
+  svg1.addEventListener("pointerdown",function(ev){
+    var h=ev.target.closest?ev.target.closest(".handle"):null;
+    if(!h) return; dragK=+h.getAttribute("data-k");
+    svg1.setPointerCapture(ev.pointerId); ev.preventDefault();
+  });
+  svg1.addEventListener("pointermove",function(ev){
+    if(dragK<0) return;
+    var pt=svg1.createSVGPoint(); pt.x=ev.clientX; pt.y=ev.clientY;
+    var p=pt.matrixTransform(svg1.getScreenCTM().inverse());
+    setTick(dragK,(p.x-X0)*S/(X1-X0));
+  });
+  svg1.addEventListener("pointerup",function(){ dragK=-1; });
+  svg1.addEventListener("keydown",function(ev){
+    var h=ev.target.closest?ev.target.closest(".handle"):null;
+    if(!h) return; var k=+h.getAttribute("data-k"), step=ev.shiftKey?10:2;
+    if(ev.key==="ArrowLeft"){ setTick(k,b1[k]-step); ev.preventDefault(); refocus(k); }
+    if(ev.key==="ArrowRight"){ setTick(k,b1[k]+step); ev.preventDefault(); refocus(k); }
+  });
+  function refocus(k){ var hs=svg1.querySelectorAll(".handle"); if(hs[k-1]) hs[k-1].focus(); }
+
+  // segmented controls
+  function setSeg(seg,val){
+    var bs=seg.querySelectorAll("button");
+    for(var i=0;i<bs.length;i++){
+      var on = val!==null && (bs[i].dataset.a===val||bs[i].dataset.p===val||bs[i].dataset.m===val);
+      bs[i].setAttribute("aria-pressed",on?"true":"false");
+    }
+  }
+  var seg1a=document.getElementById("i1-arr"), seg1p=document.getElementById("i1-pol");
+  seg1a.addEventListener("click",function(ev){
+    var b=ev.target.closest("button"); if(!b) return;
+    arr=b.dataset.a; setSeg(seg1a,arr); draw1();
+  });
+  seg1p.addEventListener("click",function(ev){
+    var b=ev.target.closest("button"); if(!b) return;
+    pol=b.dataset.p; setSeg(seg1p,pol);
+    b1 = pol==="smear"?smear() : pol==="pile"?pile() : grade();
+    draw1();
+  });
+  draw1();
+
+  /* ---------------- Instrument 2: refinement ---------------- */
+  var svg2=document.getElementById("i2-svg"), read2=document.getElementById("i2-read"), M=1;
+  var RX0=70, RX1=470, RY0=30, RY1=230, BX=524, BW=44;
+  function draw2(){
+    while(svg2.firstChild) svg2.removeChild(svg2.firstChild);
+    var g=el("g",{}); svg2.appendChild(g);
+    var n=N*M, h=1/M, b=grade(n), A=0;
+    txt(g,RX0,18,"the graded placement, count step h = "+(M===1?"1":"1/"+M),GREY,11);
+    for(var k=1;k<=n;k++){
+      var x=RX0+(RX1-RX0)*b[k-1]/S, w=(RX1-RX0)*(b[k]-b[k-1])/S;
+      var y=RY0+(RY1-RY0)*(k-1)/n, hh=(RY1-RY0)/n;
+      g.appendChild(el("rect",{x:x,y:y,width:w,height:hh,fill:"rgba(192,50,43,.6)",stroke:RULE,"stroke-width":.5}));
+      A+=(b[k]-b[k-1])*h;
+    }
+    g.appendChild(el("rect",{x:RX0,y:RY0,width:RX1-RX0,height:RY1-RY0,fill:"none",stroke:PLUM,"stroke-width":1.1}));
+    // bill bar
+    var full=RY1-RY0, bh=full*A/S;
+    g.appendChild(el("rect",{x:BX,y:RY0,width:BW,height:full,fill:"none",stroke:GOLD,"stroke-width":1}));
+    g.appendChild(el("rect",{x:BX,y:RY1-bh,width:BW,height:bh,fill:CRIM}));
+    txt(g,BX+BW/2,RY0-8,"the bill",GREY,11,"middle");
+    txt(g,BX+BW/2,RY1-bh-6,A.toFixed(2),CRIM,12,"middle");
+    txt(g,BX+BW/2,RY1+16,"of "+S.toFixed(1),GREY,10,"middle");
+    read2.innerHTML="corner cells: <b>"+n+"</b> · each h = "+(M===1?"1":"1/"+M)+" wide · <span class='defect'>A = h × span = "+A.toFixed(2)+"</span>"+(M>1?" — exactly "+(M===2?"half":"1/"+M)+" of the h = 1 bill":"");
+  }
+  var seg2=document.getElementById("i2-h");
+  seg2.addEventListener("click",function(ev){
+    var b=ev.target.closest("button"); if(!b) return;
+    M=+b.dataset.m; setSeg(seg2,b.dataset.m); draw2();
+  });
+  draw2();
+})();
+</script>
+</body>
+</html>
