@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The three means, here · The Reading Sessions</title>
+<style>
+  :root{
+    --paper:#F4F0E6; --panel:#FBF9F3; --ink:#26231E; --soft:#6E675C;
+    --crimson:#A31F34; --purple:#5E3A9E; --gold:#B8860B; --green:#1E8E3E;
+    --red:#C0392B; --blue:#2B5FA3; --rule:#D8D2C2;
+  }
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+    font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.5;
+    -webkit-text-size-adjust:100%;}
+  .wrap{max-width:920px;margin:0 auto;padding:18px 16px calc(40px + env(safe-area-inset-bottom));}
+  .crumbs{font-size:13px;color:var(--soft);margin-bottom:14px;}
+  .crumbs a{color:var(--soft);}
+  h1{font-size:28px;margin:6px 0 10px;letter-spacing:.2px;}
+  h2{font-size:19px;margin:34px 0 8px;}
+  p{margin:8px 0;}
+  b,strong{font-weight:700;}
+  a{color:var(--blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .thesis{background:var(--panel);border-left:5px solid var(--gold);
+    padding:10px 14px;margin:16px 0;border-radius:0 6px 6px 0;}
+  .caption{font-size:13.5px;color:var(--soft);margin:6px 2px 0;}
+  canvas{display:block;width:100%;height:auto;background:var(--panel);
+    border:1px solid var(--rule);border-radius:8px;touch-action:none;}
+  .controls{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 8px;align-items:center;}
+  button{font:inherit;font-size:13.5px;background:var(--panel);border:1px solid var(--rule);
+    border-radius:6px;padding:5px 10px;color:var(--ink);cursor:pointer;}
+  button:active{background:#efe9da;}
+  label.tog{font-size:13.5px;color:var(--soft);display:inline-flex;gap:5px;align-items:center;
+    background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:4px 9px;}
+  .readouts{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px;margin:8px 0 2px;
+    font-variant-numeric:tabular-nums;}
+  .readouts span b{font-weight:700;}
+  .r-a{color:var(--crimson)} .r-b{color:var(--purple)} .r-hm{color:var(--gold)}
+  .r-gm{color:var(--green)} .r-am{color:var(--ink)} .r-def{color:var(--red)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:640px){.grid2{grid-template-columns:1fr;}}
+  .card{background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:10px 14px;}
+  .card h3{margin:2px 0 6px;font-size:15.5px;text-transform:uppercase;letter-spacing:.6px;}
+  .card ul{margin:4px 0 4px;padding-left:18px;}
+  .card li{margin:6px 0;font-size:14.5px;}
+  .checks{background:var(--panel);border:1px solid var(--rule);border-radius:8px;
+    padding:8px 14px;font-size:14px;font-variant-numeric:tabular-nums;}
+  .checks div{display:flex;justify-content:space-between;gap:10px;padding:4px 0;
+    border-bottom:1px dashed var(--rule);}
+  .checks div:last-child{border-bottom:none;}
+  .ok{color:var(--green);font-weight:700;} .na{color:var(--soft);} .bad{color:var(--red);font-weight:700;}
+  dl{margin:8px 0;}
+  dt{font-weight:700;margin-top:10px;}
+  dd{margin:2px 0 0 0;font-size:14.5px;color:#3A362F;}
+  .slider{width:100%;}
+  .foot{margin-top:36px;font-size:13.5px;color:var(--soft);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="crumbs">
+  <a href="https://flyingsticks.github.io/reading-sessions/index.html">The Reading Sessions</a> ·
+  companion to <a href="https://flyingsticks.github.io/reading-sessions/means-sphere-3d.html">The three means, in the round</a>,
+  read against the annotated profile · 12 September 2026
+</div>
+
+<h1>The three means, here</h1>
+
+<p>The annotated profile asked three questions at once: where the means stand, why a
+<b>two-point perspective can be constructed on A B C D</b>, and whether a single
+<b>equivalent pinhole plane</b> can stand in for the pair of slits. This page answers all
+three from one figure. Same rig as the sketch: glass at O = 0, vertical slit at
+Z<sub>v</sub> = 150, horizontal slit at Z<sub>h</sub> = 355, probe at 469. Drag
+<b>A</b>, <b>B</b>, <b>D</b> along the axis; <b>C</b> is never dragged — it is
+constructed, and the checks below re-run on every move.</p>
+
+<div class="controls">
+  <button id="btnSketch">sketch rig · 150 / 355</button>
+  <button id="btnBook">book rig · 150 / 250</button>
+  <button id="btnPin">walk to the pinhole</button>
+  <label class="tog"><input type="checkbox" id="tgTan" checked> tangent pair</label>
+  <label class="tog"><input type="checkbox" id="tgSq" checked> square on the range</label>
+  <label class="tog"><input type="checkbox" id="tgEye" checked> eye &amp; circle on AC</label>
+  <label class="tog"><input type="checkbox" id="tgLab" checked> labels</label>
+</div>
+
+<canvas id="cv1"></canvas>
+<div class="readouts" id="readouts"></div>
+<p class="caption">The profile of the means sphere, redrawn as the sketch has it.
+Circle on the slits as diameter; <span style="color:var(--green)">tangent from the glass</span>,
+length GM; its touch point drops to the axis at <span style="color:var(--gold)">C = z* = HM</span>;
+the centre sits at AM. The <span style="color:var(--red)">red quadrilateral</span> sends its
+sides to B and D and its diagonals to C — the fourth ray lands on A by itself.
+The <span style="color:var(--blue)">eye E</span> stands where the circle on AC crosses the
+circle on BD: the two cross at right angles, and E sits on the sphere.</p>
+
+<h2>What to look for</h2>
+
+<p>Each mean answers a different construction from the same circle. The
+<b>arithmetic mean</b> is the <i>centre</i>: (a+b)/2 from the glass, the midpoint of the
+slits, found by a perpendicular bisector and by nothing subtler. The
+<b>geometric mean</b> is the <i>reach</i>: the tangent from the glass has length √(ab)
+because the power of the glass with respect to the circle is exactly ab. The
+<b>harmonic mean</b> is the <i>landing</i>: drop the touch point to the axis and its foot
+stands at 2ab/(a+b) — the gold mark C, the neutral surface, and, in projective dress,
+the <b>harmonic conjugate of the glass across the two slits</b>. The sketch labels B the
+slit-true-length view and D the slit-point view; the means never notice which is which —
+they are symmetric in a and b — but the view labels swap if the rig turns.</p>
+
+<p>That last reading is what licenses the red construction. Because
+(B, D; C, A) = −1, the four marks form a <b>harmonic range</b>, and a harmonic range on a
+horizon is exactly the vanishing data of a parallelogram: sides to one pair, diagonals to
+the other. Start a quadrilateral anywhere, aim its sides at B and D and one diagonal at C,
+and the second diagonal finds the glass on its own — that landing is the law, not a
+coincidence of the drawing. To sharpen parallelogram into <i>square</i>, the eye must see
+both pairs at right angles, which places it where the circle on AC meets the circle on BD.
+Harmonic range ⇔ those circles are orthogonal, so they always do meet — and the circle on
+BD is the sphere's own equator. <b>The eye that squares the range stands on the
+sphere.</b></p>
+
+<h2>Equivalent pinhole plane?</h2>
+
+<canvas id="cv2"></canvas>
+<div class="controls" style="margin-top:8px">
+  <span style="font-size:13.5px;color:var(--soft)">probe depth</span>
+  <input type="range" class="slider" id="probe" min="0" max="600" step="1" value="469" style="flex:1">
+  <span style="font-size:14px" id="probeVal">469</span>
+</div>
+<p class="caption">Reciprocal channel scale against probe depth. Each channel is a straight
+line through (O, 1) with slope −1/Z; the <span style="color:var(--gold)">gold line of a
+pinhole at z* = HM</span> is exactly the arithmetic midline of the
+<span style="color:var(--crimson)">crimson</span> and
+<span style="color:var(--purple)">purple</span> channels — the black ring (their average)
+rides the gold dot at every probe depth. Pinholes at AM and GM, dashed, are not the
+midline.</p>
+
+<div class="thesis">
+<p style="margin:4px 0"><b>The answer to the handwritten question is the gold line.</b>
+For imaging, the equivalent pinhole plane stands at z* = HM, through C — and the mechanism
+is visible above: reciprocal scale is <i>affine in depth</i>, so the pair of channels
+averages by averaging slopes, and the arithmetic mean of −1/Z<sub>v</sub> and
+−1/Z<sub>h</sub> is −1/HM. Averaging slopes arithmetically <i>is</i> averaging depths
+harmonically. That is the whole trick.</p>
+<p style="margin:4px 0">There is no single pinhole equivalent for everything. Each mean is
+the equivalent pinhole for a different question: <b>HM</b> for what the rig does to
+images; <b>AM</b> for where the middle of the slits is — the sphere's centre, the point
+the midplane involution trades with the ideal point; <b>GM</b> for the self-dual reading
+that prices the same in the rate square and the depth square. One rig, three equivalence
+questions, three pinholes; only the harmonic one images like the pair.</p>
+</div>
+
+<p>And none of it moves as the probe slides: the <b>alternative probe locations</b> in the
+sketch change the mark, never the means. That is a count of zero, entered below.</p>
+
+<h2>Counts · Laws · Gauges · Defects</h2>
+
+<p style="font-size:14.5px;color:var(--soft)">A <b>count</b> is an integer fact of
+incidence, invariant under dragging. A <b>law</b> is an exact equality, closed by the
+checks. A <b>gauge</b> is a chosen convention — origin, scale, direction — that moves the
+readouts without moving the facts. A <b>defect</b> is a measured failure to close: a
+number driven to zero, or a region where a construction leaves the reals.</p>
+
+<div class="grid2">
+<div class="card"><h3>Counts</h3><ul>
+<li><b>2</b> slits · <b>3</b> means · <b>1</b> law binding them (AM × HM = GM²).</li>
+<li><b>4</b> points in the range A B C D · <b>1</b> cross-ratio · value <b>−1</b>.</li>
+<li><b>2</b> tangents from the glass; in the round they fuse into <b>1</b> circle of tangency, the gold ring.</li>
+<li><b>2 / 1 / 0</b> — coordinates a mark settles with both slits, one slit, no slit: a point, a line, nothing. A half-formed image is a line.</li>
+<li><b>0</b> — the number of these constructions that depend on the probe.</li>
+<li><b>9</b> live checks in the ledger below.</li>
+</ul></div>
+<div class="card"><h3>Laws</h3><ul>
+<li><b>AM × HM = GM²</b> — GM is itself the geometric mean of the other two; the closing law.</li>
+<li><b>Power of the glass</b> = ab = (tangent length)²; equivalently AM² − GM² = R².</li>
+<li><b>Polar law</b>: (T − M)·(O − M) = R²; the polar of the glass meets the axis at HM.</li>
+<li><b>(B, D; C, A) = −1</b> — C is the harmonic conjugate of the glass across the slits: the virtual centre.</li>
+<li><b>Harmonic range ⇔ orthogonal circles</b> (circle on AC ⟂ circle on BD); their crossing is the eye E, on the sphere.</li>
+<li><b>Reciprocation</b> swaps AM ↔ HM and fixes GM.</li>
+<li><b>Mean of the channels' reciprocal scales = reciprocal scale of a pinhole at z*</b>, at every probe depth, for every rig.</li>
+</ul></div>
+<div class="card"><h3>Gauges</h3><ul>
+<li><b>Origin at the glass.</b> The means are means of a and b, distances from O, not of absolute depths — drag the glass and all three follow.</li>
+<li><b>True depth scale.</b> No compression here; a squeezed circle would fake the tangency it exists to show.</li>
+<li><b>Light direction.</b> Scene beyond both slits; the mark inverts; reciprocal scale runs affine in depth, through (O, 1).</li>
+<li><b>Which slit is "vertical".</b> The means are symmetric in a and b and do not care; the view labels — slit-point, slit-true-length — swap when the rig turns a quarter.</li>
+</ul></div>
+<div class="card"><h3>Defects</h3><ul>
+<li><b>AM − HM = 2R²/(a+b)</b> — the spread of the range read as one number; zero exactly at the pinhole. Live in the readouts.</li>
+<li><b>Glass between the slits</b>: the power ab goes negative, GM leaves the reals, the tangent has nowhere to land — the page stops drawing it rather than fake it.</li>
+<li><b>Pinhole limit</b>: R → 0, the range degenerates, the cross-ratio loses its footing (0/0) — while the scales law survives, trivially.</li>
+</ul></div>
+</div>
+
+<h2>Checks</h2>
+<div class="checks" id="ledger"></div>
+<p class="caption">Re-run on every interaction, and computed from the drawn geometry, not
+from the closed forms they confirm: T comes from a Thales-circle intersection, C is the
+foot of that constructed T, the square is built by ruler-and-straightedge intersections,
+and E is the crossing of the two drawn circles. The closed forms sit on the other side of
+each residual.</p>
+
+<h2>Conventions</h2>
+<p style="font-size:14.5px">Sketch depths by default; the book rig (150 / 250) is one
+button away. Judgment calls flagged: <b>C is drawn at the foot of the constructed
+tangency</b>, not at the closed form, so check 2 is honest; the square's starting vertex S
+is a free choice — the theorem is the fourth ray's landing, not the quadrilateral's shape;
+the eye E is one certified placement of the station point, not the only one, and the upper
+crossing is drawn. The level set at z* is a plane here and is called one.</p>
+
+<h2>Glossary</h2>
+<dl>
+<dt>glass · image plane · O</dt><dd>The plane the marks land on; the origin of the gauge. Point A of the range.</dd>
+<dt>slit</dt><dd>A line the ray must meet. Vertical slit at Z<sub>v</sub> (point B), horizontal at Z<sub>h</sub> (point D).</dd>
+<dt>slit-true-length view</dt><dd>The profile's view of the slit lying parallel to the paper — drawn at true length. Here, B.</dd>
+<dt>slit-point view</dt><dd>The profile's view of the slit pointing at you — collapsed to a point. Here, D.</dd>
+<dt>mark</dt><dd>Where the threaded ray pierces the glass.</dd>
+<dt>probe</dt><dd>The scene point being imaged; slides along a depth line. The means ignore it.</dd>
+<dt>pinhole</dt><dd>The rig with both slits at one depth; where the three means fuse.</dd>
+<dt>power of a point</dt><dd>(distance to centre)² − R²; for the glass it equals ab, and its square root is the tangent length.</dd>
+<dt>polar</dt><dd>The line (in the round, plane) of touch points of tangents from a point; the polar of the glass meets the axis at HM.</dd>
+<dt>neutral surface · z*</dt><dd>The transverse plane at the harmonic mean, where the two channels agree.</dd>
+<dt>virtual centre</dt><dd>The point C: the fourth harmonic of the glass in the range B, D — the centre a two-point perspective on the axis behaves as if it had.</dd>
+<dt>harmonic range</dt><dd>Four collinear points with cross-ratio −1; here A B C D, with C conjugate to A across B, D.</dd>
+<dt>cross-ratio</dt><dd>((C−B)/(C−D)) : ((A−B)/(A−D)); the one projective invariant of four collinear points.</dd>
+<dt>orthogonal circles</dt><dd>Circles crossing at right angles; equivalent to the harmonic separation of their diameters' endpoints.</dd>
+<dt>count · law · gauge · defect</dt><dd>Integer incidence fact · exact equality · chosen convention · measured failure to close.</dd>
+</dl>
+
+<div class="foot">
+<a href="https://flyingsticks.github.io/reading-sessions/means-sphere-3d.html">← The three means, in the round</a> ·
+<a href="https://flyingsticks.github.io/reading-sessions/rate-square-3d.html">The rate square</a> ·
+<a href="https://flyingsticks.github.io/reading-sessions/index.html">All sessions</a>
+</div>
+</div>
+
+<script>
+/*CORE-BEGIN*/
+const Core = {
+  means(O, Zv, Zh){
+    const a = Zv - O, b = Zh - O, s = a + b, p = a * b;
+    const AM = s / 2;
+    const HM = s !== 0 ? 2 * p / s : NaN;
+    const GM = p > 0 ? (s >= 0 ? 1 : -1) * Math.sqrt(p) : NaN;
+    return { a, b, AM, GM, HM, power: p, R: Math.abs(b - a) / 2, M: (Zv + Zh) / 2 };
+  },
+  // both intersection points of circles (c1,r1),(c2,r2); null if none
+  circInt(c1, r1, c2, r2){
+    const dx = c2.x - c1.x, dy = c2.y - c1.y, d = Math.hypot(dx, dy);
+    if (d === 0) return null;
+    const l = (d * d + r1 * r1 - r2 * r2) / (2 * d);
+    const h2 = r1 * r1 - l * l;
+    if (h2 < 0) return null;
+    const h = Math.sqrt(h2), ex = dx / d, ey = dy / d;
+    return [
+      { x: c1.x + l * ex - h * ey, y: c1.y + l * ey + h * ex },
+      { x: c1.x + l * ex + h * ey, y: c1.y + l * ey - h * ex }
+    ];
+  },
+  upper(pair){ return pair ? (pair[0].y >= pair[1].y ? pair[0] : pair[1]) : null; },
+  // touch point of the tangent from O=(O,0), via the Thales circle on O–M
+  tangentTouch(O, Zv, Zh){
+    const m = { x: (Zv + Zh) / 2, y: 0 }, R = Math.abs(Zh - Zv) / 2;
+    const n = { x: (O + m.x) / 2, y: 0 }, r = Math.abs(m.x - O) / 2;
+    return Core.upper(Core.circInt(m, R, n, r));
+  },
+  lineInt(p, q, r, s){
+    const d1x = q.x - p.x, d1y = q.y - p.y, d2x = s.x - r.x, d2y = s.y - r.y;
+    const den = d1x * d2y - d1y * d2x;
+    if (Math.abs(den) < 1e-12) return null;
+    const t = ((r.x - p.x) * d2y - (r.y - p.y) * d2x) / den;
+    return { x: p.x + t * d1x, y: p.y + t * d1y };
+  },
+  crossRatio(b, d, c, a){ return ((c - b) / (c - d)) / ((a - b) / (a - d)); },
+  // reciprocal channel scale of a slit at depth Z, glass at O, probe at z
+  recipScale(z, Z, O){ return (z - Z) / (O - Z); },
+  // perspective quadrilateral on the range: sides -> B,D ; first diagonal -> C
+  square(O, Zv, Zh, Cx, S, t){
+    const A = { x: O, y: 0 }, B = { x: Zv, y: 0 }, D = { x: Zh, y: 0 }, C = { x: Cx, y: 0 };
+    const S2 = { x: S.x + t * (B.x - S.x), y: S.y + t * (B.y - S.y) };
+    const S4 = Core.lineInt(S2, D, S, C);
+    const S3 = S4 ? Core.lineInt(S4, B, S, D) : null;
+    return { A, B, C, D, S, S2, S4, S3 };
+  },
+  distToLine(p, q, r){ // distance from p to line qr
+    const dx = r.x - q.x, dy = r.y - q.y, L = Math.hypot(dx, dy);
+    return Math.abs((p.x - q.x) * dy - (p.y - q.y) * dx) / L;
+  },
+  angleAt(E, P, Q){ // angle P-E-Q in degrees
+    const a = Math.atan2(P.y - E.y, P.x - E.x), b = Math.atan2(Q.y - E.y, Q.x - E.x);
+    let d = Math.abs(a - b) * 180 / Math.PI;
+    return d > 180 ? 360 - d : d;
+  },
+  // everything the plate draws, from constructions
+  build(O, Zv, Zh){
+    const mn = Core.means(O, Zv, Zh);
+    const M = { x: mn.M, y: 0 }, R = mn.R;
+    const T = mn.power > 0 ? Core.tangentTouch(O, Zv, Zh) : null;
+    const Cx = T ? T.x : NaN;                       // C drawn at the foot of T
+    const c1 = T ? { x: (O + Cx) / 2, y: 0 } : null; // circle on AC
+    const r1 = T ? Math.abs(Cx - O) / 2 : NaN;
+    const E = T ? Core.upper(Core.circInt(c1, r1, M, R)) : null;
+    let quad = null;
+    if (T && Number.isFinite(Cx)) {
+      const S = { x: O + 0.55 * mn.a, y: 0.62 * Math.abs(mn.a) || 40 };
+      quad = Core.square(O, Zv, Zh, Cx, S, 0.45);
+    }
+    return { O, Zv, Zh, mn, M, R, T, Cx, c1, r1, E, quad };
+  },
+  // the nine residuals of the ledger, from a build
+  checks(bd, probe){
+    const { O, Zv, Zh, mn, M, R, T, Cx, c1, r1, E, quad } = bd;
+    const out = [];
+    const add = (name, res) => out.push({ name, res });
+    if (T) {
+      add("tangent ⟂ radius at T",
+        Math.abs((T.x - O) * (T.x - M.x) + T.y * (T.y - M.y)) / (mn.power));
+      add("foot of T lands on HM", Math.abs(Cx - (O + mn.HM)) / Math.abs(mn.HM));
+      add("polar law (T−M)·(O−M) = R²",
+        Math.abs((T.x - M.x) * (O - M.x) + T.y * 0 - R * R) / (R * R || 1));
+    } else { add("tangent ⟂ radius at T", null); add("foot of T lands on HM", null);
+             add("polar law (T−M)·(O−M) = R²", null); }
+    add("AM × HM − GM² closes",
+      T ? Math.abs(mn.AM * mn.HM - mn.GM * mn.GM) / (mn.GM * mn.GM) : null);
+    add("(B, D; C, A) = −1",
+      T ? Math.abs(Core.crossRatio(Zv, Zh, Cx, O) + 1) : null);
+    add("circle on AC ⟂ circle on BD",
+      T ? Math.abs(Math.pow(M.x - c1.x, 2) - r1 * r1 - R * R) / (R * R) : null);
+    add("fourth ray lands on the glass",
+      quad && quad.S3 ? Core.distToLine(quad.A, quad.S2, quad.S3) /
+        Math.hypot(Zh - O, R) : null);
+    add("mean 1/scale = 1/scale of pinhole at z*",
+      Math.abs((Core.recipScale(probe, Zv, O) + Core.recipScale(probe, Zh, O)) / 2
+        - Core.recipScale(probe, O + mn.HM, O)));
+    add("eye squares both pairs (∠BED, ∠AEC = 90°)",
+      E ? (Math.abs(Core.angleAt(E, {x:Zv,y:0}, {x:Zh,y:0}) - 90)
+         + Math.abs(Core.angleAt(E, {x:O,y:0}, {x:Cx,y:0}) - 90)) / 90 : null);
+    return out;
+  }
+};
+/*CORE-END*/
+
+// ------------------------------------------------------------------ state
+const state = { O: 0, Zv: 150, Zh: 355, probe: 469 };
+const $ = id => document.getElementById(id);
+const cv1 = $("cv1"), cv2 = $("cv2");
+const fmt = (x, d=1) => Number.isFinite(x) ? x.toFixed(d) : "—";
+
+function sizeCanvas(cv, hRatio){
+  const w = cv.clientWidth || cv.parentElement.clientWidth;
+  const h = Math.round(w * hRatio);
+  const dpr = window.devicePixelRatio || 1;
+  cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+  cv.style.height = h + "px";
+  const g = cv.getContext("2d");
+  g.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return { g, w, h };
+}
+
+// ------------------------------------------------------------------ panel 1
+let view1 = null; // world<->screen for dragging
+function drawMain(){
+  const { g, w, h } = sizeCanvas(cv1, 0.62);
+  const bd = Core.build(state.O, state.Zv, state.Zh);
+  const { O, Zv, Zh, mn, M, R, T, Cx, c1, r1, E, quad } = bd;
+  const showTan = $("tgTan").checked, showSq = $("tgSq").checked,
+        showEye = $("tgEye").checked, showLab = $("tgLab").checked;
+
+  // world bounds
+  let xs = [O - 40, Zh + 60, Zv - 20], ys = [-R - 30, R + 30];
+  if (quad && quad.S3){ [quad.S, quad.S2, quad.S3, quad.S4].forEach(p => { xs.push(p.x); ys.push(p.y + 14); }); }
+  if (E) { xs.push(E.x); ys.push(E.y + 16); }
+  const xmin = Math.min(...xs), xmax = Math.max(...xs);
+  const ymin = Math.min(...ys, -R - 30), ymax = Math.max(...ys, R + 30);
+  const pad = 14;
+  const sc = Math.min((w - 2*pad) / (xmax - xmin), (h - 2*pad) / (ymax - ymin));
+  const X = x => pad + (x - xmin) * sc + ((w - 2*pad) - (xmax - xmin) * sc) / 2;
+  const Y = y => h - pad - (y - ymin) * sc - ((h - 2*pad) - (ymax - ymin) * sc) / 2;
+  view1 = { X, Y, sc, xmin };
+
+  g.clearRect(0, 0, w, h);
+  g.lineJoin = "round"; g.lineCap = "round";
+  g.font = "12px Helvetica";
+
+  // axis
+  g.strokeStyle = "#555"; g.lineWidth = 1.2;
+  g.beginPath(); g.moveTo(X(xmin), Y(0)); g.lineTo(X(xmax), Y(0)); g.stroke();
+
+  // image plane at glass
+  g.strokeStyle = "#777"; g.lineWidth = 1.4;
+  g.beginPath(); g.moveTo(X(O), Y(-R - 20)); g.lineTo(X(O), Y(R + 20)); g.stroke();
+
+  // circle on the slits (the sphere in profile)
+  g.strokeStyle = "rgba(192,57,43,.55)"; g.lineWidth = 2;
+  g.beginPath(); g.arc(X(M.x), Y(0), R * sc, 0, Math.PI * 2); g.stroke();
+  // faint latitude hint (ellipse) to echo the sphere
+  g.strokeStyle = "rgba(192,57,43,.18)"; g.lineWidth = 1;
+  g.beginPath(); g.ellipse(X(M.x), Y(0), R * sc, R * sc * 0.35, 0, 0, Math.PI * 2); g.stroke();
+
+  // vertical slit (true length) at B
+  g.strokeStyle = "#A31F34"; g.lineWidth = 3.4;
+  g.beginPath(); g.moveTo(X(Zv), Y(-Math.min(R*0.85, 80))); g.lineTo(X(Zv), Y(Math.min(R*0.85, 80))); g.stroke();
+  // horizontal slit (point view) at D
+  g.fillStyle = "#5E3A9E";
+  g.beginPath(); g.arc(X(Zh), Y(0), 5.2, 0, Math.PI * 2); g.fill();
+
+  // neutral surface at C
+  if (T){
+    g.strokeStyle = "#B8860B"; g.lineWidth = 3;
+    g.beginPath(); g.moveTo(X(Cx), Y(-Math.abs(T.y))); g.lineTo(X(Cx), Y(Math.abs(T.y))); g.stroke();
+  }
+
+  // tangent pair
+  if (T && showTan){
+    g.strokeStyle = "rgba(30,142,62,.35)"; g.lineWidth = 1.4;
+    g.beginPath(); g.moveTo(X(O), Y(0)); g.lineTo(X(T.x), Y(-T.y)); g.stroke();
+    g.strokeStyle = "#1E8E3E"; g.lineWidth = 2.2;
+    g.beginPath(); g.moveTo(X(O), Y(0)); g.lineTo(X(T.x), Y(T.y)); g.stroke();
+    // radius + right-angle tick
+    g.strokeStyle = "rgba(80,80,80,.7)"; g.lineWidth = 1;
+    g.beginPath(); g.moveTo(X(M.x), Y(0)); g.lineTo(X(T.x), Y(T.y)); g.stroke();
+    const k = 9; // right-angle tick, from screen vectors
+    const sux = (X(O)-X(T.x))/Math.hypot(X(O)-X(T.x), Y(0)-Y(T.y)), suy=(Y(0)-Y(T.y))/Math.hypot(X(O)-X(T.x), Y(0)-Y(T.y));
+    const svx = (X(M.x)-X(T.x))/Math.hypot(X(M.x)-X(T.x), Y(0)-Y(T.y)), svy=(Y(0)-Y(T.y))/Math.hypot(X(M.x)-X(T.x), Y(0)-Y(T.y));
+    g.strokeStyle = "#1E8E3E"; g.lineWidth = 1.4;
+    g.beginPath();
+    g.moveTo(X(T.x)+sux*k, Y(T.y)+suy*k);
+    g.lineTo(X(T.x)+sux*k+svx*k, Y(T.y)+suy*k+svy*k);
+    g.lineTo(X(T.x)+svx*k, Y(T.y)+svy*k);
+    g.stroke();
+    // drop from T to C
+    g.strokeStyle = "rgba(184,134,11,.6)"; g.setLineDash([4,3]); g.lineWidth = 1.2;
+    g.beginPath(); g.moveTo(X(T.x), Y(T.y)); g.lineTo(X(Cx), Y(0)); g.stroke();
+    g.setLineDash([]);
+  }
+
+  // circle on AC + eye
+  if (T && showEye && E){
+    g.strokeStyle = "rgba(43,95,163,.5)"; g.lineWidth = 1.6;
+    g.beginPath(); g.arc(X(c1.x), Y(0), r1 * sc, 0, Math.PI * 2); g.stroke();
+    g.strokeStyle = "rgba(43,95,163,.5)"; g.lineWidth = 1;
+    g.beginPath(); g.moveTo(X(E.x), Y(E.y)); g.lineTo(X(Zv), Y(0)); g.stroke();
+    g.beginPath(); g.moveTo(X(E.x), Y(E.y)); g.lineTo(X(Zh), Y(0)); g.stroke();
+    g.setLineDash([3,3]);
+    g.beginPath(); g.moveTo(X(E.x), Y(E.y)); g.lineTo(X(O), Y(0)); g.stroke();
+    g.beginPath(); g.moveTo(X(E.x), Y(E.y)); g.lineTo(X(Cx), Y(0)); g.stroke();
+    g.setLineDash([]);
+    g.fillStyle = "#2B5FA3";
+    g.beginPath(); g.arc(X(E.x), Y(E.y), 4.6, 0, Math.PI * 2); g.fill();
+    if (showLab){ g.fillText("eye E — on the sphere", X(E.x) + 8, Y(E.y) - 6); }
+  }
+
+  // the square on the range
+  if (quad && quad.S3 && showSq){
+    const { A, B, C, D, S, S2, S3, S4 } = quad;
+    // rays: sides to B, D; diagonals to C, A
+    g.strokeStyle = "rgba(192,57,43,.45)"; g.lineWidth = 1;
+    [[S, B],[S3, B],[S2, D],[S, D],[S, C],[S2, {x:A.x, y:A.y}]].forEach(([p,q])=>{
+      g.beginPath(); g.moveTo(X(p.x), Y(p.y)); g.lineTo(X(q.x), Y(q.y)); g.stroke();
+    });
+    // quadrilateral
+    g.fillStyle = "rgba(192,57,43,.15)"; g.strokeStyle = "#C0392B"; g.lineWidth = 2;
+    g.beginPath();
+    g.moveTo(X(S.x), Y(S.y)); g.lineTo(X(S2.x), Y(S2.y));
+    g.lineTo(X(S4.x), Y(S4.y)); g.lineTo(X(S3.x), Y(S3.y));
+    g.closePath(); g.fill(); g.stroke();
+    // landing ring at A
+    g.strokeStyle = "#C0392B"; g.lineWidth = 1.6;
+    g.beginPath(); g.arc(X(A.x), Y(0), 8, 0, Math.PI * 2); g.stroke();
+    if (showLab){
+      g.fillStyle = "#C0392B";
+      g.fillText("square on the range — sides → B, D · diagonals → C, A", X(S.x), Y(Math.max(S.y, S3.y)) - 10);
+      g.fillText("lands by itself", X(A.x) + 10, Y(0) - 12);
+    }
+  }
+
+  // marks A, C(am centre), and AM tick
+  g.fillStyle = "#26231E";
+  g.beginPath(); g.rect(X(M.x)-1, Y(0)-6, 2, 12); g.fill();
+  const mark = (x, color, r=4.4) => { g.fillStyle = color;
+    g.beginPath(); g.arc(X(x), Y(0), r, 0, Math.PI*2); g.fill(); };
+  mark(O, "#A31F34", 4.6);
+  mark(Zv, "#7c1626", 4.2);
+  if (T) mark(Cx, "#B8860B", 4.6);
+  mark(Zh, "#5E3A9E", 4.2);
+
+  // labels
+  if (showLab){
+    g.fillStyle = "#A31F34"; g.font = "bold 14px Helvetica";
+    g.fillText("A", X(O) - 4, Y(0) + 22);
+    g.fillText("B", X(Zv) - 4, Y(0) + 22);
+    if (T){ g.fillStyle = "#B8860B"; g.fillText("C", X(Cx) - 4, Y(0) + 22); }
+    g.fillStyle = "#5E3A9E"; g.fillText("D", X(Zh) - 4, Y(0) + 22);
+    g.font = "12px Helvetica"; g.fillStyle = "#6E675C";
+    g.fillText("image plane", X(O) + 6, Y(R + 12));
+    g.fillText("slit-true-length view", X(Zv) - 40, Y(-Math.min(R*0.85,80)) + 16);
+    g.fillText("slit-point view", X(Zh) - 30, Y(0) - 12);
+    g.fillText("AM · centre", X(M.x) - 28, Y(0) - 12);
+    if (T){ g.fillStyle = "#B8860B"; g.fillText("z* = HM", X(Cx) - 20, Y(Math.abs(T.y)) - 8); }
+    if (T){ g.fillStyle = "#1E8E3E"; g.fillText("tangent · length GM", X((O+T.x)/2)-30, Y(T.y/1.8) - 10); }
+    if (!T){
+      g.fillStyle = "#C0392B"; g.font = "bold 13px Helvetica";
+      g.fillText("defect: glass between the slits — power ab < 0, GM has left the reals", X(xmin)+10, Y(R+12));
+    }
+  }
+
+  // readouts
+  const rd = $("readouts");
+  rd.innerHTML =
+    `<span class="r-a">a = ${fmt(mn.a)}</span>` +
+    `<span class="r-b">b = ${fmt(mn.b)}</span>` +
+    `<span class="r-hm"><b>HM = ${fmt(mn.HM, 1)}</b></span>` +
+    `<span class="r-gm"><b>GM = ${fmt(mn.GM, 2)}</b></span>` +
+    `<span class="r-am"><b>AM = ${fmt(mn.AM, 1)}</b></span>` +
+    `<span>power ab = ${fmt(mn.power, 0)}</span>` +
+    `<span class="r-def">defect AM − HM = ${fmt(mn.AM - mn.HM, 2)}</span>`;
+
+  drawLedger(bd);
+}
+
+// ------------------------------------------------------------------ panel 2
+function drawScales(){
+  const { g, w, h } = sizeCanvas(cv2, 0.5);
+  const { O, Zv, Zh, probe } = state;
+  const mn = Core.means(O, Zv, Zh);
+  const zmax = Math.max(600, Zh + 150), zmin = Math.min(O, 0) - 20;
+  const ymin = -1.6, ymax = 1.35, pad = 30;
+  const X = z => pad + (z - zmin) / (zmax - zmin) * (w - 2 * pad);
+  const Y = y => pad + (ymax - y) / (ymax - ymin) * (h - 2 * pad);
+  g.clearRect(0, 0, w, h); g.font = "12px Helvetica"; g.lineCap = "round";
+
+  // axes
+  g.strokeStyle = "#999"; g.lineWidth = 1;
+  g.beginPath(); g.moveTo(X(zmin), Y(0)); g.lineTo(X(zmax), Y(0)); g.stroke();
+  g.beginPath(); g.moveTo(X(O), Y(ymin)); g.lineTo(X(O), Y(ymax)); g.stroke();
+  g.fillStyle = "#6E675C";
+  g.fillText("1/scale", X(O) + 5, Y(ymax) + 12);
+  g.fillText("probe depth z →", X(zmax) - 100, Y(0) - 6);
+
+  const line = (Z, color, wd, dash) => {
+    if (!Number.isFinite(Z) || Z === O) return;
+    g.strokeStyle = color; g.lineWidth = wd; g.setLineDash(dash || []);
+    g.beginPath();
+    g.moveTo(X(zmin), Y(Core.recipScale(zmin, Z, O)));
+    g.lineTo(X(zmax), Y(Core.recipScale(zmax, Z, O)));
+    g.stroke(); g.setLineDash([]);
+  };
+  line(O + mn.a * 0 + Zv, "#A31F34", 2);
+  line(Zh, "#5E3A9E", 2);
+  if (Number.isFinite(mn.GM)) line(O + mn.GM, "#8a8578", 1.2, [5,4]);
+  line(O + mn.AM, "#8a8578", 1.2, [2,4]);
+  if (Number.isFinite(mn.HM)) line(O + mn.HM, "#B8860B", 3);
+
+  // shared point at (O, 1)
+  g.fillStyle = "#26231E";
+  g.beginPath(); g.arc(X(O), Y(1), 3.4, 0, Math.PI * 2); g.fill();
+  g.fillText("(O, 1) — one shared point", X(O) + 8, Y(1) - 8);
+
+  // labels on lines
+  const lab = (Z, txt, color) => { if(!Number.isFinite(Z)||Z===O) return;
+    const z0 = zmin + (zmax - zmin) * 0.86, y0 = Core.recipScale(z0, Z, O);
+    g.fillStyle = color; g.fillText(txt, X(z0), Y(y0) - 5); };
+  lab(Zv, "channel at Zv", "#A31F34");
+  lab(Zh, "channel at Zh", "#5E3A9E");
+  lab(O + mn.HM, "pinhole at z* = HM", "#B8860B");
+  lab(O + mn.AM, "pinhole at AM", "#8a8578");
+  if (Number.isFinite(mn.GM)) lab(O + mn.GM, "pinhole at GM", "#8a8578");
+
+  // probe
+  g.strokeStyle = "#26231E"; g.lineWidth = 1; g.setLineDash([3,3]);
+  g.beginPath(); g.moveTo(X(probe), Y(ymin)); g.lineTo(X(probe), Y(ymax)); g.stroke();
+  g.setLineDash([]);
+  const yu = Core.recipScale(probe, Zv, O), yv = Core.recipScale(probe, Zh, O);
+  const yh = Number.isFinite(mn.HM) ? Core.recipScale(probe, O + mn.HM, O) : NaN;
+  const dot = (y, c) => { g.fillStyle = c; g.beginPath(); g.arc(X(probe), Y(y), 4, 0, Math.PI*2); g.fill(); };
+  dot(yu, "#A31F34"); dot(yv, "#5E3A9E"); if (Number.isFinite(yh)) dot(yh, "#B8860B");
+  // the average, as a black ring, rides the gold dot
+  g.strokeStyle = "#26231E"; g.lineWidth = 1.6;
+  g.beginPath(); g.arc(X(probe), Y((yu + yv) / 2), 7, 0, Math.PI * 2); g.stroke();
+  g.fillStyle = "#26231E";
+  g.fillText("mean of the two channels", X(probe) + 10, Y((yu+yv)/2) + 4);
+}
+
+// ------------------------------------------------------------------ ledger
+function drawLedger(bd){
+  const rows = Core.checks(bd, state.probe);
+  const el = $("ledger");
+  el.innerHTML = rows.map((r, i) => {
+    if (r.res === null)
+      return `<div><span>${i+1}. ${r.name}</span><span class="na">— (defect: no tangent)</span></div>`;
+    const ok = r.res < 1e-7;
+    return `<div><span>${i+1}. ${r.name}</span>` +
+      `<span class="${ok ? "ok" : "bad"}">${ok ? "✓" : "✗"} residual ${r.res.toExponential(1)}</span></div>`;
+  }).join("");
+}
+
+// ------------------------------------------------------------------ interaction
+function redraw(){ drawMain(); drawScales(); }
+let drag = null;
+function pick(px){
+  const marks = [["O", state.O], ["Zv", state.Zv], ["Zh", state.Zh]];
+  let best = null, bestd = 18;
+  for (const [k, x] of marks){
+    const d = Math.abs(view1.X(x) - px);
+    if (d < bestd){ bestd = d; best = k; }
+  }
+  return best;
+}
+cv1.addEventListener("pointerdown", e => {
+  const r = cv1.getBoundingClientRect();
+  drag = pick(e.clientX - r.left);
+  if (drag) cv1.setPointerCapture(e.pointerId);
+});
+cv1.addEventListener("pointermove", e => {
+  if (!drag || !view1) return;
+  const r = cv1.getBoundingClientRect();
+  const x = view1.xmin + (e.clientX - r.left - view1.X(view1.xmin)) / view1.sc;
+  if (drag === "O") state.O = Math.round(x);
+  if (drag === "Zv") state.Zv = Math.min(Math.round(x), state.Zh - 6);
+  if (drag === "Zh") state.Zh = Math.max(Math.round(x), state.Zv + 6);
+  redraw();
+});
+cv1.addEventListener("pointerup", () => drag = null);
+
+$("btnSketch").onclick = () => { Object.assign(state, {O:0, Zv:150, Zh:355}); $("probe").value = state.probe = 469; $("probeVal").textContent = 469; redraw(); };
+$("btnBook").onclick = () => { Object.assign(state, {O:0, Zv:150, Zh:250}); redraw(); };
+$("btnPin").onclick = () => {
+  const target = Math.round((state.Zv + state.Zh) / 2);
+  const step = () => {
+    const dv = target - state.Zv, dh = target - state.Zh;
+    if (Math.abs(dv) <= 4 && Math.abs(dh) <= 4){ state.Zv = target - 3; state.Zh = target + 3; redraw(); return; }
+    state.Zv += Math.sign(dv) * Math.max(1, Math.abs(dv) * 0.12);
+    state.Zh += Math.sign(dh) * Math.max(1, Math.abs(dh) * 0.12);
+    redraw(); requestAnimationFrame(step);
+  };
+  step();
+};
+["tgTan","tgSq","tgEye","tgLab"].forEach(id => $(id).onchange = redraw);
+$("probe").oninput = e => { state.probe = +e.target.value; $("probeVal").textContent = e.target.value; redraw(); };
+window.addEventListener("resize", redraw);
+redraw();
+</script>
+</body>
+</html>
