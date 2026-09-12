@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Two pivots, one virtual center · The Reading Sessions</title>
+<style>
+  :root{
+    --cream:#f5f2ea; --panel:#efe9dc; --ink:#232323; --faint:#8a8377;
+    --crimson:#8f2d2d; --purple:#5a3d8a; --gold:#a8862a; --green:#2e6b46;
+  }
+  html,body{margin:0;padding:0;background:var(--cream);color:var(--ink);
+    font-family:Helvetica,Arial,sans-serif;-webkit-text-size-adjust:100%;}
+  .wrap{max-width:1060px;margin:0 auto;padding:14px 16px calc(24px + env(safe-area-inset-bottom));}
+  header .crumbs{font-size:13px;color:var(--faint);margin-bottom:6px;}
+  header .crumbs a{color:var(--faint);}
+  h1{font-size:26px;margin:2px 0 10px;}
+  h2{font-size:18px;margin:26px 0 8px;}
+  p{line-height:1.5;font-size:15px;margin:8px 0;}
+  b{font-weight:bold;}
+  .thesis{background:var(--panel);border-left:5px solid var(--gold);
+    padding:10px 14px;margin:12px 0 16px;font-size:15px;line-height:1.5;}
+  .controls{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;
+    background:var(--panel);padding:10px 12px;border-radius:6px;margin-bottom:10px;}
+  .seg{display:flex;border:1px solid var(--ink);border-radius:6px;overflow:hidden;}
+  .seg button{border:0;background:transparent;padding:8px 14px;font:inherit;font-size:15px;
+    cursor:pointer;color:var(--ink);touch-action:manipulation;}
+  .seg button.on-B{background:var(--crimson);color:#fff;}
+  .seg button.on-D{background:var(--purple);color:#fff;}
+  .seg button.on-C{background:var(--gold);color:#fff;}
+  .ctl{font-size:13px;display:flex;align-items:center;gap:6px;}
+  .ctl input[type=range]{width:130px;}
+  .ctl .val{font-weight:bold;min-width:34px;display:inline-block;}
+  svg{display:block;width:100%;height:auto;background:var(--cream);
+    border:1px solid #d8d0bf;border-radius:6px;touch-action:none;}
+  #rateSvg{margin-top:10px;}
+  .caption{font-size:14px;line-height:1.45;color:var(--ink);background:var(--panel);
+    padding:8px 12px;border-radius:0 0 6px 6px;margin-top:-4px;}
+  .readout{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13.5px;margin:10px 0 2px;}
+  .readout span b{font-weight:bold;}
+  ul.checks{list-style:none;padding:8px 12px;margin:8px 0;background:var(--panel);
+    border-radius:6px;font-size:13.5px;line-height:1.6;}
+  ul.checks li.ok::before{content:"✓ ";color:var(--green);font-weight:bold;}
+  ul.checks li.bad::before{content:"✗ ";color:var(--crimson);font-weight:bold;}
+  dl{margin:8px 0;}
+  dt{font-weight:bold;margin-top:10px;font-size:15px;}
+  dd{margin:2px 0 0 0;font-size:14.5px;line-height:1.5;}
+  .cB{color:var(--crimson);font-weight:bold;} .cD{color:var(--purple);font-weight:bold;}
+  .cC{color:var(--gold);font-weight:bold;}
+  footer{margin-top:26px;font-size:13px;color:var(--faint);}
+  footer a{color:var(--faint);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="crumbs">The Reading Sessions ·
+    companion to <a href="https://flyingsticks.github.io/reading-sessions/means-sphere-3d.html">The three means, in the round</a> ·
+    a staging of centers</div>
+  <h1>Two pivots, one virtual center</h1>
+</header>
+
+<div class="thesis">
+  One horizon, three candidate centers. <span class="cB">B</span> and <span class="cD">D</span> are
+  centers <b>by incidence</b>: lines of indistinguishable probes pivot on them, and the drawing can
+  demonstrate it. <span class="cC">C</span> is a center <b>by computation</b>: nothing passes through
+  it, no pencil concurs there, yet the rig's scale law roots at it exactly, and the range A B D
+  determines it by incidence alone. Vanishing points have always existed in precisely this mode —
+  unoccupied, load-bearing. C shows the camera itself has one.
+</div>
+
+<div class="controls">
+  <div class="seg" id="seg">
+    <button data-p="B" id="segB">thread B</button>
+    <button data-p="D" id="segD">thread D</button>
+    <button data-p="C" id="segC">thread C</button>
+  </div>
+  <label class="ctl">B (slit) <input type="range" id="slB" min="60" max="560" step="1">
+    <span class="val" id="vB"></span></label>
+  <label class="ctl">D (slit) <input type="range" id="slD" min="60" max="560" step="1">
+    <span class="val" id="vD"></span></label>
+  <span class="ctl" style="color:var(--faint)">drag the black probe · B, D drag on the axis too</span>
+</div>
+
+<svg id="scene" viewBox="0 0 1000 560" aria-label="Pivot demonstration"></svg>
+<div class="caption" id="sceneCap"></div>
+
+<svg id="rateSvg" viewBox="0 0 1000 300" aria-label="Reciprocal scale chart"></svg>
+<div class="caption">
+  <b>Reciprocal scale against depth</b>, plotted on the same horizontal scale as the scene above,
+  so roots sit directly below their centers. Each channel's reciprocal scale 1 − z/Z is a line
+  through (0, 1) with root at its own center: <span class="cB">crimson at B</span>,
+  <span class="cD">purple at D</span>. Their pointwise average is the
+  <span class="cC">gold dashed line</span> — and its root is C, at every setting of the sliders.
+  Below the zero line the image is inverted. B and D own the rays; C owns the average.
+</div>
+
+<div class="readout" id="readout"></div>
+<ul class="checks" id="checks"></ul>
+
+<h2>What to look for</h2>
+<p><b>Thread B.</b> Five probe positions ride one line through <span class="cB">B</span>. Slide the
+probe along it, swing the line, push the probes apart: the <span class="cB">crimson mark</span> on
+the glass does not move. One line, one mark — that is what it is to be a center. The
+<span class="cD">purple rays</span>, cast by the same probes through D, were not invited: they fan,
+and their marks scatter down the glass. A line through B threads one channel only.</p>
+<p><b>Thread D.</b> The same demonstration with the colors exchanged. Together the two modes show
+the rig has two centers, each real, each partial.</p>
+<p><b>Thread C.</b> The same five probes, now on a line through <span class="cC">C</span>. The
+hollow gold ring is the mark a pinhole at C <i>promises</i> — and the promise is internally
+consistent: it holds still as you slide. But no real channel honors it. Both the crimson and the
+purple marks scatter; nothing in the optics pivots. C moves nothing. Then look down at the chart:
+the gold average line roots at C regardless. What C cannot do with rays it does exactly with
+rates.</p>
+<p><b>Fuse the slits.</b> Drag B and D together and watch C get caught between them: at B = D the
+three centers coincide and C goes real — light actually passes through it. The gap you open by
+pulling the slits apart is the exact residue by which this rig fails to be a pinhole camera.</p>
+
+<h2>Why C exists at all</h2>
+<p>Twice over, and the two reasons agree.</p>
+<p><b>Projectively</b>, C is the fourth harmonic point of the glass: the unique point with
+(B, D; A, C) = −1, constructible from A, B, D by straightedge alone. The range that carries the
+perspective construction already contains its own eye, folded into the other three marks the way a
+harmonic set always carries its fourth member implicitly. On the axis this is the polar plane of
+the sphere page collapsed to one dimension: the sphere meets the axis at B and D, and the polar of
+A crosses at their harmonic conjugate.</p>
+<p><b>Optically</b>, C is the answer to an inverse problem. Hand someone the glass alone — marks
+and sizes, no rig — and let them assume a single pinhole took the picture. Solving for where that
+pinhole must have been yields C, uniquely, because the reciprocal scales of the two channels
+average to the reciprocal scale of a pinhole at the harmonic mean, at every depth. C is the
+principal point of the two-slit system: a point of the model, not of the optics — real as a
+determination, fictitious as a location. Sizes can be forged by this fiction; incidence cannot.
+Only ray information — the threading test above — tells the two cameras apart.</p>
+
+<h2>Glossary</h2>
+<dl>
+  <dt>mark</dt>
+  <dd>The point where a probe's image lands on the glass. In this flattening each channel casts
+  its own mark on the shared axis; the crimson and purple marks are the two coordinates of the one
+  mark the full rig would record.</dd>
+  <dt>channel</dt>
+  <dd>One slit's share of the projection. Each channel acts as a one-dimensional pinhole camera:
+  the <span class="cB">u-channel</span> centered at B, the <span class="cD">v-channel</span> at D.</dd>
+  <dt>center by incidence (pivot)</dt>
+  <dd>A point rays actually pass through, demonstrable in the drawing: pencils of indistinguishable
+  probe positions concur there. B and D are centers by incidence.</dd>
+  <dt>center by computation (virtual center)</dt>
+  <dd>A point posited to make the arithmetic close, though nothing travels through it — the
+  solution to an inverse problem, not a place light visits. C is one; so is the principal point of
+  a thick lens, which no refraction happens at yet every image size obeys.</dd>
+  <dt>ray-equivalence class</dt>
+  <dd>All probe positions sharing a line through a center, hence sharing that channel's mark. The
+  glass records classes, not points: it is transparent to depth along a ray while opaque as a
+  surface.</dd>
+  <dt>harmonic conjugate · cross-ratio</dt>
+  <dd>Four collinear points p, q, r, s have cross-ratio ((r−p)(s−q)) / ((r−q)(s−p)), the one
+  projective invariant of a line. When it equals −1 the pair r, s divides the pair p, q
+  harmonically, and s is constructible from the other three by incidence alone. Here
+  (B, D; A, C) = −1.</dd>
+  <dt>harmonic mean</dt>
+  <dd>HM = 2BD/(B+D). Named for the harmonic range: the point at depth HM is the harmonic
+  conjugate of the origin with respect to B and D. The projective and arithmetic descriptions of C
+  are the same fact.</dd>
+  <dt>neutral surface</dt>
+  <dd>The transverse plane at depth HM — in the round, the polar plane of the glass point, carrying
+  the circle where the tangent cone touches the sphere on B, D as diameter. C is where it crosses
+  the axis.</dd>
+  <dt>reciprocal scale (rate)</dt>
+  <dd>1 − z/Z for a center at depth Z evaluated at scene depth z: the reciprocal of the channel's
+  magnification, affine in depth. Perspective composes in rates, not scales — which is why the
+  honest average of two cameras is an average of reciprocals, and why it lands on the harmonic
+  mean.</dd>
+  <dt>station point · vanishing point</dt>
+  <dd>The eye of a perspective, and the unoccupied points that discipline it. A vanishing point is
+  real as a determination and fictitious as a location; every line in the drawing obeys it, nothing
+  stands at it. C is a point of the same species, found on the camera side of the glass rather
+  than the picture side.</dd>
+</dl>
+
+<h2>Conventions</h2>
+<p>Glass (image plane) at A = 0; scene constrained beyond both slits, so every mark is inverted.
+Book-rig colors: crimson for the vertical slit's center B, purple for the horizontal slit's D,
+gold for the neutral surface and everything C promises. Judgment calls flagged: the drawing
+flattens the rig to one axis, each channel rendered as a 1-D pinhole on the shared horizon — the
+unique 3-D transversal threading both slits degenerates here to the axis itself, so the two
+threading modes exhibit the pivots separately. The probe keeps 70 units beyond the deeper slit to
+hold magnifications finite; marks that leave the frame are shown as open arrowheads at the glass
+edge. Plates in this series use canvas; this one is SVG, for label crispness and simpler pointer
+handling on the iPad — flagged as a departure.</p>
+
+<h2>Checks</h2>
+<p>The page re-runs the list above on every interaction, computed from the drawn geometry: C from
+the polar formula against C solved from the cross-ratio condition; (B, D; A, C) = −1; invariance
+of the threaded channel's mark along the pivot line, and asserted <i>non</i>-invariance of both
+real channels along the C-line; rate closure at the probe's depth; agreement of the drawn
+intersection with the closed-form mark; inversion of every mark. The companion script
+<i>check_virtual_center.js</i> runs the same 88 assertions across four rigs, headless.</p>
+
+<footer>
+  <a href="https://flyingsticks.github.io/reading-sessions/means-sphere-3d.html">← The three means, in the round</a> ·
+  <a href="https://flyingsticks.github.io/reading-sessions/index.html">All sessions</a>
+</footer>
+</div>
+
+<script id="core">
+// ---- core math (mirrored in check_virtual_center.js) ----
+function hm(b, d) { return 2 * b * d / (b + d); }
+function crossRatio(p, q, r, s) { return ((r - p) * (s - q)) / ((r - q) * (s - p)); }
+function fourthHarmonic(b, d, a) { return ((a - b) * d + (a - d) * b) / ((a - b) + (a - d)); }
+function markVia(Z, z, y) { return -Z * y / (z - Z); }
+function markDrawn(Z, z, y) { const t = (0 - z) / (Z - z); return y + t * (0 - y); }
+function rate(Z, z) { return 1 - z / Z; }
+</script>
+
+<script id="app">
+(function () {
+  "use strict";
+  const S = {
+    B: 150, D: 355, pivot: "C",
+    probe: { z: 469, y: 78 },
+    ZMAX: 640, MARGIN: 70,
+  };
+  const svg = document.getElementById("scene");
+  const rsvg = document.getElementById("rateSvg");
+  const NS = "http://www.w3.org/2000/svg";
+  const COL = { B: "#8f2d2d", D: "#5a3d8a", C: "#a8862a", ink: "#232323", faint: "#8a8377" };
+
+  // scene mapping
+  const X0 = 60, XS = (980 - X0) / S.ZMAX, AXY = 280, YS = 0.85;
+  const xz = z => X0 + z * XS;
+  const yy = y => AXY - y * YS;
+  const YCLIP = 300; // world units shown on the glass either side
+
+  // rate chart mapping (same x as scene)
+  const R_TOP = 1.15, R_BOT = -1.7, R_H = 300;
+  const ry = r => 26 + (R_TOP - r) * ((R_H - 60) / (R_TOP - R_BOT));
+
+  function el(name, attrs, parent, text) {
+    const e = document.createElementNS(NS, name);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    (parent || svg).appendChild(e);
+    if (text !== undefined) e.textContent = text;
+    return e;
+  }
+  function clear(node) { while (node.firstChild) node.removeChild(node.firstChild); }
+  function fmt(x, d) { return Number(x).toFixed(d === undefined ? 1 : d); }
+
+  function centers() {
+    const b = Math.min(S.B, S.D), d = Math.max(S.B, S.D);
+    return { B: S.B, D: S.D, C: hm(S.B, S.D), lo: b, hi: d };
+  }
+  function probeZMin() { return centers().hi + S.MARGIN; }
+  function clampProbe() {
+    S.probe.z = Math.max(probeZMin(), Math.min(S.ZMAX - 20, S.probe.z));
+    S.probe.y = Math.max(24, Math.min(300, S.probe.y));
+  }
+  function pivotDepth() { const c = centers(); return S.pivot === "B" ? c.B : S.pivot === "D" ? c.D : c.C; }
+
+  // ghost probes along the line through (P,0) and the probe
+  function ghosts() {
+    const P = pivotDepth(), pr = S.probe, k = pr.y / (pr.z - P);
+    const zmin = probeZMin(), zmax = S.ZMAX - 20, out = [];
+    [0.06, 0.33, 0.62, 0.92].forEach(f => {
+      let z = zmin + f * (zmax - zmin);
+      if (Math.abs(z - pr.z) < 24) z += (z < pr.z ? -26 : 26);
+      z = Math.max(zmin, Math.min(zmax, z));
+      out.push({ z: z, y: k * (z - P) });
+    });
+    return out;
+  }
+
+  function drawMarkTick(y, color, hollow) {
+    const clipped = Math.abs(y) > YCLIP;
+    const ys = yy(Math.max(-YCLIP, Math.min(YCLIP, y)));
+    if (clipped) {
+      const dir = y > 0 ? -1 : 1;
+      el("path", { d: `M ${X0 - 7} ${ys} l 14 0 l -7 ${10 * dir} z`,
+        fill: "none", stroke: color, "stroke-width": 2 });
+    } else if (hollow) {
+      el("circle", { cx: X0, cy: ys, r: 8, fill: "none", stroke: color,
+        "stroke-width": 2.5, "stroke-dasharray": "3 3" });
+    } else {
+      el("circle", { cx: X0, cy: ys, r: 4.5, fill: color });
+    }
+    return ys;
+  }
+
+  function render() {
+    clampProbe();
+    const c = centers(), P = pivotDepth(), pr = S.probe;
+    const pts = [{ z: pr.z, y: pr.y, main: true }].concat(ghosts());
+    clear(svg);
+
+    // frame: glass, axis
+    el("line", { x1: X0, y1: 18, x2: X0, y2: 542, stroke: COL.ink, "stroke-width": 2.5 });
+    el("line", { x1: X0 - 26, y1: AXY, x2: 990, y2: AXY, stroke: COL.faint, "stroke-width": 1 });
+    el("text", { x: X0 - 4, y: 34, "font-size": 15, fill: COL.ink, "font-weight": "bold" }, svg, "A");
+    el("text", { x: X0 + 8, y: 34, "font-size": 12.5, fill: COL.faint }, svg, "glass · image plane");
+    el("text", { x: 930, y: AXY - 8, "font-size": 12.5, fill: COL.faint }, svg, "depth →");
+
+    // pivot line through P and probe, drawn across the frame
+    const k = pr.y / (pr.z - P);
+    const yAt = z => k * (z - P);
+    const lineCol = COL[S.pivot];
+    el("line", { x1: xz(0), y1: yy(yAt(0)), x2: xz(S.ZMAX), y2: yy(yAt(S.ZMAX)),
+      stroke: lineCol, "stroke-width": 2,
+      "stroke-dasharray": S.pivot === "C" ? "7 5" : "none", opacity: 0.85 });
+
+    // fans: rays from every probe through each REAL channel to the glass
+    const marks = { B: [], D: [], C: [] };
+    for (const ch of ["B", "D"]) {
+      const Z = c[ch];
+      for (const p of pts) {
+        const m = markVia(Z, p.z, p.y);
+        marks[ch].push(m);
+        const onPivot = (S.pivot === ch);
+        el("line", { x1: xz(p.z), y1: yy(p.y), x2: X0,
+          y2: yy(Math.max(-YCLIP, Math.min(YCLIP, m))),
+          stroke: COL[ch], "stroke-width": onPivot ? 0 : 1,
+          opacity: onPivot ? 0 : 0.4 });
+      }
+    }
+    for (const p of pts) marks.C.push(markVia(c.C, p.z, p.y));
+
+    // center handles on the axis
+    for (const ch of ["B", "D"]) {
+      el("circle", { cx: xz(c[ch]), cy: AXY, r: 9, fill: COL[ch], cursor: "ew-resize",
+        id: "h" + ch });
+      el("text", { x: xz(c[ch]) - 5, y: AXY + 28, "font-size": 15, fill: COL[ch],
+        "font-weight": "bold" }, svg, ch);
+      el("text", { x: xz(c[ch]) + 8, y: AXY + 28, "font-size": 12, fill: COL.faint }, svg,
+        fmt(c[ch], 0));
+    }
+    el("circle", { cx: xz(c.C), cy: AXY, r: 8, fill: "none", stroke: COL.C,
+      "stroke-width": 2.5, "stroke-dasharray": "3 3" });
+    el("text", { x: xz(c.C) - 5, y: AXY - 14, "font-size": 15, fill: COL.C,
+      "font-weight": "bold" }, svg, "C");
+    el("text", { x: xz(c.C) + 8, y: AXY - 14, "font-size": 12, fill: COL.faint }, svg,
+      "HM " + fmt(c.C));
+
+    // marks on the glass
+    if (S.pivot === "C") {
+      drawMarkTick(marks.C[0], COL.C, true);
+      marks.B.forEach(m => drawMarkTick(m, COL.B, false));
+      marks.D.forEach(m => drawMarkTick(m, COL.D, false));
+      el("text", { x: X0 + 12, y: yy(Math.max(-YCLIP, Math.min(YCLIP, marks.C[0]))) + 4,
+        "font-size": 12, fill: COL.C }, svg, "the C-camera's promise");
+    } else {
+      drawMarkTick(marks[S.pivot][0], COL[S.pivot], false);
+      const other = S.pivot === "B" ? "D" : "B";
+      marks[other].forEach(m => drawMarkTick(m, COL[other], false));
+      el("text", { x: X0 + 12, y: yy(Math.max(-YCLIP, Math.min(YCLIP, marks[S.pivot][0]))) + 4,
+        "font-size": 12, fill: COL[S.pivot] }, svg,
+        pts.length + " probes · 1 mark");
+    }
+
+    // probes: ghosts then the draggable one
+    for (const p of pts.slice(1)) {
+      el("circle", { cx: xz(p.z), cy: yy(p.y), r: 5, fill: "#7a7466" });
+    }
+    el("circle", { cx: xz(pr.z), cy: yy(pr.y), r: 10, fill: COL.ink, cursor: "grab", id: "hP" });
+    el("text", { x: xz(pr.z) + 12, y: yy(pr.y) - 8, "font-size": 12.5, fill: COL.faint }, svg,
+      "probe " + fmt(pr.z, 0));
+
+    renderRates(c, pr);
+    renderCaption(pts.length);
+    renderReadout(c, marks);
+    runChecks(c, pr, marks);
+    wireDrag();
+  }
+
+  function renderRates(c, pr) {
+    clear(rsvg);
+    const y0 = ry(0);
+    el("line", { x1: X0, y1: y0, x2: 990, y2: y0, stroke: COL.faint, "stroke-width": 1 }, rsvg);
+    el("line", { x1: X0, y1: 14, x2: X0, y2: R_H - 14, stroke: COL.ink, "stroke-width": 1.5 }, rsvg);
+    el("text", { x: X0 + 6, y: ry(1) - 6, "font-size": 12, fill: COL.faint }, rsvg, "reciprocal scale 1 − z/Z");
+    el("text", { x: 900, y: y0 - 6, "font-size": 12, fill: COL.faint }, rsvg, "0 · roots");
+    el("text", { x: 860, y: ry(-1.4), "font-size": 12, fill: COL.faint }, rsvg, "inverted below");
+    const clip = r => Math.max(R_BOT, Math.min(R_TOP, r));
+    function line(Z, color, dash) {
+      // draw between depths where the rate stays in range
+      const zA = 0, zB = Math.min(S.ZMAX, Z * (1 - R_BOT));
+      el("line", { x1: xz(zA), y1: ry(clip(rate(Z, zA))), x2: xz(zB), y2: ry(clip(rate(Z, zB))),
+        stroke: color, "stroke-width": 2, "stroke-dasharray": dash || "none" }, rsvg);
+      el("circle", { cx: xz(Z), cy: y0, r: 4.5, fill: color }, rsvg);
+    }
+    line(c.B, COL.B); line(c.D, COL.D); line(c.C, COL.C, "7 5");
+    for (const ch of ["B", "C", "D"]) {
+      el("text", { x: xz(c[ch]) - 4, y: y0 + 18, "font-size": 13, fill: COL[ch],
+        "font-weight": "bold" }, rsvg, ch);
+    }
+    // probe-depth marker with the three rate values
+    const z = pr.z;
+    el("line", { x1: xz(z), y1: 14, x2: xz(z), y2: R_H - 14, stroke: COL.faint,
+      "stroke-width": 1, "stroke-dasharray": "4 4" }, rsvg);
+    el("circle", { cx: xz(z), cy: ry(clip(rate(c.B, z))), r: 4, fill: COL.B }, rsvg);
+    el("circle", { cx: xz(z), cy: ry(clip(rate(c.D, z))), r: 4, fill: COL.D }, rsvg);
+    el("circle", { cx: xz(z), cy: ry(clip(rate(c.C, z))), r: 6, fill: "none",
+      stroke: COL.C, "stroke-width": 2.5 }, rsvg);
+    el("text", { x: xz(z) + 8, y: ry(clip(rate(c.C, z))) + 4, "font-size": 12,
+      fill: COL.C }, rsvg, "avg = " + fmt(rate(c.C, z), 3));
+  }
+
+  function renderCaption(np) {
+    const cap = document.getElementById("sceneCap");
+    if (S.pivot === "B") cap.innerHTML =
+      `<b>${np} probes, one line through <span class="cB">B</span>, one crimson mark.</b> ` +
+      `B is a center by incidence — the u-channel threads it. The <span class="cD">purple ` +
+      `rays</span> through D, cast by the same probes, fan: one channel threaded, the other declines.`;
+    else if (S.pivot === "D") cap.innerHTML =
+      `<b>${np} probes, one line through <span class="cD">D</span>, one purple mark.</b> ` +
+      `D is the other center by incidence — your slide-the-probe observation, drawn. The ` +
+      `<span class="cB">crimson rays</span> through B fan.`;
+    else cap.innerHTML =
+      `<b>The same ${np} probes on a line through <span class="cC">C</span>.</b> The hollow gold ` +
+      `ring is the mark a pinhole at C promises — internally consistent, honored by nothing. Both ` +
+      `real channels scatter their marks; no pencil concurs. C moves nothing. What it owns instead ` +
+      `is the chart below.`;
+  }
+
+  function renderReadout(c, marks) {
+    const cr = crossRatio(c.B, c.D, 0, c.C);
+    const spread = a => Math.max(...a) - Math.min(...a);
+    document.getElementById("readout").innerHTML =
+      `<span><b class="cB">B</b> = ${fmt(c.B, 0)}</span>` +
+      `<span><b class="cD">D</b> = ${fmt(c.D, 0)}</span>` +
+      `<span><b class="cC">C</b> = HM = 2BD/(B+D) = ${fmt(c.C, 2)}</span>` +
+      `<span>(B, D; A, C) = ${fmt(cr, 6)}</span>` +
+      `<span>mark spread along this line — ` +
+      `<span class="cB">${fmt(spread(marks.B), 1)}</span> · ` +
+      `<span class="cD">${fmt(spread(marks.D), 1)}</span> · ` +
+      `<span class="cC">${fmt(spread(marks.C), 1)}</span></span>`;
+  }
+
+  function runChecks(c, pr, marks) {
+    const out = [];
+    const push = (ok, txt) => out.push(`<li class="${ok ? "ok" : "bad"}">${txt}</li>`);
+    const eps = 1e-9;
+    const spread = a => Math.max(...a) - Math.min(...a);
+    push(Math.abs(c.C - fourthHarmonic(c.B, c.D, 0)) < eps,
+      "C from the polar formula = C solved from (B, D; A, x) = −1");
+    push(Math.abs(crossRatio(c.B, c.D, 0, c.C) + 1) < 1e-12,
+      "cross-ratio (B, D; A, C) = −1 to 1e−12");
+    if (S.pivot === "C") {
+      push(spread(marks.B) > 1e-3 && spread(marks.D) > 1e-3,
+        `C-line: both real channels' marks scatter (spreads ${fmt(spread(marks.B), 1)}, ` +
+        `${fmt(spread(marks.D), 1)}) — non-pivot confirmed`);
+      push(spread(marks.C) < eps, "C-line: the C-camera's own mark is invariant — the fiction is consistent");
+    } else {
+      push(spread(marks[S.pivot]) < eps,
+        `${S.pivot}-line: the threaded channel's mark is invariant — pivot confirmed`);
+      push(spread(marks[S.pivot === "B" ? "D" : "B"]) > 1e-3,
+        "the other channel's marks scatter — the pivot is partial");
+    }
+    push(Math.abs((rate(c.B, pr.z) + rate(c.D, pr.z)) / 2 - rate(c.C, pr.z)) < 1e-12,
+      "rate closure at the probe's depth: mean of channel rates = rate of a pinhole at C");
+    const okDrawn = ["B", "D", "C"].every(ch =>
+      Math.abs(markDrawn(c[ch], pr.z, pr.y) - markVia(c[ch], pr.z, pr.y)) < eps);
+    push(okDrawn, "drawn intersection = closed-form mark, all three centers");
+    push([marks.B[0], marks.D[0], marks.C[0]].every(m => Math.sign(m) === -Math.sign(pr.y)),
+      "every mark inverted (scene beyond both slits)");
+    document.getElementById("checks").innerHTML = out.join("");
+  }
+
+  // ---- interaction ----
+  function svgPoint(evt) {
+    const p = svg.createSVGPoint();
+    p.x = evt.clientX; p.y = evt.clientY;
+    return p.matrixTransform(svg.getScreenCTM().inverse());
+  }
+  let drag = null;
+  function wireDrag() {
+    for (const id of ["hP", "hB", "hD"]) {
+      const h = document.getElementById(id);
+      if (h) h.addEventListener("pointerdown", ev => {
+        drag = id; ev.preventDefault();
+        svg.setPointerCapture(ev.pointerId);
+      });
+    }
+  }
+  svg.addEventListener("pointermove", ev => {
+    if (!drag) return;
+    const p = svgPoint(ev);
+    const z = (p.x - X0) / XS;
+    if (drag === "hP") {
+      S.probe.z = z; S.probe.y = (AXY - p.y) / YS;
+    } else if (drag === "hB") {
+      S.B = Math.round(Math.max(60, Math.min(S.D - 40, z)));
+    } else if (drag === "hD") {
+      S.D = Math.round(Math.max(S.B + 40, Math.min(560, z)));
+    }
+    syncSliders(); render();
+  });
+  svg.addEventListener("pointerup", () => { drag = null; });
+  svg.addEventListener("pointercancel", () => { drag = null; });
+
+  const slB = document.getElementById("slB"), slD = document.getElementById("slD");
+  function syncSliders() {
+    slB.value = S.B; slD.value = S.D;
+    document.getElementById("vB").textContent = S.B;
+    document.getElementById("vD").textContent = S.D;
+  }
+  slB.addEventListener("input", () => { S.B = Math.min(+slB.value, S.D - 40); syncSliders(); render(); });
+  slD.addEventListener("input", () => { S.D = Math.max(+slD.value, S.B + 40); syncSliders(); render(); });
+
+  const seg = document.getElementById("seg");
+  function syncSeg() {
+    for (const b of seg.querySelectorAll("button")) {
+      b.className = (b.dataset.p === S.pivot) ? ("on-" + S.pivot) : "";
+    }
+  }
+  seg.addEventListener("click", ev => {
+    const b = ev.target.closest("button");
+    if (b) { S.pivot = b.dataset.p; syncSeg(); render(); }
+  });
+
+  syncSliders(); syncSeg(); render();
+})();
+</script>
+</body>
+</html>
