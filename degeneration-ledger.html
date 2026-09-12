@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The degeneration ledger · The Reading Sessions</title>
+<style>
+  :root{
+    --paper:#F4F0E6; --panel:#FBF9F3; --ink:#26231E; --soft:#6E675C;
+    --crimson:#A31F34; --purple:#5E3A9E; --gold:#B8860B; --green:#1E8E3E;
+    --red:#C0392B; --blue:#2B5FA3; --rule:#D8D2C2;
+  }
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+    font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.5;
+    -webkit-text-size-adjust:100%;}
+  .wrap{max-width:960px;margin:0 auto;padding:18px 16px calc(40px + env(safe-area-inset-bottom));}
+  .crumbs{font-size:13px;color:var(--soft);margin-bottom:14px;}
+  .crumbs a{color:var(--soft);}
+  h1{font-size:28px;margin:6px 0 10px;letter-spacing:.2px;}
+  h2{font-size:19px;margin:34px 0 8px;}
+  p{margin:8px 0;}
+  a{color:var(--blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .thesis{background:var(--panel);border-left:5px solid var(--red);
+    padding:10px 14px;margin:16px 0;border-radius:0 6px 6px 0;}
+  .caption{font-size:13.5px;color:var(--soft);margin:6px 2px 0;}
+  canvas{display:block;width:100%;height:auto;background:var(--panel);
+    border:1px solid var(--rule);border-radius:8px;touch-action:none;}
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:720px){.duo{grid-template-columns:1fr;}}
+  .controls{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 8px;align-items:center;}
+  button{font:inherit;font-size:13.5px;background:var(--panel);border:1px solid var(--rule);
+    border-radius:6px;padding:5px 10px;color:var(--ink);cursor:pointer;}
+  button:active{background:#efe9da;}
+  .slider{flex:1;}
+  table.ledger{border-collapse:collapse;width:100%;font-size:13.8px;margin:10px 0;
+    font-variant-numeric:tabular-nums;background:var(--panel);border:1px solid var(--rule);
+    border-radius:8px;overflow:hidden;}
+  table.ledger th,table.ledger td{border-bottom:1px solid var(--rule);text-align:left;
+    padding:7px 9px;vertical-align:top;}
+  table.ledger th{font-size:12.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--soft);
+    background:#f3efe3;}
+  table.ledger td.now{white-space:nowrap;color:#3A362F;}
+  .v-sur{color:var(--green);font-weight:700;} .v-triv{color:#7a8a4a;font-weight:700;}
+  .v-mut{color:var(--gold);font-weight:700;} .v-rev{color:var(--blue);font-weight:700;}
+  .v-gau{color:var(--soft);font-weight:700;} .v-die{color:var(--red);font-weight:700;}
+  .checks{background:var(--panel);border:1px solid var(--rule);border-radius:8px;
+    padding:8px 14px;font-size:14px;font-variant-numeric:tabular-nums;}
+  .checks div{display:flex;justify-content:space-between;gap:10px;padding:4px 0;
+    border-bottom:1px dashed var(--rule);}
+  .checks div:last-child{border-bottom:none;}
+  .ok{color:var(--green);font-weight:700;} .bad{color:var(--red);font-weight:700;}
+  dl{margin:8px 0;}
+  dt{font-weight:700;margin-top:10px;}
+  dd{margin:2px 0 0 0;font-size:14.5px;color:#3A362F;}
+  .foot{margin-top:36px;font-size:13.5px;color:var(--soft);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="crumbs">
+  <a href="https://flyingsticks.github.io/reading-sessions/index.html">The Reading Sessions</a> ·
+  companion to <a href="three-means-here.html">The three means, here</a> and
+  <a href="gm-mirror.html">The GM mirror</a> ·
+  12 September 2026
+</div>
+
+<h1>The degeneration ledger</h1>
+
+<p>The means page said of the pinhole: <i>one event, seen twice</i>. This ledger sees it
+fourteen times. One dial — the half-gap ε between the slits and their common limit — is
+walked to zero, and every object of the figure files its outcome under a verdict:
+<b>survives</b>, <b>survives trivially</b>, <b>mutates</b>, <b>revives in the blow-up</b>,
+<b>decays to gauge</b>, or <b>dies</b> — in the spirit of the Euclid's-Five treatment,
+where the question is never only <i>whether</i> a thing fails but <i>what it turns
+into</i>. The left panel is the true scale, where the figure fuses; the right panel is
+the blow-up chart, the same scene with the axis and heights rescaled by ε, where much of
+what died stands back up. The glass, which owns the true scale, is exiled to infinity in
+the chart — an echo, in miniature, of the seam's exiled meeting.</p>
+
+<div class="controls">
+  <span style="font-size:13.5px;color:var(--soft)">half-gap ε</span>
+  <input type="range" class="slider" id="eps" min="-2" max="2.0107" step="0.005" value="2.0107">
+  <span style="font-size:14px" id="epsVal">102.5</span>
+  <button id="btnSketch">sketch gap · 102.5</button>
+  <button id="btnNear">near · 1</button>
+  <button id="btnWalk">walk to the pinhole</button>
+</div>
+
+<div class="duo">
+  <div>
+    <canvas id="cvMac"></canvas>
+    <p class="caption"><b>True scale.</b> Pinhole target P = 252.5, glass A at 0. The
+    three means converge, the equator shrinks to a point, the two tangents close onto
+    the axis, the quadrilateral thins to a sliver along the pinned ray S–P, and the
+    circle on AC settles into the circle on glass–pinhole. What persists: the
+    <span style="color:var(--red)">right angle at F</span>, the foot of the perpendicular
+    from the glass onto the ray — Thales on the survivor.</p>
+  </div>
+  <div>
+    <canvas id="cvChart"></canvas>
+    <p class="caption"><b>Blow-up chart</b> — coordinates (x − P)/ε, y/ε; the frame never
+    moves. The equator is the unit circle for every ε; the slits stand at ∓1; C marches
+    to the midpoint 0; A slides off to infinity; the eye E, the touch point T and the
+    summit converge at (0, 1); the mirror steepens into the vertical crease, its action
+    turning into the half-turn u ↦ −u; and the square's second diagonal, aimed at the
+    receding A, turns parallel to the horizon.</p>
+  </div>
+</div>
+
+<h2>The ledger</h2>
+<table class="ledger" id="ledgerTable">
+<tr><th style="width:26%">entry</th><th style="width:22%">now</th><th style="width:9%">rate</th><th>verdict</th></tr>
+</table>
+
+<h2>What to look for</h2>
+
+<p>Three different fates hide inside "everything fuses." The <b>cross-ratio never
+wavers</b>: (B, D; C, A) = −1 at every ε &gt; 0, and only its <i>points</i> collapse — at
+ε = 0 the expression is 0/0, and the blow-up regularizes the points so the −1 stands in
+the chart as (−1, +1; 0, ∞), the conjugate of infinity being the midpoint. The
+<b>means fuse and then revive one order down</b>: their spreads are second order, and
+because AM × HM = GM² holds all the way, the geometric mean lands exactly midway —
+(AM − GM)/(GM − HM) → 1, the three means re-separating in arithmetic progression at
+scale ε². And <b>orthogonality decays to incidence</b>: the two circles cross at right
+angles for every ε, and when one of them dies to a point, the right angle has nothing
+left to measure — what remains is that the dead circle's point lies <i>on</i> the
+survivor, which is the classical reading of a null circle orthogonal to a live one.</p>
+
+<p>The mirror's fate is the ledger's best mutation. Inversion in the GM circle, viewed
+in the chart, flattens into <b>the half-turn u ↦ −u about the crease</b>: it still swaps
+the slits (∓1), still fixes the midpoint where C and GM have both marched, and its fixed
+circle steepens into the vertical line through the crease. An inversion seen at small
+scale near its own circle is a reflection — the ledger watches that classical fact
+arrive. Meanwhile the square's construction splits its verdicts: the incidence law (the
+fourth ray lands unaided) survives in the chart, while the meeting point of the diagonal
+and the sliver's tip halt at 1 − t and (1 − t)/(1 + t) — numbers that persist but report
+only the free starting choice. The limit is where facts and gauges, which the drawing
+had let look alike, are forced to declare themselves.</p>
+
+<div class="thesis">
+<p style="margin:4px 0"><b>A degeneration is not a death; it is a sorting.</b> The
+pinhole limit sends every entry of the figure to its own address: laws that hold at
+every ε keep holding; laws about fused points revive one chart down or one order down;
+right angles migrate to survivors; inversions flatten to reflections; and the numbers
+that halt at values set by free choices are thereby exposed as gauges. The ledger is the
+sorting, written out.</p>
+</div>
+
+<h2>Checks</h2>
+<div class="checks" id="ledgerChecks"></div>
+<p class="caption">Exact at every ε &gt; 0, re-run on every interaction, computed from the
+drawn geometry: C is the constructed tangency foot, E the constructed circle crossing, F
+the constructed perpendicular foot, and both squares are ruler-and-straightedge
+intersections — one in the true scale, one re-run in the chart. The convergence <i>rates</i>
+claimed in the ledger's third column are asserted in check_degeneration_ledger.js by
+comparing deviations across a decade of ε.</p>
+
+<h2>Conventions</h2>
+<p style="font-size:14.5px">Judgment calls flagged: the vertex S is pinned to its limit
+position (0.55 P, 0.5 P) so the collapse is the range's doing, not the vertex's drifting;
+the blow-up square is the construction <i>re-run in the chart</i> — the true-scale square's
+image would sit at infinity there, since S is macroscopic; the approach is symmetric
+(B, D → P at equal rates), and the asymmetric case is asserted in the check script — the
+chart range becomes (−1, +2; ½, ∞), still harmonic, the midpoint moving where the
+midpoint should; both frames are fixed rather than auto-fit, because a ledger about
+convergence must not let the camera chase what converges. The level set at z* is a plane
+and is called one.</p>
+
+<h2>Glossary of verdicts</h2>
+<dl>
+<dt>survives</dt><dd>Holds at every ε and holds with content at the limit. The perpendicular foot F and its right angle; the mirror's fixed points, arriving at ±P.</dd>
+<dt>survives trivially</dt><dd>Holds throughout while its content drains: the scales law, whose two channels agree about everything once they coincide.</dd>
+<dt>mutates</dt><dd>Survives as a different kind of statement: orthogonality → incidence; inversion → half-turn; tangent length → distance to the pinhole.</dd>
+<dt>revives in the blow-up</dt><dd>Dead at true scale, alive in ε-units: the equator as the unit circle, the range as (−1, +1; 0, ∞), the eye at the summit, the square with a horizon-parallel diagonal.</dd>
+<dt>decays to gauge</dt><dd>The number persists but reports a choice: the diagonal's meeting point at 1 − t, the sliver's tip at (1 − t)/(1 + t).</dd>
+<dt>dies</dt><dd>Nothing to inherit: the two tangents as two distinct lines; the crossing angle of the two circles as an angle.</dd>
+<dt>blow-up · chart</dt><dd>The scene in coordinates (x − P)/ε, y/ε: a microscope whose magnification tracks the degeneration exactly.</dd>
+<dt>crease</dt><dd>The mirror's trace in the chart: the vertical line the fixed circle steepens into; the axis of the surviving half-turn.</dd>
+<dt>exiled</dt><dd>Sent to infinity by the chart, as the glass is: present in every finite drawing, unreachable in the limit's own coordinates.</dd>
+</dl>
+
+<div class="foot">
+<a href="three-means-here.html">The three means, here</a> ·
+<a href="gm-mirror.html">The GM mirror</a> ·
+<a href="station-point-addendum.html">The station-point addendum</a> ·
+<a href="https://flyingsticks.github.io/reading-sessions/index.html">All sessions</a>
+</div>
+</div>
+
+<script>
+/*CORE-BEGIN*/
+const Core = {
+  means(O, Zv, Zh){
+    const a = Zv - O, b = Zh - O, s = a + b, p = a * b;
+    const AM = s / 2;
+    const HM = s !== 0 ? 2 * p / s : NaN;
+    const GM = p > 0 ? (s >= 0 ? 1 : -1) * Math.sqrt(p) : NaN;
+    return { a, b, AM, GM, HM, power: p, R: Math.abs(b - a) / 2, M: (Zv + Zh) / 2 };
+  },
+  inv(O, p2, x){ return O + p2 / (x - O); },
+  circInt(c1, r1, c2, r2){
+    const dx = c2.x - c1.x, dy = c2.y - c1.y, d = Math.hypot(dx, dy);
+    if (d === 0) return null;
+    const l = (d * d + r1 * r1 - r2 * r2) / (2 * d);
+    const h2 = r1 * r1 - l * l;
+    if (h2 < 0) return null;
+    const h = Math.sqrt(h2), ex = dx / d, ey = dy / d;
+    return [
+      { x: c1.x + l * ex - h * ey, y: c1.y + l * ey + h * ex },
+      { x: c1.x + l * ex + h * ey, y: c1.y + l * ey - h * ex }
+    ];
+  },
+  upper(pair){ return pair ? (pair[0].y >= pair[1].y ? pair[0] : pair[1]) : null; },
+  tangentTouch(O, Zv, Zh){
+    const m = { x: (Zv + Zh) / 2, y: 0 }, R = Math.abs(Zh - Zv) / 2;
+    const n = { x: (O + m.x) / 2, y: 0 }, r = Math.abs(m.x - O) / 2;
+    return Core.upper(Core.circInt(m, R, n, r));
+  },
+  lineInt(p, q, r, s){
+    const d1x = q.x - p.x, d1y = q.y - p.y, d2x = s.x - r.x, d2y = s.y - r.y;
+    const den = d1x * d2y - d1y * d2x;
+    if (Math.abs(den) < 1e-14) return null;
+    const t = ((r.x - p.x) * d2y - (r.y - p.y) * d2x) / den;
+    return { x: p.x + t * d1x, y: p.y + t * d1y };
+  },
+  crossRatio(b, d, c, a){ return ((c - b) / (c - d)) / ((a - b) / (a - d)); },
+  distToLine(p, q, r){
+    const dx = r.x - q.x, dy = r.y - q.y, L = Math.hypot(dx, dy);
+    return Math.abs((p.x - q.x) * dy - (p.y - q.y) * dx) / L;
+  },
+  angleAt(E, P, Q){
+    const a = Math.atan2(P.y - E.y, P.x - E.x), b = Math.atan2(Q.y - E.y, Q.x - E.x);
+    let d = Math.abs(a - b) * 180 / Math.PI;
+    return d > 180 ? 360 - d : d;
+  },
+  // quadrilateral on a range: sides -> B, D ; first diagonal -> C; A for the landing test
+  quadOn(A, B, C, D, S, t){
+    const S2 = { x: S.x + t * (B.x - S.x), y: S.y + t * (B.y - S.y) };
+    const S4 = Core.lineInt(S2, D, S, C);
+    const S3 = S4 ? Core.lineInt(S4, B, S, D) : null;
+    return { A, B, C, D, S, S2, S4, S3 };
+  },
+  // the symmetric pinhole approach: slits at P ∓ eps, glass at O
+  rig(P, eps, O){
+    const Zv = P - eps, Zh = P + eps;
+    const mn = Core.means(O, Zv, Zh);
+    const M = { x: mn.M, y: 0 }, R = mn.R;
+    const T = Core.tangentTouch(O, Zv, Zh);
+    const Cx = T.x;                              // constructed foot
+    const c1 = { x: (O + Cx) / 2, y: 0 }, r1 = Math.abs(Cx - O) / 2;
+    const E = Core.upper(Core.circInt(c1, r1, M, R));
+    const S = { x: O + 0.55 * (P - O), y: 0.5 * (P - O) };   // pinned vertex
+    const lamF = ((O - P) * (S.x - P) + 0 * S.y) / ((S.x - P) ** 2 + S.y ** 2);
+    const F = { x: P + lamF * (S.x - P), y: lamF * S.y };
+    const quad = Core.quadOn({ x: O, y: 0 }, { x: Zv, y: 0 }, { x: Cx, y: 0 },
+                             { x: Zh, y: 0 }, S, 0.45);
+    return { O, P, eps, Zv, Zh, mn, M, R, T, Cx, c1, r1, E, S, F, lamF, quad,
+             summit: { x: M.x, y: R } };
+  },
+  chart(bd, pt){ return { x: (pt.x - bd.P) / bd.eps, y: pt.y / bd.eps }; },
+  // the square re-run in the chart: slits at ∓1, C and A at their chart positions
+  chartSquare(bd, Su, t){
+    const A = { x: (bd.O - bd.P) / bd.eps, y: 0 };
+    const B = { x: -1, y: 0 }, D = { x: 1, y: 0 };
+    const C = { x: (bd.Cx - bd.P) / bd.eps, y: 0 };
+    return Core.quadOn(A, B, C, D, Su, t);
+  },
+  // the mirror's action written in the chart
+  mirrorChart(bd, u){
+    const x = bd.P + u * bd.eps;
+    return (Core.inv(bd.O, bd.mn.power, x) - bd.P) / bd.eps;
+  },
+  // the fourteen rows
+  ledger(bd){
+    const { mn, eps, P, O, T, Cx, E, F, quad } = bd;
+    const Eu = Core.chart(bd, E), Tu = Core.chart(bd, T);
+    const Cu = (Cx - P) / eps, Au = (O - P) / eps;
+    const cs = Core.chartSquare(bd, { x: -0.6, y: 1.35 }, 0.45);
+    const slope = cs.S3 ? (cs.S3.y - cs.S2.y) / (cs.S3.x - cs.S2.x) : NaN;
+    let crease = 0;
+    for (const u of [-1.6, -0.7, 0.6, 1.5])
+      crease = Math.max(crease, Math.abs(Core.mirrorChart(bd, u) + u));
+    const meetFrac = quad.S2.y / bd.S.y;          // -> 1 - t
+    const meetFrac3 = quad.S3 ? quad.S3.y / bd.S.y : NaN;
+    const tipFrac = quad.S4 ? quad.S4.y / bd.S.y : NaN;
+    const elev = Math.atan2(T.y, T.x - O) * 180 / Math.PI;
+    const incid = Math.abs(Math.hypot(P - bd.c1.x, 0) - bd.r1);
+    return {
+      gap: 2 * eps,
+      spread: mn.AM - mn.HM,
+      prog: (mn.AM - mn.GM) / (mn.GM - mn.HM),
+      cr: Core.crossRatio(bd.Zv, bd.Zh, Cx, O),
+      Cu, Au,
+      Runit: bd.R / eps,
+      dE: Math.hypot(Eu.x - 0, Eu.y - 1),
+      dT: Math.hypot(Tu.x - 0, Tu.y - 1),
+      crease,
+      slope,
+      meetFrac, meetFrac3, tipFrac,
+      elev,
+      incid,
+      chGap: Math.abs(1 / mn.a - 1 / mn.b)
+    };
+  },
+  // exact-at-every-eps residuals, from constructions
+  checksLive(bd){
+    const { O, P, eps, Zv, Zh, mn, T, Cx, c1, r1, M, R, E, F, quad } = bd;
+    const L = Core.ledger(bd);
+    const out = [], add = (n, r) => out.push({ name: n, res: r });
+    add("(B, D; C, A) = −1 at every ε", Math.abs(L.cr + 1));
+    add("closing law AM × HM = GM²",
+      Math.abs(mn.AM * mn.HM - mn.GM * mn.GM) / (mn.GM * mn.GM));
+    add("defect identity AM − HM = ε²/(P − O)",
+      Math.abs((mn.AM - mn.HM) - eps * eps / (P - O)) / Math.max(1e-300, eps * eps / (P - O)));
+    add("equator is the unit circle of the chart", Math.abs(L.Runit - 1));
+    add("fourth ray lands on A (true scale)",
+      quad.S3 ? Core.distToLine(quad.A, quad.S2, quad.S3) / (P - O) : 1);
+    add("fourth ray lands on A (chart)", (() => {
+      const cs = Core.chartSquare(bd, { x: -0.6, y: 1.35 }, 0.45);
+      return cs.S3 ? Core.distToLine(cs.A, cs.S2, cs.S3) / Math.abs(cs.A.x) : 1;
+    })());
+    add("circle on AC ⟂ circle on BD",
+      Math.abs((M.x - c1.x) ** 2 - r1 * r1 - R * R) / Math.max(R * R, 1e-300));
+    add("∠AFP = 90° — Thales on the survivor",
+      Math.abs(Core.angleAt(F, { x: O, y: 0 }, { x: P, y: 0 }) - 90) / 90);
+    add("mirror swaps the slits at every ε",
+      (Math.abs(Core.inv(O, mn.power, Zv) - Zh) + Math.abs(Core.inv(O, mn.power, Zh) - Zv)) / (P - O));
+    return out;
+  }
+};
+/*CORE-END*/
+
+// ------------------------------------------------------------------ state
+const state = { P: 252.5, O: 0, eps: 102.5 };
+const $ = id => document.getElementById(id);
+const cvMac = $("cvMac"), cvChart = $("cvChart");
+
+function sizeCanvas(cv, hRatio){
+  const w = cv.clientWidth || cv.parentElement.clientWidth;
+  const h = Math.round(w * hRatio);
+  const dpr = window.devicePixelRatio || 1;
+  cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+  cv.style.height = h + "px";
+  const g = cv.getContext("2d");
+  g.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return { g, w, h };
+}
+const fmt = (x, d = 2) => Number.isFinite(x) ? x.toFixed(d) : "—";
+const fex = x => Number.isFinite(x) ? (Math.abs(x) >= 0.01 ? x.toFixed(3) : x.toExponential(1)) : "—";
+
+// ------------------------------------------------------------------ macro panel
+function drawMac(bd){
+  const { g, w, h } = sizeCanvas(cvMac, 0.72);
+  const xmin = -45, xmax = 520;
+  const sc = w / (xmax - xmin);
+  const X = x => (x - xmin) * sc, Y = y => h / 2 - y * sc;
+  const { O, P, mn, M, R, T, Cx, c1, r1, E, S, F, quad } = bd;
+  g.clearRect(0, 0, w, h); g.lineJoin = "round"; g.lineCap = "round";
+  g.font = "11px Helvetica";
+  // axis + glass
+  g.strokeStyle = "#555"; g.lineWidth = 1;
+  g.beginPath(); g.moveTo(0, Y(0)); g.lineTo(w, Y(0)); g.stroke();
+  g.strokeStyle = "#777";
+  g.beginPath(); g.moveTo(X(O), Y(-120)); g.lineTo(X(O), Y(120)); g.stroke();
+  // mirror arc (radius GM about O)
+  g.strokeStyle = "#1E8E3E"; g.setLineDash([6, 4]); g.lineWidth = 1.4;
+  g.beginPath(); g.arc(X(O), Y(0), mn.GM * sc, -1.15, 1.15); g.stroke(); g.setLineDash([]);
+  // circle on AC (→ circle on glass–pinhole)
+  g.strokeStyle = "rgba(43,95,163,.5)"; g.lineWidth = 1.4;
+  g.beginPath(); g.arc(X(c1.x), Y(0), r1 * sc, 0, Math.PI * 2); g.stroke();
+  // equator
+  g.strokeStyle = "rgba(192,57,43,.6)"; g.lineWidth = 1.8;
+  g.beginPath(); g.arc(X(M.x), Y(0), Math.max(R * sc, 0.6), 0, Math.PI * 2); g.stroke();
+  // the pinned ray S–P and the triangle A F P
+  g.strokeStyle = "rgba(110,103,92,.45)"; g.lineWidth = 1;
+  g.beginPath(); g.moveTo(X(S.x + 0.35 * (S.x - P)), Y(S.y + 0.35 * S.y));
+  g.lineTo(X(P), Y(0)); g.stroke();
+  g.fillStyle = "rgba(192,57,43,.08)";
+  g.beginPath(); g.moveTo(X(O), Y(0)); g.lineTo(X(F.x), Y(F.y)); g.lineTo(X(P), Y(0));
+  g.closePath(); g.fill();
+  g.strokeStyle = "#C0392B"; g.lineWidth = 1.2;
+  g.beginPath(); g.moveTo(X(O), Y(0)); g.lineTo(X(F.x), Y(F.y)); g.stroke();
+  // right-angle tick at F
+  const u1 = { x: (O - F.x), y: -F.y }, n1 = Math.hypot(u1.x, u1.y);
+  const n2 = Math.hypot(P - F.x, F.y);
+  const k = 7;
+  const a1 = { x: u1.x / n1, y: u1.y / n1 }, a2 = { x: (P - F.x) / n2, y: (0 - F.y) / n2 };
+  g.beginPath();
+  g.moveTo(X(F.x) + a1.x * k, Y(F.y) - a1.y * k);
+  g.lineTo(X(F.x) + (a1.x + a2.x) * k, Y(F.y) - (a1.y + a2.y) * k);
+  g.lineTo(X(F.x) + a2.x * k, Y(F.y) - a2.y * k);
+  g.stroke();
+  // tangent pair
+  g.strokeStyle = "#1E8E3E"; g.lineWidth = 1.4;
+  g.beginPath(); g.moveTo(X(O), Y(0)); g.lineTo(X(T.x), Y(T.y)); g.stroke();
+  g.strokeStyle = "rgba(30,142,62,.35)";
+  g.beginPath(); g.moveTo(X(O), Y(0)); g.lineTo(X(T.x), Y(-T.y)); g.stroke();
+  // quadrilateral
+  if (quad.S3){
+    g.fillStyle = "rgba(192,57,43,.14)"; g.strokeStyle = "#C0392B"; g.lineWidth = 1.5;
+    g.beginPath();
+    g.moveTo(X(quad.S.x), Y(quad.S.y)); g.lineTo(X(quad.S2.x), Y(quad.S2.y));
+    g.lineTo(X(quad.S4.x), Y(quad.S4.y)); g.lineTo(X(quad.S3.x), Y(quad.S3.y));
+    g.closePath(); g.fill(); g.stroke();
+  }
+  // marks: means fusing
+  const mark = (x, c, r = 3.8) => { g.fillStyle = c;
+    g.beginPath(); g.arc(X(x), Y(0), r, 0, Math.PI * 2); g.fill(); };
+  mark(O, "#A31F34", 4.2); mark(bd.Zv, "#7c1626"); mark(bd.Zh, "#5E3A9E");
+  mark(Cx, "#B8860B"); mark(O + mn.GM, "#1E8E3E", 3.2); mark(O + mn.AM, "#26231E", 3.0);
+  g.fillStyle = "#2B5FA3"; g.beginPath(); g.arc(X(E.x), Y(E.y), 3.8, 0, Math.PI * 2); g.fill();
+  g.fillStyle = "#C0392B"; g.beginPath(); g.arc(X(F.x), Y(F.y), 3.6, 0, Math.PI * 2); g.fill();
+  g.fillStyle = "#6E675C";
+  g.fillText("A", X(O) - 3, Y(0) + 16);
+  g.fillText("P", X(P) - 3, Y(0) + 16);
+  g.fillText("F", X(F.x) + 6, Y(F.y) - 5);
+  g.fillText("E", X(E.x) + 6, Y(E.y) + 3);
+  g.fillText("true scale — the figure fuses", 10, 16);
+}
+
+// ------------------------------------------------------------------ chart panel
+function drawChart(bd){
+  const { g, w, h } = sizeCanvas(cvChart, 0.72);
+  const umin = -2.8, umax = 2.8, vmax = 1.95;
+  const sc = w / (umax - umin);
+  const X = u => (u - umin) * sc;
+  const Y = v => (vmax - v) * sc;
+  g.clearRect(0, 0, w, h); g.lineJoin = "round"; g.lineCap = "round";
+  g.font = "11px Helvetica";
+  // axis
+  g.strokeStyle = "#555"; g.lineWidth = 1;
+  g.beginPath(); g.moveTo(0, Y(0)); g.lineTo(w, Y(0)); g.stroke();
+  // unit circle (the equator, exact at every ε)
+  g.strokeStyle = "rgba(192,57,43,.7)"; g.lineWidth = 2;
+  g.beginPath(); g.arc(X(0), Y(0), sc, 0, Math.PI * 2); g.stroke();
+  // mirror in the chart: sampled arc steepening to the crease
+  g.strokeStyle = "#1E8E3E"; g.setLineDash([6, 4]); g.lineWidth = 1.4;
+  g.beginPath();
+  let first = true;
+  for (let i = -60; i <= 60; i++){
+    const th = i * 0.9 / 60;                       // angle on the true mirror
+    const x = bd.O + Math.abs(bd.mn.GM) * Math.cos(th);
+    const y = Math.abs(bd.mn.GM) * Math.sin(th);
+    const u = (x - bd.P) / bd.eps, v = y / bd.eps;
+    if (u < umin - 1 || u > umax + 1 || Math.abs(v) > vmax + 1){ first = true; continue; }
+    if (first){ g.moveTo(X(u), Y(v)); first = false; } else g.lineTo(X(u), Y(v));
+  }
+  g.stroke(); g.setLineDash([]);
+  // chart square
+  const cs = Core.chartSquare(bd, { x: -0.6, y: 1.35 }, 0.45);
+  if (cs.S3){
+    g.strokeStyle = "rgba(192,57,43,.4)"; g.lineWidth = 0.8;
+    [[cs.S, cs.B], [cs.S3, cs.B], [cs.S2, cs.D], [cs.S, cs.D], [cs.S, cs.C]].forEach(([p, q]) => {
+      g.beginPath(); g.moveTo(X(p.x), Y(p.y)); g.lineTo(X(q.x), Y(q.y)); g.stroke();
+    });
+    g.fillStyle = "rgba(192,57,43,.13)"; g.strokeStyle = "#C0392B"; g.lineWidth = 1.6;
+    g.beginPath();
+    g.moveTo(X(cs.S.x), Y(cs.S.y)); g.lineTo(X(cs.S2.x), Y(cs.S2.y));
+    g.lineTo(X(cs.S4.x), Y(cs.S4.y)); g.lineTo(X(cs.S3.x), Y(cs.S3.y));
+    g.closePath(); g.fill(); g.stroke();
+    // diagonals; the second turns horizontal as A recedes
+    g.lineWidth = 1.5;
+    g.beginPath(); g.moveTo(X(cs.S.x), Y(cs.S.y)); g.lineTo(X(cs.S4.x), Y(cs.S4.y)); g.stroke();
+    g.beginPath(); g.moveTo(X(cs.S2.x), Y(cs.S2.y)); g.lineTo(X(cs.S3.x), Y(cs.S3.y)); g.stroke();
+    // its extension toward the exiled A
+    g.strokeStyle = "rgba(192,57,43,.35)"; g.lineWidth = 0.8;
+    const dx = cs.S2.x - cs.S3.x, dy = cs.S2.y - cs.S3.y, L = Math.hypot(dx, dy);
+    g.beginPath(); g.moveTo(X(cs.S2.x), Y(cs.S2.y));
+    g.lineTo(X(cs.S2.x + dx / L * 6), Y(cs.S2.y + dy / L * 6)); g.stroke();
+  }
+  // marks
+  const Cu = (bd.Cx - bd.P) / bd.eps, GMu = (bd.O + bd.mn.GM - bd.P) / bd.eps;
+  const Eu = Core.chart(bd, bd.E), Tu = Core.chart(bd, bd.T);
+  const mk = (u, v, c, r = 4) => { g.fillStyle = c;
+    g.beginPath(); g.arc(X(u), Y(v), r, 0, Math.PI * 2); g.fill(); };
+  mk(-1, 0, "#7c1626"); mk(1, 0, "#5E3A9E");
+  mk(Cu, 0, "#B8860B"); mk(GMu, 0, "#1E8E3E", 3.2); mk(0, 0, "#26231E", 2.8);
+  mk(Eu.x, Eu.y, "#2B5FA3"); mk(Tu.x, Tu.y, "#1E8E3E", 3.4);
+  // summit ring
+  g.strokeStyle = "#26231E"; g.lineWidth = 1.4;
+  g.beginPath(); g.arc(X(0), Y(1), 7, 0, Math.PI * 2); g.stroke();
+  // exiled A
+  const Au = (bd.O - bd.P) / bd.eps;
+  if (Au > umin){ mk(Au, 0, "#A31F34", 4.2); g.fillStyle = "#A31F34"; g.fillText("A", X(Au) - 3, Y(0) + 16); }
+  else {
+    g.strokeStyle = "#A31F34"; g.lineWidth = 1.4;
+    g.beginPath(); g.moveTo(X(umin + 0.35), Y(0)); g.lineTo(X(umin + 0.08), Y(0)); g.stroke();
+    g.beginPath(); g.moveTo(X(umin + 0.16), Y(0.07)); g.lineTo(X(umin + 0.08), Y(0));
+    g.lineTo(X(umin + 0.16), Y(-0.07)); g.stroke();
+    g.fillStyle = "#A31F34"; g.fillText("A — exiled (u = " + Au.toFixed(0) + ")", X(umin + 0.42), Y(0) - 6);
+  }
+  g.fillStyle = "#6E675C";
+  g.fillText("−1", X(-1) - 6, Y(0) + 16); g.fillText("+1", X(1) - 5, Y(0) + 16);
+  g.fillText("E, T → (0, 1)", X(0) + 12, Y(1) - 6);
+  g.fillText("blow-up chart — (x − P)/ε, y/ε", 10, 16);
+}
+
+// ------------------------------------------------------------------ ledger + checks
+const VERDICTS = {
+  sur: '<span class="v-sur">survives</span>',
+  triv: '<span class="v-triv">survives trivially</span>',
+  mut: '<span class="v-mut">mutates</span>',
+  rev: '<span class="v-rev">revives in the blow-up</span>',
+  gau: '<span class="v-gau">decays to gauge</span>',
+  die: '<span class="v-die">dies</span>'
+};
+function drawLedger(bd){
+  const L = Core.ledger(bd);
+  const rows = [
+    ["the half-gap ε — the one dial", fmt(bd.eps, 3), "O(ε)", VERDICTS.die + " — by instruction"],
+    ["the three means, as three points", "AM − HM = " + fex(L.spread), "O(ε²)",
+      VERDICTS.mut + " — fuse, then re-separate one order down"],
+    ["…their progression (AM − GM)/(GM − HM)", fmt(L.prog, 6) + " → 1", "O(ε²)",
+      VERDICTS.rev + " — arithmetic progression at scale ε², forced by AM × HM = GM²"],
+    ["cross-ratio (B, D; C, A)", fmt(L.cr, 9), "exact",
+      VERDICTS.sur + " — never wavers; only its points collapse (0/0 at ε = 0 only)"],
+    ["the range, in the chart", "C at " + fex(L.Cu) + " → 0 · A at " + fmt(L.Au, 0) + " → −∞", "O(ε)",
+      VERDICTS.rev + " — as (−1, +1; 0, ∞): conjugate of infinity is the midpoint"],
+    ["the equator (station-point locus)", "R/ε = " + fmt(L.Runit, 9), "exact",
+      VERDICTS.rev + " — the unit circle of the chart, at every ε"],
+    ["the eye E and the touch point T", "|E − (0,1)| = " + fex(L.dE) + " · |T − (0,1)| = " + fex(L.dT), "O(ε)",
+      VERDICTS.rev + " — eye, tangency and summit converge one unit over the pinhole"],
+    ["the two tangents, as two lines", "elevation " + fmt(L.elev, 3) + "°", "O(ε)",
+      VERDICTS.die + " — close onto the axis; the length survives as GM → P (" + VERDICTS.mut + ")"],
+    ["orthogonality of the two circles", "residual exact · incidence gap " + fex(L.incid), "O(ε²)",
+      VERDICTS.mut + " — decays to incidence: the dead circle's point lies on the survivor"],
+    ["the right angle", "∠AFP = 90° exact", "O(1)",
+      VERDICTS.sur + " — migrates from T (tangent ⟂ radius) to F (Thales on the survivor)"],
+    ["the mirror", "crease gap max|ι(u) + u| = " + fex(L.crease), "O(ε)",
+      VERDICTS.mut + " — inversion flattens to the half-turn u ↦ −u about the crease"],
+    ["the square, true scale", "meeting at " + fmt(L.meetFrac, 3) + ", " + fmt(L.meetFrac3, 3) + " → 1 − t · tip at " + fmt(L.tipFrac, 3) + " → (1 − t)/(1 + t)", "O(ε)",
+      VERDICTS.gau + " — the halting values report the free start, not the figure"],
+    ["the square, in the chart", "second diagonal slope " + fex(L.slope), "O(ε)",
+      VERDICTS.rev + " — sides to ∓1, one diagonal to 0, the other turning parallel to the horizon"],
+    ["the scales law", "channel gap |1/a − 1/b| = " + fex(L.chGap), "O(ε)",
+      VERDICTS.triv + " — exact throughout while its two channels become one"]
+  ];
+  $("ledgerTable").innerHTML =
+    "<tr><th style='width:26%'>entry</th><th style='width:24%'>now</th><th style='width:8%'>rate</th><th>verdict</th></tr>" +
+    rows.map(r => `<tr><td>${r[0]}</td><td class="now">${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join("");
+
+  const cks = Core.checksLive(bd);
+  $("ledgerChecks").innerHTML = cks.map((r, i) => {
+    const ok = r.res < 1e-6;
+    return `<div><span>${i + 1}. ${r.name}</span>` +
+      `<span class="${ok ? "ok" : "bad"}">${ok ? "✓" : "✗"} residual ${r.res.toExponential(1)}</span></div>`;
+  }).join("");
+}
+
+// ------------------------------------------------------------------ redraw + controls
+function redraw(){
+  const bd = Core.rig(state.P, state.eps, state.O);
+  drawMac(bd); drawChart(bd); drawLedger(bd);
+  $("epsVal").textContent = state.eps >= 1 ? state.eps.toFixed(1) : state.eps.toFixed(3);
+}
+$("eps").oninput = e => { state.eps = Math.pow(10, +e.target.value); redraw(); };
+$("btnSketch").onclick = () => { state.eps = 102.5; $("eps").value = Math.log10(102.5); redraw(); };
+$("btnNear").onclick = () => { state.eps = 1; $("eps").value = 0; redraw(); };
+$("btnWalk").onclick = () => {
+  const step = () => {
+    if (state.eps <= 0.011) return;
+    state.eps *= 0.94;
+    $("eps").value = Math.log10(state.eps);
+    redraw();
+    requestAnimationFrame(step);
+  };
+  step();
+};
+window.addEventListener("resize", redraw);
+redraw();
+</script>
+</body>
+</html>
