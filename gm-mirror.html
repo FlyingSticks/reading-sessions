@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The GM mirror · The Reading Sessions</title>
+<style>
+  :root{
+    --paper:#F4F0E6; --panel:#FBF9F3; --ink:#26231E; --soft:#6E675C;
+    --crimson:#A31F34; --purple:#5E3A9E; --gold:#B8860B; --green:#1E8E3E;
+    --red:#C0392B; --blue:#2B5FA3; --rule:#D8D2C2;
+  }
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+    font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.5;
+    -webkit-text-size-adjust:100%;}
+  .wrap{max-width:920px;margin:0 auto;padding:18px 16px calc(40px + env(safe-area-inset-bottom));}
+  .crumbs{font-size:13px;color:var(--soft);margin-bottom:14px;}
+  .crumbs a{color:var(--soft);}
+  h1{font-size:28px;margin:6px 0 10px;letter-spacing:.2px;}
+  h2{font-size:19px;margin:34px 0 8px;}
+  p{margin:8px 0;}
+  a{color:var(--blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .thesis{background:var(--panel);border-left:5px solid var(--green);
+    padding:10px 14px;margin:16px 0;border-radius:0 6px 6px 0;}
+  .caption{font-size:13.5px;color:var(--soft);margin:6px 2px 0;}
+  canvas{display:block;width:100%;height:auto;background:var(--panel);
+    border:1px solid var(--rule);border-radius:8px;touch-action:none;}
+  .controls{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 8px;align-items:center;}
+  button{font:inherit;font-size:13.5px;background:var(--panel);border:1px solid var(--rule);
+    border-radius:6px;padding:5px 10px;color:var(--ink);cursor:pointer;}
+  button:active{background:#efe9da;}
+  label.tog{font-size:13.5px;color:var(--soft);display:inline-flex;gap:5px;align-items:center;
+    background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:4px 9px;}
+  .readouts{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px;margin:8px 0 2px;
+    font-variant-numeric:tabular-nums;}
+  .r-a{color:var(--crimson)} .r-b{color:var(--purple)} .r-hm{color:var(--gold)}
+  .r-gm{color:var(--green)} .r-am{color:var(--ink)} .r-def{color:var(--red)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:640px){.grid2{grid-template-columns:1fr;}}
+  .card{background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:10px 14px;}
+  .card h3{margin:2px 0 6px;font-size:15.5px;text-transform:uppercase;letter-spacing:.6px;}
+  .card ul{margin:4px 0 4px;padding-left:18px;}
+  .card li{margin:6px 0;font-size:14.5px;}
+  .checks{background:var(--panel);border:1px solid var(--rule);border-radius:8px;
+    padding:8px 14px;font-size:14px;font-variant-numeric:tabular-nums;}
+  .checks div{display:flex;justify-content:space-between;gap:10px;padding:4px 0;
+    border-bottom:1px dashed var(--rule);}
+  .checks div:last-child{border-bottom:none;}
+  .ok{color:var(--green);font-weight:700;} .na{color:var(--soft);} .bad{color:var(--red);font-weight:700;}
+  dl{margin:8px 0;}
+  dt{font-weight:700;margin-top:10px;}
+  dd{margin:2px 0 0 0;font-size:14.5px;color:#3A362F;}
+  .slider{flex:1;}
+  .foot{margin-top:36px;font-size:13.5px;color:var(--soft);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="crumbs">
+  <a href="https://flyingsticks.github.io/reading-sessions/index.html">The Reading Sessions</a> ·
+  companion to <a href="three-means-here.html">The three means, here</a> ·
+  12 September 2026
+</div>
+
+<h1>The GM mirror</h1>
+
+<p>The laws card of the last plate listed seven equalities. This plate says they are one
+symmetry, seen seven times. <b>Invert in the circle of radius GM centred at the glass</b> —
+the map x · x′ = ab — and the whole diagram trades partners: the slits swap, AM and HM
+swap, the glass trades with the ideal point, and GM and the touch point T hold still.
+Reciprocation on the rate square is this mirror performed in the rig's own unit, since
+GM² = ab. Drag the marks, drag the probe, then pull the <b>fold</b> slider and watch every
+conjugate pair ride its semicircle through the mirror at a right angle.</p>
+
+<div class="controls">
+  <button id="btnSketch">sketch rig · 150 / 355</button>
+  <button id="btnBook">book rig · 150 / 250</button>
+  <label class="tog"><input type="checkbox" id="tgMirror" checked> mirror</label>
+  <label class="tog"><input type="checkbox" id="tgFold" checked> fold paths</label>
+  <label class="tog"><input type="checkbox" id="tgEye" checked> eye → summit</label>
+  <label class="tog"><input type="checkbox" id="tgFar"> far fixed point</label>
+  <label class="tog"><input type="checkbox" id="tgLab" checked> labels</label>
+</div>
+
+<canvas id="cv1"></canvas>
+<div class="controls" style="margin-top:8px">
+  <span style="font-size:13.5px;color:var(--soft)">fold</span>
+  <input type="range" class="slider" id="fold" min="0" max="1" step="0.005" value="0">
+  <span style="font-size:14px" id="foldVal">0.00</span>
+</div>
+<div class="readouts" id="readouts"></div>
+<p class="caption">The <span style="color:var(--green)">green dashed circle</span> is the
+mirror: radius GM, centred at the glass, meeting the axis at the GM mark (and, behind the
+glass, at −GM). Fold: <span style="color:var(--crimson)">B</span> rides the equator to
+<span style="color:var(--purple)">D</span>, crossing the mirror at
+<b>T</b>; <span style="color:var(--gold)">HM</span> rides its own semicircle to AM; the
+draggable ◆ probe rides its pair-circle to ab/x. Every crossing carries a right-angle
+tick, because <b>every circle through a conjugate pair is orthogonal to the mirror</b> —
+the closing law AM × HM = GM² is just this power law at one particular pair.</p>
+
+<h2>What to look for</h2>
+
+<p>The mirror meets the axis at the GM mark — that is what "GM is fixed" looks like as
+incidence. The tangent's touch point T lies on the mirror too (its distance from the glass
+<i>is</i> GM), and the equator crosses the mirror exactly there, at right angles: the
+orthogonality is the law AM² − GM² = R², which the last plate carried as a line in a card
+and this plate draws as a crossing. Since the equator is orthogonal to the mirror, the
+mirror carries the equator to itself — the sphere is its own image.</p>
+
+<p>The eye's circle is the one thing that does not come back: it passes through the centre
+of inversion, so it opens out into a line — <b>the transverse plane through the sphere's
+centre</b> — and the eye E lands on the <b>summit of the equator</b>. The station point
+and the sphere's north pole are mirror partners. Meanwhile A trades with the ideal point,
+which is the degeneration of the last plate seen in reverse: the harmonic range
+(B, D; C, A) = −1 maps to (D, B; M, ∞) = −1 — <i>the conjugate of infinity is the
+midpoint</i> — so the glass's harmonic story and the midpoint's harmonic story are the
+same fact on the two sides of the mirror.</p>
+
+<div class="thesis">
+<p style="margin:4px 0"><b>One symmetry, seven shadows.</b> Swap of the slits, swap of
+AM and HM, fixity of GM, fixity of T, self-duality of GM under reciprocation, orthogonality
+of equator and mirror, and the closing law AM × HM = GM² are one map — inversion with the
+power of the glass. The rate square's reciprocal duality is this mirror in the rig's own
+unit: r = 1/u is x′ = ab/x with ab set to one.</p>
+</div>
+
+<h2>Counts · Laws · Gauges · Defects</h2>
+
+<div class="grid2">
+<div class="card"><h3>Counts</h3><ul>
+<li><b>1</b> mirror · <b>2</b> fixed points on the axis, at ±GM from the glass.</li>
+<li><b>2</b> slits trade in <b>1</b> stroke; so do AM and HM; so do glass and ideal point.</li>
+<li><b>1</b> crossing that matters twice: mirror × equator = T, the tangency.</li>
+<li>Every conjugate pair rides <b>1</b> semicircle; each crosses the mirror in <b>2</b> right angles (one drawn).</li>
+<li><b>9</b> live checks in the ledger below.</li>
+</ul></div>
+<div class="card"><h3>Laws</h3><ul>
+<li><b>x · x′ = GM²</b> — the mirror's definition is the closing law, stated for every pair at once.</li>
+<li><b>B ↔ D, HM ↔ AM, A ↔ ∞; GM and T fixed.</b></li>
+<li><b>Cross-ratio survives the mirror</b>; in particular (B, D; C, A) = −1 ↦ (D, B; M, ∞) = −1.</li>
+<li><b>Equator ⊥ mirror</b> (AM² − GM² = R²), hence the sphere is self-inverse; the crossing is T.</li>
+<li><b>Circle on AC ↦ the plane at AM; E ↦ the summit.</b> The eye and the north pole are partners.</li>
+<li><b>Reciprocation = the mirror in the rig's unit</b>, GM² = ab.</li>
+</ul></div>
+<div class="card"><h3>Gauges</h3><ul>
+<li><b>Centred at the glass.</b> Move the glass and the mirror rides along; the power ab is measured from wherever O stands.</li>
+<li><b>The fold path is a choice.</b> The map is the two endpoints; the semicircle is one certified road between them (orthogonal all the way). Other roads exist.</li>
+<li><b>The unit is the rig's own.</b> GM² = ab is what makes reciprocation land back in depth units instead of rates.</li>
+</ul></div>
+<div class="card"><h3>Defects</h3><ul>
+<li><b>Glass between the slits</b>: the power ab goes negative and the mirror leaves the reals with GM — but the <i>map</i> survives as an anti-mirror (x′ = ab/x with ab &lt; 0), which still swaps the slits while fixing nothing real. The page draws the arrows and not the circle.</li>
+<li><b>Pinhole limit</b>: the slits fall onto the mirror and stop trading; AM and HM fuse there too. The mirror survives; its cast of movers does not.</li>
+</ul></div>
+</div>
+
+<h2>Checks</h2>
+<div class="checks" id="ledger"></div>
+<p class="caption">Re-run on every interaction, from the drawn geometry: T is the
+Thales-circle construction, E is the crossing of the two drawn circles, the
+equator–mirror crossing is computed as a crossing and compared to T, and the eye's image
+is the constructed E pushed through the map — the closed forms sit on the other side of
+each residual.</p>
+
+<h2>Conventions</h2>
+<p style="font-size:14.5px">Judgment calls flagged: the mirror is drawn as an arc and
+allowed to leave the frame — its far fixed point at −GM sits behind the glass and is
+brought into view by a toggle rather than by squeezing the scene; the fold animates both
+partners of each pair, which therefore pass each other mid-arc (at the summit, for B and
+D); the probe defaults to the sketch's 469, whose partner ab/469 lands just short of the
+near slit. The level set at z* is a plane and is called one.</p>
+
+<h2>Glossary</h2>
+<dl>
+<dt>inversion · mirror</dt><dd>The map sending x to O + ab/(x − O): distance times image-distance equals the power, GM².</dd>
+<dt>power of a point</dt><dd>For the glass and the means circle, ab; positive outside, zero on, negative inside.</dd>
+<dt>conjugate pair</dt><dd>A point and its image, x and ab/x. Slits are one pair; AM and HM another; glass and ideal point a third.</dd>
+<dt>fixed circle</dt><dd>The mirror itself: every point at distance GM from the glass stays put, T included.</dd>
+<dt>orthogonal circle</dt><dd>A circle crossing the mirror at right angles — equivalently, one through a conjugate pair. Carried to itself.</dd>
+<dt>anti-mirror</dt><dd>The same formula with negative power: still an involution swapping the slits, with no real fixed circle.</dd>
+<dt>summit</dt><dd>The top of the equator, over the centre; the mirror image of the eye E.</dd>
+</dl>
+
+<div class="foot">
+<a href="three-means-here.html">← The three means, here</a> ·
+<a href="https://flyingsticks.github.io/reading-sessions/means-sphere-3d.html">The three means, in the round</a> ·
+<a href="https://flyingsticks.github.io/reading-sessions/index.html">All sessions</a>
+</div>
+</div>
+
+<script>
+/*CORE-BEGIN*/
+const Core = {
+  means(O, Zv, Zh){
+    const a = Zv - O, b = Zh - O, s = a + b, p = a * b;
+    const AM = s / 2;
+    const HM = s !== 0 ? 2 * p / s : NaN;
+    const GM = p > 0 ? (s >= 0 ? 1 : -1) * Math.sqrt(p) : NaN;
+    return { a, b, AM, GM, HM, power: p, R: Math.abs(b - a) / 2, M: (Zv + Zh) / 2 };
+  },
+  inv(O, p2, x){ return O + p2 / (x - O); },
+  inv2(O, p2, P){
+    const dx = P.x - O, dy = P.y, q = p2 / (dx * dx + dy * dy);
+    return { x: O + q * dx, y: q * dy };
+  },
+  circInt(c1, r1, c2, r2){
+    const dx = c2.x - c1.x, dy = c2.y - c1.y, d = Math.hypot(dx, dy);
+    if (d === 0) return null;
+    const l = (d * d + r1 * r1 - r2 * r2) / (2 * d);
+    const h2 = r1 * r1 - l * l;
+    if (h2 < 0) return null;
+    const h = Math.sqrt(h2), ex = dx / d, ey = dy / d;
+    return [
+      { x: c1.x + l * ex - h * ey, y: c1.y + l * ey + h * ex },
+      { x: c1.x + l * ex + h * ey, y: c1.y + l * ey - h * ex }
+    ];
+  },
+  upper(pair){ return pair ? (pair[0].y >= pair[1].y ? pair[0] : pair[1]) : null; },
+  tangentTouch(O, Zv, Zh){
+    const m = { x: (Zv + Zh) / 2, y: 0 }, R = Math.abs(Zh - Zv) / 2;
+    const n = { x: (O + m.x) / 2, y: 0 }, r = Math.abs(m.x - O) / 2;
+    return Core.upper(Core.circInt(m, R, n, r));
+  },
+  crossRatio(b, d, c, a){ return ((c - b) / (c - d)) / ((a - b) / (a - d)); },
+  // position at fold t along the semicircle on [x, x'] as diameter
+  foldPos(O, p2, x, t){
+    const y = Core.inv(O, p2, x);
+    const c = (x + y) / 2, r = Math.abs(y - x) / 2;
+    if (r < 1e-12) return { x: x, y: 0 };
+    const th0 = x < y ? Math.PI : 0, th1 = Math.PI - th0;
+    const th = th0 + t * (th1 - th0);
+    return { x: c + r * Math.cos(th), y: r * Math.sin(th) };
+  },
+  build(O, Zv, Zh){
+    const mn = Core.means(O, Zv, Zh);
+    const M = { x: mn.M, y: 0 }, R = mn.R;
+    const p2 = mn.power;
+    const g = p2 > 0 ? Math.sqrt(p2) : NaN;      // mirror radius
+    const T = p2 > 0 ? Core.tangentTouch(O, Zv, Zh) : null;
+    const Cx = T ? T.x : NaN;                    // HM point, drawn as the foot of T
+    const AMx = O + mn.AM;
+    const GMx = p2 > 0 ? O + mn.GM : NaN;
+    const c1 = T ? { x: (O + Cx) / 2, y: 0 } : null;
+    const r1 = T ? Math.abs(Cx - O) / 2 : NaN;
+    const E = T ? Core.upper(Core.circInt(c1, r1, M, R)) : null;
+    const summit = { x: M.x, y: R };
+    const cross = p2 > 0 ? Core.upper(Core.circInt({ x: O, y: 0 }, g, M, R)) : null;
+    return { O, Zv, Zh, mn, M, R, p2, g, T, Cx, AMx, GMx, c1, r1, E, summit, cross };
+  },
+  checks(bd, xp){
+    const { O, Zv, Zh, mn, M, R, p2, g, T, Cx, AMx, GMx, E, summit, cross } = bd;
+    const out = [], add = (name, res) => out.push({ name, res });
+    const iv = x => Core.inv(O, p2, x);
+    const scale = Math.max(Math.abs(mn.a), Math.abs(mn.b));
+    add("mirror swaps the slits",
+      (Math.abs(iv(Zv) - Zh) + Math.abs(iv(Zh) - Zv)) / scale);
+    if (p2 > 0){
+      add("mirror swaps the means (HM ↔ AM)",
+        (Math.abs(iv(Cx) - AMx) + Math.abs(iv(AMx) - Cx)) / Math.abs(mn.AM));
+      add("GM is fixed", Math.abs(iv(GMx) - GMx) / Math.abs(mn.GM));
+      add("T lies on the mirror", Math.abs(Math.hypot(T.x - O, T.y) - g) / g);
+      add("equator ⊥ mirror, crossing at T",
+        Math.abs(mn.AM * mn.AM - mn.GM * mn.GM - R * R) / (R * R)
+        + (cross ? Math.hypot(cross.x - T.x, cross.y - T.y) / g : 1));
+      add("probe pair closes: x · x′ = GM²",
+        Math.abs((xp - O) * (iv(xp) - O) - p2) / Math.abs(p2));
+      add("eye inverts to the summit",
+        E ? (p => Math.hypot(p.x - summit.x, p.y - summit.y) / R)(Core.inv2(O, p2, E)) : null);
+      let mx = 0;
+      if (E) for (let k = 1; k < 8; k++){
+        const th = k * Math.PI / 8;
+        const P = { x: bd.c1.x + bd.r1 * Math.cos(th), y: bd.r1 * Math.sin(th) };
+        mx = Math.max(mx, Math.abs(Core.inv2(O, p2, P).x - AMx));
+      }
+      add("circle on AC inverts to the plane at AM", E ? mx / Math.abs(mn.AM) : null);
+      add("cross-ratio survives the mirror",
+        Math.abs(Core.crossRatio(Zv, Zh, Cx, GMx)
+               - Core.crossRatio(iv(Zv), iv(Zh), iv(Cx), iv(GMx))));
+    } else {
+      ["mirror swaps the means (HM ↔ AM)", "GM is fixed", "T lies on the mirror",
+       "equator ⊥ mirror, crossing at T", "probe pair closes: x · x′ = GM²",
+       "eye inverts to the summit", "circle on AC inverts to the plane at AM",
+       "cross-ratio survives the mirror"].forEach(n => add(n, null));
+    }
+    return out;
+  }
+};
+/*CORE-END*/
+
+// ------------------------------------------------------------------ state
+const state = { O: 0, Zv: 150, Zh: 355, probe: 469, fold: 0 };
+const $ = id => document.getElementById(id);
+const cv1 = $("cv1");
+const fmt = (x, d = 1) => Number.isFinite(x) ? x.toFixed(d) : "—";
+
+function sizeCanvas(cv, hRatio){
+  const w = cv.clientWidth || cv.parentElement.clientWidth;
+  const h = Math.round(w * hRatio);
+  const dpr = window.devicePixelRatio || 1;
+  cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+  cv.style.height = h + "px";
+  const g = cv.getContext("2d");
+  g.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return { g, w, h };
+}
+
+let view1 = null;
+function draw(){
+  const { g, w, h } = sizeCanvas(cv1, 0.62);
+  const bd = Core.build(state.O, state.Zv, state.Zh);
+  const { O, Zv, Zh, mn, M, R, p2, T, Cx, AMx, GMx, c1, r1, E, summit, cross } = bd;
+  const gm = bd.g;
+  const showM = $("tgMirror").checked, showF = $("tgFold").checked,
+        showE = $("tgEye").checked, showFar = $("tgFar").checked,
+        showLab = $("tgLab").checked;
+  const t = state.fold;
+
+  // probe pair
+  const xp = state.probe, xq = Core.inv(O, p2, xp);
+
+  // bounds
+  let xs = [O - 40, Zh + 60, xp + 30];
+  let ys = [-R - 30, R + 40];
+  if (p2 > 0){
+    xs.push(Math.min(xp, xq) - 20, Math.max(xp, xq) + 20);
+    ys.push(Math.abs(xq - xp) / 2 + 20);
+    if (showFar) xs.push(O - gm - 30);
+  }
+  if (E){ ys.push(E.y + 20); }
+  const xmin = Math.min(...xs), xmax = Math.max(...xs);
+  const ymin = Math.min(...ys), ymax = Math.max(...ys);
+  const pad = 14;
+  const sc = Math.min((w - 2 * pad) / (xmax - xmin), (h - 2 * pad) / (ymax - ymin));
+  const X = x => pad + (x - xmin) * sc + ((w - 2 * pad) - (xmax - xmin) * sc) / 2;
+  const Y = y => h - pad - (y - ymin) * sc - ((h - 2 * pad) - (ymax - ymin) * sc) / 2;
+  view1 = { X, sc, xmin };
+
+  g.clearRect(0, 0, w, h);
+  g.lineJoin = "round"; g.lineCap = "round"; g.font = "12px Helvetica";
+
+  // axis + image plane
+  g.strokeStyle = "#555"; g.lineWidth = 1.2;
+  g.beginPath(); g.moveTo(X(xmin), Y(0)); g.lineTo(X(xmax), Y(0)); g.stroke();
+  g.strokeStyle = "#777"; g.lineWidth = 1.4;
+  g.beginPath(); g.moveTo(X(O), Y(-R - 20)); g.lineTo(X(O), Y(R + 20)); g.stroke();
+
+  // equator (means circle)
+  g.strokeStyle = "rgba(192,57,43,.55)"; g.lineWidth = 2;
+  g.beginPath(); g.arc(X(M.x), Y(0), R * sc, 0, Math.PI * 2); g.stroke();
+
+  // the mirror
+  if (p2 > 0 && showM){
+    g.strokeStyle = "#1E8E3E"; g.lineWidth = 2; g.setLineDash([7, 5]);
+    g.beginPath(); g.arc(X(O), Y(0), gm * sc, 0, Math.PI * 2); g.stroke();
+    g.setLineDash([]);
+    // fixed points on the axis
+    g.fillStyle = "#1E8E3E";
+    g.beginPath(); g.arc(X(O + gm), Y(0), 4.6, 0, Math.PI * 2); g.fill();
+    if (showFar){ g.beginPath(); g.arc(X(O - gm), Y(0), 4.6, 0, Math.PI * 2); g.fill(); }
+    if (showLab){
+      g.fillText("the GM mirror — x · x′ = ab", X(O) + 8, Y(gm) + 16);
+      if (showFar) g.fillText("−GM · also fixed", X(O - gm) - 30, Y(0) + 22);
+    }
+  }
+
+  // right-angle tick between two unit directions at point P (screen space)
+  function tick(P, u1, u2){
+    const k = 8;
+    const s1 = { x: X(P.x) + u1.x * k, y: Y(P.y) - u1.y * k };
+    const s2 = { x: X(P.x) + u2.x * k, y: Y(P.y) - u2.y * k };
+    g.strokeStyle = "#1E8E3E"; g.lineWidth = 1.3;
+    g.beginPath();
+    g.moveTo(s1.x, s1.y);
+    g.lineTo(s1.x + (s2.x - X(P.x)), s1.y + (s2.y - Y(P.y)));
+    g.lineTo(s2.x, s2.y);
+    g.stroke();
+  }
+  const unit = (dx, dy) => { const L = Math.hypot(dx, dy) || 1; return { x: dx / L, y: dy / L }; };
+
+  // fold paths + moving pairs
+  function foldPair(x, colorA, colorB, drawPath){
+    if (p2 <= 0) return;
+    const y = Core.inv(O, p2, x);
+    const c = (x + y) / 2, r = Math.abs(y - x) / 2;
+    if (drawPath){
+      g.strokeStyle = "rgba(110,103,92,.4)"; g.lineWidth = 1;
+      g.beginPath(); g.arc(X(c), Y(0), r * sc, Math.PI, 2 * Math.PI); g.stroke();
+      // crossing with the mirror, with its right angle
+      const K = Core.upper(Core.circInt({ x: O, y: 0 }, gm, { x: c, y: 0 }, r));
+      if (K){ tick(K, unit(K.x - O, K.y), unit(K.x - c, K.y)); }
+    }
+    const pA = Core.foldPos(O, p2, x, t), pB = Core.foldPos(O, p2, y, t);
+    g.fillStyle = colorA; g.beginPath(); g.arc(X(pA.x), Y(pA.y), 5, 0, Math.PI * 2); g.fill();
+    g.fillStyle = colorB; g.beginPath(); g.arc(X(pB.x), Y(pB.y), 5, 0, Math.PI * 2); g.fill();
+  }
+  if (showF && p2 > 0){
+    foldPair(Zv, "#A31F34", "#5E3A9E", false);          // rides the equator itself
+    foldPair(Cx, "#B8860B", "#26231E", true);           // HM ↔ AM
+    foldPair(xp, "#8a5a2b", "#8a5a2b", true);           // the probe pair
+    // mark T where the equator crosses the mirror
+    if (cross){ tick(cross, unit(cross.x - O, cross.y), unit(cross.x - M.x, cross.y)); }
+  }
+
+  // tangent + T
+  if (T){
+    g.strokeStyle = "#1E8E3E"; g.lineWidth = 1.6;
+    g.beginPath(); g.moveTo(X(O), Y(0)); g.lineTo(X(T.x), Y(T.y)); g.stroke();
+    g.fillStyle = "#1E8E3E";
+    g.beginPath(); g.arc(X(T.x), Y(T.y), 4.2, 0, Math.PI * 2); g.fill();
+    if (showLab) g.fillText("T — fixed", X(T.x) + 7, Y(T.y) - 7);
+  }
+
+  // eye story
+  if (E && showE){
+    g.strokeStyle = "rgba(43,95,163,.5)"; g.lineWidth = 1.6;
+    g.beginPath(); g.arc(X(c1.x), Y(0), r1 * sc, 0, Math.PI * 2); g.stroke();
+    // its image: the plane at AM
+    g.strokeStyle = "rgba(43,95,163,.5)"; g.setLineDash([3, 3]); g.lineWidth = 1.4;
+    g.beginPath(); g.moveTo(X(AMx), Y(-R - 14)); g.lineTo(X(AMx), Y(R + 14)); g.stroke();
+    g.setLineDash([]);
+    g.fillStyle = "#2B5FA3";
+    g.beginPath(); g.arc(X(E.x), Y(E.y), 4.6, 0, Math.PI * 2); g.fill();
+    g.beginPath(); g.arc(X(summit.x), Y(summit.y), 4.6, 0, Math.PI * 2); g.fill();
+    g.strokeStyle = "rgba(43,95,163,.6)"; g.lineWidth = 1;
+    g.beginPath(); g.moveTo(X(E.x), Y(E.y)); g.lineTo(X(summit.x), Y(summit.y)); g.stroke();
+    if (showLab){
+      g.fillText("eye E", X(E.x) + 7, Y(E.y) + 12);
+      g.fillText("summit — E's image", X(summit.x) + 7, Y(summit.y) - 6);
+      g.fillText("plane at AM — image of the eye's circle", X(AMx) + 6, Y(-R - 4));
+    }
+  }
+
+  // marks on the axis
+  const mark = (x, color, r = 4.4) => { if (!Number.isFinite(x)) return;
+    g.fillStyle = color; g.beginPath(); g.arc(X(x), Y(0), r, 0, Math.PI * 2); g.fill(); };
+  mark(O, "#A31F34", 4.6); mark(Zv, "#7c1626", 4.2); mark(Zh, "#5E3A9E", 4.2);
+  if (p2 > 0){ mark(Cx, "#B8860B", 4.4); mark(GMx, "#1E8E3E", 4.4); mark(AMx, "#26231E", 4.0); }
+  // probe: a diamond
+  g.fillStyle = "#8a5a2b";
+  g.save(); g.translate(X(xp), Y(0)); g.rotate(Math.PI / 4); g.fillRect(-4.5, -4.5, 9, 9); g.restore();
+  if (p2 > 0){
+    g.strokeStyle = "#8a5a2b"; g.lineWidth = 1.2;
+    g.save(); g.translate(X(xq), Y(0)); g.rotate(Math.PI / 4); g.strokeRect(-4.5, -4.5, 9, 9); g.restore();
+  }
+
+  if (showLab){
+    g.font = "bold 14px Helvetica";
+    g.fillStyle = "#A31F34"; g.fillText("A", X(O) - 4, Y(0) + 22);
+    g.fillStyle = "#7c1626"; g.fillText("B", X(Zv) - 4, Y(0) + 22);
+    if (p2 > 0){ g.fillStyle = "#B8860B"; g.fillText("C", X(Cx) - 4, Y(0) + 22); }
+    g.fillStyle = "#5E3A9E"; g.fillText("D", X(Zh) - 4, Y(0) + 22);
+    g.font = "12px Helvetica"; g.fillStyle = "#6E675C";
+    if (p2 > 0){ g.fillText("GM · fixed", X(GMx) - 24, Y(0) - 10);
+                 g.fillText("AM", X(AMx) - 8, Y(0) + 36); }
+    g.fillText("probe x ◆ and its partner ab/x ◇", X(xp) - 60, Y(0) + 38);
+    g.fillText("A ↔ ∞", X(O) + 8, Y(0) - 26);
+    if (p2 <= 0){
+      g.fillStyle = "#C0392B"; g.font = "bold 13px Helvetica";
+      g.fillText("defect: power ab < 0 — the mirror has left the reals; the anti-mirror still swaps the slits",
+        X(xmin) + 10, Y(R + 26));
+    }
+  }
+
+  // readouts + ledger
+  $("readouts").innerHTML =
+    `<span class="r-a">a = ${fmt(mn.a)}</span>` +
+    `<span class="r-b">b = ${fmt(mn.b)}</span>` +
+    `<span class="r-gm"><b>GM = ${fmt(mn.GM, 2)}</b> · mirror radius</span>` +
+    `<span>power ab = ${fmt(p2, 0)}</span>` +
+    `<span class="r-hm">HM = ${fmt(mn.HM, 1)}</span>` +
+    `<span class="r-am">AM = ${fmt(mn.AM, 1)}</span>` +
+    `<span>probe pair: ${fmt(xp - O, 1)} × ${fmt(Number.isFinite(xq) ? xq - O : NaN, 1)} = ${fmt((xp - O) * (Number.isFinite(xq) ? xq - O : NaN), 0)}</span>`;
+
+  const rows = Core.checks(bd, xp);
+  $("ledger").innerHTML = rows.map((r, i) => {
+    if (r.res === null)
+      return `<div><span>${i + 1}. ${r.name}</span><span class="na">— (defect: no mirror)</span></div>`;
+    const ok = r.res < 1e-7;
+    return `<div><span>${i + 1}. ${r.name}</span>` +
+      `<span class="${ok ? "ok" : "bad"}">${ok ? "✓" : "✗"} residual ${r.res.toExponential(1)}</span></div>`;
+  }).join("");
+}
+
+// ------------------------------------------------------------------ interaction
+let drag = null;
+function pick(px){
+  const marks = [["O", state.O], ["Zv", state.Zv], ["Zh", state.Zh], ["probe", state.probe]];
+  let best = null, bestd = 18;
+  for (const [k, x] of marks){
+    const d = Math.abs(view1.X(x) - px);
+    if (d < bestd){ bestd = d; best = k; }
+  }
+  return best;
+}
+cv1.addEventListener("pointerdown", e => {
+  const r = cv1.getBoundingClientRect();
+  drag = pick(e.clientX - r.left);
+  if (drag) cv1.setPointerCapture(e.pointerId);
+});
+cv1.addEventListener("pointermove", e => {
+  if (!drag || !view1) return;
+  const r = cv1.getBoundingClientRect();
+  const x = view1.xmin + (e.clientX - r.left - view1.X(view1.xmin)) / view1.sc;
+  if (drag === "O") state.O = Math.round(x);
+  if (drag === "Zv") state.Zv = Math.min(Math.round(x), state.Zh - 6);
+  if (drag === "Zh") state.Zh = Math.max(Math.round(x), state.Zv + 6);
+  if (drag === "probe") state.probe = Math.abs(Math.round(x) - state.O) < 4 ? state.probe : Math.round(x);
+  draw();
+});
+cv1.addEventListener("pointerup", () => drag = null);
+
+$("btnSketch").onclick = () => { Object.assign(state, { O: 0, Zv: 150, Zh: 355, probe: 469 }); draw(); };
+$("btnBook").onclick = () => { Object.assign(state, { O: 0, Zv: 150, Zh: 250 }); draw(); };
+["tgMirror", "tgFold", "tgEye", "tgFar", "tgLab"].forEach(id => $(id).onchange = draw);
+$("fold").oninput = e => { state.fold = +e.target.value; $("foldVal").textContent = state.fold.toFixed(2); draw(); };
+window.addEventListener("resize", draw);
+draw();
+</script>
+</body>
+</html>
