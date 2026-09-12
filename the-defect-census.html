@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Defect Census · The Reading Sessions</title>
+<style>
+  :root {
+    --cream:#faf6ef; --plum:#43203f; --purple:#6a2c91; --crimson:#c0322b;
+    --gold:#b08948; --teal:#177f75; --green:#3d8f3d; --ink:#2b2226; --grey:#6b6360; --rule:#e2d9c8;
+  }
+  html { background: var(--cream); }
+  body { margin:0; color:var(--ink); background:var(--cream);
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+    font-size:17px; line-height:1.6; -webkit-text-size-adjust:100%; }
+  main { max-width:44rem; margin:0 auto; padding:3rem 1.25rem 5rem; }
+  .eyebrow { font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; font-size:.72rem;
+    letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin:0 0 1rem; }
+  .eyebrow a { color:var(--gold); border-bottom:none; }
+  .eyebrow a:hover { color:var(--crimson); }
+  h1 { font-size:2rem; line-height:1.1; margin:0 0 .45rem; color:var(--plum); font-weight:700; }
+  .sub { font-style:italic; font-size:1.1rem; color:var(--purple); margin:0 0 2rem; line-height:1.4; }
+  h2 { font-size:1.05rem; color:var(--plum); margin:2.6rem 0 .8rem;
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    letter-spacing:.14em; text-transform:uppercase; font-weight:600; }
+  p { margin:0 0 1rem; }
+  a { color:var(--purple); text-decoration:none; border-bottom:1px dotted var(--gold); }
+  a:hover, a:focus-visible { color:var(--crimson); border-bottom-style:solid; }
+  .thm { border:1px solid var(--gold); border-left-width:4px; padding:.8rem 1rem .5rem; margin:1.4rem 0 1.8rem; }
+  .thm h3 { font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; font-size:.78rem;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin:0 0 .5rem; font-weight:600; }
+  .inst { border:1px solid var(--gold); border-bottom-width:3px; padding:.9rem .9rem 1rem; margin:1.4rem 0 1.8rem; }
+  .ctl { display:flex; flex-wrap:wrap; gap:.5rem .8rem; align-items:center; margin:.4rem 0 .8rem;
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; font-size:.8rem; }
+  .ctl label { color:var(--grey); letter-spacing:.06em; }
+  .seg { display:inline-flex; border:1px solid var(--plum); border-radius:3px; overflow:hidden; }
+  .seg button { border:0; background:transparent; color:var(--plum); padding:.35rem .6rem; font:inherit; cursor:pointer; }
+  .seg button[aria-pressed=true] { background:var(--plum); color:var(--cream); }
+  input[type=range] { flex:1 1 150px; accent-color:#6a2c91; min-width:130px; }
+  .read { font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; font-size:.82rem; margin:.5rem 0 0; color:var(--grey); }
+  .read b { color:var(--plum); font-weight:600; }
+  .read .defect { color:var(--crimson); }
+  .cap { font-size:.85rem; color:var(--grey); line-height:1.5; margin:.7rem 0 0; }
+  svg { width:100%; height:auto; display:block; touch-action:none; }
+  .tag { font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; font-size:.66rem;
+    letter-spacing:.1em; text-transform:uppercase; font-weight:400; margin-left:.45rem; }
+  .tag.book { color:var(--purple); }
+  .tag.sessions { color:var(--teal); }
+  .tag.cand { color:var(--gold); }
+  .tag.open { color:var(--crimson); }
+  details.row { border:1px solid var(--rule); border-left:3px solid var(--gold);
+    margin:.55rem 0; background:transparent; scroll-margin-top:1rem; }
+  details.row summary { cursor:pointer; padding:.5rem .75rem; color:var(--plum);
+    font-weight:700; list-style:none; }
+  details.row summary::-webkit-details-marker { display:none; }
+  details.row summary::before { content:"+ "; color:var(--gold); font-weight:400; }
+  details.row[open] summary::before { content:"\2212  "; }
+  details.row .body { padding:0 .75rem .7rem; }
+  details.row dl { margin:0; display:grid; grid-template-columns:8.2em 1fr; gap:.15rem .7rem; font-size:.93rem; }
+  details.row dt { font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; font-size:.68rem;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--grey); padding-top:.18em; }
+  details.row dd { margin:0; }
+  details.row.hl { background:#f3ecdd; }
+  dl.gloss { margin:1rem 0 0; }
+  dl.gloss dt { color:var(--plum); font-weight:700; margin:.75rem 0 .1rem; }
+  dl.gloss dd { margin:0; font-size:.95rem; }
+  .draft { border:1px dashed var(--gold); padding:.7rem .9rem .1rem; margin:1rem 0; }
+  .draft h4 { font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; font-size:.72rem;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin:0 0 .4rem; font-weight:600; }
+  .draft p { font-size:.95rem; }
+  footer { margin-top:3rem; padding-top:1rem; border-top:1px solid var(--gold);
+    font-size:.85rem; color:var(--grey); line-height:1.7; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow"><a href="index.html">The Reading Sessions</a> · companion</p>
+    <h1>The Defect Census</h1>
+    <p class="sub">Every defect-like quantity in the book and the sessions &mdash; its space, its currency, its zero set, and what it obeys</p>
+  </header>
+
+  <p>The book never defines <em>defect</em>, and it turns out it never needed the word to use the thing. Chapter 2 bounds one, Chapter 3 coordinatizes one, Chapter 6 removes the removable part of one in closed form and names the remainder. The sessions then priced two more and, this week, watched a third refuse to clear against every counted gauge. This page is the audit that should precede any fold-in: a census of the quantities, one entry each, so that the genus can be named without manufacturing a homonym. The admission rule for a row: <em>it prices a failed agreement</em>. A verdict that merely compares a price against a resource is listed, but flagged as a verdict.</p>
+
+  <div class="thm">
+    <h3>The genus, proposed</h3>
+    <p style="font-style:italic; color:var(--plum); margin-bottom:.6rem;">A <b>defect</b> is the measured amount by which a required agreement fails.</p>
+    <p style="font-size:.95rem;">Every defect lives in a definite <b>space</b> and is quoted in a <b>currency</b>; re-denomination moves it between currencies but neither creates nor destroys it. Its <b>zero set</b> is where the agreement holds &mdash; identically on a locus, at isolated relocatable points, or nowhere at all. Some defects obey a <b>floor</b>, some a <b>conservation</b>. The shared grammar is the conservation page&rsquo;s: a total fixed by the law before any choice, a policy that relocates it, and zero available only on a locus, never by arrangement.</p>
+  </div>
+
+  <h2>The census</h2>
+  <p>Ten rows: seven from the book&rsquo;s side, three from the sessions&rsquo;. Tap a row to open it. Tallies name the script that stands behind the claim.</p>
+
+  <details class="row" id="c1">
+    <summary>C1 · Theorem 0&rsquo;s product<span class="tag book">book · ch 2</span></summary>
+    <div class="body"><dl>
+      <dt>quantity</dt><dd>|&Delta;&sup2;g| &middot; |g(&infin;)|, witness 2(1+d)/(2+d) for the pinned family</dd>
+      <dt>space</dt><dd>one gauge family on a line</dd>
+      <dt>currencies</dt><dd>equal-step defect; size of the finite mark for &infin;</dd>
+      <dt>zero set</dt><dd>empty &mdash; the product obeys a floor at 1</dd>
+      <dt>obeys</dt><dd>floor: small in one currency only by growing in the other</dd>
+      <dt>quarrel</dt><dd>demand against demand (equal steps <i>and</i> a finite seat for infinity)</dd>
+      <dt>status</dt><dd>book, Chapter 2; checked pre-build (smoke reach turn v3); floor re-verified in this page&rsquo;s script</dd>
+    </dl></div>
+  </details>
+
+  <details class="row" id="c2">
+    <summary>C2 · &lambda; &minus; &mu;<span class="tag book">book · ch 3</span></summary>
+    <div class="body"><dl>
+      <dt>quantity</dt><dd>gap between the bi-cross-ratio&rsquo;s two components</dd>
+      <dt>space</dt><dd>ray space P&sup1;&times;P&sup1;</dd>
+      <dt>currency</dt><dd>cross-ratio units</dd>
+      <dt>zero set</dt><dd>the seam &mdash; four rays co-chained iff &lambda; = &mu;</dd>
+      <dt>obeys</dt><dd>identically zero on the seam; nonzero off it</dd>
+      <dt>quarrel</dt><dd>reading against reading</dd>
+      <dt>status</dt><dd>book, seam theorem; verify seam.js 9/9 and verify seam v1 1.js 6/6, re-run from the live copies 4 Sep</dd>
+    </dl></div>
+  </details>
+
+  <details class="row" id="c3">
+    <summary>C3 · The split norm N(&delta;)<span class="tag cand">candidate · seam &sect;5</span></summary>
+    <div class="body"><dl>
+      <dt>quantity</dt><dd>N(&delta;) = &Delta;s &middot; &Delta;t on the difference plane &#8477;&oplus;&#8477;</dd>
+      <dt>space</dt><dd>the difference plane (double numbers)</dd>
+      <dt>currency</dt><dd>split-complex norm</dd>
+      <dt>zero set</dt><dd>the zero-divisor axes &mdash; the plane&rsquo;s light cone</dd>
+      <dt>obeys</dt><dd>equals the physical miss up to a positive factor</dd>
+      <dt>quarrel</dt><dd>reading against reading (re-denomination of C2&rsquo;s family)</dd>
+      <dt>status</dt><dd>verified numerically; book placement still a candidate for Seam &sect;5. Zero-set agreement with C4 and factor positivity re-checked in this page&rsquo;s script</dd>
+    </dl></div>
+  </details>
+
+  <details class="row" id="c4">
+    <summary>C4 · The 3D gap<span class="tag book">book · ch 3/5</span></summary>
+    <div class="body"><dl>
+      <dt>quantity</dt><dd>gap = D|&Delta;s&Delta;t| / &radic;(D&sup2;&Delta;s&sup2; + D&sup2;&Delta;t&sup2; + (s&#8321;t&#8322; &minus; s&#8322;t&#8321;)&sup2;)</dd>
+      <dt>space</dt><dd>world space, metric</dd>
+      <dt>currency</dt><dd>length</dd>
+      <dt>zero set</dt><dd>exactly where N(&delta;) = 0</dd>
+      <dt>obeys</dt><dd>closed form; positive multiple of |N(&delta;)|</dd>
+      <dt>quarrel</dt><dd>reading against reading (the same family, metric currency)</dd>
+      <dt>status</dt><dd>verified; re-checked here (zero sets coincide, factor positive across samples)</dd>
+    </dl></div>
+  </details>
+
+  <details class="row" id="c5">
+    <summary>C5 · The bow<span class="tag book">book · ch 1/6</span></summary>
+    <div class="body"><dl>
+      <dt>quantity</dt><dd>deflection of the camera&rsquo;s image of a straight edge</dd>
+      <dt>space</dt><dd>image space</dd>
+      <dt>currency</dt><dd>on-sheet deflection</dd>
+      <dt>zero set</dt><dd>the seam, seen from the picture&rsquo;s side</dd>
+      <dt>obeys</dt><dd>dies linearly with |&lambda; &minus; &mu;| (slope 1 in h; &mu; is h-independent, only &lambda; migrates &mdash; Demo 31)</dd>
+      <dt>quarrel</dt><dd>reading against reading (the same family, drawn)</dd>
+      <dt>status</dt><dd>demo-verified (Demos 28, 31)</dd>
+    </dl></div>
+  </details>
+
+  <details class="row" id="c6">
+    <summary>C6 · The Jensen bias<span class="tag book">book · ch 6</span></summary>
+    <div class="body"><dl>
+      <dt>quantity</dt><dd>signed depth error of the codec&rsquo;s estimator under blur</dd>
+      <dt>space</dt><dd>estimate space</dd>
+      <dt>currency</dt><dd>depth units</dd>
+      <dt>zero set</dt><dd>symmetric edge profiles</dd>
+      <dt>obeys</dt><dd>a removable closed-form part (matches &frac12;&sigma;&sup2;z&Prime; exactly) plus a named remainder (half-max crossing skewness)</dd>
+      <dt>quarrel</dt><dd>estimate against truth</dd>
+      <dt>status</dt><dd>book, Chapter 6; validated through the real-gauntlet arc. The census&rsquo;s best example of defect <em>accounting</em>: identify, re-denominate, remove the rational part, name the rest</dd>
+    </dl></div>
+  </details>
+
+  <details class="row" id="c7">
+    <summary>C7 · The budget &Delta;&middot;D against B&sup2;<span class="tag open">verdict · gap open</span></summary>
+    <div class="body"><dl>
+      <dt>quantity</dt><dd>not a measure &mdash; a verdict: choose glide when &Delta;&middot;D &lt; B&sup2;</dd>
+      <dt>space</dt><dd>comparison of a defect against a resource</dd>
+      <dt>obeys</dt><dd>threshold rule</dd>
+      <dt>status</dt><dd>book, Chapter 6 selection rule; the B&sup2; side&rsquo;s derivation is an open gap, stated plainly in &sect;6.3 &mdash; the census lists the verdict and inherits the gap</dd>
+    </dl></div>
+  </details>
+
+  <details class="row" id="c8">
+    <summary>C8 · The account A<span class="tag sessions">sessions · the conservation</span></summary>
+    <div class="body"><dl>
+      <dt>quantity</dt><dd>A = h &middot; (b<sub>N</sub> &minus; b<sub>0</sub>) &mdash; the corner cells&rsquo; total</dd>
+      <dt>space</dt><dd>count-versus-placement space</dd>
+      <dt>currency</dt><dd>area</dd>
+      <dt>zero set</dt><dd>none by arrangement; zero only by completing the count</dd>
+      <dt>obeys</dt><dd>conservation &mdash; blind to smear, pile and grade; witness A = 1 &times; 187.5; halves exactly with the step</dd>
+      <dt>quarrel</dt><dd>anchoring against anchoring, of one gauge</dd>
+      <dt>status</dt><dd><a href="the-conservation.html">the conservation</a>; check-the-area-identity.js 33/33. Conservation and linearity re-verified in this page&rsquo;s script. Ruling standing: A is not &Delta;</dd>
+    </dl></div>
+  </details>
+
+  <details class="row" id="c9">
+    <summary>C9 · The rate-space cubic &Delta;<span class="tag sessions">sessions / cover</span></summary>
+    <div class="body"><dl>
+      <dt>quantity</dt><dd>&Delta; = r<sub>u</sub>r<sub>v</sub>(r<sub>v</sub> &minus; r<sub>u</sub>) &mdash; the cover&rsquo;s split-measure</dd>
+      <dt>space</dt><dd>rate space (the rate square)</dd>
+      <dt>currency</dt><dd>rate units, cubed</dd>
+      <dt>zero set</dt><dd>the three seam lines; order 3 at the orthographic corner &mdash; where the first book lived</dd>
+      <dt>obeys</dt><dd>gauge-blind: no unit choice, no depth probe moves it</dd>
+      <dt>quarrel</dt><dd>reading against reading, priced per rig</dd>
+      <dt>status</dt><dd><a href="the-address.html">the address</a>; check-the-edge.js 18/18. Guard, proved in session 4: <a href="the-miniature.html">the miniature</a>&rsquo;s depth crossing is <em>not</em> this quantity &mdash; an isolated, relocatable zero in depth space, not a seam (check-the-miniature.js 28/28)</dd>
+    </dl></div>
+  </details>
+
+  <details class="row" id="c10">
+    <summary>C10 · The gauge ledger frac(nL)<span class="tag sessions">sessions · this week</span></summary>
+    <div class="body"><dl>
+      <dt>quantity</dt><dd>the fractional part of nL &mdash; the blue overshoot of a law read against a counted gauge</dd>
+      <dt>space</dt><dd>one law against a family of counted gauges</dd>
+      <dt>currencies</dt><dd>absolute length (&le; 1/n, sinks under refinement); gauge units (wanders, never trends)</dd>
+      <dt>zero set</dt><dd>empty for &radic;2; periodic for a rational law (7&frasl;5 clears at every fifth gauge)</dd>
+      <dt>obeys</dt><dd>re-denominated by every refinement, diminished by none</dd>
+      <dt>quarrel</dt><dd>law against gauge &mdash; incommensurability itself</dd>
+      <dt>status</dt><dd><a href="law-gauge-defect-v1.html">law, gauge, defect</a>; smoke 20/20; the never-clears and clears-at-fives claims re-verified in this page&rsquo;s script</dd>
+    </dl></div>
+  </details>
+
+  <h2>The map</h2>
+  <p>What the rows amount to. Solid edges are re-denominations &mdash; one quantity changing currency, zero set carried intact. The dashed tie is an analogy of shape between two different species, and the struck tie is session 4&rsquo;s finding: a resemblance that was tested and failed. Tap a node to open its row.</p>
+
+  <div class="inst">
+    <svg id="map" viewBox="0 0 640 430" role="img"
+      aria-label="Six clusters: the miss family (lambda minus mu, split norm, 3D gap, bow) chained by solid re-denomination edges over the shared zero set the seam; the refusal (Theorem 0's two currencies over a floor); the ledger (the fractional part's two currencies, never zero for root 2); the account A, conserved, alone; the rate cubic with the miniature's crossing struck out beside it; and two solo entries, the Jensen bias and the budget verdict."></svg>
+    <p class="cap">One genus, several species. The miss family is genuinely one defect in four currencies &mdash; its zero set, the seam, travels with it through every re-denomination. The refusal and the ledger are different species with the same shape: two currencies each, and no way to be small in both. The account is alone in its space, conserved rather than floored. The crossing is the census&rsquo;s cautionary tale: it looked like the cubic&rsquo;s zero and is not.</p>
+  </div>
+
+  <h2>Two refusals, one shape</h2>
+  <p>The census&rsquo;s dashed tie, made operable. Left: the ledger &mdash; frac(nL) for gauges n = 1&hellip;24; for &radic;2 it never posts a zero, for 7&frasl;5 it clears on every fifth gauge. Right: Theorem 0&rsquo;s floor &mdash; the witness product 2(1+d)/(2+d) never dips below 1, touching it only at the unreachable d = 0. Different species (law against gauge; demand against demand), one grammar: the defect can be traded between currencies, and there is a refusal underneath that no trade clears.</p>
+
+  <div class="inst" id="inst-refusal">
+    <div class="ctl">
+      <label>Law</label>
+      <div class="seg" id="r-law" role="group" aria-label="Choose the law for the ledger">
+        <button data-l="root2" aria-pressed="true">&radic;2</button>
+        <button data-l="seven5" aria-pressed="false">7&frasl;5</button>
+      </div>
+      <label>d</label>
+      <input type="range" id="r-d" min="0" max="8" step="0.05" value="1" aria-label="Station distance d for the floor witness">
+    </div>
+    <svg id="r-svg" viewBox="0 0 640 240" role="img"
+      aria-label="Left, a bar ledger of the fractional part of n L for gauges one to twenty-four, tappable; right, the floor curve two times one plus d over two plus d with a gold dashed floor at one and a crimson marker."></svg>
+    <p class="read" id="r-read"></p>
+    <p class="cap">Tap a bar to select its gauge. Gold rings on the ledger are posted zeros &mdash; &radic;2 has none at any gauge; a rational law posts them on schedule. The floor curve starts at 1 exactly and climbs toward 2: relieve the equal-step defect and the mark for infinity pays, and their product never goes under the floor.</p>
+  </div>
+
+  <h2>Findings</h2>
+  <p>Four families and two solos. The miss family (C2&ndash;C5) is one defect: the seam is its zero set in every currency, which is why naming the genus costs the book nothing there &mdash; the chapters were already pricing the same disagreement in ray, algebraic, metric and drawn units. The refusal (C1) and the ledger (C10) are distinct species joined only by shape. The account (C8) is its own family: conserved, not floored, and living in a space no other row shares &mdash; the ruling that A is not &Delta; holds and generalizes. The cubic (C9) prices the rig; its impostor, the miniature&rsquo;s crossing, is the census&rsquo;s standing reminder that not every zero is a seam. The bias (C6) is the working example of what a named genus buys: an accounting method &mdash; identify the defect, remove its rational part in closed form, name the remainder. The budget (C7) is a verdict built on a defect, listed here with its open gap showing.</p>
+  <p>The porch, it turns out, promised the word before the sessions found it. The calendar&rsquo;s leftover &mdash; movable, never removable &mdash; is a ledger of species C10. The map case prices curvature by what classical geometry has always called the <em>angle defect</em>: the genus name is old, and the book&rsquo;s middle quarrel already used it. The canvas quarrel forced Theorem 0, which is C1. All three of the porch&rsquo;s quarrels were defect stories; the census only says so out loud.</p>
+  <p>One discipline carries over whole from the conservation page: species are kept apart by their spaces. Law-against-gauge is not reading-against-reading; count-versus-placement is not the rate square; an isolated zero is not a locus. The genus earns its name only if every use of the word can answer the census&rsquo;s five questions &mdash; which space, which currency, which zero set, floor or conservation, whose quarrel.</p>
+
+  <h2>The fold-in, drafted and held</h2>
+  <p>Per the record&rsquo;s contract, nothing below is folded. Three pieces, smallest first; the third waits on an audit.</p>
+
+  <div class="draft">
+    <h4>Draft &middot; glossary entry, the genus</h4>
+    <p><b>defect</b> &mdash; the measured amount by which a required agreement fails. A defect lives in a definite space and is quoted in a currency; re-denomination trades it between currencies but neither creates nor destroys it. Its zero set is where the agreement holds: identically on a locus (the seam), at isolated relocatable points (a crossing), or nowhere (an incommensurable law against a counted gauge). Some defects obey a floor (Theorem 0), some a conservation (the account). Local names in this book: &lambda; &minus; &mu;, N(&delta;), the gap, the bow, the bias.</p>
+  </div>
+
+  <div class="draft">
+    <h4>Draft &middot; one paragraph after Theorem 0, chapter 2</h4>
+    <p>Theorem 0&rsquo;s product is the first appearance of a quantity this book will meet under several names. The equal-step defect and the finite mark for infinity are two currencies of one refusal, and the floor says that no re-denomination clears it. When Chapter 3 writes &lambda; &minus; &mu; and Chapter 6 prices a bias, they are pricing the same kind of thing: the measured amount by which a required agreement fails. Agreement, wherever this book finds it, is the zero of such a measure.</p>
+  </div>
+
+  <div class="draft">
+    <h4>Held &middot; the seam&rsquo;s second definition</h4>
+    <p><em>The seam is the zero set of the defect &lambda; &minus; &mu;.</em> On the seasoning shelf since 3 September, unaudited. Not to be folded before the reading is checked against the seam theorem in full; session 4 discharged the one-rate-zero edge (silence, not collision), which is consistent but not the whole audit.</p>
+  </div>
+
+  <h2>Terms this page adds</h2>
+  <p>One line each, tagged as the conservation page tags them: <span class="tag sessions" style="margin-left:0">sessions</span> is coinage of these pages.</p>
+  <dl class="gloss">
+    <dt>genus<span class="tag sessions">sessions</span></dt>
+    <dd>The concept over the local names: defect as such, prior to its species.</dd>
+    <dt>species<span class="tag sessions">sessions</span></dt>
+    <dd>A defect classified by whose quarrel it prices: demand/demand, reading/reading, law/gauge, anchoring/anchoring, estimate/truth.</dd>
+    <dt>space<span class="tag sessions">sessions</span></dt>
+    <dd>Where a defect lives; species are kept apart by their spaces before anything else.</dd>
+    <dt>currency<span class="tag sessions">sessions</span></dt>
+    <dd>The unit a defect is quoted in within its space; one defect may hold several.</dd>
+    <dt>re-denomination<span class="tag sessions">sessions</span></dt>
+    <dd>Trading a defect between currencies; carries the zero set intact, creates and destroys nothing.</dd>
+    <dt>zero set<span class="tag sessions">sessions</span></dt>
+    <dd>Where the agreement holds &mdash; a locus, isolated points, or nowhere.</dd>
+    <dt>floor / conservation<span class="tag sessions">sessions</span></dt>
+    <dd>The two refusals a defect may obey: a bound it cannot go under, or a total no policy can change.</dd>
+  </dl>
+
+  <footer>
+    <p>Checked in <a href="check-the-defect-census.js">check-the-defect-census.js</a>, 24/24, 11 September 2026. Rows C1&ndash;C7 restate the book and its scripts; C8&ndash;C10 restate the sessions&rsquo; pages and theirs; this page&rsquo;s script re-verifies what it can compute and cites the rest.</p>
+    <p><a href="index.html">&larr; All sessions</a> · Siblings: <a href="the-defect.html">the defect</a> · <a href="the-conservation.html">the conservation</a> · <a href="the-address.html">the address</a> · <a href="law-gauge-defect-v1.html">law, gauge, defect</a> · The book: <a href="https://flyingsticks.github.io/one-congruence-two-readings/">One Congruence, Two Readings</a></p>
+  </footer>
+</main>
+
+<script>
+(function () {
+  'use strict';
+
+  var PLUM = '#43203f', PURPLE = '#6a2c91', CRIM = '#c0322b', GOLD = '#b08948',
+      TEAL = '#177f75', GREY = '#6b6360', CREAM = '#faf6ef';
+  var EPS = 1e-9;
+
+  function tag(name, attrs, inner) {
+    var a = '', k;
+    for (k in attrs) { if (attrs.hasOwnProperty(k)) { a += ' ' + k + '="' + attrs[k] + '"'; } }
+    return '<' + name + a + (inner === undefined ? '/>' : '>' + inner + '</' + name + '>');
+  }
+
+  // ---------- the map ----------
+  function node(x, y, w, label, target, color) {
+    return tag('g', { 'class': 'mapnode', 'data-target': target, cursor: 'pointer' },
+      tag('rect', { x: x, y: y, width: w, height: 30, rx: 5,
+        fill: CREAM, stroke: color, 'stroke-width': 1.6 }) +
+      tag('text', { x: x + w / 2, y: y + 20, 'text-anchor': 'middle',
+        fill: PLUM, 'font-size': 13, 'font-family': 'Georgia, serif' }, label));
+  }
+  function edge(x1, y1, x2, y2, dash, color) {
+    return tag('line', { x1: x1, y1: y1, x2: x2, y2: y2, stroke: color,
+      'stroke-width': 1.6, 'stroke-dasharray': dash || 'none' });
+  }
+  function lab(x, y, text, color, anchor) {
+    return tag('text', { x: x, y: y, fill: color || GREY, 'font-size': 11,
+      'font-family': '"Helvetica Neue",Helvetica,Arial,sans-serif',
+      'text-anchor': anchor || 'middle' }, text);
+  }
+
+  function drawMap() {
+    var o = [];
+    // family: the miss (C2-C5), chained across the top
+    o.push(tag('rect', { x: 12, y: 14, width: 616, height: 84, rx: 8,
+      fill: 'none', stroke: GOLD, 'stroke-width': 1, 'stroke-dasharray': '2 4' }));
+    o.push(lab(22, 30, 'THE MISS \u2014 one defect, four currencies \u00B7 zero set: the seam', GOLD, 'start'));
+    o.push(node(22, 44, 120, '\u03BB \u2212 \u03BC', 'c2', PURPLE));
+    o.push(node(178, 44, 120, 'N(\u03B4)', 'c3', PURPLE));
+    o.push(node(334, 44, 120, 'the 3D gap', 'c4', PURPLE));
+    o.push(node(490, 44, 120, 'the bow', 'c5', PURPLE));
+    o.push(edge(142, 59, 178, 59, null, PURPLE));
+    o.push(edge(298, 59, 334, 59, null, PURPLE));
+    o.push(edge(454, 59, 490, 59, null, PURPLE));
+
+    // family: the refusal (C1) and the ledger (C10), analogy tie
+    o.push(lab(22, 132, 'THE REFUSAL \u2014 floor \u2265 1', GOLD, 'start'));
+    o.push(node(22, 142, 130, 'step defect', 'c1', PLUM));
+    o.push(node(22, 186, 130, '\u221E-mark', 'c1', PLUM));
+    o.push(edge(87, 172, 87, 186, null, PLUM));
+    o.push(lab(160, 172, 'product \u2265 1', PLUM, 'start'));
+
+    o.push(lab(360, 132, 'THE LEDGER \u2014 never clears (\u221A2)', GOLD, 'start'));
+    o.push(node(360, 142, 130, 'absolute', 'c10', TEAL));
+    o.push(node(360, 186, 130, 'gauge units', 'c10', TEAL));
+    o.push(edge(425, 172, 425, 186, null, TEAL));
+    o.push(lab(498, 172, '\u00D7 n', TEAL, 'start'));
+
+    // dashed analogy tie between the two
+    o.push(edge(152, 165, 360, 165, '5 5', GOLD));
+    o.push(lab(256, 158, 'same shape, different species', GOLD));
+
+    // family: the account (C8), alone
+    o.push(lab(22, 254, 'THE ACCOUNT \u2014 conserved', GOLD, 'start'));
+    o.push(node(22, 264, 150, 'A = h \u00B7 span', 'c8', '#3d8f3d'));
+    o.push(lab(22, 312, 'blind to smear, pile, grade', GREY, 'start'));
+
+    // family: the cubic (C9) with the struck impostor
+    o.push(lab(360, 254, 'THE PRICE OF THE RIG', GOLD, 'start'));
+    o.push(node(360, 264, 150, '\u0394 = r\u1D64r\u1D65(r\u1D65\u2212r\u1D64)', 'c9', CRIM));
+    o.push(node(360, 330, 150, 'the crossing', 'c9', GREY));
+    // struck tie
+    o.push(edge(435, 294, 435, 330, '4 4', GREY));
+    o.push(edge(420, 306, 450, 318, null, CRIM));
+    o.push(edge(450, 306, 420, 318, null, CRIM));
+    o.push(lab(524, 315, 'proved distinct', CRIM, 'start'));
+
+    // solos
+    o.push(lab(22, 358, 'SOLOS', GOLD, 'start'));
+    o.push(node(22, 368, 140, 'Jensen bias', 'c6', PURPLE));
+    o.push(node(180, 368, 150, 'budget (verdict)', 'c7', GOLD));
+
+    document.getElementById('map').innerHTML = o.join('');
+  }
+  drawMap();
+
+  document.getElementById('map').addEventListener('pointerdown', function (e) {
+    var g = e.target;
+    while (g && g !== this && !(g.getAttribute && g.getAttribute('data-target'))) {
+      g = g.parentNode;
+    }
+    if (!g || g === this) { return; }
+    var row = document.getElementById(g.getAttribute('data-target'));
+    if (!row) { return; }
+    row.open = true;
+    row.classList.add('hl');
+    row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setTimeout(function () { row.classList.remove('hl'); }, 1600);
+  });
+
+  // ---------- two refusals, one shape ----------
+  var LAWS = { root2: Math.SQRT2, seven5: 7 / 5 };
+  var R = { law: 'root2', n: 8, d: 1 };
+  var NMAX = 24;
+
+  function measure(L, n) {
+    var x = n * L, m = Math.floor(x);
+    if (Math.abs(x - Math.round(x)) < EPS) { m = Math.round(x); }
+    var gd = x - m;
+    if (gd < EPS) { gd = 0; }
+    return { m: m, gd: gd, ad: gd / n };
+  }
+  function floorWitness(d) { return 2 * (1 + d) / (2 + d); }
+
+  function drawRefusal() {
+    var L = LAWS[R.law];
+    var W = 640, H = 240, o = [];
+    // left panel: ledger, x 20..300
+    var lx = 26, lw = 280, base = 200, top = 30, ph = base - top;
+    var bw = lw / NMAX, k, r, x, h;
+    o.push(edge(lx, top - 6, lx, base, null, PLUM));
+    o.push(edge(lx, base, lx + lw, base, null, PLUM));
+    o.push(lab(lx - 6, top + 4, '1', PLUM, 'end'));
+    o.push(lab(lx - 6, base + 4, '0', PLUM, 'end'));
+    for (k = 1; k <= NMAX; k++) {
+      r = measure(L, k);
+      x = lx + (k - 1) * bw + 1;
+      if (r.gd === 0) {
+        o.push(tag('circle', { cx: (x + bw / 2 - 1).toFixed(1), cy: base - 5, r: 4.5,
+          fill: 'none', stroke: GOLD, 'stroke-width': 2.4, 'data-n': k, cursor: 'pointer' }));
+      } else {
+        h = r.gd * ph;
+        o.push(tag('rect', { x: x.toFixed(1), y: (base - h).toFixed(1),
+          width: (bw - 2).toFixed(1), height: h.toFixed(1),
+          fill: (k === R.n ? CRIM : PURPLE), opacity: (k === R.n ? 1 : 0.62),
+          'data-n': k, cursor: 'pointer' }));
+      }
+    }
+    o.push(lab(lx + lw / 2, base + 22, 'the ledger: frac(nL), n = 1\u201324', GREY));
+
+    // right panel: floor curve, x 360..620
+    var rx = 380, rw = 236, rtop = 30, rbase = 200, rph = rbase - rtop;
+    var DMAX = 8;
+    function fx(d) { return rx + (d / DMAX) * rw; }
+    function fy(v) { return rbase - ((v - 0.85) / (2.1 - 0.85)) * rph; }
+    o.push(edge(rx, rtop - 6, rx, rbase, null, PLUM));
+    o.push(edge(rx, rbase, rx + rw, rbase, null, PLUM));
+    o.push(lab(rx - 6, fy(1) + 4, '1', PLUM, 'end'));
+    o.push(lab(rx - 6, fy(2) + 4, '2', PLUM, 'end'));
+    o.push(edge(rx, fy(1), rx + rw, fy(1), '5 4', GOLD));
+    o.push(lab(rx + rw, fy(1) - 6, 'the floor', GOLD, 'end'));
+    var path = 'M', d;
+    for (d = 0; d <= DMAX + 1e-9; d += 0.1) {
+      path += (d === 0 ? ' ' : ' L ') + fx(d).toFixed(1) + ' ' + fy(floorWitness(d)).toFixed(1);
+    }
+    o.push(tag('path', { d: path, fill: 'none', stroke: PLUM, 'stroke-width': 2 }));
+    o.push(tag('circle', { cx: fx(R.d).toFixed(1), cy: fy(floorWitness(R.d)).toFixed(1),
+      r: 5.5, fill: CRIM }));
+    o.push(lab(rx + rw / 2, rbase + 22, 'the floor: 2(1+d)/(2+d) \u2265 1', GREY));
+
+    document.getElementById('r-svg').innerHTML = o.join('');
+
+    var m = measure(L, R.n);
+    var lawName = (R.law === 'root2') ? '\u221A2' : '7\u20445';
+    document.getElementById('r-read').innerHTML =
+      '<b>ledger</b> law ' + lawName + ' \u00B7 n = ' + R.n + ' \u00B7 m = ' + m.m +
+      ' \u00B7 absolute ' + m.ad.toFixed(4) +
+      ' \u00B7 <span class="defect">gauge units ' + m.gd.toFixed(4) + '</span>' +
+      (m.gd === 0 ? ' \u2014 posted zero' : '') +
+      ' &nbsp;&nbsp; <b>floor</b> d = ' + R.d.toFixed(2) +
+      ' \u00B7 product ' + floorWitness(R.d).toFixed(4) + ' \u2265 1';
+  }
+
+  var segLaw = document.getElementById('r-law');
+  segLaw.addEventListener('click', function (ev) {
+    var b = ev.target.closest('button'); if (!b) { return; }
+    R.law = b.dataset.l;
+    var bs = segLaw.querySelectorAll('button'), i;
+    for (i = 0; i < bs.length; i++) { bs[i].setAttribute('aria-pressed', bs[i] === b ? 'true' : 'false'); }
+    drawRefusal();
+  });
+  document.getElementById('r-d').addEventListener('input', function (e) {
+    R.d = parseFloat(e.target.value); drawRefusal();
+  });
+  document.getElementById('r-svg').addEventListener('pointerdown', function (e) {
+    var t = e.target;
+    if (t && t.getAttribute && t.getAttribute('data-n')) {
+      R.n = parseInt(t.getAttribute('data-n'), 10);
+      drawRefusal();
+    }
+  });
+
+  drawRefusal();
+})();
+</script>
+</body>
+</html>
