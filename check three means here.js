@@ -130,6 +130,48 @@ for (const [O, Zv, Zh] of rigs) {
     near(m0.HM, mSwap.HM) && near(m0.AM, mSwap.AM) && near(m0.GM * m0.GM, mSwap.GM * mSwap.GM));
 }
 
+// ---------------------------------------------------------------- pinhole limit
+{
+  const P = 114, O = 0, t = 0.45;
+  const S = { x: O + 0.55 * P, y: 0.62 * P };
+  // fusion of S2 and S3, linear in the half-gap e; limit heights 1−t and (1−t)/(1+t)
+  const gaps = [3, 0.3, 0.03].map(e => {
+    const bd = Core.build(O, P - e, P + e);
+    const q = Core.square(O, P - e, P + e, bd.Cx, S, t);
+    return { e, d23: Math.hypot(q.S3.x - q.S2.x, q.S3.y - q.S2.y),
+             l2: q.S2.y / S.y, l3: q.S3.y / S.y, l4: q.S4.y / S.y };
+  });
+  assert("limit: S2 and S3 fuse, dying linearly in the half-gap",
+    gaps[1].d23 / gaps[0].d23 < 0.15 && gaps[2].d23 / gaps[1].d23 < 0.15,
+    gaps.map(g => g.d23.toExponential(1)).join(", "));
+  assert("limit: meeting point of the diagonal stops at height 1 − t (a gauge)",
+    Math.abs(gaps[2].l2 - (1 - t)) < 1e-9 && Math.abs(gaps[2].l3 - (1 - t)) < 1e-3);
+  assert("limit: the quadrilateral's tip stops at (1−t)/(1+t), short of the pinhole",
+    Math.abs(gaps[2].l4 - (1 - t) / (1 + t)) < 1e-3, gaps[2].l4);
+  // the surviving circle is on glass–pinhole; the collapsed ray crosses it at F,
+  // the foot of the perpendicular from the glass, with the right angle of Thales
+  const lamF = ((O - P) * (S.x - P)) / ((S.x - P) ** 2 + S.y ** 2);
+  const F = { x: P + lamF * (S.x - P), y: lamF * S.y };
+  assert("limit: F lies on the circle on glass–pinhole",
+    near(Math.hypot(F.x - (O + P) / 2, F.y), (P - O) / 2, 1e-9));
+  assert("limit: AF ⟂ the collapsed ray (F is the perpendicular foot)",
+    Math.abs((O - F.x) * (S.x - P) + (0 - F.y) * S.y) < 1e-6);
+  assert("limit: right triangle A F P inscribes — ∠AFP = 90°",
+    Math.abs(Core.angleAt(F, { x: O, y: 0 }, { x: P, y: 0 }) - 90) < 1e-6);
+  // and the right angle is not born at the limit: pre-limit, both crossings of the
+  // sliver's line with the circle on AC already see A and C at 90°
+  const e = 3, bd = Core.build(O, P - e, P + e);
+  const dx = P - S.x, dy = -S.y, fx = S.x - bd.c1.x, fy = S.y;
+  const A2 = dx * dx + dy * dy, B2 = 2 * (fx * dx + fy * dy),
+        C2 = fx * fx + fy * fy - bd.r1 * bd.r1;
+  const disc = Math.sqrt(B2 * B2 - 4 * A2 * C2);
+  const thales = [(-B2 - disc) / (2 * A2), (-B2 + disc) / (2 * A2)].every(u => {
+    const Xp = { x: S.x + u * dx, y: S.y + u * dy };
+    return Math.abs(Core.angleAt(Xp, { x: O, y: 0 }, { x: bd.Cx, y: 0 }) - 90) < 1e-6;
+  });
+  assert("pre-limit: both crossings of the sliver's line with the circle on AC see A, C at 90°", thales);
+}
+
 // ---------------------------------------------------------------- defects
 {
   const mid = Core.means(200, 150, 355); // glass between the slits
