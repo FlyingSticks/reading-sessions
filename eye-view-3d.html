@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The eye and the volume · The Reading Sessions</title>
+<style>
+  :root{
+    --paper:#F4F0E6; --panel:#FBF9F3; --ink:#26231E; --soft:#6E675C;
+    --crimson:#A31F34; --purple:#5E3A9E; --gold:#B8860B; --green:#1E8E3E;
+    --red:#C0392B; --blue:#2B5FA3; --rule:#D8D2C2;
+  }
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+    font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.5;
+    -webkit-text-size-adjust:100%;}
+  .wrap{max-width:960px;margin:0 auto;padding:18px 16px calc(40px + env(safe-area-inset-bottom));}
+  .crumbs{font-size:13px;color:var(--soft);margin-bottom:14px;}
+  .crumbs a{color:var(--soft);}
+  h1{font-size:28px;margin:6px 0 10px;letter-spacing:.2px;}
+  h2{font-size:19px;margin:34px 0 8px;}
+  p{margin:8px 0;}
+  a{color:var(--blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .thesis{background:var(--panel);border-left:5px solid var(--blue);
+    padding:10px 14px;margin:16px 0;border-radius:0 6px 6px 0;}
+  .caption{font-size:13.5px;color:var(--soft);margin:6px 2px 0;}
+  canvas{display:block;width:100%;height:auto;background:var(--panel);
+    border:1px solid var(--rule);border-radius:8px;touch-action:none;}
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:720px){.duo{grid-template-columns:1fr;}}
+  .controls{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 8px;align-items:center;}
+  label.tog{font-size:13.5px;color:var(--soft);display:inline-flex;gap:5px;align-items:center;
+    background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:4px 9px;}
+  .slider{flex:1;min-width:120px;}
+  table.verdicts{border-collapse:collapse;width:100%;font-size:13.8px;margin:10px 0;
+    background:var(--panel);border:1px solid var(--rule);border-radius:8px;overflow:hidden;}
+  table.verdicts th,table.verdicts td{border-bottom:1px solid var(--rule);text-align:left;
+    padding:7px 9px;vertical-align:top;}
+  table.verdicts th{font-size:12.5px;text-transform:uppercase;letter-spacing:.5px;
+    color:var(--soft);background:#f3efe3;}
+  .v-sur{color:var(--green);font-weight:700;} .v-mut{color:var(--gold);font-weight:700;}
+  .v-gau{color:var(--soft);font-weight:700;} .v-die{color:var(--red);font-weight:700;}
+  .checks{background:var(--panel);border:1px solid var(--rule);border-radius:8px;
+    padding:8px 14px;font-size:14px;font-variant-numeric:tabular-nums;}
+  .checks div{display:flex;justify-content:space-between;gap:10px;padding:4px 0;
+    border-bottom:1px dashed var(--rule);}
+  .checks div:last-child{border-bottom:none;}
+  .ok{color:var(--green);font-weight:700;} .na{color:var(--soft);} .bad{color:var(--red);font-weight:700;}
+  dl{margin:8px 0;}
+  dt{font-weight:700;margin-top:10px;}
+  dd{margin:2px 0 0 0;font-size:14.5px;color:#3A362F;}
+  .foot{margin-top:36px;font-size:13.5px;color:var(--soft);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="crumbs">
+  <a href="https://flyingsticks.github.io/reading-sessions/index.html">The Reading Sessions</a> ·
+  the open item of <a href="station-point-addendum.html">the station-point addendum</a>, checked ·
+  12 September 2026
+</div>
+
+<h1>The eye and the volume</h1>
+
+<p>The addendum's R3 left one question standing: for the full rig with line-slits, is the
+view from an eye on the sphere actually a two-point perspective, or only its horizon
+reading? The check script ran before this page was written, and the verdict is:
+<b>only its horizon reading — and the volume says so precisely.</b> The imaging rays of
+the cross-slit have no common point, so there is no eye anywhere, on the sphere or off
+it; off the seam the image of a straight line bows, and since homographies preserve
+straightness, no perspective picture can be dressed up as the cross-slit picture. What
+the volume concedes instead is exact and threefold: each orthographic <b>shadow</b> of
+the ray congruence <i>is</i> central — the plan through the vertical slit's point, the
+profile through the horizontal's — so the horizon's two vanishing points are two
+projected pinholes and the two-point reading is the superposition of two one-point
+shadows; the least-squares eye is a <b>scene gauge</b> with a closed form, drifting from
+the near slit to a far-field limit that is exactly <b>AM, the centre of the sphere</b>;
+and the scene-free compromise is the <b>neutral surface</b>, the vergence midpoint of the
+two channels — the circle of least confusion.</p>
+
+<div class="controls">
+  <span style="font-size:13.5px;color:var(--soft)">box depth</span>
+  <input type="range" class="slider" id="zc" min="475" max="950" step="1" value="560">
+  <span style="font-size:14px" id="zcVal">560</span>
+  <span style="font-size:13.5px;color:var(--soft)">box half-width</span>
+  <input type="range" class="slider" id="w" min="0" max="120" step="1" value="60">
+  <span style="font-size:14px" id="wVal">60</span>
+  <label class="tog"><input type="checkbox" id="tgE" checked> perspective from E′</label>
+  <label class="tog"><input type="checkbox" id="tgBF"> perspective from the best-fit eye</label>
+</div>
+
+<canvas id="cvPic"></canvas>
+<p class="caption"><b>The picture on the glass.</b> A wireframe box imaged by the
+cross-slit (<span style="color:var(--red)">red</span>): frontal edges come out straight,
+depth edges <b>bow</b> — hyperbolas, straight only when an edge lies on the seam (slide
+the width to 0 and watch the bow die). Overlays: the pinhole picture from
+<span style="color:var(--blue)">E′, the eye on the sphere lifted into the profile
+plane</span>, and from the best-fit axis eye — every edge straight in both. The bow is
+the whole verdict: no homography maps straight to bent.</p>
+
+<div class="duo">
+  <div>
+    <canvas id="cvPlan"></canvas>
+    <p class="caption"><b>Plan shadow (x–z).</b> Every imaging ray, projected here,
+    passes through the vertical slit's point B — a perfect pencil. In this shadow the
+    camera is a pinhole at B.</p>
+  </div>
+  <div>
+    <canvas id="cvProf"></canvas>
+    <p class="caption"><b>Profile shadow (y–z).</b> The same rays, projected here, form
+    a pencil through the horizontal slit's point D. Two shadows, two pinholes — never
+    both at once in the round. The diamond is the best-fit eye, migrating along the axis
+    as the box slides: toward the near slit for near scenes, toward
+    <b>AM — the sphere's centre</b> — for the far field. E stays where the diagram put
+    it, on the sphere, reading.</p>
+  </div>
+</div>
+
+<h2>The verdicts</h2>
+<table class="verdicts" id="verdicts">
+<tr><th style="width:22%">question</th><th style="width:16%">measured</th><th>verdict</th></tr>
+</table>
+
+<h2>What to look for</h2>
+
+<p>The two shadows are the heart of it. Every imaging ray meets both slits, so its plan
+projection passes through the point the vertical slit projects to, and its profile
+projection through the horizontal's — each shadow shows a central camera, and the two
+centres are the two depths the sketch used as vanishing points. The two-point
+perspective on the horizon was never a picture the rig takes; it is the drawing that
+superposes the rig's two central shadows, and the eye on the sphere is the certified
+reader of that drawing. E's jurisdiction is the profile; the profile is exactly where it
+ends.</p>
+
+<p>The best-fit eye is the ledger's kind of finding. For a thin frontal slab at depth Z
+the least-squares point of the imaging rays sits on the axis at
+z<sub>eye</sub>(Z) = (Z<sub>v</sub>(Z−Z<sub>h</sub>)² + Z<sub>h</sub>(Z−Z<sub>v</sub>)²)
+/ ((Z−Z<sub>h</sub>)² + (Z−Z<sub>v</sub>)²) — each slit weighted by the squared distance
+to the <i>other</i> — verified against the numeric fit to under a tenth of a unit. It is
+scene-bound, hence a gauge; but its far-field limit is a fact: exactly AM. The volume's
+compromise eye for a distant world is the centre of the sphere — inside it, never on it.
+The scene-free compromise is different and older: the neutral surface is the vergence
+midpoint of the two channels at every depth at once — the mean-reciprocal-scale law of
+the first plate, which optics knows as the circle of least confusion, dioptrically
+midway between the two line foci. And at z* alone the frontal picture is conformal —
+true shapes, flipped hand, since one channel has inverted and the other has not.</p>
+
+<div class="thesis">
+<p style="margin:4px 0"><b>The sphere holds a station point for reading the drawing, not
+a pinhole for taking the picture.</b> The volume has no eye; it has two central shadows,
+a scene-bound best fit drifting to the sphere's centre, and one scene-free surface of
+agreement at the harmonic mean. The two-point perspective was the horizon's way of
+telling the truth about a camera that has no viewpoint.</p>
+</div>
+
+<h2>Checks</h2>
+<div class="checks" id="liveChecks"></div>
+<p class="caption">Re-run on every interaction. The rates behind the verdicts — bow
+linear in each offset and in the gap, non-centrality dying linearly at the pinhole,
+the law z<sub>eye</sub> against the least-squares fit, the far-field limit at AM — are
+asserted in check_eye_view_3d.js across decades of the parameters.</p>
+
+<h2>Conventions</h2>
+<p style="font-size:14.5px">Judgment calls flagged: the profile is the y–z plane, as in
+the sketch (vertical slit in true length, horizontal slit as a point), so E lifts to
+E′ = (0, y<sub>E</sub>, z<sub>E</sub>); the box's half-depth is fixed at 45 so the two
+sliders stay legible; the box is kept beyond both slits with clearance, since the
+v-channel diverges at the slit itself; z<sub>eye</sub> is the paraxial least-squares
+form for a thin frontal slab — thick boxes deviate by a few units, and the check
+compares like with like; the marks on the glass are inverted, as the rig inverts them.
+The level set at z* is a plane and is called one.</p>
+
+<h2>Glossary</h2>
+<dl>
+<dt>congruence</dt><dd>The two-parameter family of imaging rays — all lines meeting both slits. The camera's rays, with no centre.</dd>
+<dt>central camera</dt><dd>One whose rays share a point. The cross-slit is central only in its two shadows and at the pinhole limit.</dd>
+<dt>shadow</dt><dd>An orthographic projection of the congruence: the plan (x–z) and the profile (y–z), each a pencil through one slit's point.</dd>
+<dt>bow · sagitta</dt><dd>The curvature of a straight line's image, measured as maximum deviation from its chord. Zero on the seam and on frontal lines; the obstruction to perspective everywhere else.</dd>
+<dt>best-fit eye</dt><dd>The least-squares common point of the imaging rays for a given scene — on the axis, scene-bound, far-field limit AM.</dd>
+<dt>vergence</dt><dd>Reciprocal distance; the coordinate in which the two channels average arithmetically and the neutral surface is their midpoint.</dd>
+<dt>circle of least confusion</dt><dd>The classical name for the plane dioptrically midway between two line foci — here, the neutral surface.</dd>
+<dt>E′</dt><dd>The station point of the profile drawing, lifted into three dimensions in the profile plane; on the sphere; a reader, not a camera.</dd>
+</dl>
+
+<div class="foot">
+<a href="station-point-addendum.html">The station-point addendum</a> ·
+<a href="three-means-here.html">The three means, here</a> ·
+<a href="gm-mirror.html">The GM mirror</a> ·
+<a href="degeneration-ledger.html">The degeneration ledger</a> ·
+<a href="https://flyingsticks.github.io/reading-sessions/index.html">All sessions</a>
+</div>
+</div>
+
+<script>
+/*CORE-BEGIN*/
+const Core = {
+  means(O, Zv, Zh){
+    const a = Zv - O, b = Zh - O, s = a + b, p = a * b;
+    const AM = s / 2;
+    const HM = s !== 0 ? 2 * p / s : NaN;
+    const GM = p > 0 ? (s >= 0 ? 1 : -1) * Math.sqrt(p) : NaN;
+    return { a, b, AM, GM, HM, power: p, R: Math.abs(b - a) / 2, M: (Zv + Zh) / 2 };
+  },
+  circInt(c1, r1, c2, r2){
+    const dx = c2.x - c1.x, dy = c2.y - c1.y, d = Math.hypot(dx, dy);
+    if (d === 0) return null;
+    const l = (d * d + r1 * r1 - r2 * r2) / (2 * d);
+    const h2 = r1 * r1 - l * l;
+    if (h2 < 0) return null;
+    const h = Math.sqrt(h2), ex = dx / d, ey = dy / d;
+    return [
+      { x: c1.x + l * ex - h * ey, y: c1.y + l * ey + h * ex },
+      { x: c1.x + l * ex + h * ey, y: c1.y + l * ey - h * ex }
+    ];
+  },
+  upper(pair){ return pair ? (pair[0].y >= pair[1].y ? pair[0] : pair[1]) : null; },
+  tangentTouch(O, Zv, Zh){
+    const m = { x: (Zv + Zh) / 2, y: 0 }, R = Math.abs(Zh - Zv) / 2;
+    const n = { x: (O + m.x) / 2, y: 0 }, r = Math.abs(m.x - O) / 2;
+    return Core.upper(Core.circInt(m, R, n, r));
+  },
+  // ---- the 3D cross-slit: vertical slit {(0,y,Zv)}, horizontal {(x,0,Zh)}, glass z=O
+  img(O, Zv, Zh, Q){
+    return { x: Q.x * (O - Zv) / (Q.z - Zv), y: Q.y * (O - Zh) / (Q.z - Zh) };
+  },
+  ray(Zv, Zh, Q){
+    const s = Q.y * (Zh - Zv) / (Zh - Q.z), t = Q.x * (Zh - Zv) / (Q.z - Zv);
+    const V = { x: 0, y: s, z: Zv }, H = { x: t, y: 0, z: Zh };
+    const d = { x: H.x - V.x, y: H.y - V.y, z: H.z - V.z };
+    const L = Math.hypot(d.x, d.y, d.z);
+    return { p: V, d: { x: d.x / L, y: d.y / L, z: d.z / L }, V, H };
+  },
+  distPR(P, r){
+    const v = { x: P.x - r.p.x, y: P.y - r.p.y, z: P.z - r.p.z };
+    const dot = v.x * r.d.x + v.y * r.d.y + v.z * r.d.z;
+    return Math.hypot(v.x - dot * r.d.x, v.y - dot * r.d.y, v.z - dot * r.d.z);
+  },
+  bestFit(rays){
+    let A = [[0,0,0],[0,0,0],[0,0,0]], b = [0,0,0];
+    for (const r of rays){
+      const d = [r.d.x, r.d.y, r.d.z], p = [r.p.x, r.p.y, r.p.z];
+      for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++){
+        const M = (i === j ? 1 : 0) - d[i] * d[j];
+        A[i][j] += M; b[i] += M * p[j];
+      }
+    }
+    const M = A.map((r, i) => [...r, b[i]]);
+    for (let c = 0; c < 3; c++){
+      let piv = c;
+      for (let r = c + 1; r < 3; r++) if (Math.abs(M[r][c]) > Math.abs(M[piv][c])) piv = r;
+      [M[c], M[piv]] = [M[piv], M[c]];
+      for (let r = 0; r < 3; r++){
+        if (r === c) continue;
+        const f = M[r][c] / M[c][c];
+        for (let k = c; k < 4; k++) M[r][k] -= f * M[c][k];
+      }
+    }
+    return { x: M[0][3] / M[0][0], y: M[1][3] / M[1][1], z: M[2][3] / M[2][2] };
+  },
+  persp(C, Oz, Q){
+    const t = (Oz - C.z) / (Q.z - C.z);
+    return { x: C.x + t * (Q.x - C.x), y: C.y + t * (Q.y - C.y) };
+  },
+  scales(O, Zv, Zh, z){
+    return { su: (O - Zv) / (z - Zv), sv: (O - Zh) / (z - Zh) };
+  },
+  // sagitta of a 2D polyline against its chord
+  sagitta(pts){
+    const a = pts[0], b = pts[pts.length - 1];
+    const dx = b.x - a.x, dy = b.y - a.y, L = Math.hypot(dx, dy);
+    if (L < 1e-12) return 0;
+    let mx = 0;
+    for (const p of pts) mx = Math.max(mx, Math.abs((p.x - a.x) * dy - (p.y - a.y) * dx) / L);
+    return mx;
+  },
+  imgLine(O, Zv, Zh, P0, dir, t0, t1, n){
+    const pts = [];
+    for (let i = 0; i < n; i++){
+      const t = t0 + (t1 - t0) * i / (n - 1);
+      pts.push(Core.img(O, Zv, Zh, { x: P0.x + t * dir.x, y: P0.y + t * dir.y, z: P0.z + t * dir.z }));
+    }
+    return pts;
+  },
+  // paraxial least-squares eye for a thin frontal slab at depth Z (glass-independent)
+  zEye(Zv, Zh, Z){
+    const w1 = (Z - Zh) ** 2, w2 = (Z - Zv) ** 2;
+    return (Zv * w1 + Zh * w2) / (w1 + w2);
+  },
+  build(O, Zv, Zh){
+    const mn = Core.means(O, Zv, Zh);
+    const zstar = O + mn.HM;
+    const T = Core.tangentTouch(O, Zv, Zh);
+    const Cx = T ? T.x : NaN;
+    const c1 = T ? { x: (O + Cx) / 2, y: 0 } : null, r1 = T ? Math.abs(Cx - O) / 2 : NaN;
+    const M = { x: mn.M, y: 0 };
+    const E2 = T ? Core.upper(Core.circInt(c1, r1, M, mn.R)) : null;   // profile (depth, height)
+    const E3 = E2 ? { x: 0, y: E2.y, z: E2.x } : null;                 // lifted into y–z
+    return { O, Zv, Zh, mn, zstar, E2, E3 };
+  },
+  boxVerts(zc, hw, hd){
+    const v = [];
+    for (const sx of [-1, 1]) for (const sy of [-1, 1]) for (const sz of [-1, 1])
+      v.push({ x: sx * hw, y: sy * hw, z: zc + sz * hd });
+    return v;
+  },
+  checksLive(bd, zc, hw, hd){
+    const { O, Zv, Zh, mn, zstar, E3 } = bd;
+    const out = [], add = (n, r) => out.push({ name: n, res: r });
+    const verts = Core.boxVerts(zc, Math.max(hw, 1e-9), hd);
+    const rays = verts.map(Q => Core.ray(Zv, Zh, Q));
+    // 1 rays meet both slits
+    add("imaging rays meet both slits", Math.max(...rays.map((r, i) => {
+      const Q = verts[i];
+      return Math.min(Core.distPR(Q, r), 1) + Math.abs(r.V.x) + Math.abs(r.H.y);
+    })) / (Zh - Zv));
+    // 2, 3 the two shadows are central
+    add("plan shadow: rays through B's point", Math.max(...rays.map(r => {
+      // xz-projection distance from (0, Zv) to the projected line through (V.x,V.z),(H.x,H.z)
+      const ax = r.V.x, az = r.V.z, bx = r.H.x, bz = r.H.z;
+      const L = Math.hypot(bx - ax, bz - az);
+      return Math.abs((0 - ax) * (bz - az) - (Zv - az) * (bx - ax)) / L;
+    })) / (Zh - Zv));
+    add("profile shadow: rays through D's point", Math.max(...rays.map(r => {
+      const ay = r.V.y, az = r.V.z, by = r.H.y, bz = r.H.z;
+      const L = Math.hypot(by - ay, bz - az);
+      return Math.abs((0 - ay) * (bz - az) - (Zh - az) * (by - ay)) / L;
+    })) / (Zh - Zv));
+    // 4 no eye in the round
+    if (hw > 8){
+      const bf = Core.bestFit(rays);
+      const miss = Math.max(...rays.map(r => Core.distPR(bf, r)));
+      add("no eye in the round: best fit still misses by " + miss.toFixed(1),
+        miss > 0.5 ? 0 : 1);
+    } else add("no eye in the round (widen the box to measure)", null);
+    // 5 seam and frontal lines straight
+    add("seam depth-line images straight", Math.max(
+      Core.sagitta(Core.imgLine(O, Zv, Zh, { x: 0, y: hw, z: 0 }, { x: 0, y: 0, z: 1 }, zc - hd, zc + hd, 25)),
+      Core.sagitta(Core.imgLine(O, Zv, Zh, { x: hw, y: 0, z: 0 }, { x: 0, y: 0, z: 1 }, zc - hd, zc + hd, 25))));
+    add("frontal edges straight", Core.sagitta(
+      Core.imgLine(O, Zv, Zh, { x: -hw, y: hw, z: zc }, { x: 1, y: 0.4, z: 0 }, 0, 2 * hw, 25)));
+    // 6 the bow is present off the seam
+    if (hw > 8){
+      const s = Core.sagitta(Core.imgLine(O, Zv, Zh, { x: hw, y: hw, z: 0 },
+        { x: 0, y: 0, z: 1 }, zc - hd, zc + hd, 25));
+      add("off-seam depth edge bows: sagitta " + s.toFixed(2), s > 0.05 ? 0 : 1);
+    } else add("off-seam bow (widen the box to measure)", null);
+    // 7 the same line is straight from E' — the homography certificate
+    if (E3){
+      const pts = [];
+      for (let i = 0; i < 25; i++){
+        const z = zc - hd + 2 * hd * i / 24;
+        pts.push(Core.persp(E3, O, { x: hw, y: hw, z }));
+      }
+      add("the pinhole at E′ draws that edge straight", Core.sagitta(pts) / (Zh - Zv));
+    }
+    // 8 conformal at z* alone, hand flipped
+    const sc = Core.scales(O, Zv, Zh, zstar);
+    add("|su| = |sv| at z*, hand flipped between the slits",
+      Math.abs(Math.abs(sc.su) - Math.abs(sc.sv)) + (sc.su * sc.sv < 0 ? 0 : 1));
+    // 9 vergence midpoint law: scene-free compromise at z*
+    let vres = 0;
+    for (const z of [zc - hd, zc, zc + hd]){
+      const s2 = Core.scales(O, Zv, Zh, z);
+      vres = Math.max(vres, Math.abs((1 / s2.su + 1 / s2.sv) / 2 - (z - zstar) / (O - zstar)));
+    }
+    add("vergence midpoint law: mean 1/scale = 1/scale of a pinhole at z*", vres);
+    // 10 the closed-form eye law against a thin slab's least squares
+    const slab = [];
+    for (const sx of [-1, -0.4, 0.4, 1]) for (const sy of [-1, -0.4, 0.4, 1])
+      slab.push(Core.ray(Zv, Zh, { x: sx * 10, y: sy * 10, z: zc }));
+    const bfs = Core.bestFit(slab);
+    add("best-fit eye on the axis, matching the closed form z_eye",
+      (Math.hypot(bfs.x, bfs.y) + Math.abs(bfs.z - Core.zEye(Zv, Zh, zc))) / (Zh - Zv));
+    // 11 far field
+    add("far-field limit of z_eye is AM, the sphere's centre",
+      Math.abs(Core.zEye(Zv, Zh, 1e7) - (O + mn.AM)) / mn.AM);
+    return out;
+  }
+};
+/*CORE-END*/
+
+// ------------------------------------------------------------------ state
+const state = { O: 0, Zv: 150, Zh: 355, zc: 560, w: 60, hd: 45 };
+const $ = id => document.getElementById(id);
+const bdOf = () => Core.build(state.O, state.Zv, state.Zh);
+
+function sizeCanvas(cv, hRatio){
+  const w = cv.clientWidth || cv.parentElement.clientWidth;
+  const h = Math.round(w * hRatio);
+  const dpr = window.devicePixelRatio || 1;
+  cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+  cv.style.height = h + "px";
+  const g = cv.getContext("2d");
+  g.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return { g, w, h };
+}
+
+const EDGES = [];
+{ // 12 box edges as vertex-index pairs over (sx,sy,sz) in {-1,1}^3 ordered as boxVerts
+  const idx = (sx, sy, sz) => ((sx + 1) / 2) * 4 + ((sy + 1) / 2) * 2 + ((sz + 1) / 2);
+  for (const sy of [-1, 1]) for (const sz of [-1, 1]) EDGES.push([idx(-1, sy, sz), idx(1, sy, sz)]);
+  for (const sx of [-1, 1]) for (const sz of [-1, 1]) EDGES.push([idx(sx, -1, sz), idx(sx, 1, sz)]);
+  for (const sx of [-1, 1]) for (const sy of [-1, 1]) EDGES.push([idx(sx, sy, -1), idx(sx, sy, 1)]);
+}
+
+// ------------------------------------------------------------------ the picture
+function drawPic(bd){
+  const { g, w, h } = sizeCanvas($("cvPic"), 0.55);
+  const { O, Zv, Zh, E3 } = bd;
+  const verts = Core.boxVerts(state.zc, state.w, state.hd);
+  const cams = [{ map: Q => Core.img(O, Zv, Zh, Q), color: "#C0392B", lw: 2, on: true }];
+  if ($("tgE").checked && E3) cams.push({ map: Q => Core.persp(E3, O, Q), color: "rgba(43,95,163,.75)", lw: 1.3, on: true });
+  if ($("tgBF").checked){
+    const rays = verts.map(Q => Core.ray(Zv, Zh, Q));
+    const bf = Core.bestFit(rays);
+    cams.push({ map: Q => Core.persp(bf, O, Q), color: "rgba(110,103,92,.7)", lw: 1.2, dash: [4, 3], on: true });
+  }
+  // bounds over all drawn samples
+  let pts = [];
+  for (const cam of cams) for (const [i, j] of EDGES)
+    for (let k = 0; k <= 20; k++){
+      const t = k / 20;
+      const Q = { x: verts[i].x + t * (verts[j].x - verts[i].x),
+                  y: verts[i].y + t * (verts[j].y - verts[i].y),
+                  z: verts[i].z + t * (verts[j].z - verts[i].z) };
+      pts.push(cam.map(Q));
+    }
+  const xs = pts.map(p => p.x), ys = pts.map(p => p.y);
+  const xmin = Math.min(...xs, -10), xmax = Math.max(...xs, 10);
+  const ymin = Math.min(...ys, -10), ymax = Math.max(...ys, 10);
+  const pad = 16;
+  const sc = Math.min((w - 2 * pad) / (xmax - xmin || 1), (h - 2 * pad) / (ymax - ymin || 1));
+  const X = x => pad + (x - xmin) * sc + ((w - 2 * pad) - (xmax - xmin) * sc) / 2;
+  const Y = y => h - pad - (y - ymin) * sc - ((h - 2 * pad) - (ymax - ymin) * sc) / 2;
+  g.clearRect(0, 0, w, h); g.lineJoin = "round"; g.lineCap = "round"; g.font = "11px Helvetica";
+  // glass axes
+  g.strokeStyle = "#ccc"; g.lineWidth = 1;
+  g.beginPath(); g.moveTo(X(0), 0); g.lineTo(X(0), h); g.stroke();
+  g.beginPath(); g.moveTo(0, Y(0)); g.lineTo(w, Y(0)); g.stroke();
+  for (const cam of cams){
+    g.strokeStyle = cam.color; g.lineWidth = cam.lw;
+    g.setLineDash(cam.dash || []);
+    for (const [i, j] of EDGES){
+      g.beginPath();
+      for (let k = 0; k <= 20; k++){
+        const t = k / 20;
+        const Q = { x: verts[i].x + t * (verts[j].x - verts[i].x),
+                    y: verts[i].y + t * (verts[j].y - verts[i].y),
+                    z: verts[i].z + t * (verts[j].z - verts[i].z) };
+        const p = cam.map(Q);
+        if (k === 0) g.moveTo(X(p.x), Y(p.y)); else g.lineTo(X(p.x), Y(p.y));
+      }
+      g.stroke();
+    }
+    g.setLineDash([]);
+  }
+  g.fillStyle = "#6E675C";
+  g.fillText("the glass — cross-slit picture in red; overlays are pinhole pictures, every edge straight", 10, 16);
+}
+
+// ------------------------------------------------------------------ the two shadows
+function drawShadow(cv, kind, bd){
+  const { g, w, h } = sizeCanvas(cv, 0.62);
+  const { O, Zv, Zh, mn, zstar, E2 } = bd;
+  const zmin = -20, zmax = 980;
+  const sc = w / (zmax - zmin);
+  const Z = z => (z - zmin) * sc;
+  const Yc = y => h / 2 - y * sc;
+  g.clearRect(0, 0, w, h); g.lineJoin = "round"; g.lineCap = "round"; g.font = "10.5px Helvetica";
+  // axis and glass
+  g.strokeStyle = "#555"; g.lineWidth = 1;
+  g.beginPath(); g.moveTo(0, Yc(0)); g.lineTo(w, Yc(0)); g.stroke();
+  g.strokeStyle = "#777";
+  g.beginPath(); g.moveTo(Z(O), Yc(-100)); g.lineTo(Z(O), Yc(100)); g.stroke();
+  // sphere
+  g.strokeStyle = "rgba(192,57,43,.5)"; g.lineWidth = 1.4;
+  g.beginPath(); g.arc(Z(mn.M), Yc(0), mn.R * sc, 0, Math.PI * 2); g.stroke();
+  // slits: in plan the vertical slit is a point at Zv, the horizontal a bar at Zh; profile swaps
+  const bar = (z, c) => { g.strokeStyle = c; g.lineWidth = 3;
+    g.beginPath(); g.moveTo(Z(z), Yc(-70)); g.lineTo(Z(z), Yc(70)); g.stroke(); };
+  const dot = (z, c) => { g.fillStyle = c;
+    g.beginPath(); g.arc(Z(z), Yc(0), 4.2, 0, Math.PI * 2); g.fill(); };
+  if (kind === "plan"){ dot(Zv, "#A31F34"); bar(Zh, "#5E3A9E"); }
+  else { bar(Zv, "#A31F34"); dot(Zh, "#5E3A9E"); }
+  // marks
+  g.fillStyle = "#B8860B"; g.beginPath(); g.arc(Z(zstar), Yc(0), 3.6, 0, Math.PI * 2); g.fill();
+  g.fillStyle = "#26231E"; g.beginPath(); g.arc(Z(O + mn.AM), Yc(0), 3.2, 0, Math.PI * 2); g.fill();
+  g.fillStyle = "#6E675C";
+  g.fillText("z*", Z(zstar) - 5, Yc(0) + 16);
+  g.fillText("AM", Z(O + mn.AM) - 7, Yc(0) + 16);
+  // scene box outline in this shadow
+  const hw = state.w, hd = state.hd, zc = state.zc;
+  g.strokeStyle = "rgba(38,35,30,.5)"; g.lineWidth = 1;
+  g.strokeRect(Z(zc - hd), Yc(hw), 2 * hd * sc, 2 * hw * sc);
+  // sampled rays
+  const verts = Core.boxVerts(zc, Math.max(hw, 4), hd);
+  g.strokeStyle = "rgba(110,103,92,.5)"; g.lineWidth = 0.8;
+  for (const Q of verts){
+    const r = Core.ray(state.Zv, state.Zh, Q);
+    // draw the projected segment from the glass to beyond the box
+    const pA = r.p, dir = r.d;
+    const tGlass = (O - pA.z) / dir.z, tFar = (zc + hd + 60 - pA.z) / dir.z;
+    const at = t => ({ x: pA.x + t * dir.x, y: pA.y + t * dir.y, z: pA.z + t * dir.z });
+    const a = at(tGlass), b = at(tFar);
+    const va = kind === "plan" ? a.x : a.y, vb = kind === "plan" ? b.x : b.y;
+    g.beginPath(); g.moveTo(Z(a.z), Yc(va)); g.lineTo(Z(b.z), Yc(vb)); g.stroke();
+  }
+  // best-fit eye
+  const rays = verts.map(Q => Core.ray(state.Zv, state.Zh, Q));
+  const bf = Core.bestFit(rays);
+  g.fillStyle = "#8a5a2b";
+  g.save(); g.translate(Z(bf.z), Yc(0)); g.rotate(Math.PI / 4); g.fillRect(-4.5, -4.5, 9, 9); g.restore();
+  g.fillStyle = "#8a5a2b"; g.fillText("best-fit eye", Z(bf.z) - 26, Yc(0) - 12);
+  // E in the profile
+  if (kind === "prof" && E2){
+    g.fillStyle = "#2B5FA3";
+    g.beginPath(); g.arc(Z(E2.x), Yc(E2.y), 4.2, 0, Math.PI * 2); g.fill();
+    g.fillText("E — reading", Z(E2.x) + 7, Yc(E2.y) - 5);
+  }
+  g.fillStyle = "#6E675C";
+  g.fillText(kind === "plan" ? "plan (x–z): a pencil through B" : "profile (y–z): a pencil through D", 8, 14);
+}
+
+// ------------------------------------------------------------------ verdicts + checks
+function drawVerdicts(bd){
+  const { Zv, Zh, mn } = bd;
+  const verts = Core.boxVerts(state.zc, Math.max(state.w, 10), state.hd);
+  const rays = verts.map(Q => Core.ray(Zv, Zh, Q));
+  const bf = Core.bestFit(rays);
+  const miss = Math.max(...rays.map(r => Core.distPR(bf, r)));
+  const sag = Core.sagitta(Core.imgLine(state.O, Zv, Zh,
+    { x: Math.max(state.w, 10), y: Math.max(state.w, 10), z: 0 },
+    { x: 0, y: 0, z: 1 }, state.zc - state.hd, state.zc + state.hd, 25));
+  const rows = [
+    ["Is there an eye — on the sphere or anywhere?",
+      "best fit misses by " + miss.toFixed(1),
+      '<span class="v-die">no</span> — the congruence has no common point; central only in the two shadows (<span class="v-mut">mutates</span>)'],
+    ["Is the picture any perspective in disguise?",
+      "off-seam bow " + sag.toFixed(2),
+      '<span class="v-die">no</span> — straight lines bow off the seam, and homographies preserve straightness; the bow dies linearly in offset and in the gap'],
+    ["What are the two vanishing points, in the round?",
+      "exact pencils",
+      '<span class="v-mut">two projected pinholes</span> — the plan\'s at B, the profile\'s at D; the two-point reading is their superposition'],
+    ["Where is the best single eye?",
+      "z = " + bf.z.toFixed(1) + " · far field → " + (state.O + mn.AM).toFixed(1),
+      '<span class="v-gau">a scene gauge</span> — z_eye(Z) in closed form, drifting from the near slit to AM, the centre of the sphere; inside it, never on it'],
+    ["What is the scene-free compromise?",
+      "z* = " + bd.zstar.toFixed(1),
+      '<span class="v-sur">the neutral surface</span> — vergence midpoint of the channels at every depth; the circle of least confusion; conformal there alone, hand flipped'],
+    ["What does E keep?",
+      "the profile",
+      '<span class="v-sur">its whole 2D jurisdiction</span> — the certified station point of the drawing that superposes the shadows; a reader, not a camera'],
+    ["And at the pinhole?",
+      "miss and bow → 0",
+      '<span class="v-mut">the question dissolves</span> — the camera turns central, linearly in the gap']
+  ];
+  $("verdicts").innerHTML =
+    "<tr><th style='width:26%'>question</th><th style='width:20%'>measured</th><th>verdict</th></tr>" +
+    rows.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join("");
+
+  const cks = Core.checksLive(bd, state.zc, state.w, state.hd);
+  $("liveChecks").innerHTML = cks.map((r, i) => {
+    if (r.res === null)
+      return `<div><span>${i + 1}. ${r.name}</span><span class="na">—</span></div>`;
+    const ok = r.res < 1e-6;
+    return `<div><span>${i + 1}. ${r.name}</span>` +
+      `<span class="${ok ? "ok" : "bad"}">${ok ? "✓" : "✗"} residual ${r.res.toExponential(1)}</span></div>`;
+  }).join("");
+}
+
+// ------------------------------------------------------------------ redraw + controls
+function redraw(){
+  const bd = bdOf();
+  drawPic(bd);
+  drawShadow($("cvPlan"), "plan", bd);
+  drawShadow($("cvProf"), "prof", bd);
+  drawVerdicts(bd);
+}
+$("zc").oninput = e => { state.zc = +e.target.value; $("zcVal").textContent = e.target.value; redraw(); };
+$("w").oninput = e => { state.w = +e.target.value; $("wVal").textContent = e.target.value; redraw(); };
+["tgE", "tgBF"].forEach(id => $(id).onchange = redraw);
+window.addEventListener("resize", redraw);
+redraw();
+</script>
+</body>
+</html>
