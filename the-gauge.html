@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Gauge · The Reading Sessions</title>
+<style>
+  :root {
+    --cream:#faf6ef; --plum:#43203f; --purple:#6a2c91; --crimson:#c0322b;
+    --gold:#b08948; --teal:#177f75; --green:#3d8f3d; --ink:#2b2226; --grey:#6b6360; --rule:#e2d9c8;
+  }
+  html { background: var(--cream); }
+  body { margin:0; color:var(--ink); background:var(--cream);
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+    font-size:17px; line-height:1.6; -webkit-text-size-adjust:100%; }
+  main { max-width:44rem; margin:0 auto; padding:3rem 1.25rem 5rem; }
+  .eyebrow { font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; font-size:.72rem;
+    letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin:0 0 1rem; }
+  .eyebrow a { color:var(--gold); border-bottom:none; }
+  .eyebrow a:hover { color:var(--crimson); }
+  h1 { font-size:2rem; line-height:1.1; margin:0 0 .45rem; color:var(--plum); font-weight:700; }
+  .sub { font-style:italic; font-size:1.1rem; color:var(--purple); margin:0 0 2rem; line-height:1.4; }
+  h2 { font-size:1.05rem; color:var(--plum); margin:2.6rem 0 .8rem;
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    letter-spacing:.14em; text-transform:uppercase; font-weight:600; }
+  p { margin:0 0 1rem; }
+  a { color:var(--purple); text-decoration:none; border-bottom:1px dotted var(--gold); }
+  a:hover, a:focus-visible { color:var(--crimson); border-bottom-style:solid; }
+  blockquote { margin:1.4rem 0; padding:.2rem 1rem; border-left:3px solid var(--gold);
+    color:var(--plum); font-style:italic; }
+  .inst { border:1px solid var(--gold); border-bottom-width:3px; padding:.9rem .9rem 1rem; margin:1.4rem 0 1.8rem; }
+  .ctl { display:flex; flex-wrap:wrap; gap:.5rem .8rem; align-items:center; margin:.4rem 0 .8rem;
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; font-size:.8rem; }
+  .ctl label { color:var(--grey); letter-spacing:.06em; }
+  .seg { display:inline-flex; border:1px solid var(--plum); border-radius:3px; overflow:hidden; }
+  .seg button { border:0; background:transparent; color:var(--plum); padding:.35rem .6rem; font:inherit; cursor:pointer; }
+  .seg button[aria-pressed=true] { background:var(--plum); color:var(--cream); }
+  input[type=range] { width:150px; accent-color:#6a2c91; }
+  .read { font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; font-size:.82rem; margin:.5rem 0 0; color:var(--grey); }
+  .read b { color:var(--plum); font-weight:600; }
+  .read .defect { color:var(--crimson); }
+  .cap { font-size:.85rem; color:var(--grey); line-height:1.5; margin:.7rem 0 0; }
+  svg { width:100%; height:auto; display:block; touch-action:none; }
+  .handle { cursor:move; }
+  .handle:focus { outline:none; }
+  .handle:focus circle { stroke-width:3; }
+  footer { margin-top:3rem; padding-top:1rem; border-top:1px solid var(--gold);
+    font-size:.85rem; color:var(--grey); line-height:1.7; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow"><a href="index.html">The Reading Sessions</a> · companion</p>
+    <h1>The Gauge</h1>
+    <p class="sub">Same count, three seats; one count, two placements — the sketch sheet's remaining panels, drawn live</p>
+  </header>
+
+  <p>The 11 September sketch sheet held five panels. Its area identity is already an instrument — <a href="the-conservation.html">the conservation</a> — and its smear-pile-grade grid lives on there as the ledger's policy buttons. This page takes what remains: the three fans marked <em>gauge, same count</em>, and the two elevations of the <em>glide vanishing axis</em>, where one count is run on two placements at once. The vocabulary is the standing one — the <a href="the-conservation.html">shelf of terms</a> governs — and the sheet's colours are repainted by the same discipline as before: the yellow of the defect and the blue of the limit both go to crimson, the colour the suite reserves for the account and for infinity's address; the harmonic marks go to teal with the suite's rulers; the arithmetic side keeps the sheet's own green.</p>
+
+  <h2>Same count, three seats</h2>
+  <p>The first panel makes the defect page's decomposition visible with almost nothing drawn. The horizontal lines are the count — levels 0 through 4, equally spaced, untouched from fan to fan. The feet on the base are the count again, written once at unit scale. Everything a fan can differ in is one point: the <em>seat</em>. Put the seat above the band and the rays write the count smaller on every higher level, more gently the higher the seat sits — the sheet's Type A and Type B are this one construction at two heights, not two kinds of thing. Put the seat inside the band and the fan crosses through it: below the seat's level the count reads forward, at the seat's level the write collapses to a point, above it the count comes out backwards — Type C, the count inverting through the seat. Drag the seat anywhere and watch the type follow the address.</p>
+
+  <div class="inst" id="inst1">
+    <div class="ctl">
+      <label>Seat</label>
+      <div class="seg" id="i1-preset" role="group" aria-label="Preset seat positions">
+        <button data-s="A" aria-pressed="true">Type A</button>
+        <button data-s="B" aria-pressed="false">Type B</button>
+        <button data-s="C" aria-pressed="false">Type C</button>
+      </div>
+      <label>— or drag it</label>
+    </div>
+    <svg id="i1-svg" viewBox="0 0 640 420" role="img"
+      aria-label="Five equally spaced count lines crossed by a fan of rays from a draggable seat. The fan writes the count on every level; marks invert to crimson on levels above a seat placed inside the band."></svg>
+    <p class="read" id="i1-read"></p>
+    <p class="cap">The count survives every level — the marks stay equally spaced wherever the seat sits; only their scale changes, by s = 1 − y/v exactly (y the level's height, v the seat's). Scale is placement, so the whole panel is the defect page's sentence drawn: the gauge decomposes into a count nobody touches and a placement one point decides. Marks turn <span style="color:var(--crimson)">crimson</span> where the write inverts. The Type C crossing is left unidentified with any rig object — the miniature's lesson stands: a crossing is not the seam until proven so.</p>
+  </div>
+
+  <h2>The construction</h2>
+  <p>The two lower panels are one construction seen twice, and it answers a question <a href="the-defect.html">the defect page</a> leaves standing. Theorem 0 says no single ruler carries both infinities: Reach keeps its equal steps and exiles the end; Turn seats the end and pays for it in every interval. The sheet's construction does not defy the theorem — it <em>routes around it with two lines</em>. Along the receding fence, the count keeps Reach's placement: equal hops, green, the end open. On the glide vanishing axis, the same count arrives in Turn's placement: teal marks crowding against a crimson ring, the fence's unreachable direction given a finite address. The seat's fan is the bridge — a projection carrying each numbered post to its numbered mark. No line does both jobs; the axis is where the transfer is legal.</p>
+  <p>And the transfer is not merely Turn-<em>like</em> — it is Turn exactly, and the check says why the word <em>harmonic</em> belongs to it: at every interior tick, the neighbours, the tick, and the ring stand in harmonic position, cross-ratio −1, the tick the harmonic conjugate of infinity's mark against its own neighbours. Equal steps have their midpoints; a projection preserves cross-ratio; a midpoint with infinity makes a harmonic four. The crowding is that classical fact, watched happening. The crimson wash between the last mark and the ring is the account, banked — the same bill the conservation's ledger weighs, here graded toward the boundary — while on the fence it is exiled past the arrow, the pile-at-infinity policy. One count, one bill, two addresses.</p>
+
+  <div class="inst" id="inst2">
+    <div class="ctl">
+      <label>Stop the count at</label>
+      <input type="range" id="i2-n" min="1" max="9" value="6" aria-label="How many posts to transfer">
+      <div class="seg" id="i2-fan" role="group" aria-label="Show the transfer fan">
+        <button data-f="on" aria-pressed="true">Fan</button>
+        <button data-f="off" aria-pressed="false">No fan</button>
+      </div>
+      <div class="seg" id="i2-fence" role="group" aria-label="Fence orientation">
+        <button data-o="recede" aria-pressed="true">Receding fence</button>
+        <button data-o="parallel" aria-pressed="false">Parallel (control)</button>
+      </div>
+    </div>
+    <svg id="i2-svg" viewBox="0 0 640 340" role="img"
+      aria-label="A horizontal glide vanishing axis. Below it a green fence of equal hops recedes toward an open arrow; from a gold seat above, rays transfer each post to a teal mark on the axis, crowding toward a crimson ring with a crimson wash banked before it. A control button makes the fence parallel, and the crowding vanishes."></svg>
+    <p class="read" id="i2-read"></p>
+    <p class="cap">Slide the stop: every post the fence adds, the axis pays for — the marks crowd, the wash narrows, and the bank never empties at any finite stop. The control is the honest part of the drawing: the sheet's fence is sketched horizontal, but a fence parallel to the axis transfers with <em>no crowding at all</em> — equal in, equal out, no ring, no gauge. Recession is what the transfer prices; the hand's horizontal is read as shorthand for it. <span style="color:var(--crimson)">Crimson ring</span>: the sheet's blue limit, repainted — infinity's finite address. Blue is spent nowhere else; the suite has no seat for it.</p>
+  </div>
+
+  <h2>Terms this page adds</h2>
+  <p>Three usages enter with these panels, all provisional until they earn a ruling on the shelf. The <em>transfer fan</em> — the projection carrying one placement of a count to another; candidate for the shelf if it recurs. The <em>ring</em> — the limit's mark on the axis, already drawn (crimson, closing over the seat) in the 3D defect plate; this page uses it the same way. And <em>Type A, B, C</em> — kept as the sheet's own labels, though the first instrument argues the list is really two entries long: A and B are one type at two heights, and the honest classification is <em>seat outside the band</em> against <em>seat inside it</em>. The words <em>limit</em> and <em>crowding</em> are already on the shelf, tagged to this sheet.</p>
+
+  <h2>Notes</h2>
+  <p>Checked in <a href="check-the-gauge.js">check-the-gauge.js</a> — 18/18, 11 September 2026: the write-scale law and equal spacing at every level; A and B one type, gentler with height; Type C's inversion and collapse; the transfer's exact Turn form; the ring finite; harmonic conjugacy at every interior tick; crowding strict; the bank positive and decreasing at every stop; the marks no affine image of the count while the fence keeps Reach intact; and the parallel control.</p>
+  <p>Judgment calls open for a ruling. The fence is drawn obliquely receding where the sheet draws it horizontal — the control shows why, and the reading was left to the auditor. Types A and B are collapsed to one construction at two heights. The palette mapping is as stated above, the yellow-to-crimson repaint kept and extended to the blue limit. The drawing units are witness values with no rig identification claimed — in particular the seat, ring, and fence of this page are not asserted to be the rig's slits, stations, or seam; those identifications, if any, are shelf material. The harmonic-conjugacy fact is proved for this construction only; its kinship with the cover's <em>the agreement is harmonic</em> is left as seasoning, structure matched, not yet audited.</p>
+
+  <footer>
+    <p><a href="index.html">← All sessions</a> · Siblings: <a href="the-conservation.html">the conservation</a> · <a href="the-defect.html">the defect</a> · <a href="window-and-floor.html">window and floor</a> · The book: <a href="https://flyingsticks.github.io/one-congruence-two-readings/">One Congruence, Two Readings</a></p>
+  </footer>
+</main>
+
+<script>
+(function(){
+  var NS="http://www.w3.org/2000/svg";
+  function el(n,a){ var e=document.createElementNS(NS,n); for(var k in a)e.setAttribute(k,a[k]); return e; }
+  function txt(parent,x,y,s,fill,size,anchor){ var t=el("text",{x:x,y:y,"font-family":"Helvetica Neue,Helvetica,Arial,sans-serif","font-size":size||11,fill:fill||"#6b6360","text-anchor":anchor||"start"}); t.textContent=s; parent.appendChild(t); return t; }
+  var CRIM="#c0322b", TEAL="#177f75", PURP="#6a2c91", GOLD="#b08948", PLUM="#43203f", GREEN="#3d8f3d", GREY="#6b6360", RULE="#e2d9c8";
+
+  /* ------------- Instrument 1: same count, three seats ------------- */
+  var svg1=document.getElementById("i1-svg"), read1=document.getElementById("i1-read");
+  var Y0=350, BAND=220, LEV=5, FU=44, FX0=160, NF=4;   // base y, band height, count lines
+  var seatPresets={A:[248,240],B:[248,330],C:[248,110]}; // [x, height above base] — mirrored in the check
+  var seat=seatPresets.A.slice(), dragging=false;
+
+  function draw1(){
+    while(svg1.firstChild) svg1.removeChild(svg1.firstChild);
+    var g=el("g",{}); svg1.appendChild(g);
+    var vx=seat[0], v=seat[1], sy=Y0-v;
+
+    // count lines
+    for(var j=0;j<LEV;j++){
+      var y=Y0-j*(BAND/(LEV-1));
+      g.appendChild(el("line",{x1:60,y1:y,x2:600,y2:y,stroke:j===0?PLUM:RULE,"stroke-width":j===0?1.2:1}));
+      txt(g,48,y+4,String(j),GREY,11,"end");
+    }
+    txt(g,60,Y0+26,"the count — same on every line",GREY,11);
+
+    // rays and marks
+    for(var i=0;i<=NF;i++){
+      var fx=FX0+i*FU;
+      // ray from seat through foot, extended a little both ways
+      var dx=fx-vx, dy=Y0-sy, t0=-0.25, t1=1.12;
+      g.appendChild(el("line",{x1:vx+dx*t0,y1:sy+dy*t0,x2:vx+dx*t1,y2:sy+dy*t1,stroke:GREY,"stroke-width":.9,opacity:.7}));
+      g.appendChild(el("circle",{cx:fx,cy:Y0,r:3,fill:PLUM}));
+      txt(g,fx,Y0+16,String(i),PLUM,10,"middle");
+    }
+    for(var j=1;j<LEV;j++){
+      var y=Y0-j*(BAND/(LEV-1)), h=Y0-y, s=1-h/v;   // write-scale at this level
+      var inv=s<0, collapse=Math.abs(v-h)<2;
+      for(var i=0;i<=NF;i++){
+        var fx=FX0+i*FU, mx=fx+(vx-fx)*(h/v);
+        if(!collapse) g.appendChild(el("circle",{cx:mx,cy:y,r:3,fill:inv?CRIM:TEAL}));
+        if(j===LEV-1&&!collapse) txt(g,mx,y-8,String(i),inv?CRIM:TEAL,10,"middle");
+      }
+      if(collapse) g.appendChild(el("circle",{cx:vx,cy:y,r:5,fill:"none",stroke:CRIM,"stroke-width":1.6}));
+    }
+
+    // the seat
+    var hnd=el("g",{"class":"handle",tabindex:0,role:"slider","aria-label":"the seat",
+      "aria-valuetext":"height "+v.toFixed(0)});
+    hnd.appendChild(el("circle",{cx:vx,cy:sy,r:9,fill:GOLD,stroke:PLUM,"stroke-width":1.5}));
+    g.appendChild(hnd);
+    txt(g,vx+14,sy+4,"seat",GOLD,11);
+
+    var sTop=1-BAND/v, type, note;
+    if(v>BAND){ type="A / B"; note="seat above the band — one type, two heights; write-scale at the top line s = "+sTop.toFixed(3); }
+    else if(v>0){ type="C"; note="seat inside the band — the count inverts through the seat's level (s < 0 above it)"; }
+    else { type="—"; note="seat below the base — the fan magnifies (s > 1); the sheet drew no name for this one"; }
+    read1.innerHTML="type <b>"+type+"</b> · seat height v = <b>"+v.toFixed(0)+"</b> (band = "+BAND+") · "+note;
+  }
+  function setSeat(x,y){ seat=[Math.max(80,Math.min(560,x)), Math.max(-40,Math.min(330,Y0-y))]; clearSeg(seg1); draw1(); }
+  svg1.addEventListener("pointerdown",function(ev){
+    var h=ev.target.closest?ev.target.closest(".handle"):null;
+    if(!h) return; dragging=true; svg1.setPointerCapture(ev.pointerId); ev.preventDefault();
+  });
+  svg1.addEventListener("pointermove",function(ev){
+    if(!dragging) return;
+    var pt=svg1.createSVGPoint(); pt.x=ev.clientX; pt.y=ev.clientY;
+    var p=pt.matrixTransform(svg1.getScreenCTM().inverse());
+    setSeat(p.x,p.y);
+  });
+  svg1.addEventListener("pointerup",function(){ dragging=false; });
+  svg1.addEventListener("keydown",function(ev){
+    var h=ev.target.closest?ev.target.closest(".handle"):null; if(!h) return;
+    var st=ev.shiftKey?20:6, moved=true;
+    if(ev.key==="ArrowLeft") seat[0]-=st; else if(ev.key==="ArrowRight") seat[0]+=st;
+    else if(ev.key==="ArrowUp") seat[1]+=st; else if(ev.key==="ArrowDown") seat[1]-=st;
+    else moved=false;
+    if(moved){ ev.preventDefault(); clearSeg(seg1); draw1(); var hs=svg1.querySelector(".handle"); if(hs) hs.focus(); }
+  });
+  function clearSeg(seg){ var bs=seg.querySelectorAll("button"); for(var i=0;i<bs.length;i++) bs[i].setAttribute("aria-pressed","false"); }
+  var seg1=document.getElementById("i1-preset");
+  seg1.addEventListener("click",function(ev){
+    var b=ev.target.closest("button"); if(!b) return;
+    seat=seatPresets[b.dataset.s].slice();
+    var bs=seg1.querySelectorAll("button");
+    for(var i=0;i<bs.length;i++) bs[i].setAttribute("aria-pressed",bs[i]===b?"true":"false");
+    draw1();
+  });
+  draw1();
+
+  /* ------------- Instrument 2: the construction ------------- */
+  var svg2=document.getElementById("i2-svg"), read2=document.getElementById("i2-read");
+  var AX=150;                                   // the axis (glide line) y
+  var CX2=110, HC=140;                          // seat: x on axis coords, height above axis
+  var P0X=170, HP0=-50, DX=26, DH=-14, KMAX=9;  // fence — mirrored in the check
+  var Nstop=6, fanOn=true, orient="recede";
+  function postX(k){ return P0X+DX*k; }
+  function postH(k){ return orient==="recede" ? HP0+DH*k : HP0; }
+  function mk(k){ return CX2+(postX(k)-CX2)*HC/(HC-postH(k)); }
+  var RING=CX2-HC*DX/DH;
+
+  function draw2(){
+    while(svg2.firstChild) svg2.removeChild(svg2.firstChild);
+    var g=el("g",{}); svg2.appendChild(g);
+    var receding=orient==="recede";
+
+    // the axis
+    g.appendChild(el("line",{x1:40,y1:AX,x2:620,y2:AX,stroke:PLUM,"stroke-width":1.3}));
+    txt(g,40,AX-38,"glide vanishing axis",PLUM,11);
+
+    // wash: the bank between last mark and the ring
+    if(receding){
+      var mN=mk(Nstop);
+      g.appendChild(el("rect",{x:mN,y:AX-26,width:Math.max(RING-mN,0),height:34,fill:"rgba(192,50,43,.16)"}));
+      txt(g,(mN+RING)/2,AX-31,"account, banked",CRIM,10,"middle");
+      // the ring
+      g.appendChild(el("circle",{cx:RING,cy:AX,r:5.5,fill:"none",stroke:CRIM,"stroke-width":2}));
+      txt(g,RING,AX-14,"limit",CRIM,10,"middle");
+    } else {
+      txt(g,470,AX-14,"no ring — no gauge",GREY,10,"middle");
+    }
+
+    // seat
+    g.appendChild(el("circle",{cx:CX2,cy:AX-HC,r:6,fill:GOLD,stroke:PLUM,"stroke-width":1.4}));
+    txt(g,CX2-12,AX-HC+4,"seat",GOLD,11,"end");
+
+    // fence, hops, open arrow
+    var lastX=postX(Nstop), lastY=AX-postH(Nstop);
+    for(var k=0;k<=Nstop;k++){
+      var px=postX(k), py=AX-postH(k);
+      g.appendChild(el("circle",{cx:px,cy:py,r:3,fill:GREEN}));
+      txt(g,px,py+16,String(k),GREEN,10,"middle");
+      if(k>0){
+        var qx=postX(k-1), qy=AX-postH(k-1), mx=(px+qx)/2, myy=(py+qy)/2-12;
+        g.appendChild(el("path",{d:"M"+qx+" "+qy+" Q"+mx+" "+myy+" "+px+" "+py,fill:"none",stroke:GREEN,"stroke-width":1}));
+      }
+    }
+    var ex=lastX+34, ey=lastY+(receding?18:0);
+    g.appendChild(el("line",{x1:lastX,y1:lastY,x2:ex,y2:ey,stroke:GREEN,"stroke-width":1.2}));
+    g.appendChild(el("path",{d:"M"+ex+" "+ey+" l-8 -4 l2 4 l-2 4 z",fill:GREEN}));
+    txt(g,ex+6,ey+4,"open",GREEN,10);
+    txt(g,ex+6,ey+18,"account, exiled",CRIM,9);
+
+    // transfer fan + marks
+    var prevLabel=-1e9;
+    for(var k=0;k<=Nstop;k++){
+      var px=postX(k), py=AX-postH(k), mx=mk(k);
+      if(fanOn) g.appendChild(el("line",{x1:CX2,y1:AX-HC,x2:px,y2:py,stroke:GOLD,"stroke-width":.8,opacity:.75}));
+      g.appendChild(el("line",{x1:mx,y1:AX-7,x2:mx,y2:AX+7,stroke:TEAL,"stroke-width":1.6}));
+      if(mx-prevLabel>14){ txt(g,mx,AX+20,String(k),TEAL,10,"middle"); prevLabel=mx; }
+    }
+
+    // readout
+    if(receding){
+      var mN=mk(Nstop), bank=RING-mN, run=RING-mk(0);
+      var CRv="—";
+      if(Nstop>=1&&Nstop+1<=KMAX+3){
+        var a=mk(Nstop-1),b=mk(Nstop+1),c=mN,d=RING;
+        CRv=(((c-a)*(d-b))/((c-b)*(d-a))).toFixed(3);
+      }
+      read2.innerHTML="stop <b>N = "+Nstop+"</b> · mark m<sub>N</sub> = "+mN.toFixed(1)+
+        " · ring = "+RING.toFixed(1)+
+        " · <span class='defect'>bank = "+bank.toFixed(1)+" — "+(100*bank/run).toFixed(0)+"% of the run</span>"+
+        " · (m<sub>N−1</sub>, m<sub>N+1</sub>; m<sub>N</sub>, ring) = <b>"+CRv+"</b>";
+    } else {
+      var gap=(mk(1)-mk(0)).toFixed(1);
+      read2.innerHTML="control: parallel fence · every gap = <b>"+gap+"</b> — equal in, equal out; nothing crowds, nothing is banked; the transfer prices recession, not distance";
+    }
+  }
+  document.getElementById("i2-n").addEventListener("input",function(){ Nstop=+this.value; draw2(); });
+  var seg2f=document.getElementById("i2-fan");
+  seg2f.addEventListener("click",function(ev){
+    var b=ev.target.closest("button"); if(!b) return;
+    fanOn=b.dataset.f==="on";
+    var bs=seg2f.querySelectorAll("button");
+    for(var i=0;i<bs.length;i++) bs[i].setAttribute("aria-pressed",bs[i]===b?"true":"false");
+    draw2();
+  });
+  var seg2o=document.getElementById("i2-fence");
+  seg2o.addEventListener("click",function(ev){
+    var b=ev.target.closest("button"); if(!b) return;
+    orient=b.dataset.o;
+    var bs=seg2o.querySelectorAll("button");
+    for(var i=0;i<bs.length;i++) bs[i].setAttribute("aria-pressed",bs[i]===b?"true":"false");
+    draw2();
+  });
+  draw2();
+})();
+</script>
+</body>
+</html>
