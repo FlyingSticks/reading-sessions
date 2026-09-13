@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The landscape · The Reading Sessions</title>
+<style>
+  :root{
+    --paper:#F4F0E6; --panel:#FBF9F3; --ink:#26231E; --soft:#6E675C;
+    --crimson:#A31F34; --purple:#5E3A9E; --gold:#B8860B; --green:#1E8E3E;
+    --red:#C0392B; --blue:#2B5FA3; --rule:#D8D2C2;
+  }
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+    font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.5;
+    -webkit-text-size-adjust:100%;}
+  .wrap{max-width:960px;margin:0 auto;padding:18px 16px calc(40px + env(safe-area-inset-bottom));}
+  .crumbs{font-size:13px;color:var(--soft);margin-bottom:14px;}
+  .crumbs a{color:var(--soft);}
+  h1{font-size:28px;margin:6px 0 10px;letter-spacing:.2px;}
+  h2{font-size:19px;margin:34px 0 8px;}
+  p{margin:8px 0;}
+  a{color:var(--blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .thesis{background:var(--panel);border-left:5px solid var(--gold);
+    padding:10px 14px;margin:16px 0;border-radius:0 6px 6px 0;}
+  table.map{border-collapse:collapse;width:100%;font-size:13.6px;margin:10px 0 18px;
+    background:var(--panel);border:1px solid var(--rule);border-radius:8px;overflow:hidden;}
+  table.map th,table.map td{border-bottom:1px solid var(--rule);text-align:left;
+    padding:6px 9px;vertical-align:top;}
+  table.map th{font-size:12.3px;text-transform:uppercase;letter-spacing:.5px;
+    color:var(--soft);background:#f3efe3;}
+  td.addr{white-space:nowrap;font-size:13px;}
+  .s-stated{color:var(--blue);font-weight:700;} .s-record{color:var(--soft);font-weight:700;}
+  .s-live{color:var(--green);font-weight:700;} .s-pending{color:var(--gold);font-weight:700;}
+  .s-seasoning{color:var(--purple);font-weight:700;} .s-archive{color:#8a8374;font-weight:700;}
+  .s-source{color:var(--crimson);font-weight:700;} .s-out{color:#9a9488;font-weight:700;}
+  .unlinked{font-size:11.5px;color:var(--gold);border:1px solid var(--gold);
+    border-radius:4px;padding:0 4px;margin-left:5px;white-space:nowrap;}
+  .tally{color:#3A362F;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .audit-ok{color:var(--green);font-weight:700;} .audit-miss{color:var(--red);font-weight:700;}
+  .audit-pend{color:var(--gold);font-weight:700;}
+  button{font:inherit;font-size:14px;background:var(--panel);border:1px solid var(--rule);
+    border-radius:6px;padding:6px 12px;color:var(--ink);cursor:pointer;}
+  button:active{background:#efe9da;}
+  #auditOut{background:var(--panel);border:1px solid var(--rule);border-radius:8px;
+    padding:8px 14px;font-size:13.6px;margin-top:10px;font-variant-numeric:tabular-nums;
+    display:none;}
+  dl{margin:8px 0;}
+  dt{font-weight:700;margin-top:10px;}
+  dd{margin:2px 0 0 0;font-size:14.5px;color:#3A362F;}
+  ol.rulings{font-size:14.5px;padding-left:22px;}
+  ol.rulings li{margin:7px 0;}
+  .foot{margin-top:36px;font-size:13.5px;color:var(--soft);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="crumbs">
+  <a href="/reading-sessions/index.html">The Reading Sessions</a> ·
+  the estate map ·
+  13 September 2026
+</div>
+
+<h1>The landscape</h1>
+
+<p>Every living thread of the work, with an address, a one-sentence claim, and a status —
+so that what has felt scattered across the landscape of a mind can be seen in one place,
+tested against the repositories, and settled by ruling rather than by worry. The map was
+built against the actual state of the repositories on 13 September 2026 (its check
+script re-verifies every address), and it is organized by the through-line the whole
+estate keeps writing:</p>
+
+<div class="thesis">
+<p style="margin:4px 0"><b>One structure, read two ways, with the agreement harmonic and
+the disagreement priced.</b> Four questions place any item on this map: <i>Which
+structure?</i> (the congruence, or a stand-in for it.) <i>Which two readings?</i>
+(drawing and camera; glide and cross-slit; floor and window; construction-first and
+ray-first.) <i>Where is the agreement?</i> (the zero locus — the seam, the neutral
+surface, the harmonic range — and whether its zero is identical or isolated.)
+<i>What is the price?</i> (the defect's currency, amount, rate, and bound.) An item that
+answers all four belongs to the book; an item still finding its answers belongs to the
+shelf; an item that answers only one belongs out.</p>
+</div>
+
+<h2>The statement — the book</h2>
+<p style="font-size:14px;color:var(--soft)">flyingsticks.github.io/one-congruence-two-readings/ ·
+written theorems-up, finished 30 August 2026, porch added 2 September. Status
+<span class="s-stated">stated</span>: the book states; the record collects.</p>
+<div id="t-book"></div>
+
+<h2>The record — the sessions</h2>
+<p style="font-size:14px;color:var(--soft)">The contract: session pages closed when
+written, repaired only for error. The written record ends at session 4; the sessions of
+8, 10, 11, and 12–13 September are worked, uploaded, and unfiled — ruling 4 below.</p>
+<div id="t-record"></div>
+
+<h2>The shelf — the instruments</h2>
+<p style="font-size:14px;color:var(--soft)">Companion pages and their checks, in
+families. <span class="unlinked">unlinked</span> marks a file live in the repository but
+absent from the sessions index — present, not yet addressed (ruling 5).</p>
+<div id="t-shelf"></div>
+
+<h2>The seasoning shelf — ideas without files</h2>
+<p style="font-size:14px;color:var(--soft)">Formulations resting per the record's
+discipline: seasoned before folded, audited before stated.</p>
+<div id="t-seasoning"></div>
+
+<h2>The archives</h2>
+<p style="font-size:14px;color:var(--soft)">The five repositories the book was distilled
+from. Instruments are edited there; the book and shelf link in.</p>
+<div id="t-archive"></div>
+
+<h2>The sources</h2>
+<div id="t-source"></div>
+
+<h2>The out-pile</h2>
+<p style="font-size:14px;color:var(--soft)">Held out by the admission test or assigned
+their own homes — out is a status, not a judgment.</p>
+<div id="t-out"></div>
+
+<h2>Open rulings</h2>
+<ol class="rulings">
+<li><b>The Chapter 5 fold-in.</b> The sphere-duality result (rig exchanged with dual rig
+by the polarity of the means sphere; AM × HM = GM² as pole–polar; the two-point reading
+as the self-dual content), with the station-point addendum and the eye-view verdict,
+passes the admission test by construction — the duality does not need both readings, it
+exchanges them. Whether Chapter 5 (Duality) grows to receive it is the largest ruling on
+the table.</li>
+<li><b>The 1984 vocabulary patch.</b> Rephrase the addendum's and eye-view plate's
+transparency prose in the published terms — actual projection, spectator projection,
+optical view, pictorial resemblance view — citing Glide 1984 pp. 25–26. Offered 12
+September; pending.</li>
+<li><b>The seam-as-zero-defect audit.</b> Blocks the seam's second definition and the
+census fold-ins; the reading rests at seasoning until audited.</li>
+<li><b>The record backlog.</b> Session pages for 8 September (folded rigs), 10 September
+(the 3D translations), 11 September (conservation, gauge, census), and 12–13 September
+(the means-sphere arc through the duality and this map). Numbering is yours.</li>
+<li><b>The index rows.</b> Thirty-plus live shelf files are absent from the sessions
+index, which still ends at session 4. The backlog filing would carry the rows.</li>
+<li><b>Naming hygiene.</b> Twelve check scripts landed with spaces where the house
+convention writes dashes (the iPad's rename on upload). Rename or bless; the map lists
+them as they stand.</li>
+<li><b>Two uploads.</b> the-gauge.html and check-the-gauge.js (delivered 11 September,
+18/18, reissue on request) never landed; check-sphere-duality.js is redelivered today
+dash-named. Both listed <span class="s-pending">pending</span> below and asserted absent
+by the check — the audit will flip them green when they land.</li>
+<li><b>This page's own name and seat</b> — the-landscape, or a name of yours; and
+whether it joins the index.</li>
+<li><b>Floated, uncommitted:</b> a duality plate beside the GM mirror; a
+sections-of-one-pencil plate with the equal-measure check (perimeter and area at par
+exactly at R = D).</li>
+</ol>
+
+<h2>Audit</h2>
+<p style="font-size:14.5px">Re-verify the map against the live site: every listed
+address is fetched and reported — live as claimed, pending as claimed, missing, or newly
+landed. (Runs on the live site; in a file preview the fetches have nothing to ask.)</p>
+<button id="btnAudit">audit the estate</button>
+<div id="auditOut"></div>
+
+<h2>Conventions</h2>
+<p style="font-size:14.5px">Judgment calls flagged: the map lists threads and their
+files, not every archive file — the archives are addressed at repository level, per the
+maintenance rule that instruments live there; statuses were verified against the
+repositories on 13 September 2026 by check-the-landscape.js, which also re-runs two live
+check suites end-to-end so the audit proves more than reachability; assertion tallies
+are transcribed from the record and re-run under the maintenance process, not by this
+page; the claims are one sentence each and defer to their files; the four-question
+placement test is this page's reading of the through-line, offered to the same seasoning
+discipline as any other formulation. The book's README and print duplicates are covered
+by their repository rows.</p>
+
+<h2>Status legend</h2>
+<dl>
+<dt><span class="s-stated">stated</span></dt><dd>In the book. The book states.</dd>
+<dt><span class="s-record">record</span></dt><dd>A closed session page — repaired only for error, never reworded.</dd>
+<dt><span class="s-live">live</span></dt><dd>On the shelf and in the repository, verified this date.</dd>
+<dt><span class="s-pending">pending</span></dt><dd>Delivered, not yet in the repository; asserted absent by the check.</dd>
+<dt><span class="s-seasoning">seasoning</span></dt><dd>A formulation resting on the shelf; no file yet; not to be leaned on.</dd>
+<dt><span class="s-archive">archive</span></dt><dd>A feeder repository; edited in place, linked from the book.</dd>
+<dt><span class="s-source">source</span></dt><dd>A published book of Kevin's entering the work as citable ancestry.</dd>
+<dt><span class="s-out">out</span></dt><dd>Held out by the admission test or assigned its own home.</dd>
+</dl>
+
+<div class="foot">
+<a href="/reading-sessions/index.html">The Reading Sessions</a> ·
+<a href="/one-congruence-two-readings/index.html">One Congruence, Two Readings</a> ·
+<a href="/reading-sessions/the-defect-census.html">The defect census</a> ·
+check-the-landscape.js verifies this map
+</div>
+</div>
+
+<script>
+/*CORE-BEGIN*/
+const Core = {
+  STATUSES: ["stated","record","live","pending","seasoning","archive","source","out"],
+  TERRITORIES: ["book","record","shelf","seasoning","archive","source","out"],
+  // Every row: t (territory), name, path (site-absolute; null for ideas),
+  // also (further files audited with the row), claim, status, tally, linked
+  // (shelf only: true if the sessions index links it), group (shelf family).
+  REG: [
+    // ---- the statement -----------------------------------------------------
+    { t:"book", name:"The cover", path:"/one-congruence-two-readings/index.html",
+      claim:"Contents and the Before-you-enter block; canvas, calendar, map named as one quarrel.", status:"stated" },
+    { t:"book", name:"The porch", path:"/one-congruence-two-readings/the-porch.html",
+      claim:"Three quarrels that were one quarrel — the pattern handed to the reader before Chapter 1.", status:"stated" },
+    { t:"book", name:"Chapter 1 · The congruence", path:"/one-congruence-two-readings/chapter-1.html",
+      claim:"The one structure both readings read.", status:"stated" },
+    { t:"book", name:"Chapter 2 · Law and gauge", path:"/one-congruence-two-readings/chapter-2.html",
+      claim:"What is forced and what is free; Theorem 0 and the graduations.", status:"stated" },
+    { t:"book", name:"Chapter 3 · The seam", path:"/one-congruence-two-readings/chapter-3.html",
+      claim:"Where the readings agree, and why the agreement is harmonic.", status:"stated" },
+    { t:"book", name:"Chapter 4 · The group", path:"/one-congruence-two-readings/chapter-4.html",
+      claim:"One S₃ per channel; orbits collapse only on the seam.", status:"stated" },
+    { t:"book", name:"Chapter 5 · Duality", path:"/one-congruence-two-readings/chapter-5.html",
+      claim:"Station point against slits; the readings exchanged — the waiting home of the sphere result.", status:"stated" },
+    { t:"book", name:"Chapter 6 · What the readings buy", path:"/one-congruence-two-readings/chapter-6.html",
+      claim:"Codec, spheres, calibration — the evidence, with the B² gap stated plainly.", status:"stated" },
+    { t:"book", name:"Chapter 7 · Plates", path:"/one-congruence-two-readings/chapter-7.html",
+      claim:"The 1984 constructions re-derived as the Type A transfer.", status:"stated" },
+    { t:"book", name:"Chapter 8 · The frame", path:"/one-congruence-two-readings/chapter-8.html",
+      claim:"The geometry both methods climb, arrived at last, not first.", status:"stated" },
+    { t:"book", name:"The glossary", path:"/one-congruence-two-readings/glossary.html",
+      claim:"57 terms, anchor-addressed, tap-linked from every chapter.", status:"stated" },
+    { t:"book", name:"Draft C.1", path:"/one-congruence-two-readings/The-Harmonic-Seam-DraftC1.html",
+      claim:"The seam text of record.", status:"stated" },
+    { t:"book", name:"The calibration room", path:"/one-congruence-two-readings/calibration-room-v2.html",
+      also:["/one-congruence-two-readings/check-calibration-room-v2.js"],
+      claim:"A13's load-bearing numbers re-verified; Chapter 6's working evidence.", status:"stated" },
+    { t:"book", name:"The two graduations", path:"/one-congruence-two-readings/the-two-graduations-v2.html",
+      also:["/one-congruence-two-readings/the-two-graduations-v2.pdf"],
+      claim:"Reach and Turn — the two depth rulers.", status:"stated" },
+    { t:"book", name:"The gauge is the group", path:"/one-congruence-two-readings/the-gauge-is-the-group-v2.html",
+      claim:"Chapter 4's instrument.", status:"stated" },
+    { t:"book", name:"Glide from the stack", path:"/one-congruence-two-readings/glide-from-the-stack-v2-1.md",
+      claim:"§§8.3′/8.5′ — the duality text Chapter 5 draws on.", status:"stated" },
+    { t:"book", name:"The six-step check", path:"/one-congruence-two-readings/sixstep2.js",
+      also:["/one-congruence-two-readings/the-six-step-check-v1.md"],
+      claim:"The recovered six-step verification and its report.", status:"stated", tally:"22/22" },
+    { t:"book", name:"The seam theorem", path:"/one-congruence-two-readings/the-seam-theorem-v1.md",
+      also:["/one-congruence-two-readings/verify seam.js",
+            "/one-congruence-two-readings/the-seam-theorem-v1-1.md",
+            "/one-congruence-two-readings/verify seam v1 1.js"],
+      claim:"v1 and v1.1 with their verify scripts, recovered with provenance.", status:"stated", tally:"9/9 · 6/6" },
+
+    // ---- the record --------------------------------------------------------
+    { t:"record", name:"Session 1 · 2 Sep", path:"/reading-sessions/session-01.html",
+      claim:"Cover repair landed; the porch; floor and window; datum-both-ways to seasoning.", status:"record" },
+    { t:"record", name:"Session 2 · 3 Sep", path:"/reading-sessions/session-02.html",
+      claim:"The pattern developed and the defect named.", status:"record" },
+    { t:"record", name:"Session 3 · 4 Sep", path:"/reading-sessions/session-03.html",
+      claim:"The miniature read as the pattern; the welded √(2/3) checked; the 1979 witness.", status:"record" },
+    { t:"record", name:"Session 4 · 4 Sep", path:"/reading-sessions/session-04.html",
+      claim:"The edge is seam, the crossing is not; the first book at the orthographic corner.", status:"record" },
+
+    // ---- the shelf ---------------------------------------------------------
+    { t:"shelf", group:"The pattern and the defect", name:"Window and floor", path:"/reading-sessions/window-and-floor.html",
+      claim:"One plane, two jobs, the weld readout; twice repaired under the record's clause.", status:"live", linked:true },
+    { t:"shelf", group:"The pattern and the defect", name:"The pattern", path:"/reading-sessions/the-pattern.html",
+      claim:"The four-slot template; one box under both readings.", status:"live", linked:true },
+    { t:"shelf", group:"The pattern and the defect", name:"The defect", path:"/reading-sessions/the-defect.html",
+      claim:"Closure, three policies, count against placement.", status:"live", linked:true },
+    { t:"shelf", group:"The pattern and the defect", name:"The miniature", path:"/reading-sessions/the-miniature.html",
+      also:["/reading-sessions/check-the-miniature.js"],
+      claim:"The isometric pair: free gauge against welded √(2/3).", status:"live", tally:"28/28", linked:true },
+    { t:"shelf", group:"The pattern and the defect", name:"The address", path:"/reading-sessions/the-address.html",
+      also:["/reading-sessions/check-the-edge.js"],
+      claim:"The rate square with its seam lines and the 1979 corner; the edge discharged.", status:"live", tally:"18/18", linked:true },
+    { t:"shelf", group:"The pattern and the defect", name:"The section", path:"/reading-sessions/the-section.html",
+      also:["/reading-sessions/check the section.js"],
+      claim:"One rig in section; Xc ≤ x ≤ Xg with Xg·Xc = x².", status:"live", tally:"12/12", linked:false },
+    { t:"shelf", group:"The pattern and the defect", name:"One identity, three grammars", path:"/reading-sessions/one-identity-three-grammars.html",
+      also:["/reading-sessions/check one identity three grammars.js"],
+      claim:"Xg·Xc = x² by areas, by the compass, and by the mirror — the ancestor figure.", status:"live", linked:false },
+    { t:"shelf", group:"The pattern and the defect", name:"The conservation", path:"/reading-sessions/the-conservation.html",
+      also:["/reading-sessions/check-the-area-identity.js"],
+      claim:"The area identity as a ledger; the account A conserved at 187.5 across policies.", status:"live", tally:"33/33", linked:false },
+    { t:"shelf", group:"The pattern and the defect", name:"The defect census", path:"/reading-sessions/the-defect-census.html",
+      also:["/reading-sessions/check-the-defect-census.js"],
+      claim:"Ten defects, one genus; the miss family re-denominated over the seam; fold-ins held.", status:"live", tally:"24/24", linked:false },
+    { t:"shelf", group:"The pattern and the defect", name:"Law, gauge, defect", path:"/reading-sessions/law-gauge-defect-v1.html",
+      also:["/reading-sessions/smoke-law-gauge-defect.js"],
+      claim:"The census's C10 citation, riding along with its smoke.", status:"live", tally:"20/20", linked:false },
+    { t:"shelf", group:"The pattern and the defect", name:"The gauge", path:"/reading-sessions/the-gauge.html",
+      also:["/reading-sessions/check-the-gauge.js"],
+      claim:"The fans and the transfer construction; harmonic conjugacy at every tick.", status:"pending", tally:"18/18", linked:false },
+
+    { t:"shelf", group:"The folded rigs", name:"Folded rigs", path:"/reading-sessions/folded-rigs.html",
+      also:["/reading-sessions/check-folded-rigs.js"],
+      claim:"The first folding of the rig onto the plane.", status:"live", linked:false },
+    { t:"shelf", group:"The folded rigs", name:"Folded rigs v2", path:"/reading-sessions/folded-rigs-v2.html",
+      also:["/reading-sessions/check-folded-rigs-v2.js"],
+      claim:"The folding revised.", status:"live", linked:false },
+    { t:"shelf", group:"The folded rigs", name:"Folded rigs 3D", path:"/reading-sessions/folded-rigs-3d.html",
+      also:["/reading-sessions/check-folded-rigs-3d.js","/reading-sessions/folded-rigs-3d-glossary.html"],
+      claim:"The folding taken into the axonometric idiom, with its glossary.", status:"live", linked:false },
+    { t:"shelf", group:"The folded rigs", name:"Four quadrants", path:"/reading-sessions/folded-rigs-3d-4q.html",
+      also:["/reading-sessions/check-folded-rigs-3d-4q.js"],
+      claim:"The picture plane's four quadrants with depth trails and gauge frames.", status:"live", tally:"26/26", linked:false },
+    { t:"shelf", group:"The folded rigs", name:"The slab", path:"/reading-sessions/folded-rigs-3d-slab.html",
+      also:["/reading-sessions/check-folded-rigs-3d-slab.js"],
+      claim:"The slab printed twice, the red rectangle as mediator; glide in the book's teal.", status:"live", tally:"22/22", linked:false },
+    { t:"shelf", group:"The folded rigs", name:"The seats", path:"/reading-sessions/folded-rigs-3d-vps.html",
+      also:["/reading-sessions/check-folded-rigs-3d-vps.js"],
+      claim:"Four glide seats in scale along the traces; the level combs on the shared rung, hc·hg = q².", status:"live", tally:"26/26", linked:false },
+
+    { t:"shelf", group:"The 3D translations", name:"Window and floor 3D", path:"/reading-sessions/window-and-floor-3d.html",
+      also:["/reading-sessions/check window floor 3d.js"],
+      claim:"The two panels reassembled into one orbitable scene.", status:"live", tally:"21/21", linked:false },
+    { t:"shelf", group:"The 3D translations", name:"Rate square 3D", path:"/reading-sessions/rate-square-3d.html",
+      also:["/reading-sessions/check rate square 3d.js"],
+      claim:"The draggable rate square driving the live rig; trail straight iff seam.", status:"live", tally:"27/27", linked:false },
+    { t:"shelf", group:"The 3D translations", name:"The defect 3D", path:"/reading-sessions/the-defect-3d.html",
+      also:["/reading-sessions/check the defect 3d.js"],
+      claim:"Count stop and placement morph on the world depth line; the account exiled or banked.", status:"live", tally:"21/21", linked:false },
+
+    { t:"shelf", group:"The means sphere", name:"The means sphere", path:"/reading-sessions/means-sphere-3d.html",
+      claim:"Three means on the axis by the sphere on the slits as diameter.", status:"live", linked:false },
+    { t:"shelf", group:"The means sphere", name:"The virtual centre", path:"/reading-sessions/virtual-center.html",
+      also:["/reading-sessions/check virtual center.js"],
+      claim:"B and D as incidence pivots against the computed centre C.", status:"live", tally:"88", linked:false },
+    { t:"shelf", group:"The means sphere", name:"The three means, here", path:"/reading-sessions/three-means-here.html",
+      also:["/reading-sessions/check three means here.js"],
+      claim:"The annotated sketch read live: the square on the range, the scales, the pinhole limit.", status:"live", tally:"137", linked:false },
+    { t:"shelf", group:"The means sphere", name:"The GM mirror", path:"/reading-sessions/gm-mirror.html",
+      also:["/reading-sessions/check gm mirror.js"],
+      claim:"The laws card as one symmetry: inversion in the GM circle about the glass.", status:"live", tally:"92", linked:false },
+    { t:"shelf", group:"The means sphere", name:"The station-point addendum", path:"/reading-sessions/station-point-addendum.html",
+      claim:"P1–P7 in the register, with R3 resolved: only the horizon reading.", status:"live", linked:false },
+    { t:"shelf", group:"The means sphere", name:"The degeneration ledger", path:"/reading-sessions/degeneration-ledger.html",
+      also:["/reading-sessions/check degeneration ledger.js"],
+      claim:"One dial, fourteen verdicts, the blow-up chart where the dead stand up.", status:"live", tally:"70", linked:false },
+    { t:"shelf", group:"The means sphere", name:"The eye and the volume", path:"/reading-sessions/eye-view-3d.html",
+      also:["/reading-sessions/check eye view 3d.js"],
+      claim:"The volume's verdict: two central shadows, no eye, z_eye drifting to AM.", status:"live", tally:"89", linked:false },
+    { t:"shelf", group:"The means sphere", name:"The disc of eyes", path:"/reading-sessions/check disc of eyes.js",
+      claim:"Alhazen's row — the cite, checked in twelve lines; keep beside eye-view-3d.", status:"live", tally:"12", linked:false },
+    { t:"shelf", group:"The means sphere", name:"The sphere duality", path:"/reading-sessions/check-sphere-duality.js",
+      claim:"The polarity of the means sphere: rig and dual rig exchanged, the two-point reading self-dual.", status:"pending", tally:"32", linked:false },
+
+    // ---- the seasoning shelf ----------------------------------------------
+    { t:"seasoning", name:"Datum both ways", path:null,
+      claim:"The picture plane a datum under both readings — depth's level 0 and scale's magnification 1.", status:"seasoning" },
+    { t:"seasoning", name:"Seam as zero-defect locus", path:null,
+      claim:"The seam's second definition; awaits the audit that ruling 3 names.", status:"seasoning" },
+    { t:"seasoning", name:"Seat and bench", path:null,
+      claim:"Floor vocabulary for the vanishing point — infinity seated at a finite mark.", status:"seasoning" },
+    { t:"seasoning", name:"The 1979 witness", path:null,
+      claim:"The first book lived at the orthographic corner — one sentence, placement unruled.", status:"seasoning" },
+    { t:"seasoning", name:"Harmonic conjugacy and the cover", path:null,
+      claim:"The transfer's cr = −1 at every tick against the cover's 'agreement is harmonic'.", status:"seasoning" },
+    { t:"seasoning", name:"The 1984 vocabulary", path:null,
+      claim:"Actual and spectator projection, optical and pictorial view — supersedes 'transparency as relation'; patch pending (ruling 2).", status:"seasoning" },
+    { t:"seasoning", name:"Benign self-inclusion", path:null,
+      claim:"Whole-in-part as an involution's fixed point; the currency a portable scalar — the Russell musing, absorbed halfway.", status:"seasoning" },
+    { t:"seasoning", name:"Equal measure at R = D", path:null,
+      claim:"The picture surface through the station holds both currencies at par; closed form checked in-session, no repo artifact.", status:"seasoning" },
+    { t:"seasoning", name:"The through-line", path:null,
+      claim:"One structure, two readings, agreement harmonic, disagreement priced — this map is its first instrument.", status:"seasoning" },
+
+    // ---- the archives ------------------------------------------------------
+    { t:"archive", name:"Glide_projection", path:"https://github.com/flyingsticks/Glide_projection",
+      claim:"The glide board and its plates; instruments edited here.", status:"archive" },
+    { t:"archive", name:"Lumped-together", path:"https://github.com/flyingsticks/Lumped-together",
+      claim:"The gathered essays and instruments the chapters embed.", status:"archive" },
+    { t:"archive", name:"Double-slit-project", path:"https://github.com/flyingsticks/Double-slit-project",
+      claim:"The seam texts, the tetra demos, the postulates.", status:"archive" },
+    { t:"archive", name:"Overflow", path:"https://github.com/flyingsticks/Overflow",
+      claim:"The cross-ratio suite and the pieces that named the seam.", status:"archive" },
+    { t:"archive", name:"Tetra_engine_complete", path:"https://github.com/flyingsticks/Tetra_engine_complete",
+      claim:"The engine, the codec, the patent draft — Chapter 6's evidence base.", status:"archive" },
+
+    // ---- the sources -------------------------------------------------------
+    { t:"source", name:"Glide Projection (1984)", path:null,
+      claim:"Named the vocabulary forty years early: actual and spectator projection, the always-opaque surface, dissolution from one point (pp. 25–26).", status:"source" },
+    { t:"source", name:"Graphics for Architecture (1979)", path:null,
+      claim:"The rules-on-the-plane against projection split — the orthographic corner, lived in before it was located.", status:"source" },
+
+    // ---- the out-pile ------------------------------------------------------
+    { t:"out", name:"The cross-ratio suite", path:null,
+      claim:"A separate paper; only the seam-naming pieces feed the book.", status:"out" },
+    { t:"out", name:"The straightedge grammar and primers", path:null,
+      claim:"Join-and-meet, three tools, the polarity primers — teaching apparatus with its own home.", status:"out" },
+    { t:"out", name:"The third book", path:null,
+      claim:"The Remainder, Blocky, the Neutral Surface — held whole for later.", status:"out" },
+    { t:"out", name:"The two verbs", path:null,
+      claim:"One reading only; out by the admission test, as the test intends.", status:"out" }
+  ]
+};
+/*CORE-END*/
+
+// ------------------------------------------------------------------ render
+const $ = id => document.getElementById(id);
+const sCls = s => "s-" + s;
+function rowHTML(r){
+  const addr = r.path
+    ? (r.path.startsWith("http")
+        ? `<a href="${r.path}">${r.path.replace("https://github.com/flyingsticks/","")}</a>`
+        : `<a href="${r.path}">${r.path.replace(/^\/(reading-sessions|one-congruence-two-readings)\//,"")}</a>`)
+    : "—";
+  const also = (r.also || []).length
+    ? `<div style="font-size:11.5px;color:var(--soft)">+ ${r.also.map(a => a.split("/").pop()).join(" · ")}</div>` : "";
+  const badge = (r.t === "shelf" && r.linked === false && r.status === "live")
+    ? `<span class="unlinked">unlinked</span>` : "";
+  return `<tr><td><b>${r.name}</b>${badge}</td>
+    <td class="addr">${addr}${also}</td>
+    <td>${r.claim}${r.tally ? ` <span class="tally">(${r.tally})</span>` : ""}</td>
+    <td><span class="${sCls(r.status)}">${r.status}</span></td></tr>`;
+}
+function table(rows, withGroups){
+  let html = `<table class="map"><tr><th style="width:19%">thread</th>
+    <th style="width:24%">address</th><th>claim</th><th style="width:9%">status</th></tr>`;
+  let g = null;
+  for (const r of rows){
+    if (withGroups && r.group && r.group !== g){
+      g = r.group;
+      html += `<tr><td colspan="4" style="background:#f3efe3;font-size:12.3px;
+        text-transform:uppercase;letter-spacing:.5px;color:var(--soft)">${g}</td></tr>`;
+    }
+    html += rowHTML(r);
+  }
+  return html + "</table>";
+}
+const by = t => Core.REG.filter(r => r.t === t);
+$("t-book").innerHTML = table(by("book"));
+$("t-record").innerHTML = table(by("record"));
+$("t-shelf").innerHTML = table(by("shelf"), true);
+$("t-seasoning").innerHTML = table(by("seasoning"));
+$("t-archive").innerHTML = table(by("archive"));
+$("t-source").innerHTML = table(by("source"));
+$("t-out").innerHTML = table(by("out"));
+
+// ------------------------------------------------------------------ audit
+$("btnAudit").onclick = async () => {
+  const out = $("auditOut");
+  out.style.display = "block";
+  if (!location.host.includes("github.io")){
+    out.innerHTML = "The audit fetches the live site's own files; open this page at " +
+      "flyingsticks.github.io/reading-sessions/ and press again.";
+    return;
+  }
+  out.innerHTML = "auditing…";
+  const lines = [];
+  let ok = 0, miss = 0, pend = 0, landed = 0;
+  for (const r of Core.REG){
+    if (!r.path || r.path.startsWith("http")) continue;
+    const paths = [r.path, ...(r.also || [])];
+    for (const p of paths){
+      let live = false;
+      try {
+        const resp = await fetch(p, { method: "HEAD", cache: "no-store" });
+        live = resp.ok;
+      } catch (e) { live = false; }
+      if (r.status === "pending"){
+        if (live){ landed++; lines.push(`<div><span class="audit-ok">LANDED</span> ${p} — flip its status to live</div>`); }
+        else { pend++; }
+      } else {
+        if (live) ok++;
+        else { miss++; lines.push(`<div><span class="audit-miss">MISSING</span> ${p} — listed live, not found</div>`); }
+      }
+    }
+  }
+  lines.unshift(`<div><b>${ok} live as claimed · ${pend} pending as claimed · ` +
+    `${landed} newly landed · ${miss} missing</b></div>`);
+  out.innerHTML = lines.join("");
+};
+</script>
+</body>
+</html>
