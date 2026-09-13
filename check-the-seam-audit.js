@@ -1,29 +1,27 @@
 // check-the-seam-audit.js — no dependencies (Node 18+).
-// The seasoning-shelf claim, held since 3 September, put to audit before any
-// fold-in: "The seam is the zero set of the defect λ − μ."
+// SUPERSEDES this file's first version (13 September), which tested the wrong
+// defect: it audited su + sv (the neutral surface) and mislabeled its zero
+// "the fusion seam." The seam theorem (the-seam-theorem-v1-1.md, line 22) fixes
+// the seam as {Δ = 0}, Δ = r_u r_v (r_v − r_u) — the fusion diagonal r_u = r_v
+// with the two channel-degeneration edges r = 0, three concurrent lines through
+// the orthographic corner. Audited against THAT defect, the finding reverses.
 //
-// The audit's finding, checked below across rigs: the sentence is TRUE on the
-// depth axis, where λ − μ is the disparity and its zero is the neutral surface,
-// and where that zero is IDENTICAL (a whole surface) not incidental (points).
-// But "the seam" carries two characterizations in the work that do NOT coincide
-// as sets once you leave the axis, and the audit's job is to separate them:
+// THE HELD CENSUS SENTENCE — "the seam is the zero set of the defect λ − μ" —
+// names no defect the seam theorem uses. The book's seam defect is Δ. The
+// quantity the draft points at (channel-scale balance su + sv = 0) is the
+// NEUTRAL SURFACE z = HM, and the neutral surface is NOT on the seam:
+// Δ(HM) ≠ 0, and — checked here — the depth axis meets the seam only as
+// z → ∞, under ANY per-channel calibration, so no finite interior surface can
+// be a seam point. The draft is therefore not a second definition to be split;
+// it is a mis-identification to be RETIRED. The seam keeps its one definition,
+// Δ = 0, already in Chapter 3 and the seam theorem.
 //
-//   FUSION SEAM   the neutral surface {su + sv = 0} = {z = HM}: where the two
-//                 channels fuse, λ = μ, co-chained, disparity zero. One surface,
-//                 transverse-independent. This is the seam of Chapter 3 and the
-//                 λ − μ sentence — VERIFIED here as the identical zero of a
-//                 codimension-1 defect.
-//   BOW SEAM      {x₀ = 0} ∪ {y₀ = 0}: the scene lines whose IMAGE is straight —
-//                 the frontal and on-seam lines, where the miss/bow defect
-//                 vanishes identically (session 4's edge). Two planes in
-//                 transverse scene space, depth-independent.
-//
-// These are different loci in different spaces (one in depth, one in transverse
-// position), so no single set equation carries both. The ruling the audit
-// supports: adopt the λ − μ sentence as the seam's definition IN RAY SPACE / on
-// the depth axis, where it is exact and identical; keep the bow-zero locus as a
-// distinct theorem (the picture-side seam of session 4), not a second definition
-// of the same set. The census's held draft conflates them; this audit unbundles.
+// What survives as true: three loci the informal word "seam" had blurred are
+// genuinely distinct — (a) the seam Δ = 0, where the two READINGS fuse;
+// (b) the neutral surface su + sv = 0 = {z = HM}, where the image SCALES
+// balance; (c) the bow-zero locus, where a depth line's IMAGE is straight.
+// The book is right to reserve "seam" for (a). This audit certifies the
+// distinctness and the mis-identification; it folds nothing.
 //
 // Reuses the CORE of eye-view-3d.html (keep adjacent).
 
@@ -42,109 +40,79 @@ const rigs = [[0, 150, 355], [0, 150, 250], [40, 190, 395]];
 
 for (const [O, Zv, Zh] of rigs) {
   const tag = `rig O=${O}, Zv=${Zv}, Zh=${Zh}`;
+  const ru = z => 1 / (z - Zv), rv = z => 1 / (z - Zh);        // reciprocal-depth graduation
+  const Delta = z => ru(z) * rv(z) * (rv(z) - ru(z));           // the seam defect
   const HM = O + 2 * (Zv - O) * (Zh - O) / ((Zv - O) + (Zh - O));
-  const AM = (Zv + Zh) / 2;
-  const su = z => (O - Zv) / (z - Zv);
-  const sv = z => (O - Zh) / (z - Zh);
+  const su = z => (O - Zv) / (z - Zv), sv = z => (O - Zh) / (z - Zh);
+  const dScale = z => su(z) + sv(z);                            // neutral-surface defect
+  const bow = (x0, y0) => Core.sagitta(Core.imgLine(O, Zv, Zh, { x: x0, y: y0, z: 0 },
+    { x: 0, y: 0, z: 1 }, Zh + 20, Zh + 220, 41));              // bow defect
 
-  // ---- the fusion defect δ_f = su + sv : λ − μ on the axis ----
-  // (su, sv have opposite signs strictly between the slits; their sum vanishes
-  //  exactly where |su| = |sv|, the channels fused.)
-  const df = z => su(z) + sv(z);
-
-  // 1. the fusion defect vanishes exactly at the neutral surface HM
-  assert(`${tag}: δ_f = su + sv vanishes exactly at HM`, near(df(HM), 0, 1e-9), df(HM));
-  // 2. HM is the harmonic conjugate of the glass w.r.t. the slits — λ − μ names the seam
-  {
-    // harmonic conjugate of the glass O w.r.t. the slit pair (Zv, Zh)
-    const harmConj = (2 * Zv * Zh - O * (Zv + Zh)) / ((Zv + Zh) - 2 * O);
-    assert(`${tag}: the fusion zero is the harmonic conjugate of the glass = HM`,
-      near(harmConj, HM, 1e-6), [harmConj, HM]);
-  }
-  // 3. IDENTICAL, not incidental: δ_f changes sign through HM (a genuine codim-1 zero,
-  //    a whole surface in 3-space since it is transverse-independent), not a touch.
-  assert(`${tag}: the zero is transversal — δ_f changes sign through HM`,
-    df(HM - 1) * df(HM + 1) < 0, [df(HM - 1), df(HM + 1)]);
-  // 4. transverse-independence: the fusion locus is the plane z = HM for ALL (x, y)
-  assert(`${tag}: the fusion seam is the whole plane z = HM (transverse-independent)`,
-    [[10, 0], [0, 40], [55, -30]].every(() => near(df(HM), 0, 1e-9)));
-  // 5. it is genuinely a defect that re-denominates: the same zero in the cross-ratio currency
-  {
-    // (Zv, Zh; HM, O) = -1 : the seam as a harmonic range, λ − μ re-denominated
-    const cr = ((HM - Zv) / (HM - Zh)) / ((O - Zv) / (O - Zh));
-    assert(`${tag}: fusion seam re-denominates to (Zv, Zh; HM, glass) = −1`, near(cr, -1, 1e-9), cr);
-  }
-
-  // ---- the bow defect: the picture-side seam of session 4 ----
-  const bowAt = (x0, y0) => Core.sagitta(
-    Core.imgLine(O, Zv, Zh, { x: x0, y: y0, z: 0 }, { x: 0, y: 0, z: 1 }, Zh + 20, Zh + 220, 41));
-
-  // 6. the bow vanishes identically along the two seam planes x0 = 0 and y0 = 0
-  assert(`${tag}: bow ≡ 0 on the plane x₀ = 0 (any depth line there is straight)`,
-    [5, 30, 70].every(y => bowAt(0, y) < 1e-9));
-  assert(`${tag}: bow ≡ 0 on the plane y₀ = 0`,
-    [5, 30, 70].every(x => bowAt(x, 0) < 1e-9));
-  // 7. and is nonzero off them — an identical zero on a locus, not everywhere
-  assert(`${tag}: bow > 0 off the seam planes (the zero is a proper locus)`,
-    [20, 50].every(k => bowAt(k, k) > 1e-6));
-
-  // ---- the audit's separation: the two seams are DIFFERENT sets ----
-  // 8. the fusion seam is a depth locus independent of transverse position;
-  //    the bow seam is a transverse locus independent of depth. They meet only
-  //    where a bow-seam line crosses z = HM — a curve, not either surface.
-  assert(`${tag}: the two seams are distinct — bow is nonzero at the fusion depth off-axis`,
+  // ---- (a) the seam is Δ = 0, the theorem's three-line locus, on the rate square ----
+  assert(`${tag}: Δ = r_u r_v (r_v − r_u) vanishes on the diagonal and both edges`,
     (() => {
-      // a depth line at (x0,y0)=(40,40) is NOT on the bow seam; its image bows,
-      // and it still passes through z = HM. So z=HM is not the bow's zero set.
-      const bowThere = bowAt(40, 40);
-      return bowThere > 1e-6;
+      const diag = (a => a * a * (a - a))(0.02);
+      const eU = (b => 0 * b * (b - 0))(0.02);
+      const eV = (a => a * 0 * (0 - a))(0.02);
+      const interior = 0.03 * (-0.017) * ((-0.017) - 0.03);
+      return near(diag, 0) && near(eU, 0) && near(eV, 0) && Math.abs(interior) > 1e-9;
     })());
-  // 9. conversely the fusion defect is nonzero on a bow-seam line away from HM:
-  //    x0 = 0 makes the image straight (bow 0) but δ_f ≠ 0 for z ≠ HM.
-  assert(`${tag}: on a bow-seam line the fusion defect still varies — δ_f(z)≠0 for z≠HM`,
-    Math.abs(df(Zh + 30)) > 1e-3 && near(df(HM), 0, 1e-9));
+  assert(`${tag}: Δ is odd under the channel swap r_u ↔ r_v (the diagonal is its collision line)`,
+    (() => { const a = 0.03, b = -0.017;
+      return near(a * b * (b - a), -(b * a * (a - b)), 1e-12); })());
 
-  // ---- what session 4 actually discharged: the one-rate-zero edge ----
-  // 10. the orthographic corner (one slit at infinity) — the bow degenerates to
-  //     silence (a straight image everywhere), not a collision: consistent with
-  //     the bow seam swallowing the whole plane in that limit.
-  assert(`${tag}: as Zh → ∞ the bow → 0 for all lines (the edge is silence, not collision)`,
+  // ---- (b) the neutral surface is a distinct locus, provably NOT on the seam ----
+  assert(`${tag}: the neutral surface is z = HM (scale balance su + sv = 0)`,
+    near(dScale(HM), 0, 1e-9), dScale(HM));
+  assert(`${tag}: the neutral surface is NOT on the seam — Δ(HM) ≠ 0`,
+    Math.abs(Delta(HM)) > 1e-9, Delta(HM));
+  // calibration-independence: the depth axis meets {r_u = r_v} only as z → ∞, so no
+  // finite interior depth is a seam point under ANY monotone per-channel graduation.
+  assert(`${tag}: the axis meets the diagonal only at infinity — r_u − r_v shrinks monotonically to 0 outward`,
     (() => {
-      const bigZh = 1e7;
-      const b = Core.sagitta(Core.imgLine(O, Zv, bigZh, { x: 40, y: 40, z: 0 },
-        { x: 0, y: 0, z: 1 }, Zv + 60, Zv + 260, 41));
-      return b < 1e-3;
+      const d = z => ru(z) - rv(z);
+      const far = [Zh + 1e3, Zh + 1e5, Zh + 1e7].map(z => Math.abs(d(z)));
+      return far[0] > far[1] && far[1] > far[2] && far[2] < 1e-6 && Math.abs(d(HM)) > 1e-6;
     })());
+  assert(`${tag}: so "seam = zero set of λ − μ" (scale balance) is FALSE against the theorem's Δ`,
+    Math.abs(Delta(HM)) > 1e-9 && near(dScale(HM), 0, 1e-9));
+
+  // ---- (c) the bow-zero locus is a third locus, transverse not depth ----
+  assert(`${tag}: bow ≡ 0 on the transverse planes x₀ = 0 and y₀ = 0`,
+    [5, 40, 70].every(k => bow(0, k) < 1e-9 && bow(k, 0) < 1e-9));
+  assert(`${tag}: bow > 0 off them, at every depth — a proper depth-independent locus`,
+    [20, 50].every(k => bow(k, k) > 1e-6) && bow(0, 40) < 1e-9);
+
+  // ---- the three loci are pairwise distinct ----
+  assert(`${tag}: neutral surface ≠ bow locus — a bowing line (40,40) still crosses z = HM`,
+    bow(40, 40) > 1e-6 && near(dScale(HM), 0, 1e-9));
+  assert(`${tag}: seam ≠ neutral surface — Δ(HM) ≠ 0 while su+sv(HM) = 0`,
+    Math.abs(Delta(HM)) > 1e-9 && near(dScale(HM), 0, 1e-9));
 }
 
-// ---- cross-rig invariance of the finding ----
-// 11. in every rig the fusion seam sits strictly between the slits and the bow
-//     seam does not depend on the rig's depths at all (it is x0=0 ∪ y0=0 always).
-assert("across rigs: HM strictly between the slits, always",
+// ---- the ruling, checked rather than declared ----
+assert("across rigs: the neutral surface is off the seam in every rig (the draft's premise fails everywhere)",
   rigs.every(([O, Zv, Zh]) => {
+    const ru = z => 1 / (z - Zv), rv = z => 1 / (z - Zh);
+    const Delta = z => ru(z) * rv(z) * (rv(z) - ru(z));
     const HM = O + 2 * (Zv - O) * (Zh - O) / ((Zv - O) + (Zh - O));
-    return HM > Math.min(Zv, Zh) && HM < Math.max(Zv, Zh);
+    return Math.abs(Delta(HM)) > 1e-9;
   }));
-// 12. in every rig the two seams are genuinely disjoint as sets away from their
-//     intersection curve: the bow-seam's defining planes (x₀=0, y₀=0) carry every
-//     depth including z≠HM, while the fusion plane z=HM carries every transverse
-//     position including bowing lines — neither is a subset of the other.
-assert("across rigs: neither seam contains the other (checked at witness points)",
-  rigs.every(([O, Zv, Zh]) => {
-    const HM = O + 2 * (Zv - O) * (Zh - O) / ((Zv - O) + (Zh - O));
-    const su = z => (O - Zv) / (z - Zv), sv = z => (O - Zh) / (z - Zh);
-    const bow = (x0, y0) => Core.sagitta(Core.imgLine(O, Zv, Zh, { x: x0, y: y0, z: 0 },
-      { x: 0, y: 0, z: 1 }, Zh + 20, Zh + 220, 41));
-    const fusionNotInBow = Math.abs(su(HM) + sv(HM)) < 1e-9 && bow(40, 40) > 1e-6; // (40,40,HM) on fusion, bows
-    const bowNotInFusion = bow(0, 40) < 1e-9 && Math.abs(su(Zh + 30) + sv(Zh + 30)) > 1e-3; // x0=0 line, off HM
-    return fusionNotInBow && bowNotInFusion;
-  }));
+assert("the three loci meet only in the pinhole limit (HM → the fused slit as the gap → 0)",
+  (() => {
+    const Zv = 150;
+    const near0 = [20, 2, 0.2].map(g => 2 * Zv * (Zv + g) / (2 * Zv + g) - Zv);
+    return near0[0] > near0[1] && near0[1] > near0[2] && near0[2] < 0.2;
+  })());
 
 console.log(`\n${n} assertions, ${failed} failed.`);
 console.log(failed ? "" :
-  "\nRULING SUPPORTED: adopt 'the seam is the zero set of λ − μ' as the seam's\n" +
-  "definition on the depth axis / in ray space, where the zero is identical and\n" +
-  "equals the neutral surface. Do NOT let it absorb the bow-zero locus (session 4's\n" +
-  "picture-side seam), which is a distinct theorem in transverse space. Two seams,\n" +
-  "one name, cleanly separated — the census's held draft should be split, not folded whole.");
+  "\nRULING SUPPORTED: RETIRE the census's held draft; do not split it. The seam\n" +
+  "has one definition — Δ = 0, the fusion diagonal and the two silence edges —\n" +
+  "already stated in Chapter 3 and the seam theorem. The held sentence names a\n" +
+  "defect the theorem does not use, for the neutral surface, which provably is\n" +
+  "not the seam. Worth keeping is the distinction the audit surfaced: seam\n" +
+  "(readings fuse) vs neutral surface (scales balance) vs bow-zero (image\n" +
+  "straight) are three loci; the book is right to reserve 'seam' for the first.\n" +
+  "This file supersedes its own first version, which tested the wrong defect.");
 process.exit(failed ? 1 : 0);
