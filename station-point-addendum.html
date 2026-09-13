@@ -205,11 +205,33 @@ throughout, per R4. The blow-up in P7 is stated for the symmetric approach B, D 
 equal rates; an asymmetric approach rescales the limit range without changing its
 harmonicity.</p>
 
+<p class="remark"><b>R6 (The 1984 vocabulary).</b> The verdict of R3 was named, in
+Kevin's own <cite>Glide Projection</cite> (Van Nostrand Reinhold, 1984, pp. 25–26),
+forty years before the sphere was drawn, and its terms are exact enough to adopt here in
+preference to the looser talk of &ldquo;transparency.&rdquo; A <i>spectator projection</i>
+runs only from the eye to the surface, never beyond, and is always point-projective —
+&ldquo;no other order is conceivable,&rdquo; the book writes, and &ldquo;the physical
+surface of a viewed pictorial illusion is always opaque.&rdquo; That sentence settles R3
+in kind before any sagitta is measured: the cross-slit's <i>actual projection</i> is not
+point-projective — the bow is the proof — and a point-projective view cannot coincide
+with one that is not, so no station in space yields an <i>optical view</i> of the solid.
+What the 1984 book calls the optical view — the single position from which the opaque
+surface seems to <i>dissolve</i> into the depicted space — the rig grants to the horizon
+alone; every other station, and the whole volume, receives a <i>pictorial resemblance
+view</i>. Dissolution is therefore never a property of the plane, which stays opaque
+throughout; it is a relation of coincidence between two projections, and the sphere is
+the locus on which that coincidence can hold — the point E, self-conjugate under the
+polarity, being where it does. The polarity that carries the rig to its dual, and E to
+itself, is checked in check_sphere_duality.js (32 assertions, 0 failed); the physical
+reading of the opaque surface as a crowd of ideal pinholes in check_disc_of_eyes.js (12,
+0 failed).</p>
+
 <h2>3 · Verification</h2>
 
 <p style="font-size:14.5px">check_three_means_here.js: 137 assertions, 0 failed.
 check_gm_mirror.js: 92 assertions, 0 failed. check_eye_view_3d.js: 89 assertions,
-0 failed. All extract the CORE block from the
+0 failed. check_sphere_duality.js: 32 assertions, 0 failed. check_disc_of_eyes.js: 12
+assertions, 0 failed. All extract the CORE block from the
 shipped plates, so the assertions test the drawn constructions, not a parallel
 implementation. Representative mapping (assertion numbers from the current runs;
 names are stable if numbering shifts):</p>
@@ -225,6 +247,7 @@ names are stable if numbering shifts):</p>
 <tr><td>P7 degeneration</td><td>three-means · gm-mirror</td><td>#125–131 (fusion, gauge halt, F, Thales pre-limit) · #91 (slits onto the mirror)</td></tr>
 <tr><td>R3 the volume (resolved)</td><td>eye-view-3d</td><td>#8–11 (no eye in the round, E′ included) · #4–7 (the two central shadows) · #12–16 (the bow certificate) · #17–23 (the eye law, far field = AM, gauge) · #24–27 (vergence compromise at z*) · #28 (E′ vs the slit point in the profile) · #85–89 (rates and the pinhole dissolution); each repeated on the book rig and the moved-glass rig</td></tr>
 <tr><td>R4 scope guard</td><td>gm-mirror</td><td>#92 "|BA| ≠ |BE| — diagonal points are not measuring points"</td></tr>
+<tr><td>R6 the 1984 vocabulary</td><td>sphere-duality · disc-of-eyes</td><td>polarity: E self-conjugate on the sphere, rig ↔ dual rig, closing law as pole–polar (32); the opaque surface as a superposition of ideal pinholes, the drawing as the limit (12)</td></tr>
 </table>
 
 <div class="foot">
