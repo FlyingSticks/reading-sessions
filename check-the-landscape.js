@@ -65,9 +65,7 @@ async function liveStatus(p){
   {
     const pend = [];
     for (const r of REG) if (r.status === "pending"){ pend.push(r.path); (r.also || []).forEach(a => pend.push(a)); }
-    const declared = ["/reading-sessions/the-gauge.html",
-                      "/reading-sessions/check-the-gauge.js"].sort().join("|");
-    assert("pending rows are exactly the declared punch list", pend.sort().join("|") === declared, pend.join(", "));
+    assert("the punch list is empty — no row anywhere is pending", pend.length === 0, pend.join(", "));
   }
   {
     // "linked" = reachable from the sessions index directly or through a session page.
