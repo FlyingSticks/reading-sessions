@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The duality · The Reading Sessions</title>
+<style>
+  :root{
+    --paper:#F4F0E6; --panel:#FBF9F3; --ink:#26231E; --soft:#6E675C;
+    --crimson:#A31F34; --purple:#5E3A9E; --gold:#B8860B; --green:#1E8E3E;
+    --red:#C0392B; --blue:#2B5FA3; --rule:#D8D2C2;
+  }
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+    font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.5;
+    -webkit-text-size-adjust:100%;}
+  .wrap{max-width:960px;margin:0 auto;padding:18px 16px calc(40px + env(safe-area-inset-bottom));}
+  .crumbs{font-size:13px;color:var(--soft);margin-bottom:14px;}
+  .crumbs a{color:var(--soft);}
+  h1{font-size:28px;margin:6px 0 10px;letter-spacing:.2px;}
+  h2{font-size:19px;margin:34px 0 8px;}
+  p{margin:8px 0;}
+  a{color:var(--blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .thesis{background:var(--panel);border-left:5px solid var(--purple);
+    padding:10px 14px;margin:16px 0;border-radius:0 6px 6px 0;}
+  .caption{font-size:13.5px;color:var(--soft);margin:6px 2px 0;}
+  canvas{display:block;width:100%;height:auto;background:var(--panel);
+    border:1px solid var(--rule);border-radius:8px;touch-action:none;}
+  .controls{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 8px;align-items:center;}
+  button{font:inherit;font-size:13.5px;background:var(--panel);border:1px solid var(--rule);
+    border-radius:6px;padding:5px 10px;color:var(--ink);cursor:pointer;}
+  button:active{background:#efe9da;}
+  .slider{flex:1;min-width:120px;}
+  label.tog{font-size:13.5px;color:var(--soft);display:inline-flex;gap:5px;align-items:center;
+    background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:4px 9px;}
+  table.pairs{border-collapse:collapse;width:100%;font-size:13.8px;margin:10px 0;
+    font-variant-numeric:tabular-nums;background:var(--panel);border:1px solid var(--rule);
+    border-radius:8px;overflow:hidden;}
+  table.pairs th,table.pairs td{border-bottom:1px solid var(--rule);text-align:left;
+    padding:7px 9px;}
+  table.pairs th{font-size:12.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--soft);
+    background:#f3efe3;}
+  .checks{background:var(--panel);border:1px solid var(--rule);border-radius:8px;
+    padding:8px 14px;font-size:14px;font-variant-numeric:tabular-nums;}
+  .checks div{display:flex;justify-content:space-between;gap:10px;padding:4px 0;
+    border-bottom:1px dashed var(--rule);}
+  .checks div:last-child{border-bottom:none;}
+  .ok{color:var(--green);font-weight:700;} .bad{color:var(--red);font-weight:700;}
+  dl{margin:8px 0;} dt{font-weight:700;margin-top:10px;}
+  dd{margin:2px 0 0 0;font-size:14.5px;color:#3A362F;}
+  .foot{margin-top:36px;font-size:13.5px;color:var(--soft);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="crumbs">
+  <a href="https://flyingsticks.github.io/reading-sessions/index.html">The Reading Sessions</a> ·
+  companion to <a href="gm-mirror.html">The GM mirror</a> and
+  <a href="eye-view-3d.html">The eye and the volume</a> ·
+  13 September 2026
+</div>
+
+<h1>The duality</h1>
+
+<p>The cross-slit rig and its dual are one figure seen through a mirror, and the mirror
+is the means sphere itself. Its polarity — pole and polar with respect to the sphere on
+the slits as diameter — carries the rig to the dual rig, the glass to the neutral
+surface, and every imaging ray to a ray of the dual congruence, while holding one surface
+fixed: the sphere. On that surface sits the station point E, self-conjugate, equal to its
+own polar — the one place a configuration and its dual coincide, which is why E reads the
+two-point drawing rather than taking a picture of it. This plate makes the exchange
+draggable: fold the rig into its dual and watch what moves and what stands still.</p>
+
+<div class="controls">
+  <span style="font-size:13.5px;color:var(--soft)">fold</span>
+  <input type="range" class="slider" id="fold" min="0" max="1" step="0.005" value="0">
+  <span style="font-size:14px" id="foldVal">rig</span>
+  <button id="btnRig">rig</button>
+  <button id="btnHalf">halfway</button>
+  <button id="btnDual">dual</button>
+  <label class="tog"><input type="checkbox" id="tgSemi" checked> conjugacy semicircles</label>
+</div>
+
+<canvas id="cv"></canvas>
+<p class="caption"><b>The profile, folding.</b> The <span style="color:var(--red)">equator</span>
+is the fixed circle — the polarity's mirror; the <span style="color:var(--green)">GM
+circle</span> about the glass is the separate inversion of the laws card. Drag the fold:
+the glass A and the neutral surface C ride a semicircle orthogonal to the equator and
+trade places; the slits B and D ride the equator itself and swap; the geometric mean and
+the touch point T stand still; and E, on the equator, is carried along the equator to the
+summit and back — never leaving the fixed surface, because it is the fixed surface's own
+point. What the fold performs on the axis is the inversion x ↦ AM + R²/(x − AM); what it
+performs on the rig is the exchange of the two readings.</p>
+
+<h2>What swaps, what stands</h2>
+<table class="pairs" id="pairsTable"></table>
+
+<h2>What to look for</h2>
+<p>The duality is an involution: fold all the way to the dual and the same fold carries it
+back, because the polar of the polar is the pole. Three things never move under it — the
+geometric mean GM (the tangent length from the glass, fixed by the GM-circle inversion of the laws card), the touch point T where the equator meets the
+GM circle, and the whole equator as a set, though its points slide along it. Everything
+else pairs off: glass with neutral surface, slit with slit, arithmetic mean with harmonic
+mean, and — the closing law read as a single sentence — the product of a point's distance
+from AM with its conjugate's is R², so <b>AM × HM = GM²</b> is the pole–polar pairing of
+the glass with the neutral surface, not a coincidence of three means but the duality
+acting on the axis.</p>
+
+<p>E is the plate's quiet centre. It sits on the equator, so it is its own polar — fold
+as far as you like and E only travels along the fixed circle, never off it. That is the
+exact sense in which the station point <i>reads</i>: a reader stands where the drawing and
+its dual agree, and the only such places are the sphere's own points. The two-point
+perspective on the horizon is precisely the content that survives the exchange — the
+self-dual part — which is why the horizon carries a true reading while the volume, split
+into the dual pair, carries none.</p>
+
+<div class="thesis">
+<p style="margin:4px 0"><b>The laws card, the GM mirror, and the dual rig are three faces
+of one polarity.</b> The means sphere is not a picture of the rig; it is the mirror in
+which the rig and its dual are the same object, and E is the point on the mirror where
+looking and being looked at coincide.</p>
+</div>
+
+<h2>Checks</h2>
+<div class="checks" id="dualChecks"></div>
+<p class="caption">Re-run on every fold, computed from the drawn construction. The full
+audit — the polarity in three dimensions, both slits mutually polar, the polar of every
+imaging ray meeting both dual slits, the harmonic commutation, the involution — is in
+<a href="check-sphere-duality.js">check-sphere-duality.js</a> (32 assertions, 0 failed);
+this plate carries the axis face of it live.</p>
+
+<h2>Conventions</h2>
+<p style="font-size:14.5px">Judgment calls flagged: the fold is a visual interpolation
+of each conjugate pair along its orthogonal semicircle, not a physical motion of the rig —
+the endpoints (fold 0 and 1) are the rig and its dual; the between is a drawing aid. The
+equator inversion (radius R about AM) is the polarity's trace on the axis; the GM-circle
+inversion (radius GM about the glass) is the distinct symmetry of the laws card, drawn in
+green for contrast — the two share the touch point T but no other point. The level set at
+the neutral surface is a plane and is called one.</p>
+
+<h2>Glossary</h2>
+<dl>
+<dt>polarity</dt><dd>A duality equal to its own inverse — pole and polar with respect to a conic or quadric. Here, with respect to the means sphere.</dd>
+<dt>pole–polar</dt><dd>The pairing a polarity makes: each point (pole) is carried to a line or plane (its polar), and back. On the axis it is the inversion in the equator.</dd>
+<dt>self-conjugate</dt><dd>A point on its own polar — equivalently, a point of the sphere. E is self-conjugate; the reader stands on the fixed surface.</dd>
+<dt>fixed surface</dt><dd>The sphere itself: the locus the polarity holds pointwise-as-a-set, where a configuration and its dual coincide.</dd>
+<dt>dual rig</dt><dd>The rig with its two slit directions exchanged, depths kept — the image of the rig under the polarity.</dd>
+<dt>self-dual content</dt><dd>What survives the exchange unchanged: the two-point reading on the horizon, which both rig and dual rig read the same way.</dd>
+</dl>
+
+<div class="foot">
+<a href="gm-mirror.html">The GM mirror</a> ·
+<a href="three-means-here.html">The three means, here</a> ·
+<a href="eye-view-3d.html">The eye and the volume</a> ·
+<a href="degeneration-ledger.html">The degeneration ledger</a> ·
+<a href="https://flyingsticks.github.io/reading-sessions/index.html">All sessions</a>
+</div>
+</div>
+
+<script>
+/*CORE-BEGIN*/
+const Core = {
+  means(O, Zv, Zh){
+    const a = Zv - O, b = Zh - O, s = a + b, p = a * b;
+    const AM = s / 2, HM = s !== 0 ? 2 * p / s : NaN, GM = p > 0 ? Math.sqrt(p) : NaN;
+    return { a, b, AM, GM, HM, power: p, R: Math.abs(b - a) / 2, M: (Zv + Zh) / 2 };
+  },
+  circInt(c1, r1, c2, r2){
+    const dx = c2.x - c1.x, dy = c2.y - c1.y, d = Math.hypot(dx, dy);
+    if (d === 0) return null;
+    const l = (d * d + r1 * r1 - r2 * r2) / (2 * d), h2 = r1 * r1 - l * l;
+    if (h2 < 0) return null;
+    const h = Math.sqrt(h2), ex = dx / d, ey = dy / d;
+    return [{ x: c1.x + l * ex - h * ey, y: c1.y + l * ey + h * ex },
+            { x: c1.x + l * ex + h * ey, y: c1.y + l * ey - h * ex }];
+  },
+  upper(pair){ return pair ? (pair[0].y >= pair[1].y ? pair[0] : pair[1]) : null; },
+  tangentTouch(O, Zv, Zh){
+    const m = { x: (Zv + Zh) / 2, y: 0 }, R = Math.abs(Zh - Zv) / 2;
+    const nn = { x: (O + m.x) / 2, y: 0 }, r = Math.abs(m.x - O) / 2;
+    return Core.upper(Core.circInt(m, R, nn, r));
+  },
+  build(O, Zv, Zh){
+    const mn = Core.means(O, Zv, Zh);
+    const zstar = O + mn.HM, M = { x: mn.M, y: 0 }, R = mn.R;
+    const T = Core.tangentTouch(O, Zv, Zh);
+    const Cx = T ? T.x : NaN, c1 = T ? { x: (O + Cx) / 2, y: 0 } : null, r1 = T ? Math.abs(Cx - O) / 2 : NaN;
+    const E2 = T ? Core.upper(Core.circInt(c1, r1, M, R)) : null;
+    return { O, Zv, Zh, mn, zstar, M, R, T, Cx, E2 };
+  },
+  // the polarity's trace on the axis: inversion in the equator (radius R about AM)
+  sigma(bd, x){ return bd.M.x + bd.R * bd.R / (x - bd.M.x); },
+  // a conjugate pair (p, p') ride a semicircle orthogonal to the equator, centred on the axis
+  // at their midpoint; fold t in [0,1] interpolates the swap along that arc.
+  foldPoint(bd, x, t){
+    const xp = Core.sigma(bd, x);
+    const cx = (x + xp) / 2, rr = Math.abs(xp - x) / 2;
+    const ang = Math.PI * t;                       // 0 at x, π at x' — over the top
+    // start at x on the axis, swing over the orthogonal semicircle to x'
+    const dir = xp >= x ? 1 : -1;
+    return { x: cx - dir * rr * Math.cos(ang), y: rr * Math.sin(ang) };
+  },
+  // E rides the equator itself (it is on the sphere); fold carries it along the arc to the summit
+  foldE(bd, t){
+    const E = bd.E2; if (!E) return null;
+    const a0 = Math.atan2(E.y, E.x - bd.M.x);
+    const a1 = Math.PI / 2;                         // summit
+    const a = a0 + (a1 - a0) * t;
+    return { x: bd.M.x + bd.R * Math.cos(a), y: bd.M.y + bd.R * Math.sin(a) };
+  },
+  crossRatio(b, d, c, a){ return ((c - b) / (c - d)) / ((a - b) / (a - d)); },
+  checksLive(bd){
+    const { O, Zv, Zh, mn, zstar, M, R, T } = bd;
+    const out = [], add = (n, r) => out.push({ name: n, res: r });
+    add("equator inversion swaps glass and neutral surface",
+      Math.abs(Core.sigma(bd, O) - zstar) / Math.max(1, zstar));
+    add("equator inversion fixes each slit’s conjugate — B, D on the sphere",
+      (Math.abs(Core.sigma(bd, Zv) - Zv) + Math.abs(Core.sigma(bd, Zh) - Zh)) / (Zh - Zv));
+    add("closing law AM × HM = GM² as pole–polar",
+      Math.abs(mn.AM * mn.HM - mn.GM * mn.GM) / (mn.GM * mn.GM));
+    add("(AM − glass)(AM − neutral) = R²  (power of the glass)",
+      Math.abs((M.x - O) * (M.x - zstar) - R * R) / (R * R));
+    add("AM² − GM² = R²  (GM the tangent length, fixed by the GM-circle inversion)",
+      Math.abs(mn.AM * mn.AM - mn.GM * mn.GM - R * R) / (R * R));
+    add("E lies on the equator (self-conjugate)",
+      bd.E2 ? Math.abs(Math.hypot(bd.E2.x - M.x, bd.E2.y) - R) / R : 1);
+    add("involution: σ(σ(glass)) = glass",
+      Math.abs(Core.sigma(bd, Core.sigma(bd, O)) - O) / Math.max(1, Math.abs(O) + 1));
+    add("harmonic range (B, D; neutral, glass) = −1",
+      Math.abs(Core.crossRatio(Zv, Zh, zstar, O) + 1));
+    return out;
+  }
+};
+/*CORE-END*/
+
+const state = { O: 0, Zv: 150, Zh: 355, fold: 0 };
+const $ = id => document.getElementById(id);
+const cv = $("cv");
+
+function sizeCanvas(hRatio){
+  const w = cv.clientWidth || cv.parentElement.clientWidth;
+  const h = Math.round(w * hRatio), dpr = window.devicePixelRatio || 1;
+  cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+  cv.style.height = h + "px";
+  const g = cv.getContext("2d"); g.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return { g, w, h };
+}
+const fex = x => Number.isFinite(x) ? (Math.abs(x) >= 0.01 ? x.toFixed(3) : x.toExponential(1)) : "—";
+
+function draw(bd){
+  const { g, w, h } = sizeCanvas(0.62);
+  const xmin = -40, xmax = 400, sc = w / (xmax - xmin);
+  const X = x => (x - xmin) * sc, Y = y => h * 0.62 - y * sc;
+  g.clearRect(0, 0, w, h); g.lineJoin = "round"; g.lineCap = "round"; g.font = "11px Helvetica";
+  const { O, mn, M, R, T, zstar } = bd, t = state.fold;
+
+  g.strokeStyle = "#555"; g.lineWidth = 1;
+  g.beginPath(); g.moveTo(0, Y(0)); g.lineTo(w, Y(0)); g.stroke();
+  // GM circle about glass (green) — the laws-card inversion
+  g.strokeStyle = "rgba(30,142,62,.6)"; g.setLineDash([6, 4]); g.lineWidth = 1.4;
+  g.beginPath(); g.arc(X(O), Y(0), mn.GM * sc, -Math.PI, Math.PI); g.stroke(); g.setLineDash([]);
+  // equator (red) — the polarity's mirror
+  g.strokeStyle = "rgba(192,57,43,.75)"; g.lineWidth = 2;
+  g.beginPath(); g.arc(X(M.x), Y(0), R * sc, 0, Math.PI * 2); g.stroke();
+
+  // conjugate-pair semicircles + folding points
+  const pairs = [
+    { x: O, name: "A", col: "#A31F34", conj: zstar },
+    { x: zstar, name: "C", col: "#B8860B", conj: O },
+    { x: bd.Zv, name: "B", col: "#7c1626", conj: bd.Zh },
+    { x: bd.Zh, name: "D", col: "#5E3A9E", conj: bd.Zv }
+  ];
+  if ($("tgSemi").checked){
+    g.strokeStyle = "rgba(94,58,158,.25)"; g.lineWidth = 1;
+    for (const pr of [pairs[0], pairs[2]]){       // one per pair, drawn once
+      const xp = Core.sigma(bd, pr.x), cx = (pr.x + xp) / 2, rr = Math.abs(xp - pr.x) / 2;
+      g.beginPath(); g.arc(X(cx), Y(0), rr * sc, Math.PI, 2 * Math.PI); g.stroke();
+    }
+  }
+  for (const pr of pairs){
+    const P = Core.foldPoint(bd, pr.x, t);
+    g.fillStyle = pr.col;
+    g.beginPath(); g.arc(X(P.x), Y(P.y), 4.2, 0, Math.PI * 2); g.fill();
+    g.fillText(pr.name, X(P.x) + 6, Y(P.y) - 5);
+  }
+  // GM and T — fixed
+  g.fillStyle = "#1E8E3E";
+  g.beginPath(); g.arc(X(O + mn.GM), Y(0), 3.4, 0, Math.PI * 2); g.fill();
+  g.fillText("GM", X(O + mn.GM) - 8, Y(0) + 16);
+  if (T){ g.fillStyle = "#1E8E3E";
+    g.beginPath(); g.arc(X(T.x), Y(T.y), 4, 0, Math.PI * 2); g.fill();
+    g.fillText("T", X(T.x) + 6, Y(T.y) - 4); }
+  // E riding the equator
+  const E = Core.foldE(bd, t);
+  if (E){ g.fillStyle = "#2B5FA3";
+    g.beginPath(); g.arc(X(E.x), Y(E.y), 4.6, 0, Math.PI * 2); g.fill();
+    g.fillText("E", X(E.x) + 7, Y(E.y) + 3); }
+  // AM tick
+  g.fillStyle = "#26231E";
+  g.beginPath(); g.arc(X(M.x), Y(0), 2.6, 0, Math.PI * 2); g.fill();
+  g.fillStyle = "#6E675C"; g.fillText("AM", X(M.x) - 7, Y(0) + 16);
+  g.fillText(t < 0.02 ? "rig" : t > 0.98 ? "dual rig" : "folding", 10, 16);
+}
+
+function drawPairs(bd){
+  const t = state.fold;
+  const rows = [
+    ["glass A", "neutral surface C", "swap", "ride an orthogonal semicircle"],
+    ["slit B", "slit D", "swap", "ride the equator itself"],
+    ["arithmetic mean AM", "harmonic mean HM", "swap", "AM × HM = GM² (pole–polar)"],
+    ["geometric mean GM", "— itself —", "fixed", "tangent length; AM² − GM² = R²"],
+    ["touch point T", "— itself —", "fixed", "equator ∩ GM circle"],
+    ["station point E", "— itself —", "fixed (on the sphere)", "self-conjugate; travels only along the equator"]
+  ];
+  $("pairsTable").innerHTML =
+    "<tr><th>object</th><th>partner</th><th>under the fold</th><th>how</th></tr>" +
+    rows.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join("");
+}
+
+function drawChecks(bd){
+  const cks = Core.checksLive(bd);
+  $("dualChecks").innerHTML = cks.map((r, i) => {
+    const ok = r.res < 1e-6;
+    return `<div><span>${i + 1}. ${r.name}</span>` +
+      `<span class="${ok ? "ok" : "bad"}">${ok ? "✓" : "✗"} residual ${r.res.toExponential(1)}</span></div>`;
+  }).join("");
+}
+
+function redraw(){
+  const bd = Core.build(state.O, state.Zv, state.Zh);
+  draw(bd); drawPairs(bd); drawChecks(bd);
+  $("foldVal").textContent = state.fold < 0.02 ? "rig" : state.fold > 0.98 ? "dual" : state.fold.toFixed(2);
+}
+$("fold").oninput = e => { state.fold = +e.target.value; redraw(); };
+$("btnRig").onclick = () => { state.fold = 0; $("fold").value = 0; redraw(); };
+$("btnHalf").onclick = () => { state.fold = 0.5; $("fold").value = 0.5; redraw(); };
+$("btnDual").onclick = () => { state.fold = 1; $("fold").value = 1; redraw(); };
+$("tgSemi").onchange = redraw;
+window.addEventListener("resize", redraw);
+redraw();
+</script>
+</body>
+</html>

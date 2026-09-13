@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sections of one pencil · The Reading Sessions</title>
+<style>
+  :root{
+    --paper:#F4F0E6; --panel:#FBF9F3; --ink:#26231E; --soft:#6E675C;
+    --crimson:#A31F34; --purple:#5E3A9E; --gold:#B8860B; --green:#1E8E3E;
+    --red:#C0392B; --blue:#2B5FA3; --rule:#D8D2C2;
+  }
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+    font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.5;
+    -webkit-text-size-adjust:100%;}
+  .wrap{max-width:960px;margin:0 auto;padding:18px 16px calc(40px + env(safe-area-inset-bottom));}
+  .crumbs{font-size:13px;color:var(--soft);margin-bottom:14px;}
+  .crumbs a{color:var(--soft);}
+  h1{font-size:28px;margin:6px 0 10px;letter-spacing:.2px;}
+  h2{font-size:19px;margin:34px 0 8px;}
+  p{margin:8px 0;}
+  a{color:var(--blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .thesis{background:var(--panel);border-left:5px solid var(--gold);
+    padding:10px 14px;margin:16px 0;border-radius:0 6px 6px 0;}
+  .caption{font-size:13.5px;color:var(--soft);margin:6px 2px 0;}
+  canvas{display:block;width:100%;height:auto;background:var(--panel);
+    border:1px solid var(--rule);border-radius:8px;touch-action:none;}
+  .controls{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 8px;align-items:center;}
+  button{font:inherit;font-size:13.5px;background:var(--panel);border:1px solid var(--rule);
+    border-radius:6px;padding:5px 10px;color:var(--ink);cursor:pointer;}
+  button:active{background:#efe9da;}
+  .slider{flex:1;min-width:120px;}
+  table.meas{border-collapse:collapse;width:100%;font-size:13.8px;margin:10px 0;
+    font-variant-numeric:tabular-nums;background:var(--panel);border:1px solid var(--rule);
+    border-radius:8px;overflow:hidden;}
+  table.meas th,table.meas td{border-bottom:1px solid var(--rule);text-align:left;padding:7px 9px;}
+  table.meas th{font-size:12.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--soft);
+    background:#f3efe3;}
+  .par{color:var(--green);font-weight:700;} .npar{color:var(--soft);}
+  .checks{background:var(--panel);border:1px solid var(--rule);border-radius:8px;
+    padding:8px 14px;font-size:14px;font-variant-numeric:tabular-nums;}
+  .checks div{display:flex;justify-content:space-between;gap:10px;padding:4px 0;
+    border-bottom:1px dashed var(--rule);}
+  .checks div:last-child{border-bottom:none;}
+  .ok{color:var(--green);font-weight:700;} .bad{color:var(--red);font-weight:700;}
+  dl{margin:8px 0;} dt{font-weight:700;margin-top:10px;}
+  dd{margin:2px 0 0 0;font-size:14.5px;color:#3A362F;}
+  .foot{margin-top:36px;font-size:13.5px;color:var(--soft);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="crumbs">
+  <a href="https://flyingsticks.github.io/reading-sessions/index.html">The Reading Sessions</a> ·
+  companion to <a href="the-duality.html">The duality</a> ·
+  from the picture-plane sketches and the invariant-currency musing ·
+  13 September 2026
+</div>
+
+<h1>Sections of one pencil</h1>
+
+<p>Demote the picture plane. It is not the privileged surface of the scene but one
+<i>section</i> of the spectator pencil through the station point C — any surface cutting
+the rays is a picture, and the plane is merely the flat one. Once the plane is a section
+among sections, a small equality the drawing hides comes forward: take the picture surface
+as a circle <i>through</i> C and compare it with the arc swept <i>about</i> C, and at one
+section — the one through C's own far point — the two agree in a way that reads as a clean
+demonstration of the currency lesson. Same rim; the interior re-authored by the closure
+rule. This plate draws that section and its neighbours.</p>
+
+<div class="controls">
+  <span style="font-size:13.5px;color:var(--soft)">red radius R (blue held at D)</span>
+  <input type="range" class="slider" id="R" min="0.35" max="2.2" step="0.005" value="1">
+  <span style="font-size:14px" id="Rval">R = D</span>
+  <button id="btnPar">the section R = D</button>
+  <button id="btnBig">R = 1.6 D</button>
+  <button id="btnSmall">R = 0.6 D</button>
+</div>
+
+<canvas id="cv"></canvas>
+<p class="caption"><b>The two shapes about the station C.</b> The
+<span style="color:var(--blue)">blue whole circle</span> passes through C on the diameter
+D; the <span style="color:var(--red)">red semicircle</span> is swept at radius R about C.
+Drag R. At <b>R = D</b> the blue circle is internally tangent to the red arc at their
+shared far point, and two parities snap on together: the red arc and the blue circumference
+are equal in length (πR = πD), and the red half-disk is exactly twice the blue circle — so
+the <span style="color:var(--red)">residual red</span>, the half-disk with the blue circle
+removed (adjacent, no overlap in the flat), equals the whole blue circle in area. One
+section, both currencies settled.</p>
+
+<h2>The measures</h2>
+<table class="meas" id="measTable"></table>
+
+<h2>What to look for</h2>
+<p>The two equalities are one condition wearing two coats. Length: the red arc is πR, the
+blue circumference is πD; they match iff R = D. Area: the red half-disk is πR²/2, the blue
+circle πD²/4, so the half-disk carries twice the blue whenever R = D, and the residual —
+what is left of the half-disk once the blue circle it contains is taken away — is the other
+half, equal to the blue. Both resolve to R = D, and R = D is nothing but the section of the
+pencil through C's far point: the blue circle drawn <i>through</i> C reaches distance D
+from C, the red arc swept <i>about</i> C reaches distance R, and they kiss exactly when
+those distances agree. The tangent picture you drew is the pencil sectioned at its own
+turning point.</p>
+
+<p>This is the invariant-currency lesson made exact — the response to Russell's barber
+from the musing, in one figure. Perimeter is the portable scalar, the currency carried
+across unchanged; area is the interior, re-authored by the closure rule, and it does not
+travel with the rim. At R = D the rim is conserved (arc = circumference) while the closure
+rule reassigns the area two-to-one, and the residual bookkeeping — half-disk minus blue
+equals blue — is the ledger balancing. Nothing here classifies itself; two shapes hold one
+length between them and split one area, which is why the figure stays stable where a
+self-membership rule would not. A picture surface through its own station is the planar
+cousin of the reader E on the sphere: a section that contains the very point the pencil
+turns on.</p>
+
+<div class="thesis">
+<p style="margin:4px 0"><b>The plane is one section of the pencil, and R = D is the section
+through the station's far point.</b> There the rim is a conserved currency and the area is
+re-authored — same boundary, interior reassigned — the equal-measure fact and the
+invariant-currency musing meeting in a single tangent circle.</p>
+</div>
+
+<h2>Checks</h2>
+<div class="checks" id="secChecks"></div>
+<p class="caption">Re-run on every drag, computed from R and D. The full parity argument —
+both equalities from the one condition, the break away from R = D, the tangency origin, and
+the exact scale-free doubling — is in
+<a href="check-sections-of-one-pencil.js">check-sections-of-one-pencil.js</a>.</p>
+
+<h2>Conventions</h2>
+<p style="font-size:14.5px">Judgment calls flagged: "perimeter" for the red shape means its
+curved rim, the semicircular arc πR, matching the blue circle's curved rim πD — the
+diameter segment of the half-disk is the section line, not part of the swept rim, and is
+excluded by the same reading that excludes the picture plane's own frame; the residual-area
+equality is the half-disk minus the contained blue circle, an adjacency in the flat with no
+overlap, exactly as the sketch reads it; the blue circle is held at D and R is dragged, so
+the section through C's far point is the moving target R = D. The station point C is drawn
+but not identified with any rig point here — the pencil is the spectator pencil of the
+picture-plane discussion, not the imaging congruence.</p>
+
+<h2>Glossary</h2>
+<dl>
+<dt>spectator pencil</dt><dd>The rays from the station C to the picture; any surface cutting them is a section, and a picture. The plane is the flat section.</dd>
+<dt>section</dt><dd>A surface across the pencil. Different sections carry the same rays and so the same picture, read on different shapes.</dd>
+<dt>the far point</dt><dd>The point of the blue circle most distant from C, at distance D; the red arc reaches it iff R = D. The tangent section.</dd>
+<dt>residual red</dt><dd>The red half-disk with the contained blue circle removed. At R = D it equals the blue circle in area — the closure rule's reassignment.</dd>
+<dt>portable scalar</dt><dd>A measure carried unchanged between shapes — here the rim length. The currency of the invariant-currency musing.</dd>
+<dt>re-authored interior</dt><dd>Area, which does not travel with the rim: the same boundary can enclose a reassigned area under a changed closure rule.</dd>
+</dl>
+
+<div class="foot">
+<a href="the-duality.html">The duality</a> ·
+<a href="eye-view-3d.html">The eye and the volume</a> ·
+<a href="three-means-here.html">The three means, here</a> ·
+<a href="https://flyingsticks.github.io/reading-sessions/index.html">All sessions</a>
+</div>
+</div>
+
+<script>
+/*CORE-BEGIN*/
+const Core = {
+  // all measures of the two shapes, given red radius R and blue diameter D
+  measures(R, D){
+    const redArc = Math.PI * R;                 // semicircle curved rim
+    const blueCirc = Math.PI * D;               // circle circumference
+    const halfDisk = Math.PI * R * R / 2;       // red half-disk area
+    const blueDisk = Math.PI * (D / 2) * (D / 2); // blue disk area
+    const residualRed = halfDisk - blueDisk;    // half-disk minus contained blue
+    return { redArc, blueCirc, halfDisk, blueDisk, residualRed };
+  },
+  farBlue(D){ return D; },                      // far point of the blue circle from C
+  farRed(R){ return R; },                       // reach of the red arc from C
+  checksLive(R, D){
+    const m = Core.measures(R, D);
+    const out = [], add = (n, r) => out.push({ name: n, res: r });
+    // these are parities that hold AT R = D; the plate shows residuals vanishing there
+    add("red arc = blue circumference (πR = πD)  ⇔ R = D",
+      Math.abs(m.redArc - m.blueCirc) / Math.max(1, m.blueCirc));
+    add("half-disk = twice the blue circle  ⇔ R = D",
+      Math.abs(m.halfDisk - 2 * m.blueDisk) / Math.max(1, m.blueDisk));
+    add("residual red = blue circle  ⇔ R = D",
+      Math.abs(m.residualRed - m.blueDisk) / Math.max(1, m.blueDisk));
+    add("tangency: the far points coincide  ⇔ R = D",
+      Math.abs(Core.farRed(R) - Core.farBlue(D)) / Math.max(1, D));
+    return out;
+  }
+};
+/*CORE-END*/
+
+const state = { D: 1, R: 1 };
+const $ = id => document.getElementById(id);
+const cv = $("cv");
+function sizeCanvas(hRatio){
+  const w = cv.clientWidth || cv.parentElement.clientWidth;
+  const h = Math.round(w * hRatio), dpr = window.devicePixelRatio || 1;
+  cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+  cv.style.height = h + "px";
+  const g = cv.getContext("2d"); g.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return { g, w, h };
+}
+
+function draw(){
+  const { g, w, h } = sizeCanvas(0.66);
+  const { R, D } = state;
+  // C at lower centre; shapes rise upward (y up). scale so R=2.2 fits.
+  const unit = Math.min(w, h * 1.4) / 5.2;
+  const Cx = w / 2, Cy = h * 0.82;
+  const X = x => Cx + x * unit, Y = y => Cy - y * unit;
+  g.clearRect(0, 0, w, h); g.lineJoin = "round"; g.lineCap = "round"; g.font = "12px Helvetica";
+
+  // red half-disk about C (radius R), upper half
+  g.fillStyle = "rgba(192,57,43,.16)"; g.strokeStyle = "#C0392B"; g.lineWidth = 2;
+  g.beginPath(); g.moveTo(X(-R), Y(0)); g.arc(X(0), Y(0), R * unit, Math.PI, 2 * Math.PI, false);
+  g.closePath(); g.fill();
+  g.beginPath(); g.arc(X(0), Y(0), R * unit, Math.PI, 2 * Math.PI, false); g.stroke(); // curved rim only
+  // blue whole circle through C, diameter D (centre at height D/2)
+  g.fillStyle = "rgba(43,95,163,.18)"; g.strokeStyle = "#2B5FA3"; g.lineWidth = 2;
+  g.beginPath(); g.arc(X(0), Y(D / 2), (D / 2) * unit, 0, Math.PI * 2); g.fill(); g.stroke();
+
+  // residual red = red minus blue: hint it with a hatch label when R=D
+  const parity = Math.abs(R - D) < 0.004;
+
+  // C and the far points
+  g.fillStyle = "#26231E";
+  g.beginPath(); g.arc(X(0), Y(0), 4, 0, Math.PI * 2); g.fill();
+  g.fillText("C", X(0) + 7, Y(0) + 5);
+  // blue far point (top of blue circle) and red reach (top of red arc)
+  g.fillStyle = "#2B5FA3"; g.beginPath(); g.arc(X(0), Y(D), 3.5, 0, Math.PI * 2); g.fill();
+  g.fillStyle = "#C0392B"; g.beginPath(); g.arc(X(0), Y(R), 3.5, 0, Math.PI * 2); g.fill();
+  g.fillStyle = "#6E675C";
+  g.fillText("D", X(0) - 16, Y(D) + 4);
+  g.fillText("R", X(0) + 8, Y(R) + 4);
+
+  if (parity){
+    g.strokeStyle = "#1E8E3E"; g.lineWidth = 2.4;
+    g.beginPath(); g.arc(X(0), Y(D), 8, 0, Math.PI * 2); g.stroke();
+    g.fillStyle = "#1E8E3E";
+    g.fillText("tangent — R = D", X(0) + 14, Y(D) - 6);
+  }
+  g.fillStyle = "#6E675C";
+  g.fillText(parity ? "the section through C's far point" : "a neighbouring section", 10, 18);
+}
+
+function drawMeas(){
+  const { R, D } = state, m = Core.measures(R, D);
+  const par = Math.abs(R - D) < 0.004;
+  const cls = ok => ok ? "par" : "npar";
+  const rows = [
+    ["red arc (rim)", "πR = " + m.redArc.toFixed(4), "blue circumference", "πD = " + m.blueCirc.toFixed(4),
+      Math.abs(m.redArc - m.blueCirc) < 1e-6],
+    ["red half-disk", "πR²/2 = " + m.halfDisk.toFixed(4), "twice blue", (2 * m.blueDisk).toFixed(4),
+      Math.abs(m.halfDisk - 2 * m.blueDisk) < 1e-6],
+    ["residual red", "half-disk − blue = " + m.residualRed.toFixed(4), "blue circle", m.blueDisk.toFixed(4),
+      Math.abs(m.residualRed - m.blueDisk) < 1e-6]
+  ];
+  $("measTable").innerHTML =
+    "<tr><th>red</th><th>value</th><th>blue</th><th>value</th><th>match</th></tr>" +
+    rows.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td>` +
+      `<td class="${cls(r[4])}">${r[4] ? "= parity" : "≠"}</td></tr>`).join("");
+}
+
+function drawChecks(){
+  const cks = Core.checksLive(state.R, state.D);
+  const atParity = Math.abs(state.R - state.D) < 0.004;
+  $("secChecks").innerHTML = cks.map((r, i) => {
+    const ok = r.res < 1e-9;
+    return `<div><span>${i + 1}. ${r.name}</span>` +
+      `<span class="${ok ? "ok" : "bad"}">${ok ? "✓ holds" : "residual " + r.res.toExponential(1)}</span></div>`;
+  }).join("") +
+    `<div><span>— the parities are the section R = D; drag away and they price the gap —</span>` +
+    `<span class="${atParity ? "ok" : "bad"}">${atParity ? "✓ at the section" : "off the section"}</span></div>`;
+}
+
+function redraw(){
+  draw(); drawMeas(); drawChecks();
+  $("Rval").textContent = Math.abs(state.R - state.D) < 0.004 ? "R = D" : "R = " + state.R.toFixed(2) + " D";
+}
+$("R").oninput = e => { state.R = +e.target.value; redraw(); };
+$("btnPar").onclick = () => { state.R = 1; $("R").value = 1; redraw(); };
+$("btnBig").onclick = () => { state.R = 1.6; $("R").value = 1.6; redraw(); };
+$("btnSmall").onclick = () => { state.R = 0.6; $("R").value = 0.6; redraw(); };
+window.addEventListener("resize", redraw);
+redraw();
+</script>
+</body>
+</html>
