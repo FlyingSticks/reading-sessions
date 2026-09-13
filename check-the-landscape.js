@@ -58,20 +58,40 @@ async function liveStatus(p){
   }
   assert("seasoning, source, and out rows are pathless — ideas, not files",
     REG.filter(r => ["seasoning", "source", "out"].includes(r.t)).every(r => r.path === null));
-  assert("statuses match territories (book=stated, record=record, archive=archive)",
+  assert("statuses match territories (book=stated, record=record|pending, archive=archive)",
     by("book").every(r => r.status === "stated") &&
-    by("record").every(r => r.status === "record") &&
+    by("record").every(r => r.status === "record" || r.status === "pending") &&
     by("archive").every(r => r.status === "archive"));
   {
     const pend = [];
     for (const r of REG) if (r.status === "pending"){ pend.push(r.path); (r.also || []).forEach(a => pend.push(a)); }
-    const declared = ["/reading-sessions/the-gauge.html", "/reading-sessions/check-the-gauge.js",
-                      "/reading-sessions/check-sphere-duality.js"].sort().join("|");
+    const declared = ["/reading-sessions/the-gauge.html",
+                      "/reading-sessions/check-the-gauge.js"].sort().join("|");
     assert("pending rows are exactly the declared punch list", pend.sort().join("|") === declared, pend.join(", "));
   }
-  assert("shelf rows carry the linked flag; the linked set matches the live index count",
-    by("shelf").every(r => typeof r.linked === "boolean") &&
-    by("shelf").filter(r => r.linked).length === 5);
+  {
+    // "linked" = reachable from the sessions index directly or through a session page.
+    // Sources of record: the local filing (index + sessions 5-10 beside this file when
+    // present), the live copies otherwise; sessions 1-4 always fetched live.
+    const hrefs = new Set();
+    const harvest = txt => { for (const m of txt.matchAll(/href="([^"]+)"/g)){
+      const h = decodeURIComponent(m[1]);
+      if (!h.startsWith("http")) hrefs.add(h.split("/").pop());
+    } };
+    const localOrLive = async f => {
+      const lp = path.join(__dirname, f);
+      if (fs.existsSync(lp)) return fs.readFileSync(lp, "utf8");
+      return await (await fetch(rawURL("/reading-sessions/" + f))).text();
+    };
+    harvest(await localOrLive("index.html"));
+    for (let i = 1; i <= 10; i++)
+      harvest(await localOrLive(`session-${String(i).padStart(2, "0")}.html`));
+    const mism = by("shelf").filter(r =>
+      r.linked !== hrefs.has(decodeURIComponent(r.path.split("/").pop())));
+    assert("every shelf row's linked flag matches reachability from the record",
+      by("shelf").every(r => typeof r.linked === "boolean") && mism.length === 0,
+      mism.map(r => r.name).join(", "));
+  }
   assert("the map spans all seven territories",
     Core.TERRITORIES.every(t => REG.some(r => r.t === t)));
 
