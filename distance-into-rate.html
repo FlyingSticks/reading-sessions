@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Distance into rate · The Reading Sessions</title>
+<style>
+  :root{
+    --paper:#F4F0E6; --panel:#FBF9F3; --ink:#26231E; --soft:#6E675C;
+    --crimson:#A31F34; --purple:#5E3A9E; --gold:#B8860B; --green:#1E8E3E;
+    --red:#C0392B; --blue:#2B5FA3; --rule:#D8D2C2;
+  }
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+    font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.5;
+    -webkit-text-size-adjust:100%;}
+  .wrap{max-width:960px;margin:0 auto;padding:18px 16px calc(40px + env(safe-area-inset-bottom));}
+  .crumbs{font-size:13px;color:var(--soft);margin-bottom:14px;}
+  .crumbs a{color:var(--soft);}
+  h1{font-size:28px;margin:6px 0 10px;letter-spacing:.2px;}
+  h2{font-size:19px;margin:34px 0 8px;}
+  p{margin:8px 0;}
+  a{color:var(--blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .caption{font-size:13.5px;color:var(--soft);margin:6px 2px 0;}
+  canvas{display:block;width:100%;height:auto;background:var(--panel);
+    border:1px solid var(--rule);border-radius:8px;touch-action:none;}
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:720px){.duo{grid-template-columns:1fr;}}
+  .controls{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 8px;align-items:center;}
+  button{font:inherit;font-size:13.5px;background:var(--panel);border:1px solid var(--rule);
+    border-radius:6px;padding:5px 10px;color:var(--ink);cursor:pointer;}
+  button:active{background:#efe9da;}
+  button[aria-pressed=true]{background:var(--plum,#43203f);background:#43203f;color:var(--paper);border-color:#43203f;}
+  .slider{flex:1;min-width:120px;}
+  .readout{background:var(--panel);border:1px solid var(--rule);border-radius:8px;
+    padding:10px 14px;margin:10px 0;font-variant-numeric:tabular-nums;font-size:15px;}
+  .readout b{color:#43203f;}
+  .rowU{color:#7c1626;} .rowV{color:#5E3A9E;}
+  .checks{background:var(--panel);border:1px solid var(--rule);border-radius:8px;
+    padding:8px 14px;font-size:14px;font-variant-numeric:tabular-nums;}
+  .checks div{display:flex;justify-content:space-between;gap:10px;padding:4px 0;
+    border-bottom:1px dashed var(--rule);}
+  .checks div:last-child{border-bottom:none;}
+  .ok{color:var(--green);font-weight:700;} .bad{color:var(--red);font-weight:700;}
+  dl{margin:8px 0;} dt{font-weight:700;margin-top:10px;}
+  dd{margin:2px 0 0 0;font-size:14.5px;color:#3A362F;}
+  .foot{margin-top:36px;font-size:13.5px;color:var(--soft);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="crumbs">
+  <a href="https://flyingsticks.github.io/reading-sessions/index.html">The Reading Sessions</a> ·
+  a note on the rate square's coordinates ·
+  13 September 2026
+</div>
+
+<h1>Distance into rate</h1>
+
+<p>A point in the depth world is a distance — how far behind the picture plane a thing
+sits. The rate square does not plot that distance; it plots its <i>reciprocal</i>, one per
+slit: r<sub>u</sub> = k/(z − Z<sub>v</sub>) and r<sub>v</sub> = k/(z − Z<sub>h</sub>).
+Each axis is not &ldquo;distance&rdquo; but &ldquo;one over distance from this slit,&rdquo;
+because 1/distance is the natural unit of <i>how fast an image feature moves as you change
+depth</i>: near things swing quickly as you dolly, far things barely move. Drag the point
+Z through the depth world on the left and watch where it lands on the rate square at right.</p>
+
+<div class="controls">
+  <span style="font-size:13.5px;color:var(--soft)">depth Z</span>
+  <input type="range" class="slider" id="z" min="160" max="1400" step="1" value="500">
+  <span style="font-size:14px" id="zval">Z = 500</span>
+  <span style="width:12px"></span>
+  <span style="font-size:13.5px;color:var(--soft)">gauge</span>
+  <button id="gA" aria-pressed="true">k = 1</button>
+  <button id="gB" aria-pressed="false">k = 100</button>
+</div>
+
+<div class="duo">
+  <div>
+    <canvas id="cvDepth"></canvas>
+    <p class="caption"><b>The depth world.</b> The two slits sit at Z<sub>v</sub> = 150 and
+    Z<sub>h</sub> = 355; the point Z is your draggable object. The two coloured bars are the
+    <i>distances</i> z − Z<sub>v</sub> and z − Z<sub>h</sub> — plain lengths. Drag Z toward a
+    slit and its bar shrinks toward zero; drag it far and both bars grow without limit.</p>
+  </div>
+  <div>
+    <canvas id="cvRate"></canvas>
+    <p class="caption"><b>The rate square.</b> The same point, plotted as
+    (r<sub>u</sub>, r<sub>v</sub>) — the reciprocals of those two distances. Far depth lands
+    near the origin (both rates → 0, the horizon); near a slit sends one rate racing to the
+    edge of the square (r → ∞). The <span style="color:var(--gold)">diagonal</span> is
+    r<sub>u</sub> = r<sub>v</sub>; the <span style="color:var(--red)">axes</span> are the
+    edges r = 0. Those three lines are the seam — and the point of this plate is that they
+    do not move when you switch the gauge.</p>
+  </div>
+</div>
+
+<div class="readout" id="readout"></div>
+
+<h2>What the gauge toggle shows</h2>
+<p>The constant k is a <i>gauge</i>: a free choice of unit for the rate axes. Switch between
+k = 1 and k = 100 and watch what happens. The point's <i>numbers</i> change — every
+r<sub>u</sub>, r<sub>v</sub> scales by 100 — and the square's tick labels change with them.
+But the <i>picture</i> does not: the point sits in the same place relative to the diagonal
+and the edges, because both axes rescale together. The gauge-invariant fact is the
+<b>ratio</b> r<sub>u</sub> / r<sub>v</sub> = (z − Z<sub>h</sub>)/(z − Z<sub>v</sub>), which
+the readout holds fixed across the toggle. The seam lives on <i>equality</i> (the diagonal)
+and <i>vanishing</i> (the edges) — both blind to k — which is exactly why it is a law and
+the tick marks are only a convention.</p>
+
+<h2>Checks</h2>
+<div class="checks" id="checks"></div>
+<p class="caption">Re-run on every drag and every gauge switch, from the drawn point.</p>
+
+<h2>Conventions</h2>
+<p style="font-size:14.5px">Judgment calls flagged: the point Z is held behind the near
+slit (z &gt; Z<sub>v</sub>) so both distances are positive and the reciprocals stay in one
+quadrant — the full rate square carries all four sign combinations, but one quadrant is
+enough to see distance become rate; the rate axes are clipped at a finite reach with an
+arrow where a rate runs past the edge toward its slit (r → ∞); the two gauges shown are
+k = 1 and k = 100, a plain common rescale — any nonzero k would do, and the invariance is
+the same. The reciprocal calibration is r = k/(z − Z), the sign convention of the engine.</p>
+
+<h2>Glossary</h2>
+<dl>
+<dt>depth world</dt><dd>The scene measured in plain distance behind the picture plane; the left panel.</dd>
+<dt>rate</dt><dd>A per-unit-depth quantity; here 1/distance, the responsiveness of an image feature to a change in depth. Its home is the reciprocal.</dd>
+<dt>rate square</dt><dd>The plane of (r<sub>u</sub>, r<sub>v</sub>), reciprocal-depth per slit; scale-space, where the horizon is the finite origin and each slit is a point at infinity.</dd>
+<dt>gauge (here, k)</dt><dd>The free unit of the rate axes. Changing k rescales every number and no picture; the seam is what survives it.</dd>
+<dt>the ratio</dt><dd>r<sub>u</sub>/r<sub>v</sub> = (z − Z<sub>h</sub>)/(z − Z<sub>v</sub>): the gauge-invariant content of the point's position, unchanged by k.</dd>
+</dl>
+
+<div class="foot">
+<a href="rate-square-3d.html">Rate square 3D</a> ·
+<a href="the-duality.html">The duality</a> ·
+<a href="means-sphere-3d.html">The means sphere</a> ·
+<a href="https://flyingsticks.github.io/reading-sessions/index.html">All sessions</a>
+</div>
+</div>
+
+<script>
+/*CORE-BEGIN*/
+const Core = {
+  Zv: 150, Zh: 355,
+  ru(z, k){ return k / (z - Core.Zv); },
+  rv(z, k){ return k / (z - Core.Zh); },
+  ratio(z){ return (z - Core.Zh) / (z - Core.Zv); },   // ru/rv, gauge-free
+  checks(z, k){
+    const out = [], add = (n, r) => out.push({ name: n, res: r });
+    const ru = Core.ru(z, k), rv = Core.rv(z, k);
+    // 1 the rate is the reciprocal distance
+    add("r_u is k over the distance z − Z_v",
+      Math.abs(ru - k / (z - Core.Zv)) / Math.max(1e-9, Math.abs(ru)));
+    // 2 the ratio is gauge-free: equals it at k=1 and k=100
+    add("ratio r_u/r_v is the same at k = 1 and k = 100",
+      Math.abs((Core.ru(z, 1) / Core.rv(z, 1)) - (Core.ru(z, 100) / Core.rv(z, 100))));
+    // 3 the ratio equals the distance ratio (z−Zh)/(z−Zv)
+    add("ratio equals (z − Z_h)/(z − Z_v)", Math.abs(ru / rv - Core.ratio(z)));
+    // 4 far depth -> both rates head to zero (horizon at the origin)
+    add("at large depth both rates shrink toward 0",
+      (Math.abs(Core.ru(1e7, k)) + Math.abs(Core.rv(1e7, k))) < Math.abs(ru) + Math.abs(rv) ? 0 : 1);
+    // 5 nearer the slit -> larger |r| (faster swing)
+    add("a nearer point has the larger |r_u| (swings faster)",
+      Math.abs(Core.ru(z, k)) > Math.abs(Core.ru(z + 200, k)) ? 0 : 1);
+    // 6 the diagonal is unreachable at finite depth (ru=rv only at infinity)
+    add("r_u = r_v has no finite-depth solution (the diagonal is the far limit)",
+      Math.abs(ru - rv) > 1e-9 ? 0 : 1);
+    return out;
+  }
+};
+/*CORE-END*/
+
+const state = { z: 500, k: 1 };
+const $ = id => document.getElementById(id);
+
+function sizeCanvas(cv, hRatio){
+  const w = cv.clientWidth || cv.parentElement.clientWidth;
+  const h = Math.round(w * hRatio), dpr = window.devicePixelRatio || 1;
+  cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+  cv.style.height = h + "px";
+  const g = cv.getContext("2d"); g.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return { g, w, h };
+}
+
+// depth world: a horizontal depth axis with the two slits and the point, plus distance bars
+function drawDepth(){
+  const { g, w, h } = sizeCanvas($("cvDepth"), 0.82);
+  const zmin = 120, zmax = 1420, sc = (w - 30) / (zmax - zmin);
+  const Z = z => 15 + (z - zmin) * sc;
+  const axisY = h * 0.42;
+  g.clearRect(0, 0, w, h); g.font = "11px Helvetica"; g.lineCap = "round";
+  // depth axis
+  g.strokeStyle = "#555"; g.lineWidth = 1;
+  g.beginPath(); g.moveTo(0, axisY); g.lineTo(w, axisY); g.stroke();
+  g.fillStyle = "#6E675C"; g.fillText("depth z  →", w - 78, axisY - 8);
+  // slits
+  const slit = (z, col, lab) => {
+    g.strokeStyle = col; g.lineWidth = 2.5;
+    g.beginPath(); g.moveTo(Z(z), axisY - 26); g.lineTo(Z(z), axisY + 26); g.stroke();
+    g.fillStyle = col; g.fillText(lab, Z(z) - 6, axisY - 32);
+  };
+  slit(Core.Zv, "#A31F34", "Zv");
+  slit(Core.Zh, "#5E3A9E", "Zh");
+  // the point
+  const z = state.z;
+  g.fillStyle = "#43203f";
+  g.beginPath(); g.arc(Z(z), axisY, 6, 0, Math.PI * 2); g.fill();
+  g.fillText("Z", Z(z) - 4, axisY - 12);
+  // distance bars, drawn stacked below the axis
+  const bar = (za, zb, col, yy, lab) => {
+    g.strokeStyle = col; g.lineWidth = 6; g.globalAlpha = 0.85;
+    g.beginPath(); g.moveTo(Z(za), yy); g.lineTo(Z(zb), yy); g.stroke();
+    g.globalAlpha = 1;
+    g.fillStyle = col;
+    g.fillText(lab + " = " + Math.abs(zb - za).toFixed(0), Z(Math.min(za, zb)) , yy + 16);
+  };
+  bar(Core.Zv, z, "#7c1626", axisY + 52, "z − Zv");
+  bar(Core.Zh, z, "#5E3A9E", axisY + 92, "z − Zh");
+  g.fillStyle = "#6E675C";
+  g.fillText("plain distances (lengths)", 12, axisY + 132);
+}
+
+// rate square: (ru, rv) in one quadrant, with diagonal and edges, and the plotted point
+function drawRate(){
+  const { g, w, h } = sizeCanvas($("cvRate"), 0.82);
+  const pad = 40;
+  const ru = Core.ru(state.z, state.k), rv = Core.rv(state.z, state.k);
+  // choose axis reach so the current point and a healthy range fit; scale with k
+  const reach = 0.02 * state.k * 1.15;
+  const X = r => pad + (r / reach) * (w - pad - 14);
+  const Y = r => (h - pad) - (r / reach) * (h - pad - 14);
+  g.clearRect(0, 0, w, h); g.font = "11px Helvetica"; g.lineCap = "round";
+  // edges (r = 0 axes) in red — the seam edges
+  g.strokeStyle = "#C0392B"; g.lineWidth = 2;
+  g.beginPath(); g.moveTo(pad, Y(0)); g.lineTo(w - 6, Y(0)); g.stroke();     // ru axis (rv=0)
+  g.beginPath(); g.moveTo(X(0), h - pad); g.lineTo(X(0), 6); g.stroke();     // rv axis (ru=0)
+  g.fillStyle = "#C0392B";
+  g.fillText("rv = 0  (horizon edge)", pad + 6, Y(0) - 6);
+  g.save(); g.translate(X(0) - 6, h - pad - 6); g.rotate(-Math.PI / 2);
+  g.fillText("ru = 0  (horizon edge)", 0, 0); g.restore();
+  // diagonal ru = rv in gold — the fusion diagonal (seam)
+  g.strokeStyle = "#B8860B"; g.lineWidth = 1.6; g.setLineDash([6, 4]);
+  g.beginPath(); g.moveTo(X(0), Y(0)); g.lineTo(X(reach), Y(reach)); g.stroke();
+  g.setLineDash([]);
+  g.fillStyle = "#B8860B"; g.fillText("ru = rv", X(reach) - 44, Y(reach) + 16);
+  // origin label
+  g.fillStyle = "#6E675C"; g.fillText("0 (far / horizon)", X(0) + 6, Y(0) + 16);
+  g.fillText("ru →", w - 42, Y(0) - 6);
+  g.save(); g.translate(X(0) - 6, 16); g.rotate(-Math.PI / 2); g.fillText("rv →", 0, 0); g.restore();
+  // the point (clip with an arrow if a rate runs past the reach)
+  const clip = v => Math.min(v, reach);
+  const px = X(clip(ru)), py = Y(clip(rv));
+  // guide lines to the axes
+  g.strokeStyle = "rgba(67,32,63,.35)"; g.lineWidth = 1; g.setLineDash([3, 3]);
+  g.beginPath(); g.moveTo(px, Y(0)); g.lineTo(px, py); g.lineTo(X(0), py); g.stroke();
+  g.setLineDash([]);
+  g.fillStyle = "#43203f";
+  g.beginPath(); g.arc(px, py, 6, 0, Math.PI * 2); g.fill();
+  // arrow if clipped
+  if (ru > reach){ g.strokeStyle = "#7c1626"; g.lineWidth = 2;
+    g.beginPath(); g.moveTo(px, py); g.lineTo(px + 16, py); g.stroke();
+    g.beginPath(); g.moveTo(px + 16, py); g.lineTo(px + 10, py - 4); g.lineTo(px + 10, py + 4); g.closePath();
+    g.fillStyle = "#7c1626"; g.fill();
+    g.fillText("ru → ∞ (at slit Zv)", px - 40, py - 10); }
+  if (rv > reach){ g.strokeStyle = "#5E3A9E"; g.lineWidth = 2;
+    g.beginPath(); g.moveTo(px, py); g.lineTo(px, py - 16); g.stroke();
+    g.beginPath(); g.moveTo(px, py - 16); g.lineTo(px - 4, py - 10); g.lineTo(px + 4, py - 10); g.closePath();
+    g.fillStyle = "#5E3A9E"; g.fill(); }
+  g.fillStyle = "#43203f"; g.fillText("(ru, rv)", px + 9, py - 8);
+  // tick labels (scale with k) on each axis
+  g.fillStyle = "#6E675C"; g.font = "10px Helvetica";
+  for (let i = 1; i <= 3; i++){
+    const rr = reach * i / 3;
+    g.fillText(rr.toFixed(state.k >= 100 ? 1 : 3), X(rr) - 8, Y(0) + 26);
+    g.fillText(rr.toFixed(state.k >= 100 ? 1 : 3), X(0) - 34, Y(rr) + 3);
+  }
+}
+
+function drawReadout(){
+  const z = state.z, k = state.k;
+  const ru = Core.ru(z, k), rv = Core.rv(z, k);
+  const dv = z - Core.Zv, dh = z - Core.Zh;
+  $("readout").innerHTML =
+    `<b>depth Z = ${z}</b> · gauge k = ${k}<br>` +
+    `<span class="rowU">channel u: distance z − Zv = ${dv.toFixed(0)} → r<sub>u</sub> = k/${dv.toFixed(0)} = ${ru.toFixed(k >= 100 ? 3 : 5)}</span><br>` +
+    `<span class="rowV">channel v: distance z − Zh = ${dh.toFixed(0)} → r<sub>v</sub> = k/${dh.toFixed(0)} = ${rv.toFixed(k >= 100 ? 3 : 5)}</span><br>` +
+    `<b>ratio r<sub>u</sub>/r<sub>v</sub> = ${(ru / rv).toFixed(5)}</b> — gauge-free: the same at k = 1 and k = 100`;
+}
+
+function drawChecks(){
+  const cks = Core.checks(state.z, state.k);
+  $("checks").innerHTML = cks.map((r, i) => {
+    const ok = r.res < 1e-6;
+    return `<div><span>${i + 1}. ${r.name}</span>` +
+      `<span class="${ok ? "ok" : "bad"}">${ok ? "✓" : "✗"} ${r.res.toExponential(1)}</span></div>`;
+  }).join("");
+}
+
+function redraw(){
+  drawDepth(); drawRate(); drawReadout(); drawChecks();
+  $("zval").textContent = "Z = " + state.z;
+}
+$("z").oninput = e => { state.z = +e.target.value; redraw(); };
+$("gA").onclick = () => { state.k = 1; $("gA").setAttribute("aria-pressed", "true"); $("gB").setAttribute("aria-pressed", "false"); redraw(); };
+$("gB").onclick = () => { state.k = 100; $("gB").setAttribute("aria-pressed", "true"); $("gA").setAttribute("aria-pressed", "false"); redraw(); };
+window.addEventListener("resize", redraw);
+redraw();
+</script>
+</body>
+</html>
