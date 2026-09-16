@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The dial — one parameter, two laws</title>
+<style>
+  body { background: #faf6ef; color: #43203f; font-family: Georgia, 'Times New Roman', serif;
+         margin: 0; padding: 1.2rem 1rem 3rem; }
+  main { max-width: 760px; margin: 0 auto; }
+  h1 { font-size: 1.7rem; font-weight: normal; margin: 0.4rem 0 0.1rem; }
+  .subtitle { font-style: italic; margin: 0 0 1.4rem; color: #6a2c91; }
+  h2 { font-size: 1.15rem; font-weight: normal; border-bottom: 1px solid #b08948;
+       padding-bottom: 0.15rem; margin: 2rem 0 0.7rem; }
+  p { line-height: 1.55; margin: 0.6rem 0; }
+  .statement { border: 1.5px solid #b08948; background: #f3ecdf; padding: 0.8rem 1rem;
+               margin: 1.2rem 0; line-height: 1.6; }
+  .statement .law { display: block; margin: 0.35rem 0; font-size: 1.02rem; }
+  .frac { display: inline-block; vertical-align: middle; text-align: center; margin: 0 0.15em; }
+  .frac .num { display: block; border-bottom: 1px solid #43203f; padding: 0 0.2em; }
+  .frac .den { display: block; padding: 0 0.2em; }
+  svg { width: 100%; height: auto; display: block; touch-action: none; }
+  .panelbox { border: 1px solid #d8cdb8; background: #fefcf7; padding: 0.4rem 0.4rem 0.2rem; margin: 1rem 0 0.6rem; }
+  .presets { margin: 0.4rem 0 0.2rem; }
+  .presets button { font-family: Georgia, serif; font-size: 0.92rem; color: #43203f;
+    background: #f3ecdf; border: 1px solid #b08948; border-radius: 3px;
+    padding: 0.25rem 0.7rem; margin-right: 0.5rem; margin-bottom: 0.35rem; cursor: pointer; }
+  .presets button:active { background: #e9dfc9; }
+  .ledger { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 0.4rem; margin: 0.6rem 0 0.2rem; }
+  .cell { border: 1px solid #d8cdb8; background: #fefcf7; padding: 0.3rem 0.45rem; }
+  .cell .k { font-size: 0.78rem; color: #6a2c91; display: block; }
+  .cell .v { font-size: 1.02rem; }
+  .note { font-size: 0.9rem; color: #43203f; }
+  dl { margin: 0.4rem 0; }
+  dt { font-weight: bold; margin-top: 0.55rem; }
+  dt .tag { font-weight: normal; font-size: 0.78rem; color: #b08948; margin-left: 0.4rem; }
+  dd { margin: 0.1rem 0 0 1.1rem; line-height: 1.45; }
+  .foldin { border-left: 3px solid #3d8f3d; padding-left: 0.9rem; margin: 0.8rem 0; }
+  footer { margin-top: 2.5rem; font-size: 0.85rem; color: #6a2c91;
+           border-top: 1px solid #d8cdb8; padding-top: 0.6rem; }
+  em.term { font-style: normal; color: #6a2c91; }
+</style>
+</head>
+<body>
+<main>
+
+<h1>The dial</h1>
+<p class="subtitle">One parameter, two laws: the exchange identity and the trichotomy read the same d</p>
+
+<p>Theorem 0's Turn gauge has a single free parameter once the step unit is chosen: the
+dial d = D/u. This page shows that the dial is read simultaneously by two meters.
+The <em class="term">exchange meter</em> reads the dimensionless product of Theorem 0,
+confined to [1, 2). The <em class="term">trichotomy meter</em> reads the gauge's position
+in the M&ouml;bius trichotomy &mdash; how far its conjugacy class sits from the parabolic
+boundary where Reach lives. Both readings are functions of d alone, so eliminating d
+links them in closed form: the two meters are welded.</p>
+
+<div class="statement">
+  <span class="law"><b>The excess.</b>&ensp;
+    &epsilon; &equiv;
+    <span class="frac"><span class="num">tr&sup2;M</span><span class="den">det&thinsp;M</span></span> &minus; 4
+    &nbsp;=&nbsp;
+    <span class="frac"><span class="num">(L &minus; D)&sup2;</span><span class="den">L&thinsp;D</span></span>
+    &nbsp;=&nbsp;
+    <span class="frac"><span class="num">1</span><span class="den">d(1 + d)</span></span>
+    &nbsp;&gt;&nbsp;0&ensp; for every d &gt; 0.
+  </span>
+  <span class="law"><b>The exchange.</b>&ensp;
+    P &equiv;
+    <span class="frac"><span class="num">|&Delta;&sup2;y| &middot; L</span><span class="den">(&Delta;y&#8320;)&sup2;</span></span>
+    &nbsp;=&nbsp;
+    <span class="frac"><span class="num">2(1 + d)</span><span class="den">2 + d</span></span>
+    &nbsp;&isin;&nbsp;[1, 2).
+  </span>
+  <span class="law"><b>The weld.</b>&ensp;Eliminating d:&ensp;
+    &epsilon; =
+    <span class="frac"><span class="num">(2 &minus; P)&sup2;</span><span class="den">2&thinsp;P(P &minus; 1)</span></span>.
+    &ensp;The trichotomy position is a function of the exchange product, and conversely.
+  </span>
+</div>
+
+<h2>Instrument &mdash; one dial, three readings</h2>
+
+<div class="presets">
+  <button id="pCompress">compression&ensp;d = 0.02</button>
+  <button id="pUnit">balance&ensp;d = 1</button>
+  <button id="pReach">toward Reach&ensp;d = 50</button>
+</div>
+
+<div class="panelbox">
+<svg id="scene" viewBox="0 0 700 560" xmlns="http://www.w3.org/2000/svg" aria-label="The dial driving the Turn ruler, the exchange meter, and the trichotomy strip">
+
+  <!-- ===== Dial track ===== -->
+  <text x="60" y="26" font-size="14" fill="#43203f">the dial&ensp;d = D/u&ensp;(log scale)</text>
+  <text id="dReadout" x="640" y="26" font-size="15" fill="#c0322b" text-anchor="end">d = 1.00</text>
+  <line x1="60" y1="48" x2="640" y2="48" stroke="#43203f" stroke-width="1.5"/>
+  <line x1="60" y1="43" x2="60" y2="53" stroke="#43203f" stroke-width="1"/>
+  <line x1="350" y1="43" x2="350" y2="53" stroke="#43203f" stroke-width="1"/>
+  <line x1="640" y1="43" x2="640" y2="53" stroke="#43203f" stroke-width="1"/>
+  <text x="60" y="70" font-size="11" fill="#6a2c91" text-anchor="middle">0.02</text>
+  <text x="350" y="70" font-size="11" fill="#6a2c91" text-anchor="middle">1</text>
+  <text x="640" y="70" font-size="11" fill="#6a2c91" text-anchor="middle">50</text>
+  <circle id="handle" cx="350" cy="48" r="11" fill="#b08948" stroke="#43203f" stroke-width="1.5" style="cursor:grab"/>
+
+  <!-- ===== Panel A: the Turn ruler, normalized by L ===== -->
+  <text x="60" y="112" font-size="14" fill="#43203f">the Turn ruler &mdash; span drawn as [0, L], marks at y(nu)/L = n/(n+d)</text>
+  <line x1="60" y1="168" x2="640" y2="168" stroke="#43203f" stroke-width="1.5"/>
+  <g id="marks"></g>
+  <!-- fixed origin -->
+  <circle cx="60" cy="168" r="5" fill="#b08948" stroke="#43203f" stroke-width="1"/>
+  <polygon id="repelArrow" points="0,0 0,0 0,0" fill="#b08948"/>
+  <text x="60" y="192" font-size="11" fill="#b08948" text-anchor="start">0 &mdash; fixed, repelling</text>
+  <text id="mult0" x="60" y="206" font-size="11" fill="#6a2c91" text-anchor="start">&times;2.00 per step out</text>
+  <!-- fixed first mark -->
+  <circle id="fixU" cx="350" cy="168" r="5" fill="#b08948" stroke="#43203f" stroke-width="1"/>
+  <polygon id="attL" points="0,0 0,0 0,0" fill="#b08948"/>
+  <polygon id="attR" points="0,0 0,0 0,0" fill="#b08948"/>
+  <text id="fixULabel" x="350" y="140" font-size="11" fill="#b08948" text-anchor="middle">u &mdash; fixed, attracting</text>
+  <text id="multU" x="350" y="153" font-size="11" fill="#6a2c91" text-anchor="middle">&times;0.50 per step in</text>
+  <!-- the ring -->
+  <circle cx="640" cy="168" r="6.5" fill="none" stroke="#c0322b" stroke-width="2.5"/>
+  <text x="640" y="192" font-size="11" fill="#c0322b" text-anchor="end">L &mdash; &infin; seated at the ring</text>
+
+  <!-- ===== Panel B: the exchange meter ===== -->
+  <text x="60" y="248" font-size="14" fill="#43203f">the exchange meter &mdash; P = |&Delta;&sup2;y|&middot;L/(&Delta;y&#8320;)&sup2;, pinned in [1, 2)</text>
+  <line x1="100" y1="300" x2="600" y2="300" stroke="#43203f" stroke-width="1.5"/>
+  <text x="100" y="306" font-size="22" fill="#b08948" text-anchor="end" font-weight="bold">[</text>
+  <text x="602" y="306" font-size="22" fill="#c0322b" font-weight="bold">)</text>
+  <text x="100" y="326" font-size="11" fill="#b08948" text-anchor="middle">1 &mdash; floor, attained at d = 0</text>
+  <text x="600" y="326" font-size="11" fill="#c0322b" text-anchor="middle">2 &mdash; ceiling, open</text>
+  <line x1="350" y1="295" x2="350" y2="305" stroke="#43203f" stroke-width="1"/>
+  <text x="350" y="326" font-size="11" fill="#6a2c91" text-anchor="middle">3/2</text>
+  <polygon id="pNeedle" points="350,300 344,286 356,286" fill="#c0322b"/>
+  <text id="pReadout" x="350" y="278" font-size="13" fill="#c0322b" text-anchor="middle">P = 1.333</text>
+
+  <!-- ===== Panel C: the trichotomy strip ===== -->
+  <text x="60" y="378" font-size="14" fill="#43203f">the trichotomy strip &mdash; &epsilon; = tr&sup2;/det &minus; 4;&ensp;hyperbolic ray drawn as &epsilon;/(1+&epsilon;)</text>
+  <rect x="60" y="412" width="240" height="36" fill="#6a2c91" fill-opacity="0.10"/>
+  <line x1="60" y1="430" x2="640" y2="430" stroke="#43203f" stroke-width="1.5"/>
+  <!-- parabolic boundary -->
+  <line x1="300" y1="408" x2="300" y2="452" stroke="#b08948" stroke-width="2.5"/>
+  <!-- Reach seated on the boundary -->
+  <circle cx="300" cy="430" r="6" fill="none" stroke="#177f75" stroke-width="2.5"/>
+  <!-- elliptic exemplar -->
+  <circle cx="87" cy="430" r="5" fill="#6a2c91"/>
+  <text x="87" y="416" font-size="11" fill="#6a2c91" text-anchor="middle">K, the quarter-turn</text>
+  <!-- axis ticks -->
+  <text x="87" y="448" font-size="11" fill="#6a2c91" text-anchor="middle">&minus;4</text>
+  <text x="193" y="448" font-size="11" fill="#6a2c91" text-anchor="middle">&minus;2</text>
+  <line x1="193" y1="426" x2="193" y2="434" stroke="#43203f" stroke-width="1"/>
+  <text x="300" y="470" font-size="11" fill="#b08948" text-anchor="middle">0 &mdash; parabolic: Reach lives here</text>
+  <line x1="410" y1="426" x2="410" y2="434" stroke="#43203f" stroke-width="1"/>
+  <text x="410" y="448" font-size="11" fill="#6a2c91" text-anchor="middle">&frac12;</text>
+  <line x1="465" y1="426" x2="465" y2="434" stroke="#43203f" stroke-width="1"/>
+  <text x="465" y="448" font-size="11" fill="#6a2c91" text-anchor="middle">1</text>
+  <line x1="548" y1="426" x2="548" y2="434" stroke="#43203f" stroke-width="1"/>
+  <text x="548" y="448" font-size="11" fill="#6a2c91" text-anchor="middle">3</text>
+  <text x="638" y="448" font-size="13" fill="#c0322b" text-anchor="middle">&infin;</text>
+  <text x="150" y="400" font-size="11" fill="#6a2c91">elliptic &mdash; no real fixed points, never a gauge</text>
+  <text x="470" y="400" font-size="11" fill="#43203f">hyperbolic &mdash; the whole Turn family</text>
+  <!-- the moving gauge -->
+  <circle id="epsDot" cx="465" cy="430" r="6.5" fill="#c0322b"/>
+  <text id="epsReadout" x="465" y="496" font-size="13" fill="#c0322b" text-anchor="middle">&epsilon; = 0.500</text>
+  <text id="epsNote" x="350" y="522" font-size="12" fill="#43203f" text-anchor="middle">the gauge slides toward the gold line as d grows &mdash; and lands only where the family ends</text>
+
+</svg>
+</div>
+
+<div class="ledger">
+  <div class="cell"><span class="k">dial d</span><span class="v" id="ledD">1.00</span></div>
+  <div class="cell"><span class="k">ring L = (1+d)&thinsp;&Delta;y&#8320;</span><span class="v" id="ledL">2.00</span></div>
+  <div class="cell"><span class="k">|&Delta;&sup2;y| = 2/(2+d)</span><span class="v" id="ledD2">0.667</span></div>
+  <div class="cell"><span class="k">exchange P</span><span class="v" id="ledP">1.333</span></div>
+  <div class="cell"><span class="k">excess &epsilon;</span><span class="v" id="ledE">0.500</span></div>
+  <div class="cell"><span class="k">multipliers at 0, u</span><span class="v" id="ledM">2.00 &middot; 0.50</span></div>
+</div>
+<p class="note">Drag the gold handle, or tap the track. The ruler is drawn normalized by L
+&mdash; the span stays fixed while the dial redistributes the marks along it, so what you
+watch is exchange, not growth. Numerals thin where ticks crowd.</p>
+
+<h2>Reading the instrument</h2>
+
+<p>At the compression end the marks pile against the crimson ring, the exchange needle
+sits on its closed bracket at the floor P = 1, and the trichotomy dot flies off toward
+the open end of the hyperbolic ray: maximal compression is <i>maximally</i> hyperbolic.
+Turn the dial the other way and the marks spread toward equal steps, the needle climbs
+toward its open parenthesis at 2, and the dot slides in toward the gold parabolic line
+&mdash; Reach's own address &mdash; without ever landing on it. The two meters cannot be
+moved separately. That is the weld formula in the statement box, verified numerically in
+the check script at every sampled d.</p>
+
+<p>The gold points on the ruler are the gauge's own fixed points: the origin and the
+first mark. Their multipliers are exact reciprocals &mdash; the repulsion from 0 is
+precisely the attraction into u &mdash; and the harmonic crowding of the marks is nothing
+but hyperbolic flow into an attracting fixed point, read on an affine ruler.</p>
+
+<h2>Why the bare discriminant will not do</h2>
+
+<p>An element of PGL(2,&nbsp;R) is a matrix only up to a scalar: M and kM are the same
+projective map. Under M &rarr; kM the trace scales by k and the determinant by k&sup2;,
+so the bare discriminant tr&sup2; &minus; 4&thinsp;det scales by k&sup2; &mdash; it is a
+property of the matrix you happened to write, not of the map. The ratio
+tr&sup2;/det survives the rescaling, and its excess over the parabolic threshold 4 is
+the honest conjugacy reading. For the Turn matrix M = [[L,&nbsp;0],&nbsp;[1,&nbsp;D]]
+the excess computes to (L&minus;D)&sup2;/LD = 1/(d(1+d)), strictly positive for every
+finite d: hyperbolic throughout, with the earlier claim &ldquo;discriminant = u&sup2;&rdquo;
+now recognized as the unit-dependent shadow of this invariant.</p>
+
+<h2>The two limits, on both meters at once</h2>
+
+<p><b>d &rarr; 0 (maximal compression).</b> P &rarr; 1, the floor, attained; &epsilon;
+&rarr; &infin;. Infinity arrives at the first mark and the gauge's hyperbolic character
+is at its most violent &mdash; multiplier (1+d)/d at the origin blowing up.</p>
+
+<p><b>d &rarr; &infin; (affine recovery).</b> P &rarr; 2, the open ceiling;
+&epsilon; &rarr; 0. The gauge sheds its hyperbolicity and slides toward the parabolic
+boundary of the trichotomy &mdash; the conjugacy class where Reach sits &mdash; reaching
+it only in the degenerate limit where the Turn family ends and the ring leaves the page.
+The half-open interval [1, 2) and the half-open ray (0, &infin;] are the same
+half-openness, seen on two meters.</p>
+
+<h2>Notes</h2>
+
+<p>Fold-in draft for the revised evaluation, seated after the trichotomy correction
+(&sect;6), liftable as written:</p>
+
+<div class="foldin">
+<p><i>A sharper invariant.</i> Because a PGL(2,&nbsp;R) element is a matrix only up to
+scale, tr&sup2; &minus; 4&thinsp;det is not conjugation-meaningful on its own &mdash;
+rescaling the matrix by k multiplies it by k&sup2;. The honest invariant is the ratio,
+and for the Turn gauge tr&sup2;M/det&thinsp;M &minus; 4 = (L&minus;D)&sup2;/LD =
+1/(d(1+d)) &gt; 0. Hyperbolicity is thereby not merely confirmed but measured: the
+excess over the parabolic threshold is a function of the dial, diverging at maximal
+compression (d &rarr; 0) and draining to zero at affine recovery (d &rarr; &infin;)
+&mdash; the gauge sliding toward the parabolic boundary that Reach occupies, arriving
+only where the family ends. Eliminating d against the exchange product
+P = |&Delta;&sup2;y|&middot;L/(&Delta;y&#8320;)&sup2; gives the closed link
+&epsilon; = (2&minus;P)&sup2;/(2P(P&minus;1)): the trichotomy position and the exchange
+identity are one dial read on two meters.</p>
+</div>
+
+<p class="note">Judgment calls open for ruling: the page name (the-dial; alternatives
+the-excess, the-two-meters); &ldquo;hyperbolicity excess&rdquo; is this page's coinage,
+not book vocabulary; the elliptic class is represented by the single exemplar K at
+&epsilon; = &minus;4, one specimen standing for a class with no real fixed points; the
+hyperbolic ray is drawn through &epsilon;/(1+&epsilon;) so &infin; is an open edge,
+mirroring the ring convention; the ruler is normalized by L so the dial reads as
+redistribution rather than growth. Check script: check-the-dial.js, 26/26 &mdash; the
+load-bearing assertions are 12 (the bare discriminant is <i>not</i> invariant) and
+17 (the weld formula). Placement unruled; page unlinked until then.</p>
+
+<h2>Glossary</h2>
+<dl>
+  <dt>dial, d<span class="tag">this page</span></dt>
+  <dd>The one free parameter of the normalized Turn gauge, d = D/u. Everything on this page is a function of it.</dd>
+  <dt>Turn gauge<span class="tag">book</span></dt>
+  <dd>The projective graduation y = Lx/(x+D): infinity marked at the finite ring L, paid for with harmonic crowding.</dd>
+  <dt>Reach gauge<span class="tag">book</span></dt>
+  <dd>The affine graduation: equal steps forever, infinity left unmarked. Parabolic; seated on the gold boundary of the strip.</dd>
+  <dt>exchange identity<span class="tag">sessions</span></dt>
+  <dd>Theorem 0 in dimensionless form: P = |&Delta;&sup2;y|&middot;L/(&Delta;y&#8320;)&sup2; = 2(1+d)/(2+d), pinned in [1, 2). One conserved obligation, two currencies, d the exchange rate.</dd>
+  <dt>the pinning [1, 2)<span class="tag">sessions</span></dt>
+  <dd>Bracket at 1: the floor is attained (d = 0). Parenthesis at 2: the ceiling is approached, never reached (d &rarr; &infin;).</dd>
+  <dt>trichotomy<span class="tag">book</span></dt>
+  <dd>M&ouml;bius maps sort by real fixed points: elliptic (none), parabolic (one, doubled), hyperbolic (two). The strip's three zones.</dd>
+  <dt>conjugacy invariant<span class="tag">this page</span></dt>
+  <dd>A quantity unchanged when the matrix is rescaled or conjugated &mdash; a property of the map, not its notation. Here, tr&sup2;/det.</dd>
+  <dt>hyperbolicity excess, &epsilon;<span class="tag">this page</span></dt>
+  <dd>tr&sup2;/det &minus; 4 = 1/(d(1+d)): how far the gauge sits from the parabolic threshold. Positive means hyperbolic; the Turn family never touches zero.</dd>
+  <dt>parabolic boundary<span class="tag">this page</span></dt>
+  <dd>The gold line &epsilon; = 0 separating elliptic from hyperbolic. Reach's conjugacy class; the Turn gauge's unreachable shore.</dd>
+  <dt>fixed point<span class="tag">book</span></dt>
+  <dd>A point the map returns unchanged. The Turn gauge fixes exactly the origin and the first mark; its hyperbolic axis is the graduation's unit interval.</dd>
+  <dt>multiplier<span class="tag">this page</span></dt>
+  <dd>f&prime; at a fixed point: &gt;1 repels, &lt;1 attracts. Here (1+d)/d at 0 and d/(1+d) at u &mdash; an exact reciprocal pair.</dd>
+  <dt>the weld<span class="tag">sessions</span></dt>
+  <dd>Here: &epsilon; = (2&minus;P)&sup2;/(2P(P&minus;1)), the two meters as one law. Borrowed from the sessions' weld vocabulary &mdash; two readings joined so neither moves alone.</dd>
+  <dt>quarter-turn K<span class="tag">this page</span></dt>
+  <dd>The elliptic exemplar [[0, D], [&minus;1/D, 0]], excess &minus;4: it can move &infin; but only by evicting 0 &mdash; the class that proves infinity movable and can never be a gauge.</dd>
+</dl>
+
+<footer>
+Companion to the revised evaluation of Theorem 0 &middot; check-the-dial.js 26/26 &middot;
+crimson the Turn marks and ring &middot; gold the fixed points and the parabolic boundary &middot;
+teal Reach &middot; purple the elliptic zone
+</footer>
+
+</main>
+
+<script>
+(function () {
+  var svg = document.getElementById('scene');
+  var handle = document.getElementById('handle');
+
+  var TRACK_X0 = 60, TRACK_X1 = 640, TRACK_Y = 48;
+  var LOG_LO = Math.log10(0.02), LOG_HI = Math.log10(50);
+
+  var RUL_X0 = 60, RUL_X1 = 640, RUL_Y = 168;
+  var EX_X0 = 100, EX_X1 = 600, EX_Y = 300;
+  var TRI_ZERO = 300, TRI_RIGHT = 330, TRI_Y = 430;
+
+  var d = 1;
+
+  function P(dd) { return 2 * (1 + dd) / (2 + dd); }
+  function eps(dd) { return 1 / (dd * (1 + dd)); }
+
+  function fmt(v) {
+    if (v >= 1000) return v.toExponential(1);
+    if (v >= 100) return v.toFixed(0);
+    if (v >= 10) return v.toFixed(1);
+    if (v >= 0.1) return v.toFixed(2);
+    return v.toFixed(3);
+  }
+
+  function setText(id, s) { document.getElementById(id).textContent = s; }
+
+  function render() {
+    // dial handle
+    var t = (Math.log10(d) - LOG_LO) / (LOG_HI - LOG_LO);
+    var hx = TRACK_X0 + t * (TRACK_X1 - TRACK_X0);
+    handle.setAttribute('cx', hx);
+    setText('dReadout', 'd = ' + fmt(d));
+
+    // Panel A: marks at n/(n+d), normalized span
+    var g = document.getElementById('marks');
+    while (g.firstChild) g.removeChild(g.firstChild);
+    var span = RUL_X1 - RUL_X0;
+    var prevX = RUL_X0;
+    for (var n = 1; n <= 14; n++) {
+      var x = RUL_X0 + span * (n / (n + d));
+      var tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      tick.setAttribute('x1', x); tick.setAttribute('x2', x);
+      tick.setAttribute('y1', RUL_Y - 9); tick.setAttribute('y2', RUL_Y + 9);
+      tick.setAttribute('stroke', '#c0322b');
+      tick.setAttribute('stroke-width', n === 1 ? '2' : '1.4');
+      g.appendChild(tick);
+      if (x - prevX >= 16) {
+        var lab = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        lab.setAttribute('x', x); lab.setAttribute('y', RUL_Y + 24);
+        lab.setAttribute('font-size', '10'); lab.setAttribute('fill', '#c0322b');
+        lab.setAttribute('text-anchor', 'middle');
+        lab.textContent = String(n);
+        g.appendChild(lab);
+      }
+      prevX = x;
+    }
+
+    // fixed first mark, its label and attracting arrows
+    var xu = RUL_X0 + span * (1 / (1 + d));
+    var fixU = document.getElementById('fixU');
+    fixU.setAttribute('cx', xu);
+    var labX = Math.min(Math.max(xu, 150), 540);
+    document.getElementById('fixULabel').setAttribute('x', labX);
+    document.getElementById('multU').setAttribute('x', labX);
+    setText('multU', '\u00D7' + fmt(d / (1 + d)) + ' per step in');
+    document.getElementById('attL').setAttribute('points',
+      (xu - 22) + ',' + (RUL_Y - 14) + ' ' + (xu - 22) + ',' + (RUL_Y - 22) + ' ' + (xu - 10) + ',' + (RUL_Y - 18));
+    document.getElementById('attR').setAttribute('points',
+      (xu + 22) + ',' + (RUL_Y - 14) + ' ' + (xu + 22) + ',' + (RUL_Y - 22) + ' ' + (xu + 10) + ',' + (RUL_Y - 18));
+    // repelling arrow at the origin
+    document.getElementById('repelArrow').setAttribute('points',
+      (RUL_X0 + 10) + ',' + (RUL_Y - 14) + ' ' + (RUL_X0 + 10) + ',' + (RUL_Y - 22) + ' ' + (RUL_X0 + 24) + ',' + (RUL_Y - 18));
+    setText('mult0', '\u00D7' + fmt((1 + d) / d) + ' per step out');
+
+    // Panel B: exchange needle
+    var p = P(d);
+    var px = EX_X0 + (p - 1) * (EX_X1 - EX_X0);
+    document.getElementById('pNeedle').setAttribute('points',
+      px + ',' + EX_Y + ' ' + (px - 6) + ',' + (EX_Y - 14) + ' ' + (px + 6) + ',' + (EX_Y - 14));
+    var pr = document.getElementById('pReadout');
+    pr.setAttribute('x', Math.min(Math.max(px, 140), 560));
+    pr.textContent = 'P = ' + p.toFixed(3);
+
+    // Panel C: trichotomy dot
+    var e = eps(d);
+    var ex = TRI_ZERO + (e / (1 + e)) * TRI_RIGHT;
+    document.getElementById('epsDot').setAttribute('cx', ex);
+    var er = document.getElementById('epsReadout');
+    er.setAttribute('x', Math.min(Math.max(ex, 140), 570));
+    er.textContent = '\u03B5 = ' + fmt(e);
+
+    // ledger
+    setText('ledD', fmt(d));
+    setText('ledL', fmt(1 + d));
+    setText('ledD2', fmt(2 / (2 + d)));
+    setText('ledP', p.toFixed(3));
+    setText('ledE', fmt(e));
+    setText('ledM', fmt((1 + d) / d) + ' \u00B7 ' + fmt(d / (1 + d)));
+  }
+
+  function svgPoint(evt) {
+    var pt = svg.createSVGPoint();
+    pt.x = evt.clientX; pt.y = evt.clientY;
+    return pt.matrixTransform(svg.getScreenCTM().inverse());
+  }
+
+  function setFromX(x) {
+    var t = (x - TRACK_X0) / (TRACK_X1 - TRACK_X0);
+    t = Math.min(1, Math.max(0, t));
+    d = Math.pow(10, LOG_LO + t * (LOG_HI - LOG_LO));
+    render();
+  }
+
+  var dragging = false;
+  handle.addEventListener('pointerdown', function (evt) {
+    dragging = true;
+    handle.setPointerCapture(evt.pointerId);
+    evt.preventDefault();
+  });
+  handle.addEventListener('pointermove', function (evt) {
+    if (!dragging) return;
+    setFromX(svgPoint(evt).x);
+  });
+  handle.addEventListener('pointerup', function () { dragging = false; });
+  handle.addEventListener('pointercancel', function () { dragging = false; });
+
+  svg.addEventListener('pointerdown', function (evt) {
+    var p = svgPoint(evt);
+    if (evt.target !== handle && p.y > TRACK_Y - 22 && p.y < TRACK_Y + 22) setFromX(p.x);
+  });
+
+  document.getElementById('pCompress').addEventListener('click', function () { d = 0.02; render(); });
+  document.getElementById('pUnit').addEventListener('click', function () { d = 1; render(); });
+  document.getElementById('pReach').addEventListener('click', function () { d = 50; render(); });
+
+  render();
+})();
+</script>
+</body>
+</html>
