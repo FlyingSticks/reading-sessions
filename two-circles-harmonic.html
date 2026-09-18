@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The two circles of a harmonic pair</title>
+<style>
+  body{margin:0;background:#faf6ef;color:#43203f;
+       font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;}
+  .wrap{max-width:1060px;margin:0 auto;padding:22px 16px 60px;}
+  h1{font-size:1.9rem;font-weight:600;margin:.2em 0 .15em;}
+  h2{font-size:1.15rem;font-weight:600;margin:1.6em 0 .3em;}
+  p.sub{margin:.1em 0 1em;font-style:italic;color:#6b5a66;}
+  .controls{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin:10px 0 4px;}
+  .controls input[type=range]{flex:1 1 260px;accent-color:#6a2c91;}
+  .controls .val{font-variant-numeric:tabular-nums;white-space:nowrap;}
+  button{font:inherit;background:#43203f;color:#faf6ef;border:none;border-radius:4px;
+         padding:4px 12px;cursor:pointer;}
+  button:focus-visible,input:focus-visible{outline:2px solid #6a2c91;outline-offset:2px;}
+  svg{display:block;width:100%;height:auto;touch-action:none;}
+  .readout{margin:.4em 0 0;font-size:1.02rem;}
+  .plates{display:flex;flex-wrap:wrap;gap:26px;margin-top:6px;}
+  .plate{flex:1 1 420px;min-width:320px;}
+  .plate h3{font-size:1.05rem;font-weight:600;margin:.2em 0 .1em;}
+  .plate p.eq{margin:.1em 0 .3em;font-size:.98rem;font-variant-numeric:tabular-nums;}
+  .plate svg{max-width:540px;}
+  .notes{max-width:66ch;line-height:1.55;}
+  .notes p{margin:.6em 0;}
+  .cast{font-size:.95rem;line-height:1.5;max-width:66ch;}
+  .cast b{font-weight:600;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>The two circles of a harmonic pair</h1>
+<p class="sub">One set S, A, Q, C with cross-ratio &minus;1 &mdash; read once by tangency on the line, once by area in the plates &mdash; then a quarter-turn at the unit corner expels the anchors to &plusmn;i.</p>
+
+<div class="controls">
+  <span class="val">Q = <span id="qOut">2</span></span>
+  <input type="range" id="qSlider" min="1" max="2.3" step="0.005" value="2"
+         aria-label="Position of Q between A and the midpoint">
+  <span class="val">S = <span id="sOut">&minus;6</span></span>
+  <button id="resetBtn">Reset Q = 2</button>
+</div>
+
+<figure style="margin:6px 0 0;">
+<svg id="lineSvg" viewBox="0 0 1026 386" aria-label="Number line with the tangent construction locating Q from S">
+  <g id="ticks"></g>
+  <line x1="0" y1="232" x2="1026" y2="232" stroke="#43203f" stroke-width="1.4"/>
+  <path id="acArc" d="" fill="none" stroke="#43203f" stroke-width="1.3"/>
+  <line id="radLine" stroke="#43203f" stroke-width="1" stroke-dasharray="2 4"/>
+  <line id="tanLine" stroke="#43203f" stroke-width="1.4"/>
+  <line id="perpLine" stroke="#6a2c91" stroke-width="1.3" stroke-dasharray="5 4"/>
+  <path id="raMark" fill="none" stroke="#43203f" stroke-width="1.2"/>
+
+  <line id="barSA" y1="232" y2="232" stroke="#43203f" stroke-width="5" opacity="0.45"/>
+  <line id="barAQ" y1="232" y2="232" stroke="#b08948" stroke-width="8"/>
+  <line id="barQC" y1="232" y2="232" stroke="#c0322b" stroke-width="8"/>
+
+  <text id="nSA" y="251" text-anchor="middle" font-size="14" fill="#43203f"></text>
+  <text id="nAQ" y="251" text-anchor="middle" font-size="14" fill="#b08948"></text>
+  <text id="nQC" y="251" text-anchor="middle" font-size="14" fill="#c0322b"></text>
+
+  <g id="brOQ"><path fill="none" stroke="#46609c" stroke-width="1.2"/><text font-size="11.5" fill="#46609c" text-anchor="middle"></text></g>
+  <g id="brOS"><path fill="none" stroke="#46609c" stroke-width="1.2"/><text font-size="11.5" fill="#46609c" text-anchor="middle"></text></g>
+  <g id="brMA"><path fill="none" stroke="#2b8a8a" stroke-width="1.2"/><text font-size="11.5" fill="#2b8a8a" text-anchor="middle"></text></g>
+  <g id="brMQ"><path fill="none" stroke="#6a2c91" stroke-width="1.2"/><text font-size="11.5" fill="#6a2c91" text-anchor="middle"></text></g>
+  <g id="brMC"><path fill="none" stroke="#3e8e5a" stroke-width="1.2"/><text font-size="11.5" fill="#3e8e5a" text-anchor="middle"></text></g>
+
+  <line id="tickA" x1="0" x2="0" y1="224" y2="240" stroke="#2456c8" stroke-width="3"/>
+  <line id="tickC" x1="0" x2="0" y1="224" y2="240" stroke="#2456c8" stroke-width="3"/>
+  <line id="tickO" x1="0" x2="0" y1="226" y2="238" stroke="#43203f" stroke-width="1.5"/>
+  <line id="tickM" x1="0" x2="0" y1="226" y2="238" stroke="#6a2c91" stroke-width="1.5"/>
+  <circle id="dotS" r="6" fill="#3ab6c4"/>
+  <circle id="dotT" r="4" fill="#43203f"/>
+  <circle id="dotQ" r="8" fill="#faf6ef" stroke="#6a2c91" stroke-width="3" style="cursor:grab"/>
+
+  <text id="lblS" font-size="16" fill="#3ab6c4" text-anchor="middle">S</text>
+  <text id="lblA" font-size="16" fill="#2456c8">A</text>
+  <text id="lblQ" font-size="16" fill="#6a2c91" text-anchor="middle">Q</text>
+  <text id="lblC" font-size="16" fill="#2456c8" text-anchor="middle">C</text>
+  <text id="lblO" font-size="13" fill="#43203f" text-anchor="middle">O</text>
+  <text id="lblM" font-size="13" fill="#6a2c91" text-anchor="end">M</text>
+  <text id="lblT" font-size="13" fill="#43203f" text-anchor="end">T</text>
+</svg>
+</figure>
+
+<p class="readout">
+  Q splits A&ndash;C&ensp;<span id="rInL" style="color:#b08948"></span> : <span id="rInR" style="color:#c0322b"></span> inside;&ensp;
+  S splits it <span id="rOutL"></span> : <span id="rOutR"></span> outside &mdash; same ratio, opposite side.&ensp;
+  Cross-ratio (A,C; Q,S) = <span id="crOut"></span>, wherever Q goes.
+</p>
+
+<div class="plates">
+  <div class="plate">
+    <h3>The circle on A&ndash;C &mdash; center O</h3>
+    <p class="eq">OQ &middot; OS = <span id="eqO"></span> = OA&sup2; = 3&sup2; &mdash; the fixed square.</p>
+    <svg id="plateO" viewBox="0 0 470 226" aria-label="Rectangle OQ by OS equal in area to the fixed square on OA">
+      <rect id="oBound" fill="none" stroke="#43203f" stroke-width="1"/>
+      <rect id="oRect" fill="#e7ebf4" stroke="none"/>
+      <rect id="oSq" fill="#ccd6ea" stroke="none"/>
+      <line id="oCrossV" stroke="#43203f" stroke-width="0.6" opacity="0.25"/>
+      <line id="oCrossH" stroke="#43203f" stroke-width="0.6" opacity="0.25"/>
+      <line id="oDiag" stroke="#43203f" stroke-width="1.3"/>
+      <line id="oEdgeA" stroke="#46609c" stroke-width="4"/>
+      <line id="oEdgeB" stroke="#46609c" stroke-width="4"/>
+      <line id="oEdgeG" stroke="#46609c" stroke-width="4" opacity="0.65"/>
+      <circle id="oP" r="4" fill="#43203f"/>
+      <text id="oLblA" font-size="12" fill="#46609c" text-anchor="middle"></text>
+      <text id="oLblB" font-size="12" fill="#46609c" text-anchor="end"></text>
+      <text id="oLblG" font-size="12" fill="#46609c"></text>
+      <text id="oReach" font-size="12" font-style="italic" fill="#6b5a66"></text>
+      <text id="oTurn" font-size="12" font-style="italic" fill="#6b5a66"></text>
+    </svg>
+  </div>
+
+  <div class="plate">
+    <h3>The circle on Q&ndash;S &mdash; center M</h3>
+    <p class="eq">MA &middot; MC = <span id="eqM"></span> = MQ&sup2; &mdash; the breathing square.</p>
+    <svg id="plateM" viewBox="0 0 470 240" aria-label="Rectangle MA by MC equal in area to the square on MQ">
+      <rect id="mBound" fill="none" stroke="#43203f" stroke-width="1"/>
+      <rect id="mRect" fill="#efe7f3" stroke="none"/>
+      <rect id="mSq" fill="#ddccec" stroke="none"/>
+      <line id="mCrossV" stroke="#43203f" stroke-width="0.6" opacity="0.25"/>
+      <line id="mCrossH" stroke="#43203f" stroke-width="0.6" opacity="0.25"/>
+      <line id="mDiag" stroke="#43203f" stroke-width="1.3"/>
+      <line id="mEdgeA" stroke="#3e8e5a" stroke-width="4"/>
+      <line id="mEdgeB" stroke="#2b8a8a" stroke-width="4"/>
+      <line id="mEdgeG" stroke="#6a2c91" stroke-width="4"/>
+      <circle id="mP" r="4" fill="#43203f"/>
+      <text id="mLblA" font-size="12" fill="#3e8e5a" text-anchor="middle"></text>
+      <text id="mLblB" font-size="12" fill="#2b8a8a" text-anchor="end"></text>
+      <text id="mLblG" font-size="12" fill="#6a2c91"></text>
+      <text id="mReach" font-size="12" font-style="italic" fill="#6b5a66"></text>
+      <text id="mTurn" font-size="12" font-style="italic" fill="#6b5a66"></text>
+    </svg>
+  </div>
+
+  <div class="plate">
+    <h3>The quarter-turn &mdash; anchors &plusmn;i</h3>
+    <p class="eq">OS&frasl;3 &times; OQ&frasl;3 = n &times; 1&frasl;n = <span id="eq3a"></span> &mdash; the fixed square at unit scale.</p>
+    <p class="eq">Turn 90&deg;: <span id="eq3b"></span> &mdash; product &minus;1; the anchors leave the line for &plusmn;i.</p>
+    <svg id="plate3" viewBox="0 0 470 230" aria-label="Quarter-turn about the unit corner sending reach mark n to minus 1 over n, with Thales semicircle witness">
+      <g id="p3Ticks"></g>
+      <line x1="0" y1="196" x2="470" y2="196" stroke="#43203f" stroke-width="1.4"/>
+      <rect x="16" y="116" width="80" height="80" fill="#e3dccd" stroke="#43203f" stroke-width="1.2"/>
+      <line x1="16" x2="16" y1="189" y2="203" stroke="#2456c8" stroke-width="2.5"/>
+      <line x1="176" x2="176" y1="189" y2="203" stroke="#2456c8" stroke-width="2.5"/>
+      <text x="16" y="212" font-size="11" fill="#2456c8" text-anchor="middle">A&#8242;</text>
+      <text x="176" y="212" font-size="11" fill="#2456c8" text-anchor="middle">C&#8242;</text>
+      <path id="p3Semi" fill="none" stroke="#43203f" stroke-width="1.2"/>
+      <line id="p3Radius" stroke="#43203f" stroke-width="1" stroke-dasharray="2 4"/>
+      <line id="p3Reach" stroke="#2456c8" stroke-width="1.6"/>
+      <line id="p3TurnRay" stroke="#c0322b" stroke-width="1.6"/>
+      <line x1="96" y1="196" x2="96" y2="116" stroke="#6a2c91" stroke-width="2.5"/>
+      <text x="90" y="160" font-size="12" fill="#6a2c91" text-anchor="end">1</text>
+      <path id="p3Ra" fill="none" stroke="#43203f" stroke-width="1.2"/>
+      <path id="p3Arc" fill="none" stroke="#3ab6c4" stroke-width="2.4"/>
+      <path id="p3Arrow" fill="#3ab6c4"/>
+      <line id="p3TickN" y1="189" y2="203" stroke="#2456c8" stroke-width="2.5"/>
+      <line id="p3TickInv" y1="190" y2="202" stroke="#2456c8" stroke-width="1.4"/>
+      <line id="p3TickNeg" y1="189" y2="203" stroke="#c0322b" stroke-width="2.5"/>
+      <circle id="p3Dotc" r="2.5" fill="#43203f"/>
+      <circle cx="96" cy="116" r="4" fill="#43203f"/>
+      <text x="88" y="108" font-size="11" fill="#43203f" text-anchor="end">(0, 1)</text>
+      <text id="p3LN" y="224" font-size="11.5" fill="#2456c8" text-anchor="middle"></text>
+      <text id="p3LInv" y="224" font-size="11.5" fill="#2456c8" text-anchor="middle"></text>
+      <text id="p3LNeg" y="224" font-size="11.5" fill="#c0322b" text-anchor="middle"></text>
+    </svg>
+  </div>
+</div>
+
+<div class="notes">
+<h2>What was corrected</h2>
+<p>The four steps of the cross-ratio are A&rarr;Q, C&rarr;S, A&rarr;S, C&rarr;Q. The sketches&rsquo; long bar ran S&rarr;Q &mdash; not one of the four &mdash; and its 8 : 4 = 2 : 1 held only at Q = 2. Here the outside split is stated as S&rarr;A : S&rarr;C, which mirrors A&rarr;Q : Q&rarr;C at every position of Q. The 8 has not been lost: it is M&rarr;C, and it belongs to the area picture. Drag Q and watch the green number in the braces stay glued to the green edge of the second plate.</p>
+
+<h2>The two circles, in coordination</h2>
+<p>Each circle owns one rectangle-and-square. The circle on A&ndash;C (drawn above the line, with the tangent from S and the drop T&rarr;Q) enforces OQ &middot; OS = OA&sup2;: its square is <em>fixed</em> at 3&sup2; = 9, whatever Q does. The circle on Q&ndash;S, recorded in the braces below the line, enforces MA &middot; MC = MQ&sup2;: its square <em>breathes</em> with Q. In each plate the straight diagonal through the shared corner is Euclid I.43 &mdash; complements about the diameter &mdash; so straight diagonal and equal areas are the same statement.</p>
+<p>The two readings of the axes are the sketch&rsquo;s own: <em>reach</em> is the rectangle stretching &mdash; as Q approaches the midpoint of A&ndash;C, S and both rectangles run off toward the infinite (the slider stops at 2.3 to keep them on the page; the identities do not stop). <em>Turn</em> is the tilt of the diagonal, the ratio changing while the product holds. Past the midpoint the whole figure mirrors to the right of C.</p>
+
+<h2>The third plate: the quarter-turn</h2>
+<p>The third plate is the O-plate sent to unit scale. Divide everything by OA = 3: the anchors A, C become A&#8242;, C&#8242; = &plusmn;1, the factors become n = OS&frasl;3 and 1&frasl;n = OQ&frasl;3, and the fixed square becomes the unit square &mdash; n &middot; 1&frasl;n = 1, whatever Q does. The quarter-turn about the corner (0, 1) then sends the reach mark n to &minus;1&frasl;n: the same involution with the product flipped to &minus;1, and the fixed points expelled from the line to &plusmn;i.</p>
+<p>The corner (0, 1) is where &plusmn;i touches the paper: every semicircle on [&minus;1&frasl;n, n] passes through it, whatever n &mdash; that right angle is the Thales witness of the turn, and it fails if the minus sign is dropped. The radius is the arithmetic mean of n and 1&frasl;n; the altitude is their geometric mean, 1, the square&rsquo;s own side. So the trio reads: real anchors and product +R&sup2; (plate one), real anchors and a breathing square (plate two), imaginary anchors and product &minus;1 (plate three). At Q = 2 the radius triangle is 3-4-5 in thirds.</p>
+
+<h2>Cast</h2>
+<p class="cast">
+<b>A = 0, C = 6</b> &mdash; the anchors, fixed.&ensp;
+<b>Q</b> &mdash; draggable; <b>S</b> &mdash; its harmonic conjugate, S = 3Q&thinsp;/&thinsp;(Q&minus;3).&ensp;
+<b>O = 3</b> &mdash; midpoint of A&ndash;C, center of the tangency circle.&ensp;
+<b>T</b> &mdash; point of tangency from S; the foot of its perpendicular is Q (that right angle <em>is</em> OQ&middot;OS = OA&sup2;).&ensp;
+<b>M</b> &mdash; midpoint of Q&ndash;S, center of the circle in which A and C are inverse points.&ensp;
+<b>A&#8242;, C&#8242; = &plusmn;1</b> &mdash; the anchors at unit scale.&ensp;
+<b>n = OS&frasl;3</b> &mdash; the reach mark; its rate is 1&frasl;n = OQ&frasl;3.&ensp;
+<b>(0, 1)</b> &mdash; the unit corner, the trace of &plusmn;i; the quarter-turn about it is n &#8614; &minus;1&frasl;n.
+</p>
+</div>
+
+<script>
+"use strict";
+(function(){
+  var A = 0, C = 6, O = 3, R = 3;
+  var sx = 57, x0 = 10.6, y0 = 232;
+  var QMIN = 1, QMAX = 2.3;
+  var Q = 2;
+
+  function $(id){ return document.getElementById(id); }
+  function X(u){ return (u + x0) * sx; }
+  function Yv(v){ return y0 - v * sx; }
+  function fmt(v){
+    var s = v.toFixed(2).replace(/\.?0+$/, "");
+    if (s === "-0") s = "0";
+    return s.replace("-", "\u2212");
+  }
+  function setLine(id, x1, y1, x2, y2){
+    var e = $(id);
+    e.setAttribute("x1", x1); e.setAttribute("y1", y1);
+    e.setAttribute("x2", x2); e.setAttribute("y2", y2);
+  }
+  function setRect(id, x, y, w, h){
+    var e = $(id);
+    e.setAttribute("x", x); e.setAttribute("y", y);
+    e.setAttribute("width", Math.max(w, 0)); e.setAttribute("height", Math.max(h, 0));
+  }
+  function setText(id, x, y, s){
+    var e = $(id);
+    e.setAttribute("x", x); e.setAttribute("y", y);
+    if (s !== undefined) e.textContent = s;
+  }
+  function brace(gid, u1, u2, y, label){
+    var g = $(gid);
+    var a = X(Math.min(u1, u2)), b = X(Math.max(u1, u2));
+    g.querySelector("path").setAttribute("d",
+      "M" + a + " " + (y - 6) + " L" + a + " " + y + " L" + b + " " + y + " L" + b + " " + (y - 6));
+    var t = g.querySelector("text");
+    t.setAttribute("x", (a + b) / 2); t.setAttribute("y", y + 14);
+    t.textContent = label;
+  }
+
+  // ticks (static)
+  (function(){
+    var g = $("ticks"), NS = "http://www.w3.org/2000/svg";
+    for (var u = -10; u <= 7; u++){
+      var l = document.createElementNS(NS, "line");
+      l.setAttribute("x1", X(u)); l.setAttribute("x2", X(u));
+      l.setAttribute("y1", y0 - 4); l.setAttribute("y2", y0 + 4);
+      l.setAttribute("stroke", "#8a7a86"); l.setAttribute("stroke-width", "1");
+      g.appendChild(l);
+      var t = document.createElementNS(NS, "text");
+      t.setAttribute("x", X(u)); t.setAttribute("y", y0 + 17);
+      t.setAttribute("text-anchor", "middle"); t.setAttribute("font-size", "9.5");
+      t.setAttribute("fill", "#8a7a86");
+      t.textContent = String(u).replace("-", "\u2212");
+      g.appendChild(t);
+    }
+  })();
+
+  // fixed arc on A..C
+  $("acArc").setAttribute("d",
+    "M" + X(A) + " " + y0 + " A " + (R*sx) + " " + (R*sx) + " 0 0 1 " + X(C) + " " + y0);
+
+  // one equal-area plate: rectangle a×b, square g×g, anchored at bottom-right (xbr, yb)
+  function plate(pref, a, b, g, p, xbr, yb, names){
+    var W = (a + g) * p, H = (b + g) * p;
+    var Px = xbr - g * p, Py = yb - b * p;         // shared corner
+    setRect(pref + "Bound", xbr - W, yb - H, W, H);
+    setRect(pref + "Rect", xbr - W, Py, a * p, b * p);
+    setRect(pref + "Sq", Px, yb - H, g * p, g * p);
+    setLine(pref + "CrossV", Px, yb - H, Px, yb);
+    setLine(pref + "CrossH", xbr - W, Py, xbr, Py);
+    setLine(pref + "Diag", xbr, yb, xbr - W, yb - H);
+    setLine(pref + "EdgeA", xbr - W, yb, Px, yb);            // a: bottom edge of rectangle cell row
+    setLine(pref + "EdgeB", xbr - W, Py, xbr - W, yb);       // b: left edge
+    setLine(pref + "EdgeG", xbr, yb - H, xbr, Py);           // g: right edge of square
+    $(pref + "P").setAttribute("cx", Px);
+    $(pref + "P").setAttribute("cy", Py);
+    setText(pref + "LblA", xbr - g*p - a*p/2, yb + 16, names[0]);
+    setText(pref + "LblB", xbr - W - 6, yb - b*p/2 + 4, names[1]);
+    setText(pref + "LblG", xbr + 6, yb - b*p - g*p/2 + 4, names[2]);
+    setText(pref + "Reach", 10, yb + 16, "\u2190 reach (count)");
+    setText(pref + "Turn", xbr + 6, yb + 16, "turn (ratio)");
+  }
+
+  // plate 3: quarter-turn at the unit corner
+  var p3 = 80, p3x0 = 1.2, p3y0 = 196;
+  function X3(u){ return (u + p3x0) * p3; }
+  (function(){
+    var g = $("p3Ticks"), NS = "http://www.w3.org/2000/svg";
+    for (var u = -1; u <= 4; u++){
+      var l = document.createElementNS(NS, "line");
+      l.setAttribute("x1", X3(u)); l.setAttribute("x2", X3(u));
+      l.setAttribute("y1", p3y0 - 4); l.setAttribute("y2", p3y0 + 4);
+      l.setAttribute("stroke", "#8a7a86"); l.setAttribute("stroke-width", "1");
+      g.appendChild(l);
+      if (u !== 1 && u !== -1){
+        var t = document.createElementNS(NS, "text");
+        t.setAttribute("x", X3(u)); t.setAttribute("y", p3y0 + 16);
+        t.setAttribute("text-anchor", "middle"); t.setAttribute("font-size", "9.5");
+        t.setAttribute("fill", "#8a7a86");
+        t.textContent = String(u);
+        g.appendChild(t);
+      }
+    }
+  })();
+  function update3(OQ, OS){
+    var n = OS / R, inv = OQ / R;            // inv = 1/n since OQ*OS = R^2
+    var c = (n - inv) / 2, r = (n + inv) / 2;
+    var Px = X3(0), Py = p3y0 - p3;          // unit corner (0,1)
+    $("p3Semi").setAttribute("d",
+      "M" + X3(-inv) + " " + p3y0 + " A " + (r*p3) + " " + (r*p3) + " 0 0 1 " + X3(n) + " " + p3y0);
+    setLine("p3Radius", X3(c), p3y0, Px, Py);
+    $("p3Dotc").setAttribute("cx", X3(c)); $("p3Dotc").setAttribute("cy", p3y0);
+    setLine("p3Reach", Px, Py, X3(n), p3y0);
+    setLine("p3TurnRay", Px, Py, X3(-inv), p3y0);
+    // right-angle mark at the corner
+    var v1x = X3(n) - Px, v1y = p3y0 - Py, n1 = Math.hypot(v1x, v1y);
+    var v2x = X3(-inv) - Px, v2y = p3y0 - Py, n2 = Math.hypot(v2x, v2y);
+    v1x /= n1; v1y /= n1; v2x /= n2; v2y /= n2;
+    var m = 9;
+    $("p3Ra").setAttribute("d",
+      "M" + (Px + m*v1x) + " " + (Py + m*v1y) +
+      " L" + (Px + m*(v1x+v2x)) + " " + (Py + m*(v1y+v2y)) +
+      " L" + (Px + m*v2x) + " " + (Py + m*v2y));
+    // quarter-turn arc about the corner, clockwise in math coords
+    var a1 = Math.atan2(-1, n), rad = 0.5, pts = [], k;
+    for (k = 0; k <= 20; k++){
+      var a = a1 - (k / 20) * Math.PI / 2;
+      pts.push((X3(rad * Math.cos(a))) + " " + (p3y0 - (1 + rad * Math.sin(a)) * p3));
+    }
+    $("p3Arc").setAttribute("d", "M" + pts.join(" L"));
+    var a2 = a1 - Math.PI / 2;
+    var ex = X3(rad * Math.cos(a2)), ey = p3y0 - (1 + rad * Math.sin(a2)) * p3;
+    var dx = Math.sin(a2), dy = Math.cos(a2);      // screen-space tangent of the motion
+    $("p3Arrow").setAttribute("d",
+      "M" + (ex + 9*dx) + " " + (ey + 9*dy) +
+      " L" + (ex - 4.5*dy) + " " + (ey + 4.5*dx) +
+      " L" + (ex + 4.5*dy) + " " + (ey - 4.5*dx) + " Z");
+    // ticks and labels
+    function tick(id, u){ var e = $(id); e.setAttribute("x1", X3(u)); e.setAttribute("x2", X3(u)); }
+    tick("p3TickN", n); tick("p3TickInv", inv); tick("p3TickNeg", -inv);
+    setText("p3LN", X3(n), 224, fmt(n));
+    setText("p3LInv", X3(inv), 224, fmt(inv));
+    setText("p3LNeg", X3(-inv), 224, "\u2212" + fmt(inv));
+    $("eq3a").textContent = fmt(n) + " \u00d7 " + fmt(inv) + " = " + fmt(n * inv);
+    $("eq3b").textContent = fmt(n) + " \u21a6 \u2212" + fmt(inv) +
+      "; AM radius " + fmt(r) + ", GM altitude 1";
+  }
+
+  function update(){
+    var S = 3 * Q / (Q - 3);
+    var d = O - S, L = Math.sqrt(d * d - R * R);
+    var Ty = R * L / d;                     // tangent point T = (Q, Ty)
+    var M = (Q + S) / 2;
+    var MA = Math.abs(M - A), MC = Math.abs(C - M), MQ = Math.abs(Q - M);
+    var OQ = O - Q, OS = O - S;
+
+    // line figure
+    setLine("barSA", X(S), y0, X(A), y0);
+    setLine("barAQ", X(A), y0, X(Q), y0);
+    setLine("barQC", X(Q), y0, X(C), y0);
+    setText("nSA", X((S + A) / 2), 251, fmt(A - S));
+    setText("nAQ", X((A + Q) / 2), 251, fmt(Q - A));
+    setText("nQC", X((Q + C) / 2), 251, fmt(C - Q));
+
+    var Sx = X(S), Tx = X(Q), Tyy = Yv(Ty), Ox = X(O);
+    setLine("tanLine", Sx, y0, Tx + (Tx - Sx) * 0.055, Tyy + (Tyy - y0) * 0.055);
+    setLine("radLine", Ox, y0, Tx, Tyy);
+    setLine("perpLine", Tx, Tyy, Tx, y0);
+    // right-angle mark at T between tangent (toward S) and radius (toward O)
+    var v1x = Sx - Tx, v1y = y0 - Tyy, n1 = Math.hypot(v1x, v1y);
+    var v2x = Ox - Tx, v2y = y0 - Tyy, n2 = Math.hypot(v2x, v2y);
+    v1x /= n1; v1y /= n1; v2x /= n2; v2y /= n2;
+    var m = 10;
+    $("raMark").setAttribute("d",
+      "M" + (Tx + m*v1x) + " " + (Tyy + m*v1y) +
+      " L" + (Tx + m*(v1x+v2x)) + " " + (Tyy + m*(v1y+v2y)) +
+      " L" + (Tx + m*v2x) + " " + (Tyy + m*v2y));
+
+    $("dotS").setAttribute("cx", Sx); $("dotS").setAttribute("cy", y0);
+    $("dotT").setAttribute("cx", Tx); $("dotT").setAttribute("cy", Tyy);
+    $("dotQ").setAttribute("cx", Tx); $("dotQ").setAttribute("cy", y0);
+    setLine("tickA", X(A), y0 - 8, X(A), y0 + 8);
+    setLine("tickC", X(C), y0 - 8, X(C), y0 + 8);
+    setLine("tickO", Ox, y0 - 6, Ox, y0 + 6);
+    setLine("tickM", X(M), y0 - 6, X(M), y0 + 6);
+    setText("lblS", Sx, y0 - 14);
+    setText("lblA", X(A) + 4, y0 - 14);
+    setText("lblQ", Tx + 2, y0 - 16);
+    setText("lblC", X(C), y0 - 14);
+    setText("lblO", Ox + 10, y0 - 10);
+    setText("lblM", X(M) - 4, y0 - 10);
+    setText("lblT", Tx - 8, Tyy - 8);
+
+    brace("brOQ", O, Q, y0 + 44, "O\u2192Q " + fmt(OQ));
+    brace("brOS", O, S, y0 + 62, "O\u2192S " + fmt(OS) + "  (product 9)");
+    brace("brMA", M, A, y0 + 88, "M\u2192A " + fmt(MA));
+    brace("brMQ", M, Q, y0 + 106, "M\u2192Q " + fmt(MQ));
+    brace("brMC", M, C, y0 + 124, "M\u2192C " + fmt(MC));
+
+    // readouts
+    $("qOut").textContent = fmt(Q);
+    $("sOut").textContent = fmt(S);
+    $("rInL").textContent = fmt(Q - A);
+    $("rInR").textContent = fmt(C - Q);
+    $("rOutL").textContent = fmt(A - S);
+    $("rOutR").textContent = fmt(C - S);
+    var cr = ((A - Q) * (C - S)) / ((A - S) * (C - Q));
+    $("crOut").textContent = fmt(cr);
+    $("eqO").textContent = fmt(OQ) + " \u00d7 " + fmt(OS) + " = " + fmt(OQ * OS);
+    $("eqM").textContent = fmt(MA) + " \u00d7 " + fmt(MC) + " = " + fmt(MA * MC) +
+                           " = " + fmt(MQ) + "\u00b2";
+
+    // plates
+    plate("o", OS, OQ, R, 20, 380, 196,
+          ["O\u2192S " + fmt(OS), "O\u2192Q " + fmt(OQ), "OA 3"]);
+    plate("m", MC, MA, MQ, 20, 380, 205,
+          ["M\u2192C " + fmt(MC), "M\u2192A " + fmt(MA), "MQ " + fmt(MQ)]);
+    update3(OQ, OS);
+
+    $("qSlider").value = Q;
+  }
+
+  function setQ(v){
+    Q = Math.min(QMAX, Math.max(QMIN, v));
+    update();
+  }
+
+  $("qSlider").addEventListener("input", function(){ setQ(parseFloat(this.value)); });
+  $("resetBtn").addEventListener("click", function(){ setQ(2); });
+
+  // drag on the line figure (iPad-safe: screen CTM inverse)
+  var svg = $("lineSvg"), dragging = false;
+  function toSvgX(evt){
+    var pt = svg.createSVGPoint();
+    pt.x = evt.clientX; pt.y = evt.clientY;
+    var p = pt.matrixTransform(svg.getScreenCTM().inverse());
+    return p.x;
+  }
+  svg.addEventListener("pointerdown", function(evt){
+    var px = toSvgX(evt);
+    if (Math.abs(px - X(Q)) < 30){
+      dragging = true;
+      svg.setPointerCapture(evt.pointerId);
+      evt.preventDefault();
+    }
+  });
+  svg.addEventListener("pointermove", function(evt){
+    if (!dragging) return;
+    setQ(toSvgX(evt) / sx - x0);
+    evt.preventDefault();
+  });
+  svg.addEventListener("pointerup", function(){ dragging = false; });
+  svg.addEventListener("pointercancel", function(){ dragging = false; });
+
+  update();
+})();
+</script>
+</body>
+</html>
