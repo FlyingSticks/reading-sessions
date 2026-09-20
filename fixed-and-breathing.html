@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The fixed square and the breathing square</title>
+<style>
+  html, body { margin: 0; padding: 0; background: #faf6ef; }
+  body {
+    font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    color: #43203f;
+  }
+  .wrap { max-width: 1020px; margin: 0 auto; padding: 18px 16px 40px; }
+  h1 { font-size: 1.45rem; font-weight: 600; margin: 0 0 4px; letter-spacing: 0.01em; }
+  .sub { font-size: 0.98rem; margin: 0 0 14px; color: #6b5566; }
+  svg { width: 100%; height: auto; display: block; touch-action: none; }
+  .controls {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 14px;
+    margin: 10px 0 4px; font-size: 0.95rem;
+  }
+  .controls label { display: flex; align-items: center; gap: 8px; }
+  input[type=range] { width: min(340px, 60vw); accent-color: #6a2c91; }
+  input[type=checkbox] { accent-color: #43203f; width: 17px; height: 17px; }
+  .qval { font-variant-numeric: tabular-nums; min-width: 4.5em; }
+  .legend { font-size: 0.95rem; }
+  .caption {
+    border-top: 1px solid #d9cfc0; margin-top: 14px; padding-top: 12px;
+    font-size: 0.98rem; line-height: 1.55;
+  }
+  .caption p { margin: 0 0 8px; }
+  .caption .head { font-weight: 700; }
+  .num { font-variant-numeric: tabular-nums; }
+  .cy { color: #14958e; font-weight: 700; }
+  .cr { color: #c0322b; font-weight: 700; }
+  .gr { color: #35922f; font-weight: 700; }
+  .pu { color: #6a2c91; font-weight: 700; }
+  .foot { font-size: 0.88rem; font-style: italic; color: #6b5566; margin-top: 10px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>The fixed square and the breathing square</h1>
+  <p class="sub">Drag Q. Its harmonic conjugate S follows, and the two Newton relations ride along as Euclid I.43 &mdash; equal complements about a diagonal.</p>
+
+  <svg id="fig" viewBox="-5.2 -3.7 12.9 7.45" xmlns="http://www.w3.org/2000/svg" aria-label="Harmonic conjugate diagram">
+    <!-- regions -->
+    <rect id="redSq"    fill="#c0322b" fill-opacity="0.13" stroke="#c0322b" stroke-width="0.07"/>
+    <rect id="cyanRect" fill="#1fa9a1" fill-opacity="0.15" stroke="#1fa9a1" stroke-width="0.055"/>
+    <rect id="purpleSq" fill="#6a2c91" fill-opacity="0.14" stroke="#6a2c91" stroke-width="0.055"/>
+    <rect id="greenRect" fill="#3ba53a" fill-opacity="0.16" stroke="#3ba53a" stroke-width="0.05"/>
+
+    <!-- Euclid I.43 overlay: enclosing rectangles + diagonals, two-colour dashed -->
+    <g id="g143">
+      <rect id="fixE1" fill="none" stroke="#c0322b" stroke-width="0.05" stroke-dasharray="0.24 0.24"/>
+      <rect id="fixE2" fill="none" stroke="#1fa9a1" stroke-width="0.05" stroke-dasharray="0.24 0.24" stroke-dashoffset="0.24"/>
+      <line id="fixD1" stroke="#c0322b" stroke-width="0.06" stroke-dasharray="0.24 0.24"/>
+      <line id="fixD2" stroke="#1fa9a1" stroke-width="0.06" stroke-dasharray="0.24 0.24" stroke-dashoffset="0.24"/>
+      <rect id="brE1" fill="none" stroke="#3ba53a" stroke-width="0.05" stroke-dasharray="0.2 0.2"/>
+      <rect id="brE2" fill="none" stroke="#6a2c91" stroke-width="0.05" stroke-dasharray="0.2 0.2" stroke-dashoffset="0.2"/>
+      <line id="brD1" stroke="#3ba53a" stroke-width="0.06" stroke-dasharray="0.2 0.2"/>
+      <line id="brD2" stroke="#6a2c91" stroke-width="0.06" stroke-dasharray="0.2 0.2" stroke-dashoffset="0.2"/>
+    </g>
+
+    <!-- circles -->
+    <path id="bigArc" fill="none" stroke="#43203f" stroke-width="0.05"/>
+    <circle id="smallCirc" fill="none" stroke="#43203f" stroke-width="0.032" opacity="0.85"/>
+
+    <!-- tangent construction -->
+    <line id="radiusLine"  stroke="#c0322b" stroke-width="0.045"/>
+    <line id="tangentLine" stroke="#c0322b" stroke-width="0.045"/>
+    <polyline id="rightAngle" fill="none" stroke="#43203f" stroke-width="0.03"/>
+    <line id="qtDash" stroke="#6a2c91" stroke-width="0.035" stroke-dasharray="0.14 0.12"/>
+
+    <!-- axis -->
+    <line id="axis" x1="-5.2" y1="0" x2="7.7" y2="0" stroke="#43203f" stroke-width="0.035"/>
+    <g id="ticks"></g>
+
+    <!-- points -->
+    <circle id="ptS" r="0.13" fill="#1fa9a1"/>
+    <circle id="ptSHalo" r="0.24" fill="#1fa9a1" opacity="0.3"/>
+    <circle id="ptM" r="0.07" fill="#43203f"/>
+    <line id="ptA" stroke="#2b5fb0" stroke-width="0.07"/>
+    <circle id="ptO" r="0.07" fill="#43203f"/>
+    <line id="ptC" stroke="#2b5fb0" stroke-width="0.07"/>
+    <circle id="ptT" r="0.06" fill="#43203f"/>
+    <circle id="ptQ" r="0.16" fill="none" stroke="#6a2c91" stroke-width="0.075"/>
+    <circle id="qHit" r="0.62" fill="#6a2c91" opacity="0" style="cursor:grab"/>
+
+    <!-- labels -->
+    <g font-size="0.34" font-weight="700">
+      <text id="lblS" fill="#1fa9a1">S</text>
+      <text id="lblM" fill="#43203f">M</text>
+      <text id="lblA" fill="#2b5fb0">A</text>
+      <text id="lblQ" fill="#6a2c91">Q</text>
+      <text id="lblO" fill="#43203f">O</text>
+      <text id="lblC" fill="#43203f">C</text>
+      <text id="lblT" fill="#43203f">T</text>
+    </g>
+    <g font-size="0.4" font-weight="700">
+      <text id="lblRed"    fill="#c0322b">OC&#178;</text>
+      <text id="lblCyan"   fill="#14958e">OS&#183;OQ</text>
+      <text id="lblPurple" fill="#6a2c91">MQ&#178;</text>
+      <text id="lblGreen"  fill="#35922f">MA&#183;MC</text>
+    </g>
+  </svg>
+
+  <div class="controls">
+    <label>Q
+      <input type="range" id="qSlider" min="0.15" max="1.8" step="0.005" value="1">
+      <span class="qval num" id="qOut">Q = 1</span>
+    </label>
+    <label><input type="checkbox" id="tog143" checked>
+      <span class="legend">Euclid I.43 &mdash; by areas: <span class="cy">OS&#183;OQ</span> = <span class="cr">OC&#178;</span>, &nbsp;<span class="gr">MA&#183;MC</span> = <span class="pu">MQ&#178;</span></span>
+    </label>
+  </div>
+
+  <div class="caption">
+    <p id="line1"></p>
+    <p><span class="head">The circle on A&ndash;C &mdash; center O.</span>&ensp;<span class="num" id="line2"></span> &mdash; the fixed square.</p>
+    <p><span class="head">The circle on Q&ndash;S &mdash; center M.</span>&ensp;<span class="num" id="line3"></span> &mdash; the breathing square.</p>
+    <p class="foot">At Q = 1 the third line reads 1.5625. The printed original says 1.56, and will continue to.</p>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var A = 0, C = 6, O = 3, R = 3;
+  var QMIN = 0.15, QMAX = 1.8;
+  var svg = document.getElementById("fig");
+  var $ = function (id) { return document.getElementById(id); };
+
+  // ---- geometry ----
+  function compute(q) {
+    var S = 3 * q / (q - 3);          // harmonic conjugate of Q wrt A,C
+    var M = (q + S) / 2;              // midpoint of Q,S
+    var h = Math.sqrt(q * (C - q));   // height of T on the circle over A-C
+    return {
+      q: q, S: S, M: M,
+      OQ: O - q, OS: O - S,
+      MA: A - M, MC: C - M, MQ: q - M,
+      T: { x: q, y: h }
+    };
+  }
+
+  // ---- svg helpers (math y up; svg y down) ----
+  function setRect(id, x1, y1, x2, y2) {
+    var e = $(id);
+    e.setAttribute("x", Math.min(x1, x2));
+    e.setAttribute("y", -Math.max(y1, y2));
+    e.setAttribute("width", Math.abs(x2 - x1));
+    e.setAttribute("height", Math.abs(y2 - y1));
+  }
+  function setLine(id, x1, y1, x2, y2) {
+    var e = $(id);
+    e.setAttribute("x1", x1); e.setAttribute("y1", -y1);
+    e.setAttribute("x2", x2); e.setAttribute("y2", -y2);
+  }
+  function setPt(id, x, y) {
+    var e = $(id);
+    e.setAttribute("cx", x); e.setAttribute("cy", -y);
+  }
+  function setText(id, x, y, anchor) {
+    var e = $(id);
+    e.setAttribute("x", x); e.setAttribute("y", -y);
+    e.setAttribute("text-anchor", anchor || "middle");
+  }
+  function fmt(x, dp) {
+    var s = x.toFixed(dp === undefined ? 2 : dp);
+    if (s.indexOf(".") >= 0) { s = s.replace(/0+$/, "").replace(/\.$/, ""); }
+    return s;
+  }
+
+  // ---- static: axis ticks ----
+  (function ticks() {
+    var g = $("ticks"), i, t, n;
+    for (i = -4; i <= 7; i++) {
+      t = document.createElementNS(svg.namespaceURI, "line");
+      t.setAttribute("x1", i); t.setAttribute("x2", i);
+      t.setAttribute("y1", -0.09); t.setAttribute("y2", 0.09);
+      t.setAttribute("stroke", "#43203f"); t.setAttribute("stroke-width", "0.03");
+      g.appendChild(t);
+      n = document.createElementNS(svg.namespaceURI, "text");
+      n.setAttribute("x", i); n.setAttribute("y", 0.46);
+      n.setAttribute("text-anchor", "middle");
+      n.setAttribute("font-size", "0.27"); n.setAttribute("fill", "#b08948");
+      n.textContent = String(i);
+      g.appendChild(n);
+    }
+  })();
+
+  // big semicircle on A-C is fixed
+  $("bigArc").setAttribute("d", "M " + A + " 0 A " + R + " " + R + " 0 0 1 " + C + " 0");
+  setLine("ptA", A, -0.16, A, 0.2);
+  setLine("ptC", C, -0.16, C, 0.2);
+  setPt("ptO", O, 0);
+  setText("lblA", A + 0.02, 0.3);
+  setText("lblO", O + 0.02, 0.32);
+  setText("lblC", C + 0.14, 0.3, "start");
+  setText("lblRed", 4.72, 0.42);
+
+  // ---- update ----
+  function update(q) {
+    var g = compute(q);
+    var S = g.S, M = g.M, T = g.T;
+
+    // regions
+    setRect("redSq", O, 0, C, R);
+    setRect("cyanRect", S, -g.OQ, O, 0);
+    setRect("purpleSq", S, 0, M, g.MQ);
+    setRect("greenRect", M, -g.MA, C, 0);
+
+    // I.43 enclosures + diagonals (through O and through M)
+    setRect("fixE1", S, -g.OQ, C, R); setRect("fixE2", S, -g.OQ, C, R);
+    setLine("fixD1", S, R, C, -g.OQ); setLine("fixD2", S, R, C, -g.OQ);
+    setRect("brE1", S, -g.MA, C, g.MQ); setRect("brE2", S, -g.MA, C, g.MQ);
+    setLine("brD1", S, -g.MA, C, g.MQ); setLine("brD2", S, -g.MA, C, g.MQ);
+
+    // circles
+    setPt("smallCirc", M, 0);
+    $("smallCirc").setAttribute("r", g.MQ);
+
+    // tangent construction: radius O->T extended, tangent S->T extended
+    var rx = T.x - O, ry = T.y, rl = Math.sqrt(rx * rx + ry * ry);
+    setLine("radiusLine", O, 0, T.x + 0.5 * rx / rl * 1.4, T.y + 0.5 * ry / rl * 1.4);
+    var tx = T.x - S, ty = T.y, tl = Math.sqrt(tx * tx + ty * ty);
+    setLine("tangentLine", S, 0, T.x + tx / tl * 0.9, T.y + ty / tl * 0.9);
+    // right-angle tick at T between radius (inward) and tangent (toward S)
+    var s = 0.2, ax = -rx / rl, ay = -ry / rl, bx = -tx / tl, by = -ty / tl;
+    $("rightAngle").setAttribute("points",
+      (T.x + s * ax) + "," + (-(T.y + s * ay)) + " " +
+      (T.x + s * (ax + bx)) + "," + (-(T.y + s * (ay + by))) + " " +
+      (T.x + s * bx) + "," + (-(T.y + s * by)));
+    setLine("qtDash", q, 0, q, T.y);
+
+    // points + labels
+    setPt("ptS", S, 0); setPt("ptSHalo", S, 0);
+    setPt("ptM", M, 0);
+    setPt("ptQ", q, 0); setPt("qHit", q, 0); setPt("ptT", T.x, T.y);
+    setText("lblS", S - 0.12, 0.34, "end");
+    setText("lblM", M + 0.02, -0.52);
+    setText("lblQ", q + 0.14, 0.4, "start");
+    setText("lblT", T.x - 0.02, T.y + 0.34);
+    setText("lblCyan", 2.0, -g.OQ + 0.34);
+    if (g.MQ >= 0.75) { setText("lblPurple", (S + M) / 2, g.MQ / 2 - 0.14); }
+    else { setText("lblPurple", (S + M) / 2, g.MQ + 0.26); }
+    setText("lblGreen", 4.35, -(g.MA + 0.34));
+
+    // caption
+    var ratio = (C - q) / q;
+    $("line1").innerHTML =
+      "Q splits A&ndash;C <b class='num'>1 : " + fmt(ratio) + "</b> inside; " +
+      "S splits it <span class='num'>" + fmt(-S) + " : " + fmt(C - S) + "</span> outside " +
+      "&mdash; same ratio, opposite side. &nbsp;Cross-ratio (A,C; Q,S) = &minus;1, wherever Q goes.";
+    $("line2").innerHTML =
+      "OQ &#183; OS = " + fmt(g.OQ) + " &#215; " + fmt(g.OS) + " = 9 = OA&#178; = 3&#178;";
+    $("line3").innerHTML =
+      "MA &#183; MC = " + fmt(g.MA) + " &#215; " + fmt(g.MC) + " = " + fmt(g.MA * g.MC, 4) +
+      " = " + fmt(g.MQ) + "&#178; = MQ&#178;";
+    $("qOut").textContent = "Q = " + fmt(q, 3);
+  }
+
+  // ---- interaction ----
+  var slider = $("qSlider");
+  function setQ(q) {
+    q = Math.max(QMIN, Math.min(QMAX, q));
+    slider.value = String(q);
+    update(q);
+  }
+  slider.addEventListener("input", function () { update(parseFloat(slider.value)); });
+
+  var hit = $("qHit"), dragging = false;
+  function toMath(e) {
+    var p = svg.createSVGPoint();
+    p.x = e.clientX; p.y = e.clientY;
+    return p.matrixTransform(svg.getScreenCTM().inverse());
+  }
+  hit.addEventListener("pointerdown", function (e) {
+    dragging = true;
+    hit.setPointerCapture(e.pointerId);
+    e.preventDefault();
+  });
+  hit.addEventListener("pointermove", function (e) {
+    if (!dragging) { return; }
+    setQ(toMath(e).x);
+  });
+  hit.addEventListener("pointerup", function () { dragging = false; });
+  hit.addEventListener("pointercancel", function () { dragging = false; });
+
+  $("tog143").addEventListener("change", function () {
+    $("g143").style.display = this.checked ? "" : "none";
+  });
+
+  update(1);
+})();
+</script>
+</body>
+</html>
