@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The bones of the rig</title>
+<style>
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    background: #faf6ef; color: #43203f;
+    font-family: Georgia, 'Times New Roman', serif;
+    margin: 0 auto; max-width: 1060px;
+    padding: calc(18px + env(safe-area-inset-top, 0px)) 20px calc(56px + env(safe-area-inset-bottom, 0px));
+    line-height: 1.5; font-size: 16px;
+  }
+  h1 { font-size: 30px; margin: 6px 0 2px; font-weight: normal; }
+  h2 { font-size: 21px; margin: 30px 0 8px; font-weight: normal; border-bottom: 1px solid #d8cfbf; padding-bottom: 4px; }
+  .deck { margin: 4px 0 14px; color: #6b5a66; }
+  .chips { margin: 0 0 10px; }
+  .chip {
+    font-family: inherit; font-size: 14px; color: #43203f;
+    background: #f2ead9; border: 1px solid #b08948; border-radius: 14px;
+    padding: 5px 13px; margin: 0 8px 8px 0; cursor: pointer;
+  }
+  .chip.on { background: #43203f; color: #faf6ef; border-color: #43203f; }
+  svg { width: 100%; height: auto; display: block; touch-action: none; }
+  .ctl { display: flex; align-items: center; gap: 12px; margin: 8px 0 4px; flex-wrap: wrap; }
+  .ctl label { font-size: 15px; }
+  input[type=range] { flex: 1 1 260px; accent-color: #6a2c91; }
+  #caption { font-size: 16px; margin: 8px 0 0; }
+  #rigline { font-size: 15px; color: #6b5a66; margin: 4px 0 0; }
+  #ledger { font-size: 13px; color: #8a7a70; margin: 6px 0 0; font-family: Menlo, Consolas, monospace; }
+  dl.glossary dt { font-weight: bold; margin-top: 12px; }
+  dl.glossary dd { margin: 2px 0 0 0; }
+  .prov { font-size: 13px; color: #8a7a70; margin-top: 34px; border-top: 1px solid #d8cfbf; padding-top: 10px; }
+  .cF { color: #c0322b; } .cB { color: #6a2c91; } .cT { color: #177f75; }
+  .cG { color: #3d8f3d; } .cS { color: #2b5cc5; } .cQ { color: #a232c8; } .cGold { color: #b08948; }
+  p { max-width: 72ch; }
+</style>
+</head>
+<body>
+
+<h1>The bones of the rig</h1>
+<p class="deck">The fixed square and the breathing square, read as a cross-slit section.
+Drag Q, or ride the slider. One harmonic quadruple (A,C;&nbsp;Q,S)&nbsp;=&nbsp;&minus;1;
+two involutions; two circles. With rig labels on, the plate is the depth-axis section of a
+cross-slit rig: <span class="cG">image plane</span> at S, <span class="cS">blue slit</span> at A,
+<span class="cQ">constructed harmonic plane</span> at Q, <span class="cF">red slit</span> at C.</p>
+
+<div class="chips">
+  <button class="chip on" id="chipRig">Rig labels</button>
+  <button class="chip on" id="chipI43">Euclid I.43 complements</button>
+  <button class="chip" id="chipSwap">Swaps</button>
+  <button class="chip on" id="chipTan">Tangent witness</button>
+</div>
+
+<svg id="board" viewBox="0 0 1250 850" aria-label="The fixed and breathing squares with the cross-slit rig labels">
+  <defs>
+    <marker id="arrGold" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b08948"></path>
+    </marker>
+  </defs>
+
+  <!-- I.43 overlay (dashed big rectangles + diagonals through O and M) -->
+  <g id="gI43">
+    <rect id="i43rF" fill="none" stroke="#c0322b" stroke-width="1" stroke-dasharray="7 5" opacity="0.75"></rect>
+    <line id="i43dF" stroke="#c0322b" stroke-width="1" stroke-dasharray="7 5" opacity="0.75"></line>
+    <rect id="i43rB" fill="none" stroke="#6a2c91" stroke-width="1" stroke-dasharray="7 5" opacity="0.75"></rect>
+    <line id="i43dB" stroke="#6a2c91" stroke-width="1" stroke-dasharray="7 5" opacity="0.75"></line>
+    <text id="i43leg" x="625" y="112" text-anchor="middle" font-size="17" fill="#43203f">Euclid I.43 — by areas:
+      <tspan fill="#177f75">OS·OQ</tspan> = <tspan fill="#c0322b">OA²</tspan>,
+      <tspan fill="#3d8f3d">MA·MC</tspan> = <tspan fill="#6a2c91">MQ²</tspan></text>
+  </g>
+
+  <!-- areas -->
+  <rect id="sqFixed" fill="#c0322b" opacity="0.10"></rect>
+  <rect id="rcTeal"  fill="#177f75" opacity="0.12"></rect>
+  <rect id="sqBreath" fill="#6a2c91" opacity="0.12"></rect>
+  <rect id="rcGreen" fill="#3d8f3d" opacity="0.12"></rect>
+  <text id="lbFixed" font-size="24" fill="#c0322b" text-anchor="middle">OA²</text>
+  <text id="lbTeal" font-size="22" fill="#177f75" text-anchor="middle">OS·OQ</text>
+  <text id="lbBreath" font-size="24" fill="#6a2c91" text-anchor="middle">MQ²</text>
+  <text id="lbGreen" font-size="22" fill="#3d8f3d" text-anchor="middle">MA·MC</text>
+
+  <!-- circles -->
+  <circle id="cFixed" fill="none" stroke="#43203f" stroke-width="1.2"></circle>
+  <circle id="cBreath" fill="none" stroke="#43203f" stroke-width="1.2" stroke-dasharray="1 0"></circle>
+
+  <!-- axis -->
+  <line x1="30" y1="420" x2="1225" y2="420" stroke="#43203f" stroke-width="1.5"></line>
+  <g id="ticks" font-size="15" fill="#8a7a70" text-anchor="middle"></g>
+
+  <!-- rig planes -->
+  <line id="plS" y1="100" y2="722" stroke="#3d8f3d" stroke-width="2.4"></line>
+  <line id="plA" y1="100" y2="722" stroke="#2b5cc5" stroke-width="2.4"></line>
+  <line id="plQ" y1="100" y2="722" stroke="#a232c8" stroke-width="2.4"></line>
+  <line id="plC" y1="100" y2="722" stroke="#c0322b" stroke-width="2.4"></line>
+  <g id="planeCaps" font-size="14">
+    <text id="capS" fill="#3d8f3d" text-anchor="end"><tspan id="capS1" dy="0">IMAGE</tspan><tspan id="capS2" dy="19">PLANE</tspan></text>
+    <text id="capA" fill="#2b5cc5" text-anchor="end"><tspan dy="0">BLUE</tspan><tspan dy="19">SLIT</tspan></text>
+    <text id="capQ" fill="#a232c8" text-anchor="start"><tspan id="capQ1" dy="0">CONSTRUCTED</tspan><tspan id="capQ2" dy="19">HARMONIC</tspan><tspan id="capQ3" dy="19">PLANE</tspan></text>
+    <text id="capC" fill="#c0322b" text-anchor="start"><tspan dy="0">RED</tspan><tspan dy="19">SLIT</tspan></text>
+  </g>
+
+  <!-- swaps -->
+  <g id="gSwap">
+    <path id="swF" fill="none" stroke="#b08948" stroke-width="1.6" marker-start="url(#arrGold)" marker-end="url(#arrGold)"></path>
+    <path id="swB" fill="none" stroke="#b08948" stroke-width="1.6" marker-start="url(#arrGold)" marker-end="url(#arrGold)"></path>
+    <text id="swFt" font-size="14" fill="#b08948" text-anchor="middle"></text>
+    <text id="swBt" font-size="14" fill="#b08948" text-anchor="middle"></text>
+  </g>
+
+  <!-- tangent witness -->
+  <g id="gTan">
+    <line id="tanST" stroke="#43203f" stroke-width="1"></line>
+    <line id="tanOT" stroke="#43203f" stroke-width="1"></line>
+    <path id="tanRA" fill="none" stroke="#43203f" stroke-width="1"></path>
+    <text id="tanTl" font-size="18" fill="#43203f">T</text>
+  </g>
+
+  <!-- points and letters -->
+  <circle id="dS" r="5.5" fill="#3d8f3d"></circle>
+  <circle cx="499" cy="420" r="5.5" fill="#2b5cc5"></circle>
+  <circle cx="784" cy="420" r="5.5" fill="#43203f"></circle>
+  <circle cx="1069" cy="420" r="5.5" fill="#c0322b"></circle>
+  <circle id="dM" r="5.5" fill="#43203f"></circle>
+  <text id="tS" font-size="21" fill="#3d8f3d" text-anchor="middle">S</text>
+  <text x="499" y="452" font-size="21" fill="#2b5cc5" text-anchor="middle">A</text>
+  <text x="784" y="404" font-size="21" fill="#43203f" text-anchor="middle">O</text>
+  <text x="1069" y="452" font-size="21" fill="#c0322b" text-anchor="middle">C</text>
+  <text id="tM" font-size="21" fill="#43203f" text-anchor="middle">M</text>
+  <text id="tQ" font-size="21" fill="#a232c8" text-anchor="middle">Q</text>
+
+  <!-- Q handle (persistent element; created once) -->
+  <g id="hQ" style="cursor: grab;">
+    <circle id="hQring" r="14" fill="#faf6ef" fill-opacity="0.01" stroke="#a232c8" stroke-width="3"></circle>
+    <circle id="hQdot" r="4" fill="#a232c8"></circle>
+  </g>
+</svg>
+
+<div class="ctl">
+  <label for="qs">Q</label>
+  <input type="range" id="qs" min="0.30" max="1.75" step="0.005" value="1.535">
+  <span id="qv" style="min-width:86px;">Q = 1.535</span>
+</div>
+
+<p id="caption"></p>
+<p id="rigline"></p>
+<p id="ledger"></p>
+
+<h2>The reading</h2>
+<p><b>One quadruple, two involutions.</b> Harmonic separation is mutual: (A,C;&nbsp;Q,S)&nbsp;=&nbsp;&minus;1
+is the same statement as (Q,S;&nbsp;A,C)&nbsp;=&nbsp;&minus;1. A harmonic quadruple therefore carries two
+involutions of the line — one fixing each pair and swapping the other — and each involution is inversion
+in a circle. The plate draws both circles.</p>
+
+<p><b>The <span class="cF">fixed circle</span> — the construction law.</b> The circle on A–C fixes the
+slits and swaps S&nbsp;↔&nbsp;Q: OQ·OS&nbsp;=&nbsp;OA². Given the apparatus (the two slits) and the
+<span class="cG">image plane</span>, the <span class="cQ">harmonic plane</span> is produced as the
+mirror image of the image plane in the slit circle — or anchorlessly, by Euclid I.43: the dashed
+diagonal through O makes the <span class="cT">teal rectangle</span> and the
+<span class="cF">crimson square</span> equal complements. Center and radius are apparatus data;
+nothing about the reading touches them. The square is fixed.</p>
+
+<p><b>The <span class="cB">breathing circle</span> — the channel swap.</b> The circle on Q–S fixes the
+image plane and the harmonic plane and swaps the slits: MA·MC&nbsp;=&nbsp;MQ². Its radius is the
+geometric mean of the two slit distances from its center — the anchor law R²&nbsp;=&nbsp;Z₁Z₂,
+recentred at M. This is the channel swap σ, the apparatus ingredient of the transport
+δ&nbsp;=&nbsp;σ∘ρ. Its center rides the free point, so the square breathes; the law it obeys never
+changes.</p>
+
+<p><b>Why the plate is admitted.</b> An earlier ruling refused this plate from the book: two centers,
+not two readings. The rig labels reprice the verdict. The two centers are the two involutions the
+quadruple carries — one pinned to the apparatus, one riding the probe — and the probe-riding one
+is σ. The plate is the depth-axis section of the rig, with the construction law and the channel swap
+in one figure.</p>
+
+<h2>Glossary</h2>
+<dl class="glossary">
+  <dt>harmonic range</dt>
+  <dd>Four collinear points with cross-ratio &minus;1, written (A,C;&nbsp;Q,S)&nbsp;=&nbsp;&minus;1.
+  Q and S are harmonic conjugates with respect to A and C — and, mutually, A and C with respect to
+  Q and S.</dd>
+  <dt>cross-ratio</dt>
+  <dd>(A,C;&nbsp;Q,S) = (AQ·CS)/(CQ·AS) in signed lengths; the projective invariant of four
+  collinear points.</dd>
+  <dt>Newton product / Newton's relation</dt>
+  <dd>Measure a conjugate pair from the midpoint of the other pair; the product of the two signed
+  distances is constant: OQ·OS&nbsp;=&nbsp;OA² and MA·MC&nbsp;=&nbsp;MQ². Each relation is
+  equivalent to the harmonic condition.</dd>
+  <dt>fixed square</dt>
+  <dd>OA²&nbsp;=&nbsp;OC²: side half the slit separation. Pinned by the apparatus; unchanged as
+  Q moves.</dd>
+  <dt>breathing square</dt>
+  <dd>MQ²&nbsp;=&nbsp;MS²: side the half-span of the conjugate pair Q–S. Its center M rides with Q,
+  so the square swells and shrinks under the fixed law MA·MC&nbsp;=&nbsp;MQ².</dd>
+  <dt>involution</dt>
+  <dd>A transformation that is its own inverse — applied twice, the identity. On a line, determined
+  by its two fixed points, or equally by one swapped pair.</dd>
+  <dt>inversion / mirror circle</dt>
+  <dd>The involution z&nbsp;↦&nbsp;O&nbsp;+&nbsp;R²/(z&minus;O): points pair off so that the product
+  of their distances from the center is R². The circle itself is the set of self-paired points.</dd>
+  <dt>image plane</dt>
+  <dd>The screen of the rig — here the plane at S, in front of both slits.</dd>
+  <dt>slit (blue, red)</dt>
+  <dd>The two line apertures of the cross-slit camera — here the planes at A and C on the depth
+  axis. In section, each slit is a point.</dd>
+  <dt>constructed harmonic plane</dt>
+  <dd>The plane at Q: the harmonic conjugate of the image plane through the slit pair. Produced by
+  the fixed circle (compass route) or by I.43 complements (anchorless route).</dd>
+  <dt>channel swap σ</dt>
+  <dd>The involution exchanging the two slits — the u- and v-channels — while fixing the image and
+  harmonic planes. Realized here by the breathing circle.</dd>
+  <dt>geometric-mean anchor</dt>
+  <dd>The circle whose radius is the geometric mean of the two slit distances from its center
+  (R²&nbsp;=&nbsp;Z₁Z₂). The breathing circle is this anchor, recentred at M.</dd>
+  <dt>tangent witness</dt>
+  <dd>The tangent from S touches the fixed circle at T, with ST²&nbsp;=&nbsp;SA·SC&nbsp;=&nbsp;OS²&nbsp;&minus;&nbsp;OA².
+  The compass-grammar certificate that S and Q are inverse points.</dd>
+  <dt>Euclid I.43</dt>
+  <dd>In a parallelogram cut by its diagonal, the two complements about the diagonal are equal in
+  area. The anchorless (straightedge) grammar for both Newton relations.</dd>
+  <dt>apparatus / probe</dt>
+  <dd>Apparatus: what the rig fixes before any reading — the slits, hence O and OA. Probe: the one
+  free point, Q, fourth argument of every cross-ratio. What rides with it — S, M, the breathing
+  circle — is reading, not rig.</dd>
+</dl>
+
+<p class="prov" id="prov">Pre-build checks: check-bones-of-the-rig-v1.js — 3496/3496, worst residual
+1.3e&minus;14 (cross-ratio, both Newton relations, both inversions, GM law, tangent witness, both
+I.43 diagonals, stage bounds). Untested in a browser; iPad check pending. 20 Sep 2026.</p>
+
+<script>
+/* GM-BEGIN */
+const A = 0, C = 6, O = 3, R = 3;              // slits at A and C; O their midpoint; R = OA
+const Sof = Q => 3 * Q / (Q - 3);              // harmonic conjugate of Q w.r.t. A, C
+const rig = Q => {
+  const S = Sof(Q), M = (Q + S) / 2;
+  return { S, M, MQ: Q - M, OQ: O - Q, OS: O - S, MA: A - M, MC: C - M };
+};
+const cross = (a, c, q, s) => ((q - a) * (s - c)) / ((q - c) * (s - a));
+const tangentT = S => {                        // tangent point from S on the fixed circle, upper
+  const d = O - S, t2 = d * d - R * R;
+  return { x: O + R * R * (S - O) / (d * d), y: R * Math.sqrt(t2) / d, t2 };
+};
+const QMIN = 0.30, QMAX = 1.75;
+/* GM-END */
+
+// pixel mapping
+const PX = x => 62 + (x + 4.6) * 95;
+const PY = y => 420 - y * 95;
+const $ = id => document.getElementById(id);
+
+// static: fixed circle, ticks
+$('cFixed').setAttribute('cx', PX(O)); $('cFixed').setAttribute('cy', 420);
+$('cFixed').setAttribute('r', R * 95);
+(function () {
+  const g = $('ticks');
+  for (let x = -4; x <= 7; x++) {
+    const t = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    t.setAttribute('x1', PX(x)); t.setAttribute('x2', PX(x));
+    t.setAttribute('y1', 414); t.setAttribute('y2', 426);
+    t.setAttribute('stroke', '#8a7a70'); t.setAttribute('stroke-width', '1');
+    g.appendChild(t);
+    if (x !== 0 && x !== 3 && x !== 6) {
+      const n = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      n.setAttribute('x', PX(x)); n.setAttribute('y', 448); n.textContent = x;
+      g.appendChild(n);
+    }
+  }
+})();
+// fixed square is apparatus data
+$('sqFixed').setAttribute('x', PX(O)); $('sqFixed').setAttribute('y', PY(3));
+$('sqFixed').setAttribute('width', 3 * 95); $('sqFixed').setAttribute('height', 3 * 95);
+$('lbFixed').setAttribute('x', PX(4.5)); $('lbFixed').setAttribute('y', PY(1.5));
+
+// state
+const st = { Q: 1.535, rigOn: true, i43On: true, swapOn: false, tanOn: true };
+
+function fmt(v, d) { return v.toFixed(d === undefined ? 3 : d); }
+function eSet(id, attrs) { const el = $(id); for (const k in attrs) el.setAttribute(k, attrs[k]); }
+
+function update() {
+  const Q = st.Q, g = rig(Q);
+  const xS = PX(g.S), xQ = PX(Q), xM = PX(g.M), xC = PX(C), xA = PX(A);
+
+  // areas
+  eSet('rcTeal', { x: xS, y: 420, width: g.OS * 95, height: g.OQ * 95 });
+  eSet('sqBreath', { x: xS, y: PY(g.MQ), width: g.MQ * 95, height: g.MQ * 95 });
+  eSet('rcGreen', { x: xM, y: 420, width: g.MC * 95, height: g.MA * 95 });
+  eSet('lbTeal', { x: PX((g.S + O) / 2), y: 420 + g.OQ * 95 / 2 + 8 });
+  eSet('lbBreath', { x: PX((g.S + g.M) / 2), y: PY(g.MQ / 2) + 8 });
+  eSet('lbGreen', { x: PX((g.M + C) / 2), y: 420 + Math.max(g.MA * 95 / 2 + 8, 26) });
+
+  // breathing circle
+  eSet('cBreath', { cx: xM, cy: 420, r: g.MQ * 95 });
+
+  // I.43 overlay
+  eSet('i43rF', { x: xS, y: PY(3), width: (C - g.S) * 95, height: (3 + g.OQ) * 95 });
+  eSet('i43dF', { x1: xS, y1: PY(3), x2: xC, y2: PY(-g.OQ) });
+  eSet('i43rB', { x: xS, y: PY(g.MQ), width: (C - g.S) * 95, height: (g.MQ + g.MA) * 95 });
+  eSet('i43dB', { x1: xS, y1: PY(-g.MA), x2: xC, y2: PY(g.MQ) });
+
+  // rig planes + moving points
+  eSet('plS', { x1: xS, x2: xS }); eSet('plQ', { x1: xQ, x2: xQ });
+  eSet('plA', { x1: xA, x2: xA }); eSet('plC', { x1: xC, x2: xC });
+  eSet('dS', { cx: xS, cy: 420 }); eSet('dM', { cx: xM, cy: 420 });
+  eSet('tS', { x: xS, y: 452 }); eSet('tM', { x: xM, y: 404 });
+  eSet('tQ', { x: xQ, y: 456 });
+  eSet('hQring', { cx: xQ, cy: 420 }); eSet('hQdot', { cx: xQ, cy: 420 });
+
+  // plane captions
+  eSet('capS', { x: xS - 8, y: 748 }); $('capS1').setAttribute('x', xS - 8); $('capS2').setAttribute('x', xS - 8);
+  eSet('capA', { x: xA - 8, y: 800 });
+  Array.from($('capA').children).forEach(t => t.setAttribute('x', xA - 8));
+  eSet('capQ', { x: xQ + 8, y: 748 });
+  ['capQ1', 'capQ2', 'capQ3'].forEach(id => $(id).setAttribute('x', xQ + 8));
+  eSet('capC', { x: xC + 8, y: 800 });
+  Array.from($('capC').children).forEach(t => t.setAttribute('x', xC + 8));
+
+  // swaps
+  eSet('swF', { d: `M ${xS} 406 Q ${(xS + xQ) / 2} 300 ${xQ} 406` });
+  eSet('swB', { d: `M ${xA} 436 Q ${(xA + xC) / 2} 600 ${xC} 436` });
+  eSet('swFt', { x: (xS + xQ) / 2, y: 320 });
+  eSet('swBt', { x: (xA + xC) / 2, y: 588 });
+  $('swFt').textContent = st.rigOn
+    ? 'fixed circle: image plane ↔ harmonic plane (slits fixed)'
+    : 'fixed circle: S ↔ Q (A, C fixed)';
+  $('swBt').textContent = st.rigOn
+    ? 'breathing circle: blue slit ↔ red slit (channel swap σ)'
+    : 'breathing circle: A ↔ C (Q, S fixed)';
+
+  // tangent witness
+  const T = tangentT(g.S), Tx = PX(T.x), Ty = PY(T.y);
+  eSet('tanST', { x1: xS, y1: 420, x2: Tx, y2: Ty });
+  eSet('tanOT', { x1: PX(O), y1: 420, x2: Tx, y2: Ty });
+  const uL = Math.hypot(Tx - xS, Ty - 420), vL = Math.hypot(Tx - PX(O), Ty - 420);
+  const ux = (xS - Tx) / uL, uy = (420 - Ty) / uL;      // toward S
+  const vx = (PX(O) - Tx) / vL, vy = (420 - Ty) / vL;    // toward O
+  const m = 9;
+  eSet('tanRA', { d: `M ${Tx + m * ux} ${Ty + m * uy} L ${Tx + m * (ux + vx)} ${Ty + m * (uy + vy)} L ${Tx + m * vx} ${Ty + m * vy}` });
+  eSet('tanTl', { x: Tx + 6, y: Ty - 10 });
+
+  // caption, rig line, ledger
+  $('qv').textContent = 'Q = ' + fmt(Q);
+  $('caption').innerHTML =
+    'Q = <b>' + fmt(Q) + '</b>, S = <b>' + fmt(g.S) + '</b> · (A,C; Q,S) = &minus;1 · ' +
+    '<span class="cF">fixed</span>: OQ·OS = ' + fmt(g.OQ) + ' × ' + fmt(g.OS) + ' = ' +
+    fmt(g.OQ * g.OS) + ' = OA² · ' +
+    '<span class="cB">breathing</span>: MA·MC = ' + fmt(g.MA) + ' × ' + fmt(g.MC) + ' = ' +
+    fmt(g.MA * g.MC) + ' = ' + fmt(g.MQ) + '² = MQ²';
+  $('rigline').innerHTML = st.rigOn
+    ? 'The <span class="cF">fixed circle</span> swaps <span class="cG">image plane</span> ↔ ' +
+      '<span class="cQ">harmonic plane</span> (slits fixed); the <span class="cB">breathing circle</span> ' +
+      'swaps the <span class="cS">slits</span> (channel swap σ).'
+    : 'The fixed circle swaps S ↔ Q (fixing A, C); the breathing circle swaps A ↔ C (fixing Q, S).';
+  const r1 = cross(A, C, Q, g.S) + 1, r2 = g.OQ * g.OS - R * R, r3 = g.MA * g.MC - g.MQ * g.MQ;
+  $('ledger').textContent = 'drift · cross-ratio+1: ' + r1.toExponential(1) +
+    ' · fixed Newton: ' + r2.toExponential(1) + ' · breathing Newton: ' + r3.toExponential(1);
+
+  // visibility
+  $('gI43').style.display = st.i43On ? '' : 'none';
+  $('gSwap').style.display = st.swapOn ? '' : 'none';
+  $('gTan').style.display = st.tanOn ? '' : 'none';
+  $('planeCaps').style.display = st.rigOn ? '' : 'none';
+}
+
+function setQ(q) {
+  st.Q = Math.min(QMAX, Math.max(QMIN, q));
+  $('qs').value = st.Q;
+  update();
+}
+
+// chips
+function wireChip(id, key) {
+  $(id).addEventListener('click', () => {
+    st[key] = !st[key];
+    $(id).classList.toggle('on', st[key]);
+    update();
+  });
+}
+wireChip('chipRig', 'rigOn'); wireChip('chipI43', 'i43On');
+wireChip('chipSwap', 'swapOn'); wireChip('chipTan', 'tanOn');
+
+// slider
+$('qs').addEventListener('input', e => setQ(parseFloat(e.target.value)));
+
+// drag — persistent handle, window-level listeners filtered by pointerId (house pattern)
+const svg = $('board');
+let dragId = null;
+function toWorldX(ev) {
+  const pt = svg.createSVGPoint();
+  pt.x = ev.clientX; pt.y = ev.clientY;
+  const p = pt.matrixTransform(svg.getScreenCTM().inverse());
+  return (p.x - 62) / 95 - 4.6;
+}
+$('hQ').addEventListener('pointerdown', ev => { dragId = ev.pointerId; ev.preventDefault(); });
+window.addEventListener('pointermove', ev => {
+  if (ev.pointerId !== dragId) return;
+  setQ(toWorldX(ev));
+});
+window.addEventListener('pointerup', ev => { if (ev.pointerId === dragId) dragId = null; });
+window.addEventListener('pointercancel', ev => { if (ev.pointerId === dragId) dragId = null; });
+
+update();
+</script>
+</body>
+</html>
