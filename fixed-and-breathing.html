@@ -34,7 +34,8 @@
   .cr { color: #c0322b; font-weight: 700; }
   .gr { color: #35922f; font-weight: 700; }
   .pu { color: #6a2c91; font-weight: 700; }
-  .foot { font-size: 0.88rem; font-style: italic; color: #6b5566; margin-top: 10px; }
+  .defs { border-top: 1px solid #d9cfc0; margin-top: 12px; padding-top: 10px; font-size: 0.92rem; line-height: 1.55; }
+  .defs p { margin: 0 0 7px; }
 </style>
 </head>
 <body>
@@ -44,46 +45,46 @@
 
   <svg id="fig" viewBox="-5.2 -3.7 12.9 7.45" xmlns="http://www.w3.org/2000/svg" aria-label="Harmonic conjugate diagram">
     <!-- regions -->
-    <rect id="redSq"    fill="#c0322b" fill-opacity="0.13" stroke="#c0322b" stroke-width="0.07"/>
-    <rect id="cyanRect" fill="#1fa9a1" fill-opacity="0.15" stroke="#1fa9a1" stroke-width="0.055"/>
-    <rect id="purpleSq" fill="#6a2c91" fill-opacity="0.14" stroke="#6a2c91" stroke-width="0.055"/>
-    <rect id="greenRect" fill="#3ba53a" fill-opacity="0.16" stroke="#3ba53a" stroke-width="0.05"/>
+    <rect id="redSq"    fill="#c0322b" fill-opacity="0.13" stroke="#c0322b" stroke-width="0.035"/>
+    <rect id="cyanRect" fill="#1fa9a1" fill-opacity="0.15" stroke="#1fa9a1" stroke-width="0.028"/>
+    <rect id="purpleSq" fill="#6a2c91" fill-opacity="0.14" stroke="#6a2c91" stroke-width="0.028"/>
+    <rect id="greenRect" fill="#3ba53a" fill-opacity="0.16" stroke="#3ba53a" stroke-width="0.025"/>
 
     <!-- Euclid I.43 overlay: enclosing rectangles + diagonals, two-colour dashed -->
     <g id="g143">
-      <rect id="fixE1" fill="none" stroke="#c0322b" stroke-width="0.05" stroke-dasharray="0.24 0.24"/>
-      <rect id="fixE2" fill="none" stroke="#1fa9a1" stroke-width="0.05" stroke-dasharray="0.24 0.24" stroke-dashoffset="0.24"/>
-      <line id="fixD1" stroke="#c0322b" stroke-width="0.06" stroke-dasharray="0.24 0.24"/>
-      <line id="fixD2" stroke="#1fa9a1" stroke-width="0.06" stroke-dasharray="0.24 0.24" stroke-dashoffset="0.24"/>
-      <rect id="brE1" fill="none" stroke="#3ba53a" stroke-width="0.05" stroke-dasharray="0.2 0.2"/>
-      <rect id="brE2" fill="none" stroke="#6a2c91" stroke-width="0.05" stroke-dasharray="0.2 0.2" stroke-dashoffset="0.2"/>
-      <line id="brD1" stroke="#3ba53a" stroke-width="0.06" stroke-dasharray="0.2 0.2"/>
-      <line id="brD2" stroke="#6a2c91" stroke-width="0.06" stroke-dasharray="0.2 0.2" stroke-dashoffset="0.2"/>
+      <rect id="fixE1" fill="none" stroke="#c0322b" stroke-width="0.025" stroke-dasharray="0.24 0.24"/>
+      <rect id="fixE2" fill="none" stroke="#1fa9a1" stroke-width="0.025" stroke-dasharray="0.24 0.24" stroke-dashoffset="0.24"/>
+      <line id="fixD1" stroke="#c0322b" stroke-width="0.03" stroke-dasharray="0.24 0.24"/>
+      <line id="fixD2" stroke="#1fa9a1" stroke-width="0.03" stroke-dasharray="0.24 0.24" stroke-dashoffset="0.24"/>
+      <rect id="brE1" fill="none" stroke="#3ba53a" stroke-width="0.025" stroke-dasharray="0.2 0.2"/>
+      <rect id="brE2" fill="none" stroke="#6a2c91" stroke-width="0.025" stroke-dasharray="0.2 0.2" stroke-dashoffset="0.2"/>
+      <line id="brD1" stroke="#3ba53a" stroke-width="0.03" stroke-dasharray="0.2 0.2"/>
+      <line id="brD2" stroke="#6a2c91" stroke-width="0.03" stroke-dasharray="0.2 0.2" stroke-dashoffset="0.2"/>
     </g>
 
     <!-- circles -->
-    <path id="bigArc" fill="none" stroke="#43203f" stroke-width="0.05"/>
-    <circle id="smallCirc" fill="none" stroke="#43203f" stroke-width="0.032" opacity="0.85"/>
+    <path id="bigArc" fill="none" stroke="#43203f" stroke-width="0.025"/>
+    <circle id="smallCirc" fill="none" stroke="#43203f" stroke-width="0.016" opacity="0.85"/>
 
     <!-- tangent construction -->
-    <line id="radiusLine"  stroke="#c0322b" stroke-width="0.045"/>
-    <line id="tangentLine" stroke="#c0322b" stroke-width="0.045"/>
-    <polyline id="rightAngle" fill="none" stroke="#43203f" stroke-width="0.03"/>
-    <line id="qtDash" stroke="#6a2c91" stroke-width="0.035" stroke-dasharray="0.14 0.12"/>
+    <line id="radiusLine"  stroke="#c0322b" stroke-width="0.022"/>
+    <line id="tangentLine" stroke="#c0322b" stroke-width="0.022"/>
+    <polyline id="rightAngle" fill="none" stroke="#43203f" stroke-width="0.015"/>
+    <line id="qtDash" stroke="#6a2c91" stroke-width="0.018" stroke-dasharray="0.14 0.12"/>
 
     <!-- axis -->
-    <line id="axis" x1="-5.2" y1="0" x2="7.7" y2="0" stroke="#43203f" stroke-width="0.035"/>
+    <line id="axis" x1="-5.2" y1="0" x2="7.7" y2="0" stroke="#43203f" stroke-width="0.018"/>
     <g id="ticks"></g>
 
     <!-- points -->
     <circle id="ptS" r="0.13" fill="#1fa9a1"/>
     <circle id="ptSHalo" r="0.24" fill="#1fa9a1" opacity="0.3"/>
     <circle id="ptM" r="0.07" fill="#43203f"/>
-    <line id="ptA" stroke="#2b5fb0" stroke-width="0.07"/>
+    <line id="ptA" stroke="#2b5fb0" stroke-width="0.035"/>
     <circle id="ptO" r="0.07" fill="#43203f"/>
-    <line id="ptC" stroke="#2b5fb0" stroke-width="0.07"/>
+    <line id="ptC" stroke="#2b5fb0" stroke-width="0.035"/>
     <circle id="ptT" r="0.06" fill="#43203f"/>
-    <circle id="ptQ" r="0.16" fill="none" stroke="#6a2c91" stroke-width="0.075"/>
+    <circle id="ptQ" r="0.16" fill="none" stroke="#6a2c91" stroke-width="0.045"/>
     <circle id="qHit" r="0.62" fill="#6a2c91" opacity="0" style="cursor:grab"/>
 
     <!-- labels -->
@@ -118,7 +119,12 @@
     <p id="line1"></p>
     <p><span class="head">The circle on A&ndash;C &mdash; center O.</span>&ensp;<span class="num" id="line2"></span> &mdash; the fixed square.</p>
     <p><span class="head">The circle on Q&ndash;S &mdash; center M.</span>&ensp;<span class="num" id="line3"></span> &mdash; the breathing square.</p>
-    <p class="foot">At Q = 1 the third line reads 1.5625. The printed original says 1.56, and will continue to.</p>
+    <div class="defs">
+      <p><span class="head">Definitions.</span></p>
+      <p><b>Newton product</b> &mdash; from the midpoint of one pair, the product of the distances to the two points of the other pair: OQ&#183;OS, measured from O, the midpoint of A&ndash;C; MA&#183;MC, measured from M, the midpoint of Q&ndash;S. <b>Newton&rsquo;s relation</b>: the pairs are harmonic &mdash; cross-ratio (A,C; Q,S) = &minus;1 &mdash; exactly when each Newton product equals the square on its own half-span: OQ&#183;OS = OA&#178; and MA&#183;MC = MQ&#178;. Either equation alone carries the whole harmonic condition.</p>
+      <p><b>The fixed square</b> &mdash; OA&#178; = 3&#178; = 9, the square on the half-span of A&ndash;C. A and C never move, so neither does it.</p>
+      <p><b>The breathing square</b> &mdash; MQ&#178;, the square on the half-span of Q&ndash;S. As Q slides, S and M follow and the half-span widens and narrows &mdash; the square breathes &mdash; with MA&#183;MC keeping exact step at every position.</p>
+    </div>
   </div>
 </div>
 
@@ -178,7 +184,7 @@
       t = document.createElementNS(svg.namespaceURI, "line");
       t.setAttribute("x1", i); t.setAttribute("x2", i);
       t.setAttribute("y1", -0.09); t.setAttribute("y2", 0.09);
-      t.setAttribute("stroke", "#43203f"); t.setAttribute("stroke-width", "0.03");
+      t.setAttribute("stroke", "#43203f"); t.setAttribute("stroke-width", "0.015");
       g.appendChild(t);
       n = document.createElementNS(svg.namespaceURI, "text");
       n.setAttribute("x", i); n.setAttribute("y", 0.46);
