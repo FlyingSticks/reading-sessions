@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>n of n = n² — reach × turn</title>
+<style>
+  body{background:#faf6ef;color:#43203f;font-family:Georgia,'Times New Roman',serif;margin:0;padding:18px 14px 64px;}
+  .wrap{max-width:790px;margin:0 auto;}
+  h1{font-size:27px;margin:4px 0 2px;font-weight:normal;}
+  h1 .sub{font-size:17px;font-style:italic;color:#6a2c91;margin-left:10px;}
+  .lede{font-size:15.5px;font-style:italic;opacity:.85;margin:2px 0 14px;line-height:1.5;}
+  .controls{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;margin-bottom:6px;}
+  .stepper{display:flex;align-items:center;gap:8px;border:1px solid #b08948;border-radius:10px;padding:3px 10px;background:#fdfaf2;}
+  .stepper button{font-family:inherit;font-size:19px;line-height:1;width:34px;height:31px;border-radius:8px;border:1px solid #43203f;background:#faf6ef;color:#43203f;}
+  .stepper span{font-size:15px;min-width:86px;text-align:center;}
+  button.chip{font-family:inherit;font-size:14px;padding:4px 13px;border-radius:999px;border:1px solid #43203f;background:#faf6ef;color:#43203f;}
+  button.chip[aria-pressed="true"]{background:#43203f;color:#faf6ef;}
+  button.fchip{font-family:inherit;font-size:14px;padding:4px 13px;border-radius:999px;background:#faf6ef;}
+  svg{width:100%;height:auto;display:block;}
+  .caption{border:1px solid #b08948;border-radius:10px;background:#fdfaf2;padding:10px 14px;font-size:15px;line-height:1.5;margin:8px 0 22px;min-height:44px;}
+  h2{font-size:20px;font-weight:normal;border-bottom:1px solid #b08948;padding-bottom:4px;margin:26px 0 10px;}
+  .reading p{font-size:15.5px;line-height:1.6;margin:0 0 12px;}
+  dl{margin:0;}
+  dt{font-weight:bold;font-size:15px;margin-top:9px;}
+  dd{margin:1px 0 0 16px;font-size:15px;line-height:1.5;}
+  footer{margin-top:30px;font-size:13px;font-style:italic;opacity:.7;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>n of n = n²<span class="sub">reach × turn</span></h1>
+  <p class="lede">A marked line, one point below it, and nothing else. The pencil that cuts the line
+  into n parts already carries the construction of n² — one turn at a time. Drag the gold probe
+  along the top line to read each fine mark's two-digit address.</p>
+</header>
+
+<div class="controls">
+  <div class="stepper">
+    <button id="nMinus" aria-label="decrease gauge">−</button>
+    <span id="nLabel">gauge n = 3</span>
+    <button id="nPlus" aria-label="increase gauge">+</button>
+  </div>
+  <button class="chip" data-layer="pencil" aria-pressed="true">pencil</button>
+  <button class="chip" data-layer="free" aria-pressed="true">free horizontal</button>
+  <button class="chip" data-layer="band" aria-pressed="true">turn band</button>
+  <button class="chip" data-layer="fine" aria-pressed="true">fine marks</button>
+  <button class="chip" data-layer="next" aria-pressed="false">next level</button>
+</div>
+<div class="controls" id="famChips"></div>
+
+<svg id="plate" viewBox="0 0 960 880" aria-label="reach times turn construction">
+  <defs id="defs"></defs>
+  <g id="gGrid"></g>
+  <g id="gBand"></g>
+  <g id="gRays"></g>
+  <g id="gFree"></g>
+  <g id="gFam"></g>
+  <g id="gNext"></g>
+  <g id="gTop"></g>
+  <g id="gHi"></g>
+  <g id="gProbe"></g>
+</svg>
+
+<div class="caption" id="caption"></div>
+
+<section class="reading">
+  <h2>Reading the sheet</h2>
+  <p>Givens: a horizontal line carrying marks 0 … n, and one point O placed below mark 0.
+  Joining O to each mark makes the <i>pencil</i> — the reach of the page. The join O–0 is
+  <i>ray 0</i>, and it doubles as the left edge. Through mark 1 runs the one parallel the
+  construction starts with: a line parallel to ray 0. It meets the last ray at height 1/n —
+  not by choice but by similar triangles — and the horizontal drawn there, the
+  <i>free horizontal</i>, is a copy of the whole line at 1/n scale. The pencil that made the
+  coarse marks already cuts this copy into n equal parts: rays 1 … n−1 pass through it at
+  exactly its own division points. Nothing new is purchased.</p>
+  <p>Only two maps ever act, and each is honest about intervals. Projection from O between two
+  parallel horizontals is a pure scaling — it multiplies every length by the ratio of heights
+  and moves nothing sideways. Parallel transfer between the same two horizontals is a pure
+  translation — it slides every mark by the same amount and stretches nothing. Reach scales;
+  turn shifts. The multiplicative and the additive register meet on one page, each doing the
+  one thing it is licensed to do.</p>
+  <p>The turn families do the addressing. Family T₁ transfers the free horizontal's marks
+  straight up (B = 0) into the first coarse cell; T₂ carries the same marks one cell over;
+  T₃ two cells; the ratio B : A names the direction. A fine mark is therefore a pair
+  (turn, reach): x = turn + reach/n. Nine marks from two three-valued digits — n of n = n²
+  is a two-digit numeral in base n, drawn instead of written.</p>
+  <p>Adjacent families share their boundary marks: reach n of one family lands exactly where
+  reach 0 of the next begins — two transfer lines meeting at one point. That meeting is the
+  carry of positional arithmetic, performed by incidence.</p>
+  <p>The turn directions are not imported. T₂ is the join of the free horizontal's zero to
+  coarse mark 1; T₃ the join to mark 2; T₁ is ray 0's own direction. And the machine recurses
+  before being asked: the pencil already cuts the horizontal at height 1/n² into n parts
+  (switch on <i>next level</i>), so a third round of parallels would deliver n³. Each level of
+  the triangle is a digit place; the figure is a numeral system with a vanishing point.</p>
+</section>
+
+<section class="glossary">
+  <h2>Glossary</h2>
+  <dl>
+    <dt>gauge n</dt><dd>The count chosen once; everything else follows from it.</dd>
+    <dt>pencil</dt><dd>The joins from O to the coarse marks; the page's reach.</dd>
+    <dt>ray 0</dt><dd>The join O–0; also the left edge, also the direction of turn family T₁.</dd>
+    <dt>free horizontal</dt><dd>The horizontal at height 1/n; a 1/n-scale copy of the marked
+    line, cut into n parts by the pencil at no extra cost.</dd>
+    <dt>reach</dt><dd>Equal-interval count along a line; here, position within a cell.
+    Scaling's register.</dd>
+    <dt>turn</dt><dd>Choice of direction, named by a ratio; here, choice of cell.
+    Translation's register.</dd>
+    <dt>turn family T<sub>k</sub></dt><dd>The parallels of one direction, carrying the free
+    horizontal's marks into coarse cell k.</dd>
+    <dt>B : A</dt><dd>Run per rise of a turn family: B₁ = 0, and in general
+    B : A = n(k−1) : (n−1). B is counted in the line's units and A in the height's units, so
+    the drawing may stretch its axes independently — every parallel stays parallel.</dd>
+    <dt>coarse cell, fine mark</dt><dd>The n parts made by the pencil; the n² parts made by
+    pencil and parallels together.</dd>
+    <dt>address</dt><dd>The pair (turn, reach) with x = turn + reach/n; a two-digit base-n
+    numeral.</dd>
+    <dt>carry</dt><dd>The shared boundary mark where reach n of one family coincides with
+    reach 0 of the next.</dd>
+    <dt>next level</dt><dd>The horizontal at 1/n², already cut by the pencil; the standing
+    offer of n³.</dd>
+  </dl>
+</section>
+
+<footer>Sheet R·T-01 — single file, SVG, no libraries. Smoke-checked before delivery; the
+browser check on the iPad is yours.</footer>
+</div>
+
+<script>
+// [MATH-BEGIN]
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){var t=a%b;a=b;b=t;}return a||1;}
+function freeY(n){return 1/n;}
+function projectorMeet(n){return {x:1,y:1/n};}
+function fineOnFree(n,j){return {x:j/n,y:1/n};}
+function shiftOf(k){return k-1;}
+function climbOf(n){return 1-1/n;}
+function turnDir(n,k){return {dx:shiftOf(k),dy:climbOf(n)};}
+function transferTop(n,k,j){return {x:shiftOf(k)+j/n,y:1};}
+function ratioBA(n,k){var p0=n*(k-1),q0=n-1,g=gcd(p0,q0);return {p:p0/g,q:q0/g};}
+function fineX(n,m){return m/n;}
+function addressOf(n,m){if(m===n*n)return {k:n-1,j:n};return {k:Math.floor(m/n),j:m%n};}
+function markOf(n,k,j){return k*n+j;}
+function snapM(n,x){return Math.max(0,Math.min(n*n,Math.round(x*n)));}
+function nextY(n){return 1/(n*n);}
+function nextCut(n,j){return {x:j/(n*n),y:1/(n*n)};}
+function sxOf(cfg,n){return (cfg.W-cfg.ML-cfg.MR)/(n+cfg.XEXTRA);}
+function syOf(cfg){return (cfg.H-cfg.MT-cfg.MB)/(cfg.Y1-cfg.Y0);}
+function worldToScreen(cfg,n,x,y){return {x:cfg.ML+(x+cfg.XPAD)*sxOf(cfg,n),
+  y:cfg.MT+(cfg.Y1-y)*syOf(cfg)};}
+// [MATH-END]
+
+var CFG={W:960,H:880,ML:64,MR:36,MT:24,MB:46,XPAD:0.35,XEXTRA:0.75,Y0:-0.34,Y1:1.66};
+var COLplum='#43203f', COLpurple='#6a2c91', COLgreen='#3f7a4e', COLcrimson='#c0322b',
+    COLgold='#b08948', COLfaint='#e0d7c2', COLcream='#faf6ef';
+var FAM=[COLplum,COLpurple,COLgreen,COLcrimson,COLgold];
+var SVGNS='http://www.w3.org/2000/svg';
+
+var n=3;
+var layers={pencil:true,free:true,band:true,fine:true,next:false};
+var famOn=[true,true,true];
+var probeM=4;
+var dragging=false;
+
+var svg, groups={}, probeC, probeHit, probeRail, probeLbl, capEl;
+
+function el(name,attrs,parent,text){
+  var e=document.createElementNS(SVGNS,name);
+  for(var a in attrs) e.setAttribute(a,attrs[a]);
+  if(text!=null) e.textContent=text;
+  parent.appendChild(e);
+  return e;
+}
+function P(x,y){return worldToScreen(CFG,n,x,y);}
+function line(g,x1,y1,x2,y2,attrs){
+  var a=P(x1,y1), b=P(x2,y2);
+  attrs=attrs||{};
+  attrs.x1=a.x; attrs.y1=a.y; attrs.x2=b.x; attrs.y2=b.y;
+  return el('line',attrs,g);
+}
+function dot(g,x,y,r,fill,extra){
+  var p=P(x,y); var attrs=extra||{};
+  attrs.cx=p.x; attrs.cy=p.y; attrs.r=r; attrs.fill=fill;
+  return el('circle',attrs,g);
+}
+function txt(g,x,y,s,attrs){
+  var p=P(x,y); attrs=attrs||{};
+  attrs.x=p.x; attrs.y=p.y;
+  if(!attrs.fill) attrs.fill=COLplum;
+  return el('text',attrs,g,s);
+}
+function clear(g){while(g.firstChild)g.removeChild(g.firstChild);}
+function fracStr(num,den){return num+'/'+den;}
+function sub(k){return ['₀','₁','₂','₃','₄','₅'][k]||String(k);}
+
+function buildDefs(){
+  var d=document.getElementById('defs'); clear(d);
+  for(var i=0;i<FAM.length;i++){
+    var m=el('marker',{id:'arrF'+i,markerWidth:'9',markerHeight:'8',refX:'8',refY:'4',
+      orient:'auto',markerUnits:'strokeWidth'},d);
+    el('path',{d:'M0,0 L9,4 L0,8 Z',fill:FAM[i]},m);
+  }
+  var md=el('marker',{id:'arrPlum',markerWidth:'9',markerHeight:'8',refX:'8',refY:'4',
+    orient:'auto',markerUnits:'strokeWidth'},d);
+  el('path',{d:'M0,0 L9,4 L0,8 Z',fill:COLplum},md);
+}
+
+function drawGrid(){
+  var g=groups.gGrid; clear(g);
+  for(var x=0;x<=n;x++)
+    line(g,x,0,x,1,{stroke:COLfaint,'stroke-width':1});
+  [0,freeY(n),1].forEach(function(y){
+    line(g,-0.30,y,n+0.38,y,{stroke:COLfaint,'stroke-width':1});
+  });
+  var p=P(-0.26,0.52);
+  el('text',{x:p.x,y:p.y,fill:COLplum,opacity:'0.75','font-size':'14',
+    'text-anchor':'middle','letter-spacing':'1',
+    transform:'rotate(-90 '+p.x+' '+p.y+')'},g,'reach — equal-interval count');
+  txt(g,-0.28,1.60,'turn — direction ratio B : A',
+    {'font-size':'14','font-style':'italic','text-anchor':'start',opacity:'0.75'});
+  txt(g,-0.09,-0.02,'O',{'font-size':'18','font-weight':'bold','text-anchor':'end'});
+  txt(g,-0.13,1,'1',{'font-size':'15','text-anchor':'end','dominant-baseline':'middle'});
+  txt(g,-0.13,freeY(n),fracStr(1,n),
+    {'font-size':'15','text-anchor':'end','dominant-baseline':'middle'});
+  txt(g,n+0.38,-0.22,'n of n = n×n = n\u00B2 :  '+n+' of '+n+' = '+(n*n),
+    {'font-size':'15','text-anchor':'end','font-style':'italic'});
+}
+
+function drawBand(){
+  var g=groups.gBand; clear(g);
+  if(!layers.band) return;
+  line(g,-0.30,1.09,n+0.38,1.09,
+    {stroke:COLgold,'stroke-width':2,'stroke-dasharray':'1.5 8','stroke-linecap':'round'});
+  var A=(n<=3)?0.20:0.14;
+  for(var k=1;k<=n;k++){
+    if(!famOn[k-1]) continue;
+    var gk=0.15*n+(k-1)*(0.7*n/(n-1));
+    var B=shiftOf(k)*A/climbOf(n);
+    line(g,gk,1.16,gk,1.16+A,{stroke:COLplum,'stroke-width':2});
+    if(shiftOf(k)>0)
+      line(g,gk,1.16,gk+B,1.16,{stroke:COLplum,'stroke-width':2});
+    line(g,gk,1.16,gk+1.5*B,1.16+1.5*A,
+      {stroke:FAM[k-1],'stroke-width':2.5,'marker-end':'url(#arrF'+(k-1)+')'});
+    txt(g,gk+1.5*B,1.16+1.5*A+0.07,'T'+k,
+      {'font-size':'17','font-style':'italic','text-anchor':'middle',fill:FAM[k-1]});
+    txt(g,gk-0.045,1.16+A/2,'A',
+      {'font-size':'13','text-anchor':'end','dominant-baseline':'middle'});
+    if(k===1){
+      txt(g,gk+0.05,1.115,'B'+sub(1)+' = 0',{'font-size':'13','text-anchor':'start'});
+    }else{
+      var r=ratioBA(n,k);
+      txt(g,gk+B/2,1.115,'B : A = '+r.p+' : '+r.q,
+        {'font-size':'13','text-anchor':'middle'});
+    }
+  }
+}
+
+function drawRays(){
+  var g=groups.gRays; clear(g);
+  if(!layers.pencil) return;
+  for(var j=1;j<=n;j++)
+    line(g,0,0,j,1,{stroke:COLplum,'stroke-width':(j===n?2.5:1.8),opacity:'0.9'});
+}
+
+function drawFree(){
+  var g=groups.gFree; clear(g);
+  if(!layers.free) return;
+  var fy=freeY(n);
+  line(g,1,1,1,fy+0.02,{stroke:COLplum,'stroke-width':3,'marker-end':'url(#arrPlum)'});
+  dot(g,1,fy,5,COLplum);
+  line(g,0,fy,1,fy,{stroke:COLplum,'stroke-width':3.5});
+  for(var j=0;j<=n;j++){
+    var f=fineOnFree(n,j);
+    dot(g,f.x,f.y,4,COLplum);
+  }
+  txt(g,1.06,fy-0.012,'free horizontal',
+    {'font-size':'12.5','font-style':'italic','text-anchor':'start',opacity:'0.65'});
+}
+
+function drawFam(){
+  var g=groups.gFam; clear(g);
+  for(var k=1;k<=n;k++){
+    if(!famOn[k-1]) continue;
+    for(var j=0;j<=n;j++){
+      var a=fineOnFree(n,j), b=transferTop(n,k,j);
+      line(g,a.x,a.y,b.x,b.y,{stroke:FAM[k-1],'stroke-width':2,opacity:'0.8'});
+    }
+  }
+}
+
+function drawNext(){
+  var g=groups.gNext; clear(g);
+  if(!layers.next) return;
+  var y=nextY(n);
+  line(g,0,y,1/n,y,{stroke:COLpurple,'stroke-width':2.5,'stroke-dasharray':'6 5'});
+  for(var j=0;j<=n;j++){
+    var c=nextCut(n,j);
+    dot(g,c.x,c.y,3,COLpurple);
+  }
+  txt(g,1/n+0.05,y+0.005,fracStr(1,n*n)+' — loaded for '+(n*n*n),
+    {'font-size':'13','font-style':'italic','text-anchor':'start',fill:COLpurple});
+}
+
+function drawTop(){
+  var g=groups.gTop; clear(g);
+  line(g,0,0,0,1,{stroke:COLplum,'stroke-width':3.5});
+  line(g,0,1,n,1,{stroke:COLplum,'stroke-width':4});
+  for(var x=0;x<=n;x++){
+    dot(g,x,1,5.5,COLplum);
+    txt(g,x,1.045,String(x),{'font-size':'15','text-anchor':'middle'});
+  }
+  if(layers.fine){
+    for(var m=1;m<n*n;m++){
+      if(m%n===0) continue;
+      var cell=Math.floor(m/n);
+      if(!famOn[cell]) continue;
+      line(g,fineX(n,m),0.982,fineX(n,m),1.018,
+        {stroke:FAM[cell],'stroke-width':2.2});
+    }
+  }
+}
+
+function drawHi(){
+  var g=groups.gHi; clear(g);
+  var ad=addressOf(n,probeM), k=ad.k, j=ad.j;
+  if(j===0){
+    line(g,0,0,0,1,{stroke:COLcrimson,'stroke-width':3.5});
+  }else{
+    line(g,0,0,j,1,{stroke:COLcrimson,'stroke-width':3});
+  }
+  var a=fineOnFree(n,j), b=transferTop(n,k+1,j);
+  line(g,a.x,a.y,b.x,b.y,{stroke:FAM[k],'stroke-width':4});
+  dot(g,a.x,a.y,6,COLcrimson,{stroke:COLcream,'stroke-width':1.5});
+  var px=P(fineX(n,probeM),1);
+  probeC.setAttribute('cx',px.x); probeC.setAttribute('cy',px.y);
+  probeHit.setAttribute('cx',px.x); probeHit.setAttribute('cy',px.y);
+  var pl=P(fineX(n,probeM),0.925);
+  probeLbl.setAttribute('x',pl.x); probeLbl.setAttribute('y',pl.y);
+  probeLbl.textContent=fracStr(probeM,n);
+}
+
+function caption(){
+  var ad=addressOf(n,probeM), k=ad.k, j=ad.j, tot=n*n, fam=k+1;
+  var s;
+  if(probeM===tot){
+    s='Fine mark '+tot+' of '+tot+' — address (turn '+k+', reach '+n+'): x = '+k+' + '+
+      n+'/'+n+' = '+n+'. The full count closes with a carry off the end.';
+  }else{
+    var val=(k>0? k+' + ':'')+j+'/'+n;
+    s='Fine mark '+probeM+' of '+tot+' — address (turn '+k+', reach '+j+'): x = '+val+
+      ' = '+probeM+'/'+n+'. Carried by T'+fam+
+      (k===0?' (B = 0, straight up)':' (B : A = '+ratioBA(n,fam).p+' : '+ratioBA(n,fam).q+')')+
+      (j===0?' from the free horizontal\u2019s zero on ray 0.'
+            :' from pencil cut '+j+' on the free horizontal.');
+    if(j===0&&k>0)
+      s+=' Shared with T'+k+' as (turn '+(k-1)+', reach '+n+
+         ') — the carry: two transfer lines on one point.';
+  }
+  capEl.textContent=s;
+}
+
+function redrawAll(){
+  drawGrid(); drawBand(); drawRays(); drawFree(); drawFam(); drawNext(); drawTop();
+  var r0=P(-0.05,1), r1=P(n+0.05,1);
+  probeRail.setAttribute('x',r0.x);
+  probeRail.setAttribute('y',r0.y-18);
+  probeRail.setAttribute('width',r1.x-r0.x);
+  probeRail.setAttribute('height',36);
+  drawHi(); caption();
+}
+
+function buildFamChips(){
+  var box=document.getElementById('famChips');
+  box.innerHTML='';
+  for(var k=1;k<=n;k++){
+    (function(k){
+      var b=document.createElement('button');
+      b.className='fchip';
+      b.textContent='T'+k;
+      b.setAttribute('aria-pressed',famOn[k-1]?'true':'false');
+      styleFamChip(b,k);
+      b.addEventListener('click',function(){
+        famOn[k-1]=!famOn[k-1];
+        b.setAttribute('aria-pressed',famOn[k-1]?'true':'false');
+        styleFamChip(b,k);
+        redrawAll();
+      });
+      box.appendChild(b);
+    })(k);
+  }
+}
+function styleFamChip(b,k){
+  var c=FAM[k-1], on=famOn[k-1];
+  b.style.border='1px solid '+c;
+  b.style.background=on?c:COLcream;
+  b.style.color=on?COLcream:c;
+}
+
+function toWorldX(e){
+  var pt=svg.createSVGPoint();
+  pt.x=e.clientX; pt.y=e.clientY;
+  var sp=pt.matrixTransform(svg.getScreenCTM().inverse());
+  return (sp.x-CFG.ML)/sxOf(CFG,n)-CFG.XPAD;
+}
+function onDown(e){
+  e.preventDefault();
+  e.currentTarget.setPointerCapture(e.pointerId);
+  dragging=true;
+  probeM=snapM(n,toWorldX(e));
+  drawHi(); caption();
+}
+function onMove(e){
+  if(!dragging) return;
+  e.preventDefault();
+  probeM=snapM(n,toWorldX(e));
+  drawHi(); caption();
+}
+function onUp(){dragging=false;}
+
+function init(){
+  svg=document.getElementById('plate');
+  capEl=document.getElementById('caption');
+  ['gGrid','gBand','gRays','gFree','gFam','gNext','gTop','gHi','gProbe']
+    .forEach(function(id){groups[id]=document.getElementById(id);});
+  buildDefs();
+  var gp=groups.gProbe;
+  probeRail=el('rect',{fill:'#ffffff','fill-opacity':'0','pointer-events':'all',
+    style:'touch-action:none;cursor:pointer'},gp);
+  probeC=el('circle',{r:10,fill:COLgold,stroke:COLplum,'stroke-width':2,
+    'pointer-events':'none'},gp);
+  probeLbl=el('text',{'font-size':'13','font-weight':'bold','text-anchor':'middle',
+    fill:COLplum,'pointer-events':'none'},gp,'');
+  probeHit=el('circle',{r:24,fill:'#ffffff','fill-opacity':'0','pointer-events':'all',
+    style:'touch-action:none;cursor:grab'},gp);
+  [probeRail,probeHit].forEach(function(t){
+    t.addEventListener('pointerdown',onDown);
+    t.addEventListener('pointermove',onMove);
+    t.addEventListener('pointerup',onUp);
+    t.addEventListener('pointercancel',onUp);
+  });
+  document.querySelectorAll('button.chip').forEach(function(b){
+    b.addEventListener('click',function(){
+      var key=b.getAttribute('data-layer');
+      layers[key]=!layers[key];
+      b.setAttribute('aria-pressed',layers[key]?'true':'false');
+      redrawAll();
+    });
+  });
+  document.getElementById('nMinus').addEventListener('click',function(){setN(n-1);});
+  document.getElementById('nPlus').addEventListener('click',function(){setN(n+1);});
+  buildFamChips();
+  redrawAll();
+}
+function setN(v){
+  v=Math.max(2,Math.min(5,v));
+  if(v===n) return;
+  n=v;
+  famOn=[]; for(var k=0;k<n;k++) famOn.push(true);
+  probeM=Math.min(n+1,n*n);
+  document.getElementById('nLabel').textContent='gauge n = '+n;
+  buildFamChips();
+  redrawAll();
+}
+init();
+</script>
+</body>
+</html>
