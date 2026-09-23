@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One hinge, two banks — the comparison plate</title>
+<style>
+  body{background:#faf6ef;color:#43203f;font-family:Georgia,'Times New Roman',serif;margin:0;padding:18px 14px 64px;}
+  .wrap{max-width:790px;margin:0 auto;}
+  h1{font-size:26px;margin:4px 0 2px;font-weight:normal;}
+  h1 .sub{font-size:16.5px;font-style:italic;color:#6a2c91;margin-left:10px;}
+  .lede{font-size:15.5px;font-style:italic;opacity:.85;margin:2px 0 14px;line-height:1.5;}
+  .controls{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;margin-bottom:8px;}
+  .stepper{display:flex;align-items:center;gap:8px;border:1px solid #b08948;border-radius:10px;padding:3px 10px;background:#fdfaf2;}
+  .stepper button{font-family:inherit;font-size:19px;line-height:1;width:34px;height:31px;border-radius:8px;border:1px solid #43203f;background:#faf6ef;color:#43203f;}
+  .stepper span{font-size:15px;min-width:132px;text-align:center;}
+  button.chip{font-family:inherit;font-size:14px;padding:4px 13px;border-radius:999px;border:1px solid #43203f;background:#faf6ef;color:#43203f;}
+  button.chip[aria-pressed="true"]{background:#43203f;color:#faf6ef;}
+  svg{width:100%;height:auto;display:block;}
+  .caption{border:1px solid #b08948;border-radius:10px;background:#fdfaf2;padding:10px 14px;font-size:14.5px;line-height:1.55;margin:8px 0 22px;min-height:44px;}
+  h2{font-size:20px;font-weight:normal;border-bottom:1px solid #b08948;padding-bottom:4px;margin:26px 0 10px;}
+  .reading p{font-size:15.5px;line-height:1.6;margin:0 0 12px;}
+  dl{margin:0;}
+  dt{font-weight:bold;font-size:15px;margin-top:9px;}
+  dd{margin:1px 0 0 16px;font-size:15px;line-height:1.5;}
+  footer{margin-top:30px;font-size:13px;font-style:italic;opacity:.7;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>One hinge, two banks<span class="sub">the comparison plate — R·T-02 × R·T-03</span></h1>
+  <p class="lede">The two sheets are the same diagram caught leaving base camp in opposite
+  directions. This plate draws the shared configuration once and lets each excursion be
+  switched on over it: the juxtaposed regions (count), the hyperbola and its apex (the uv
+  bank), the semicircle and its apex (the circle bank), the means, and the horizon. Drag M.
+  The headline, verified in the check file: the juxtaposed A + B = C and the signed
+  Minkowski Pythagoras on O–M are one theorem.</p>
+</header>
+
+<div class="controls">
+  <div class="stepper">
+    <button id="aMinus" aria-label="move division left">−</button>
+    <span id="aLabel">a = 3.60, b = 2.40</span>
+    <button id="aPlus" aria-label="move division right">+</button>
+  </div>
+  <button class="chip" data-layer="regions" aria-pressed="true">regions (count)</button>
+  <button class="chip" data-layer="uv" aria-pressed="true">uv bank</button>
+  <button class="chip" data-layer="circle" aria-pressed="false">circle bank</button>
+  <button class="chip" data-layer="means" aria-pressed="false">means</button>
+  <button class="chip" data-layer="horizon" aria-pressed="false">horizon</button>
+</div>
+
+<svg id="plate" viewBox="0 321 960 562" aria-label="one hinge two banks comparison plate">
+  <defs>
+    <pattern id="hatchC" patternUnits="userSpaceOnUse" width="12" height="12">
+      <path d="M0,12 L12,0" stroke="#43203f" stroke-width="1" opacity="0.26"/>
+    </pattern>
+    <marker id="arrP" markerWidth="9" markerHeight="8" refX="8" refY="4"
+      orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L9,4 L0,8 Z" fill="#6a2c91"/>
+    </marker>
+  </defs>
+  <g id="gTint"></g>
+  <g id="gGrid"></g>
+  <g id="gCircle"></g>
+  <g id="gHyper"></g>
+  <g id="gMeans"></g>
+  <g id="gTrap"></g>
+  <g id="gDiag"></g>
+  <g id="gUv"></g>
+  <g id="gHorizon"></g>
+  <g id="gHandle"></g>
+</svg>
+
+<div class="caption" id="caption"></div>
+
+<section class="reading">
+  <h2>Reading the plate</h2>
+  <p>One point, two dossiers. Under the dictionary O↔O, 2↔R, D↔N, B↔M, the lower figure of
+  the settlement plate (R·T-03) is the hinge configuration of R·T-02: the lines B–2 and O–D
+  are R–M and O–N, and their crossing P is X, with the station heights agreeing verbatim —
+  2/(4−b) there is hc/(b+c) here, once the two sheets' opposite conventions for b are
+  translated. Two check files had been metering one point from two sides. On this plate it
+  is drawn once and labeled with both names.</p>
+  <p>The headline: one theorem, two proofs. In the hinge's own coordinates, the Minkowski
+  circle of the product form Q(x, y) = xy on diameter O–M — the gold rectangular hyperbola,
+  null asymptotes, centered at O–M's midpoint — crosses the right edge at exactly one
+  point, P₂ = (c, hc/(b+c)): the hinge's height. The angle O–P₂–M is Q-right, so signed
+  Pythagoras gives Q(OP₂) + Q(P₂M) = Q(OM), legs of opposite type. Now read the squares:
+  the half-square on O–M is the region A vertex for vertex; the half-square on O–P₂ slides
+  along the null rail y = hc/(b+c) — apex P₂ riding to X, Euclid I.37 — into the hatched C;
+  the half-square on P₂–M, whose rectangle owns the corners M and N, slides by the same
+  motion into the green B. The negative square crosses the equals sign and the trade
+  becomes the tiling: A + B = C, the juxtaposed identity, is the uv-Pythagoras wearing
+  region form. What D = D proves by exchange of slivers, the hyperbola proves by signature.
+  Trade versus tiling is (1,1) versus positive-definite — two receipts, one purchase.</p>
+  <p>Three mountings of one instrument. Every certificate on either sheet is a Thales locus
+  on a diameter. The circle bank hangs it above the rail: the semicircle on L–N with apex
+  M′ over M, where LM′² + M′N² = LN² and the altitude M′M reads √(ab) — the geometric mean,
+  the sum bank's quadratic certificate. The uv bank hangs its conic over the same ground:
+  the hyperbola on O–M with apex P₂, right angle by the null-mirror law, equal and opposite
+  slopes ±h/(b+c). The horizon bank hangs it below: the semicircle on O–R with the station
+  point S, from which O and R subtend 90° and whose vertical strikes V_D — the viewer's
+  right angle. Same sentence, three banks; and each bank keeps a degenerate resting state
+  (a null diameter's circle collapsing to a line pair; the untilted second Thales circle
+  straightened into a vertical).</p>
+  <p>The means keep their addresses. Inside the figure: HM is the chord through X, bisected
+  by it; GM is the altitude — √(ab) at M′ upstairs, the signed relation
+  Q(P₂F) = Q(OP₂)·Q(P₂M)/Q(OM) in the uv bank; AM is the midline, and the circle bank's
+  radius. Under tilt (R·T-02 v7) the harmonic mean is evicted from the interior and
+  re-hired on the horizon as 1/OV_D + 1/OV_D′ = 2/c. The hinge is where the three registers
+  make change for one another.</p>
+  <p>What each excursion keeps. The metric-ward sheet (R·T-03) can say <i>why</i> there is
+  a right angle — it owns the forms, its certificates are conics, its −1s implicit. The
+  projective-ward sheet (R·T-02 v7) can say <i>what survives</i> when the forms are taken
+  away — its certificates are cross-ratios, its metric duties exiled to a single point
+  below the page. Bracketed together: one congruence, priced in metric and priced in
+  count, with the cross-ratio as the currency every bank honors. This plate is their
+  common ground drawn as one figure; the tilt that closes the last infinity lives on
+  R·T-02 v7.</p>
+</section>
+
+<section class="glossary">
+  <h2>Glossary</h2>
+  <dl>
+    <dt>the dictionary</dt><dd>O↔O, 2↔R, D↔N, B↔M between R·T-03's lower figure and
+    R·T-02's trapezoid; under it P = X, station height 2/(4−b) = hc/(b+c).</dd>
+    <dt>hinge X = P</dt><dd>The meet of the diagonals O–N and R–M; holder of six offices
+    across the two sheets — chord-bisector, D = D adjudicator, null corner, harmonic
+    center, image point, and slide target.</dd>
+    <dt>juxtaposed regions</dt><dd>A = O L M, D = O M X, B = M X N, D = X N R,
+    C = O X R (hatched): five disjoint pieces tiling the rectangle; A + B = C by
+    cancelling D = D across the diagonal O–N.</dd>
+    <dt>product form uv</dt><dd>Q(x, y) = xy; null directions are the rectangle's own
+    edges. The hinge plate's frame is the settlement plate's metric.</dd>
+    <dt>Minkowski circle on O–M</dt><dd>The Thales locus of Q: the rectangular hyperbola
+    2xy − hx − ay = 0, null asymptotes, centered at O–M's midpoint, through O and M.</dd>
+    <dt>apex P₂</dt><dd>The hyperbola's unique crossing of the right edge, at the hinge's
+    height; the certified Q-right angle, with mirror slopes ±h/(b+c).</dd>
+    <dt>half-square</dt><dd>Half the axis rectangle on a segment as diagonal; signed area
+    ½Q. On this plate the three half-squares are A, C and B — the last two after one
+    slide.</dd>
+    <dt>null slide</dt><dd>Apex P₂ riding the rail y = hc/(b+c) to X (I.37): both
+    half-squares keep their areas while landing on the tinted regions.</dd>
+    <dt>one theorem, two proofs</dt><dd>A + B = C proved by exchange of slivers (D = D)
+    and by signed Pythagoras in uv (the negative square crossing the equals sign); the
+    check file verifies the identities coincide term by term.</dd>
+    <dt>circle bank</dt><dd>The semicircle on L–N with apex M′ above M:
+    LM′² + M′N² = LN², altitude M′M = √(ab) — the Euclidean certificate over the same
+    ground.</dd>
+    <dt>three mountings</dt><dd>Thales loci above (circle, x² + y²), above (hyperbola,
+    uv), and below (semicircle, the viewer): apex M′, apex P₂, station S.</dd>
+    <dt>trade vs tiling</dt><dd>Signature (1,1) signs its squares and trades; positive
+    areas juxtapose and tile. Same identity, two bookkeepings.</dd>
+    <dt>horizon bank</dt><dd>HL through O–R: VPₗ, VPᵣ, V_D at m₀, the quad M X N V as the
+    image of a square, S at the 45° seat, and the −1s that survive every projection. The
+    tilt that brings the fourth VP onto the page lives on R·T-02 v7.</dd>
+    <dt>bank, price</dt><dd>A quadratic form (or its absence) together with its
+    certificate conic; the same claim priced in metric (right angles, means) or in count
+    (incidences, cross-ratios).</dd>
+  </dl>
+</section>
+
+<footer>Sheet R·T-04 — one file, SVG, no libraries; the union of R·T-02 and R·T-03 under
+the dictionary. Smoke-checked before delivery; the browser check on the iPad is yours.</footer>
+</div>
+
+<script>
+// [MATH-BEGIN]
+var C_TOT=6, H_TOT=3.2;
+function bOf(a){return C_TOT-a;}
+function tFrac(a){return C_TOT/(bOf(a)+C_TOT);}
+function tY(a){return H_TOT*tFrac(a);}
+function ptsOf(a){return {O:{x:0,y:0},R:{x:C_TOT,y:0},L:{x:0,y:H_TOT},
+  N:{x:C_TOT,y:H_TOT},M:{x:a,y:H_TOT}};}
+function hingeOf(a){return {x:C_TOT*tFrac(a),y:tY(a)};}
+function P2of(a){return {x:C_TOT,y:tY(a)};}
+function Qv(v){return v.x*v.y;}
+function pairQ(u,v){return u.x*v.y+v.x*u.y;}
+function vsub(p,q){return {x:p.x-q.x,y:p.y-q.y};}
+function hyperVal(a,p){return 2*p.x*p.y-H_TOT*p.x-a*p.y;}
+function hyperY(a,x){return H_TOT*x/(2*x-a);}
+function QOM(a){return a*H_TOT;}
+function QOP2(a){return C_TOT*tY(a);}
+function QP2M(a){return (a-C_TOT)*(H_TOT-tY(a));}
+function slopeMag(a){return H_TOT/(bOf(a)+C_TOT);}
+function Mprime(a){return {x:a,y:H_TOT+Math.sqrt(Math.max(0,9-(a-3)*(a-3)))};}
+function legMeetV(a){return {x:C_TOT,y:H_TOT*C_TOT/a};}
+function midBot(){return {x:C_TOT/2,y:0};}
+function midTop(a){return {x:(a+C_TOT)/2,y:H_TOT};}
+function meet2(P,Q,Rp,Sq){
+  var d1x=Q.x-P.x,d1y=Q.y-P.y,d2x=Sq.x-Rp.x,d2y=Sq.y-Rp.y;
+  var den=d1x*d2y-d1y*d2x;
+  var t=((Rp.x-P.x)*d2y-(Rp.y-P.y)*d2x)/den;
+  return {x:P.x+t*d1x,y:P.y+t*d1y};
+}
+function shoelace3(P,Q,S){return Math.abs((Q.x-P.x)*(S.y-P.y)-(S.x-P.x)*(Q.y-P.y))/2;}
+function regionA(a){var p=ptsOf(a);return [p.O,p.L,p.M];}
+function regionC(a){var p=ptsOf(a);return [p.O,hingeOf(a),p.R];}
+function sharedB(a){var p=ptsOf(a);return [p.M,hingeOf(a),p.N];}
+function sliverL(a){var p=ptsOf(a);return [p.O,p.M,hingeOf(a)];}
+function sliverR(a){var p=ptsOf(a);return [hingeOf(a),p.N,p.R];}
+function hmOf(a){return 2*bOf(a)*C_TOT/(bOf(a)+C_TOT);}
+function gmOf(a){return Math.sqrt(bOf(a)*C_TOT);}
+function amOf(a){return (bOf(a)+C_TOT)/2;}
+function chordAtT(a,u){return {p:{x:a*u,y:H_TOT*u},q:{x:C_TOT,y:H_TOT*u}};}
+function tG(a){return Math.sqrt(C_TOT)/(Math.sqrt(bOf(a))+Math.sqrt(C_TOT));}
+function tA(){return 0.5;}
+function crossRatio4h(y1,y2,y3,y4){return ((y1-y3)/(y2-y3))/((y1-y4)/(y2-y4));}
+function clampA(x){return Math.max(0.6,Math.min(5.4,x));}
+function snapA(x){return Math.round(clampA(x)*20)/20;}
+function sOf(cfg){return (cfg.W-cfg.ML-cfg.MR)/(cfg.XMAX-cfg.XMIN);}
+function worldToScreen(cfg,x,y){var s=sOf(cfg);
+  return {x:cfg.ML+(x-cfg.XMIN)*s, y:cfg.MT+(cfg.YMAX-y)*s};}
+// [MATH-END]
+
+var CFG={W:960,H:1240,ML:50,MR:30,MT:20,XMIN:-0.7,XMAX:6.9,YMAX:6.65};
+var COLplum='#43203f', COLpurple='#6a2c91', COLgreen='#3f7a4e', COLcrimson='#c0322b',
+    COLgold='#b08948', COLfaint='#e0d7c2', COLcream='#faf6ef';
+var SVGNS='http://www.w3.org/2000/svg';
+
+var a=3.6;
+var layers={regions:true,uv:true,circle:false,means:false,horizon:false};
+var dragging=false;
+var svg, groups={}, capEl, handleC, handleHit, rail;
+
+function el(name,attrs,parent,text){
+  var e=document.createElementNS(SVGNS,name);
+  for(var k in attrs) e.setAttribute(k,attrs[k]);
+  if(text!=null) e.textContent=text;
+  parent.appendChild(e);
+  return e;
+}
+function line(g,x1,y1,x2,y2,attrs){
+  var p=worldToScreen(CFG,x1,y1), q=worldToScreen(CFG,x2,y2);
+  attrs=attrs||{}; attrs.x1=p.x; attrs.y1=p.y; attrs.x2=q.x; attrs.y2=q.y;
+  return el('line',attrs,g);
+}
+function dot(g,x,y,r,fill,extra){
+  var p=worldToScreen(CFG,x,y); var at=extra||{};
+  at.cx=p.x; at.cy=p.y; at.r=r; at.fill=fill;
+  return el('circle',at,g);
+}
+function txt(g,x,y,s,attrs){
+  var p=worldToScreen(CFG,x,y); attrs=attrs||{};
+  attrs.x=p.x; attrs.y=p.y;
+  if(!attrs.fill) attrs.fill=COLplum;
+  return el('text',attrs,g,s);
+}
+function poly(g,pts,attrs){
+  var d=pts.map(function(p){var s=worldToScreen(CFG,p.x,p.y);return s.x+','+s.y;}).join(' ');
+  attrs=attrs||{}; attrs.points=d;
+  return el('polygon',attrs,g);
+}
+function clear(g){while(g.firstChild)g.removeChild(g.firstChild);}
+function fmt(x){return x.toFixed(3);}
+function fmt2(x){return x.toFixed(2);}
+
+function brace(g,x0,x1,y,label,above,color){
+  line(g,x0,y,x1,y,{stroke:color,'stroke-width':2});
+  var tick=above?-0.07:0.07;
+  line(g,x0,y,x0,y+tick,{stroke:color,'stroke-width':2});
+  line(g,x1,y,x1,y+tick,{stroke:color,'stroke-width':2});
+  txt(g,(x0+x1)/2,y+(above?0.10:-0.22),label,
+    {'font-size':'16','font-style':'italic','text-anchor':'middle',fill:color});
+}
+
+function updateViewBox(){
+  var top=layers.circle? 0 : Math.round(worldToScreen(CFG,0,4.05).y);
+  var bot=Math.round(worldToScreen(CFG,0,layers.horizon? -3.72 : -0.80).y);
+  svg.setAttribute('viewBox','0 '+top+' 960 '+(bot-top));
+}
+
+function drawAll(){
+  var b=bOf(a), p=ptsOf(a), X=hingeOf(a), P2=P2of(a), t=tY(a), V=legMeetV(a);
+
+  // regions (count bank)
+  var g=groups.gTint; clear(g);
+  if(layers.regions){
+    poly(g,regionC(a),{fill:'url(#hatchC)'});
+    poly(g,regionA(a),{fill:COLplum,opacity:'0.07'});
+    poly(g,sliverL(a),{fill:COLgold,opacity:'0.22'});
+    poly(g,sliverR(a),{fill:COLgold,opacity:'0.22'});
+    poly(g,sharedB(a),{fill:COLgreen,opacity:'0.22'});
+    function cen(tr){return {x:(tr[0].x+tr[1].x+tr[2].x)/3,y:(tr[0].y+tr[1].y+tr[2].y)/3};}
+    var c1=cen(sliverL(a)), c2=cen(sliverR(a)), c3=cen(sharedB(a)), c4=cen(regionC(a));
+    txt(g,c1.x,c1.y-0.06,'D',{'font-size':'17','text-anchor':'middle'});
+    txt(g,c2.x,c2.y-0.06,'D',{'font-size':'17','text-anchor':'middle'});
+    txt(g,c3.x,c3.y-0.06,'B',{'font-size':'15','text-anchor':'middle',fill:COLgreen});
+    txt(g,a/3,1.98,'A',{'font-size':'17','text-anchor':'middle'});
+    txt(g,c4.x,c4.y-0.05,'C',{'font-size':'17','text-anchor':'middle'});
+  }
+
+  g=groups.gGrid; clear(g);
+  brace(g,0,a,H_TOT+0.16,'a',true,COLcrimson);
+  brace(g,a,C_TOT,H_TOT+0.16,'b',true,COLcrimson);
+  brace(g,0,C_TOT,-0.18,'c',false,COLcrimson);
+
+  // circle bank
+  g=groups.gCircle; clear(g);
+  if(layers.circle){
+    var Mp=Mprime(a), arc='';
+    for(var i=0;i<=120;i++){
+      var th=Math.PI-Math.PI*i/120;
+      var q=worldToScreen(CFG,3+3*Math.cos(th),H_TOT+3*Math.sin(th));
+      arc+=(i?' ':'')+q.x.toFixed(1)+','+q.y.toFixed(1);
+    }
+    el('polyline',{points:arc,fill:'none',stroke:COLplum,'stroke-width':2,opacity:'0.8'},g);
+    line(g,p.L.x,p.L.y,Mp.x,Mp.y,{stroke:COLplum,'stroke-width':1.4,opacity:'0.6'});
+    line(g,Mp.x,Mp.y,p.N.x,p.N.y,{stroke:COLplum,'stroke-width':1.4,opacity:'0.6'});
+    line(g,a,H_TOT,Mp.x,Mp.y,{stroke:COLgold,'stroke-width':1.8,'stroke-dasharray':'5 5'});
+    dot(g,Mp.x,Mp.y,4.5,COLgold,{stroke:COLplum,'stroke-width':1.5});
+    txt(g,Mp.x+0.06,Mp.y+0.08,'M\u2032',{'font-size':'15','text-anchor':'start'});
+    txt(g,a+0.08,(H_TOT+Mp.y)/2,'\u221A(ab)',
+      {'font-size':'12.5','font-style':'italic','text-anchor':'start',fill:COLgold});
+    txt(g,0.1,H_TOT+2.6,'LM\u2032\u00B2 + M\u2032N\u00B2 = LN\u00B2',
+      {'font-size':'13','font-style':'italic','text-anchor':'start',opacity:'0.75'});
+  }
+
+  // uv bank: hyperbola
+  g=groups.gHyper; clear(g);
+  if(layers.uv){
+    line(g,a/2,-0.45,a/2,4.0,
+      {stroke:COLgold,'stroke-width':1,'stroke-dasharray':'3 6',opacity:'0.5'});
+    line(g,CFG.XMIN+0.05,H_TOT/2,CFG.XMAX-0.05,H_TOT/2,
+      {stroke:COLgold,'stroke-width':1,'stroke-dasharray':'3 6',opacity:'0.5'});
+    [[CFG.XMIN+0.02,a/2],[a/2,CFG.XMAX-0.02]].forEach(function(dom){
+      var run=[],runs=[];
+      for(var i2=0;i2<=300;i2++){
+        var x=dom[0]+(dom[1]-dom[0])*i2/300;
+        if(Math.abs(2*x-a)<1e-4){ if(run.length>1)runs.push(run); run=[]; continue; }
+        var y=hyperY(a,x);
+        if(y<-0.45||y>4.0){ if(run.length>1)runs.push(run); run=[]; continue; }
+        run.push(worldToScreen(CFG,x,y));
+      }
+      if(run.length>1)runs.push(run);
+      runs.forEach(function(rr){
+        el('polyline',{points:rr.map(function(q2){return q2.x.toFixed(1)+','+q2.y.toFixed(1);})
+          .join(' '),fill:'none',stroke:COLgold,'stroke-width':2.5},g);
+      });
+    });
+    dot(g,a/2,H_TOT/2,3.5,COLgold);
+    dot(g,P2.x,P2.y,7,COLgold,{stroke:COLplum,'stroke-width':2});
+    txt(g,P2.x+0.09,P2.y-0.02,'P\u2082',{'font-size':'16','font-weight':'bold',
+      'text-anchor':'start'});
+  }
+
+  // means
+  g=groups.gMeans; clear(g);
+  if(layers.means){
+    var cA=chordAtT(a,tA());
+    line(g,cA.p.x,cA.p.y,cA.q.x,cA.q.y,
+      {stroke:COLplum,'stroke-width':2,'stroke-dasharray':'7 5'});
+    txt(g,C_TOT+0.10,cA.p.y,'AM '+fmt2(amOf(a)),
+      {'font-size':'12.5','text-anchor':'start','dominant-baseline':'middle'});
+    var cG=chordAtT(a,tG(a));
+    line(g,cG.p.x,cG.p.y,cG.q.x,cG.q.y,{stroke:COLgreen,'stroke-width':2.5});
+    txt(g,C_TOT+0.10,cG.p.y,'GM '+fmt2(gmOf(a)),
+      {'font-size':'12.5','text-anchor':'start','dominant-baseline':'middle',fill:COLgreen});
+    var cH=chordAtT(a,tFrac(a));
+    line(g,cH.p.x,cH.p.y,cH.q.x,cH.q.y,{stroke:COLgold,'stroke-width':4});
+    txt(g,C_TOT+0.10,cH.p.y,'HM '+fmt2(hmOf(a)),
+      {'font-size':'12.5','text-anchor':'start','dominant-baseline':'middle',fill:COLgold});
+  }
+
+  // frame
+  g=groups.gTrap; clear(g);
+  line(g,0,0,C_TOT,0,{stroke:COLplum,'stroke-width':3.5});
+  line(g,C_TOT,0,C_TOT,H_TOT,{stroke:COLplum,'stroke-width':3.5});
+  line(g,0,0,0,H_TOT,{stroke:COLplum,'stroke-width':2});
+  line(g,0,H_TOT,C_TOT,H_TOT,{stroke:COLcrimson,'stroke-width':3.5});
+  line(g,0,0,a,H_TOT,{stroke:COLplum,'stroke-width':2,opacity:'0.6'});
+  dot(g,0,0,5,COLplum); dot(g,C_TOT,0,5,COLplum);
+  dot(g,C_TOT,H_TOT,5,COLplum); dot(g,0,H_TOT,4,COLplum);
+  txt(g,-0.14,-0.14,'O',{'font-size':'16','text-anchor':'end'});
+  txt(g,C_TOT+0.13,-0.14,'R',{'font-size':'16','text-anchor':'start'});
+  txt(g,C_TOT+0.13,H_TOT+0.02,'N',{'font-size':'16','text-anchor':'start'});
+  txt(g,-0.14,H_TOT+0.02,'L',{'font-size':'16','text-anchor':'end'});
+  txt(g,a-0.05,H_TOT+0.34,'M',{'font-size':'16','text-anchor':'end'});
+
+  // diagonals + hinge, both names
+  g=groups.gDiag; clear(g);
+  line(g,0,0,C_TOT,H_TOT,{stroke:COLcrimson,'stroke-width':2.5});
+  line(g,C_TOT,0,a,H_TOT,{stroke:COLcrimson,'stroke-width':2.5});
+  dot(g,X.x,X.y,7,COLgold,{stroke:COLplum,'stroke-width':2});
+  txt(g,X.x-0.13,X.y-0.04,'X = P',{'font-size':'15','font-weight':'bold',
+    'text-anchor':'end'});
+
+  // uv bank: squares and slide
+  g=groups.gUv; clear(g);
+  if(layers.uv){
+    poly(g,[{x:0,y:0},{x:0,y:H_TOT},{x:a,y:H_TOT},{x:a,y:0}],
+      {fill:'none',stroke:COLgreen,'stroke-width':1.3,'stroke-dasharray':'4 4',opacity:'0.8'});
+    line(g,0,0,a,H_TOT,{stroke:COLgreen,'stroke-width':2});
+    poly(g,[{x:0,y:0},{x:0,y:t},{x:C_TOT,y:t},{x:C_TOT,y:0}],
+      {fill:'none',stroke:COLgreen,'stroke-width':1.3,'stroke-dasharray':'4 4',opacity:'0.8'});
+    line(g,0,0,P2.x,P2.y,{stroke:COLgreen,'stroke-width':2});
+    poly(g,[{x:a,y:t},{x:C_TOT,y:t},{x:C_TOT,y:H_TOT},{x:a,y:H_TOT}],
+      {fill:'none',stroke:COLcrimson,'stroke-width':1.3,'stroke-dasharray':'4 4',opacity:'0.85'});
+    line(g,a,H_TOT,P2.x,P2.y,{stroke:COLcrimson,'stroke-width':2});
+    txt(g,a*0.5+0.14,H_TOT*0.5-0.16,'+',{'font-size':'17','font-weight':'bold',
+      fill:COLgreen,'text-anchor':'middle'});
+    txt(g,C_TOT*0.5+0.14,t*0.5-0.16,'+',{'font-size':'17','font-weight':'bold',
+      fill:COLgreen,'text-anchor':'middle'});
+    txt(g,(a+C_TOT)/2+0.14,(t+H_TOT)/2+0.12,'\u2212',{'font-size':'17','font-weight':'bold',
+      fill:COLcrimson,'text-anchor':'middle'});
+    line(g,P2.x,P2.y,X.x,X.y,{stroke:COLpurple,'stroke-width':2,
+      'stroke-dasharray':'6 5','marker-end':'url(#arrP)'});
+    txt(g,(P2.x+X.x)/2,t+0.08,'null slide (I.37)',
+      {'font-size':'12','font-style':'italic','text-anchor':'middle',fill:COLpurple});
+  }
+
+  // horizon bank
+  g=groups.gHorizon; clear(g);
+  if(layers.horizon){
+    var m0=midBot(), m1=midTop(a), S={x:3,y:-3};
+    line(g,-0.62,0,C_TOT+0.82,0,{stroke:COLcrimson,'stroke-width':2.5,opacity:'0.85'});
+    txt(g,C_TOT+0.86,0,'HL',{'font-size':'14','text-anchor':'start',fill:COLcrimson,
+      'dominant-baseline':'middle'});
+    txt(g,-0.14,-0.36,'VP\u2097',{'font-size':'13.5','text-anchor':'end',fill:COLcrimson});
+    txt(g,C_TOT+0.14,-0.36,'VP\u1d63',{'font-size':'13.5','text-anchor':'start',
+      fill:COLcrimson});
+    dot(g,m0.x,m0.y,4.5,COLcrimson);
+    txt(g,m0.x+0.12,-0.36,'V_D',{'font-size':'13.5','text-anchor':'start',fill:COLcrimson});
+    poly(g,[p.M,X,p.N,V],{fill:COLcrimson,opacity:'0.12',stroke:COLcrimson,
+      'stroke-width':1.4});
+    var dTop=(V.y<=6.3)?V:{x:m0.x+(V.x-m0.x)*6.3/V.y,y:6.3};
+    line(g,m0.x,0,dTop.x,dTop.y,{stroke:COLcrimson,'stroke-width':1,
+      'stroke-dasharray':'3 5',opacity:'0.7'});
+    if(V.y<=6.3) dot(g,V.x,V.y,4,COLcrimson);
+    dot(g,m1.x,m1.y,5.5,'none',{stroke:COLcrimson,'stroke-width':1.5});
+    var arcS='';
+    for(var i3=0;i3<=60;i3++){
+      var th3=Math.PI+Math.PI*i3/60;
+      var q3=worldToScreen(CFG,3+3*Math.cos(th3),3*Math.sin(th3));
+      arcS+=(i3?' ':'')+q3.x.toFixed(1)+','+q3.y.toFixed(1);
+    }
+    el('polyline',{points:arcS,fill:'none',stroke:COLcrimson,'stroke-width':1.2,
+      'stroke-dasharray':'5 6',opacity:'0.5'},g);
+    line(g,0,0,S.x,S.y,{stroke:COLcrimson,'stroke-width':1.5});
+    line(g,C_TOT,0,S.x,S.y,{stroke:COLcrimson,'stroke-width':1.5});
+    line(g,S.x,S.y,m0.x,0,{stroke:COLcrimson,'stroke-width':1.2,'stroke-dasharray':'6 5'});
+    dot(g,S.x,S.y,5.5,COLcrimson,{stroke:COLcream,'stroke-width':1.5});
+    txt(g,S.x,S.y-0.34,'S \u2014 station point, 45\u00B0',
+      {'font-size':'13.5','text-anchor':'middle',fill:COLcrimson});
+    txt(g,-0.3,-1.05,
+      '(VP\u2097, VP\u1d63 ; V_D, \u221E) = \u22121 \u00B7 (m\u2081, m\u2080 ; X, V) = \u22121 \u2014 the tilt lives on R\u00B7T-02 v7',
+      {'font-size':'13','font-style':'italic','text-anchor':'start'});
+  }
+
+  // handle
+  var hp=worldToScreen(CFG,a,H_TOT);
+  handleC.setAttribute('cx',hp.x); handleC.setAttribute('cy',hp.y);
+  handleHit.setAttribute('cx',hp.x); handleHit.setAttribute('cy',hp.y);
+
+  document.getElementById('aLabel').textContent='a = '+fmt2(a)+', b = '+fmt2(b);
+  updateViewBox();
+  caption();
+}
+
+function caption(){
+  var b=bOf(a), t=tY(a);
+  var A=a*H_TOT/2, B=(C_TOT-a)*(H_TOT-t)/2, C=C_TOT*t/2;
+  var cap='a = '+fmt2(a)+', b = '+fmt2(b)+' (c = '+C_TOT+', h = '+H_TOT+').  '+
+    'Count: A '+fmt(A)+' + B '+fmt(B)+' = C '+fmt(C)+', five disjoint regions, D = D.  '+
+    'uv: \u00BDQ(OM) = \u00BDQ(OP\u2082) + \u00BDQ(P\u2082M): '+fmt(QOM(a)/2)+' = '+
+    fmt(QOP2(a)/2)+' + ('+fmt(QP2M(a)/2)+') \u2014 the negative square crosses the '+
+    'equals sign, and the three half-squares are A, C and B after one null slide.  '+
+    'The hinge X = P stands at height hc/(b+c) = '+fmt(t)+', shared by tiling, form, '+
+    'circle and horizon.';
+  capEl.textContent=cap;
+}
+
+function toWorldX(e){
+  var pt=svg.createSVGPoint();
+  pt.x=e.clientX; pt.y=e.clientY;
+  var sp=pt.matrixTransform(svg.getScreenCTM().inverse());
+  return CFG.XMIN+(sp.x-CFG.ML)/sOf(CFG);
+}
+function onDown(e){
+  e.preventDefault();
+  e.currentTarget.setPointerCapture(e.pointerId);
+  dragging=true;
+  a=snapA(toWorldX(e)); drawAll();
+}
+function onMove(e){
+  if(!dragging) return;
+  e.preventDefault();
+  a=snapA(toWorldX(e)); drawAll();
+}
+function onUp(){dragging=false;}
+
+function init(){
+  svg=document.getElementById('plate');
+  capEl=document.getElementById('caption');
+  ['gTint','gGrid','gCircle','gHyper','gMeans','gTrap','gDiag','gUv','gHorizon','gHandle']
+    .forEach(function(id){groups[id]=document.getElementById(id);});
+  var gh=groups.gHandle;
+  var r0=worldToScreen(CFG,-0.05,H_TOT), r1=worldToScreen(CFG,C_TOT+0.05,H_TOT);
+  rail=el('rect',{x:r0.x,y:r0.y-18,width:r1.x-r0.x,height:36,fill:'#ffffff',
+    'fill-opacity':'0','pointer-events':'all',style:'touch-action:none;cursor:pointer'},gh);
+  handleC=el('circle',{r:9,fill:COLgold,stroke:COLplum,'stroke-width':2,
+    'pointer-events':'none'},gh);
+  handleHit=el('circle',{r:26,fill:'#ffffff','fill-opacity':'0','pointer-events':'all',
+    style:'touch-action:none;cursor:grab'},gh);
+  [rail,handleHit].forEach(function(tg){
+    tg.addEventListener('pointerdown',onDown);
+    tg.addEventListener('pointermove',onMove);
+    tg.addEventListener('pointerup',onUp);
+    tg.addEventListener('pointercancel',onUp);
+  });
+  document.querySelectorAll('button.chip').forEach(function(bn){
+    bn.addEventListener('click',function(){
+      var key=bn.getAttribute('data-layer');
+      layers[key]=!layers[key];
+      bn.setAttribute('aria-pressed',layers[key]?'true':'false');
+      drawAll();
+    });
+  });
+  document.getElementById('aMinus').addEventListener('click',function(){
+    a=snapA(a-0.2); drawAll();});
+  document.getElementById('aPlus').addEventListener('click',function(){
+    a=snapA(a+0.2); drawAll();});
+  drawAll();
+}
+init();
+</script>
+</body>
+</html>
