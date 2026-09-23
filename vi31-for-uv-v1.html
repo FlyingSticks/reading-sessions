@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VI.31 for uv — the settlement plate</title>
+<style>
+  body{background:#faf6ef;color:#43203f;font-family:Georgia,'Times New Roman',serif;margin:0;padding:18px 14px 64px;}
+  .wrap{max-width:790px;margin:0 auto;}
+  h1{font-size:26px;margin:4px 0 2px;font-weight:normal;}
+  h1 .sub{font-size:17px;font-style:italic;color:#6a2c91;margin-left:10px;}
+  .lede{font-size:15.5px;font-style:italic;opacity:.85;margin:2px 0 14px;line-height:1.5;}
+  .controls{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;margin-bottom:8px;}
+  .stepper{display:flex;align-items:center;gap:8px;border:1px solid #b08948;border-radius:10px;padding:3px 10px;background:#fdfaf2;}
+  .stepper button{font-family:inherit;font-size:19px;line-height:1;width:34px;height:31px;border-radius:8px;border:1px solid #43203f;background:#faf6ef;color:#43203f;}
+  .stepper span{font-size:15px;min-width:78px;text-align:center;}
+  button.chip{font-family:inherit;font-size:14px;padding:4px 13px;border-radius:999px;border:1px solid #43203f;background:#faf6ef;color:#43203f;}
+  button.chip[aria-pressed="true"]{background:#43203f;color:#faf6ef;}
+  svg{width:100%;height:auto;display:block;}
+  .caption{border:1px solid #b08948;border-radius:10px;background:#fdfaf2;padding:10px 14px;font-size:15px;line-height:1.55;margin:8px 0 22px;min-height:44px;}
+  h2{font-size:20px;font-weight:normal;border-bottom:1px solid #b08948;padding-bottom:4px;margin:26px 0 10px;}
+  .reading p{font-size:15.5px;line-height:1.6;margin:0 0 12px;}
+  dl{margin:0;}
+  dt{font-weight:bold;font-size:15px;margin-top:9px;}
+  dd{margin:1px 0 0 16px;font-size:15px;line-height:1.5;}
+  footer{margin-top:30px;font-size:13px;font-style:italic;opacity:.7;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>VI.31 for uv<span class="sub">the settlement plate</span></h1>
+  <p class="lede">The debt: exhibit OAB + BPD = OP2 as the Pythagorean theorem of the product
+  form, with the rectangular hyperbola playing the circle's part. Drag B along the red line.
+  The hyperbola is the Minkowski circle on diameter O–B; where it exits the right edge is the
+  right-angle apex P₂; and one slide along a null rail turns its three squares into the three
+  tinted triangles. The reading converts.</p>
+</header>
+
+<div class="controls">
+  <div class="stepper">
+    <button id="bMinus" aria-label="move B left">−</button>
+    <span id="bLabel">b = 1.00</span>
+    <button id="bPlus" aria-label="move B right">+</button>
+  </div>
+  <button class="chip" data-layer="circle" aria-pressed="true">circle upstairs</button>
+  <button class="chip" data-layer="hyper" aria-pressed="true">hyperbola</button>
+  <button class="chip" data-layer="mirror" aria-pressed="false">null mirror</button>
+  <button class="chip" data-layer="squares" aria-pressed="true">signed squares</button>
+  <button class="chip" data-layer="shear" aria-pressed="true">null shear</button>
+  <button class="chip" data-layer="alt" aria-pressed="false">altitude</button>
+</div>
+
+<svg id="plate" viewBox="0 0 960 790" aria-label="Minkowski VI.31 settlement plate">
+  <defs id="defs"></defs>
+  <g id="gTint"></g>
+  <g id="gCircle"></g>
+  <g id="gGrid"></g>
+  <g id="gHyper"></g>
+  <g id="gSquares"></g>
+  <g id="gShear"></g>
+  <g id="gMirror"></g>
+  <g id="gAlt"></g>
+  <g id="gHandle"></g>
+</svg>
+
+<div class="caption" id="caption"></div>
+
+<section class="reading">
+  <h2>Reading the plate</h2>
+  <p>What was owed. The lower identity had been priced as a reading: it <i>behaves</i> like a
+  Pythagorean theorem for the product form Q(x, y) = xy, whose null directions are the
+  rectangle's own edges. The stated redemption terms: draw the form's conic over the rectangle,
+  produce a Thales-analogue certifying a right angle, and derive the identity as Euclid VI.31 —
+  similar figures on the three sides of a right triangle, areas adding as the squares do. This
+  plate pays.</p>
+  <p>The Minkowski circle. Fix the segment O–B, the hypotenuse whose Q-square is
+  Q(OB) = b·1 = b. The locus of points E with (E−O) Q-orthogonal to (E−B) — the Thales circle
+  of the form — is the rectangular hyperbola 2xy − x − by = 0: centered at the midpoint of
+  O–B, asymptotes along the null directions, passing through O and B. It crosses the
+  rectangle's right edge at exactly one point, P₂ = (2, 2/(4−b)) — and that height, 2/(4−b),
+  is the hinge height already on the books. By hyperbola-Thales, the angle O–P₂–B is a
+  Q-right angle. The certificate can also be read optically: Q-orthogonality for the product
+  form means <i>equal and opposite slopes</i>, ±1/(4−b) here, so P₂ is the point on the right
+  edge at which a ray from O reflects off a horizontal null mirror and arrives at B.</p>
+  <p>Signed Pythagoras. For any symmetric form, Q(OB) = Q(OP₂) + Q(P₂B) + 2⟨OP₂, P₂B⟩, so a
+  Q-right angle at P₂ gives Q(OP₂) + Q(P₂B) = Q(OB) — identically in b, as the caption's
+  ledger shows. But signature (1,1) adds its signature clause: the two legs at a Thales apex
+  always have opposite causal type. Here Q(OP₂) = 2t &gt; 0 while Q(P₂B) = (b−2)(1−t) &lt; 0.
+  The form does not sum two positives; it trades a positive against a negative. Euclid's
+  circle never shows this because x² + y² has no negatives to hide.</p>
+  <p>Squares into triangles. The square on a segment, in this geometry, is the axis-aligned
+  rectangle having the segment as diagonal — signed area Q — and its half-square is the
+  triangle cut by that diagonal. All axis rectangles are Q-similar (diagonal maps scale Q),
+  the sign-reversing ones included, exactly as Euclid admits reflections. Now read the page:
+  the half-square on O–B <i>is</i> the tinted triangle OAB, vertex for vertex. The half-square
+  on O–P₂ is the triangle O–P₂–2; the half-square on P₂–B is the triangle B–P₂–D — its
+  rectangle owns the corner D outright. One slide finishes it: the apex P₂ rides the null rail
+  y = 2/(4−b) to the hinge P, and by I.37 — equal bases, apexes on one parallel — both
+  half-squares keep their areas while becoming the tinted OP2 and BPD. Then the negative
+  square crosses the equals sign: ½Q(OB) = ½Q(OP₂) + ½Q(P₂B) rearranges, unsigned, to
+  OAB + BPD = OP2. That is VI.31 for uv, drawn.</p>
+  <p>The hinge, re-identified. P was met twice before: as the meet of B–2 with O–D, and as the
+  trapezoid diagonal crossing at height 2/(4−b) with its harmonic chord. It is now met a third
+  time, from inside the form: P is the null corner between the apex and its altitude —
+  P₂ to P runs horizontal, P to the Q-altitude foot F on O–B runs vertical, and Euclid's
+  lemma holds in Q throughout: Q(OP₂) = Q(OB)·(foot fraction), and
+  Q(P₂F) = Q(OP₂)·Q(P₂B)/Q(OB), the form's geometric-mean relation, negative because the
+  altitude has the opposite type of the hypotenuse — the same office the altitude B′B holds
+  upstairs, where the circle makes it √(AB·BD).</p>
+  <p>Settlement. Every load-bearing word of the naming now has a theorem behind it on this one
+  page: the conic, its Thales, the right angle, the squares, the similar figures, the lemma,
+  the mean. The word "Pythagorean" is redeemed; the claim is priced as theorem, and the two
+  certificates hang over one rectangle — the circle for x² + y², where all squares agree in
+  sign and the theorem sums, and the hyperbola for xy, where the legs must disagree and the
+  theorem trades. One congruence, two quadratic banks; the page clears in both.</p>
+</section>
+
+<section class="glossary">
+  <h2>Glossary</h2>
+  <dl>
+    <dt>product form</dt><dd>Q(x, y) = xy on the rectangle's coordinates; rotated 45° it is
+    (x² − y²)/2, the Minkowski plane's form in null coordinates.</dd>
+    <dt>null direction</dt><dd>A direction of Q-length zero: here horizontal and vertical,
+    the rectangle's own edges; the form's degenerate conic Q = 0 is this line pair.</dd>
+    <dt>Q-orthogonal</dt><dd>⟨u, v⟩ = (u₁v₂ + u₂v₁)/2 = 0; for the product form, equal and
+    opposite slopes — the mirror law off a null direction.</dd>
+    <dt>Minkowski circle</dt><dd>The Thales locus of a segment: all E with (E−O) ⊥ (E−B).
+    A rectangular hyperbola with null asymptotes, centered at the segment's midpoint.</dd>
+    <dt>hyperbola-Thales</dt><dd>E on the Minkowski circle of diameter O–B ⟺ the angle
+    O–E–B is Q-right; the circle-Thales sentence with the conic exchanged.</dd>
+    <dt>apex P₂</dt><dd>The Minkowski circle's unique crossing of the right edge,
+    (2, 2/(4−b)); the certified Q-right angle of the plate.</dd>
+    <dt>signed square</dt><dd>The axis rectangle on a segment as diagonal, area Q with sign;
+    its half-square is the triangle the diagonal cuts.</dd>
+    <dt>negative square</dt><dd>A square of Q &lt; 0 (segment of the other causal type);
+    rendered crimson; it crosses the equals sign to appear as a positive area.</dd>
+    <dt>Q-similar</dt><dd>Related by a diagonal map (λx, μy), which scales Q by λμ; includes
+    sign-reversing anti-similarities, as Euclidean similarity includes reflections.</dd>
+    <dt>null shear</dt><dd>Sliding an apex along a rail parallel to a null base — I.37;
+    area-preserving, and the move that carries both half-squares onto the tinted triangles.</dd>
+    <dt>hinge P</dt><dd>Meet of B–2 and O–D; trapezoid diagonal crossing; and now the null
+    corner between apex P₂ and altitude foot F — three offices, one point.</dd>
+    <dt>altitude foot F</dt><dd>The Q-perpendicular from P₂ onto O–B; foot fraction
+    Q(OP₂)/Q(OB) along the hypotenuse — Euclid's lemma in Q.</dd>
+    <dt>Q-geometric mean</dt><dd>Q(P₂F) = Q(OP₂)·Q(P₂B)/Q(OB), the altitude relation;
+    upstairs the same office is B′B = √(AB·BD).</dd>
+    <dt>settlement</dt><dd>The conversion of a priced reading into theorem by exhibiting its
+    redemption terms; what this plate performs for the word "Pythagorean."</dd>
+  </dl>
+</section>
+
+<footer>Sheet R·T-03 — single file, SVG, no libraries. Smoke-checked before delivery; the
+browser check on the iPad is yours.</footer>
+</div>
+
+<script>
+// [MATH-BEGIN]
+var BMIN=0.25, BMAX=1.75;
+function tOf(b){return 2/(4-b);}
+function P2of(b){return {x:2,y:tOf(b)};}
+function Pof(b){return {x:2*tOf(b),y:tOf(b)};}
+function Qv(v){return v.x*v.y;}
+function pairQ(u,v){return u.x*v.y+v.x*u.y;}
+function vsub(p,q){return {x:p.x-q.x,y:p.y-q.y};}
+function hyperY(b,x){return x/(2*x-b);}
+function hyperVal(b,p){return 2*p.x*p.y-p.x-b*p.y;}
+function centerOf(b){return {x:b/2,y:0.5};}
+function footF(b){return {x:2*tOf(b),y:2*tOf(b)/b};}
+function tauOf(b){return 2*tOf(b)/b;}
+function QOB(b){return b;}
+function QOP2(b){return 2*tOf(b);}
+function QP2B(b){return (b-2)*(1-tOf(b));}
+function areaOAB(b){return b/2;}
+function areaBPD(b){return (2-b)*(1-tOf(b))/2;}
+function areaOP2(b){return tOf(b);}
+function slopeMag(b){return 1/(4-b);}
+function Bprime(b){return {x:b,y:1+Math.sqrt(Math.max(0,1-(b-1)*(b-1)))};}
+function shoelace3(P,Q,S){return Math.abs((Q.x-P.x)*(S.y-P.y)-(S.x-P.x)*(Q.y-P.y))/2;}
+function clampB(x){return Math.max(BMIN,Math.min(BMAX,x));}
+function snapB(x){return Math.round(clampB(x)*20)/20;}
+function sOf(cfg){return (cfg.W-cfg.ML-cfg.MR)/(cfg.XMAX-cfg.XMIN);}
+function worldToScreen(cfg,x,y){var s=sOf(cfg);
+  return {x:cfg.ML+(x-cfg.XMIN)*s, y:cfg.MT+(cfg.YMAX-y)*s};}
+// [MATH-END]
+
+var CFG={W:960,H:790,ML:46,MR:30,MT:20,XMIN:-0.55,XMAX:2.6,YMAX:2.15};
+var COLplum='#43203f', COLpurple='#6a2c91', COLgreen='#3f7a4e', COLcrimson='#c0322b',
+    COLgold='#b08948', COLfaint='#e0d7c2', COLcream='#faf6ef';
+var SVGNS='http://www.w3.org/2000/svg';
+var YCLIP_LO=-0.42, YCLIP_HI=2.06;
+
+var b=1.0;
+var layers={circle:true,hyper:true,mirror:false,squares:true,shear:true,alt:false};
+var dragging=false;
+var svg, groups={}, capEl, handleC, handleHit, rail;
+
+function el(name,attrs,parent,text){
+  var e=document.createElementNS(SVGNS,name);
+  for(var k in attrs) e.setAttribute(k,attrs[k]);
+  if(text!=null) e.textContent=text;
+  parent.appendChild(e);
+  return e;
+}
+function line(g,x1,y1,x2,y2,attrs){
+  var p=worldToScreen(CFG,x1,y1), q=worldToScreen(CFG,x2,y2);
+  attrs=attrs||{}; attrs.x1=p.x; attrs.y1=p.y; attrs.x2=q.x; attrs.y2=q.y;
+  return el('line',attrs,g);
+}
+function dot(g,x,y,r,fill,extra){
+  var p=worldToScreen(CFG,x,y); var at=extra||{};
+  at.cx=p.x; at.cy=p.y; at.r=r; at.fill=fill;
+  return el('circle',at,g);
+}
+function txt(g,x,y,s,attrs){
+  var p=worldToScreen(CFG,x,y); attrs=attrs||{};
+  attrs.x=p.x; attrs.y=p.y;
+  if(!attrs.fill) attrs.fill=COLplum;
+  return el('text',attrs,g,s);
+}
+function poly(g,pts,attrs){
+  var d=pts.map(function(p){var s=worldToScreen(CFG,p.x,p.y);return s.x+','+s.y;}).join(' ');
+  attrs=attrs||{}; attrs.points=d;
+  return el('polygon',attrs,g);
+}
+function pathFrom(pts){
+  var d='';
+  for(var i=0;i<pts.length;i++){
+    var s=worldToScreen(CFG,pts[i].x,pts[i].y);
+    d+=(i===0?'M':'L')+s.x.toFixed(2)+' '+s.y.toFixed(2);
+  }
+  return d;
+}
+function clear(g){while(g.firstChild)g.removeChild(g.firstChild);}
+function fmt(x){return x.toFixed(3);}
+function fmt2(x){return x.toFixed(2);}
+
+function branchPts(bb,x0,x1,steps){
+  var out=[],run=[];
+  for(var i=0;i<=steps;i++){
+    var x=x0+(x1-x0)*i/steps;
+    if(Math.abs(2*x-bb)<1e-4){ if(run.length>1)out.push(run); run=[]; continue; }
+    var y=hyperY(bb,x);
+    if(y<YCLIP_LO||y>YCLIP_HI){ if(run.length>1)out.push(run); run=[]; continue; }
+    run.push({x:x,y:y});
+  }
+  if(run.length>1)out.push(run);
+  return out;
+}
+
+function drawAll(){
+  var t=tOf(b), P2=P2of(b), Pp=Pof(b), F=footF(b), Bp=Bprime(b);
+  var O={x:0,y:0}, A={x:0,y:1}, D={x:2,y:1}, C2={x:2,y:0}, Bpt={x:b,y:1};
+
+  // upstairs circle
+  var g=groups.gCircle; clear(g);
+  if(layers.circle){
+    var arc=[];
+    for(var i=0;i<=120;i++){var th=Math.PI-Math.PI*i/120;
+      arc.push({x:1+Math.cos(th),y:1+Math.sin(th)});}
+    el('path',{d:pathFrom(arc),fill:'none',stroke:COLgold,'stroke-width':2},g);
+    poly(g,[A,Bp,Bpt],{fill:COLgold,opacity:'0.16'});
+    poly(g,[Bpt,Bp,D],{fill:COLpurple,opacity:'0.12'});
+    line(g,A.x,A.y,Bp.x,Bp.y,{stroke:COLplum,'stroke-width':1.4,opacity:'0.6'});
+    line(g,Bp.x,Bp.y,D.x,D.y,{stroke:COLplum,'stroke-width':1.4,opacity:'0.6'});
+    line(g,Bpt.x,Bpt.y,Bp.x,Bp.y,{stroke:COLgold,'stroke-width':1.6,'stroke-dasharray':'5 5'});
+    dot(g,Bp.x,Bp.y,4.5,COLgold,{stroke:COLplum,'stroke-width':1.5});
+    txt(g,Bp.x+0.05,Bp.y+0.06,'B\u2032',{'font-size':'15','text-anchor':'start'});
+    txt(g,(A.x+Bp.x+Bpt.x)/3,(A.y+Bp.y+Bpt.y)/3,'AB\u2032B',
+      {'font-size':'13','text-anchor':'middle',opacity:'0.7'});
+    txt(g,(D.x+Bp.x+Bpt.x)/3,(D.y+Bp.y+Bpt.y)/3,'BB\u2032D',
+      {'font-size':'13','text-anchor':'middle',opacity:'0.7'});
+  }
+
+  // frame
+  g=groups.gGrid; clear(g);
+  line(g,0,0,2,0,{stroke:COLplum,'stroke-width':3});
+  line(g,2,0,2,1,{stroke:COLplum,'stroke-width':3});
+  line(g,0,0,0,1,{stroke:COLplum,'stroke-width':3});
+  line(g,0,1,2,1,{stroke:COLcrimson,'stroke-width':3.5});
+  dot(g,0,0,5,COLplum); dot(g,2,0,5,COLplum); dot(g,0,1,5,COLcrimson); dot(g,2,1,5,COLplum);
+  txt(g,-0.08,-0.12,'O',{'font-size':'17','text-anchor':'end'});
+  txt(g,2.08,-0.12,'2',{'font-size':'17','text-anchor':'start'});
+  txt(g,-0.08,1.0,'A',{'font-size':'17','text-anchor':'end','dominant-baseline':'middle'});
+  txt(g,2.08,1.0,'D',{'font-size':'17','text-anchor':'start','dominant-baseline':'middle'});
+  txt(g,b,1.13,'B',{'font-size':'16','text-anchor':'middle'});
+
+  // hyperbola
+  g=groups.gHyper; clear(g);
+  if(layers.hyper){
+    var c=centerOf(b);
+    line(g,c.x,YCLIP_LO,c.x,YCLIP_HI,
+      {stroke:COLgold,'stroke-width':1,'stroke-dasharray':'3 6',opacity:'0.5'});
+    line(g,CFG.XMIN+0.05,0.5,CFG.XMAX-0.05,0.5,
+      {stroke:COLgold,'stroke-width':1,'stroke-dasharray':'3 6',opacity:'0.5'});
+    branchPts(b,CFG.XMIN+0.02,b/2,300).concat(branchPts(b,b/2,CFG.XMAX-0.02,300))
+      .forEach(function(run){
+        el('path',{d:pathFrom(run),fill:'none',stroke:COLgold,'stroke-width':2.5},g);
+      });
+    dot(g,c.x,c.y,3.5,COLgold);
+    txt(g,c.x+0.05,c.y-0.11,'center = mid OB',
+      {'font-size':'12','text-anchor':'start',fill:COLgold});
+    dot(g,P2.x,P2.y,7,COLgold,{stroke:COLplum,'stroke-width':2});
+    txt(g,P2.x+0.08,P2.y-0.02,'P\u2082',{'font-size':'16','font-weight':'bold',
+      'text-anchor':'start'});
+  }
+
+  // signed squares
+  g=groups.gSquares; clear(g);
+  if(layers.squares){
+    poly(g,[O,A,Bpt,{x:b,y:0}],{fill:'none',stroke:COLgreen,'stroke-width':1.4,
+      'stroke-dasharray':'4 4',opacity:'0.8'});
+    poly(g,[O,A,Bpt],{fill:COLgreen,opacity:'0.20'});
+    line(g,O.x,O.y,Bpt.x,Bpt.y,{stroke:COLgreen,'stroke-width':2});
+    poly(g,[O,{x:0,y:t},P2,C2],{fill:'none',stroke:COLgreen,'stroke-width':1.4,
+      'stroke-dasharray':'4 4',opacity:'0.8'});
+    poly(g,[O,P2,C2],{fill:COLgreen,opacity:'0.20'});
+    line(g,O.x,O.y,P2.x,P2.y,{stroke:COLgreen,'stroke-width':2});
+    poly(g,[{x:b,y:t},Bpt,D,P2],{fill:'none',stroke:COLcrimson,'stroke-width':1.4,
+      'stroke-dasharray':'4 4',opacity:'0.8'});
+    poly(g,[Bpt,D,P2],{fill:COLcrimson,opacity:'0.20'});
+    line(g,Bpt.x,Bpt.y,P2.x,P2.y,{stroke:COLcrimson,'stroke-width':2});
+    txt(g,b/3+0.02,0.72,'+\u00BDQ(OB)',{'font-size':'13',fill:COLgreen,'text-anchor':'middle'});
+    txt(g,(0+P2.x+2)/3,(0+t+0)/3-0.03,'+\u00BDQ(OP\u2082)',
+      {'font-size':'13',fill:COLgreen,'text-anchor':'middle'});
+    txt(g,(b+2+2)/3,(1+1+t)/3,'\u2212\u00BDQ(P\u2082B)',
+      {'font-size':'13',fill:COLcrimson,'text-anchor':'middle'});
+  }
+
+  // null shear
+  g=groups.gShear; clear(g);
+  if(layers.shear){
+    line(g,O.x,O.y,D.x,D.y,{stroke:COLplum,'stroke-width':1.2,opacity:'0.45'});
+    line(g,Bpt.x,Bpt.y,C2.x,C2.y,{stroke:COLplum,'stroke-width':1.2,opacity:'0.45'});
+    line(g,P2.x,P2.y,Pp.x,Pp.y,{stroke:COLpurple,'stroke-width':2,
+      'stroke-dasharray':'6 5','marker-end':'url(#arrP)'});
+    poly(g,[O,Pp,C2],{fill:'none',stroke:COLpurple,'stroke-width':1.8,
+      'stroke-dasharray':'2 4'});
+    poly(g,[Bpt,Pp,D],{fill:'none',stroke:COLpurple,'stroke-width':1.8,
+      'stroke-dasharray':'2 4'});
+    dot(g,Pp.x,Pp.y,6,COLpurple,{stroke:COLcream,'stroke-width':1.5});
+    txt(g,Pp.x-0.06,Pp.y-0.10,'P',{'font-size':'16','font-weight':'bold','text-anchor':'end',
+      fill:COLpurple});
+    txt(g,(P2.x+Pp.x)/2,t+0.06,'null slide (I.37)',
+      {'font-size':'12','font-style':'italic','text-anchor':'middle',fill:COLpurple});
+    txt(g,(O.x+Pp.x+C2.x)/3,(O.y+Pp.y+C2.y)/3-0.10,'OP2',
+      {'font-size':'13','text-anchor':'middle',fill:COLpurple});
+    txt(g,(Bpt.x+Pp.x+D.x)/3+0.05,(Bpt.y+Pp.y+D.y)/3+0.02,'BPD',
+      {'font-size':'13','text-anchor':'middle',fill:COLpurple});
+    txt(g,b/3-0.02,0.55,'OAB',{'font-size':'13','text-anchor':'middle',fill:COLgreen});
+  }
+
+  // null mirror
+  g=groups.gMirror; clear(g);
+  if(layers.mirror){
+    line(g,1.1,t,2.45,t,{stroke:COLgold,'stroke-width':2,'stroke-dasharray':'7 5'});
+    line(g,O.x,O.y,P2.x,P2.y,{stroke:COLgreen,'stroke-width':2.5,'marker-end':'url(#arrG)'});
+    line(g,P2.x,P2.y,Bpt.x,Bpt.y,{stroke:COLgreen,'stroke-width':2.5,'marker-end':'url(#arrG)'});
+    txt(g,1.15,t-0.09,'null mirror',
+      {'font-size':'12','font-style':'italic','text-anchor':'start',fill:COLgold});
+    txt(g,2.14,t+0.16,'slopes \u00B11/(4\u2212b) = \u00B1'+fmt2(slopeMag(b)),
+      {'font-size':'12.5','text-anchor':'start',fill:COLgreen});
+  }
+
+  // altitude
+  g=groups.gAlt; clear(g);
+  if(layers.alt){
+    line(g,P2.x,P2.y,F.x,F.y,{stroke:COLplum,'stroke-width':2,'stroke-dasharray':'8 4'});
+    line(g,P2.x,P2.y,Pp.x,Pp.y,{stroke:COLplum,'stroke-width':1.2,'stroke-dasharray':'2 4'});
+    line(g,Pp.x,Pp.y,F.x,F.y,{stroke:COLplum,'stroke-width':1.2,'stroke-dasharray':'2 4'});
+    dot(g,F.x,F.y,5,COLplum,{stroke:COLcream,'stroke-width':1.5});
+    txt(g,F.x+0.02,F.y+0.10,'F',{'font-size':'15','text-anchor':'start'});
+    txt(g,0.12,1.72,'Q(P\u2082F) = Q(OP\u2082)\u00B7Q(P\u2082B)/Q(OB) = '+
+      fmt(Qv(vsub(F,P2))),
+      {'font-size':'13','font-style':'italic','text-anchor':'start'});
+  }
+
+  // handle
+  var hp=worldToScreen(CFG,b,1);
+  handleC.setAttribute('cx',hp.x); handleC.setAttribute('cy',hp.y);
+  handleHit.setAttribute('cx',hp.x); handleHit.setAttribute('cy',hp.y);
+
+  document.getElementById('bLabel').textContent='b = '+fmt2(b);
+  caption();
+}
+
+function caption(){
+  var t=tOf(b);
+  var s='b = '+fmt2(b)+', t = 2/(4\u2212b) = '+fmt(t)+'.  Q(OB) = '+fmt(QOB(b))+
+    ', Q(OP\u2082) = '+fmt(QOP2(b))+', Q(P\u2082B) = '+fmt(QP2B(b))+
+    '.  Signed: '+fmt(QOP2(b))+' + ('+fmt(QP2B(b))+') = '+fmt(QOP2(b)+QP2B(b))+
+    ' = Q(OB).  Unsigned: OAB '+fmt(areaOAB(b))+' + BPD '+fmt(areaBPD(b))+
+    ' = OP2 '+fmt(areaOP2(b))+' \u2014 the negative square crossed the equals sign.';
+  capEl.textContent=s;
+}
+
+function toWorldX(e){
+  var pt=svg.createSVGPoint();
+  pt.x=e.clientX; pt.y=e.clientY;
+  var sp=pt.matrixTransform(svg.getScreenCTM().inverse());
+  return CFG.XMIN+(sp.x-CFG.ML)/sOf(CFG);
+}
+function onDown(e){
+  e.preventDefault();
+  e.currentTarget.setPointerCapture(e.pointerId);
+  dragging=true;
+  b=snapB(toWorldX(e)); drawAll();
+}
+function onMove(e){
+  if(!dragging) return;
+  e.preventDefault();
+  b=snapB(toWorldX(e)); drawAll();
+}
+function onUp(){dragging=false;}
+
+function init(){
+  svg=document.getElementById('plate');
+  capEl=document.getElementById('caption');
+  ['gTint','gCircle','gGrid','gHyper','gSquares','gShear','gMirror','gAlt','gHandle']
+    .forEach(function(id){groups[id]=document.getElementById(id);});
+  var d=document.getElementById('defs');
+  [['arrP','#6a2c91'],['arrG','#3f7a4e']].forEach(function(m){
+    var mk=el('marker',{id:m[0],markerWidth:'9',markerHeight:'8',refX:'8',refY:'4',
+      orient:'auto',markerUnits:'strokeWidth'},d);
+    el('path',{d:'M0,0 L9,4 L0,8 Z',fill:m[1]},mk);
+  });
+  var gh=groups.gHandle;
+  var r0=worldToScreen(CFG,-0.05,1), r1=worldToScreen(CFG,2.05,1);
+  rail=el('rect',{x:r0.x,y:r0.y-18,width:r1.x-r0.x,height:36,fill:'#ffffff',
+    'fill-opacity':'0','pointer-events':'all',style:'touch-action:none;cursor:pointer'},gh);
+  handleC=el('circle',{r:9,fill:COLgold,stroke:COLplum,'stroke-width':2,
+    'pointer-events':'none'},gh);
+  handleHit=el('circle',{r:26,fill:'#ffffff','fill-opacity':'0','pointer-events':'all',
+    style:'touch-action:none;cursor:grab'},gh);
+  [rail,handleHit].forEach(function(tg){
+    tg.addEventListener('pointerdown',onDown);
+    tg.addEventListener('pointermove',onMove);
+    tg.addEventListener('pointerup',onUp);
+    tg.addEventListener('pointercancel',onUp);
+  });
+  document.querySelectorAll('button.chip').forEach(function(bn){
+    bn.addEventListener('click',function(){
+      var key=bn.getAttribute('data-layer');
+      layers[key]=!layers[key];
+      bn.setAttribute('aria-pressed',layers[key]?'true':'false');
+      drawAll();
+    });
+  });
+  document.getElementById('bMinus').addEventListener('click',function(){
+    b=snapB(b-0.05); drawAll();});
+  document.getElementById('bPlus').addEventListener('click',function(){
+    b=snapB(b+0.05); drawAll();});
+  drawAll();
+}
+init();
+</script>
+</body>
+</html>

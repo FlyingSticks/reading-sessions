@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The hinge X — the trapezoid's harmonic center</title>
+<style>
+  body{background:#faf6ef;color:#43203f;font-family:Georgia,'Times New Roman',serif;margin:0;padding:18px 14px 64px;}
+  .wrap{max-width:790px;margin:0 auto;}
+  h1{font-size:26px;margin:4px 0 2px;font-weight:normal;}
+  h1 .sub{font-size:17px;font-style:italic;color:#6a2c91;margin-left:10px;}
+  .lede{font-size:15.5px;font-style:italic;opacity:.85;margin:2px 0 14px;line-height:1.5;}
+  .controls{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;margin-bottom:8px;}
+  .stepper{display:flex;align-items:center;gap:8px;border:1px solid #b08948;border-radius:10px;padding:3px 10px;background:#fdfaf2;}
+  .stepper button{font-family:inherit;font-size:19px;line-height:1;width:34px;height:31px;border-radius:8px;border:1px solid #43203f;background:#faf6ef;color:#43203f;}
+  .stepper span{font-size:15px;min-width:132px;text-align:center;}
+  button.chip{font-family:inherit;font-size:14px;padding:4px 13px;border-radius:999px;border:1px solid #43203f;background:#faf6ef;color:#43203f;}
+  button.chip[aria-pressed="true"]{background:#43203f;color:#faf6ef;}
+  svg{width:100%;height:auto;display:block;}
+  .caption{border:1px solid #b08948;border-radius:10px;background:#fdfaf2;padding:10px 14px;font-size:15px;line-height:1.55;margin:8px 0 22px;min-height:44px;}
+  h2{font-size:20px;font-weight:normal;border-bottom:1px solid #b08948;padding-bottom:4px;margin:26px 0 10px;}
+  .reading p{font-size:15.5px;line-height:1.6;margin:0 0 12px;}
+  dl{margin:0;}
+  dt{font-weight:bold;font-size:15px;margin-top:9px;}
+  dd{margin:1px 0 0 16px;font-size:15px;line-height:1.5;}
+  footer{margin-top:30px;font-size:13px;font-style:italic;opacity:.7;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>The hinge X<span class="sub">the trapezoid's harmonic center</span></h1>
+  <p class="lede">The crossing that adjudicates D = D is not an anonymous point. Drag the gold
+  division point along the red line: the trapezoid's diagonals keep meeting at X, the parallel
+  chord through X keeps reading the harmonic mean of b and c, and the sum panel keeps carrying
+  a certified −1.</p>
+</header>
+
+<div class="controls">
+  <div class="stepper">
+    <button id="aMinus" aria-label="move division left">−</button>
+    <span id="aLabel">a = 3.60, b = 2.40</span>
+    <button id="aPlus" aria-label="move division right">+</button>
+  </div>
+  <button class="chip" data-layer="context" aria-pressed="true">panel context</button>
+  <button class="chip" data-layer="diag" aria-pressed="true">diagonals</button>
+  <button class="chip" data-layer="chord" aria-pressed="true">harmonic chord</button>
+  <button class="chip" data-layer="ladder" aria-pressed="false">means ladder</button>
+  <button class="chip" data-layer="witness" aria-pressed="false">midline witness</button>
+</div>
+
+<svg id="plate" viewBox="0 0 960 800" aria-label="hinge of the sum panel trapezoid">
+  <g id="gTint"></g>
+  <g id="gGrid"></g>
+  <g id="gContext"></g>
+  <g id="gTrap"></g>
+  <g id="gDiag"></g>
+  <g id="gLadder"></g>
+  <g id="gChord"></g>
+  <g id="gWitness"></g>
+  <g id="gLabels"></g>
+  <g id="gHandle"></g>
+</svg>
+
+<div class="caption" id="caption"></div>
+
+<section class="reading">
+  <h2>Reading the plate</h2>
+  <p>The trapezoid costs nothing. Its four sides and both diagonals are panel lines already
+  drawn: the bottom rail O–R is the rectangle's base, the right edge R–N its side, the leg O–M
+  is a side of triangle A's neighbor, the top M–N is the red line's own segment b — and the
+  diagonals O–N and R–M are precisely the two long lines whose crossing X adjudicated D = D.
+  Renaming is the only construction. (The footnote's letters T and P are N and M here.)</p>
+  <p>X's station is a theorem about ratio, not position: the diagonals of a trapezoid cut each
+  other in the ratio of the parallel sides, OX : XN = RX : XM = c : b, so X stands at height
+  c/(b+c) of the way up — always above the midline, leaning toward the shorter rail. Slide the
+  division point and watch it ride: b shrinking toward 0 lifts X to the red line; b growing
+  toward c would settle it at midheight, a limit it never reaches, since b &lt; c is the sum
+  panel's standing condition.</p>
+  <p>The parallel through X crosses the trapezoid in a chord of length 2bc/(b+c) — the harmonic
+  mean of the two rails — and X bisects it. In reciprocals: 2/HM = 1/b + 1/c. At the apex,
+  reach adds lengths; at the hinge, the figure adds reciprocals — two additions on one panel,
+  and the second belongs to the harmonic register. The slivers themselves are priced in the
+  same coin: each D equals h·HM/4, so the meter's null reading D = D is, in cash, a quarter of
+  height times harmonic chord.</p>
+  <p>The parallels between the rails read every length from b to c; three stations are
+  constructible, and the classical means take one each. Midheight reads the arithmetic mean —
+  the midline. The chord that splits the trapezoid into two <i>similar</i> trapezoids reads the
+  geometric mean. The diagonal crossing reads the harmonic mean. Stacked: HM highest, nearest
+  the short rail, then GM, then AM — the classical inequality b &lt; HM &lt; GM &lt; AM &lt; c
+  drawn as three rungs.</p>
+  <p>The credential is a cross-ratio, not a resemblance. The legs meet at V; the line V–X
+  bisects both rails; and on that line the four points satisfy (m₁, m₀ ; X, V) = −1 — mid-top
+  and mid-bot separated harmonically by hinge and leg-meet. So the point that certifies
+  addition's shear license is simultaneously the panel's own certified −1: the sum panel, the
+  additive register's home ground, carries an anharmonic signature. The means keep turning up
+  at the hinges.</p>
+</section>
+
+<section class="glossary">
+  <h2>Glossary</h2>
+  <dl>
+    <dt>trapezoid O R N M</dt><dd>Bottom rail O–R of length c, top segment M–N of length b,
+    legs O–M and R–N; every side and both diagonals are lines the sum panel had already drawn.</dd>
+    <dt>hinge X</dt><dd>The meet of the diagonals O–N and R–M; the crossing that adjudicated
+    D = D, now read as the trapezoid's harmonic center.</dd>
+    <dt>station</dt><dd>The height fraction t at which a parallel crosses; X's station is
+    t = c/(b+c).</dd>
+    <dt>diagonal ratio</dt><dd>OX : XN = RX : XM = c : b — trapezoid diagonals cut each other
+    in the ratio of the parallel sides.</dd>
+    <dt>harmonic chord</dt><dd>The parallel through X, of length 2bc/(b+c), bisected by X.</dd>
+    <dt>harmonic mean, reciprocal addition</dt><dd>HM(b,c) = 2bc/(b+c); equivalently
+    2/HM = 1/b + 1/c. The hinge adds reciprocals as the apex adds lengths.</dd>
+    <dt>sliver price</dt><dd>Each D equals ½bh·c/(b+c) = h·HM/4: the shear license's null
+    reading, denominated in the harmonic mean.</dd>
+    <dt>means ladder</dt><dd>Three constructible parallels: AM at midheight (the midline),
+    GM at the similar split, HM at the hinge; b &lt; HM &lt; GM &lt; AM &lt; c.</dd>
+    <dt>similar split</dt><dd>The chord of length √(bc) dividing the trapezoid into two similar
+    trapezoids: c : √(bc) = √(bc) : b.</dd>
+    <dt>leg-meet V</dt><dd>The point where the extended legs O–M and R–N cross, at height
+    hc/a; it flies upward as the division point moves left.</dd>
+    <dt>midline witness</dt><dd>The line V–X, which bisects both rails — the drawn proof that
+    hinge and leg-meet govern the trapezoid's middles.</dd>
+    <dt>cross-ratio −1</dt><dd>(m₁, m₀ ; X, V) = −1 on the witness line: mid-top and mid-bot
+    are harmonic conjugates with respect to hinge and leg-meet.</dd>
+    <dt>shear license, D = D</dt><dd>Euclid I.37–38: apexes on one rail give equal triangles;
+    in the sum panel this is witnessed by the two equal slivers whose adjudicator is X.</dd>
+  </dl>
+</section>
+
+<footer>Sheet R·T-02 — single file, SVG, no libraries. Smoke-checked before delivery; the
+browser check on the iPad is yours.</footer>
+</div>
+
+<script>
+// [MATH-BEGIN]
+var C_TOT=6, H_TOT=3.2;
+function bOf(a){return C_TOT-a;}
+function ptsOf(a){return {O:{x:0,y:0},R:{x:C_TOT,y:0},L:{x:0,y:H_TOT},
+  N:{x:C_TOT,y:H_TOT},M:{x:a,y:H_TOT}};}
+function tHinge(a){return C_TOT/(bOf(a)+C_TOT);}
+function hingeOf(a){var t=tHinge(a);return {x:t*C_TOT,y:t*H_TOT};}
+function legMeetV(a){return {x:C_TOT,y:H_TOT*C_TOT/a};}
+function chordAtT(a,t){return {p:{x:a*t,y:H_TOT*t},q:{x:C_TOT,y:H_TOT*t}};}
+function chordLen(a,t){return C_TOT - t*a;}
+function hmOf(a){var b=bOf(a);return 2*b*C_TOT/(b+C_TOT);}
+function gmOf(a){return Math.sqrt(bOf(a)*C_TOT);}
+function amOf(a){return (bOf(a)+C_TOT)/2;}
+function tOfLen(a,len){return (C_TOT-len)/a;}
+function tG(a){return tOfLen(a,gmOf(a));}
+function tA(){return 0.5;}
+function midTop(a){return {x:(a+C_TOT)/2,y:H_TOT};}
+function midBot(){return {x:C_TOT/2,y:0};}
+function shoelace(P,Q,S){return Math.abs((Q.x-P.x)*(S.y-P.y)-(S.x-P.x)*(Q.y-P.y))/2;}
+function sliverLeft(a){var p=ptsOf(a),X=hingeOf(a);return [p.O,p.M,X];}
+function sliverRight(a){var p=ptsOf(a),X=hingeOf(a);return [X,p.N,p.R];}
+function sharedB(a){var p=ptsOf(a),X=hingeOf(a);return [p.M,X,p.N];}
+function sliverPrice(a){return H_TOT*hmOf(a)/4;}
+function crossRatio4h(y1,y2,y3,y4){return ((y1-y3)/(y2-y3))/((y1-y4)/(y2-y4));}
+function clampA(x){return Math.max(0.6,Math.min(5.4,x));}
+function snapA(x){return Math.round(clampA(x)*20)/20;}
+function sOf(cfg){return (cfg.W-cfg.ML-cfg.MR)/(cfg.XMAX-cfg.XMIN);}
+function worldToScreen(cfg,x,y){var s=sOf(cfg);
+  return {x:cfg.ML+(x-cfg.XMIN)*s, y:cfg.MT+(cfg.YMAX-y)*s};}
+// [MATH-END]
+
+var CFG={W:960,H:800,ML:50,MR:30,MT:20,XMIN:-0.75,XMAX:7.0,YMAX:5.95};
+var COLplum='#43203f', COLpurple='#6a2c91', COLgreen='#3f7a4e', COLcrimson='#c0322b',
+    COLgold='#b08948', COLfaint='#e0d7c2', COLcream='#faf6ef';
+var SVGNS='http://www.w3.org/2000/svg';
+var VCAP=5.35; // draw cap for the leg-meet
+
+var a=3.6;
+var layers={context:true,diag:true,chord:true,ladder:false,witness:false};
+var dragging=false;
+var svg, groups={}, capEl, handleC, handleHit, rail;
+
+function el(name,attrs,parent,text){
+  var e=document.createElementNS(SVGNS,name);
+  for(var k in attrs) e.setAttribute(k,attrs[k]);
+  if(text!=null) e.textContent=text;
+  parent.appendChild(e);
+  return e;
+}
+function line(g,x1,y1,x2,y2,attrs){
+  var p=worldToScreen(CFG,x1,y1), q=worldToScreen(CFG,x2,y2);
+  attrs=attrs||{}; attrs.x1=p.x; attrs.y1=p.y; attrs.x2=q.x; attrs.y2=q.y;
+  return el('line',attrs,g);
+}
+function dot(g,x,y,r,fill,extra){
+  var p=worldToScreen(CFG,x,y); var at=extra||{};
+  at.cx=p.x; at.cy=p.y; at.r=r; at.fill=fill;
+  return el('circle',at,g);
+}
+function txt(g,x,y,s,attrs){
+  var p=worldToScreen(CFG,x,y); attrs=attrs||{};
+  attrs.x=p.x; attrs.y=p.y;
+  if(!attrs.fill) attrs.fill=COLplum;
+  return el('text',attrs,g,s);
+}
+function poly(g,pts,attrs){
+  var d=pts.map(function(p){var s=worldToScreen(CFG,p.x,p.y);return s.x+','+s.y;}).join(' ');
+  attrs=attrs||{}; attrs.points=d;
+  return el('polygon',attrs,g);
+}
+function clear(g){while(g.firstChild)g.removeChild(g.firstChild);}
+function fmt(x){return x.toFixed(2);}
+
+function brace(g,x0,x1,y,label,above,color){
+  line(g,x0,y,x1,y,{stroke:color,'stroke-width':2});
+  var tick=above?-0.07:0.07;
+  line(g,x0,y,x0,y+tick,{stroke:color,'stroke-width':2});
+  line(g,x1,y,x1,y+tick,{stroke:color,'stroke-width':2});
+  txt(g,(x0+x1)/2,y+(above?0.10:-0.22),label,
+    {'font-size':'17','font-style':'italic','text-anchor':'middle',fill:color});
+}
+
+function drawAll(){
+  var b=bOf(a), p=ptsOf(a), X=hingeOf(a), V=legMeetV(a);
+
+  // tints + context
+  var g=groups.gTint; clear(g);
+  if(layers.context){
+    poly(g,sliverLeft(a),{fill:COLgold,opacity:'0.22'});
+    poly(g,sliverRight(a),{fill:COLgold,opacity:'0.22'});
+    poly(g,sharedB(a),{fill:COLgreen,opacity:'0.22'});
+    var sl=sliverLeft(a), sr=sliverRight(a), sh=sharedB(a);
+    function cen(t){return {x:(t[0].x+t[1].x+t[2].x)/3,y:(t[0].y+t[1].y+t[2].y)/3};}
+    var c1=cen(sl), c2=cen(sr), c3=cen(sh);
+    txt(g,c1.x,c1.y-0.06,'D',{'font-size':'17','text-anchor':'middle'});
+    txt(g,c2.x,c2.y-0.06,'D',{'font-size':'17','text-anchor':'middle'});
+    txt(g,c3.x,c3.y-0.06,'B',{'font-size':'15','text-anchor':'middle',fill:COLgreen});
+  }
+
+  g=groups.gGrid; clear(g);
+  line(g,0,0,0,H_TOT,{stroke:COLfaint,'stroke-width':1.5}); // left edge of rectangle, context
+  brace(g,0,a,H_TOT+0.16,'a',true,COLcrimson);
+  brace(g,a,C_TOT,H_TOT+0.16,'b',true,COLcrimson);
+  brace(g,0,C_TOT,-0.18,'c',false,COLcrimson);
+
+  g=groups.gContext; clear(g);
+  if(layers.context){
+    line(g,0,H_TOT,C_TOT,H_TOT,{stroke:COLcrimson,'stroke-width':3}); // the red line
+    line(g,0,0,a,H_TOT,{stroke:COLplum,'stroke-width':1.5,opacity:'0.5'}); // O–M leg as panel line
+    line(g,0,H_TOT,0,0,{stroke:COLplum,'stroke-width':1.5,opacity:'0.5'});
+  }
+
+  // trapezoid perimeter
+  g=groups.gTrap; clear(g);
+  line(g,p.O.x,p.O.y,p.R.x,p.R.y,{stroke:COLplum,'stroke-width':3.5});
+  line(g,p.R.x,p.R.y,p.N.x,p.N.y,{stroke:COLplum,'stroke-width':3.5});
+  line(g,p.N.x,p.N.y,p.M.x,p.M.y,{stroke:COLplum,'stroke-width':3.5});
+  line(g,p.M.x,p.M.y,p.O.x,p.O.y,{stroke:COLplum,'stroke-width':3.5});
+  dot(g,p.O.x,p.O.y,5,COLplum); dot(g,p.R.x,p.R.y,5,COLplum);
+  dot(g,p.N.x,p.N.y,5,COLplum);
+  txt(g,-0.16,-0.14,'O',{'font-size':'16','text-anchor':'end'});
+  txt(g,C_TOT+0.14,-0.14,'R',{'font-size':'16','text-anchor':'start'});
+  txt(g,C_TOT+0.14,H_TOT+0.02,'N',{'font-size':'16','text-anchor':'start'});
+  txt(g,a-0.05,H_TOT+0.34,'M',{'font-size':'16','text-anchor':'end'});
+
+  // diagonals + hinge
+  g=groups.gDiag; clear(g);
+  if(layers.diag){
+    line(g,p.O.x,p.O.y,p.N.x,p.N.y,{stroke:COLcrimson,'stroke-width':2.5});
+    line(g,p.R.x,p.R.y,p.M.x,p.M.y,{stroke:COLcrimson,'stroke-width':2.5});
+    txt(g,X.x+0.14,X.y+0.15,'c : b',
+      {'font-size':'13','font-style':'italic','text-anchor':'start',fill:COLcrimson});
+  }
+  dot(g,X.x,X.y,7,COLgold,{stroke:COLplum,'stroke-width':2});
+  txt(g,X.x-0.13,X.y-0.03,'X',{'font-size':'17','font-weight':'bold','text-anchor':'end'});
+
+  // means ladder (AM and GM; HM is its own layer)
+  g=groups.gLadder; clear(g);
+  if(layers.ladder){
+    var cA=chordAtT(a,tA());
+    line(g,cA.p.x,cA.p.y,cA.q.x,cA.q.y,
+      {stroke:COLplum,'stroke-width':2,'stroke-dasharray':'7 5'});
+    txt(g,C_TOT+0.12,cA.p.y,'AM '+fmt(amOf(a)),
+      {'font-size':'13','text-anchor':'start','dominant-baseline':'middle'});
+    var cG=chordAtT(a,tG(a));
+    line(g,cG.p.x,cG.p.y,cG.q.x,cG.q.y,{stroke:COLgreen,'stroke-width':2.5});
+    txt(g,C_TOT+0.12,cG.p.y,'GM '+fmt(gmOf(a)),
+      {'font-size':'13','text-anchor':'start','dominant-baseline':'middle',fill:COLgreen});
+  }
+
+  // harmonic chord
+  g=groups.gChord; clear(g);
+  if(layers.chord){
+    var cH=chordAtT(a,tHinge(a));
+    line(g,cH.p.x,cH.p.y,cH.q.x,cH.q.y,{stroke:COLgold,'stroke-width':4});
+    dot(g,cH.p.x,cH.p.y,4,COLgold); dot(g,cH.q.x,cH.q.y,4,COLgold);
+    txt(g,C_TOT+0.12,cH.p.y,'HM '+fmt(hmOf(a)),
+      {'font-size':'13','text-anchor':'start','dominant-baseline':'middle',fill:COLgold});
+  }
+
+  // midline witness
+  g=groups.gWitness; clear(g);
+  if(layers.witness){
+    var m0=midBot(), m1=midTop(a);
+    var topY=Math.min(V.y,VCAP);
+    var tt=topY/V.y; // param from m0 (y=0) toward V (y=V.y): point = m0 + tt*(V-m0)
+    var end={x:m0.x+tt*(V.x-m0.x), y:topY};
+    line(g,m0.x,m0.y,end.x,end.y,{stroke:COLpurple,'stroke-width':2,
+      'stroke-dasharray':(V.y>VCAP?'6 5':'none')});
+    dot(g,m0.x,m0.y,4.5,COLpurple);
+    dot(g,m1.x,m1.y,4.5,COLpurple);
+    txt(g,m0.x+0.10,m0.y-0.30,'m\u2080',{'font-size':'14','text-anchor':'start',fill:COLpurple});
+    txt(g,m1.x+0.10,m1.y+0.12,'m\u2081',{'font-size':'14','text-anchor':'start',fill:COLpurple});
+    if(V.y<=VCAP){
+      dot(g,V.x,V.y,5.5,COLpurple,{stroke:COLcream,'stroke-width':1.5});
+      txt(g,V.x+0.14,V.y,'V',{'font-size':'16','text-anchor':'start',fill:COLpurple});
+    }else{
+      txt(g,end.x+0.12,end.y-0.05,'V \u2191',{'font-size':'14','text-anchor':'start',fill:COLpurple});
+    }
+    txt(g,0.1,H_TOT+0.62,'(m\u2081, m\u2080 ; X, V) = \u22121 \u2014 bisects both rails',
+      {'font-size':'14','font-style':'italic','text-anchor':'start',fill:COLpurple});
+  }
+
+  // handle
+  var hp=worldToScreen(CFG,a,H_TOT);
+  handleC.setAttribute('cx',hp.x); handleC.setAttribute('cy',hp.y);
+  handleHit.setAttribute('cx',hp.x); handleHit.setAttribute('cy',hp.y);
+
+  document.getElementById('aLabel').textContent='a = '+fmt(a)+', b = '+fmt(b);
+  caption();
+}
+
+function caption(){
+  var b=bOf(a), t=tHinge(a);
+  var s='a = '+fmt(a)+', b = '+fmt(b)+' (c = '+C_TOT+').  X at height c/(b+c) = '+
+    fmt(t)+' of h, splitting each diagonal c : b = '+fmt(C_TOT)+' : '+fmt(b)+'.  '+
+    'Chord through X = 2bc/(b+c) = '+fmt(hmOf(a))+', the harmonic mean, bisected by X.  '+
+    'Each sliver D = h\u00B7HM/4 = '+fmt(sliverPrice(a))+'.  '+
+    'Ladder: b '+fmt(b)+' < HM '+fmt(hmOf(a))+' < GM '+fmt(gmOf(a))+' < AM '+
+    fmt(amOf(a))+' < c '+fmt(C_TOT)+'.';
+  capEl.textContent=s;
+}
+
+function toWorldX(e){
+  var pt=svg.createSVGPoint();
+  pt.x=e.clientX; pt.y=e.clientY;
+  var sp=pt.matrixTransform(svg.getScreenCTM().inverse());
+  return CFG.XMIN+(sp.x-CFG.ML)/sOf(CFG);
+}
+function onDown(e){
+  e.preventDefault();
+  e.currentTarget.setPointerCapture(e.pointerId);
+  dragging=true;
+  a=snapA(toWorldX(e)); drawAll();
+}
+function onMove(e){
+  if(!dragging) return;
+  e.preventDefault();
+  a=snapA(toWorldX(e)); drawAll();
+}
+function onUp(){dragging=false;}
+
+function init(){
+  svg=document.getElementById('plate');
+  capEl=document.getElementById('caption');
+  ['gTint','gGrid','gContext','gTrap','gDiag','gLadder','gChord','gWitness','gLabels','gHandle']
+    .forEach(function(id){groups[id]=document.getElementById(id);});
+  var gh=groups.gHandle;
+  var r0=worldToScreen(CFG,-0.1,H_TOT), r1=worldToScreen(CFG,C_TOT+0.1,H_TOT);
+  rail=el('rect',{x:r0.x,y:r0.y-18,width:r1.x-r0.x,height:36,fill:'#ffffff',
+    'fill-opacity':'0','pointer-events':'all',style:'touch-action:none;cursor:pointer'},gh);
+  handleC=el('circle',{r:9,fill:COLgold,stroke:COLplum,'stroke-width':2,
+    'pointer-events':'none'},gh);
+  handleHit=el('circle',{r:26,fill:'#ffffff','fill-opacity':'0','pointer-events':'all',
+    style:'touch-action:none;cursor:grab'},gh);
+  [rail,handleHit].forEach(function(t){
+    t.addEventListener('pointerdown',onDown);
+    t.addEventListener('pointermove',onMove);
+    t.addEventListener('pointerup',onUp);
+    t.addEventListener('pointercancel',onUp);
+  });
+  document.querySelectorAll('button.chip').forEach(function(bn){
+    bn.addEventListener('click',function(){
+      var key=bn.getAttribute('data-layer');
+      layers[key]=!layers[key];
+      bn.setAttribute('aria-pressed',layers[key]?'true':'false');
+      drawAll();
+    });
+  });
+  document.getElementById('aMinus').addEventListener('click',function(){
+    a=snapA(a-0.2); drawAll();});
+  document.getElementById('aPlus').addEventListener('click',function(){
+    a=snapA(a+0.2); drawAll();});
+  drawAll();
+}
+init();
+</script>
+</body>
+</html>
