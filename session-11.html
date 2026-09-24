@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 11 · The Reading Sessions</title>
+<style>
+  :root {
+    --cream:#faf6ef; --plum:#43203f; --purple:#6a2c91; --crimson:#c0322b;
+    --gold:#b08948; --teal:#177f75; --ink:#2b2226; --grey:#6b6360; --rule:#e2d9c8;
+  }
+  html { background: var(--cream); }
+  body {
+    margin: 0; color: var(--ink); background: var(--cream);
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+    font-size: 17px; line-height: 1.6; -webkit-text-size-adjust: 100%;
+  }
+  main { max-width: 44rem; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
+  .eyebrow {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: .72rem;
+    letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin: 0 0 1rem;
+  }
+  .eyebrow a { color: var(--gold); border-bottom: none; }
+  .eyebrow a:hover, .eyebrow a:focus-visible { color: var(--crimson); }
+  h1 { font-size: 2rem; line-height: 1.1; margin: 0 0 .45rem; color: var(--plum); font-weight: 700; letter-spacing: -.01em; }
+  .sub { font-style: italic; font-size: 1.1rem; color: var(--purple); margin: 0 0 2rem; line-height: 1.4; }
+  h2 { font-size: 1.05rem; color: var(--plum); margin: 2.6rem 0 .8rem;
+       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+       letter-spacing: .14em; text-transform: uppercase; font-weight: 600; }
+  p { margin: 0 0 1rem; }
+  a { color: var(--purple); text-decoration: none; border-bottom: 1px dotted var(--gold); }
+  a:hover, a:focus-visible { color: var(--crimson); border-bottom-style: solid; }
+  a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  .tag {
+    display: inline-block; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: .66rem; letter-spacing: .14em; text-transform: uppercase;
+    padding: .1rem .45rem; border: 1px solid var(--gold); color: var(--gold);
+    border-radius: 2px; margin-right: .4rem; vertical-align: middle;
+  }
+  .tag.landed { border-color: var(--teal); color: var(--teal); }
+  .tag.checked { border-color: var(--teal); color: var(--teal); }
+  .tag.seasoning { border-color: var(--crimson); color: var(--crimson); }
+  footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--gold);
+           font-size: .85rem; color: var(--grey); line-height: 1.7; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow"><a href="index.html">The Reading Sessions</a> · session 11 · worked 13–16 September 2026 · filed 24 September 2026</p>
+    <h1>Distance into rate, and the dial read on two meters</h1>
+    <p class="sub">Read this session: the rate square&apos;s coordinates given their note, Theorem 0&apos;s evaluation adjudicated and rebuilt as an instrument, and the gap between the sketch page and the apparatus found to be one reciprocal wide</p>
+  </header>
+
+  <p>Filed eight days after it closed, from the working record; the stamp admits the lateness. The session opened the day Session 10 closed, with a note on why the rate square plots reciprocals at all, and ran to Theorem 0, where the same reciprocal turned out to be doing the work.</p>
+
+  <h2><span class="tag landed">Landed</span> Distance into rate</h2>
+  <p><a href="distance-into-rate.html">Distance into rate</a>, a note on the rate square&apos;s coordinates, dated 13 September: drag a depth point Z through the world and watch it land on the square as (r<sub>u</sub>, r<sub>v</sub>) = (k/(z − Z<sub>v</sub>), k/(z − Z<sub>h</sub>)). The gauge toggle, k = 1 against k = 100, rescales every number and no picture; the gauge-invariant content is the ratio r<sub>u</sub>/r<sub>v</sub>. The seam lives on equality and vanishing — the diagonal and the edges — both blind to k, which is why the seam is a law and the tick marks a convention. The page re-runs its checks live on every drag; there is no separate script.</p>
+
+  <h2><span class="tag checked">Answered</span> Theorem 0&apos;s evaluation, adjudicated</h2>
+  <p>An outside evaluation of Theorem 0 was brought to the table and audited. What it verified stood. Three repairs: the Möbius hypothesis stated explicitly; &ldquo;uncertainty principle&rdquo; withdrawn as an overreach, the result reframed as a conservation — an exchange identity; and the trichotomy corrected from elliptic to hyperbolic. The Turn gauge is hyperbolic at every setting of the dial, its fixed points the origin and the first mark, their multipliers exact reciprocals. The revised evaluation was written out in full; it is not in this repository.</p>
+
+  <h2><span class="tag landed">Landed</span> The dial</h2>
+  <p><a href="the-dial.html">The dial</a> (26): one parameter, d = D/u, read by two meters at once — the exchange product P = 2(1 + d)/(2 + d), pinned in [1, 2), and the excess ε = tr²/det − 4 = 1/(d(1 + d)), the gauge&apos;s distance from the parabolic boundary where Reach lives — welded in closed form, ε = (2 − P)²/(2P(P − 1)). The build corrected its author: &ldquo;discriminant = u² exactly&rdquo; was unit-dependent, the shadow of the invariant ratio. The load-bearing assertions are 12 (the bare discriminant is not invariant) and 17 (the weld).</p>
+
+  <h2><span class="tag checked">Found</span> The bridge is one reciprocal</h2>
+  <p>The next day the reader came back: <i>L, the ring, is not defined in a way that I can understand.</i> The audit agreed — L entered the statement box without antecedent, its only definition smuggled into the Turn gauge&apos;s glossary entry. The reader chose to work through his questions before any edit, and they led somewhere. &ldquo;Normalized&rdquo; turned out to mean one spent freedom: the convention y(u) = u forces L = u + D and leaves the single dial. Then the reader laid down his own sketch page from before the Theorem 0 question, and the gap between it and the apparatus proved one reciprocal wide. The sketches think in rates; the apparatus thinks in graduations; reciprocating the gauge, 1/y = 1/L + (D/L)(1/x), turns the Möbius map into a straight line. Distance into rate, opened three days earlier, is the dictionary between the two languages.</p>
+
+  <h2><span class="tag landed">Landed</span> Repair: the ring defined · 24 September</h2>
+  <p>The fix proposed on 16 September waited on the reader&apos;s questions and landed eight days later. The dial&apos;s opening paragraph now states the gauge and its normalization before the dial appears, and a glossary entry, <i>the ring, L</i>, defines L as where infinity is seated and derives the ledger&apos;s L = (1 + d)Δy₀, defining the first step along the way. Two insertions; the script byte-identical; 26/26 re-run against the patched page. A repair for error, the one kind this record allows.</p>
+
+  <h2>Open at close of session</h2>
+  <p>The dial&apos;s own judgment calls stand unruled: its name (the-dial, or the-excess, or the-two-meters); &ldquo;hyperbolicity excess&rdquo; as the page&apos;s coinage rather than book vocabulary; the single elliptic exemplar K standing for its class. Its note &ldquo;placement unruled; page unlinked until then&rdquo; is answered by this filing.</p>
+
+  <h2>Companion pages</h2>
+  <p><a href="distance-into-rate.html">Distance into rate</a> · <a href="the-dial.html">The dial</a></p>
+
+  <footer>
+    <p><a href="index.html">← All sessions</a> · Checks: <a href="check-the-dial.js">check-the-dial.js</a> (26) · distance-into-rate re-runs its checks live · The book: <a href="https://flyingsticks.github.io/one-congruence-two-readings/">One Congruence, Two Readings</a></p>
+  </footer>
+</main>
+</body>
+</html>
