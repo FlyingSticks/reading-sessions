@@ -69,7 +69,7 @@ async function liveStatus(p){
   }
   {
     // "linked" = reachable from the sessions index directly or through a session page.
-    // Sources of record: the local filing (index + sessions 5-10 beside this file when
+    // Sources of record: the local filing (index + sessions 5-13 beside this file when
     // present), the live copies otherwise; sessions 1-4 always fetched live.
     const hrefs = new Set();
     const harvest = txt => { for (const m of txt.matchAll(/href="([^"]+)"/g)){
@@ -82,7 +82,7 @@ async function liveStatus(p){
       return await (await fetch(rawURL("/reading-sessions/" + f))).text();
     };
     harvest(await localOrLive("index.html"));
-    for (let i = 1; i <= 10; i++)
+    for (let i = 1; i <= 13; i++)
       harvest(await localOrLive(`session-${String(i).padStart(2, "0")}.html`));
     const mism = by("shelf").filter(r =>
       r.linked !== hrefs.has(decodeURIComponent(r.path.split("/").pop())));
