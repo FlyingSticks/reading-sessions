@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The rate loop — the congruence square at ground level</title>
+<style>
+  body{background:#faf6ef;color:#43203f;font-family:Georgia,'Times New Roman',serif;margin:0;padding:18px 14px 64px;}
+  .wrap{max-width:790px;margin:0 auto;}
+  h1{font-size:26px;margin:4px 0 2px;font-weight:normal;}
+  h1 .sub{font-size:16.5px;font-style:italic;color:#6a2c91;margin-left:10px;}
+  .lede{font-size:15.5px;font-style:italic;opacity:.85;margin:2px 0 14px;line-height:1.5;}
+  .controls{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;margin-bottom:8px;}
+  button.chip{font-family:inherit;font-size:14px;padding:4px 13px;border-radius:999px;border:1px solid #43203f;background:#faf6ef;color:#43203f;}
+  button.chip[aria-pressed="true"]{background:#43203f;color:#faf6ef;}
+  svg{width:100%;height:auto;display:block;}
+  .caption{border:1px solid #b08948;border-radius:10px;background:#fdfaf2;padding:10px 14px;font-size:14.5px;line-height:1.55;margin:8px 0 22px;min-height:44px;}
+  h2{font-size:20px;font-weight:normal;border-bottom:1px solid #b08948;padding-bottom:4px;margin:26px 0 10px;}
+  .reading p{font-size:15.5px;line-height:1.6;margin:0 0 12px;}
+  dl{margin:0;}
+  dt{font-weight:bold;font-size:15px;margin-top:9px;}
+  dd{margin:1px 0 0 16px;font-size:15px;line-height:1.5;}
+  footer{margin-top:30px;font-size:13px;font-style:italic;opacity:.7;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>The rate loop<span class="sub">the congruence square at ground level</span></h1>
+  <p class="lede">The double-gauged rectangle resolved in the seam page's vocabulary. Drag P.
+  Each channel's round trip k·j = 1 holds always — both rate-points ride the unit hyperbola
+  uv = 1. The seam is something more: one common rate serving both channels, which is
+  exactly P on the diagonal. There the labels ka, kb, jc, jd are earned, the two
+  hyperbola-points fuse, and the weld — the boost to the transpose — becomes available.
+  Off the seam the laws disagree, the red hook prices the gap, and the weld is parked.</p>
+</header>
+
+<div class="controls">
+  <button class="chip" data-layer="cells" aria-pressed="true">cells</button>
+  <button class="chip" data-layer="rates" aria-pressed="true">rates &amp; hook</button>
+  <button class="chip" data-layer="square" aria-pressed="true">congruence square</button>
+  <button class="chip" data-layer="hyper" aria-pressed="true">unit hyperbola</button>
+  <button class="chip" data-layer="weld" aria-pressed="false">weld (boost)</button>
+</div>
+
+<svg id="plate" viewBox="0 55 960 590" aria-label="rate loop plate">
+  <g id="gCells"></g>
+  <g id="gWeld"></g>
+  <g id="gRect"></g>
+  <g id="gRates"></g>
+  <g id="gSquare"></g>
+  <g id="gHyper"></g>
+  <g id="gHandle"></g>
+</svg>
+
+<div class="caption" id="caption"></div>
+
+<section class="reading">
+  <h2>Reading the plate</h2>
+  <p>Provenance. This is the unresolved kj sketch, resolved as the ground-level panel of
+  the congruence square from "The law and the gauge." The rectangle carries two channels:
+  the first parts (a, c) and the second parts (b, d). Each channel has its rate — r₁ = c/a,
+  r₂ = d/b — and the congruence square inset plots the pair (r₁, r₂), seam in gold on its
+  diagonal, exactly as the seam page plots (rᵤ, rᵥ).</p>
+  <p>Two laws share the letters, and the sketch needed them pulled apart. The round-trip
+  law — the seam page's convention "product of factors 1 per channel" — says k·j = 1 within
+  each channel: quote the widths in height-units and the heights in width-units and the
+  loop must close. It is bookkeeping, true everywhere on this plate, and it is why both
+  channel points always sit on the unit hyperbola uv = 1, the product form's unit conic.
+  The common-rate law is the event: a single k with c = ka and d = kb — one rate serving
+  both channels — which holds exactly when P lies on the rectangle's diagonal, since one k
+  means c/a = d/b, which is ad = bc, which is I.43. On the seam the labels ka, kb, jc, jd
+  are legitimate as written; off it they are impossible, and the plate withholds them.</p>
+  <p>The defect and the hook. Off the seam the disagreement is the determinant in rate
+  denomination: ad − bc = ab·(r₂ − r₁), weights times spread — the same grammar as the
+  seam page's law gap Δ = rᵤrᵥ(rᵥ − rᵤ), each a product of weights with the channel
+  spread. The red hook is its per-height price: the horizontal gap from P to the diagonal
+  at P's own level is (bc − ad)/(a + b), the defect divided by the rectangle's height.
+  Hook zero, seam reached, laws agree.</p>
+  <p>The weld. On the seam, and only there, the boost (x, y) → (jx, ky) — an isometry of
+  the product form, parameter on the unit hyperbola — carries the rectangle to its
+  transpose: width and height exchange, P = (c, b) lands on (a, d) on the transpose's own
+  diagonal, and every cell area ac, ad, bc, bd is kept. That is glide's freedom exercised
+  the way the seam page describes: the gauge can be turned to the other reading and the
+  two weld into one map. Off the seam the weld chip parks — no common rate; the weld
+  needs the seam — the ground-level echo of "one channel closes, the other cannot."</p>
+  <p>The reciprocal register, one currency across two projects. The seam page's weld map,
+  written in reciprocals, is 1/μ = −1/λ − r: a translation by the rate in the reciprocal
+  register. That is the same normal form as this suite's harmonic bookkeeping — the
+  bounce's 1/g′ = 1/g + 1/c, the hinge's 2/HM = 1/b + 1/c, the tilt's
+  1/OV_D + 1/OV_D′ = 2/c. The camera's reciprocal graduations are the invariant-count
+  crowding; the weld is the exchange desk between equal-step and crowded readings; and
+  the rate loop kj = 1 is the smallest closed circuit in that currency. The seam page is
+  where the Tetra Engine's law-and-gauge and the book's reach-and-turn quote the same
+  ledger; this plate is the teller's window.</p>
+</section>
+
+<section class="glossary">
+  <h2>Glossary</h2>
+  <dl>
+    <dt>channel</dt><dd>A matched pair of parts, one from each edge: channel 1 = (a, c),
+    channel 2 = (b, d); the seam page's u and v.</dd>
+    <dt>rate</dt><dd>The width-per-height of a channel: r₁ = c/a, r₂ = d/b. The diagonal's
+    own rate is W/H = (c + d)/(a + b).</dd>
+    <dt>round-trip law, k·j = 1</dt><dd>Within a channel, quoting each edge in the other's
+    units must close the loop; the seam page's "product of factors 1 per channel." Always
+    true; a condition on gauges, not on P.</dd>
+    <dt>common-rate law (the seam)</dt><dd>One k serving both channels: c = ka and d = kb
+    ⟺ r₁ = r₂ ⟺ ad = bc ⟺ P on the diagonal. The event, not the bookkeeping.</dd>
+    <dt>congruence square</dt><dd>The (r₁, r₂) domain with the seam in gold on its
+    diagonal; this rectangle is its ground floor — one point of the square, unfolded.</dd>
+    <dt>defect</dt><dd>ad − bc = ab(r₂ − r₁): the determinant as weights times channel
+    spread; kin to the seam page's Δ = rᵤrᵥ(rᵥ − rᵤ).</dd>
+    <dt>hook</dt><dd>The horizontal gap from P to the diagonal at P's height:
+    (bc − ad)/(a + b) — the defect per unit of height, drawn in red.</dd>
+    <dt>unit hyperbola uv = 1</dt><dd>The product form's unit conic; each channel's
+    rate-pair (k, j) rides it always, and the seam is where the two points fuse.</dd>
+    <dt>weld (boost)</dt><dd>The uv-isometry (x, y) → (jx, ky), available on the seam:
+    rectangle to transpose, P to (a, d), all four cell areas kept.</dd>
+    <dt>parked</dt><dd>The weld off-seam: no common rate exists, so no gauge turn can
+    close both channels — "the weld needs the seam."</dd>
+    <dt>reciprocal register</dt><dd>The currency of the whole ledger: gauge changes and
+    crowdings as translations of reciprocals — 1/μ = −1/λ − r, 1/g′ = 1/g + 1/c,
+    2/HM = 1/b + 1/c, 1/OV_D + 1/OV_D′ = 2/c.</dd>
+  </dl>
+</section>
+
+<footer>Sheet R·T-05 — one file, SVG, no libraries; the kj sketch resolved in the seam
+page's vocabulary. Smoke-checked before delivery; the browser check on the iPad is
+yours.</footer>
+</div>
+
+<script>
+// [MATH-BEGIN]
+var W_T=6, H_T=4;
+function cellsOf(x,y){return {c:x, d:W_T-x, b:y, a:H_T-y};}
+function ratesOf(x,y){var q=cellsOf(x,y); return {r1:q.c/q.a, r2:q.d/q.b};}
+function defectOf(x,y){var q=cellsOf(x,y); return q.a*q.d-q.b*q.c;}
+function spreadForm(x,y){var q=cellsOf(x,y), r=ratesOf(x,y);
+  return q.a*q.b*(r.r2-r.r1);}
+function hookOf(x,y){var q=cellsOf(x,y); return (q.b*q.c-q.a*q.d)/(q.a+q.b);}
+function diagX(y){return W_T*(H_T-y)/H_T;}
+function onSeam(x,y,tol){return Math.abs(defectOf(x,y))<=(tol||1e-9);}
+function snapToDiag(x,y){
+  var A=H_T, B=W_T, Cc=W_T*H_T;
+  var t=(A*x+B*y-Cc)/(A*A+B*B);
+  return {x:x-t*A, y:y-t*B};
+}
+function commonK(x,y){var q=cellsOf(x,y); return (q.c/q.a+q.d/q.b)/2;}
+function boostImage(x,y){var q=cellsOf(x,y); return {x:q.a, y:q.d};}
+function clampP(x,y){
+  return {x:Math.max(0.45,Math.min(W_T-0.45,x)),
+          y:Math.max(0.45,Math.min(H_T-0.45,y))};
+}
+function snapP(x,y,band){
+  var p=clampP(x,y);
+  var s=snapToDiag(p.x,p.y);
+  var d=Math.hypot(p.x-s.x,p.y-s.y);
+  if(d<=band){var sc=clampP(s.x,s.y); return {x:sc.x,y:sc.y,seam:true};}
+  return {x:p.x,y:p.y,seam:false};
+}
+function rectS(cfg,x,y){return {x:cfg.rox+cfg.rs*x, y:cfg.roy-cfg.rs*y};}
+function sqS(cfg,r1,r2){return {x:cfg.sox+cfg.ss*r1, y:cfg.soy-cfg.ss*r2};}
+function hypS(cfg,u,v){return {x:cfg.hox+cfg.hs*u, y:cfg.hoy-cfg.hs*v};}
+// [MATH-END]
+
+var CFG={rox:70, roy:520, rs:95, sox:700, soy:310, ss:42, sqmax:5,
+         hox:700, hoy:592, hs:60, hymax:3.5};
+var COLplum='#43203f', COLpurple='#6a2c91', COLgreen='#3f7a4e', COLcrimson='#c0322b',
+    COLgold='#b08948', COLfaint='#e0d7c2', COLcream='#faf6ef';
+var SVGNS='http://www.w3.org/2000/svg';
+var SNAPBAND=0.15;
+
+var px=4.0, py=4.0-4.0*4.0/6.0; // start on the seam: x=4 -> y = H(1 - x/W) = 4/3
+py=H_T*(1-px/W_T);
+var seam=true;
+var dragging=false;
+var svg, groups={}, capEl, handleC, handleHit;
+
+function el(name,attrs,parent,text){
+  var e=document.createElementNS(SVGNS,name);
+  for(var k in attrs) e.setAttribute(k,attrs[k]);
+  if(text!=null) e.textContent=text;
+  parent.appendChild(e);
+  return e;
+}
+function clear(g){while(g.firstChild)g.removeChild(g.firstChild);}
+function fmt(v){return v.toFixed(3);}
+function fmt2(v){return v.toFixed(2);}
+function lineR(g,x1,y1,x2,y2,attrs){
+  var p=rectS(CFG,x1,y1), q=rectS(CFG,x2,y2);
+  attrs=attrs||{}; attrs.x1=p.x; attrs.y1=p.y; attrs.x2=q.x; attrs.y2=q.y;
+  return el('line',attrs,g);
+}
+function dotR(g,x,y,r,fill,extra){
+  var p=rectS(CFG,x,y); var at=extra||{};
+  at.cx=p.x; at.cy=p.y; at.r=r; at.fill=fill;
+  return el('circle',at,g);
+}
+function txtR(g,x,y,s,attrs){
+  var p=rectS(CFG,x,y); attrs=attrs||{};
+  attrs.x=p.x; attrs.y=p.y;
+  if(!attrs.fill) attrs.fill=COLplum;
+  return el('text',attrs,g,s);
+}
+function polyR(g,pts,attrs){
+  var d=pts.map(function(p){var s=rectS(CFG,p[0],p[1]);return s.x+','+s.y;}).join(' ');
+  attrs=attrs||{}; attrs.points=d;
+  return el('polygon',attrs,g);
+}
+
+var layers={cells:true,rates:true,square:true,hyper:true,weld:false};
+
+function updateViewBox(){
+  var top=layers.weld? Math.round(rectS(CFG,0,W_T).y-40) : 55;
+  svg.setAttribute('viewBox','0 '+top+' 960 '+(645-top));
+}
+
+function drawAll(){
+  var q=cellsOf(px,py), r=ratesOf(px,py);
+
+  // cells
+  var g=groups.gCells; clear(g);
+  if(layers.cells){
+    polyR(g,[[0,py],[px,py],[px,H_T],[0,H_T]],{fill:COLgreen,opacity:'0.05'});
+    polyR(g,[[px,py],[W_T,py],[W_T,H_T],[px,H_T]],{fill:COLgreen,opacity:'0.16'});
+    polyR(g,[[0,0],[px,0],[px,py],[0,py]],{fill:COLgreen,opacity:'0.16'});
+    polyR(g,[[px,0],[W_T,0],[W_T,py],[px,py]],{fill:COLgreen,opacity:'0.05'});
+    txtR(g,px/2,(py+H_T)/2,'ac',{'font-size':'15','text-anchor':'middle',fill:COLgreen});
+    txtR(g,(px+W_T)/2,(py+H_T)/2,'ad',{'font-size':'16','font-weight':'bold',
+      'text-anchor':'middle',fill:COLgreen});
+    txtR(g,px/2,py/2,'bc',{'font-size':'16','font-weight':'bold','text-anchor':'middle',
+      fill:COLgreen});
+    txtR(g,(px+W_T)/2,py/2,'bd',{'font-size':'15','text-anchor':'middle',fill:COLgreen});
+  }
+
+  // weld ghost
+  g=groups.gWeld; clear(g);
+  if(layers.weld){
+    if(seam){
+      var Pp=boostImage(px,py);
+      polyR(g,[[0,0],[H_T,0],[H_T,W_T],[0,W_T]],{fill:'none',stroke:COLpurple,
+        'stroke-width':1.6,'stroke-dasharray':'6 5'});
+      lineR(g,0,W_T,H_T,0,{stroke:COLpurple,'stroke-width':1.3,
+        'stroke-dasharray':'6 5',opacity:'0.8'});
+      dotR(g,Pp.x,Pp.y,5.5,COLpurple,{stroke:COLcream,'stroke-width':1.5});
+      txtR(g,Pp.x+0.12,Pp.y+0.10,'P\u2032 = (a, d)',{'font-size':'13',
+        'text-anchor':'start',fill:COLpurple});
+      txtR(g,0.1,W_T+0.22,'transpose \u2014 boost (j, k): every cell area kept',
+        {'font-size':'13','font-style':'italic','text-anchor':'start',fill:COLpurple});
+    }else{
+      txtR(g,0.1,H_T+0.55,'weld parked \u2014 no common rate; the weld needs the seam',
+        {'font-size':'13','font-style':'italic','text-anchor':'start',opacity:'0.6'});
+    }
+  }
+
+  // rectangle frame + diagonal
+  g=groups.gRect; clear(g);
+  polyR(g,[[0,0],[W_T,0],[W_T,H_T],[0,H_T]],{fill:'none',stroke:COLplum,
+    'stroke-width':3});
+  lineR(g,0,H_T,W_T,0,{stroke:(seam?COLgold:COLcrimson),
+    'stroke-width':(seam?3.5:2.5)});
+  lineR(g,px,0,px,H_T,{stroke:COLgreen,'stroke-width':2,opacity:'0.85'});
+  lineR(g,0,py,W_T,py,{stroke:COLgreen,'stroke-width':2,opacity:'0.85'});
+  txtR(g,-0.14,(py+H_T)/2,'a',{'font-size':'16','font-style':'italic',
+    'text-anchor':'end','dominant-baseline':'middle'});
+  txtR(g,-0.14,py/2,'b',{'font-size':'16','font-style':'italic','text-anchor':'end',
+    'dominant-baseline':'middle'});
+  txtR(g,px/2,-0.34,'c',{'font-size':'16','font-style':'italic','text-anchor':'middle',
+    fill:COLgreen});
+  txtR(g,(px+W_T)/2,-0.34,'d',{'font-size':'16','font-style':'italic',
+    'text-anchor':'middle',fill:COLgreen});
+  if(seam){
+    txtR(g,W_T-0.1,H_T+0.5,'SEAM',{'font-size':'13','font-weight':'bold',
+      'text-anchor':'end',fill:COLgold,'letter-spacing':'2'});
+  }
+
+  // rates, edge labels, hook
+  g=groups.gRates; clear(g);
+  if(layers.rates){
+    if(seam){
+      var k=commonK(px,py);
+      txtR(g,px/2,H_T+0.22,'ka',{'font-size':'15','font-style':'italic',
+        'text-anchor':'middle',fill:COLgold});
+      txtR(g,(px+W_T)/2,H_T+0.22,'kb',{'font-size':'15','font-style':'italic',
+        'text-anchor':'middle',fill:COLgold});
+      txtR(g,W_T+0.16,(py+H_T)/2,'jc',{'font-size':'15','font-style':'italic',
+        'text-anchor':'start','dominant-baseline':'middle',fill:COLgold});
+      txtR(g,W_T+0.16,py/2,'jd',{'font-size':'15','font-style':'italic',
+        'text-anchor':'start','dominant-baseline':'middle',fill:COLgold});
+      txtR(g,0.1,-0.85,'one common rate: k = '+fmt(k)+', j = 1/k = '+fmt(1/k)+
+        ' \u00B7 k\u00B7j = 1 \u00B7 defect 0',
+        {'font-size':'13.5','font-style':'italic','text-anchor':'start',fill:COLgold});
+    }else{
+      txtR(g,px/2,H_T+0.22,'k\u2081a',{'font-size':'14','font-style':'italic',
+        'text-anchor':'middle',fill:COLcrimson,opacity:'0.8'});
+      txtR(g,(px+W_T)/2,H_T+0.22,'k\u2082b',{'font-size':'14','font-style':'italic',
+        'text-anchor':'middle',fill:COLcrimson,opacity:'0.8'});
+      txtR(g,W_T+0.16,(py+H_T)/2,'j\u2081c',{'font-size':'14','font-style':'italic',
+        'text-anchor':'start','dominant-baseline':'middle',fill:COLcrimson,
+        opacity:'0.8'});
+      txtR(g,W_T+0.16,py/2,'j\u2082d',{'font-size':'14','font-style':'italic',
+        'text-anchor':'start','dominant-baseline':'middle',fill:COLcrimson,
+        opacity:'0.8'});
+      var xd=diagX(py);
+      lineR(g,px,py,xd,py,{stroke:COLcrimson,'stroke-width':2.6});
+      dotR(g,xd,py,3.5,COLcrimson);
+      txtR(g,(px+xd)/2,py-0.30,'hook '+fmt(hookOf(px,py)),
+        {'font-size':'12.5','text-anchor':'middle',fill:COLcrimson});
+      txtR(g,0.1,-0.85,'no common rate: k\u2081 = '+fmt(r.r1)+' \u2260 k\u2082 = '+
+        fmt(r.r2)+' \u00B7 per channel k\u1d62\u00B7j\u1d62 = 1 still \u00B7 defect ad \u2212 bc = '+
+        fmt(defectOf(px,py)),
+        {'font-size':'13.5','font-style':'italic','text-anchor':'start',fill:COLcrimson});
+    }
+  }
+
+  // congruence square inset
+  g=groups.gSquare; clear(g);
+  if(layers.square){
+    var s0=sqS(CFG,0,0), s1=sqS(CFG,CFG.sqmax,CFG.sqmax);
+    el('rect',{x:s0.x,y:s1.y,width:s1.x-s0.x,height:s0.y-s1.y,fill:'#fdfaf2',
+      stroke:COLplum,'stroke-width':1.5},g);
+    var d0=sqS(CFG,0,0), d1=sqS(CFG,CFG.sqmax,CFG.sqmax);
+    el('line',{x1:d0.x,y1:d0.y,x2:d1.x,y2:d1.y,stroke:COLgold,'stroke-width':2.5},g);
+    for(var tt=1;tt<CFG.sqmax;tt++){
+      var tx=sqS(CFG,tt,0), ty=sqS(CFG,0,tt);
+      el('line',{x1:tx.x,y1:tx.y-3,x2:tx.x,y2:tx.y+3,stroke:COLplum,'stroke-width':1},g);
+      el('line',{x1:ty.x-3,y1:ty.y,x2:ty.x+3,y2:ty.y,stroke:COLplum,'stroke-width':1},g);
+    }
+    var mr1=Math.min(r.r1,CFG.sqmax-0.12), mr2=Math.min(r.r2,CFG.sqmax-0.12);
+    var mk=sqS(CFG,mr1,mr2);
+    var clipped=(r.r1>CFG.sqmax-0.12||r.r2>CFG.sqmax-0.12);
+    el('circle',{cx:mk.x,cy:mk.y,r:6,fill:(seam?COLgold:COLcrimson),
+      'fill-opacity':(clipped?'0':'1'),stroke:(seam?COLgold:COLcrimson),
+      'stroke-width':2},g);
+    el('text',{x:s0.x,y:s0.y+18,'font-size':'12.5',fill:COLcrimson},g,'r\u2081 = c/a');
+    el('text',{x:s0.x-8,y:s1.y-8,'font-size':'12.5',fill:COLpurple},g,'r\u2082 = d/b');
+    el('text',{x:(s0.x+s1.x)/2+8,y:(s0.y+s1.y)/2-8,'font-size':'11.5',
+      'font-style':'italic',fill:COLgold,
+      transform:'rotate(-45 '+((s0.x+s1.x)/2+8)+' '+((s0.y+s1.y)/2-8)+')'},g,
+      'seam \u2014 one common rate');
+  }
+
+  // unit hyperbola inset
+  g=groups.gHyper; clear(g);
+  if(layers.hyper){
+    var h0=hypS(CFG,0,0), h1=hypS(CFG,CFG.hymax,CFG.hymax);
+    el('rect',{x:h0.x,y:h1.y,width:h1.x-h0.x,height:h0.y-h1.y,fill:'#fdfaf2',
+      stroke:COLplum,'stroke-width':1.5},g);
+    var pth='';
+    for(var iu=0;iu<=160;iu++){
+      var u=1/CFG.hymax+ (CFG.hymax-1/CFG.hymax)*iu/160;
+      var v=1/u;
+      var hp=hypS(CFG,u,v);
+      pth+=(iu?'L':'M')+hp.x.toFixed(1)+' '+hp.y.toFixed(1);
+    }
+    el('path',{d:pth,fill:'none',stroke:COLgold,'stroke-width':2},g);
+    function hdot(rv,col){
+      var uu=Math.min(rv,CFG.hymax-0.06), vv=Math.min(1/rv,CFG.hymax-0.06);
+      var hq=hypS(CFG,uu,vv);
+      el('circle',{cx:hq.x,cy:hq.y,r:5,fill:col,stroke:COLcream,'stroke-width':1.3},g);
+    }
+    if(seam){ hdot(r.r1,COLgold); }
+    else{ hdot(r.r1,COLcrimson); hdot(r.r2,COLpurple); }
+    el('text',{x:h0.x+8,y:h1.y+16,'font-size':'12.5','font-style':'italic',
+      fill:COLgold},g,'uv = 1 \u2014 (k, j) per channel, always');
+  }
+
+  // handle
+  var hp2=rectS(CFG,px,py);
+  handleC.setAttribute('cx',hp2.x); handleC.setAttribute('cy',hp2.y);
+  handleHit.setAttribute('cx',hp2.x); handleHit.setAttribute('cy',hp2.y);
+  handleC.setAttribute('stroke',seam?COLgold:COLplum);
+
+  updateViewBox();
+  caption();
+}
+
+function caption(){
+  var q=cellsOf(px,py), r=ratesOf(px,py);
+  var cap='P: a = '+fmt2(q.a)+', b = '+fmt2(q.b)+', c = '+fmt2(q.c)+', d = '+fmt2(q.d)+
+    ' (W = '+W_T+', H = '+H_T+').  Rates r\u2081 = c/a = '+fmt(r.r1)+
+    ', r\u2082 = d/b = '+fmt(r.r2)+'.  Round trip per channel: k\u1d62\u00B7j\u1d62 = 1, '+
+    'both rate-points on uv = 1.  ';
+  if(seam){
+    var k=commonK(px,py);
+    cap+='SEAM: one common rate k = '+fmt(k)+', j = '+fmt(1/k)+
+      '; labels ka, kb, jc, jd earned; ad \u2212 bc = 0; the two hyperbola points fuse; '+
+      'the weld (boost to the transpose) is available.';
+  }else{
+    cap+='Off seam: no common rate (k\u2081 \u2260 k\u2082); defect ad \u2212 bc = '+
+      fmt(defectOf(px,py))+' = ab(r\u2082 \u2212 r\u2081) = '+fmt(spreadForm(px,py))+
+      '; hook = defect/H = '+fmt(-hookOf(px,py))+' signed; the weld is parked.';
+  }
+  capEl.textContent=cap;
+}
+
+function toWorld(e){
+  var pt=svg.createSVGPoint();
+  pt.x=e.clientX; pt.y=e.clientY;
+  var sp=pt.matrixTransform(svg.getScreenCTM().inverse());
+  return {x:(sp.x-CFG.rox)/CFG.rs, y:(CFG.roy-sp.y)/CFG.rs};
+}
+function setP(e){
+  var w=toWorld(e);
+  var s=snapP(w.x,w.y,SNAPBAND);
+  px=s.x; py=s.y; seam=s.seam;
+  drawAll();
+}
+function onDown(e){
+  e.preventDefault();
+  e.currentTarget.setPointerCapture(e.pointerId);
+  dragging=true; setP(e);
+}
+function onMove(e){ if(!dragging) return; e.preventDefault(); setP(e); }
+function onUp(){dragging=false;}
+
+function init(){
+  svg=document.getElementById('plate');
+  capEl=document.getElementById('caption');
+  ['gCells','gWeld','gRect','gRates','gSquare','gHyper','gHandle']
+    .forEach(function(id){groups[id]=document.getElementById(id);});
+  var gh=groups.gHandle;
+  var r0=rectS(CFG,0,H_T), r1=rectS(CFG,W_T,0);
+  el('rect',{x:r0.x,y:r0.y,width:r1.x-r0.x,height:r1.y-r0.y,fill:'#ffffff',
+    'fill-opacity':'0','pointer-events':'all',
+    style:'touch-action:none;cursor:grab'},gh)
+    .addEventListener('pointerdown',onDown);
+  handleC=el('circle',{r:9,fill:COLgold,stroke:COLplum,'stroke-width':2,
+    'pointer-events':'none'},gh);
+  handleHit=el('circle',{r:26,fill:'#ffffff','fill-opacity':'0','pointer-events':'all',
+    style:'touch-action:none;cursor:grab'},gh);
+  [gh.firstChild,handleHit].forEach(function(tg){
+    tg.addEventListener('pointerdown',onDown);
+    tg.addEventListener('pointermove',onMove);
+    tg.addEventListener('pointerup',onUp);
+    tg.addEventListener('pointercancel',onUp);
+  });
+  document.querySelectorAll('button.chip').forEach(function(bn){
+    bn.addEventListener('click',function(){
+      var key=bn.getAttribute('data-layer');
+      layers[key]=!layers[key];
+      bn.setAttribute('aria-pressed',layers[key]?'true':'false');
+      drawAll();
+    });
+  });
+  drawAll();
+}
+init();
+</script>
+</body>
+</html>
