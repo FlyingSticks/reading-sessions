@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The glossary · The Reading Sessions</title>
+<style>
+  :root {
+    --cream:#faf6ef; --plum:#43203f; --purple:#6a2c91; --crimson:#c0322b;
+    --gold:#b08948; --teal:#177f75; --ink:#2b2226; --grey:#6b6360; --rule:#e2d9c8;
+  }
+  html { background: var(--cream); }
+  body {
+    margin: 0; color: var(--ink); background: var(--cream);
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+    font-size: 17px; line-height: 1.6; -webkit-text-size-adjust: 100%;
+  }
+  main { max-width: 44rem; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
+  .eyebrow {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: .72rem;
+    letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin: 0 0 1rem;
+  }
+  .eyebrow a { color: var(--gold); border-bottom: none; }
+  .eyebrow a:hover, .eyebrow a:focus-visible { color: var(--crimson); }
+  h1 { font-size: 2rem; line-height: 1.1; margin: 0 0 .45rem; color: var(--plum); font-weight: 700; letter-spacing: -.01em; }
+  .sub { font-style: italic; font-size: 1.1rem; color: var(--purple); margin: 0 0 2rem; line-height: 1.4; }
+  h2 { font-size: 1.05rem; color: var(--plum); margin: 2.6rem 0 .8rem;
+       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+       letter-spacing: .14em; text-transform: uppercase; font-weight: 600; }
+  p { margin: 0 0 1rem; }
+  a { color: var(--purple); text-decoration: none; border-bottom: 1px dotted var(--gold); }
+  a:hover, a:focus-visible { color: var(--crimson); border-bottom-style: solid; }
+  a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  .tag {
+    display: inline-block; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: .66rem; letter-spacing: .14em; text-transform: uppercase;
+    padding: .1rem .45rem; border: 1px solid var(--gold); color: var(--gold);
+    border-radius: 2px; margin-right: .4rem; vertical-align: middle;
+  }
+  .tag.landed { border-color: var(--teal); color: var(--teal); }
+  .tag.checked { border-color: var(--teal); color: var(--teal); }
+  .tag.seasoning { border-color: var(--crimson); color: var(--crimson); }
+  footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--gold);
+           font-size: .85rem; color: var(--grey); line-height: 1.7; }
+</style>
+<style>
+  dl.gloss { margin: .6rem 0 0; }
+  dl.gloss dt { font-weight: 700; color: var(--plum); margin-top: 1.05rem; scroll-margin-top: 1rem; }
+  dl.gloss dt a.anchor { color: inherit; border-bottom: none; }
+  dl.gloss dt:target { background: #fff5dc; box-shadow: 0 0 0 6px #fff5dc; border-radius: 2px; }
+  dl.gloss dd { margin: .22rem 0 0 1rem; font-size: .96rem; line-height: 1.55; }
+  dl.gloss dd + dd { border-top: 1px dotted var(--rule); padding-top: .22rem; }
+  a.src { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: .7rem; letter-spacing: .08em;
+          text-transform: uppercase; color: var(--gold); border-bottom: none; white-space: nowrap; margin-left: .3rem; }
+  a.src.book { color: var(--teal); }
+  nav.letters { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: .85rem; letter-spacing: .08em; line-height: 2; margin: 1rem 0; }
+  input#q { width: 100%; box-sizing: border-box; font: inherit; font-size: 1rem; padding: .5rem .7rem;
+            border: 1px solid var(--gold); border-radius: 4px; background: #fffdf8; color: var(--ink); }
+  .count { font-size: .85rem; color: var(--grey); margin: .4rem 0 0; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow"><a href="index.html">The Reading Sessions</a> · the glossary · 24 September 2026</p>
+    <h1>The glossary</h1>
+    <p class="sub">Every defined term in the book and the record, in one alphabet — each sense quoted from the page that defines it, and linked back there</p>
+  </header>
+
+  <p>This page gathers the book&apos;s glossary (62 terms) and every glossary on the shelf (20 pages) into one list. Nothing here is newly defined: each sense is quoted from its page, with that page named beside it — <span style="color:var(--teal)">teal</span> for the book, gold for the record, with the session that filed it. Where a term is defined in more than one place, every distinct sense stands, the book&apos;s first; where two pages say the same thing, it appears once. A disagreement between senses is information, not an error to be smoothed here — the book states; the record collects.</p>
+
+  <input id="q" type="search" placeholder="Filter terms and definitions…" aria-label="Filter the glossary">
+  <p class="count" id="count"></p>
+  <nav class="letters"><a href="#L-A">A</a> · <a href="#L-B">B</a> · <a href="#L-C">C</a> · <a href="#L-D">D</a> · <a href="#L-E">E</a> · <a href="#L-F">F</a> · <a href="#L-G">G</a> · <a href="#L-H">H</a> · <a href="#L-I">I</a> · <a href="#L-J">J</a> · <a href="#L-L">L</a> · <a href="#L-M">M</a> · <a href="#L-N">N</a> · <a href="#L-O">O</a> · <a href="#L-P">P</a> · <a href="#L-Q">Q</a> · <a href="#L-R">R</a> · <a href="#L-S">S</a> · <a href="#L-T">T</a> · <a href="#L-U">U</a> · <a href="#L-V">V</a> · <a href="#L-W">W</a> · <a href="#L-Z">Z</a> · <a href="#L-sym">#</a></nav>
+
+<h2 id="L-A">A</h2>
+<dl class="gloss">
+<dt id="g-a"><a class="anchor" href="#g-a">A, B, C — the juxtaposed reading</a></dt>
+<dd>Five disjoint regions tile the rectangle: A = O L M, D = O M X, B = M X N, D = X N R, and C = O X R (hatched), each letter on its own ground. The diagonal O–N halves the rectangle into A + D + B above and C + D below; cancel D = D and A + B = C holds with nothing counted twice. The overlap lives only in the interpretation, where B and C stand for the classical base-b and base-c triangles under an apex — readings the check file verifies agree with this one. <a class="src" href="the-hinge-v7.html">The hinge · session 13</a></dd>
+<dt id="g-account"><a class="anchor" href="#g-account">the account, <i>A</i></a></dt>
+<dd>The conserved total of the corner cells: <i>A</i> = <i>h</i> · span. Written <i>A</i> because the rig reserves <i>D</i> for the slit separation. <a class="src" href="the-conservation.html">The conservation · session 8</a></dd>
+<dt id="g-address"><a class="anchor" href="#g-address">address</a></dt>
+<dd>The pair (turn, reach) with x = turn + reach/n; a two-digit base-n numeral. <a class="src" href="n-of-n-v1.html">n of n · session 13</a></dd>
+<dt id="g-adjacent"><a class="anchor" href="#g-adjacent">adjacent, overlapping, starved</a></dt>
+<dd>The three anchorings of the strips: tile the rectangle exactly, double-pay the diagonal, miss it. <a class="src" href="the-conservation.html">The conservation · session 8</a></dd>
+<dt id="g-altitude-foot-f"><a class="anchor" href="#g-altitude-foot-f">altitude foot F</a></dt>
+<dd>The Q-perpendicular from P₂ onto O–B; foot fraction Q(OP₂)/Q(OB) along the hypotenuse — Euclid's lemma in Q. <a class="src" href="vi31-for-uv-v1.html">VI.31 for uv · session 13</a></dd>
+<dt id="g-anamorphic-dissociation"><a class="anchor" href="#g-anamorphic-dissociation">Anamorphic dissociation</a></dt>
+<dd>The double slit's factorization of concurrence by coordinate: x-meetings deported to one slit, y-meetings to the other, at two different depths. The pinhole spends its whole ∞² ray budget at one point; the double slit spends ∞¹ along each slit, and the mismatch between the two partial organizations is the depth signal. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#dissociation">book · Ch. 8</a></dd>
+<dt id="g-anchor"><a class="anchor" href="#g-anchor">Anchor</a></dt>
+<dd>The quadric whose pole–polar map is the chosen duality. The rig's canonical anchor is the sphere x² + y² + z² = Z₁Z₂: centre at the principal point, radius the geometric mean of the slit depths, slits mutually polar. Anharmonicity of the transport selects it. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#anchor">book · Ch. 5</a></dd>
+<dt id="g-anharmonic-group"><a class="anchor" href="#g-anharmonic-group">Anharmonic group</a></dt>
+<dd>The six Möbius maps that permute a cross-ratio under reordering of its four points — λ, 1−λ, 1/λ, 1/(1−λ), λ/(λ−1), (λ−1)/λ — isomorphic to S₃. Reordering acts through S₄; the Klein four-group acts trivially. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#anharmonic">book · Ch. 4</a></dd>
+<dt id="g-anti-mirror"><a class="anchor" href="#g-anti-mirror">anti-mirror</a></dt>
+<dd>The same formula with negative power: still an involution swapping the slits, with no real fixed circle. <a class="src" href="gm-mirror.html">The GM mirror · session 10</a></dd>
+<dt id="g-apex-p"><a class="anchor" href="#g-apex-p">apex P₂</a></dt>
+<dd>The hyperbola's unique crossing of the right edge, at the hinge's height; the certified Q-right angle, with mirror slopes ±h/(b+c). <a class="src" href="one-hinge-two-banks-v3.html">One hinge, two banks · session 13</a></dd>
+<dd>The Minkowski circle's unique crossing of the right edge, (2, 2/(4−b)); the certified Q-right angle of the plate. <a class="src" href="vi31-for-uv-v1.html">VI.31 for uv · session 13</a></dd>
+<dt id="g-apparatus-probe"><a class="anchor" href="#g-apparatus-probe">apparatus / probe</a></dt>
+<dd>Apparatus: what the rig fixes before any reading — the slits, hence O and OA. Probe: the one free point, Q, fourth argument of every cross-ratio. What rides with it — S, M, the breathing circle — is reading, not rig. <a class="src" href="bones-of-the-rig-v3.html">The bones of the rig · session 12</a></dd>
+<dt id="g-ar-m-v-m-u"><a class="anchor" href="#g-ar-m-v-m-u">AR = m_v/m_u</a></dt>
+<dd>The aspect between the two channels' gauges at the current depth — how anisotropically the rig is printing right now. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-archive"><a class="anchor" href="#g-archive">archive</a></dt>
+<dd>A feeder repository; edited in place, linked from the book. <a class="src" href="the-landscape.html">The landscape · session 8</a></dd>
+<dt id="g-armature"><a class="anchor" href="#g-armature">Armature</a></dt>
+<dd>The drawn incidence skeleton — lines, concurrences, axes, picture plane — the shadow of the congruence on the sheet. Shared by both readings; only the graduation along it differs. The six core armatures of the 1984 plate (p.&nbsp;93) are the six patterns of recession one gauge can produce, indexed by the rate pair. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#armature">book · Ch. 1, 7</a></dd>
+<dt id="g-armature-law"><a class="anchor" href="#g-armature-law">Armature law</a></dt>
+<dd>The shape of the image machinery: per-channel linear contraction toward a seat at a rate — straight depth lines, a rate pair, the vanishing structure. Summarized by (r<sub>u</sub>, r<sub>v</sub>). <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#law">book · Ch. 2</a></dd>
+</dl>
+<h2 id="L-B">B</h2>
+<dl class="gloss">
+<dt id="g-b"><a class="anchor" href="#g-b">B : A</a></dt>
+<dd>Run per rise of a turn family: B₁ = 0, and in general B : A = n(k−1) : (n−1). B is counted in the line's units and A in the height's units, so the drawing may stretch its axes independently — every parallel stays parallel. <a class="src" href="n-of-n-v1.html">n of n · session 13</a></dd>
+<dt id="g-back-wall"><a class="anchor" href="#g-back-wall">back wall (λ&nbsp;=&nbsp;1)</a></dt>
+<dd>The dashed far edge of the slab; unit depth. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-balance-point"><a class="anchor" href="#g-balance-point">balance point</a></dt>
+<dd>Q&nbsp;=&nbsp;6&nbsp;&minus;&nbsp;3√2, the slider's right stop: MQ&nbsp;=&nbsp;OA, the two circles congruent, the spans Q–S and A–C equal, the witnesses at equal heights, OQ&nbsp;=&nbsp;3(√2&nbsp;&minus;&nbsp;1) and OS&nbsp;=&nbsp;3(√2&nbsp;+&nbsp;1). <a class="src" href="bones-of-the-rig-v3.html">The bones of the rig · session 12</a></dd>
+<dt id="g-bank"><a class="anchor" href="#g-bank">bank, price</a></dt>
+<dd>A quadratic form (or its absence) together with its certificate conic; the same claim priced in metric (right angles, means) or in count (incidences, cross-ratios). <a class="src" href="one-hinge-two-banks-v3.html">One hinge, two banks · session 13</a></dd>
+<dt id="g-best-fit-eye"><a class="anchor" href="#g-best-fit-eye">best-fit eye</a></dt>
+<dd>The least-squares common point of the imaging rays for a given scene — on the axis, scene-bound, far-field limit AM. <a class="src" href="eye-view-3d.html">The eye and the volume · session 10</a></dd>
+<dt id="g-blow-up-chart"><a class="anchor" href="#g-blow-up-chart">blow-up · chart</a></dt>
+<dd>The scene in coordinates (x − P)/ε, y/ε: a microscope whose magnification tracks the degeneration exactly. <a class="src" href="degeneration-ledger.html">The degeneration ledger · session 10</a></dd>
+<dt id="g-bounce"><a class="anchor" href="#g-bounce">the bounce</a></dt>
+<dd>Post up to the rail, slant to R, next post where the slant crosses the diagonal; as a map of the rail, x → c²/(2c − x) when level. <a class="src" href="one-hinge-two-banks-v3.html">One hinge, two banks · session 13</a></dd>
+<dt id="g-bow"><a class="anchor" href="#g-bow">Bow</a></dt>
+<dd>The curvature of a straight line’s cross-slit image, measured as sagitta from its chord. Zero on the seam and for frontal lines; off the seam nonzero, linear in transverse offset and in the slit gap. Since homographies preserve straightness, the bow is the obstruction to reading the cross-slit picture as any perspective. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#bow">book · Ch. 5</a></dd>
+<dt id="g-bow-sagitta"><a class="anchor" href="#g-bow-sagitta">bow · sagitta</a></dt>
+<dd>The curvature of a straight line's image, measured as maximum deviation from its chord. Zero on the seam and on frontal lines; the obstruction to perspective everywhere else. <a class="src" href="eye-view-3d.html">The eye and the volume · session 10</a></dd>
+<dt id="g-breathing-square"><a class="anchor" href="#g-breathing-square">breathing square</a></dt>
+<dd>MQ²&nbsp;=&nbsp;MS²: side the half-span of the conjugate pair Q–S. Its center M rides with Q, so the square swells and shrinks under the fixed law MA·MC&nbsp;=&nbsp;MQ². <a class="src" href="bones-of-the-rig-v3.html">The bones of the rig · session 12</a></dd>
+<dt id="g-budget"><a class="anchor" href="#g-budget">Budget</a></dt>
+<dd>The quantitative form of the bargain: a projection has a fixed quantity of fidelity, allocated between depth and breadth by the dial D. The criterion compares Δ·D (the glide's residual anisotropy, linear in depth extent and separation) against B² (perspective's marginal splay, quadratic in breadth). <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#budget">book · Ch. 6</a></dd>
+</dl>
+<h2 id="L-C">C</h2>
+<dl class="gloss">
+<dt id="g-calibrated"><a class="anchor" href="#g-calibrated">Calibrated</a></dt>
+<dd>Vision's word for the metric rung: a camera is calibrated once its intrinsics are known, which is exactly what upgrades a reconstruction from projective or affine to metric. Here, nominating the screen supplies the three fiducials that turn the depth gauge into a coordinate. Of the three names for the rung, the only one that names the act of pinning structure to numbers. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#calibrated">book · Ch. 8</a></dd>
+<dt id="g-calibration"><a class="anchor" href="#g-calibration">Calibration</a></dt>
+<dd>A depth plane at which readings are pinned to agree; selects the gauge's representative. Glide practice's staging, generalized. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#calibration">book · Ch. 2</a></dd>
+<dt id="g-camera-country"><a class="anchor" href="#g-camera-country">camera country</a></dt>
+<dd>θ&nbsp;=&nbsp;90°, fully opened: a ray must thread both slits; only here is the forward reading honest optics. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-camera-print"><a class="anchor" href="#g-camera-print">camera print (Xc, Yc)</a></dt>
+<dd>The two camera marks assembled into a plane coordinate; filled dot. Not a construction: it is the strike. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-camera-reading"><a class="anchor" href="#g-camera-reading">camera reading (cross-slit)</a></dt>
+<dd>Ray from the scene point to the slit, read where it crosses the screen. It <i>pulls in</i>: mark Xc = X·m. Equal depth steps print harmonically. Law and gauge welded by optics — the physical ray fixes both the incidence and the scale in one act. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-carried-home"><a class="anchor" href="#g-carried-home">carried home</a></dt>
+<dd>The dashed level segment that transports the glide mark from scene depth back to the trace — same height, no rescaling. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-carry"><a class="anchor" href="#g-carry">carry</a></dt>
+<dd>The shared boundary mark where reach n of one family coincides with reach 0 of the next. <a class="src" href="n-of-n-v1.html">n of n · session 13</a></dd>
+<dt id="g-center-by-computation"><a class="anchor" href="#g-center-by-computation">center by computation (virtual center)</a></dt>
+<dd>A point posited to make the arithmetic close, though nothing travels through it — the solution to an inverse problem, not a place light visits. C is one; so is the principal point of a thick lens, which no refraction happens at yet every image size obeys. <a class="src" href="virtual-center.html">The virtual centre · session 9</a></dd>
+<dt id="g-center-by-incidence"><a class="anchor" href="#g-center-by-incidence">center by incidence (pivot)</a></dt>
+<dd>A point rays actually pass through, demonstrable in the drawing: pencils of indistinguishable probe positions concur there. B and D are centers by incidence. <a class="src" href="virtual-center.html">The virtual centre · session 9</a></dd>
+<dt id="g-center-image-m"><a class="anchor" href="#g-center-image-m">center image m₁</a></dt>
+<dd>The diagonal meet of M X N V; the −1 along X–V is the center's bisection of the diagonal, surviving projection as cross-ratio. <a class="src" href="the-hinge-v7.html">The hinge · session 13</a></dd>
+<dt id="g-central-camera"><a class="anchor" href="#g-central-camera">central camera</a></dt>
+<dd>One whose rays share a point. The cross-slit is central only in its two shadows and at the pinhole limit. <a class="src" href="eye-view-3d.html">The eye and the volume · session 10</a></dd>
+<dt id="g-chain"><a class="anchor" href="#g-chain">Chain</a></dt>
+<dd>The image of a line skew to both slits: the set of rays meeting it, which on the screen is the graph of a Möbius map — a hyperbola with axis-parallel asymptotes, the split-signature sibling of the circle. Closed, as a bidegree-(1,1) curve in ℙ¹&nbsp;×&nbsp;ℙ¹. Lines and circles fuse into it. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#chain">book · Ch. 8</a></dd>
+<dt id="g-channel"><a class="anchor" href="#g-channel">channel</a></dt>
+<dd>One slit's share of the projection. Each channel acts as a one-dimensional pinhole camera: the u-channel centered at B, the v-channel at D. <a class="src" href="virtual-center.html">The virtual centre · session 9</a></dd>
+<dd>A matched pair of parts, one from each edge: channel 1 = (a, c), channel 2 = (b, d); the seam page's u and v. <a class="src" href="rate-loop-v2.html">The rate loop · session 13</a></dd>
+<dt id="g-channel-gauge-m"><a class="anchor" href="#g-channel-gauge-m">channel gauge m</a></dt>
+<dd>The one number a channel assigns to a depth: m = (−s)/(λ − s) for foot s. Written m_u, m_v. Both readings are this same gauge, applied in opposite directions. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-channel-swap"><a class="anchor" href="#g-channel-swap">channel swap σ</a></dt>
+<dd>The involution exchanging the two slits — the u- and v-channels — while fixing the image and harmonic planes. Realized here by the breathing circle. <a class="src" href="bones-of-the-rig-v3.html">The bones of the rig · session 12</a></dd>
+<dt id="g-circle-bank"><a class="anchor" href="#g-circle-bank">circle bank</a></dt>
+<dd>The semicircle on L–N with apex M′ above M: LM′² + M′N² = LN², altitude M′M = √(ab) — the Euclidean certificate over the same ground. <a class="src" href="one-hinge-two-banks-v3.html">One hinge, two banks · session 13</a></dd>
+<dt id="g-circle-of-least-confusion"><a class="anchor" href="#g-circle-of-least-confusion">circle of least confusion</a></dt>
+<dd>The classical name for the plane dioptrically midway between two line foci — here, the neutral surface. <a class="src" href="eye-view-3d.html">The eye and the volume · session 10</a></dd>
+<dt id="g-closure-test"><a class="anchor" href="#g-closure-test">closure test</a></dt>
+<dd>Go around; measure the miss. <a class="src" href="the-conservation.html">The conservation · session 8</a></dd>
+<dt id="g-co-chained"><a class="anchor" href="#g-co-chained">Co-chained</a></dt>
+<dd>Four scene points lying on one straight line, so that both slits see the same cross-ratio, λ = μ. The only quadruples on which the six-to-three collapse survives in double-slit geometry — and only at harmonic position. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#cochain">book · Ch. 4</a></dd>
+<dt id="g-coarse-cell"><a class="anchor" href="#g-coarse-cell">coarse cell, fine mark</a></dt>
+<dd>The n parts made by the pencil; the n² parts made by pencil and parallels together. <a class="src" href="n-of-n-v1.html">n of n · session 13</a></dd>
+<dt id="g-common-rate-law"><a class="anchor" href="#g-common-rate-law">common-rate law (the seam)</a></dt>
+<dd>One k serving both channels: c = ka and d = kb ⟺ r₁ = r₂ ⟺ ad = bc ⟺ P on the diagonal. The event, not the bookkeeping. <a class="src" href="rate-loop-v2.html">The rate loop · session 13</a></dd>
+<dt id="g-complement"><a class="anchor" href="#g-complement">Complement τ</a></dt>
+<dd>x ↦ 1 − x. Reach's involution, the fold about the midpoint of the unit; fixes ½ and ∞. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#complement">book · Ch. 2</a></dd>
+<dt id="g-congruence"><a class="anchor" href="#g-congruence">congruence</a></dt>
+<dd>The two-parameter family of imaging rays — all lines meeting both slits. The camera's rays, with no centre. <a class="src" href="eye-view-3d.html">The eye and the volume · session 10</a></dd>
+<dt id="g-congruence-square"><a class="anchor" href="#g-congruence-square">congruence square</a></dt>
+<dd>The (r₁, r₂) domain with the seam in gold on its diagonal; this rectangle is its ground floor — one point of the square, unfolded. <a class="src" href="rate-loop-v2.html">The rate loop · session 13</a></dd>
+<dt id="g-conjugacy-invariant"><a class="anchor" href="#g-conjugacy-invariant">conjugacy invariant</a></dt>
+<dd>A quantity unchanged when the matrix is rescaled or conjugated &mdash; a property of the map, not its notation. Here, tr&sup2;/det. <a class="src" href="the-dial.html">The dial · session 11</a></dd>
+<dt id="g-conjugate-pair"><a class="anchor" href="#g-conjugate-pair">conjugate pair</a></dt>
+<dd>A point and its image, x and ab/x. Slits are one pair; AM and HM another; glass and ideal point a third. <a class="src" href="gm-mirror.html">The GM mirror · session 10</a></dd>
+<dt id="g-conservation"><a class="anchor" href="#g-conservation">conservation</a></dt>
+<dd><i>A</i> is blind to the interior placement: policies relocate the corner cells; none changes the total. <a class="src" href="the-conservation.html">The conservation · session 8</a></dd>
+<dt id="g-constructed-harmonic-plane"><a class="anchor" href="#g-constructed-harmonic-plane">constructed harmonic plane</a></dt>
+<dd>The plane at Q: the harmonic conjugate of the image plane through the slit pair. Produced by the fixed circle (compass route) or by I.43 complements (anchorless route). <a class="src" href="bones-of-the-rig-v3.html">The bones of the rig · session 12</a></dd>
+<dt id="g-corner-cell"><a class="anchor" href="#g-corner-cell">corner cell</a></dt>
+<dd>The diagonal cell where a level's strip meets its own gap's strip — <i>h</i> wide, one gap deep. The account's local quantum; the sketch's yellow square. <a class="src" href="the-conservation.html">The conservation · session 8</a></dd>
+<dt id="g-corner-mark"><a class="anchor" href="#g-corner-mark">corner mark (the ⊥ reading)</a></dt>
+<dd>x = X, y = Y — the perpendicular projection, i.e. the reading with both feet pushed to −∞. It is the mean proportional between the other two marks. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-count"><a class="anchor" href="#g-count">count</a></dt>
+<dd>Arcs pierced: <i>m</i> = &lfloor;<i>nL</i>&rfloor;. The whole-step part of the law in this gauge. It brackets the law: <i>m</i>/<i>n</i> &le; <i>L</i> &lt; (<i>m</i>+1)/<i>n</i>. <a class="src" href="law-gauge-defect-v1.html">Law, gauge, defect · session 8</a></dd>
+<dd>The ordinal skeleton — a zero, a unit, a successor. A constant count has equal step <i>h</i>. <a class="src" href="the-conservation.html">The conservation · session 8</a></dd>
+<dt id="g-count-law-gauge-defect"><a class="anchor" href="#g-count-law-gauge-defect">count · law · gauge · defect</a></dt>
+<dd>Integer incidence fact · exact equality · chosen convention · measured failure to close. <a class="src" href="three-means-here.html">The three means, here · session 10</a></dd>
+<dt id="g-crease"><a class="anchor" href="#g-crease">crease</a></dt>
+<dd>The mirror's trace in the chart: the vertical line the fixed circle steepens into; the axis of the surviving half-turn. <a class="src" href="degeneration-ledger.html">The degeneration ledger · session 10</a></dd>
+<dt id="g-cross-ratio"><a class="anchor" href="#g-cross-ratio">cross-ratio</a></dt>
+<dd>((C−B)/(C−D)) : ((A−B)/(A−D)); the one projective invariant of four collinear points. <a class="src" href="three-means-here.html">The three means, here · session 10</a></dd>
+<dd>(A,C;&nbsp;Q,S) = (AQ·CS)/(CQ·AS) in signed lengths; the projective invariant of four collinear points. <a class="src" href="bones-of-the-rig-v3.html">The bones of the rig · session 12</a></dd>
+<dt id="g-cross-ratio-along-the-ray"><a class="anchor" href="#g-cross-ratio-along-the-ray">Cross-ratio along the ray</a></dt>
+<dd>(F₁, F₂; S, P): the two slit feet, the screen point and the scene point on one line. Theorem 7: it equals the aspect ratio a round target at P casts. Depth is therefore a projective coordinate, invertible by a Möbius map. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#crossratio">book · Ch. 6</a></dd>
+<dt id="g-cross-ratio-1"><a class="anchor" href="#g-cross-ratio-1">cross-ratio −1</a></dt>
+<dd>(m₁, m₀ ; X, V) = −1 on the witness line: mid-top and mid-bot are harmonic conjugates with respect to hinge and leg-meet. <a class="src" href="the-hinge-v7.html">The hinge · session 13</a></dd>
+<dt id="g-cross-slit"><a class="anchor" href="#g-cross-slit">Cross-slit</a></dt>
+<dd>The optical construction: the congruence read as rays through two slits at two depths, graduated by foreshortening (the Turn gauge). Depth lines bow. Drawn purple. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#crossslit">book · Ch. 1, 3</a></dd>
+<dt id="g-currency"><a class="anchor" href="#g-currency">currency</a></dt>
+<dd>The unit a defect is quoted in within its space; one defect may hold several. <a class="src" href="the-defect-census.html">The defect census · session 8</a></dd>
+</dl>
+<h2 id="L-D">D</h2>
+<dl class="gloss">
+<dt id="g-d-u-v"><a class="anchor" href="#g-d-u-v">D = |u − v|</a></dt>
+<dd>The separation of the feet along the slits axis — the rig's baseline. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-decays-to-gauge"><a class="anchor" href="#g-decays-to-gauge">decays to gauge</a></dt>
+<dd>The number persists but reports a choice: the diagonal's meeting point at 1 − t, the sliver's tip at (1 − t)/(1 + t). <a class="src" href="degeneration-ledger.html">The degeneration ledger · session 10</a></dd>
+<dt id="g-defect"><a class="anchor" href="#g-defect">defect</a></dt>
+<dd>What remains past the last whole step &mdash; the blue overshoot. Not an error in the drawing but the law&rsquo;s answer to the gauge, payable in two currencies (below). <a class="src" href="law-gauge-defect-v1.html">Law, gauge, defect · session 8</a></dd>
+<dd>The residue of a closure test: provable, conserved, the theorem made quantitative. <a class="src" href="the-conservation.html">The conservation · session 8</a></dd>
+<dd>ad − bc = ab(r₂ − r₁): the determinant as weights times channel spread; kin to the seam page's Δ = rᵤrᵥ(rᵥ − rᵤ). <a class="src" href="rate-loop-v2.html">The rate loop · session 13</a></dd>
+<dt id="g-degenerate-orbit"><a class="anchor" href="#g-degenerate-orbit">Degenerate orbit</a></dt>
+<dd>{0, 1, ∞}: two of the four points coincide. Same orbit size as harmonic, the other triple; on the board these are the picture plane, station and plane at infinity. j = ∞. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#degenerate">book · Ch. 4</a></dd>
+<dt id="g-depth-gauge"><a class="anchor" href="#g-depth-gauge">Depth gauge</a></dt>
+<dd>The scale laid along the depth lines: Reach (equal steps, ∞ unmarked) or Turn (Möbius, ∞ at a finite mark) — the two graduations of Theorem 0. Free in the glide, welded in the cross-slit. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#depth-gauge">book · Ch. 2</a></dd>
+<dd>The map that fixes both slits pointwise and slides every point along its own ray. The cross-slit image is frozen by it: depth is exactly the coordinate the image group cannot see, and calibration (nominating the screen and the metric) is what turns that invisible freedom into a measured number. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#kernel">book · Ch. 6</a></dd>
+<dt id="g-depth-world"><a class="anchor" href="#g-depth-world">depth world</a></dt>
+<dd>The scene measured in plain distance behind the picture plane; the left panel. <a class="src" href="distance-into-rate.html">Distance into rate · session 11</a></dd>
+<dt id="g-diagonal-action"><a class="anchor" href="#g-diagonal-action">Diagonal action</a></dt>
+<dd>One reordering of the four rays reorders both slit foot-quadruples at once: σ·(λ, μ) = (σλ, σμ). The orbit of the pair has size 6/|Stab(λ) ∩ Stab(μ)|. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#diagonal">book · Ch. 4</a></dd>
+<dt id="g-diagonal-ratio"><a class="anchor" href="#g-diagonal-ratio">diagonal ratio</a></dt>
+<dd>OX : XN = RX : XM = c : b — trapezoid diagonals cut each other in the ratio of the parallel sides. <a class="src" href="the-hinge-v7.html">The hinge · session 13</a></dd>
+<dt id="g-dial"><a class="anchor" href="#g-dial">dial, d</a></dt>
+<dd>The one free parameter of the normalized Turn gauge, d = D/u. Everything on this page is a function of it. <a class="src" href="the-dial.html">The dial · session 11</a></dd>
+<dt id="g-dictionary"><a class="anchor" href="#g-dictionary">the dictionary</a></dt>
+<dd>O↔O, 2↔R, D↔N, B↔M between R·T-03's lower figure and R·T-02's trapezoid; under it P = X, station height 2/(4−b) = hc/(b+c). <a class="src" href="one-hinge-two-banks-v3.html">One hinge, two banks · session 13</a></dd>
+<dt id="g-dies"><a class="anchor" href="#g-dies">dies</a></dt>
+<dd>Nothing to inherit: the two tangents as two distinct lines; the crossing angle of the two circles as an angle. <a class="src" href="degeneration-ledger.html">The degeneration ledger · session 10</a></dd>
+<dt id="g-directing-gauge-gd"><a class="anchor" href="#g-directing-gauge-gd">Directing gauge g<sub>D</sub></a></dt>
+<dd>The board's 1/(1−k), which seats the directing axis on the six core armatures. It is the 3-cycle ω: on normalized depth it carries picture plane → station → plane at infinity → back. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#directing">book · Ch. 4</a></dd>
+<dt id="g-distance-point-v-d"><a class="anchor" href="#g-distance-point-v-d">distance point V_D</a></dt>
+<dd>Where the depth diagonal vanishes; the fourth harmonic of ∞ with respect to the vanishing points, hence their midpoint m₀. <a class="src" href="the-hinge-v7.html">The hinge · session 13</a></dd>
+<dt id="g-drafting-country"><a class="anchor" href="#g-drafting-country">drafting country</a></dt>
+<dd>θ&nbsp;=&nbsp;0, folded flat: both channels on one sheet of paper; the glide strokes never leave this plane. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-dual-rig"><a class="anchor" href="#g-dual-rig">dual rig</a></dt>
+<dd>The rig with its two slit directions exchanged, depths kept — the image of the rig under the polarity. <a class="src" href="the-duality.html">The duality</a></dd>
+<dt id="g-duality"><a class="anchor" href="#g-duality">Duality</a></dt>
+<dd>A correlation of projective space: points ↔ planes, lines ↔ lines, joins ↔ meets, incidence preserved. Not one map but a whole family; a specific one, δ, must be chosen by an anchor. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#duality">book · Ch. 5</a></dd>
+</dl>
+<h2 id="L-E">E</h2>
+<dl class="gloss">
+<dt id="g-equianharmonic"><a class="anchor" href="#g-equianharmonic">Equianharmonic</a></dt>
+<dd>λ² − λ + 1 = 0, λ = e<sup>±iπ/3</sup>: the orbit shrinks to two, fixed by the 3-cycle. Empty over the reals (discriminant −3, real minimum ¾). j = 0. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#equianharmonic">book · Ch. 4</a></dd>
+<dt id="g-euclid-i-43"><a class="anchor" href="#g-euclid-i-43">Euclid I.43</a></dt>
+<dd>In a parallelogram cut by its diagonal, the two complements about the diagonal are equal in area. The anchorless (straightedge) grammar for both Newton relations. <a class="src" href="bones-of-the-rig-v3.html">The bones of the rig · session 12</a></dd>
+<dt id="g-exchange-identity"><a class="anchor" href="#g-exchange-identity">exchange identity</a></dt>
+<dd>Theorem 0 in dimensionless form: P = |&Delta;&sup2;y|&middot;L/(&Delta;y&#8320;)&sup2; = 2(1+d)/(2+d), pinned in [1, 2). One conserved obligation, two currencies, d the exchange rate. <a class="src" href="the-dial.html">The dial · session 11</a></dd>
+<dt id="g-exiled"><a class="anchor" href="#g-exiled">exiled</a></dt>
+<dd>Sent to infinity by the chart, as the glass is: present in every finite drawing, unreachable in the limit's own coordinates. <a class="src" href="degeneration-ledger.html">The degeneration ledger · session 10</a></dd>
+<dt id="g-e"><a class="anchor" href="#g-e">E′</a></dt>
+<dd>The station point of the profile drawing, lifted into three dimensions in the profile plane; on the sphere; a reader, not a camera. <a class="src" href="eye-view-3d.html">The eye and the volume · session 10</a></dd>
+</dl>
+<h2 id="L-F">F</h2>
+<dl class="gloss">
+<dt id="g-far-point"><a class="anchor" href="#g-far-point">the far point</a></dt>
+<dd>The point of the blue circle most distant from C, at distance D; the red arc reaches it iff R = D. The tangent section. <a class="src" href="sections-of-one-pencil.html">Sections of one pencil</a></dd>
+<dt id="g-fixed-circle"><a class="anchor" href="#g-fixed-circle">fixed circle</a></dt>
+<dd>The mirror itself: every point at distance GM from the glass stays put, T included. <a class="src" href="gm-mirror.html">The GM mirror · session 10</a></dd>
+<dt id="g-fixed-element"><a class="anchor" href="#g-fixed-element">Fixed element</a></dt>
+<dd>The one anharmonic map by which δ-conjugation of the glide reading differs from the cross-slit reading: ρ, the Reciprocal — arriving with the apparatus channel swap. Since ρτ = ω it converts the glide gauge τ into the camera gauge ω. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#fixed">book · Ch. 5</a></dd>
+<dt id="g-fixed-point"><a class="anchor" href="#g-fixed-point">fixed point</a></dt>
+<dd>A point the map returns unchanged. The Turn gauge fixes exactly the origin and the first mark; its hyperbolic axis is the graduation's unit interval. <a class="src" href="the-dial.html">The dial · session 11</a></dd>
+<dt id="g-fixed-square"><a class="anchor" href="#g-fixed-square">fixed square</a></dt>
+<dd>OA²&nbsp;=&nbsp;OC²: side half the slit separation. Pinned by the apparatus; unchanged as Q moves. <a class="src" href="bones-of-the-rig-v3.html">The bones of the rig · session 12</a></dd>
+<dt id="g-fixed-surface"><a class="anchor" href="#g-fixed-surface">fixed surface</a></dt>
+<dd>The sphere itself: the locus the polarity holds pointwise-as-a-set, where a configuration and its dual coincide. <a class="src" href="the-duality.html">The duality</a></dd>
+<dt id="g-floor-conservation"><a class="anchor" href="#g-floor-conservation">floor / conservation</a></dt>
+<dd>The two refusals a defect may obey: a bound it cannot go under, or a total no policy can change. <a class="src" href="the-defect-census.html">The defect census · session 8</a></dd>
+<dt id="g-fold"><a class="anchor" href="#g-fold">fold θ</a></dt>
+<dd>The dihedral angle between the channel planes: 0° is folded flat (both channels on one sheet of paper), 90° is fully opened (the physical rig). <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-footprint"><a class="anchor" href="#g-footprint">footprint</a></dt>
+<dd>The ⊥ landing of the point in its channel plane — where the glide stroke starts. Drawn as an open circle on the trace. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-fourth-vanishing-point-v-d"><a class="anchor" href="#g-fourth-vanishing-point-v-d">fourth vanishing point V_D′</a></dt>
+<dd>Where the tilted red line meets HL; the four VPs then form a complete harmonic range, (VPₗ, VPᵣ ; V_D, V_D′) = −1, equivalently 1/OV_D + 1/OV_D′ = 2/c. <a class="src" href="one-hinge-two-banks-v3.html">One hinge, two banks · session 13</a></dd>
+<dd>Where the tilted second diagonal M–N meets HL; its arrival makes the horizon a complete harmonic four-point range, (VPₗ, VPᵣ ; V_D, V_D′) = −1, equivalently 1/OV_D + 1/OV_D′ = 2/c. <a class="src" href="the-hinge-v7.html">The hinge · session 13</a></dd>
+<dt id="g-free-horizontal"><a class="anchor" href="#g-free-horizontal">free horizontal</a></dt>
+<dd>The horizontal at height 1/n; a 1/n-scale copy of the marked line, cut into n parts by the pencil at no extra cost. <a class="src" href="n-of-n-v1.html">n of n · session 13</a></dd>
+<dt id="g-fuse-v-u"><a class="anchor" href="#g-fuse-v-u">fuse v&nbsp;→&nbsp;u</a></dt>
+<dd>Slide the v foot onto the u foot: Δ&nbsp;=&nbsp;0, one center and one denominator, the prints' rectangle squares up, and the readings' drawn lines fuse into perspective. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+</dl>
+<h2 id="L-G">G</h2>
+<dl class="gloss">
+<dt id="g-gauge"><a class="anchor" href="#g-gauge">Gauge (physicists’ sense)</a></dt>
+<dd>A freedom of description the nominated structure has not yet pinned — an unbroken symmetry the group still moves. Depth is a free gauge at the projective rung (Theorem 5.3); the fiducials fix it at the metric rung; absolute scale waits for the Euclidean one. Distinct from the depth gauge of Chapter&nbsp;2, though the document's Theorem 5.3 is where the two senses meet. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#gauge-freedom">book · Ch. 8</a></dd>
+<dd>The refinable instrument: <i>n</i> equal steps on the side. Pure Reach &mdash; additive, equal-step, a ruler&rsquo;s markings. Choosing <i>n</i> is choosing a gauge; raising <i>n</i> is refinement. The gauge need not double; it can grow by one. <a class="src" href="law-gauge-defect-v1.html">Law, gauge, defect · session 8</a></dd>
+<dd>The free graduation of a reading; decomposes into a count and a placement. <a class="src" href="the-conservation.html">The conservation · session 8</a></dd>
+<dd>The free unit of the rate axes. Changing k rescales every number and no picture; the seam is what survives it. <a class="src" href="distance-into-rate.html">Distance into rate · session 11</a></dd>
+<dt id="g-gauge-n"><a class="anchor" href="#g-gauge-n">gauge n</a></dt>
+<dd>The count chosen once; everything else follows from it. <a class="src" href="n-of-n-v1.html">n of n · session 13</a></dd>
+<dt id="g-gauge-plane"><a class="anchor" href="#g-gauge-plane">gauge plane (the depth slice λ&nbsp;=&nbsp;λ₀)</a></dt>
+<dd>The vertical slice through the point parallel to the picture plane; the axis tick, P, Q, and the point are its four corners. It is the depth at which both gauges m_u, m_v are read, and the whole slice prints to the screen by pure scaling — ×(m_u,&nbsp;m_v) camera-wise, the reciprocal glide-wise; the dashed square and its two rectangles are this plane's story. Elsewhere: the fronto-parallel or object plane. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-genus"><a class="anchor" href="#g-genus">genus</a></dt>
+<dd>The concept over the local names: defect as such, prior to its species. <a class="src" href="the-defect-census.html">The defect census · session 8</a></dd>
+<dt id="g-geometric-mean-anchor"><a class="anchor" href="#g-geometric-mean-anchor">geometric-mean anchor</a></dt>
+<dd>The circle whose radius is the geometric mean of the two slit distances from its center (R²&nbsp;=&nbsp;Z₁Z₂). The breathing circle is this anchor, recentred at M. <a class="src" href="bones-of-the-rig-v3.html">The bones of the rig · session 12</a></dd>
+<dt id="g-glass-image-plane-o"><a class="anchor" href="#g-glass-image-plane-o">glass · image plane · O</a></dt>
+<dd>The plane the marks land on; the origin of the gauge. Point A of the range. <a class="src" href="three-means-here.html">The three means, here · session 10</a></dd>
+<dt id="g-glide"><a class="anchor" href="#g-glide">Glide</a></dt>
+<dd>The 1984 drawing construction: the congruence read as edges under parallel light, depth lines straight, graduation free — equal steps (Reach) or harmonic with a marked vanishing point (Turn, the gauge of the 1984 setups). Drawn teal. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#glide">book · Ch. 1, 3</a></dd>
+<dt id="g-glide-print"><a class="anchor" href="#g-glide-print">glide print (Xg, Yg)</a></dt>
+<dd>The two glide marks assembled; open dot. It stands one reciprocal out from the corner print on each axis. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-glide-reading"><a class="anchor" href="#g-glide-reading">glide reading</a></dt>
+<dd>Ray from the footprint to the slit, read at the scene's own depth, then carried home along the level plane to the trace. It <i>pushes out</i>: mark Xg = X/m. Equal depth steps print arithmetically (Reach). Gauge free — the carrying-home is a level translation and imposes no scale of its own. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+</dl>
+<h2 id="L-H">H</h2>
+<dl class="gloss">
+<dt id="g-half-square"><a class="anchor" href="#g-half-square">half-square</a></dt>
+<dd>Half the axis rectangle on a segment as diagonal; signed area ½Q. On this plate the three half-squares are A, C and B — the last two after one slide. <a class="src" href="one-hinge-two-banks-v3.html">One hinge, two banks · session 13</a></dd>
+<dt id="g-harmonic-chord"><a class="anchor" href="#g-harmonic-chord">harmonic chord</a></dt>
+<dd>The parallel through X, of length 2bc/(b+c), bisected by X. <a class="src" href="the-hinge-v7.html">The hinge · session 13</a></dd>
+<dt id="g-harmonic-conjugate-cross-ratio"><a class="anchor" href="#g-harmonic-conjugate-cross-ratio">harmonic conjugate · cross-ratio</a></dt>
+<dd>Four collinear points p, q, r, s have cross-ratio ((r−p)(s−q)) / ((r−q)(s−p)), the one projective invariant of a line. When it equals −1 the pair r, s divides the pair p, q harmonically, and s is constructible from the other three by incidence alone. Here (B, D; A, C) = −1. <a class="src" href="virtual-center.html">The virtual centre · session 9</a></dd>
+<dt id="g-harmonic-cross-ratio"><a class="anchor" href="#g-harmonic-cross-ratio">Harmonic cross-ratio</a></dt>
+<dd>Four collinear points with cross-ratio −1. Perspective manufactures it across the horizon; the cross-slit manufactures it at the neutral surface; on sheet 35·G the glide's equal depth marks fall in harmonic progression along the cross-slit's ray. Its orbit under reordering is {−1, ½, 2}. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#harmonic">book · Ch. 1, 3</a></dd>
+<dt id="g-harmonic-mean"><a class="anchor" href="#g-harmonic-mean">harmonic mean</a></dt>
+<dd>HM = 2BD/(B+D). Named for the harmonic range: the point at depth HM is the harmonic conjugate of the origin with respect to B and D. The projective and arithmetic descriptions of C are the same fact. <a class="src" href="virtual-center.html">The virtual centre · session 9</a></dd>
+<dd>HM(b,c) = 2bc/(b+c); equivalently 2/HM = 1/b + 1/c. The hinge adds reciprocals as the apex adds lengths. <a class="src" href="the-hinge-v7.html">The hinge · session 13</a></dd>
+<dt id="g-harmonic-orbit"><a class="anchor" href="#g-harmonic-orbit">Harmonic orbit</a></dt>
+<dd>{−1, ½, 2}: cross-ratio −1 and its two reorderings. Each value is fixed by a different involution (−1 by the Reciprocal, ½ by the Complement, 2 by the Third). j = 1728. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#harmonicorbit">book · Ch. 4</a></dd>
+<dt id="g-harmonic-progression"><a class="anchor" href="#g-harmonic-progression">harmonic progression</a></dt>
+<dd>A sequence whose reciprocals are arithmetic; the bounce's reciprocal gaps to N step by exactly 1/c, and each gap is HM(gap, c)/2. <a class="src" href="one-hinge-two-banks-v3.html">One hinge, two banks · session 13</a></dd>
+<dt id="g-harmonic-range"><a class="anchor" href="#g-harmonic-range">harmonic range</a></dt>
+<dd>Four collinear points with cross-ratio −1; here A B C D, with C conjugate to A across B, D. <a class="src" href="three-means-here.html">The three means, here · session 10</a></dd>
+<dd>Four collinear points with cross-ratio &minus;1, written (A,C;&nbsp;Q,S)&nbsp;=&nbsp;&minus;1. Q and S are harmonic conjugates with respect to A and C — and, mutually, A and C with respect to Q and S. <a class="src" href="bones-of-the-rig-v3.html">The bones of the rig · session 12</a></dd>
+<dt id="g-hinge-identity"><a class="anchor" href="#g-hinge-identity">hinge identity</a></dt>
+<dd>Xg·Xc = x² — the corner mark is the geometric mean of the other two. The readout carries it live in both channels as Xg·Xc/x² = 1. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-hinge-p"><a class="anchor" href="#g-hinge-p">hinge P</a></dt>
+<dd>Meet of B–2 and O–D; trapezoid diagonal crossing; and now the null corner between apex P₂ and altitude foot F — three offices, one point. <a class="src" href="vi31-for-uv-v1.html">VI.31 for uv · session 13</a></dd>
+<dt id="g-hinge-x"><a class="anchor" href="#g-hinge-x">hinge X</a></dt>
+<dd>The meet of the diagonals O–N and R–M; the crossing that adjudicated D = D, now read as the trapezoid's harmonic center. <a class="src" href="the-hinge-v7.html">The hinge · session 13</a></dd>
+<dt id="g-hinge-x-p"><a class="anchor" href="#g-hinge-x-p">hinge X = P</a></dt>
+<dd>The meet of the diagonals O–N and R–M; holder of six offices across the two sheets — chord-bisector, D = D adjudicator, null corner, harmonic center, image point, and slide target. <a class="src" href="one-hinge-two-banks-v3.html">One hinge, two banks · session 13</a></dd>
+<dt id="g-hook"><a class="anchor" href="#g-hook">hook</a></dt>
+<dd>The horizontal gap from P to the diagonal at P's height: (bc − ad)/(a + b) — the defect per unit of height, drawn in red. <a class="src" href="rate-loop-v2.html">The rate loop · session 13</a></dd>
+<dt id="g-horizon"><a class="anchor" href="#g-horizon">horizon (HL)</a></dt>
+<dd>The bottom rail read as eye-level: the line carrying the images of the ground plan's points at infinity. <a class="src" href="the-hinge-v7.html">The hinge · session 13</a></dd>
+<dt id="g-horizon-bank"><a class="anchor" href="#g-horizon-bank">horizon bank</a></dt>
+<dd>HL through O–R: VPₗ, VPᵣ, V_D at m₀, the quad M X N V as the image of a square, S at the 45° seat, and the −1s that survive every projection. The tilt that brings the fourth VP onto the page lives on R·T-02 v7. <a class="src" href="one-hinge-two-banks-v3.html">One hinge, two banks · session 13</a></dd>
+<dt id="g-horopter"><a class="anchor" href="#g-horopter">Horopter</a></dt>
+<dd>In binocular vision, the surface of zero disparity through the fixation point. In the doubled rig it is the neutral surface z* = 187.5, where D = 1 and the channels fuse — fixed by the rig rather than by vergence. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#horopter">book · Ch. 6</a></dd>
+<dt id="g-hyperbola-thales"><a class="anchor" href="#g-hyperbola-thales">hyperbola-Thales</a></dt>
+<dd>E on the Minkowski circle of diameter O–B ⟺ the angle O–E–B is Q-right; the circle-Thales sentence with the conic exchanged. <a class="src" href="vi31-for-uv-v1.html">VI.31 for uv · session 13</a></dd>
+<dt id="g-hyperbolicity-excess"><a class="anchor" href="#g-hyperbolicity-excess">hyperbolicity excess, &epsilon;</a></dt>
+<dd>tr&sup2;/det &minus; 4 = 1/(d(1+d)): how far the gauge sits from the parabolic threshold. Positive means hyperbolic; the Turn family never touches zero. <a class="src" href="the-dial.html">The dial · session 11</a></dd>
+</dl>
+<h2 id="L-I">I</h2>
+<dl class="gloss">
+<dt id="g-image-of-a-square"><a class="anchor" href="#g-image-of-a-square">image of a square</a></dt>
+<dd>The quadrilateral M X N V: sides alternately through O and R, diagonals M–N (to ∞) and X–V (to V_D); certified by homography in the check file. <a class="src" href="the-hinge-v7.html">The hinge · session 13</a></dd>
+<dt id="g-image-plane"><a class="anchor" href="#g-image-plane">image plane</a></dt>
+<dd>The screen of the rig — here the plane at S, in front of both slits. <a class="src" href="bones-of-the-rig-v3.html">The bones of the rig · session 12</a></dd>
+<dt id="g-invariant"><a class="anchor" href="#g-invariant">Invariant</a></dt>
+<dd>What holds at every setting — Turn-side truth. The cross-ratio is the invariant every reading shares: three-pin coordinates on one line all report the same cross-ratio of four depths. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#invariant">book · Ch. 2</a></dd>
+<dt id="g-inversion-mirror-circle"><a class="anchor" href="#g-inversion-mirror-circle">inversion / mirror circle</a></dt>
+<dd>The involution z&nbsp;↦&nbsp;O&nbsp;+&nbsp;R²/(z&minus;O): points pair off so that the product of their distances from the center is R². The circle itself is the set of self-paired points. <a class="src" href="bones-of-the-rig-v3.html">The bones of the rig · session 12</a></dd>
+<dt id="g-inversion-mirror"><a class="anchor" href="#g-inversion-mirror">inversion · mirror</a></dt>
+<dd>The map sending x to O + ab/(x − O): distance times image-distance equals the power, GM². <a class="src" href="gm-mirror.html">The GM mirror · session 10</a></dd>
+<dt id="g-involution"><a class="anchor" href="#g-involution">Involution</a></dt>
+<dd>A map that is its own inverse. S₃ has three: the Reciprocal 1/λ, the Complement 1−λ, and the Third λ/(λ−1). Each fixes one harmonic value and one degenerate one. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#involution">book · Ch. 4</a></dd>
+<dd>A transformation that is its own inverse — applied twice, the identity. On a line, determined by its two fixed points, or equally by one swapped pair. <a class="src" href="bones-of-the-rig-v3.html">The bones of the rig · session 12</a></dd>
+</dl>
+<h2 id="L-J">J</h2>
+<dl class="gloss">
+<dt id="g-j-invariant"><a class="anchor" href="#g-j-invariant">j-invariant</a></dt>
+<dd>j(λ) = 256(λ²−λ+1)³/(λ²(λ−1)²), the complete invariant of a single orbit: 1728 harmonic, 0 equianharmonic, ∞ degenerate. For a pair (λ, μ) the j-pair is invariant but not complete. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#jinv">book · Ch. 4</a></dd>
+<dt id="g-jensen-bias"><a class="anchor" href="#g-jensen-bias">Jensen bias</a></dt>
+<dd>On the working band the decode z(AR) is convex, so symmetric noise in AR pushes the expected depth outward — E[ẑ] − z > 0. A property of the geometry, not the solver. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#jensen">book · Ch. 6</a></dd>
+<dt id="g-joint"><a class="anchor" href="#g-joint">Joint</a></dt>
+<dd>A cell boundary where two armatures meet. Rule 1 (no gaps or overlaps) makes the shear on the far side of a joint a forced consequence of the seat and the joint's position, not a choice. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#joint">book · Ch. 7</a></dd>
+<dt id="g-juxtaposed-regions"><a class="anchor" href="#g-juxtaposed-regions">juxtaposed regions</a></dt>
+<dd>A = O L M, D = O M X, B = M X N, D = X N R, C = O X R (hatched): five disjoint pieces tiling the rectangle; A + B = C by cancelling D = D across the diagonal O–N. <a class="src" href="one-hinge-two-banks-v3.html">One hinge, two banks · session 13</a></dd>
+</dl>
+<h2 id="L-L">L</h2>
+<dl class="gloss">
+<dt id="g-ladders"><a class="anchor" href="#g-ladders">ladders (equal depth steps)</a></dt>
+<dd>One depth line at height X, sampled at equal steps of λ and imaged both ways in the u channel: the camera ticks crowd harmonically, the glide circles march out arithmetically. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-law"><a class="anchor" href="#g-law">law</a></dt>
+<dd>The fixed relation under interrogation. Here: the side of one square against a length laid along its diagonal. The law is drawn once and never refined &mdash; refinement happens to the instrument, not to it. <a class="src" href="law-gauge-defect-v1.html">Law, gauge, defect · session 8</a></dd>
+<dd>The part fixed before any choice; refusals live here. <a class="src" href="the-conservation.html">The conservation · session 8</a></dd>
+<dt id="g-leg-meet-v"><a class="anchor" href="#g-leg-meet-v">leg-meet V</a></dt>
+<dd>The point where the extended legs O–M and R–N cross, at height hc/a; it flies upward as the division point moves left. <a class="src" href="the-hinge-v7.html">The hinge · session 13</a></dd>
+<dt id="g-limit"><a class="anchor" href="#g-limit">limit, crowding</a></dt>
+<dd>The sketch's words: the limit is the seat's line; crowding is the Turn placement condensing against it. Same count, two placements — the glide-vanishing-axis panels. <a class="src" href="the-conservation.html">The conservation · session 8</a></dd>
+<dt id="g-line-congruence"><a class="anchor" href="#g-line-congruence">Line congruence</a></dt>
+<dd>A two-parameter family of lines: through a general point of space passes one line of the family, and in a general plane lies one. The two-slit congruence is the set of transversals of two skew slit lines. The only object in the book. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#congruence">book · Ch. 1</a></dd>
+<dt id="g-live"><a class="anchor" href="#g-live">live</a></dt>
+<dd>On the shelf and in the repository, verified this date. <a class="src" href="the-landscape.html">The landscape · session 8</a></dd>
+</dl>
+<h2 id="L-M">M</h2>
+<dl class="gloss">
+<dt id="g-mark"><a class="anchor" href="#g-mark">mark</a></dt>
+<dd>The point where a probe's image lands on the glass. In this flattening each channel casts its own mark on the shared axis; the crimson and purple marks are the two coordinates of the one mark the full rig would record. <a class="src" href="virtual-center.html">The virtual centre · session 9</a></dd>
+<dd>Where the threaded ray pierces the glass. <a class="src" href="three-means-here.html">The three means, here · session 10</a></dd>
+<dt id="g-marks-on-traces"><a class="anchor" href="#g-marks-on-traces">marks on traces</a></dt>
+<dd>The six tick readings the traces carry: Xc, x, Xg on the u trace; Yc, y, Yg on the v trace. On each trace the three form a geometric progression — camera in, corner mid, glide out. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-means-ladder"><a class="anchor" href="#g-means-ladder">means ladder</a></dt>
+<dd>Three constructible parallels: AM at midheight (the midline), GM at the similar split, HM at the hinge; b &lt; HM &lt; GM &lt; AM &lt; c. <a class="src" href="the-hinge-v7.html">The hinge · session 13</a></dd>
+<dt id="g-midline-witness"><a class="anchor" href="#g-midline-witness">midline witness</a></dt>
+<dd>The line V–X, which bisects both rails — the drawn proof that hinge and leg-meet govern the trapezoid's middles. <a class="src" href="the-hinge-v7.html">The hinge · session 13</a></dd>
+<dt id="g-minkowski-circle"><a class="anchor" href="#g-minkowski-circle">Minkowski circle</a></dt>
+<dd>The Thales locus of a segment: all E with (E−O) ⊥ (E−B). A rectangular hyperbola with null asymptotes, centered at the segment's midpoint. <a class="src" href="vi31-for-uv-v1.html">VI.31 for uv · session 13</a></dd>
+<dt id="g-minkowski-circle-on-o-m"><a class="anchor" href="#g-minkowski-circle-on-o-m">Minkowski circle on O–M</a></dt>
+<dd>The Thales locus of Q: the rectangular hyperbola 2xy − hx − ay = 0, null asymptotes, centered at O–M's midpoint, through O and M. <a class="src" href="one-hinge-two-banks-v3.html">One hinge, two banks · session 13</a></dd>
+<dt id="g-mirror-circle"><a class="anchor" href="#g-mirror-circle">Mirror circle</a></dt>
+<dd>The circle, radius the geometric mean of the slit depths, in which glide mark and cross-slit image are inverse points on the seam: VM·VI = VP². <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#mirror">book · Ch. 3</a></dd>
+<dt id="g-multiplier"><a class="anchor" href="#g-multiplier">multiplier</a></dt>
+<dd>f&prime; at a fixed point: &gt;1 repels, &lt;1 attracts. Here (1+d)/d at 0 and d/(1+d) at u &mdash; an exact reciprocal pair. <a class="src" href="the-dial.html">The dial · session 11</a></dd>
+<dt id="g-mutates"><a class="anchor" href="#g-mutates">mutates</a></dt>
+<dd>Survives as a different kind of statement: orthogonality → incidence; inversion → half-turn; tangent length → distance to the pinhole. <a class="src" href="degeneration-ledger.html">The degeneration ledger · session 10</a></dd>
+</dl>
+<h2 id="L-N">N</h2>
+<dl class="gloss">
+<dt id="g-negative-square"><a class="anchor" href="#g-negative-square">negative square</a></dt>
+<dd>A square of Q &lt; 0 (segment of the other causal type); rendered crimson; it crosses the equals sign to appear as a positive area. <a class="src" href="vi31-for-uv-v1.html">VI.31 for uv · session 13</a></dd>
+<dt id="g-neutral-surface"><a class="anchor" href="#g-neutral-surface">Neutral surface</a></dt>
+<dd>The depth z* = 2Z<sub>v</sub>Z<sub>h</sub>/(Z<sub>v</sub>+Z<sub>h</sub>) — the harmonic mean of the slit depths — where the two slits' magnifications exactly cancel and the aspect ratio passes through −1. Drawn gold throughout. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#neutral">book · Ch. 3</a></dd>
+<dd>The transverse plane at depth HM — in the round, the polar plane of the glass point, carrying the circle where the tangent cone touches the sphere on B, D as diameter. C is where it crosses the axis. <a class="src" href="virtual-center.html">The virtual centre · session 9</a></dd>
+<dt id="g-neutral-surface-z"><a class="anchor" href="#g-neutral-surface-z">neutral surface · z*</a></dt>
+<dd>The transverse plane at the harmonic mean, where the two channels agree. <a class="src" href="three-means-here.html">The three means, here · session 10</a></dd>
+<dt id="g-newton-product-newton-s-relation"><a class="anchor" href="#g-newton-product-newton-s-relation">Newton product / Newton's relation</a></dt>
+<dd>Measure a conjugate pair from the midpoint of the other pair; the product of the two signed distances is constant: OQ·OS&nbsp;=&nbsp;OA² and MA·MC&nbsp;=&nbsp;MQ². Each relation is equivalent to the harmonic condition. <a class="src" href="bones-of-the-rig-v3.html">The bones of the rig · session 12</a></dd>
+<dt id="g-next-level"><a class="anchor" href="#g-next-level">next level</a></dt>
+<dd>The horizontal at 1/n², already cut by the pencil; the standing offer of n³. <a class="src" href="n-of-n-v1.html">n of n · session 13</a></dd>
+<dt id="g-null-direction"><a class="anchor" href="#g-null-direction">null direction</a></dt>
+<dd>A direction of Q-length zero: here horizontal and vertical, the rectangle's own edges; the form's degenerate conic Q = 0 is this line pair. <a class="src" href="vi31-for-uv-v1.html">VI.31 for uv · session 13</a></dd>
+<dt id="g-null-shear"><a class="anchor" href="#g-null-shear">null shear</a></dt>
+<dd>Sliding an apex along a rail parallel to a null base — I.37; area-preserving, and the move that carries both half-squares onto the tinted triangles. <a class="src" href="vi31-for-uv-v1.html">VI.31 for uv · session 13</a></dd>
+<dt id="g-null-slide"><a class="anchor" href="#g-null-slide">null slide</a></dt>
+<dd>Apex P₂ riding the rail y = hc/(b+c) to X (I.37): both half-squares keep their areas while landing on the tinted regions. <a class="src" href="one-hinge-two-banks-v3.html">One hinge, two banks · session 13</a></dd>
+</dl>
+<h2 id="L-O">O</h2>
+<dl class="gloss">
+<dt id="g-one-square"><a class="anchor" href="#g-one-square">one square, two rectangles</a></dt>
+<dd>The dashed square on the plane prints twice: the camera rectangle (area ×&nbsp;mᵤ·mᵥ, filled wash) and the glide rectangle (area ×&nbsp;1/(mᵤ·mᵥ), outline). The two area factors multiply to 1. This is the v2 front-view inset promoted to the object itself. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-one-theorem"><a class="anchor" href="#g-one-theorem">one theorem, two proofs</a></dt>
+<dd>A + B = C proved by exchange of slivers (D = D) and by signed Pythagoras in uv (the negative square crossing the equals sign); the check file verifies the identities coincide term by term. <a class="src" href="one-hinge-two-banks-v3.html">One hinge, two banks · session 13</a></dd>
+<dt id="g-optical-view"><a class="anchor" href="#g-optical-view">Optical view</a></dt>
+<dd>In Glide (1984), the one station from which an opaque picture seems to dissolve into the depicted space — every spectator projection being point-projective, running eye to surface only. The cross-slit grants it to the horizon reading alone; the solid, whose imaging rays share no point, receives only a <em>pictorial resemblance view</em>. Dissolution is a coincidence of two projections, not a property of the plane, which stays opaque throughout. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#optical">book · Ch. 5</a></dd>
+<dt id="g-orbit-stabiliser"><a class="anchor" href="#g-orbit-stabiliser">Orbit–stabiliser</a></dt>
+<dd>|orbit| × |stabiliser| = 6 for every λ. Generic 6 × 1; harmonic 3 × 2; degenerate 3 × 2; equianharmonic 2 × 3 — the four ways six factors. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#orbstab">book · Ch. 4</a></dd>
+<dt id="g-orthogonal-circle"><a class="anchor" href="#g-orthogonal-circle">orthogonal circle</a></dt>
+<dd>A circle crossing the mirror at right angles — equivalently, one through a conjugate pair. Carried to itself. <a class="src" href="gm-mirror.html">The GM mirror · session 10</a></dd>
+<dt id="g-orthogonal-circles"><a class="anchor" href="#g-orthogonal-circles">orthogonal circles</a></dt>
+<dd>Circles crossing at right angles; equivalent to the harmonic separation of their diameters' endpoints. <a class="src" href="three-means-here.html">The three means, here · session 10</a></dd>
+<dd>The fixed and breathing circles cross at right angles at <em>every</em> Q: OM²&nbsp;=&nbsp;OA²&nbsp;+&nbsp;MQ², equivalent to the harmonic condition. The law behind the plate; congruence at the balance point is the event. <a class="src" href="bones-of-the-rig-v3.html">The bones of the rig · session 12</a></dd>
+<dt id="g-out"><a class="anchor" href="#g-out">out</a></dt>
+<dd>Held out by the admission test or assigned its own home. <a class="src" href="the-landscape.html">The landscape · session 8</a></dd>
+</dl>
+<h2 id="L-P">P</h2>
+<dl class="gloss">
+<dt id="g-p"><a class="anchor" href="#g-p">P&nbsp;=&nbsp;(λ,&nbsp;X), Q&nbsp;=&nbsp;(λ,&nbsp;Y) (the shadows)</a></dt>
+<dd>The point's ⊥ shadows in the two channel planes — the two dots you actually drag. The dotted “same λ” recall line ties them to one depth on the axis. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-page-reading"><a class="anchor" href="#g-page-reading">Page reading</a></dt>
+<dd>The projective parameter of a pencil of planes through a slit, read off on the picture plane as a range of trace lines. The cross-slit coordinate X₀/(1 − λr<sub>u</sub>) is exactly this parameter — a theorem, not a numerical question. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#page">book · Ch. 5</a></dd>
+<dt id="g-parabolic-boundary"><a class="anchor" href="#g-parabolic-boundary">parabolic boundary</a></dt>
+<dd>The gold line &epsilon; = 0 separating elliptic from hyperbolic. Reach's conjugacy class; the Turn gauge's unreachable shore. <a class="src" href="the-dial.html">The dial · session 11</a></dd>
+<dt id="g-parabolic-projectivity"><a class="anchor" href="#g-parabolic-projectivity">parabolic projectivity</a></dt>
+<dd>A projectivity of a line whose two fixed points coincide — here both at N; the case whose orbits crowd harmonically, between cycling (elliptic) and geometric decay (hyperbolic). <a class="src" href="one-hinge-two-banks-v3.html">One hinge, two banks · session 13</a></dd>
+<dt id="g-parked"><a class="anchor" href="#g-parked">parked</a></dt>
+<dd>The weld off-seam: no common rate exists, so no gauge turn can close both channels — "the weld needs the seam." <a class="src" href="rate-loop-v2.html">The rate loop · session 13</a></dd>
+<dt id="g-parked-layers"><a class="anchor" href="#g-parked-layers">parked layers</a></dt>
+<dd>The affine instruments — harmonic chord, means ladder, midline witness, the juxtaposed A + B = C — all requiring parallel rails; at tilt ≠ 0 the plate parks them rather than draw falsehoods. <a class="src" href="the-hinge-v7.html">The hinge · session 13</a></dd>
+<dt id="g-parked-vs-standing"><a class="anchor" href="#g-parked-vs-standing">parked vs standing</a></dt>
+<dd>A claim is parked when its hypothesis (parallel rails) fails, standing when its witnesses never used that hypothesis; the equivalence theorem, needing both banks, parks with the weaker one. <a class="src" href="one-hinge-two-banks-v3.html">One hinge, two banks · session 13</a></dd>
+<dt id="g-pencil"><a class="anchor" href="#g-pencil">pencil</a></dt>
+<dd>The joins from O to the coarse marks; the page's reach. <a class="src" href="n-of-n-v1.html">n of n · session 13</a></dd>
+<dt id="g-pencils"><a class="anchor" href="#g-pencils">pencils</a></dt>
+<dd>The faint fans of rays out of each foot — each channel's whole supply of camera lines, drawn thin so the two in use stand out. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-pending"><a class="anchor" href="#g-pending">pending</a></dt>
+<dd>Delivered, not yet in the repository; asserted absent by the check. <a class="src" href="the-landscape.html">The landscape · session 8</a></dd>
+<dt id="g-picture-plane"><a class="anchor" href="#g-picture-plane">picture plane (the screen, λ&nbsp;=&nbsp;0)</a></dt>
+<dd>The plane where everything is read. It is the one depth at which both readings, in both channels, print at ×1 — the gauge there is exactly 1, so a mark on the screen means what it says. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-pin"><a class="anchor" href="#g-pin">Pin</a></dt>
+<dd>A distinguished point that fixes one of the three Möbius freedoms of a coordinate on a line. Three pins make a ruler; the cross-slit's are placed by optics, the glide's are chosen. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#pin">book · Ch. 2</a></dd>
+<dt id="g-pinhole"><a class="anchor" href="#g-pinhole">Pinhole</a></dt>
+<dd>The degenerate congruence in which both slits sit at one depth: every line passes through one centre, and the two readings coincide as maps. Classical perspective. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#pinhole">book · Ch. 1</a></dd>
+<dd>The rig with both slits at one depth; where the three means fuse. <a class="src" href="three-means-here.html">The three means, here · session 10</a></dd>
+<dt id="g-pinning-1"><a class="anchor" href="#g-pinning-1">the pinning [1, 2)</a></dt>
+<dd>Bracket at 1: the floor is attained (d = 0). Parenthesis at 2: the ceiling is approached, never reached (d &rarr; &infin;). <a class="src" href="the-dial.html">The dial · session 11</a></dd>
+<dt id="g-placement"><a class="anchor" href="#g-placement">placement</a></dt>
+<dd>Where each numbered tick physically sits; the metric flesh of the gauge. <a class="src" href="the-conservation.html">The conservation · session 8</a></dd>
+<dt id="g-plane-at-infinity"><a class="anchor" href="#g-plane-at-infinity">Plane at infinity</a></dt>
+<dd>The fourth distinguished point of a line. A pin for both glide gauges (Reach sends it to ∞, Turn to 1); a probe for the cross-slit, whose image 1 − Z₂/Z₁ moves with the slits. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#planeinf">book · Ch. 2</a></dd>
+<dt id="g-point"><a class="anchor" href="#g-point">the point (λ, X, Y)</a></dt>
+<dd>The scene point in rig coordinates: depth λ along the slits axis, plan coordinate X in the u channel, elevation coordinate Y in the v channel. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-polar"><a class="anchor" href="#g-polar">polar</a></dt>
+<dd>The line (in the round, plane) of touch points of tangents from a point; the polar of the glass meets the axis at HM. <a class="src" href="three-means-here.html">The three means, here · session 10</a></dd>
+<dt id="g-polarity"><a class="anchor" href="#g-polarity">Polarity</a></dt>
+<dd>A duality that is its own inverse, given by a symmetric matrix — pole and polar with respect to a conic or quadric. A canonical duality is exactly a marked polarity; the straightedge draws none, the compass draws one. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#polarity">book · Ch. 5</a></dd>
+<dd>A duality equal to its own inverse — pole and polar with respect to a conic or quadric. Here, with respect to the means sphere. <a class="src" href="the-duality.html">The duality</a></dd>
+<dt id="g-pole-polar"><a class="anchor" href="#g-pole-polar">pole–polar</a></dt>
+<dd>The pairing a polarity makes: each point (pole) is carried to a line or plane (its polar), and back. On the axis it is the inversion in the equator. <a class="src" href="the-duality.html">The duality</a></dd>
+<dt id="g-policy-smear"><a class="anchor" href="#g-policy-smear">policy — smear, pile, grade</a></dt>
+<dd>The three arrangements of a fixed defect: divide it finely, sacrifice one place, grade it toward a boundary. <a class="src" href="the-conservation.html">The conservation · session 8</a></dd>
+<dt id="g-portable-scalar"><a class="anchor" href="#g-portable-scalar">portable scalar</a></dt>
+<dd>A measure carried unchanged between shapes — here the rim length. The currency of the invariant-currency musing. <a class="src" href="sections-of-one-pencil.html">Sections of one pencil</a></dd>
+<dt id="g-power-of-a-point"><a class="anchor" href="#g-power-of-a-point">power of a point</a></dt>
+<dd>For the glass and the means circle, ab; positive outside, zero on, negative inside. <a class="src" href="gm-mirror.html">The GM mirror · session 10</a></dd>
+<dd>(distance to centre)² − R²; for the glass it equals ab, and its square root is the tangent length. <a class="src" href="three-means-here.html">The three means, here · session 10</a></dd>
+<dt id="g-probe"><a class="anchor" href="#g-probe">probe</a></dt>
+<dd>The scene point being imaged; slides along a depth line. The means ignore it. <a class="src" href="three-means-here.html">The three means, here · session 10</a></dd>
+<dt id="g-product-form"><a class="anchor" href="#g-product-form">product form</a></dt>
+<dd>Q(x, y) = xy on the rectangle's coordinates; rotated 45° it is (x² − y²)/2, the Minkowski plane's form in null coordinates. <a class="src" href="vi31-for-uv-v1.html">VI.31 for uv · session 13</a></dd>
+<dt id="g-product-form-uv"><a class="anchor" href="#g-product-form-uv">product form uv</a></dt>
+<dd>Q(x, y) = xy; null directions are the rectangle's own edges. The hinge plate's frame is the settlement plate's metric. <a class="src" href="one-hinge-two-banks-v3.html">One hinge, two banks · session 13</a></dd>
+<dt id="g-pushbroom"><a class="anchor" href="#g-pushbroom">Pushbroom</a></dt>
+<dd>The congruence with one slit at a finite depth and the other at infinity — a corner of the rate square, (1,0) or (0,1). Fused under both readings. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#pushbroom">book · Ch. 1</a></dd>
+<dt id="g-pushbroom-edge"><a class="anchor" href="#g-pushbroom-edge">pushbroom edge (upstairs territory)</a></dt>
+<dd>The rate square's seam includes the zero edges and the orthographic corner, because its law — a straight image — survives one silent channel. This plate's law does not: a silent channel is a degenerate rectangle, so the loop's seam is the diagonal alone, and the edges belong to the floor above. <a class="src" href="rate-loop-v2.html">The rate loop · session 13</a></dd>
+</dl>
+<h2 id="L-Q">Q</h2>
+<dl class="gloss">
+<dt id="g-q-geometric-mean"><a class="anchor" href="#g-q-geometric-mean">Q-geometric mean</a></dt>
+<dd>Q(P₂F) = Q(OP₂)·Q(P₂B)/Q(OB), the altitude relation; upstairs the same office is B′B = √(AB·BD). <a class="src" href="vi31-for-uv-v1.html">VI.31 for uv · session 13</a></dd>
+<dt id="g-q-orthogonal"><a class="anchor" href="#g-q-orthogonal">Q-orthogonal</a></dt>
+<dd>⟨u, v⟩ = (u₁v₂ + u₂v₁)/2 = 0; for the product form, equal and opposite slopes — the mirror law off a null direction. <a class="src" href="vi31-for-uv-v1.html">VI.31 for uv · session 13</a></dd>
+<dt id="g-q-similar"><a class="anchor" href="#g-q-similar">Q-similar</a></dt>
+<dd>Related by a diagonal map (λx, μy), which scales Q by λμ; includes sign-reversing anti-similarities, as Euclidean similarity includes reflections. <a class="src" href="vi31-for-uv-v1.html">VI.31 for uv · session 13</a></dd>
+<dt id="g-quarter-turn-k"><a class="anchor" href="#g-quarter-turn-k">quarter-turn K</a></dt>
+<dd>The elliptic exemplar [[0, D], [&minus;1/D, 0]], excess &minus;4: it can move &infin; but only by evicting 0 &mdash; the class that proves infinity movable and can never be a gauge. <a class="src" href="the-dial.html">The dial · session 11</a></dd>
+</dl>
+<h2 id="L-R">R</h2>
+<dl class="gloss">
+<dt id="g-r-u"><a class="anchor" href="#g-r-u">r_u, r_v</a></dt>
+<dd>Reciprocal foot distances, r_u = 1/(−u), r_v = 1/(−v) — the natural strengths of the two feet (a foot at −∞ has strength 0). <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-rate"><a class="anchor" href="#g-rate">rate</a></dt>
+<dd>A per-unit-depth quantity; here 1/distance, the responsiveness of an image feature to a change in depth. Its home is the reciprocal. <a class="src" href="distance-into-rate.html">Distance into rate · session 11</a></dd>
+<dd>The width-per-height of a channel: r₁ = c/a, r₂ = d/b. The diagonal's own rate is W/H = (c + d)/(a + b). <a class="src" href="rate-loop-v2.html">The rate loop · session 13</a></dd>
+<dt id="g-rate-square"><a class="anchor" href="#g-rate-square">Rate square</a></dt>
+<dd>The space of readings: a point (r<sub>u</sub>, r<sub>v</sub>) gives the linear contraction rate of each channel. Optical constructions sit on the corners and edges; glide constructions fill the interior. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#ratesquare">book · Ch. 1, 3, 7</a></dd>
+<dd>The plane of (r<sub>u</sub>, r<sub>v</sub>), reciprocal-depth per slit; scale-space, where the horizon is the finite origin and each slit is a point at infinity. <a class="src" href="distance-into-rate.html">Distance into rate · session 11</a></dd>
+<dt id="g-ratio"><a class="anchor" href="#g-ratio">the ratio</a></dt>
+<dd>r<sub>u</sub>/r<sub>v</sub> = (z − Z<sub>h</sub>)/(z − Z<sub>v</sub>): the gauge-invariant content of the point's position, unchanged by k. <a class="src" href="distance-into-rate.html">Distance into rate · session 11</a></dd>
+<dt id="g-ray-0"><a class="anchor" href="#g-ray-0">ray 0</a></dt>
+<dd>The join O–0; also the left edge, also the direction of turn family T₁. <a class="src" href="n-of-n-v1.html">n of n · session 13</a></dd>
+<dt id="g-ray-equivalence-class"><a class="anchor" href="#g-ray-equivalence-class">ray-equivalence class</a></dt>
+<dd>All probe positions sharing a line through a center, hence sharing that channel's mark. The glass records classes, not points: it is transparent to depth along a ray while opaque as a surface. <a class="src" href="virtual-center.html">The virtual centre · session 9</a></dd>
+<dt id="g-re-authored-interior"><a class="anchor" href="#g-re-authored-interior">re-authored interior</a></dt>
+<dd>Area, which does not travel with the rim: the same boundary can enclose a reassigned area under a changed closure rule. <a class="src" href="sections-of-one-pencil.html">Sections of one pencil</a></dd>
+<dt id="g-re-denomination"><a class="anchor" href="#g-re-denomination">re-denomination</a></dt>
+<dd>Trading a defect between currencies; carries the zero set intact, creates and destroys nothing. <a class="src" href="the-defect-census.html">The defect census · session 8</a></dd>
+<dt id="g-reach"><a class="anchor" href="#g-reach">Reach</a></dt>
+<dd>The additive register: equal steps mean equal amounts; the slide preserves it; ∞ is pinned at ∞; the only involution is the Complement. The count, the covector, the stack of level planes. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#reach">book · Ch. 2</a></dd>
+<dd>The equal-step placement: open end, the potential infinite as a ruler. <a class="src" href="the-conservation.html">The conservation · session 8</a></dd>
+<dd>Equal-interval count along a line; here, position within a cell. Scaling's register. <a class="src" href="n-of-n-v1.html">n of n · session 13</a></dd>
+<dt id="g-reach-gauge"><a class="anchor" href="#g-reach-gauge">Reach gauge</a></dt>
+<dd>The affine graduation: equal steps forever, infinity left unmarked. Parabolic; seated on the gold boundary of the strip. <a class="src" href="the-dial.html">The dial · session 11</a></dd>
+<dt id="g-reading"><a class="anchor" href="#g-reading">Reading</a></dt>
+<dd>A congruence given a role — a rule for what the lines are (edges or rays) together with a graduation laid along them; exactly, a law together with a class of gauges (Chapter&nbsp;2). Glide and cross-slit are readings of one congruence, not rival skeletons. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#reading">book · Ch. 1, 2</a></dd>
+<dd>A way of turning the congruence into marks: a law plus a gauge. <a class="src" href="the-conservation.html">The conservation · session 8</a></dd>
+<dt id="g-reciprocal-graduations"><a class="anchor" href="#g-reciprocal-graduations">Reciprocal graduations</a></dt>
+<dd>The two readings mark the same line with graduations that are inverses of each other — their product is one. Where the marks coincide, the readings fuse. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#reciprocal-graduations">book · Ch. 3</a></dd>
+<dt id="g-reciprocal-register"><a class="anchor" href="#g-reciprocal-register">reciprocal register</a></dt>
+<dd>The currency of the whole ledger: gauge changes and crowdings as translations of reciprocals — 1/μ = −1/λ − r, 1/g′ = 1/g + 1/c, 2/HM = 1/b + 1/c, 1/OV_D + 1/OV_D′ = 2/c. <a class="src" href="rate-loop-v2.html">The rate loop · session 13</a></dd>
+<dt id="g-reciprocal-scale"><a class="anchor" href="#g-reciprocal-scale">reciprocal scale (rate)</a></dt>
+<dd>1 − z/Z for a center at depth Z evaluated at scene depth z: the reciprocal of the channel's magnification, affine in depth. Perspective composes in rates, not scales — which is why the honest average of two cameras is an average of reciprocals, and why it lands on the harmonic mean. <a class="src" href="virtual-center.html">The virtual centre · session 9</a></dd>
+<dt id="g-reciprocal"><a class="anchor" href="#g-reciprocal">Reciprocal ρ</a></dt>
+<dd>x ↦ 1/x. Turn's involution, inversion in the mirror circle of radius 1; fixes ±1, exchanges 0 and ∞. With τ it generates the whole anharmonic group. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#reciprocal">book · Ch. 2</a></dd>
+<dt id="g-record"><a class="anchor" href="#g-record">record</a></dt>
+<dd>A closed session page — repaired only for error, never reworded. <a class="src" href="the-landscape.html">The landscape · session 8</a></dd>
+<dt id="g-residual-red"><a class="anchor" href="#g-residual-red">residual red</a></dt>
+<dd>The red half-disk with the contained blue circle removed. At R = D it equals the blue circle in area — the closure rule's reassignment. <a class="src" href="sections-of-one-pencil.html">Sections of one pencil</a></dd>
+<dt id="g-revives-in-the-blow-up"><a class="anchor" href="#g-revives-in-the-blow-up">revives in the blow-up</a></dt>
+<dd>Dead at true scale, alive in ε-units: the equator as the unit circle, the range as (−1, +1; 0, ∞), the eye at the summit, the square with a horizon-parallel diagonal. <a class="src" href="degeneration-ledger.html">The degeneration ledger · session 10</a></dd>
+<dt id="g-ring"><a class="anchor" href="#g-ring">the ring, L</a></dt>
+<dd>Where infinity is seated: y = Lx/(x+D) &rarr; L as x &rarr; &infin;. Drawn as the open crimson circle at the ruler's far end &mdash; a mark that is a limit, not a graduation. The normalization fixing the first mark forces L = u + D; since the first step &Delta;y&#8320; = y(u) &minus; y(0) = u, this is the ledger's L = (1+d)&thinsp;&Delta;y&#8320;. <a class="src" href="the-dial.html">The dial · session 11</a></dd>
+<dt id="g-round-trip-law"><a class="anchor" href="#g-round-trip-law">round-trip law, k·j = 1</a></dt>
+<dd>Within a channel, quoting each edge in the other's units must close the loop; the seam page's "product of factors 1 per channel." Always true; a condition on gauges, not on P. <a class="src" href="rate-loop-v2.html">The rate loop · session 13</a></dd>
+</dl>
+<h2 id="L-S">S</h2>
+<dl class="gloss">
+<dt id="g-scene-gauge"><a class="anchor" href="#g-scene-gauge">Scene gauge</a></dt>
+<dd>A quantity depending on the scene, not the rig, and so reporting a choice rather than a fact. The best single eye of the cross-slit volume is one: a least-squares axis point drifting with the scene from the near slit to the arithmetic mean in the far field — the mirror-sphere’s centre, inside it, never on the surface. Distinct from the two <em>gauge</em> senses (Ch. 2, Ch. 8): those are freedoms of description; a scene gauge is a scene-dependence masquerading as rig data. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#scenegauge">book · Ch. 5</a></dd>
+<dt id="g-seam"><a class="anchor" href="#g-seam">seam</a></dt>
+<dd>The locus where the two readings fuse — the diagonal and the two zero edges of the rate square; Δ = 0. <a class="src" href="the-conservation.html">The conservation · session 8</a></dd>
+<dt id="g-seam-meter"><a class="anchor" href="#g-seam-meter">seam meter Δ</a></dt>
+<dd>Δ = r_u·r_v·(r_v − r_u). Zero exactly when the readings fuse (SEAM); away from zero the camera peels off the glide (SPLIT). <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-seasoning"><a class="anchor" href="#g-seasoning">seasoning</a></dt>
+<dd>A formulation resting on the shelf; no file yet; not to be leaned on. <a class="src" href="the-landscape.html">The landscape · session 8</a></dd>
+<dt id="g-seat"><a class="anchor" href="#g-seat">seat</a></dt>
+<dd>Floor-vocabulary for a vanishing point: infinity given a finite address. Reach leaves the chair vacant. <a class="src" href="the-conservation.html">The conservation · session 8</a></dd>
+<dt id="g-section"><a class="anchor" href="#g-section">section</a></dt>
+<dd>A surface across the pencil. Different sections carry the same rays and so the same picture, read on different shapes. <a class="src" href="sections-of-one-pencil.html">Sections of one pencil</a></dd>
+<dt id="g-self-conjugate"><a class="anchor" href="#g-self-conjugate">Self-conjugate</a></dt>
+<dd>A point lying on the anchoring quadric, hence on its own polar — the one place a configuration and its dual coincide. The station point E sits on the mirror-sphere’s equator, so it reads the two-point drawing as the duality’s own fixed reader rather than as a camera in the scene. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#selfconjugate">book · Ch. 5</a></dd>
+<dd>A point on its own polar — equivalently, a point of the sphere. E is self-conjugate; the reader stands on the fixed surface. <a class="src" href="the-duality.html">The duality</a></dd>
+<dt id="g-self-dual"><a class="anchor" href="#g-self-dual">Self-dual</a></dt>
+<dd>A configuration carried to itself by the anchoring duality. The class of cross-slit congruences is self-dual (meeting is self-dual); on the seam a single configuration is its own mirror image — fused means self-dual. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#selfdual">book · Ch. 5</a></dd>
+<dt id="g-self-dual-content"><a class="anchor" href="#g-self-dual-content">self-dual content</a></dt>
+<dd>What survives the exchange unchanged: the two-point reading on the horizon, which both rig and dual rig read the same way. <a class="src" href="the-duality.html">The duality</a></dd>
+<dt id="g-settlement"><a class="anchor" href="#g-settlement">settlement</a></dt>
+<dd>The conversion of a priced reading into theorem by exhibiting its redemption terms; what this plate performs for the word "Pythagorean." <a class="src" href="vi31-for-uv-v1.html">VI.31 for uv · session 13</a></dd>
+<dt id="g-shadow"><a class="anchor" href="#g-shadow">shadow</a></dt>
+<dd>An orthographic projection of the congruence: the plan (x–z) and the profile (y–z), each a pencil through one slit's point. <a class="src" href="eye-view-3d.html">The eye and the volume · session 10</a></dd>
+<dt id="g-shape-disparity"><a class="anchor" href="#g-shape-disparity">Shape disparity</a></dt>
+<dd>In the doubled rig the two channels measure reciprocal aspect ratios; their ratio D(z) = AR<sub>A</sub>² is the disparity signal, and it lives in shape rather than position. Confounds that multiply both channels alike cancel in it exactly. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#disparity">book · Ch. 6</a></dd>
+<dt id="g-shear-license"><a class="anchor" href="#g-shear-license">shear license, D = D</a></dt>
+<dd>Euclid I.37–38: apexes on one rail give equal triangles; in the sum panel this is witnessed by the two equal slivers whose adjudicator is X. <a class="src" href="the-hinge-v7.html">The hinge · session 13</a></dd>
+<dt id="g-signed-square"><a class="anchor" href="#g-signed-square">signed square</a></dt>
+<dd>The axis rectangle on a segment as diagonal, area Q with sign; its half-square is the triangle the diagonal cuts. <a class="src" href="vi31-for-uv-v1.html">VI.31 for uv · session 13</a></dd>
+<dt id="g-similar-split"><a class="anchor" href="#g-similar-split">similar split</a></dt>
+<dd>The chord of length √(bc) dividing the trapezoid into two similar trapezoids: c : √(bc) = √(bc) : b. <a class="src" href="the-hinge-v7.html">The hinge · session 13</a></dd>
+<dt id="g-slab"><a class="anchor" href="#g-slab">the slab</a></dt>
+<dd>The band of depths 0 ≤ λ ≤ 1, from the picture plane to the back wall — the working territory where the point lives. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-slit"><a class="anchor" href="#g-slit">Slit</a></dt>
+<dd>A line in a depth plane that every ray of the congruence must meet. The rig has a vertical slit at Z<sub>v</sub> = 150 (crimson) and a horizontal slit at Z<sub>h</sub> = 250 (purple); each magnifies its own axis by the perspective factor for its own depth. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#slit">book · Ch. 1</a></dd>
+<dd>A line the ray must meet. Vertical slit at Z<sub>v</sub> (point B), horizontal at Z<sub>h</sub> (point D). <a class="src" href="three-means-here.html">The three means, here · session 10</a></dd>
+<dd>The two line apertures of the cross-slit camera — here the planes at A and C on the depth axis. In section, each slit is a point. <a class="src" href="bones-of-the-rig-v3.html">The bones of the rig · session 12</a></dd>
+<dt id="g-slit-point-view"><a class="anchor" href="#g-slit-point-view">slit-point view</a></dt>
+<dd>The profile's view of the slit pointing at you — collapsed to a point. Here, D. <a class="src" href="three-means-here.html">The three means, here · session 10</a></dd>
+<dt id="g-slit-true-length-view"><a class="anchor" href="#g-slit-true-length-view">slit-true-length view</a></dt>
+<dd>The profile's view of the slit lying parallel to the paper — drawn at true length. Here, B. <a class="src" href="three-means-here.html">The three means, here · session 10</a></dd>
+<dt id="g-slits-axis"><a class="anchor" href="#g-slits-axis">slits axis (fold hinge, the λ line)</a></dt>
+<dd>The one line shared by both channel planes. Depth is measured along it, both feet sit on it, and the fold swings the v-plane about it — hence the second name. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-sliver-price"><a class="anchor" href="#g-sliver-price">sliver price</a></dt>
+<dd>Each D equals ½bh·c/(b+c) = h·HM/4: the shear license's null reading, denominated in the harmonic mean. <a class="src" href="the-hinge-v7.html">The hinge · session 13</a></dd>
+<dt id="g-source"><a class="anchor" href="#g-source">source</a></dt>
+<dd>A published book of Kevin's entering the work as citable ancestry. <a class="src" href="the-landscape.html">The landscape · session 8</a></dd>
+<dt id="g-space"><a class="anchor" href="#g-space">space</a></dt>
+<dd>Where a defect lives; species are kept apart by their spaces before anything else. <a class="src" href="the-defect-census.html">The defect census · session 8</a></dd>
+<dt id="g-span"><a class="anchor" href="#g-span">span</a></dt>
+<dd>The placement's total run, <i>b</i><sub><i>N</i></sub> − <i>b</i><sub>0</sub>. Here <i>S</i> = 187.5, the rig's neutral surface, borrowed as a witness value. <a class="src" href="the-conservation.html">The conservation · session 8</a></dd>
+<dt id="g-species"><a class="anchor" href="#g-species">species</a></dt>
+<dd>A defect classified by whose quarrel it prices: demand/demand, reading/reading, law/gauge, anchoring/anchoring, estimate/truth. <a class="src" href="the-defect-census.html">The defect census · session 8</a></dd>
+<dt id="g-spectator-pencil"><a class="anchor" href="#g-spectator-pencil">spectator pencil</a></dt>
+<dd>The rays from the station C to the picture; any surface cutting them is a section, and a picture. The plane is the flat section. <a class="src" href="sections-of-one-pencil.html">Sections of one pencil</a></dd>
+<dt id="g-spectator-projection"><a class="anchor" href="#g-spectator-projection">Spectator projection</a></dt>
+<dd>Glide (1984): the projection from the viewer’s eye to the picture surface, never beyond — always point-projective. Distinct from the <em>actual projection</em> that made the picture, which for the cross-slit is not point-projective at all, which is why no single station gives an optical view of the solid. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#spectator">book · Ch. 5</a></dd>
+<dt id="g-spine"><a class="anchor" href="#g-spine">Spine</a></dt>
+<dd>The line every plane of a book passes through — under duality, a slit. Cross-slit (u, v) is the two page readings of the two books whose spines are the slits. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#spine">book · Ch. 5</a></dd>
+<dt id="g-stack"><a class="anchor" href="#g-stack">Stack</a></dt>
+<dd>The glide's graduated family of parallel level planes — Reach's covector picture. Its dual in P³ is a book of planes. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#stack">book · Ch. 5</a></dd>
+<dt id="g-stated"><a class="anchor" href="#g-stated">stated</a></dt>
+<dd>In the book. The book states. <a class="src" href="the-landscape.html">The landscape · session 8</a></dd>
+<dt id="g-station"><a class="anchor" href="#g-station">Station</a></dt>
+<dd>The point the Turn graduation sends to ∞ — the third pin, and the only one that is not a mark on the drawing. In perspective, the eye. Reach has no station. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#station">book · Ch. 2</a></dd>
+<dd>The height fraction t at which a parallel crosses; X's station is t = c/(b+c). <a class="src" href="the-hinge-v7.html">The hinge · session 13</a></dd>
+<dt id="g-station-point-s"><a class="anchor" href="#g-station-point-s">station point S</a></dt>
+<dd>The viewer's plan position, (c/2, −c/2): sees O and R at 90° on the Thales semicircle below the horizon, with the vertical bisector striking V_D — the 45° certificate that the imaged figure is a square, fixed under the drag. <a class="src" href="the-hinge-v7.html">The hinge · session 13</a></dd>
+<dt id="g-station-point-s-2"><a class="anchor" href="#g-station-point-s-2">station point S′</a></dt>
+<dd>At tilt ≠ 0, the meet of the Thales semicircles on O–R and on V_D–V_D′: sides and diagonals each at 90°, so the imaged figure stays a square at every tilt. <a class="src" href="one-hinge-two-banks-v3.html">One hinge, two banks · session 13</a></dd>
+<dd>The meet of the Thales semicircles on O–R and on V_D–V_D′, below the horizon; sees sides and diagonals each at 90°, so the imaged figure stays a square at every tilt. <a class="src" href="the-hinge-v7.html">The hinge · session 13</a></dd>
+<dt id="g-station-point-vanishing-point"><a class="anchor" href="#g-station-point-vanishing-point">station point · vanishing point</a></dt>
+<dd>The eye of a perspective, and the unoccupied points that discipline it. A vanishing point is real as a determination and fictitious as a location; every line in the drawing obeys it, nothing stands at it. C is a point of the same species, found on the camera side of the glass rather than the picture side. <a class="src" href="virtual-center.html">The virtual centre · session 9</a></dd>
+<dt id="g-strike"><a class="anchor" href="#g-strike">the strike</a></dt>
+<dd>Where the physical 3D ray through both slits meets the screen — checked to the decimal, strike = (X·mᵤ, Y·mᵥ), at every fold angle. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-summit"><a class="anchor" href="#g-summit">summit</a></dt>
+<dd>The top of the equator, over the centre; the mirror image of the eye E. <a class="src" href="gm-mirror.html">The GM mirror · session 10</a></dd>
+<dt id="g-survives"><a class="anchor" href="#g-survives">survives</a></dt>
+<dd>Holds at every ε and holds with content at the limit. The perpendicular foot F and its right angle; the mirror's fixed points, arriving at ±P. <a class="src" href="degeneration-ledger.html">The degeneration ledger · session 10</a></dd>
+<dt id="g-survives-trivially"><a class="anchor" href="#g-survives-trivially">survives trivially</a></dt>
+<dd>Holds throughout while its content drains: the scales law, whose two channels agree about everything once they coincide. <a class="src" href="degeneration-ledger.html">The degeneration ledger · session 10</a></dd>
+</dl>
+<h2 id="L-T">T</h2>
+<dl class="gloss">
+<dt id="g-tangent-witness"><a class="anchor" href="#g-tangent-witness">tangent witness</a></dt>
+<dd>Each circle carries one. Fixed: the tangent from S touches at T, directly above Q, with ST²&nbsp;=&nbsp;SA·SC&nbsp;=&nbsp;OS²&nbsp;&minus;&nbsp;OA² — the certificate that S and Q are inverse points. Breathing: the tangent from C touches at T′, directly above A, with CT′²&nbsp;=&nbsp;CQ·CS&nbsp;=&nbsp;MC²&nbsp;&minus;&nbsp;MQ² — the certificate that C and A are inverse points. In each, the tangent from the outer point of a mirror pair touches directly above the inner point; T rides the harmonic plane's line, T′ rides the blue slit's. <a class="src" href="bones-of-the-rig-v3.html">The bones of the rig · session 12</a></dd>
+<dt id="g-third-involution"><a class="anchor" href="#g-third-involution">third involution (pair swap)</a></dt>
+<dd>The involution exchanging the two conjugate pairs — A&nbsp;↔&nbsp;Q and C&nbsp;↔&nbsp;S at once. Every harmonic quadruple carries it projectively; at the balance point it becomes the Euclidean half-turn about the midpoint of O and M. <a class="src" href="bones-of-the-rig-v3.html">The bones of the rig · session 12</a></dd>
+<dt id="g-three-mountings"><a class="anchor" href="#g-three-mountings">three mountings</a></dt>
+<dd>Thales loci above (circle, x² + y²), above (hyperbola, uv), and below (semicircle, the viewer): apex M′, apex P₂, station S. <a class="src" href="one-hinge-two-banks-v3.html">One hinge, two banks · session 13</a></dd>
+<dt id="g-tilt"><a class="anchor" href="#g-tilt">tilt, three strata</a></dt>
+<dd>Rotating the red line about M (handle at N) sorts the claims: rail-borne (tiling, circle bank, means, the slide) park; form-borne (the hyperbola on O–M and its signed ledger) stand unchanged; incidence-borne (the −1s) stand everywhere. <a class="src" href="one-hinge-two-banks-v3.html">One hinge, two banks · session 13</a></dd>
+<dd>Rotating the top rail about M (handle at N); in the plan, rotating the square about its near corner. At tilt 0 the second diagonal is parallel to the horizon and V_D′ sits at ∞. <a class="src" href="the-hinge-v7.html">The hinge · session 13</a></dd>
+<dt id="g-torsor"><a class="anchor" href="#g-torsor">Torsor</a></dt>
+<dd>A set acted on freely and transitively by a group, with no distinguished element. The correlations of Pⁿ are a torsor under the projective group: any duality composed with any projectivity is another duality, so none is canonical without an anchor. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#torsor">book · Ch. 5</a></dd>
+<dt id="g-traces"><a class="anchor" href="#g-traces">traces</a></dt>
+<dd>The two lines where the channel planes meet the picture plane. Each channel delivers its marks to its own trace; in the face-on view you watch this delivery happen edge-on. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-trade-vs-tiling"><a class="anchor" href="#g-trade-vs-tiling">trade vs tiling</a></dt>
+<dd>Signature (1,1) signs its squares and trades; positive areas juxtapose and tile. Same identity, two bookkeepings. <a class="src" href="one-hinge-two-banks-v3.html">One hinge, two banks · session 13</a></dd>
+<dt id="g-transport"><a class="anchor" href="#g-transport">Transport</a></dt>
+<dd>The map depth → depth induced by δ, read through the depth axis: z† = Z₁Z₂/z, an involution fixed at ±√(Z₁Z₂). In geometric-mean calibration it is the Reciprocal 1/ν. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#transport">book · Ch. 5</a></dd>
+<dt id="g-trapezoid-o-r-n-m"><a class="anchor" href="#g-trapezoid-o-r-n-m">trapezoid O R N M</a></dt>
+<dd>Bottom rail O–R of length c, top segment M–N of length b, legs O–M and R–N; every side and both diagonals are lines the sum panel had already drawn. <a class="src" href="the-hinge-v7.html">The hinge · session 13</a></dd>
+<dt id="g-trichotomy"><a class="anchor" href="#g-trichotomy">trichotomy</a></dt>
+<dd>M&ouml;bius maps sort by real fixed points: elliptic (none), parabolic (one, doubled), hyperbolic (two). The strip's three zones. <a class="src" href="the-dial.html">The dial · session 11</a></dd>
+<dt id="g-triple-1"><a class="anchor" href="#g-triple-1">triple −1</a></dt>
+<dd>(xₙ, xₙ₊₂ ; xₙ₊₁, N) = −1: each post is the harmonic conjugate of N with respect to its neighbors — a chain of −1s sharing one fixed mate, tilt-proof. <a class="src" href="one-hinge-two-banks-v3.html">One hinge, two banks · session 13</a></dd>
+<dt id="g-turn"><a class="anchor" href="#g-turn">Turn</a></dt>
+<dd>The multiplicative register: equal steps mean equal ratios; the scale preserves it; ∞ is a marked point, so a station is sent to ∞ in its place; depth steps become the harmonic progression k/(k+1). Foreshortening, perspective, the cross-slit with both feet finite. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#turn">book · Ch. 2</a></dd>
+<dd>The compass move. Each gauge mark is swept into an arc &mdash; a level set of distance from the corner &mdash; so that an oblique line can be scored at all. The compass measures nothing of its own: it is transport, Reach carried across a turn. <a class="src" href="law-gauge-defect-v1.html">Law, gauge, defect · session 8</a></dd>
+<dd>The harmonic placement: a seat at a finite mark, the actual infinite as a ruler. <a class="src" href="the-conservation.html">The conservation · session 8</a></dd>
+<dd>Choice of direction, named by a ratio; here, choice of cell. Translation's register. <a class="src" href="n-of-n-v1.html">n of n · session 13</a></dd>
+<dt id="g-turn-family-tk"><a class="anchor" href="#g-turn-family-tk">turn family T<sub>k</sub></a></dt>
+<dd>The parallels of one direction, carrying the free horizontal's marks into coarse cell k. <a class="src" href="n-of-n-v1.html">n of n · session 13</a></dd>
+<dt id="g-turn-gauge"><a class="anchor" href="#g-turn-gauge">Turn gauge</a></dt>
+<dd>The projective graduation y = Lx/(x+D): infinity marked at the finite ring L, paid for with harmonic crowding. <a class="src" href="the-dial.html">The dial · session 11</a></dd>
+<dt id="g-type-a-transfer"><a class="anchor" href="#g-type-a-transfer">Type A transfer</a></dt>
+<dd>Marks carried along a fibration — every depth station receives a true copy, and the fraction of the way along an edge is preserved exactly at every depth. The collector is the seat, where every part mark's depth line concurs. Contrast Type B sighting, marks collected through a point. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#typea">book · Ch. 7</a></dd>
+</dl>
+<h2 id="L-U">U</h2>
+<dl class="gloss">
+<dt id="g-u"><a class="anchor" href="#g-u">u, v (the feet)</a></dt>
+<dd>The positions of the two slits on the slits axis, both behind the screen (u, v &lt; 0). Each channel runs both of its readings through its own foot. Draggable along the axis. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-u-reading-plane"><a class="anchor" href="#g-u-reading-plane">u reading plane</a></dt>
+<dd>The plane through the point and the slit ℓᵤ — vertical because the slit is. The u channel's whole 3D act happens inside it: it cuts the screen in the vertical line through Xc, and the drawn camera line from the foot through P is its shadow on the u-plane. Its v-counterpart through ℓᵥ tilts (horizontal slit, raised point), so only the u one is vertical. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-u-plane"><a class="anchor" href="#g-u-plane">u-plane (the drawing sheet)</a></dt>
+<dd>The channel plane that never moves. It carries the u readings, the ladders, and — in the sheet preset — becomes the flat drawing of folded-rigs-v2. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-unit-hyperbola-uv-1"><a class="anchor" href="#g-unit-hyperbola-uv-1">unit hyperbola uv = 1</a></dt>
+<dd>The product form's unit conic; each channel's rate-pair (k, j) rides it always, and the seam is where the two points fuse. <a class="src" href="rate-loop-v2.html">The rate loop · session 13</a></dd>
+</dl>
+<h2 id="L-V">V</h2>
+<dl class="gloss">
+<dt id="g-v-plane"><a class="anchor" href="#g-v-plane">v-plane (the folding plane)</a></dt>
+<dd>The channel plane that swings with θ. It carries the v readings; the fold lays it onto the u-plane at θ&nbsp;=&nbsp;0. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-vanishing-points-vp"><a class="anchor" href="#g-vanishing-points-vp">vanishing points VPₗ, VPᵣ</a></dt>
+<dd>O and R — where the square's two side directions meet the horizon; every side of M X N V passes through one of them. <a class="src" href="the-hinge-v7.html">The hinge · session 13</a></dd>
+<dt id="g-vergence"><a class="anchor" href="#g-vergence">vergence</a></dt>
+<dd>Reciprocal distance; the coordinate in which the two channels average arithmetically and the neutral surface is their midpoint. <a class="src" href="eye-view-3d.html">The eye and the volume · session 10</a></dd>
+<dt id="g-view-presets"><a class="anchor" href="#g-view-presets">view presets</a></dt>
+<dd>¾ round (the orbit's home); <i>face the picture plane</i> (depth axis projects to a single point, both channel planes arrive edge-on, prints at true coordinates); <i>sheet</i> (u-plane flat-on, recovering v2's drawing). The orbit itself is a plain orthographic turn — drafting rules, no vanishing tricks. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-virtual-centre"><a class="anchor" href="#g-virtual-centre">virtual centre</a></dt>
+<dd>The point C: the fourth harmonic of the glass in the range B, D — the centre a two-point perspective on the axis behaves as if it had. <a class="src" href="three-means-here.html">The three means, here · session 10</a></dd>
+</dl>
+<h2 id="L-W">W</h2>
+<dl class="gloss">
+<dt id="g-weld"><a class="anchor" href="#g-weld">the weld</a></dt>
+<dd>Here: &epsilon; = (2&minus;P)&sup2;/(2P(P&minus;1)), the two meters as one law. Borrowed from the sessions' weld vocabulary &mdash; two readings joined so neither moves alone. <a class="src" href="the-dial.html">The dial · session 11</a></dd>
+<dd>The uv-isometry (x, y) → (jx, ky), available on the seam: rectangle to transpose, P to (a, d), all four cell areas kept. <a class="src" href="rate-loop-v2.html">The rate loop · session 13</a></dd>
+</dl>
+<h2 id="L-Z">Z</h2>
+<dl class="gloss">
+<dt id="g-zero-set"><a class="anchor" href="#g-zero-set">zero set</a></dt>
+<dd>Where the agreement holds &mdash; a locus, isolated points, or nowhere. <a class="src" href="the-defect-census.html">The defect census · session 8</a></dd>
+</dl>
+<h2 id="L-sym">Symbols and numerals</h2>
+<dl class="gloss">
+<dt id="g-3-cycle"><a class="anchor" href="#g-3-cycle">3-cycle</a></dt>
+<dd>ω = 1/(1−λ) and ω² = (λ−1)/λ, with ω³ = identity. No partner, no real still point; fixed only at e<sup>±iπ/3</sup>. τ∘σ = ω, so two involutions on one parameter force the 3-cycles to exist. <a class="src book" href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#threecycle">book · Ch. 4</a></dd>
+<dt id="g-3d-ray"><a class="anchor" href="#g-3d-ray">the 3D ray</a></dt>
+<dd>The unique line through the point meeting both slits, drawn at every θ as the folded image of itself — honest optics only at 90°. It disappears when the feet fuse (no unique ray through one center). <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-"><a class="anchor" href="#g-">Δ, the cubic</a></dt>
+<dd>The split's one measure in rate space, <i>r<sub>u</sub>r<sub>v</sub></i>(<i>r<sub>v</sub></i> − <i>r<sub>u</sub></i>). A different animal from <i>A</i>: same grammar, different space. <a class="src" href="the-conservation.html">The conservation · session 8</a></dd>
+<dt id="g--2"><a class="anchor" href="#g--2">ℓᵤ, ℓᵥ (the slits)</a></dt>
+<dd>The slit lines themselves: ℓᵤ vertical at depth u, ℓᵥ horizontal at depth v. A camera ray must thread both. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+<dt id="g-print"><a class="anchor" href="#g-print">⊥ print (x, y)</a></dt>
+<dd>The corner pair; small square. The geometric middle of the rectangle the other two prints span. <a class="src" href="folded-rigs-3d-glossary.html">the rig in the round · session 6</a></dd>
+</dl>
+
+  <footer>
+    <p><a href="index.html">← All sessions</a> · <a href="the-landscape.html">The landscape</a> · The book&apos;s own glossary: <a href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html">One Congruence, Two Readings · glossary</a> · Superseded plate versions are not quoted; their current versions are. Checks: <a href="check-the-glossary.js">check-the-glossary.js</a> re-extracts every source glossary and asserts each sense appears here verbatim.</p>
+  </footer>
+</main>
+<script>
+(function(){
+  var q=document.getElementById('q'), cnt=document.getElementById('count');
+  var dts=[].slice.call(document.querySelectorAll('dl.gloss dt'));
+  function run(){
+    var s=q.value.trim().toLowerCase(), shown=0;
+    dts.forEach(function(dt){
+      var dds=[], n=dt.nextElementSibling;
+      while(n && n.tagName==='DD'){ dds.push(n); n=n.nextElementSibling; }
+      var hit=!s || (dt.textContent+' '+dds.map(function(d){return d.textContent;}).join(' ')).toLowerCase().indexOf(s)>=0;
+      dt.style.display=hit?'':'none'; dds.forEach(function(d){d.style.display=hit?'':'none';});
+      if(hit) shown++;
+    });
+    [].slice.call(document.querySelectorAll('dl.gloss')).forEach(function(dl){
+      var any=[].some.call(dl.querySelectorAll('dt'),function(d){return d.style.display!=='none';});
+      dl.style.display=any?'':'none'; dl.previousElementSibling.style.display=any?'':'none';
+    });
+    cnt.textContent=shown+' of '+dts.length+' terms'+(s?' match':'');
+  }
+  q.addEventListener('input',run); run();
+})();
+</script>
+</body>
+</html>
