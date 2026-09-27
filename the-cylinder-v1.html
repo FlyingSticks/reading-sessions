@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The cylinder — a circle at every depth, read by a split rig</title>
+<style>
+  body { margin: 0; background: #faf6ef; color: #2c2a26; font-family: Georgia, 'Times New Roman', serif; }
+  .sheet { max-width: 980px; margin: 0 auto; padding: 22px 18px 40px; }
+  h1 { font-size: 2rem; margin: 0 0 4px; color: #43203f; }
+  .sub { color: #6a2c91; font-style: italic; margin: 0 0 16px; }
+  p { line-height: 1.55; font-size: 1.05rem; }
+  .panel { border: 1px solid #b08948; border-radius: 6px; padding: 12px; background: #fcfaf5; }
+  button { font: inherit; font-size: .95rem; background: #faf6ef; color: #2c2a26;
+           border: 1px solid #b08948; border-radius: 4px; padding: 6px 12px; margin: 0 8px 10px 0; cursor: pointer; }
+  button[aria-pressed="true"] { background: #43203f; color: #faf6ef; }
+  button:active { background: #efe7d2; }
+  svg { display: block; width: 100%; height: auto; touch-action: none; }
+  .row { display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start; }
+  .row > div { flex: 1 1 300px; }
+  .ledger { font-family: Menlo, Consolas, monospace; font-size: .92rem; line-height: 1.7; }
+  .badge { font-weight: bold; }
+  table.led { border-collapse: collapse; font-size: .9rem; font-family: Menlo, Consolas, monospace; }
+  table.led td, table.led th { border-bottom: 1px solid #e0d7c2; padding: 3px 8px; text-align: right; }
+  table.led th { font-weight: normal; font-style: italic; color: #6b675e; }
+  .foot { color: #6b675e; font-size: .85rem; border-top: 1px solid #d9cba8; margin-top: 2.2rem; padding-top: .8rem; }
+  .k { color: #177f75; } .kc { color: #6a2c91; } .kg { color: #3d8f3d; } .ku { color: #c0322b; } .kv { color: #2456a8; }
+  dl { font-size: .98rem; } dt { font-weight: bold; margin-top: .6rem; } dd { margin: .15rem 0 0 1.2rem; }
+</style>
+</head>
+<body>
+<div class="sheet">
+<h1>The cylinder</h1>
+<p class="sub">A circle at every depth, read by a split rig — the seam as the place where a cylinder is still a cone</p>
+
+<p>A right circular cylinder stands along the depth axis: a circle of radius ρ on the picture plane, and the same circle at every level behind it. A pinhole sees it as a circular cone, one circle per level, all similar. A two-slit rig reads the two coordinates of every point through two different slits, at two different rates, so each level's circle becomes an ellipse — camera semi-axes ρ/(1 + r<sub>u</sub>λ) across and ρ/(1 + r<sub>v</sub>λ) up, glide semi-axes ρ(1 + r<sub>u</sub>λ) and ρ(1 + r<sub>v</sub>λ) — and the axis ratio changes level by level. Only on the seam, r<sub>u</sub> = r<sub>v</sub>, are all the ellipses circles and the cone comes back.</p>
+
+<div class="panel">
+<button id="bEq">Equal depths (seam)</button>
+<button id="bSp">Split them</button>
+<button id="bPb">Pushbroom (v far)</button>
+<button id="cCam" aria-pressed="true">camera</button>
+<button id="cGli" aria-pressed="true">glide</button>
+<button id="cRays" aria-pressed="false">rays to the rim</button>
+
+<svg id="sec" viewBox="0 0 900 250" role="img" aria-label="Section of the rig with the cylinder">
+<title>Section</title>
+<line x1="20" y1="170" x2="880" y2="170" stroke="#8a857a" stroke-width="1"/>
+<rect id="slab" y="40" height="130" fill="#3d8f3d" opacity="0.08"/>
+<rect id="cylTop" fill="none" stroke="#4a463e" stroke-width="1.2" stroke-dasharray="4 4"/>
+<g id="levels"></g>
+<line id="plane" stroke="#3d8f3d" stroke-width="2.6"/>
+<text id="planeLbl" font-size="13" fill="#3d8f3d" text-anchor="middle">picture plane · λ 0</text>
+<text x="30" y="200" font-size="13" fill="#6b675e">slits</text>
+<circle id="hP" r="22" fill="transparent" style="cursor:ew-resize"/><circle id="hPd" r="6" fill="#3d8f3d"/>
+<circle id="hU" r="22" fill="transparent" style="cursor:ew-resize"/><circle id="hUd" r="7" fill="#c0322b"/>
+<circle id="hV" r="22" fill="transparent" style="cursor:ew-resize"/><circle id="hVd" r="7" fill="#2456a8"/>
+<text id="lU" font-size="14" fill="#c0322b" text-anchor="middle">u</text>
+<text id="lV" font-size="14" fill="#2456a8" text-anchor="middle">v</text>
+<text x="30" y="60" font-size="13" fill="#2c2a26" font-style="italic">the cylinder in edge view — its rim at height ρ, the same at every level</text>
+</svg>
+
+<div class="row">
+<div>
+<svg id="face" viewBox="0 0 460 460" role="img" aria-label="Picture-plane view: the circle and its images at each level">
+<title>Picture-plane view</title>
+<line x1="20" y1="230" x2="440" y2="230" stroke="#8a857a" stroke-width="0.7"/>
+<line x1="230" y1="20" x2="230" y2="440" stroke="#8a857a" stroke-width="0.7"/>
+<g id="rays"></g>
+<g id="ellipses"></g>
+<circle id="trueC" cx="230" cy="230" fill="none" stroke="#2c2a26" stroke-width="2"/>
+<text x="24" y="36" font-size="13" fill="#2c2a26" font-style="italic">picture plane, looking down the axis</text>
+<text x="24" y="54" font-size="12" fill="#6a2c91">camera ellipses inside · one per level</text>
+<text x="24" y="70" font-size="12" fill="#177f75">glide ellipses outside · one per level</text>
+<text x="24" y="86" font-size="12" fill="#2c2a26">true circle at λ 0 · ink</text>
+</svg>
+</div>
+<div>
+<svg id="chart" viewBox="0 0 460 300" role="img" aria-label="Axis ratio against depth">
+<title>Axis ratio against depth</title>
+<line x1="60" y1="250" x2="440" y2="250" stroke="#8a857a" stroke-width="1"/>
+<line x1="60" y1="250" x2="60" y2="30" stroke="#8a857a" stroke-width="1"/>
+<line id="one" x1="60" x2="440" stroke="#b08948" stroke-width="1" stroke-dasharray="6 4"/>
+<polyline id="ratioLine" fill="none" stroke="#6a2c91" stroke-width="2"/>
+<polyline id="pinLine" fill="none" stroke="#4a463e" stroke-width="1" stroke-dasharray="3 4"/>
+<g id="chartTicks"></g>
+<text x="440" y="270" font-size="12" fill="#6b675e" text-anchor="end">λ, depth in slab units</text>
+<text x="60" y="22" font-size="12" fill="#6b675e">axis ratio (up / across)</text>
+<text id="chartNote" x="440" y="46" font-size="12" fill="#6a2c91" text-anchor="end"></text>
+</svg>
+<div class="ledger">
+r_u = <span id="oRu"></span> · r_v = <span id="oRv"></span><br>
+Δ = r_u·r_v·(r_v−r_u) = <span id="oD"></span><br>
+<span id="oB" class="badge"></span>
+</div>
+<table class="led">
+<thead><tr><th>λ</th><th>camera across</th><th>camera up</th><th>ratio</th><th>glide across</th><th>glide up</th><th>ratio</th><th>product / ρ²</th></tr></thead>
+<tbody id="ledBody"></tbody>
+</table>
+</div>
+</div>
+</div>
+
+<h2>What to try</h2>
+<p>Press <i>Equal depths</i>: every ellipse is a circle, the camera's nested inward and the glide's outward, and the ratio line lies flat on 1 — a cone, twice. Press <i>Split them</i>: the circles flatten into ellipses whose ratio drifts away from 1 as λ grows, and the ratio line bends. Drag the slits and watch the drift change sign when v passes u. Press <i>Pushbroom</i>: with the v slit far off, r<sub>v</sub> → 0, the vertical axis stops shrinking altogether and the deep ellipses go long and flat — the pushbroom's signature, one direction unforeshortened.</p>
+
+<h2>What is being claimed</h2>
+<p>Per direction, the camera and glide semi-axes multiply to ρ² at every level: the two ellipses are inverse to one another about the true circle, which is the mirror relation X<sub>g</sub>·X<sub>c</sub> = x² stated for a whole curve. The axis ratio of the camera ellipse at level λ is (1 + r<sub>u</sub>λ)/(1 + r<sub>v</sub>λ), the glide's its reciprocal; both are 1 for every λ exactly when r<sub>u</sub> = r<sub>v</sub>. Off the seam the ratio is monotone in λ and tends to r<sub>u</sub>/r<sub>v</sub> as the level recedes, so the deep image of the cylinder settles toward a fixed ellipse rather than a point — the split rig has no apex. That is why the seam is the locus where a cylinder is still a cone: the cone needs all its sections similar, and similarity across levels is exactly equal rates.</p>
+
+<h2>Glossary</h2>
+<dl>
+<dt>the cylinder</dt><dd>A circle of radius ρ at every level of the slab, the same circle throughout; the simplest object whose sections are all alike, hence the sharpest test of whether a reading keeps them alike.</dd>
+<dt>axis ratio</dt><dd>Up over across for one level's image ellipse: (1 + r<sub>u</sub>λ)/(1 + r<sub>v</sub>λ) for the camera, its reciprocal for glide. Equal to 1 at λ = 0 for every rig, and at every λ only on the seam.</dd>
+<dt>cone test</dt><dd>A reading sees the cylinder as a cone when all its level images are similar. Pinhole and seam pass; every split rig fails, with the failure measured by the ratio line's departure from flat.</dd>
+<dt>deep limit</dt><dd>The ellipse the camera images tend to as λ → ∞: axis ratio r<sub>u</sub>/r<sub>v</sub>, size shrinking as 1/λ. The glide images grow without bound at the same ratio.</dd>
+<dt>inverse ellipses</dt><dd>Camera and glide images of one level, whose semi-axes multiply to ρ² direction by direction — the mirror relation extended from a mark to a curve.</dd>
+</dl>
+
+<p class="foot">Reading-sessions companion · 27 September 2026 · built from the question "if the two slits rotate 360°, a circle if they coincide, an ellipse if they don't?" Checks: check-the-cylinder-v1.js (inverse ellipses, circle iff seam at every level, ratio monotone and bounded by r<sub>u</sub>/r<sub>v</sub>, cone test passes on the seam and fails off it, pushbroom limit, the plane always a circle).</p>
+</div>
+
+<script>
+(function(){
+"use strict";
+// [MATH-BEGIN]
+function rateOf(L,zP,zSlit){return L/(zP-zSlit);}
+function camAxes(rho,ru,rv,lam){return {a:rho/(1+ru*lam),b:rho/(1+rv*lam)};}
+function gliAxes(rho,ru,rv,lam){return {a:rho*(1+ru*lam),b:rho*(1+rv*lam)};}
+function axisRatio(ru,rv,lam){return (1+ru*lam)/(1+rv*lam);}
+function seamCubic(ru,rv){return ru*rv*(rv-ru);}
+function deepRatio(ru,rv){return ru/rv;}
+function isCone(ru,rv,lams,eps){ // all level images similar?
+  var r0=axisRatio(ru,rv,lams[0]);
+  for(var i=1;i<lams.length;i++) if(Math.abs(axisRatio(ru,rv,lams[i])-r0)>(eps||1e-12)) return false;
+  return true;
+}
+// [MATH-END]
+var L=120, axY=170, zBack=790, rho=60;
+var st={zU:240, zV:160, zP:400, cam:true, gli:true, rays:false};
+var LEVELS=[0,0.5,1,1.5,2,2.5,3];
+function $(id){return document.getElementById(id)}
+var NS='http://www.w3.org/2000/svg';
+function el(tag,at,parent){var e=document.createElementNS(NS,tag);for(var k in at)e.setAttribute(k,at[k]);parent.appendChild(e);return e;}
+function clear(g){while(g.firstChild)g.removeChild(g.firstChild);}
+function seg(e,x1,y1,x2,y2){e.setAttribute('x1',x1);e.setAttribute('y1',y1);e.setAttribute('x2',x2);e.setAttribute('y2',y2);}
+function upd(){
+  var ru=rateOf(L,st.zP,st.zU), rv=rateOf(L,st.zP,st.zV);
+  // section
+  $('slab').setAttribute('x',st.zP); $('slab').setAttribute('width',Math.max(0,zBack-st.zP));
+  seg($('plane'),st.zP,40,st.zP,170);
+  $('planeLbl').setAttribute('x',st.zP); $('planeLbl').setAttribute('y',188);
+  var ct=$('cylTop'); ct.setAttribute('x',st.zP); ct.setAttribute('y',axY-rho); ct.setAttribute('width',Math.max(0,zBack-st.zP)); ct.setAttribute('height',rho);
+  var Lv=$('levels'); clear(Lv);
+  LEVELS.forEach(function(lam){
+    var zx=st.zP+lam*L; if(zx>zBack+1) return;
+    el('line',{x1:zx,y1:axY-rho,x2:zx,y2:axY,stroke:'#8a857a','stroke-width':1,'stroke-dasharray':'4 4'},Lv);
+    el('circle',{cx:zx,cy:axY-rho,r:3,fill:'#4a463e'},Lv);
+    var t=el('text',{x:zx,y:axY-rho-8,'font-size':'11',fill:'#6b675e','text-anchor':'middle'},Lv); t.textContent=lam;
+  });
+  ['hP','hPd'].forEach(function(i){$(i).setAttribute('cx',st.zP);$(i).setAttribute('cy',axY)});
+  ['hU','hUd'].forEach(function(i){$(i).setAttribute('cx',st.zU);$(i).setAttribute('cy',axY)});
+  ['hV','hVd'].forEach(function(i){$(i).setAttribute('cx',st.zV);$(i).setAttribute('cy',axY)});
+  $('lU').setAttribute('x',st.zU);$('lU').setAttribute('y',axY+24);
+  $('lV').setAttribute('x',st.zV);$('lV').setAttribute('y',axY+24);
+  // face
+  var E=$('ellipses'); clear(E); var Rg=$('rays'); clear(Rg);
+  $('trueC').setAttribute('r',rho);
+  LEVELS.forEach(function(lam,i){
+    if(lam===0) return;
+    var op=(0.35+0.65*i/(LEVELS.length-1)).toFixed(2);
+    if(st.cam){ var c=camAxes(rho,ru,rv,lam);
+      el('ellipse',{cx:230,cy:230,rx:c.a,ry:c.b,fill:'none',stroke:'#6a2c91','stroke-width':1.4,opacity:op},E); }
+    if(st.gli){ var g=gliAxes(rho,ru,rv,lam);
+      el('ellipse',{cx:230,cy:230,rx:Math.min(g.a,400),ry:Math.min(g.b,400),fill:'none',stroke:'#177f75','stroke-width':1.4,opacity:op},E); }
+  });
+  if(st.rays){ // the rim's four cardinal points, followed level by level
+    [[1,0,'#c0322b'],[0,1,'#2456a8'],[-1,0,'#c0322b'],[0,-1,'#2456a8']].forEach(function(d){
+      var pc='',pg='';
+      LEVELS.forEach(function(lam){var c=camAxes(rho,ru,rv,lam), g=gliAxes(rho,ru,rv,lam);
+        pc+=(230+d[0]*c.a)+','+(230-d[1]*c.b)+' '; pg+=(230+d[0]*Math.min(g.a,400))+','+(230-d[1]*Math.min(g.b,400))+' ';});
+      el('polyline',{points:pc,fill:'none',stroke:d[2],'stroke-width':1,'stroke-dasharray':'3 3'},Rg);
+      el('polyline',{points:pg,fill:'none',stroke:d[2],'stroke-width':1,'stroke-dasharray':'3 3'},Rg);
+    });
+  }
+  // chart: ratio against depth, 0..3
+  var pts='',pin='', lamMax=3, yOf=function(r){return 250-Math.min(220,Math.max(0,(r-0.2)/(2.2-0.2)*220));};
+  for(var k=0;k<=60;k++){var lam=lamMax*k/60; pts+=(60+380*lam/lamMax)+','+yOf(axisRatio(ru,rv,lam))+' '; pin+=(60+380*lam/lamMax)+','+yOf(1)+' ';}
+  $('ratioLine').setAttribute('points',pts); $('pinLine').setAttribute('points',pin);
+  $('one').setAttribute('y1',yOf(1)); $('one').setAttribute('y2',yOf(1));
+  var T=$('chartTicks'); clear(T);
+  [0.5,1,1.5,2].forEach(function(r){var y=yOf(r); el('line',{x1:56,y1:y,x2:60,y2:y,stroke:'#8a857a'},T); var t=el('text',{x:50,y:y+4,'font-size':'11',fill:'#6b675e','text-anchor':'end'},T); t.textContent=r;});
+  [0,1,2,3].forEach(function(l){var x=60+380*l/3; el('line',{x1:x,y1:250,x2:x,y2:254,stroke:'#8a857a'},T); var t=el('text',{x:x,y:266,'font-size':'11',fill:'#6b675e','text-anchor':'middle'},T); t.textContent=l;});
+  $('chartNote').textContent='deep limit r_u/r_v = '+deepRatio(ru,rv).toFixed(3);
+  // ledger
+  $('oRu').textContent=ru.toFixed(2); $('oRv').textContent=rv.toFixed(2);
+  var D=seamCubic(ru,rv); $('oD').textContent=D.toFixed(4);
+  var seam=Math.abs(ru-rv)<0.015;
+  $('oB').textContent=seam?'seam — every level a circle: the cylinder is a cone':'split — ellipses, ratio drifting with depth: no cone';
+  $('oB').style.color=seam?'#854F0B':'#993C1D';
+  var B=$('ledBody'); while(B.firstChild)B.removeChild(B.firstChild);
+  LEVELS.forEach(function(lam){
+    var c=camAxes(rho,ru,rv,lam), g=gliAxes(rho,ru,rv,lam), tr=document.createElement('tr');
+    [lam.toFixed(1),(c.a/rho).toFixed(3),(c.b/rho).toFixed(3),(c.b/c.a).toFixed(3),(g.a/rho).toFixed(3),(g.b/rho).toFixed(3),(g.b/g.a).toFixed(3),
+     ((c.a*g.a)/(rho*rho)).toFixed(4)+' · '+((c.b*g.b)/(rho*rho)).toFixed(4)].forEach(function(v){var td=document.createElement('td');td.textContent=v;tr.appendChild(td);});
+    B.appendChild(tr);
+  });
+}
+var drag=null;
+function down(key){return function(e){e.preventDefault();drag={key:key,id:e.pointerId}}}
+$('hU').addEventListener('pointerdown',down('zU'));
+$('hV').addEventListener('pointerdown',down('zV'));
+$('hP').addEventListener('pointerdown',down('zP'));
+window.addEventListener('pointermove',function(e){
+  if(!drag||e.pointerId!==drag.id)return;
+  var svg=$('sec'),r=svg.getBoundingClientRect();
+  var x=(e.clientX-r.left)*900/r.width;
+  if(drag.key==='zP'){st.zP=Math.min(580,Math.max(Math.max(260,Math.max(st.zU,st.zV)+44),x));}
+  else{st[drag.key]=Math.min(st.zP-44,Math.max(40,x));}
+  upd();
+});
+window.addEventListener('pointerup',function(e){if(drag&&e.pointerId===drag.id)drag=null});
+window.addEventListener('pointercancel',function(){drag=null});
+$('bEq').addEventListener('click',function(){st.zV=st.zU;upd()});
+$('bSp').addEventListener('click',function(){st.zU=240;st.zV=160;st.zP=400;upd()});
+$('bPb').addEventListener('click',function(){st.zU=240;st.zV=40;st.zP=400;upd()});
+[['cCam','cam'],['cGli','gli'],['cRays','rays']].forEach(function(p){
+  $(p[0]).addEventListener('click',function(){st[p[1]]=!st[p[1]];this.setAttribute('aria-pressed',st[p[1]]?'true':'false');upd();});
+});
+upd();
+})();
+</script>
+</body>
+</html>
