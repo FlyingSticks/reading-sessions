@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One debt, five coins — a cheat sheet for reading R·T-04</title>
+<style>
+  body { margin: 0; background: #faf6ef; color: #2c2a26; font-family: Georgia, 'Times New Roman', serif; }
+  .sheet { max-width: 900px; margin: 0 auto; padding: 22px 18px 40px; }
+  h1 { font-size: 1.9rem; margin: 0 0 4px; color: #43203f; }
+  h2 { font-size: 1.25rem; color: #43203f; margin: 1.8rem 0 .4rem; border-bottom: 1px solid #d9cba8; padding-bottom: .2rem; }
+  .sub { color: #6a2c91; font-style: italic; margin: 0 0 14px; }
+  p, li { line-height: 1.5; font-size: 1.02rem; }
+  dl { font-size: 1rem; } dt { font-weight: bold; margin-top: .55rem; } dd { margin: .1rem 0 0 1.2rem; line-height: 1.45; }
+  table { border-collapse: collapse; width: 100%; font-size: .95rem; margin: .4rem 0 .8rem; }
+  th, td { border-bottom: 1px solid #e0d7c2; padding: 5px 7px; text-align: left; vertical-align: top; }
+  th { font-weight: normal; font-style: italic; color: #6b675e; }
+  svg { display: block; width: 100%; height: auto; margin: .6rem 0 1rem; }
+  .cap { font-size: .9rem; color: #6b675e; font-style: italic; margin: -.6rem 0 1rem; }
+  .note { border-left: 3px solid #b08948; padding: .2rem .8rem; color: #4a463e; background: #fcfaf5; }
+  .foot { color: #6b675e; font-size: .85rem; border-top: 1px solid #d9cba8; margin-top: 2.2rem; padding-top: .8rem; }
+  @media print { body { background: #fff; } .sheet { max-width: none; } }
+</style>
+</head>
+<body>
+<div class="sheet">
+<h1>One debt, five coins</h1>
+<p class="sub">A cheat sheet for reading the comparison plate R·T-04 — the accounting words, what they mean, and what they translate to</p>
+
+<p>The plate has one fact and many ways of showing it. The accounting words keep the direction of the argument visible; the Erlangen words say where each showing lives. Both are on this sheet, with the translation between them.</p>
+
+<h2>1 · The four words</h2>
+<dl>
+<dt>debt</dt><dd>The one fact the plate is about, stated in the coin that cannot be measured: an incidence relation. On R·T-04 it is (O, R ; V_D, V_D′) = −1, the four vanishing points on the horizon in harmonic position. Fixed by the rig; untouched by every handle.</dd>
+<dt>coin</dt><dd>A measurable or drawable quantity in which the debt can be shown — area, altitude, length, a reciprocal sum, or incidence itself. Each coin has a <b>bank</b> (the moves that trade in it) and each bank has a <b>hypothesis</b> it needs true before it trades. Coins never exchange directly; every conversion passes through the debt.</dd>
+<dt>price</dt><dd>The equation rendering the debt in one coin. An equivalence, true if and only if the debt is — so a certificate as much as a rendering.</dd>
+<dt>receipt</dt><dd>A price drawn at one setting with its numbers showing: what the ledger prints and the check file audits. Evidence about one configuration, not a proof of the price. Refused when the bank's hypothesis fails; the ledger then writes <i>parked</i>.</dd>
+</dl>
+
+<svg viewBox="0 0 900 250" role="img" aria-label="The four words nested">
+<title>Nesting</title>
+<rect x="20" y="20" width="860" height="210" rx="8" fill="none" stroke="#43203f" stroke-width="1.6"/>
+<text x="36" y="46" font-size="15" fill="#43203f" font-weight="bold">debt — one, fixed, incidence-stated</text>
+<rect x="40" y="62" width="820" height="150" rx="6" fill="#fcfaf5" stroke="#6a2c91" stroke-width="1.2"/>
+<text x="54" y="84" font-size="14" fill="#6a2c91">coins — several; each with a bank and a hypothesis</text>
+<g font-size="13">
+<rect x="60" y="98" width="150" height="98" rx="5" fill="#faf6ef" stroke="#177f75" stroke-width="1.1"/>
+<text x="70" y="118" fill="#177f75">price — one per coin</text>
+<rect x="70" y="128" width="130" height="56" rx="4" fill="#fff" stroke="#b08948" stroke-width="1"/>
+<text x="80" y="148" fill="#4a463e">receipts — one per</text>
+<text x="80" y="166" fill="#4a463e">setting, or refused</text>
+<rect x="230" y="98" width="150" height="98" rx="5" fill="#faf6ef" stroke="#177f75" stroke-width="1.1"/>
+<text x="240" y="118" fill="#177f75">price</text>
+<rect x="240" y="128" width="130" height="56" rx="4" fill="#fff" stroke="#b08948" stroke-width="1"/>
+<text x="250" y="148" fill="#4a463e">receipts</text>
+<rect x="400" y="98" width="150" height="98" rx="5" fill="#faf6ef" stroke="#177f75" stroke-width="1.1"/>
+<text x="410" y="118" fill="#177f75">price</text>
+<rect x="410" y="128" width="130" height="56" rx="4" fill="#fff" stroke="#b08948" stroke-width="1"/>
+<text x="420" y="148" fill="#4a463e">receipts</text>
+<rect x="570" y="98" width="150" height="98" rx="5" fill="#faf6ef" stroke="#177f75" stroke-width="1.1"/>
+<text x="580" y="118" fill="#177f75">price</text>
+<rect x="580" y="128" width="130" height="56" rx="4" fill="#fff" stroke="#b08948" stroke-width="1"/>
+<text x="590" y="148" fill="#4a463e">receipts</text>
+<rect x="740" y="98" width="100" height="98" rx="5" fill="#faf6ef" stroke="#177f75" stroke-width="1.1"/>
+<text x="750" y="118" fill="#177f75">price</text>
+<rect x="750" y="128" width="80" height="56" rx="4" fill="#fff" stroke="#b08948" stroke-width="1"/>
+<text x="760" y="148" fill="#4a463e">receipts</text>
+</g>
+</svg>
+<p class="cap">Fig. 1 — One debt; several coins; one price per coin; as many receipts per price as there are settings tried.</p>
+
+<h2>2 · The five coins on R·T-04</h2>
+<table>
+<thead><tr><th>coin</th><th>bank / chips</th><th>price (the debt in this coin)</th><th>hypothesis the bank needs</th><th>under tilt</th></tr></thead>
+<tbody>
+<tr><td><b>area</b></td><td>count bank: regions, D = D, A + B = C; the hyperbola (uv)</td><td>equal complements, Euclid I.43 — harmonic cross ⇔ equal side triangles; the form pays ½Q(OM) = ½Q(OP₂) + ½Q(P₂M)</td><td>parallel rails (I.37) — except the form, which never consulted the rail</td><td>count parks; form stands</td></tr>
+<tr><td><b>altitude</b></td><td>circle bank; matched altitudes on HL</td><td>OV_D·RV_D′ = V_DR·OV_D′, each product an ab = H² altitude — two circles, one altitude</td><td>a compass and a metric on the line</td><td>level circle parks (its diameter was the rail); horizon circles stand (diameter HL)</td></tr>
+<tr><td><b>incidence</b></td><td>horizon, S′, the free square, progression</td><td>the −1 in its own coin; receipt = the untold diagonal reaching V_D</td><td>incidence only</td><td>stands</td></tr>
+<tr><td><b>length</b></td><td>measuring points; the prism's true height</td><td>ℓᵣ = ℓₗ on the ground line, because the −1 puts S′ on both Thales circles</td><td>a vertical picture plane, and a depth convention (M′ on the plane)</td><td>stands (picture-plane-borne)</td></tr>
+<tr><td><b>reciprocal register</b></td><td>means on the horizon; the bounce</td><td>1/OV_D + 1/OV_D′ = 2/c — c is the harmonic mean; bounce gaps arithmetic</td><td>an origin and a unit on HL</td><td>stands; the rate is furniture</td></tr>
+</tbody>
+</table>
+
+<svg viewBox="0 0 900 420" role="img" aria-label="Five coins around one debt">
+<title>The hub</title>
+<circle cx="450" cy="210" r="82" fill="#fcfaf5" stroke="#43203f" stroke-width="2"/>
+<text x="450" y="204" font-size="15" fill="#43203f" text-anchor="middle" font-weight="bold">the debt</text>
+<text x="450" y="224" font-size="14" fill="#43203f" text-anchor="middle">(O,R ; V_D,V_D′) = −1</text>
+<g stroke-width="1.4" fill="none">
+<line x1="450" y1="128" x2="450" y2="78" stroke="#2c2a26"/>
+<line x1="528" y1="180" x2="720" y2="120" stroke="#177f75"/>
+<line x1="528" y1="240" x2="720" y2="300" stroke="#6a2c91"/>
+<line x1="372" y1="240" x2="180" y2="300" stroke="#3d8f3d"/>
+<line x1="372" y1="180" x2="180" y2="120" stroke="#b08948"/>
+</g>
+<g font-size="13" text-anchor="middle">
+<rect x="360" y="34" width="180" height="44" rx="6" fill="#faf6ef" stroke="#2c2a26"/>
+<text x="450" y="52" fill="#2c2a26" font-weight="bold">incidence</text><text x="450" y="70" fill="#2c2a26">the untold diagonal</text>
+<rect x="700" y="80" width="180" height="48" rx="6" fill="#faf6ef" stroke="#177f75"/>
+<text x="790" y="100" fill="#177f75" font-weight="bold">altitude</text><text x="790" y="118" fill="#177f75">ab = H², twice</text>
+<rect x="700" y="290" width="180" height="48" rx="6" fill="#faf6ef" stroke="#6a2c91"/>
+<text x="790" y="310" fill="#6a2c91" font-weight="bold">length</text><text x="790" y="328" fill="#6a2c91">ℓᵣ = ℓₗ</text>
+<rect x="20" y="290" width="180" height="48" rx="6" fill="#faf6ef" stroke="#3d8f3d"/>
+<text x="110" y="310" fill="#3d8f3d" font-weight="bold">reciprocal register</text><text x="110" y="328" fill="#3d8f3d">1/p + 1/q = 2/c</text>
+<rect x="20" y="80" width="180" height="48" rx="6" fill="#faf6ef" stroke="#b08948"/>
+<text x="110" y="100" fill="#b08948" font-weight="bold">area</text><text x="110" y="118" fill="#b08948">D = D · I.43</text>
+</g>
+<path d="M 110 80 Q 450 -30 790 80" fill="none" stroke="#c0322b" stroke-width="1" stroke-dasharray="4 4"/>
+<text x="450" y="22" font-size="12" fill="#c0322b" text-anchor="middle">no direct exchange between rim coins</text>
+<text x="450" y="395" font-size="13" fill="#6b675e" text-anchor="middle" font-style="italic">every conversion passes through the hub — incidence is the reserve currency</text>
+</svg>
+<p class="cap">Fig. 2 — The five coins as spokes. Area does not convert to altitude except by way of the −1; each price is equivalent to the debt, not to the other prices.</p>
+
+<h2>3 · The tilt as sorter</h2>
+<p>The tilt changes nothing about the debt. It changes which banks are open, by testing each bank's hypothesis. The four strata of the plate are the four hypotheses; <i>parked</i> versus <i>standing</i> is whether the hypothesis holds at this setting.</p>
+
+<svg viewBox="0 0 900 300" role="img" aria-label="The sieve">
+<title>The sieve</title>
+<g font-size="13">
+<rect x="20" y="20" width="200" height="260" rx="6" fill="#fcfaf5" stroke="#8a857a"/>
+<text x="120" y="44" text-anchor="middle" fill="#2c2a26" font-weight="bold">claims arriving</text>
+<text x="32" y="74" fill="#b08948">regions, D = D</text>
+<text x="32" y="96" fill="#b08948">circle bank (level)</text>
+<text x="32" y="118" fill="#b08948">means (interior)</text>
+<text x="32" y="140" fill="#177f75">the hyperbola (form)</text>
+<text x="32" y="162" fill="#2c2a26">horizon, free square</text>
+<text x="32" y="184" fill="#177f75">matched altitudes</text>
+<text x="32" y="206" fill="#3d8f3d">means on HL, bounce</text>
+<text x="32" y="228" fill="#6a2c91">prism, measuring pts</text>
+<rect x="300" y="60" width="180" height="180" rx="90" fill="none" stroke="#43203f" stroke-width="2"/>
+<text x="390" y="140" text-anchor="middle" fill="#43203f" font-weight="bold">tilt ≠ 0</text>
+<text x="390" y="160" text-anchor="middle" fill="#43203f">asks each bank:</text>
+<text x="390" y="178" text-anchor="middle" fill="#43203f">is your hypothesis true?</text>
+<line x1="220" y1="150" x2="300" y2="150" stroke="#8a857a" stroke-width="1.4"/>
+<rect x="560" y="20" width="320" height="120" rx="6" fill="#fcfaf5" stroke="#3d8f3d"/>
+<text x="720" y="44" text-anchor="middle" fill="#3d8f3d" font-weight="bold">standing</text>
+<text x="572" y="68" fill="#2c2a26">incidence-borne: needs nothing</text>
+<text x="572" y="88" fill="#177f75">form-borne: never used the rail</text>
+<text x="572" y="108" fill="#3d8f3d">origin + unit on HL: HL never tilts</text>
+<text x="572" y="128" fill="#6a2c91">picture-plane-borne: plane stays vertical</text>
+<rect x="560" y="170" width="320" height="110" rx="6" fill="#fcfaf5" stroke="#b08948"/>
+<text x="720" y="194" text-anchor="middle" fill="#b08948" font-weight="bold">parked</text>
+<text x="572" y="218" fill="#b08948">rail-borne: needs parallel rails</text>
+<text x="572" y="238" fill="#b08948">— regions, level circle, interior means</text>
+<text x="572" y="258" fill="#b08948">the debt still stands; the receipt is refused</text>
+<line x1="480" y1="120" x2="560" y2="80" stroke="#3d8f3d" stroke-width="1.4"/>
+<line x1="480" y1="180" x2="560" y2="225" stroke="#b08948" stroke-width="1.4"/>
+</g>
+</svg>
+<p class="cap">Fig. 3 — The sieve. Rail-borne claims are the only ones the tilt closes, because parallels are the only hypothesis it breaks.</p>
+
+<h2>4 · Translation: accounting → Erlangen</h2>
+<p>The accounting words are borrowed; underneath them is Klein's program, your four-rung ladder. A coin is a geometry in Klein's sense — the quantities a group preserves. The hypothesis a bank needs is the structure its group presupposes.</p>
+<table>
+<thead><tr><th>accounting</th><th>standard word</th><th>on the ladder</th></tr></thead>
+<tbody>
+<tr><td>debt</td><td>the invariant; the proposition</td><td>a projective invariant (cross-ratio)</td></tr>
+<tr><td>coin</td><td>a geometry; a category of quantity</td><td>a rung: what a group preserves</td></tr>
+<tr><td>bank</td><td>the theory that trades in it; its moves</td><td>the group and its constructions</td></tr>
+<tr><td>hypothesis</td><td>the structure presupposed</td><td>what distinguishes the rung from the one below</td></tr>
+<tr><td>price</td><td>an equivalent characterization</td><td>the invariant restated in a rung's terms</td></tr>
+<tr><td>receipt</td><td>a witness; a numerical instance</td><td>one configuration, checked</td></tr>
+<tr><td>certificate</td><td>(complexity theory) a witness verifiable without re-derivation</td><td>a price used as a test</td></tr>
+<tr><td>parked / standing</td><td>hypothesis fails / holds at this setting</td><td>rung unavailable / available</td></tr>
+</tbody>
+</table>
+
+<svg viewBox="0 0 900 260" role="img" aria-label="Coins on the ladder">
+<title>The ladder</title>
+<g font-size="13">
+<line x1="120" y1="230" x2="120" y2="30" stroke="#8a857a" stroke-width="2"/>
+<line x1="780" y1="230" x2="780" y2="30" stroke="#8a857a" stroke-width="2"/>
+<line x1="120" y1="210" x2="780" y2="210" stroke="#2c2a26" stroke-width="2"/>
+<line x1="120" y1="150" x2="780" y2="150" stroke="#b08948" stroke-width="2"/>
+<line x1="120" y1="90" x2="780" y2="90" stroke="#177f75" stroke-width="2"/>
+<line x1="120" y1="40" x2="780" y2="40" stroke="#6a2c91" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="140" y="203" fill="#2c2a26" font-weight="bold">projective</text><text x="260" y="203" fill="#2c2a26">incidence coin — needs nothing — the −1 lives here</text>
+<text x="140" y="143" fill="#b08948" font-weight="bold">affine</text><text x="260" y="143" fill="#b08948">area coin, reciprocal register — needs parallels, or an origin and unit</text>
+<text x="140" y="83" fill="#177f75" font-weight="bold">Euclidean</text><text x="260" y="83" fill="#177f75">altitude coin, length coin — needs a compass</text>
+<text x="140" y="33" fill="#6a2c91" font-weight="bold">the machine's</text><text x="260" y="33" fill="#6a2c91">Euclidean + a distinguished vertical: prism, measuring points — not a classical rung</text>
+<text x="450" y="248" text-anchor="middle" fill="#6b675e" font-style="italic">climbing adds structure; the tilt tests whether the structure a claim climbed with is still there</text>
+</g>
+</svg>
+<p class="cap">Fig. 4 — Coins as rungs. The reciprocal register is affine in the weak sense: it needs an origin and a unit on one line, not parallels, which is why it survives a tilt the area coin does not.</p>
+
+<h2>5 · The three means</h2>
+<p>Three of the coins are the three means. The count bank is additive, A + B = C — the arithmetic mean's register. The circle bank is the geometric mean, ab = H². The reciprocal register is the harmonic mean, c = HM(OV_D, OV_D′). The −1 is what makes the three ledgers agree; the means sphere states the same agreement as AM·HM = GM².</p>
+
+<svg viewBox="0 0 900 200" role="img" aria-label="Three coins as three means">
+<title>Three means</title>
+<g font-size="13" text-anchor="middle">
+<rect x="60" y="60" width="220" height="70" rx="6" fill="#fcfaf5" stroke="#b08948" stroke-width="1.4"/>
+<text x="170" y="86" fill="#b08948" font-weight="bold">area · arithmetic</text><text x="170" y="108" fill="#b08948">A + B = C</text>
+<rect x="340" y="60" width="220" height="70" rx="6" fill="#fcfaf5" stroke="#177f75" stroke-width="1.4"/>
+<text x="450" y="86" fill="#177f75" font-weight="bold">altitude · geometric</text><text x="450" y="108" fill="#177f75">ab = H²</text>
+<rect x="620" y="60" width="220" height="70" rx="6" fill="#fcfaf5" stroke="#3d8f3d" stroke-width="1.4"/>
+<text x="730" y="86" fill="#3d8f3d" font-weight="bold">reciprocal · harmonic</text><text x="730" y="108" fill="#3d8f3d">1/p + 1/q = 2/c</text>
+<text x="450" y="170" fill="#43203f" font-weight="bold">AM · HM = GM² — the −1 as the agreement of the three ledgers</text>
+</g>
+<line x1="280" y1="95" x2="340" y2="95" stroke="#8a857a" stroke-width="1" stroke-dasharray="4 4"/>
+<line x1="560" y1="95" x2="620" y2="95" stroke="#8a857a" stroke-width="1" stroke-dasharray="4 4"/>
+</svg>
+<p class="cap">Fig. 5 — Three coins, three means, one agreement.</p>
+
+<h2>6 · Where the metaphor strains</h2>
+<div class="note">
+<p>"Paying" implies the debt comes first and the receipts after. Geometrically each price is an if-and-only-if, so any of them could be taken as the starting fact; the order debt → price is expository. The strata are hypotheses, not costs. Keep the coins for reading the sheet; translate to the ladder for anything stated as a result, where the words have owners.</p>
+</div>
+
+<h2>7 · One-line reminders</h2>
+<ul>
+<li>One debt, several coins, one price per coin, many receipts per price.</li>
+<li>Coins never exchange directly; incidence is the reserve currency.</li>
+<li>A bank trades only while its hypothesis holds; the tilt tests hypotheses, not debts.</li>
+<li>Rail-borne claims are the only ones the tilt closes, because parallels are the only thing it breaks.</li>
+<li>The picture-plane stratum is the machine's own rung: Euclidean plus a vertical.</li>
+<li>Area, altitude, reciprocal = arithmetic, geometric, harmonic; the −1 keeps them in agreement.</li>
+</ul>
+
+<p class="foot">Cheat sheet · 27 September 2026 · companion to one-hinge-two-banks-v6 (sheet R·T-04). Static; no checks. The vocabulary is a reading aid, not a result.</p>
+</div>
+</body>
+</html>
