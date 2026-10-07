@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sum and Difference</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: essay column with one interactive board in the middle; the board is the argument, the prose explains what to drag. */
+:root{
+  --bg:#f6f5f1; --fg:#1f2024; --muted:#6b6d72; --rule:#c9cac4; --panel:#ffffff;
+  --axis:#2a6f8f; --blue:#2f55b5; --pink:#c8463a; --grey:#8a8c90; --green:#2f8f4e;
+  --tint-b1:rgba(47,85,181,.16); --tint-b2:rgba(47,85,181,.30); --tint-p:rgba(200,70,58,.16); --tint-p2:rgba(200,70,58,.30); --tint-o:rgba(138,140,144,.28);
+  --sans:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17181b;--fg:#ecebe6;--muted:#a0a2a8;--rule:#3a3c42;--panel:#202227;--axis:#6fb3d2;--blue:#7d9cf0;--pink:#ee7f73;--grey:#9a9ca2;--green:#6fcf8f;--tint-b1:rgba(125,156,240,.18);--tint-b2:rgba(125,156,240,.34);--tint-p:rgba(238,127,115,.18);--tint-p2:rgba(238,127,115,.34);--tint-o:rgba(154,156,162,.3);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#17181b;--fg:#ecebe6;--muted:#a0a2a8;--rule:#3a3c42;--panel:#202227;--axis:#6fb3d2;--blue:#7d9cf0;--pink:#ee7f73;--grey:#9a9ca2;--green:#6fcf8f;--tint-b1:rgba(125,156,240,.18);--tint-b2:rgba(125,156,240,.34);--tint-p:rgba(238,127,115,.18);--tint-p2:rgba(238,127,115,.34);--tint-o:rgba(154,156,162,.3);color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16px;line-height:1.5;padding:0 16px;padding-block:24px 48px}
+.wrap{max-width:900px;margin:0 auto;display:grid;gap:18px}
+h1{font-size:1.6rem;font-weight:600;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h2{font-size:1.05rem;font-weight:600;margin:18px 0 0}
+p{margin:0;max-width:68ch}
+.lead{color:var(--muted)}
+.board{background:var(--panel);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+svg{display:block;width:100%;height:auto;touch-action:none;user-select:none}
+.ctl{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px 24px}
+.ctl label{display:grid;gap:4px;font-size:.9rem}
+.ctl input[type=range]{width:100%}
+.ctl input:focus-visible{outline:2px solid var(--axis);outline-offset:2px}
+.reads{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.card{border:1px solid var(--rule);border-radius:6px;padding:12px 14px;display:grid;gap:6px;min-width:0;align-content:start}
+.card h3{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;margin:0;font-weight:600}
+.card.b h3{color:var(--blue)} .card.p h3{color:var(--pink)} .card.g h3{color:var(--green)}
+.k{font-family:var(--mono);font-size:.88rem;font-variant-numeric:tabular-nums;display:flex;justify-content:space-between;gap:12px}
+.k span:last-child{font-weight:500;text-align:right}
+.note{color:var(--muted);font-size:.9rem}
+table{border-collapse:collapse;width:100%;font-size:.92rem;max-width:68ch}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+text{font-family:var(--sans);font-size:12px;fill:var(--fg)}
+text.q{fill:var(--muted);font-size:11px}
+.handle{cursor:grab}
+</style>
+
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Sum and difference: two forms of one dissection</h1>
+  <p class="lead">Euclid's theorem adds parts to make a whole. Minkowski's subtracts a part from a whole. Both forms can be drawn from the same square, on the same sheet, before either geometry's absolute is chosen. The absolute only decides what the areas stand for.</p>
+
+  <div class="board">
+    <svg id="s" viewBox="0 0 800 700" role="img" aria-label="Interactive: above the horizon a rectangle cut by a diagonal with a sliding apex giving a difference identity; below it a right triangle on the circle giving a sum identity"></svg>
+  </div>
+
+  <div class="ctl">
+    <label>Shear the whole figure (affine test)<input type="range" id="rK" min="-0.6" max="0.6" step="0.01" value="0"></label>
+    <label>Move P along BD: the apex of the pink figure and the foot of the altitude together<input type="range" id="rP" min="0.1" max="0.9" step="0.005" value="0.36"></label>
+  </div>
+
+  <div class="reads">
+    <div class="card p">
+      <h3>Difference · above the horizon</h3>
+      <div class="k"><span>A₂ (whole, outside the overlap)</span><span id="a2">—</span></div>
+      <div class="k"><span>A₁ + A₃ (the two parts)</span><span id="a13">—</span></div>
+      <div class="k"><span>A₂ − A₁ = A₃</span><span id="a2m">—</span></div>
+      <div class="note">Two triangles on a parallelogram's diagonal have equal area. Sliding the apex P along the base keeps the moving triangle's area. Subtract the overlap from both and the remainders agree. The form is whole minus part.</div>
+    </div>
+    <div class="card g">
+      <h3>Harmonic · the frame on the horizon</h3>
+      <div class="k"><span>(A, C; B, D) on the horizon</span><span id="hcr">—</span></div>
+      <div class="k"><span>A · C (from M, in r²)</span><span id="hac">—</span></div>
+      <div class="k"><span>(A′, C′; B′, D′) on the time axis</span><span id="hcr2">—</span></div>
+      <div class="note">C′ and A′ are the ends of the vertical diameter. Sight lines from SP through them meet the horizon at C and A. Because the two diameters are perpendicular, SP sees C′B and BA′ under 45°, and A, B, C, D fall harmonically. The perspectivity from SP carries the set to the time axis unchanged.</div>
+    </div>
+    <div class="card b">
+      <h3>Sum · below the horizon</h3>
+      <div class="k"><span>C₁ + C₂</span><span id="c12">—</span></div>
+      <div class="k"><span>C₃ (whole)</span><span id="c3">—</span></div>
+      <div class="k"><span>C₁ : C₂ : C₃ = BSP² : SPD² : BD²</span><span id="cr">—</span></div>
+      <div class="note">The altitude from SP cuts the right triangle into two triangles similar to it. Areas of similar figures go as the squares of their sides, so the parts summing to the whole is a² + b² = c². The form is part plus part.</div>
+    </div>
+  </div>
+
+  <h2>What the sheet shows</h2>
+  <p>The blue figure is a sum: two parts fill the whole, C₁ + C₂ = C₃. The pink figure is a difference: the whole minus a part is the remaining part, A₂ − A₁ = A₃, which is what the overlap cancellation produces. One has the shape of a² + b² = c²; the other has the shape of T² − D² = I². Both are built with the same affine moves on the same sheet. Drag the shear slider and every identity holds while every right angle disappears.</p>
+  <p>So the additive and the subtractive forms are both available in the same plane, from the same square, before any absolute is chosen. What the absolute later supplies is which lengths the areas stand for. The circle makes C₁, C₂, C₃ the squares on the sides of a Euclidean right triangle. Light lines, if the slide direction were set along them, would make A₁, A₂, A₃ the light rectangles on the sides of a Minkowski one. The figure as drawn commits to neither; it shows the two forms and stops.</p>
+
+  <h2>The frame underneath both</h2>
+  <p>The green construction places four points on the horizon. SP sees B and D at a right angle because it is on the circle; it also sees C′ and A′, the ends of the vertical diameter, at a right angle, for the same reason. Two perpendicular diameters give inscribed angles of 45° between the pairs, and a pencil with that property is harmonic: (A, C; B, D) = −1, or in lengths from M, A · C = r². The same four sight lines cut the time axis in A′, B′, C′, D′, and the cross-ratio there is −1 as well, since a perspectivity preserves it. This is the one thing on the sheet that survives even when the areas are gone: shear the figure and the sum, the difference and the harmonic set all hold; project it from a new center and only the harmonic set is left.</p>
+
+  <h2>The sign appears twice</h2>
+  <table>
+    <tr><th>Where</th><th>Euclid</th><th>Minkowski</th></tr>
+    <tr><td>The involution on the horizon</td><td>conjugates straddle the foot: (V−P)(V′−P) = −A²</td><td>conjugates on one side: (V−P)(V′−P) = +A²</td></tr>
+    <tr><td>The identity itself</td><td>a sum: C₁ + C₂ = C₃</td><td>a difference: A₂ − A₁ = A₃</td></tr>
+    <tr><td>The frame they stand on</td><td colspan="2">the harmonic set A, B, C, D, the same for both</td></tr>
+    <tr><td>Drawn with</td><td>a circle, Thales' locus</td><td>a hyperbola, and the light lines as the slide direction</td></tr>
+  </table>
+  <p class="note">The second row is what this page adds to the earlier docs. The sign that separates the two geometries is visible in the form of the theorem, not only in the involution, and your drawing displays that form without committing to either absolute.</p>
+</div>
+
+<script>
+(function(){
+const svg=document.getElementById('s');
+const NS='http://www.w3.org/2000/svg';
+const W=800,H=700, M={x:400,y:330}, r=150, h=140;   // horizon at y=330; rectangle 2r wide, h tall above it
+const S={k:0,p:0.36};
+const el=(n,a)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e;};
+const add=(n,a,txt)=>{const e=el(n,a);if(txt!=null)e.textContent=txt;svg.appendChild(e);return e;};
+const T=p=>[M.x+p[0]+S.k*p[1], M.y-p[1]];           // model (x, t up) → screen, with horizontal shear k·t
+const poly=(pts,fill,stroke,w)=>add('polygon',{points:pts.map(p=>T(p).join(',')).join(' '),fill,stroke:stroke||'none','stroke-width':w||1});
+const area=pts=>{let a=0;for(let i=0;i<pts.length;i++){const p=pts[i],q=pts[(i+1)%pts.length];a+=p[0]*q[1]-q[0]*p[1];}return Math.abs(a)/2;};
+const lab=(p,txt,dx,dy,fill)=>{const s=T(p);add('text',{x:s[0]+(dx||0),y:s[1]+(dy||0),'font-weight':600,fill:fill||'var(--fg)'},txt);};
+const inter=(p1,p2,p3,p4)=>{const d=(p1[0]-p2[0])*(p3[1]-p4[1])-(p1[1]-p2[1])*(p3[0]-p4[0]);const a=p1[0]*p2[1]-p1[1]*p2[0],b=p3[0]*p4[1]-p3[1]*p4[0];return[(a*(p3[0]-p4[0])-(p1[0]-p2[0])*b)/d,(a*(p3[1]-p4[1])-(p1[1]-p2[1])*b)/d];};
+
+function draw(){
+  while(svg.firstChild)svg.removeChild(svg.firstChild);
+  const B=[-r,0], D=[r,0], Tt=[r,h], L=[-r,h], Q=[-r+2*r*S.p,0];
+  // horizon
+  add('line',{x1:0,y1:M.y,x2:W,y2:M.y,stroke:'var(--axis)','stroke-width':2});
+  add('text',{x:8,y:M.y-8,class:'q'},'horizon · picture plane');
+
+  // ---- difference figure (above) ----
+  poly([B,D,Tt,L],'none','var(--grey)',1);
+  const X=inter(Q,L,B,Tt);                       // QL ∩ BT
+  const A1=[B,Q,X], A3=[Q,D,Tt], A2=[L,X,Tt], OV=[Q,Tt,X];
+  poly(A1,'var(--tint-p)'); poly(A3,'var(--tint-p)'); poly(A2,'var(--tint-p2)'); poly(OV,'var(--tint-o)');
+  const seg=(p,q,col,w,dash)=>{const a=T(p),b=T(q);const o={x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:col,'stroke-width':w||1.5};if(dash)o['stroke-dasharray']=dash;add('line',o);};
+  seg(B,Tt,'var(--fg)',1.5); seg(Q,L,'var(--pink)',2); seg(Q,Tt,'var(--pink)',2); seg(Q,[Q[0],h],'var(--grey)',1,'3 3'); seg(B,L,'var(--grey)',1,'4 3');
+  lab([-r+2*r*S.p*0.45,h*0.1],'A₁',-4,-4,'var(--pink)'); lab([(Q[0]+r+r)/3+10,h*0.22],'A₃',0,0,'var(--pink)');
+  lab([(L[0]+X[0]+r)/3,(h+X[1]+h)/3],'A₂',-6,4,'var(--pink)'); lab([(Q[0]+r+X[0])/3,(X[1]+h)/3],'overlap',-18,4,'var(--muted)');
+  lab(L,'L',-14,-6); lab(Tt,'T',8,-6); 
+  add('text',{x:T([r,h])[0]+12,y:T([r,h])[1]+30,class:'q'},'sides QL and BT'); add('text',{x:T([r,h])[0]+12,y:T([r,h])[1]+46,class:'q'},'need not be light lines');
+
+  // ---- sum figure (below) ----
+  const p=-r+2*r*S.p, A=Math.sqrt((p+r)*(r-p)), SP=[p,-A], P=[p,0];
+  // full circle, sheared along with everything else
+  let d='';for(let a=0;a<=2*Math.PI+1e-9;a+=Math.PI/60){const s=T([r*Math.cos(a),r*Math.sin(a)]);d+=(d?'L':'M')+s[0].toFixed(1)+' '+s[1].toFixed(1);}
+  add('path',{d:d+'Z',fill:'none',stroke:'var(--grey)','stroke-width':1,'stroke-dasharray':'5 4'});
+  // time axis through M
+  {const a=T([0,r+40]),b=T([0,-r-40]);add('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:'var(--axis)','stroke-width':1});}
+  const C1=[B,P,SP], C2=[P,D,SP];
+  poly(C1,'var(--tint-b1)'); poly(C2,'var(--tint-b2)');
+  seg(B,SP,'var(--blue)',2); seg(SP,D,'var(--blue)',2); seg(P,SP,'var(--blue)',1,'4 3');
+  if(Math.abs(S.k)<1e-6){const m=9,a=Math.atan2(A,-r-p),b=Math.atan2(A,r-p),s=T(SP);const p1=[s[0]+m*Math.cos(a),s[1]-m*Math.sin(a)],p2=[s[0]+m*Math.cos(b),s[1]-m*Math.sin(b)];add('path',{d:`M${p1[0]} ${p1[1]}L${p1[0]+p2[0]-s[0]} ${p1[1]+p2[1]-s[1]}L${p2[0]} ${p2[1]}`,fill:'none',stroke:'var(--blue)','stroke-width':1});}
+  lab([(B[0]+p+p)/3,-A/3],'C₁',-8,4,'var(--blue)'); lab([(p+r+p)/3,-A/3],'C₂',0,4,'var(--blue)');
+  lab(P,'P',8,-8); lab(SP,'SP',10,18,'var(--blue)');
+  add('circle',{cx:T(P)[0],cy:T(P)[1],r:8,fill:'var(--fg)',class:'handle','data-h':'P'});
+  for(const [pt,l,dx] of [[B,'B',-14],[D,'D',8]]){const s=T(pt);add('circle',{cx:s[0],cy:s[1],r:5,fill:'var(--fg)'});add('text',{x:s[0]+dx,y:s[1]-10,'font-weight':600},l);}
+  add('text',{x:T([r,-r])[0]+12,y:T([r,-r])[1],class:'q'},'circle on BD: Thales');
+
+  // ---- harmonic frame (green) ----
+  const Cp=[0,r], Ap=[0,-r];
+  const hit=(S1,S2)=>{const t=-S1[1]/(S2[1]-S1[1]);return [S1[0]+t*(S2[0]-S1[0]),0];};   // line S1S2 ∩ horizon
+  const Cc=hit(SP,Cp), Aa=hit(SP,Ap);
+  const far=q=>Math.abs(q[0])<=W; 
+  seg(SP,Cp,'var(--green)',1.5); seg(SP,Ap,'var(--green)',1.5);
+  if(far(Aa)) seg(SP,Aa,'var(--green)',1,'4 3'); else {const dir=[Aa[0]-SP[0],-SP[1]];const k=(W)/Math.abs(dir[0]);seg(SP,[SP[0]+k*dir[0],SP[1]+k*dir[1]],'var(--green)',1,'4 3');}
+  for(const [q,l,dx,dy] of [[Cp,'C′',8,-6],[Ap,'A′',8,16],[Cc,'C',-4,20],[[0,0],'M',8,16]]){const s=T(q);add('circle',{cx:s[0],cy:s[1],r:4,fill:'var(--green)'});add('text',{x:s[0]+dx,y:s[1]+dy,'font-weight':600,fill:'var(--green)'},l);}
+  if(far(Aa)){const s=T(Aa);add('circle',{cx:s[0],cy:s[1],r:4,fill:'var(--green)'});add('text',{x:s[0]-4,y:s[1]+20,'font-weight':600,fill:'var(--green)'},'A');}
+  else {add('text',{x:12,y:M.y+20,fill:'var(--green)','font-weight':600},'A → off the sheet');}
+  // projections of B, D onto the time axis
+  const onAxis=(S1,q)=>{const t=-S1[0]/(q[0]-S1[0]);return [0,S1[1]+t*(q[1]-S1[1])];};
+  const Bp=onAxis(SP,B), Dp=onAxis(SP,D);
+  for(const [q,l] of [[Bp,'B′'],[Dp,'D′']]){const s=T(q);add('circle',{cx:s[0],cy:s[1],r:3.5,fill:'var(--green)'});add('text',{x:s[0]+8,y:s[1]+4,fill:'var(--green)','font-size':11},l);}
+  seg(SP,Bp,'var(--green)',0.75,'2 3'); seg(SP,Dp,'var(--green)',0.75,'2 3');
+  const cross=(a,c,b,dd)=>((a-b)*(c-dd))/((a-dd)*(c-b));
+  document.getElementById('hcr').textContent=cross(Aa[0],Cc[0],B[0],D[0]).toFixed(3);
+  document.getElementById('hac').textContent=(Aa[0]*Cc[0]/(r*r)).toFixed(3);
+  document.getElementById('hcr2').textContent=cross(Ap[1],Cp[1],Bp[1],Dp[1]).toFixed(3);
+
+  // readouts (areas in units of r²)
+  const u=v=>(v/(r*r)).toFixed(3)+' r²';
+  const a1=area(A1),a3=area(A3),a2=area(A2);
+  document.getElementById('a2').textContent=u(a2); document.getElementById('a13').textContent=u(a1+a3); document.getElementById('a2m').textContent=u(a2-a1)+'  =  '+u(a3);
+  const c1=area(C1),c2=area(C2),c3=area([B,D,SP]);
+  document.getElementById('c12').textContent=u(c1+c2); document.getElementById('c3').textContent=u(c3);
+  const l1=(p+r)**2+A*A, l2=(r-p)**2+A*A, l3=4*r*r;
+  document.getElementById('cr').textContent=(c1/l1*1e3).toFixed(2)+' : '+(c2/l2*1e3).toFixed(2)+' : '+(c3/l3*1e3).toFixed(2)+(Math.abs(S.k)>1e-6?'  (shear breaks similarity)':'');
+}
+
+const rK=document.getElementById('rK'),rP=document.getElementById('rP');
+rK.addEventListener('input',()=>{S.k=+rK.value;draw();}); rP.addEventListener('input',()=>{S.p=+rP.value;draw();});
+let drag=null;
+const pt=ev=>{const q=svg.createSVGPoint();q.x=ev.clientX;q.y=ev.clientY;return q.matrixTransform(svg.getScreenCTM().inverse());};
+svg.addEventListener('pointerdown',ev=>{const h=ev.target.getAttribute&&ev.target.getAttribute('data-h');if(!h)return;drag=h;svg.setPointerCapture(ev.pointerId);ev.preventDefault();});
+svg.addEventListener('pointermove',ev=>{if(!drag)return;const q=pt(ev);const x=q.x-M.x;const f=Math.max(0.08,Math.min(0.92,(x+r)/(2*r)));
+  if(drag==='P'){S.p=Math.max(0.1,Math.min(0.9,f));rP.value=S.p;} draw();});
+const end=()=>{drag=null;};svg.addEventListener('pointerup',end);svg.addEventListener('pointercancel',end);
+draw();
+})();
+</script>
+</body>
+</html>
