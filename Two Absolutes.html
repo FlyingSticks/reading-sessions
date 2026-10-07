@@ -1,0 +1,209 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Two Absolutes</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one drawing board (affine square above the horizon, the two loci below), a control strip, readouts in three cards. */
+:root{
+  --bg:#f6f5f1; --fg:#1f2024; --muted:#6b6d72; --rule:#c9cac4; --panel:#ffffff;
+  --axis:#2a6f8f; --euclid:#3b3f47; --mink:#d2521f; --aff:#2f8f6b;
+  --tint-e:rgba(59,63,71,.10); --tint-m:rgba(210,82,31,.14); --tint-a:rgba(47,143,107,.16); --light:#8a8c90;
+  --sans:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17181b;--fg:#ecebe6;--muted:#a0a2a8;--rule:#3a3c42;--panel:#202227;--axis:#6fb3d2;--euclid:#d5d7dc;--mink:#f0824f;--aff:#5cc29a;--tint-e:rgba(213,215,220,.12);--tint-m:rgba(240,130,79,.16);--tint-a:rgba(92,194,154,.18);--light:#8e9096;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#17181b;--fg:#ecebe6;--muted:#a0a2a8;--rule:#3a3c42;--panel:#202227;--axis:#6fb3d2;--euclid:#d5d7dc;--mink:#f0824f;--aff:#5cc29a;--tint-e:rgba(213,215,220,.12);--tint-m:rgba(240,130,79,.16);--tint-a:rgba(92,194,154,.18);--light:#8e9096;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:15px;line-height:1.45;padding:0 16px;padding-block:20px 40px}
+.wrap{max-width:1000px;margin:0 auto;display:grid;gap:16px}
+h1{font-size:1.35rem;font-weight:600;margin:0;text-wrap:balance;letter-spacing:-.01em}
+.lead{color:var(--muted);margin:0;max-width:66ch}
+.board{background:var(--panel);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+svg{display:block;width:100%;height:auto;touch-action:none;user-select:none}
+.row{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center}
+.row label{display:flex;align-items:center;gap:8px;font-size:.92rem}
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.seg button{background:transparent;color:var(--fg);border:0;padding:6px 12px;font:inherit;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.seg button:focus-visible,input:focus-visible{outline:2px solid var(--axis);outline-offset:2px}
+.reads{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.card{border:1px solid var(--rule);border-radius:6px;padding:12px 14px;display:grid;gap:6px;min-width:0;align-content:start}
+.card h2{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;margin:0;font-weight:600}
+.card.e h2{color:var(--euclid)} .card.m h2{color:var(--mink)} .card.a h2{color:var(--aff)}
+.k{font-family:var(--mono);font-size:.88rem;font-variant-numeric:tabular-nums;display:flex;justify-content:space-between;gap:12px}
+.k span:last-child{font-weight:500;text-align:right}
+.note{color:var(--muted);font-size:.9rem;max-width:70ch}
+.hint{font-size:.85rem;color:var(--muted)}
+text{font-family:var(--sans);font-size:12px;fill:var(--fg)}
+text.q{fill:var(--muted);font-size:11px}
+.handle{cursor:grab}
+</style>
+
+<div class="wrap">
+  <h1>One affine plane, two absolutes</h1>
+  <p class="lead">Above the horizon, the square and its dissection: affine, and they never move. Below it, the two loci: drag SPₑ along the circle (a rotation) or SPₘ along the hyperbola (a boost) and watch which readouts hold. Drag C to change the harmonic set, P to change the dissection.</p>
+
+  <div class="board">
+    <svg id="s" viewBox="0 0 800 640" role="img" aria-label="Interactive: a square with its dissection above the horizon, a circle and a hyperbola below, with draggable station points and harmonic points"></svg>
+  </div>
+
+  <div class="row">
+    <div class="seg" role="group" aria-label="Which absolute to show">
+      <button id="bE" aria-pressed="false">Euclid</button>
+      <button id="bB" aria-pressed="true">Both</button>
+      <button id="bM" aria-pressed="false">Minkowski</button>
+    </div>
+    <label><input type="checkbox" id="cAff" checked> affine layer (square, complements, harmonic set)</label>
+    <label><input type="checkbox" id="cSq" checked> squares on M–SP</label>
+    <span class="hint">Handles: SPₑ · SPₘ · C on the horizon · P on the diagonal</span>
+  </div>
+
+  <div class="reads">
+    <div class="card a">
+      <h2>Shared · affine and projective</h2>
+      <div class="k"><span>complements (Euclid I.43)</span><span id="rComp">—</span></div>
+      <div class="k"><span>(A, C; B, D) on horizon</span><span id="rCR">−1.000</span></div>
+      <div class="k"><span>(A′, C′; B′, D′) via SPₑ</span><span id="rCRE">—</span></div>
+      <div class="k"><span>(A′, C′; B′, D′) via SPₘ</span><span id="rCRM">—</span></div>
+      <div class="note">Nothing here depends on where either station point sits. The complements stay equal under any shear; the cross-ratio survives projection from any center.</div>
+    </div>
+    <div class="card e">
+      <h2>Euclid · elliptic absolute</h2>
+      <div class="k"><span>angle B–SPₑ–D</span><span id="rAng">—</span></div>
+      <div class="k"><span>(C−P)(C′ₑ−P) / A², with P = foot of SPₑ</span><span id="rPE">—</span></div>
+      <div class="k"><span>square on M–SPₑ</span><span id="rSqE">—</span></div>
+      <div class="note">The right angle, the negative product, and the square's area r² are what a rotation keeps.</div>
+    </div>
+    <div class="card m">
+      <h2>Minkowski · hyperbolic absolute</h2>
+      <div class="k"><span>slopes SPₘ→B, SPₘ→D</span><span id="rSl">—</span></div>
+      <div class="k"><span>(C−P)(C′ₘ−P) / A², with P = foot of SPₘ</span><span id="rPM">—</span></div>
+      <div class="k"><span>light rectangle on M–SPₘ</span><span id="rSqM">—</span></div>
+      <div class="note">The mirror pair of slopes, the positive product, and the light rectangle's area r²/2 are what a boost keeps.</div>
+    </div>
+  </div>
+  <p class="note">The square's diagonal from B runs at 45°: it is a light direction. In Euclid that is one slope among many; in Minkowski it is one of the two directions perpendicular to itself. The square is the same square either way.</p>
+</div>
+
+<script>
+(function(){
+const svg=document.getElementById('s');
+const NS='http://www.w3.org/2000/svg';
+const W=800,H=640, M={x:400,y:380}, r=120;
+const S={mode:'both', th:1.0, ph:0.6, c:0.55, p:0.42, aff:true, sq:true};   // c: C position as fraction of r (0<c<1); p: P along diagonal (0..1)
+const el=(n,a)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e;};
+const sx=x=>M.x+x, sy=t=>M.y-t;
+const add=(n,a,txt)=>{const e=el(n,a);if(txt!=null)e.textContent=txt;svg.appendChild(e);return e;};
+const cross=(a,c,b,d)=>((a-b)*(c-d))/((a-d)*(c-b));   // (A,C;B,D) = (AB·CD)/(AD·CB)
+
+function proj(P,v){ // project horizon point (v,0) from P onto the time axis x=0; returns t
+  return P.t*v/(v-P.x);
+}
+
+function draw(){
+  while(svg.firstChild)svg.removeChild(svg.firstChild);
+  const showE=S.mode!=='mink', showM=S.mode!=='euclid';
+  const E={x:r*Math.cos(S.th), t:-r*Math.sin(S.th)};
+  const Mk={x:r*Math.cosh(S.ph), t:-r*Math.sinh(S.ph)};
+  const C=S.c*r, A=r*r/C;            // harmonic conjugate of C w.r.t. B=-r, D=r
+
+  // axes
+  add('line',{x1:0,y1:M.y,x2:W,y2:M.y,stroke:'var(--axis)','stroke-width':2});
+  add('line',{x1:M.x,y1:30,x2:M.x,y2:H-16,stroke:'var(--axis)','stroke-width':1});
+  add('text',{x:8,y:M.y-8,class:'q'},'horizon · picture plane · space axis');
+  add('text',{x:M.x+6,y:42,class:'q'},'time axis');
+
+  // affine layer: square on BD above the horizon, diagonal from B, point P, complements
+  if(S.aff){
+    const Px=-r+2*r*S.p, Pt=2*r*S.p;  // on diagonal from (-r,0) to (r,2r)
+    add('rect',{x:sx(-r),y:sy(2*r),width:2*r,height:2*r,fill:'none',stroke:'var(--aff)','stroke-width':1.5});
+    // complements
+    add('rect',{x:sx(-r),y:sy(2*r),width:Px+r,height:2*r-Pt,fill:'var(--tint-a)'});
+    add('rect',{x:sx(Px),y:sy(Pt),width:r-Px,height:Pt,fill:'var(--tint-a)'});
+    add('line',{x1:sx(-r),y1:sy(0),x2:sx(r),y2:sy(2*r),stroke:'var(--aff)','stroke-width':1.5});
+    add('line',{x1:sx(-r),y1:sy(Pt),x2:sx(r),y2:sy(Pt),stroke:'var(--aff)','stroke-width':1,'stroke-dasharray':'4 3'});
+    add('line',{x1:sx(Px),y1:sy(0),x2:sx(Px),y2:sy(2*r),stroke:'var(--aff)','stroke-width':1,'stroke-dasharray':'4 3'});
+    add('text',{x:sx(-r)+8,y:sy(2*r)+18,fill:'var(--aff)','font-weight':600},'area 1');
+    add('text',{x:sx(r)-8,y:sy(0)-8,'text-anchor':'end',fill:'var(--aff)','font-weight':600},'area 2');
+    add('text',{x:sx(r)+6,y:sy(2*r)+4,class:'q'},'square on BD');
+    add('text',{x:sx(0)+24,y:sy(r)+4,class:'q'},'diagonal = light direction');
+    add('circle',{cx:sx(Px),cy:sy(Pt),r:7,fill:'var(--aff)',class:'handle','data-h':'P'});
+    add('text',{x:sx(Px)+10,y:sy(Pt)-8,'font-weight':600,fill:'var(--aff)'},'P');
+    document.getElementById('rComp').textContent=((Px+r)*(2*r-Pt)/(r*r)).toFixed(3)+' r²  =  '+((r-Px)*Pt/(r*r)).toFixed(3)+' r²';
+  } else document.getElementById('rComp').textContent='—';
+
+  // loci (lower halves only)
+  if(showM) for(const s of[1,-1]) add('line',{x1:sx(0),y1:sy(0),x2:sx(250*s),y2:sy(-250),stroke:'var(--light)','stroke-width':1,'stroke-dasharray':'5 5'});
+  if(showE) add('path',{d:`M${sx(-r)} ${sy(0)}A${r} ${r} 0 0 0 ${sx(r)} ${sy(0)}`,fill:'none',stroke:'var(--euclid)','stroke-width':1.5});
+  if(showM) for(const side of[1,-1]){let d='';for(let p=0;p<=1.75;p+=0.05){d+=(d?'L':'M')+sx(side*r*Math.cosh(p)).toFixed(1)+' '+sy(-r*Math.sinh(p)).toFixed(1);}add('path',{d,fill:'none',stroke:'var(--mink)','stroke-width':1.5});}
+  if(showM) add('text',{x:sx(254),y:sy(-250)+4,class:'q'},'light line');
+
+  // squares on M–SP
+  if(S.sq){
+    if(showE){const pts=[[0,0],[E.x,E.t],[E.x-E.t,E.t+E.x],[-E.t,E.x]].map(p=>sx(p[0])+','+sy(p[1])).join(' ');add('polygon',{points:pts,fill:'var(--tint-e)',stroke:'var(--euclid)','stroke-width':1});}
+    if(showM){const u=(Mk.x+Mk.t)/2,v=(Mk.x-Mk.t)/2;const pts=[[0,0],[u,u],[Mk.x,Mk.t],[v,-v]].map(p=>sx(p[0])+','+sy(p[1])).join(' ');add('polygon',{points:pts,fill:'var(--tint-m)',stroke:'var(--mink)','stroke-width':1});}
+  }
+
+  // B, D, M, and harmonic points A, C
+  for(const [x,l,dx] of [[-r,'B',-14],[r,'D',8]]){add('circle',{cx:sx(x),cy:M.y,r:5,fill:'var(--fg)'});add('text',{x:sx(x)+dx,y:M.y+18,'font-weight':600},l);}
+  add('circle',{cx:M.x,cy:M.y,r:3.5,fill:'var(--fg)'});add('text',{x:M.x-16,y:M.y+18,class:'q'},'M');
+  if(S.aff){
+    if(sx(A)<W-10){add('circle',{cx:sx(A),cy:M.y,r:5,fill:'var(--aff)'});add('text',{x:sx(A)+8,y:M.y+18,'font-weight':600,fill:'var(--aff)'},'A');}
+    add('circle',{cx:sx(C),cy:M.y,r:7,fill:'var(--aff)',class:'handle','data-h':'C'});add('text',{x:sx(C)-4,y:M.y+20,'font-weight':600,fill:'var(--aff)'},'C');
+    document.getElementById('rCR').textContent=cross(A,C,-r,r).toFixed(3);
+  } else document.getElementById('rCR').textContent='—';
+
+  const ray=(P,x2,y2,col,w,dash)=>{const a={x1:sx(P.x),y1:sy(P.t),x2,y2,stroke:col,'stroke-width':w||1.5};if(dash)a['stroke-dasharray']=dash;add('line',a);};
+  const toHorizon=(P,v,k)=>[sx(P.x+k*(v-P.x)), sy(P.t+k*(-P.t))];
+
+  function station(P,col,label,isE){
+    // rays to B, D
+    ray(P,sx(-r),sy(0),col); ray(P,sx(r),sy(0),col);
+    const out={};
+    if(S.aff){
+      // perspectivity: rays to A and C, marks on time axis
+      for(const v of [A,C]){ if(Math.abs(v)<W){const [x2,y2]=toHorizon(P,v,1.0); ray(P,x2,y2,col,1,'3 3');} }
+      const prim={A:proj(P,A),B:proj(P,-r),C:proj(P,C),D:proj(P,r)};
+      for(const k in prim){const t=prim[k]; if(Math.abs(t)<340){add('circle',{cx:M.x,cy:sy(t),r:3.5,fill:col});add('text',{x:M.x+(isE?-8:8),y:sy(t)+4,'text-anchor':isE?'end':'start',fill:col,'font-size':11},k+'′');}}
+      // extend rays through the time axis
+      for(const v of [A,-r,C,r]){ if(Math.abs(v)<W){ const k=P.x/(P.x-v); if(k>1&&k<6){const [x2,y2]=toHorizon(P,v,k); ray(P,x2,y2,col,0.75,'2 3');} } }
+      out.cr=cross(prim.A,prim.C,prim.B,prim.D);
+      // conjugate of C in this absolute, relative to foot of P
+      const Af=-P.t, Pf=P.x, s=isE?-1:1; const Cp=Pf+s*Af*Af/(C-Pf); out.prod=(C-Pf)*(Cp-Pf)/(Af*Af);
+      if(Math.abs(Cp)<W){const [x2,y2]=toHorizon(P,Cp,1.15); ray(P,x2,y2,col,1); add('circle',{cx:sx(Cp),cy:M.y,r:4.5,fill:'none',stroke:col,'stroke-width':1.5}); add('text',{x:sx(Cp)+6,y:M.y-(isE?10:-18)+(isE?0:-4),fill:col,'font-size':11},isE?'C′ₑ':'C′ₘ');}
+      add('line',{x1:sx(Pf),y1:sy(P.t),x2:sx(Pf),y2:M.y,stroke:col,'stroke-dasharray':'3 3','stroke-width':1});
+    }
+    add('circle',{cx:sx(P.x),cy:sy(P.t),r:7,fill:col,class:'handle','data-h':isE?'E':'M'});
+    add('text',{x:sx(P.x)+10,y:sy(P.t)+18,'font-weight':600,fill:col},label);
+    return out;
+  }
+  let oE={},oM={};
+  if(showE){oE=station(E,'var(--euclid)','SPₑ',true);
+    const a=Math.atan2(-E.t,-r-E.x), b=Math.atan2(-E.t,r-E.x), m=9, p1=[sx(E.x)+m*Math.cos(a),sy(E.t)-m*Math.sin(a)], p2=[sx(E.x)+m*Math.cos(b),sy(E.t)-m*Math.sin(b)];
+    add('path',{d:`M${p1[0]} ${p1[1]}L${p1[0]+p2[0]-sx(E.x)} ${p1[1]+p2[1]-sy(E.t)}L${p2[0]} ${p2[1]}`,fill:'none',stroke:'var(--euclid)','stroke-width':1});
+    const vB={x:-r-E.x,t:-E.t},vD={x:r-E.x,t:-E.t}; oE.ang=Math.acos((vB.x*vD.x+vB.t*vD.t)/Math.hypot(vB.x,vB.t)/Math.hypot(vD.x,vD.t))*180/Math.PI;}
+  if(showM){oM=station(Mk,'var(--mink)','SPₘ',false); oM.kB=(-Mk.t)/(-r-Mk.x); oM.kD=(-Mk.t)/(r-Mk.x);}
+
+  const f=(v,d)=>v==null?'—':(v>=0?'+':'')+v.toFixed(d);
+  const g=(id,v)=>document.getElementById(id).textContent=v;
+  g('rCRE',showE&&S.aff?f(oE.cr,3):'—'); g('rCRM',showM&&S.aff?f(oM.cr,3):'—');
+  g('rAng',showE?oE.ang.toFixed(1)+'°':'—'); g('rPE',showE&&S.aff?f(oE.prod,3):'—'); g('rSqE',showE?((E.x*E.x+E.t*E.t)/(r*r)).toFixed(3)+' r²':'—');
+  g('rSl',showM?oM.kB.toFixed(3)+' , '+oM.kD.toFixed(3)+'  (k·k′ = '+(oM.kB*oM.kD).toFixed(3)+')':'—'); g('rPM',showM&&S.aff?f(oM.prod,3):'—'); g('rSqM',showM?((Mk.x*Mk.x-Mk.t*Mk.t)/(2*r*r)).toFixed(3)+' r²':'—');
+}
+
+let drag=null;
+const pt=ev=>{const p=svg.createSVGPoint();p.x=ev.clientX;p.y=ev.clientY;return p.matrixTransform(svg.getScreenCTM().inverse());};
+svg.addEventListener('pointerdown',ev=>{const h=ev.target.getAttribute&&ev.target.getAttribute('data-h');if(!h)return;drag=h;svg.setPointerCapture(ev.pointerId);ev.preventDefault();});
+svg.addEventListener('pointermove',ev=>{if(!drag)return;const q=pt(ev);const x=q.x-M.x,t=M.y-q.y;
+  if(drag==='E'){S.th=Math.max(0.12,Math.min(Math.PI-0.12,Math.atan2(-t,x)));}
+  else if(drag==='M'){S.ph=Math.max(0.05,Math.min(1.6,Math.asinh(Math.max(0,-t)/r)));}
+  else if(drag==='C'){S.c=Math.max(0.3,Math.min(0.92,x/r));}
+  else if(drag==='P'){S.p=Math.max(0.08,Math.min(0.92,((x+r)+t)/(4*r)));}
+  draw();});
+const end=()=>{drag=null;};svg.addEventListener('pointerup',end);svg.addEventListener('pointercancel',end);
+const modes={bE:'euclid',bB:'both',bM:'mink'};
+for(const id in modes)document.getElementById(id).addEventListener('click',()=>{S.mode=modes[id];for(const j in modes)document.getElementById(j).setAttribute('aria-pressed',j===id);draw();});
+document.getElementById('cAff').addEventListener('change',e=>{S.aff=e.target.checked;draw();});
+document.getElementById('cSq').addEventListener('change',e=>{S.sq=e.target.checked;draw();});
+draw();
+})();
+</script>
+
+</body></html>
