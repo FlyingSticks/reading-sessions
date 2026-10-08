@@ -55,7 +55,7 @@ text.q{fill:var(--muted);font-size:11px}
 
   <div class="ctl">
     <label>Shear the whole figure (affine test)<input type="range" id="rK" min="-0.6" max="0.6" step="0.01" value="0"></label>
-    <label>Move P along BD: the apex of the pink figure and the foot of the altitude together<input type="range" id="rP" min="0.1" max="0.9" step="0.005" value="0.36"></label>
+    <label>Move P along BD: the apex, the foot of the altitude, and the rectangle's height A move together<input type="range" id="rP" min="0.1" max="0.9" step="0.005" value="0.36"></label>
   </div>
 
   <div class="reads">
@@ -71,6 +71,7 @@ text.q{fill:var(--muted);font-size:11px}
       <div class="k"><span>(A, C; B, D) on the horizon</span><span id="hcr">—</span></div>
       <div class="k"><span>A · C (from M, in r²)</span><span id="hac">—</span></div>
       <div class="k"><span>(A′, C′; B′, D′) on the time axis</span><span id="hcr2">—</span></div>
+      <div class="k"><span>A₃ = C₂ (apexes at ±A from the horizon)</span><span id="a3c2">—</span></div>
       <div class="note">C′ and A′ are the ends of the vertical diameter. Sight lines from SP through them meet the horizon at C and A. Because the two diameters are perpendicular, SP sees C′B and BA′ under 45°, and A, B, C, D fall harmonically. The perspectivity from SP carries the set to the time axis unchanged.</div>
     </div>
     <div class="card b">
@@ -84,6 +85,7 @@ text.q{fill:var(--muted);font-size:11px}
 
   <h2>What the sheet shows</h2>
   <p>The blue figure is a sum: two parts fill the whole, C₁ + C₂ = C₃. The pink figure is a difference: the whole minus a part is the remaining part, A₂ − A₁ = A₃, which is what the overlap cancellation produces. One has the shape of a² + b² = c²; the other has the shape of T² − D² = I². Both are built with the same affine moves on the same sheet. Drag the shear slider and every identity holds while every right angle disappears.</p>
+  <p>One line crosses the horizon. The pink rectangle is built on the station point: its top edge is as far above the horizon as SP is below. So the triangle P–T–D above is the reflection of P–SP–D below, and A₃ = C₂ for every position of P. That is an affine fact, two triangles on one base with apexes equidistant from the horizon, and it is what lets the difference figure and the sum figure share a piece.</p>
   <p>So the additive and the subtractive forms are both available in the same plane, from the same square, before any absolute is chosen. What the absolute later supplies is which lengths the areas stand for. The circle makes C₁, C₂, C₃ the squares on the sides of a Euclidean right triangle. Light lines, if the slide direction were set along them, would make A₁, A₂, A₃ the light rectangles on the sides of a Minkowski one. The figure as drawn commits to neither; it shows the two forms and stops.</p>
 
   <h2>The frame underneath both</h2>
@@ -104,7 +106,7 @@ text.q{fill:var(--muted);font-size:11px}
 (function(){
 const svg=document.getElementById('s');
 const NS='http://www.w3.org/2000/svg';
-const W=800,H=700, M={x:400,y:330}, r=150, h=140;   // horizon at y=330; rectangle 2r wide, h tall above it
+const W=800,H=700, M={x:400,y:330}, r=150;   // horizon at y=330; rectangle 2r wide, h tall above it
 const S={k:0,p:0.36};
 const el=(n,a)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e;};
 const add=(n,a,txt)=>{const e=el(n,a);if(txt!=null)e.textContent=txt;svg.appendChild(e);return e;};
@@ -116,7 +118,8 @@ const inter=(p1,p2,p3,p4)=>{const d=(p1[0]-p2[0])*(p3[1]-p4[1])-(p1[1]-p2[1])*(p
 
 function draw(){
   while(svg.firstChild)svg.removeChild(svg.firstChild);
-  const B=[-r,0], D=[r,0], Tt=[r,h], L=[-r,h], Q=[-r+2*r*S.p,0];
+  const p=-r+2*r*S.p, A=Math.sqrt((p+r)*(r-p)), h=A;          // rectangle height follows the station point
+  const B=[-r,0], D=[r,0], Tt=[r,h], L=[-r,h], Q=[p,0];
   // horizon
   add('line',{x1:0,y1:M.y,x2:W,y2:M.y,stroke:'var(--axis)','stroke-width':2});
   add('text',{x:8,y:M.y-8,class:'q'},'horizon · picture plane');
@@ -134,7 +137,7 @@ function draw(){
   add('text',{x:T([r,h])[0]+12,y:T([r,h])[1]+30,class:'q'},'sides PL and PT'); add('text',{x:T([r,h])[0]+12,y:T([r,h])[1]+46,class:'q'},'need not be light lines');
 
   // ---- sum figure (below) ----
-  const p=-r+2*r*S.p, A=Math.sqrt((p+r)*(r-p)), SP=[p,-A], P=[p,0];
+  const SP=[p,-A], P=[p,0];
   // full circle, sheared along with everything else
   let d='';for(let a=0;a<=2*Math.PI+1e-9;a+=Math.PI/60){const s=T([r*Math.cos(a),r*Math.sin(a)]);d+=(d?'L':'M')+s[0].toFixed(1)+' '+s[1].toFixed(1);}
   add('path',{d:d+'Z',fill:'none',stroke:'var(--grey)','stroke-width':1,'stroke-dasharray':'5 4'});
@@ -175,6 +178,7 @@ function draw(){
   const a1=area(A1),a3=area(A3),a2=area(A2);
   document.getElementById('a2').textContent=u(a2); document.getElementById('a13').textContent=u(a1+a3); document.getElementById('a2m').textContent=u(a2-a1)+'  =  '+u(a3);
   const c1=area(C1),c2=area(C2),c3=area([B,D,SP]);
+  document.getElementById('a3c2').textContent=u(a3)+'  =  '+u(c2);
   document.getElementById('c12').textContent=u(c1+c2); document.getElementById('c3').textContent=u(c3);
   const l1=(p+r)**2+A*A, l2=(r-p)**2+A*A, l3=4*r*r;
   document.getElementById('cr').textContent=(c1/l1*1e3).toFixed(2)+' : '+(c2/l2*1e3).toFixed(2)+' : '+(c3/l3*1e3).toFixed(2)+(Math.abs(S.k)>1e-6?'  (shear breaks similarity)':'');
