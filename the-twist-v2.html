@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The twist — plan and elevation</title>
+<style>
+  :root{--paper:#fbf8f1;--ink:#222;--rule:#cfc8b8;--soft:#6b6557;--panel:#fffdf8;--crimson:#c0322b;--blue:#2b5fc0;--purple:#6a2c91;--grey:#b9b2a3}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 Georgia,'Times New Roman',serif}
+  main{max-width:1040px;margin:0 auto;padding:22px 18px 60px}
+  h1{font-size:30px;margin:0 0 4px;font-weight:normal}
+  h2{font-size:19px;margin:30px 0 8px;font-weight:normal;border-bottom:1px solid var(--rule);padding-bottom:4px}
+  .sub{color:var(--soft);margin:0 0 16px;font-size:15px}
+  .k{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13.5px}
+  .board{display:grid;grid-template-columns:minmax(300px,520px) minmax(240px,1fr);gap:18px;align-items:start}
+  @media (max-width:760px){.board{grid-template-columns:1fr}}
+  .pane{background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:8px}
+  svg{width:100%;height:auto;display:block;touch-action:none;user-select:none}
+  .lbl{font:13px Georgia,serif;fill:var(--ink)} .lbl.s{fill:var(--soft);font-size:11.5px} .lbl.p{fill:var(--purple)}
+  .ctl{display:flex;flex-direction:column;gap:10px;font-size:15px}
+  .ctl input[type=range]{width:100%}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chips button{font:14px Georgia,serif;background:#fff;border:1px solid var(--rule);border-radius:14px;padding:3px 12px;cursor:pointer;color:var(--ink)}
+  .chips button[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .read{background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:10px 14px;font-size:15px}
+  .read div{padding:3px 0;border-bottom:1px dashed var(--rule)} .read div:last-child{border:0}
+  .sw{display:inline-block;width:22px;height:8px;vertical-align:middle;margin-right:6px;border-radius:1px;background:linear-gradient(var(--crimson) 50%,var(--blue) 50%)}
+  .strip{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:14px}
+  .strip .f{background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:4px;cursor:pointer}
+  .strip .f[aria-pressed=true]{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink) inset}
+  .strip .f p{margin:2px 0 0;text-align:center;font-size:13px;color:var(--soft)}
+  @media (max-width:600px){.strip{grid-template-columns:repeat(3,1fr)}}
+  p{margin:8px 0;max-width:70ch} .note{font-size:13.5px;color:var(--soft)}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+  <h1>The twist — plan and elevation</h1>
+  <p class="sub">Your sheet of 9 Oct 2026, moving. Square ABCD in the floor. The top edge BD turns about the square's midline; AB and CD are carried along; AC stays. Every line is a ribbon, <span class="sw"></span> red on top, blue on bottom, before rotation.</p>
+
+  <div class="board">
+    <div class="pane"><svg id="main" viewBox="0 0 520 540"></svg></div>
+    <div class="ctl">
+      <div class="pane">
+        <label for="th">Twist θ</label>
+        <input id="th" type="range" min="0" max="180" step="1" value="45">
+        <div class="chips" id="presets">
+          <button data-th="0">0°</button><button data-th="45">45°</button><button data-th="90">90°</button><button data-th="135">135°</button><button data-th="180">180°</button>
+        </div>
+      </div>
+      <div class="read" id="read">
+        <div id="rTh"></div>
+        <div id="rBD"></div>
+        <div id="rSides"></div>
+        <div id="rPlan"></div>
+        <div id="rFour"></div>
+      </div>
+      <p class="note">Drag the slider, tap a frame below, or drag D round the circle in the elevation.</p>
+    </div>
+  </div>
+
+  <div class="strip" id="strip"></div>
+
+  <h2>What the sheet says</h2>
+  <p><strong>The colour is the sign.</strong> Each line keeps its red face up until something turns it. BD comes back at 180° with blue on top: the edge has been flipped. The determinant's sign in v1 was coding exactly this; here you can see it. Between the ends BD is partly turned, and the sides AB, CD fade from red at the fixed end to BD's colour at the moving end.</p>
+  <p><strong>The middle frames are one tetrahedron at three heights.</strong> From 0° to 180° exclusive, the four points are not coplanar. At 90° BD stands on the axis — a point view in plan, so the square looks like a triangle, with the two sides leaning on it from either side and the whole length of BD, 2s, hidden in the point. The gap between the sides AB and CD is <span class="k">2s·cos(θ/2)</span> at the closest approach, and <span class="k">2s·cot(θ/2)</span> up the projector through their plan crossing; both are zero only at the ends.</p>
+  <p><strong>The last frame is flat again, and the crossing is a point.</strong> At 180° B and D have changed places. AB and CD now cross where the diagonals used to, and the old diagonals AD, BC have become the sides. Same four points, traversed in the other order: the bow-tie, with the incident point at the centre. Your loop reading is right.</p>
+  <p class="note">check-the-twist-v2.js, node, 12 assertions: det = −8s³·sin θ with the sheet's lettering; flat at 0° and 180° only; both gap closed forms; crossing on the axis, inside the sides exactly from 90°; the point view at 90°; the swap and the incident point at 180°; the flip as cos θ; sign of det = which side passes over; and the inline math block is twist2-math.js verbatim.</p>
+
+<script id="twist2-math">
+// the-twist v2 — the sheet's rig. Lives inline in the-twist-v2.html (script id="twist2-math")
+// and is loaded by check-the-twist-v2.js. One text, two homes.
+(function (root) {
+  const M = {};
+  const sub = (p, q) => [p[0] - q[0], p[1] - q[1], p[2] - q[2]];
+  const dot = (p, q) => p[0] * q[0] + p[1] * q[1] + p[2] * q[2];
+  const cross = (p, q) => [p[1] * q[2] - p[2] * q[1], p[2] * q[0] - p[0] * q[2], p[0] * q[1] - p[1] * q[0]];
+  const norm = p => Math.sqrt(dot(p, p));
+  M.v = { sub, dot, cross, norm };
+
+  // The sheet: square ABCD, half-side s, in the floor z = 0.
+  // A bottom-left, B top-left, C bottom-right, D top-right (plan: x right, y up).
+  // AC (the bottom edge) stays. BD (the top edge) rotates by th about the square's
+  // midline parallel to AB — the y-axis through the centre. AB and CD are carried along.
+  M.corners = function (s, th) {
+    const c = Math.cos(th), si = Math.sin(th);
+    return { A: [-s, -s, 0], B: [-s * c, s, -s * si], C: [s, -s, 0], D: [s * c, s, s * si] };
+  };
+  // BD's "top face" after rotation: the rotated +z, dotted with +z. +1 red up, 0 edge-on, −1 blue up.
+  M.faceUp = th => Math.cos(th);
+
+  M.det = P => dot(sub(P.B, P.A), cross(sub(P.C, P.A), sub(P.D, P.A)));
+  M.detFormula = (s, th) => -8 * s * s * s * Math.sin(th);
+
+  // Common perpendicular between the two sides AB and CD.
+  M.sideGap = function (P) {
+    const d1 = sub(P.B, P.A), d2 = sub(P.D, P.C), n = cross(d1, d2), nn = norm(n);
+    if (nn < 1e-12) return { gap: 0, parallel: true };
+    return { gap: Math.abs(dot(sub(P.C, P.A), n)) / nn, parallel: false };
+  };
+  M.sideGapFormula = (s, th) => 2 * s * Math.abs(Math.cos(th / 2));
+
+  // Where the plan images of AB and CD cross, with the heights of the two lines there.
+  // t is the parameter along AB (0 at A, 1 at B); inside: both segments contain the crossing.
+  M.planCrossing = function (P) {
+    const ax = P.A[0], ay = P.A[1], bx = P.B[0] - ax, by = P.B[1] - ay;
+    const cx = P.C[0], cy = P.C[1], dx = P.D[0] - cx, dy = P.D[1] - cy;
+    const den = bx * dy - by * dx;
+    if (Math.abs(den) < 1e-12 * Math.hypot(bx, by) * Math.hypot(dx, dy)) return { finite: false };
+    const t = ((cx - ax) * dy - (cy - ay) * dx) / den;
+    const u = ((cx - ax) * by - (cy - ay) * bx) / den;
+    const z1 = P.A[2] + (P.B[2] - P.A[2]) * t, z2 = P.C[2] + (P.D[2] - P.C[2]) * u;
+    return { finite: true, x: ax + bx * t, y: ay + by * t, t, u, z1, z2, gap: z1 - z2, inside: t >= -1e-9 && t <= 1 + 1e-9 && u >= -1e-9 && u <= 1 + 1e-9 };
+  };
+  // On the projector through that crossing, AB and CD are 2s·cot(θ/2) apart (AB below).
+  M.projectorGapFormula = (s, th) => -2 * s / Math.tan(th / 2);
+
+  root.TwistMath2 = M;
+})(typeof window !== 'undefined' ? window : globalThis);
+</script>
+<script>
+(function(){
+  const M = window.TwistMath2;
+  const C = { red:'#c0322b', blue:'#2b5fc0', ink:'#222222', grey:'#b9b2a3', purple:'#6a2c91', soft:'#6b6557' };
+  const NS='http://www.w3.org/2000/svg';
+  const el=(n,at,parent)=>{const e=document.createElementNS(NS,n);for(const k in at)e.setAttribute(k,at[k]);if(parent)parent.appendChild(e);return e;};
+  const text=(g,x,y,s,cls,anc)=>{const t=el('text',{x,y,class:cls||'lbl','text-anchor':anc||'start'},g);t.textContent=s;return t;};
+  const s=85, R=85;
+  const mix=(a,b,t)=>{const h=c=>[1,3,5].map(i=>parseInt(c.substr(i,2),16));const A=h(a),B=h(b);return 'rgb('+A.map((v,i)=>Math.round(v+(B[i]-v)*t)).join(',')+')';};
+  const faceColor=f=>f>=0?mix(C.ink,C.red,f):mix(C.ink,C.blue,-f);
+  let gid=0;
+
+  // views (main frame): plan centred (260,150), elevation centred (260,420); x right, y/z up
+  const PL=(x,y)=>[260+x,150-y], EL=(x,z)=>[260+x,420-z];
+
+  // a ribbon edge: top stroke and bottom stroke, each a gradient from face value f0 (start) to f1 (end)
+  function ribbon(g,p,q,f0,f1,mini){
+    const dx=q[0]-p[0],dy=q[1]-p[1],L=Math.hypot(dx,dy);
+    if(L<0.5){ el('circle',{cx:p[0],cy:p[1],r:mini?2:3,fill:C.ink},g); return; }
+    let nx=-dy/L,ny=dx/L; if(ny>1e-9||(Math.abs(ny)<1e-9&&nx>0)){nx=-nx;ny=-ny;}
+    const off=mini?1.1:1.7, w=mini?2:3.2;
+    for(const side of [1,-1]){
+      const id='g'+(gid++); const grad=el('linearGradient',{id,gradientUnits:'userSpaceOnUse',x1:p[0],y1:p[1],x2:q[0],y2:q[1]},g);
+      el('stop',{offset:'0',  'stop-color':faceColor(side*f0)},grad); el('stop',{offset:'1','stop-color':faceColor(side*f1)},grad);
+      el('line',{x1:p[0]+nx*off*side,y1:p[1]+ny*off*side,x2:q[0]+nx*off*side,y2:q[1]+ny*off*side,stroke:'url(#'+id+')','stroke-width':w,'stroke-linecap':'round'},g);
+    }
+  }
+
+  function render(svg,th,mini){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const P=M.corners(s,th), f=M.faceUp(th), cr=M.planCrossing(P), sg=M.sideGap(P);
+    const g=el('g',{},svg);
+    // ground line between plan and elevation, projectors
+    el('line',{x1:0,y1:285,x2:520,y2:285,stroke:C.grey,'stroke-width':0.8},g);
+    if(!mini){ text(g,8,278,'PLAN','lbl s'); text(g,8,300,'ELEVATION','lbl s'); }
+    for(const k of ['A','B','C','D']){ const x=260+P[k][0]; el('line',{x1:x,y1:PL(0,P[k][1])[1],x2:x,y2:EL(0,P[k][2])[1],stroke:C.grey,'stroke-width':0.6,'stroke-dasharray':'2 3'},g); }
+    // axis in plan
+    el('line',{x1:260,y1:45,x2:260,y2:258,stroke:C.purple,'stroke-width':0.8,opacity:0.5},g);
+    if(!mini) text(g,264,268,'axis of the twist','lbl s');
+    // elevation: rotation circle, angle arc
+    const ec=EL(0,0);
+    el('circle',{cx:ec[0],cy:ec[1],r:R,fill:'none',stroke:C.grey,'stroke-width':0.8},g);
+    if(th>0.01){ const a0=EL(R+8,0), a1=EL((R+8)*Math.cos(th),(R+8)*Math.sin(th)); el('path',{d:`M${a0[0]} ${a0[1]} A${R+8} ${R+8} 0 ${th>Math.PI?1:0} 0 ${a1[0]} ${a1[1]}`,fill:'none',stroke:C.ink,'stroke-width':0.9,'marker-end':'url(#arr)'},g);
+      if(!mini){ const m=EL((R+22)*Math.cos(th/2),(R+22)*Math.sin(th/2)); text(g,m[0],m[1]+4,Math.round(th*180/Math.PI)+'°','lbl',m[0]<260?'end':'start'); } }
+    el('marker',{id:'arr',viewBox:'0 0 8 8',refX:6,refY:4,markerWidth:7,markerHeight:7,orient:'auto'},g).appendChild(el('path',{d:'M0 0 L8 4 L0 8 z',fill:C.ink}));
+    // edges: AC fixed, BD rotating, AB and CD carried — plan then elevation
+    const pl=k=>PL(P[k][0],P[k][1]), ev=k=>EL(P[k][0],P[k][2]);
+    for(const V of [pl,ev]){
+      ribbon(g,V('A'),V('C'),1,1,mini);
+      ribbon(g,V('A'),V('B'),1,f,mini);
+      ribbon(g,V('C'),V('D'),1,f,mini);
+      ribbon(g,V('B'),V('D'),f,f,mini);
+      for(const k of ['A','B','C','D']){ const p=V(k); el('circle',{cx:p[0],cy:p[1],r:mini?2:3.2,fill:C.ink},g); }
+    }
+    // gap marker between AB and CD
+    if(cr.finite&&cr.inside){
+      const q=PL(cr.x,cr.y), z1=EL(cr.x,cr.z1), z2=EL(cr.x,cr.z2), flat=Math.abs(cr.gap)<1e-6;
+      if(flat){ el('circle',{cx:q[0],cy:q[1],r:mini?3:5,fill:C.purple},g); if(!mini) text(g,q[0]+10,q[1]+4,'incident point','lbl p'); }
+      else { el('circle',{cx:q[0],cy:q[1],r:mini?3.5:6,fill:'#fff',stroke:C.purple,'stroke-width':1.6},g); el('line',{x1:q[0]-4,y1:q[1]-4,x2:q[0]+4,y2:q[1]+4,stroke:C.purple},g); el('line',{x1:q[0]-4,y1:q[1]+4,x2:q[0]+4,y2:q[1]-4,stroke:C.purple},g);
+        el('line',{x1:z1[0],y1:z1[1],x2:z2[0],y2:z2[1],stroke:C.purple,'stroke-width':mini?2.5:4,'stroke-linecap':'round'},g);
+        if(!mini){ text(g,q[0]+10,q[1]+4,'gap between AB and CD','lbl p'); text(g,ec[0]+R+14,(z1[1]+z2[1])/2+4,'gap '+Math.abs(cr.gap).toFixed(1),'lbl p'); el('line',{x1:z1[0]+6,y1:(z1[1]+z2[1])/2,x2:ec[0]+R+10,y2:(z1[1]+z2[1])/2,stroke:C.purple,'stroke-width':0.7,'stroke-dasharray':'2 3'},g); } }
+    }
+    if(!mini){
+      const lab=(k,dx,dy,anc)=>{const p=pl(k);text(g,p[0]+dx,p[1]+dy,k,'lbl',anc);};
+      if(Math.abs(Math.cos(th))<0.02){ const p=pl('B'); text(g,p[0]+8,p[1]-8,'B, D — point view','lbl'); lab('A',-8,16,'end'); lab('C',8,16); }
+      else { lab('A',-8,16,'end'); lab('C',8,16); lab('B',P.B[0]<P.D[0]?-8:8,-8,P.B[0]<P.D[0]?'end':'start'); lab('D',P.D[0]>P.B[0]?8:-8,-8,P.D[0]>P.B[0]?'start':'end'); }
+      // draggable D in elevation
+      const d=ev('D'); el('circle',{cx:d[0],cy:d[1],r:14,fill:'transparent',id:'dHandle',style:'cursor:grab'},g); el('circle',{cx:d[0],cy:d[1],r:5.5,fill:'#fff',stroke:C.ink,'stroke-width':1.6,'pointer-events':'none'},g); text(g,d[0]+9,d[1]+4,'D','lbl');
+      const b=ev('B'); text(g,b[0]-9,b[1]+4,'B','lbl','end');
+    }
+  }
+
+  // state and wiring
+  const main=document.getElementById('main'), range=document.getElementById('th');
+  const presets=[0,45,90,135,180], strip=document.getElementById('strip');
+  const minis=presets.map(d=>{ const f=document.createElement('div'); f.className='f'; f.setAttribute('role','button'); f.setAttribute('aria-pressed','false');
+    const sv=el('svg',{viewBox:'0 280 520 0'}); sv.setAttribute('viewBox','0 40 520 460'); f.appendChild(sv); const p=document.createElement('p'); p.textContent=d+'° twist'; f.appendChild(p);
+    f.addEventListener('click',()=>set(d)); strip.appendChild(f); render(sv,d*Math.PI/180,true); return f; });
+  function set(deg){ deg=Math.max(0,Math.min(180,deg)); range.value=Math.round(deg); const th=deg*Math.PI/180; render(main,th,false); readout(deg,th);
+    document.querySelectorAll('#presets button').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.th===Math.round(deg))); minis.forEach((f,i)=>f.setAttribute('aria-pressed',presets[i]===Math.round(deg))); bindD(); }
+  function readout(deg,th){
+    const P=M.corners(s,th), f=M.faceUp(th), cr=M.planCrossing(P), sg=M.sideGap(P), det=M.det(P);
+    const $=id=>document.getElementById(id);
+    $('rTh').innerHTML='θ = <span class="k">'+Math.round(deg)+'°</span>';
+    $('rBD').innerHTML='BD: '+(f>0.02?'<span style="color:#c0322b">red up</span>':f<-0.02?'<span style="color:#2b5fc0">blue up</span> — flipped':'edge-on')+' &nbsp;<span class="k">cos θ = '+f.toFixed(2)+'</span>';
+    $('rSides').innerHTML='AB and CD, closest approach: <span class="k">'+sg.gap.toFixed(1)+'</span> = 2s·cos(θ/2)';
+    $('rPlan').innerHTML='in plan: '+(!cr.finite?'parallel':cr.inside?(Math.abs(cr.gap)<1e-6?'<span style="color:#6a2c91">incident</span> — a true point':'<span style="color:#6a2c91">cross</span>, <span class="k">'+Math.abs(cr.gap).toFixed(1)+'</span> apart on the projector (CD over AB)'):'the sides do not cross');
+    $('rFour').innerHTML='four points: '+(Math.abs(det)<1e-6?'<b>flat</b> — one plane':'<b>tetrahedron</b> — det = '+Math.round(det).toLocaleString());
+  }
+  // drag D round the circle (persistent handle recreated per render; window-level pointerId listeners)
+  let drag=null;
+  function bindD(){ const h=document.getElementById('dHandle'); if(!h) return; h.addEventListener('pointerdown',ev=>{ev.preventDefault();drag=ev.pointerId;}); }
+  function svgPt(ev){ const r=main.getBoundingClientRect(); const vb=main.viewBox.baseVal; return [(ev.clientX-r.left)/r.width*vb.width,(ev.clientY-r.top)/r.height*vb.height]; }
+  window.addEventListener('pointermove',ev=>{ if(drag!==ev.pointerId) return; const p=svgPt(ev); const ec=EL(0,0); let a=Math.atan2(ec[1]-p[1],p[0]-ec[0]); if(a<0) a=0; set(a*180/Math.PI); });
+  const end=ev=>{ if(drag===ev.pointerId) drag=null; }; window.addEventListener('pointerup',end); window.addEventListener('pointercancel',end);
+  range.addEventListener('input',e=>set(+e.target.value));
+  document.querySelectorAll('#presets button').forEach(b=>b.addEventListener('click',()=>set(+b.dataset.th)));
+  set(45);
+})();
+</script>
+</main>
+</body>
+</html>
