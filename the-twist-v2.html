@@ -37,7 +37,7 @@
 <body>
 <main>
   <h1>The twist — plan and elevation</h1>
-  <p class="sub">Your sheet of 9 Oct 2026, moving. Square ABCD in the floor. The top edge BD turns about the square's midline; AB and CD are carried along; AC stays. Every line is a ribbon, <span class="sw"></span> red on top, blue on bottom, before rotation.</p>
+  <p class="sub">Your sheet of 9 Oct 2026, moving. Square ABCD in the floor. The top edge BD turns about the square's midline; AB and CD are carried along; AC stays. Every line is coloured by which way its face points: <span style="color:#c0322b">red</span> up, <span style="color:#6a2c91">purple</span> edge-on, <span style="color:#2b5fc0">blue</span> down — a continuum, as on your annotated screenshot.</p>
 
   <div class="board">
     <div class="pane"><svg id="main" viewBox="0 0 520 540"></svg></div>
@@ -63,7 +63,7 @@
   <div class="strip" id="strip"></div>
 
   <h2>What the sheet says</h2>
-  <p><strong>The colour is the sign.</strong> Each line keeps its red face up until something turns it. BD comes back at 180° with blue on top: the edge has been flipped. The determinant's sign in v1 was coding exactly this; here you can see it. Between the ends BD is partly turned, and the sides AB, CD fade from red at the fixed end to BD's colour at the moving end.</p>
+  <p><strong>The colour is the sign.</strong> Each line keeps its red face up until something turns it. BD comes back at 180° blue: the edge has been flipped, and it passed through purple, edge-on, at 90°. The determinant's sign in v1 was coding exactly this; here you can see it. Between the ends BD is partly turned, and the sides AB, CD run from red at the fixed end to BD's colour at the moving end.</p>
   <p><strong>The middle frames are one tetrahedron at three heights.</strong> From 0° to 180° exclusive, the four points are not coplanar. At 90° BD stands on the axis — a point view in plan, so the square looks like a triangle, with the two sides leaning on it from either side and the whole length of BD, 2s, hidden in the point. The gap between the sides AB and CD is <span class="k">2s·cos(θ/2)</span> at the closest approach, and <span class="k">2s·cot(θ/2)</span> up the projector through their plan crossing; both are zero only at the ends.</p>
   <p><strong>The last frame is flat again, and the crossing is a point.</strong> At 180° B and D have changed places. AB and CD now cross where the diagonals used to, and the old diagonals AD, BC have become the sides. Same four points, traversed in the other order: the bow-tie, with the incident point at the centre. Your loop reading is right.</p>
   <p class="note">check-the-twist-v2.js, node, 12 assertions: det = −8s³·sin θ with the sheet's lettering; flat at 0° and 180° only; both gap closed forms; crossing on the axis, inside the sides exactly from 90°; the point view at 90°; the swap and the incident point at 180°; the flip as cos θ; sign of det = which side passes over; and the inline math block is twist2-math.js verbatim.</p>
@@ -128,23 +128,19 @@
   const text=(g,x,y,s,cls,anc)=>{const t=el('text',{x,y,class:cls||'lbl','text-anchor':anc||'start'},g);t.textContent=s;return t;};
   const s=85, R=85;
   const mix=(a,b,t)=>{const h=c=>[1,3,5].map(i=>parseInt(c.substr(i,2),16));const A=h(a),B=h(b);return 'rgb('+A.map((v,i)=>Math.round(v+(B[i]-v)*t)).join(',')+')';};
-  const faceColor=f=>f>=0?mix(C.ink,C.red,f):mix(C.ink,C.blue,-f);
+  const faceColor=f=>mix(C.red,C.blue,(1-f)/2);
   let gid=0;
 
   // views (main frame): plan centred (260,150), elevation centred (260,420); x right, y/z up
   const PL=(x,y)=>[260+x,150-y], EL=(x,z)=>[260+x,420-z];
 
-  // a ribbon edge: top stroke and bottom stroke, each a gradient from face value f0 (start) to f1 (end)
+  // one stroke per edge, coloured by which way the face points: red up (+1) through purple (edge-on) to blue (down, −1)
   function ribbon(g,p,q,f0,f1,mini){
     const dx=q[0]-p[0],dy=q[1]-p[1],L=Math.hypot(dx,dy);
-    if(L<0.5){ el('circle',{cx:p[0],cy:p[1],r:mini?2:3,fill:C.ink},g); return; }
-    let nx=-dy/L,ny=dx/L; if(ny>1e-9||(Math.abs(ny)<1e-9&&nx>0)){nx=-nx;ny=-ny;}
-    const off=mini?1.1:1.7, w=mini?2:3.2;
-    for(const side of [1,-1]){
-      const id='g'+(gid++); const grad=el('linearGradient',{id,gradientUnits:'userSpaceOnUse',x1:p[0],y1:p[1],x2:q[0],y2:q[1]},g);
-      el('stop',{offset:'0',  'stop-color':faceColor(side*f0)},grad); el('stop',{offset:'1','stop-color':faceColor(side*f1)},grad);
-      el('line',{x1:p[0]+nx*off*side,y1:p[1]+ny*off*side,x2:q[0]+nx*off*side,y2:q[1]+ny*off*side,stroke:'url(#'+id+')','stroke-width':w,'stroke-linecap':'round'},g);
-    }
+    if(L<0.5){ el('circle',{cx:p[0],cy:p[1],r:mini?2:3,fill:faceColor(f0)},g); return; }
+    const id='g'+(gid++); const grad=el('linearGradient',{id,gradientUnits:'userSpaceOnUse',x1:p[0],y1:p[1],x2:q[0],y2:q[1]},g);
+    el('stop',{offset:'0','stop-color':faceColor(f0)},grad); el('stop',{offset:'1','stop-color':faceColor(f1)},grad);
+    el('line',{x1:p[0],y1:p[1],x2:q[0],y2:q[1],stroke:'url(#'+id+')','stroke-width':mini?2.4:5,'stroke-linecap':'round'},g);
   }
 
   function render(svg,th,mini){
@@ -203,7 +199,7 @@
     const P=M.corners(s,th), f=M.faceUp(th), cr=M.planCrossing(P), sg=M.sideGap(P), det=M.det(P);
     const $=id=>document.getElementById(id);
     $('rTh').innerHTML='θ = <span class="k">'+Math.round(deg)+'°</span>';
-    $('rBD').innerHTML='BD: '+(f>0.02?'<span style="color:#c0322b">red up</span>':f<-0.02?'<span style="color:#2b5fc0">blue up</span> — flipped':'edge-on')+' &nbsp;<span class="k">cos θ = '+f.toFixed(2)+'</span>';
+    $('rBD').innerHTML='BD: '+(f>0.02?'<span style="color:#c0322b">red up</span>':f<-0.02?'<span style="color:#2b5fc0">blue up</span> — flipped':'<span style="color:#6a2c91">edge-on</span> — purple')+' &nbsp;<span class="k">cos θ = '+f.toFixed(2)+'</span>';
     $('rSides').innerHTML='AB and CD, closest approach: <span class="k">'+sg.gap.toFixed(1)+'</span> = 2s·cos(θ/2)';
     $('rPlan').innerHTML='in plan: '+(!cr.finite?'parallel':cr.inside?(Math.abs(cr.gap)<1e-6?'<span style="color:#6a2c91">incident</span> — a true point':'<span style="color:#6a2c91">cross</span>, <span class="k">'+Math.abs(cr.gap).toFixed(1)+'</span> apart on the projector (CD over AB)'):'the sides do not cross');
     $('rFour').innerHTML='four points: '+(Math.abs(det)<1e-6?'<b>flat</b> — one plane':'<b>tetrahedron</b> — det = '+Math.round(det).toLocaleString());
