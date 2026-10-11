@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Halve the angle</title>
+<style>
+  :root{--paper:#fbf8f1;--ink:#222222;--rule:#cfc8b8;--soft:#6b6557;--panel:#fffdf8;--crimson:#c0322b;--blue:#2b5fc0;--purple:#6a2c91;--gold:#b08948;--teal:#177f75}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 Georgia,'Times New Roman',serif}
+  main{max-width:1100px;margin:0 auto;padding:22px 18px 60px}
+  h1{font-size:30px;margin:0 0 4px;font-weight:normal}
+  .sub{color:var(--soft);margin:0 0 16px;font-size:15px;max-width:70ch}
+  .panes{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+  .pane{background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:10px}
+  .pane h3{margin:0 0 6px;font-size:16px;font-weight:normal}
+  svg{width:100%;height:auto;display:block;touch-action:none;user-select:none}
+  .lbl{font:13px Georgia,serif;fill:var(--ink)} .lbl.s{fill:var(--soft);font-size:11.5px}
+  .read{margin-top:8px;font-size:14px;border-top:1px dashed var(--rule);padding-top:8px}
+  .read div{padding:2px 0}
+  .k{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px}
+  button{font:14px Georgia,serif;background:#fff;border:1px solid var(--rule);border-radius:14px;padding:3px 12px;cursor:pointer;color:var(--ink);margin:6px 6px 0 0}
+  p{margin:8px 0;max-width:70ch} .note{font-size:13.5px;color:var(--soft)}
+  .c{color:var(--crimson)} .b{color:var(--blue)} .p{color:var(--purple)} .t{color:var(--teal)} .g{color:var(--gold)}
+</style>
+</head>
+<body>
+<main>
+  <h1>Halve the angle</h1>
+  <p class="sub">A complex number is an arrow from the post: a length and a direction. Multiplying two of them multiplies the lengths and <em>adds</em> the directions. Everything about square roots follows from that one rule, applied twice and then undone.</p>
+
+  <div class="panes">
+    <div class="pane">
+      <h3>1 · Multiply: add the angles</h3>
+      <svg id="s1" viewBox="0 0 340 340"></svg>
+      <div class="read">
+        <div><span class="c">a</span>: length <span class="k" id="r1a"></span>, angle <span class="k" id="r1aa"></span></div>
+        <div><span class="b">b</span>: length <span class="k" id="r1b"></span>, angle <span class="k" id="r1ba"></span></div>
+        <div><span class="p">a·b</span>: length <span class="k" id="r1p"></span>, angle <span class="k" id="r1pa"></span></div>
+        <div class="note">Drag a and b. The pale triangle on base 0→1 with apex a is the same shape as the triangle on base 0→b with apex a·b: that is the drafting construction of the product, and the reason angles add.</div>
+      </div>
+    </div>
+    <div class="pane">
+      <h3>2 · Square: double the angle</h3>
+      <svg id="s2" viewBox="0 0 340 340"></svg>
+      <button id="walk2">Walk w once round</button>
+      <div class="read">
+        <div><span class="t">w</span>: length <span class="k" id="r2w"></span>, angle <span class="k" id="r2wa"></span></div>
+        <div><span class="p">w²</span>: length <span class="k" id="r2q"></span>, angle <span class="k" id="r2qa"></span></div>
+        <div class="note">Multiplying w by itself: the angle added to itself, the length times itself. Walk w once round and w² goes round twice (the purple trail is laid down twice over). So two different w, half a turn apart, land on the same w².</div>
+      </div>
+    </div>
+    <div class="pane">
+      <h3>3 · Square root: halve the angle</h3>
+      <svg id="s3" viewBox="0 0 340 340"></svg>
+      <div class="read">
+        <div><span class="g">z</span>: length <span class="k" id="r3z"></span>, angle <span class="k" id="r3za"></span></div>
+        <div><span class="p">√z</span>: length <span class="k" id="r3r"></span>, angle <span class="k" id="r3ra"></span> — or <span class="k" id="r3rb"></span></div>
+        <div class="note">Undo panel 2: root the length, halve the angle. But z's angle can be read two ways, θ or θ + 360°, and their halves differ by 180°. Hence two roots, opposite each other. The second half-arc, dashed, shows the other reading.</div>
+      </div>
+    </div>
+  </div>
+
+  <p style="margin-top:22px"><strong>Why the walk swaps the roots.</strong> Panel 3's two roots are the two halvings of z's angle. Carry z once round the post, 360°, and whichever half you were tracking has gained 180°: it is now standing where the other one stood. Nothing jumped; the halving simply delivered half of a full turn. Carry z round twice and the tracked half has gained 360°, home again. That is the whole of what the walk page shows, and it is only the rule of panel 1.</p>
+  <p class="note">check-halve-the-angle.js, node, 6 assertions: multiplication as algebra equals add-angles-multiply-lengths; squaring doubles the angle and squares the length; both roots square back to z; the two roots are opposite; one turn of z is half a turn of √z; the inline math block is halve-math.js verbatim.</p>
+
+<script id="halve-math">
+// halve-the-angle — shared math. Inline in halve-the-angle.html (script id="halve-math"), loaded by check-halve-the-angle.js.
+(function (root) {
+  const M = {};
+  M.len = z => Math.hypot(z[0], z[1]);
+  M.ang = z => Math.atan2(z[1], z[0]);                       // radians, (−π, π]
+  M.polar = (r, a) => [r * Math.cos(a), r * Math.sin(a)];
+  M.mul = (a, b) => [a[0] * b[0] - a[1] * b[1], a[0] * b[1] + a[1] * b[0]];   // the rule as algebra
+  M.mulPolar = (a, b) => M.polar(M.len(a) * M.len(b), M.ang(a) + M.ang(b));  // the rule as geometry
+  M.square = w => M.mul(w, w);
+  // The two square roots of z: half the angle, root the length; and the same again half a turn on.
+  M.roots = z => { const r = Math.sqrt(M.len(z)), a = M.ang(z) / 2; return [M.polar(r, a), M.polar(r, a + Math.PI)]; };
+  // Similar-triangle construction: triangle (0, 1, a) scaled and turned onto base (0, b) has apex a·b.
+  M.similarApex = (a, b) => M.mul(a, b);
+  root.HalveMath = M;
+})(typeof window !== 'undefined' ? window : globalThis);
+</script>
+<script>
+(function(){
+  const M=window.HalveMath, NS='http://www.w3.org/2000/svg';
+  const el=(n,at,p)=>{const e=document.createElementNS(NS,n);for(const k in at)e.setAttribute(k,at[k]);if(p)p.appendChild(e);return e;};
+  const text=(g,x,y,s,cls,anc)=>{const t=el('text',{x,y,class:cls||'lbl','text-anchor':anc||'middle'},g);t.textContent=s;return t;};
+  const C={red:'#c0322b',blue:'#2b5fc0',ink:'#222222',soft:'#6b6557',purple:'#6a2c91',gold:'#b08948',teal:'#177f75'};
+  const O=[170,170], S=60; const X=z=>[O[0]+z[0]*S, O[1]-z[1]*S], Xi=p=>[(p[0]-O[0])/S,(O[1]-p[1])/S];
+  const deg=a=>{let d=a*180/Math.PI; return (Math.round(d*10)/10).toFixed(1)+'°';};
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $=id=>document.getElementById(id);
+
+  function stage(svg){ const g=el('g',{},svg);
+    el('line',{x1:10,y1:O[1],x2:330,y2:O[1],stroke:C.soft,'stroke-width':0.7},g); el('line',{x1:O[0],y1:10,x2:O[0],y2:330,stroke:C.soft,'stroke-width':0.7},g);
+    el('circle',{cx:O[0],cy:O[1],r:S,fill:'none',stroke:C.soft,'stroke-width':0.6,'stroke-dasharray':'3 3'},g);
+    el('circle',{cx:O[0],cy:O[1],r:4,fill:'#fff',stroke:C.ink,'stroke-width':1.4},g);
+    text(g,O[0]+S,O[1]+14,'1','lbl s'); text(g,326,O[1]-6,'real','lbl s','end');
+    return {back:g,draw:el('g',{},svg),handles:el('g',{},svg)}; }
+  function clear(g){while(g.firstChild)g.removeChild(g.firstChild);}
+  function arrow(g,z,color,w){ const p=X(z); el('line',{x1:O[0],y1:O[1],x2:p[0],y2:p[1],stroke:color,'stroke-width':w||2.4,'stroke-linecap':'round'},g); el('circle',{cx:p[0],cy:p[1],r:4,fill:color},g); return p; }
+  // an arc from angle a0 to a1 (radians, ccw positive) at radius r
+  function arc(g,a0,a1,r,color,dash){ const p0=[O[0]+r*Math.cos(a0),O[1]-r*Math.sin(a0)], p1=[O[0]+r*Math.cos(a1),O[1]-r*Math.sin(a1)]; const d=a1-a0; if(Math.abs(d)<1e-6) return;
+    const large=Math.abs(d)>Math.PI?1:0, sweep=d>0?0:1; const at={d:`M${p0} A${r} ${r} 0 ${large} ${sweep} ${p1}`,fill:'none',stroke:color,'stroke-width':1.6}; if(dash) at['stroke-dasharray']=dash; el('path',at,g); }
+  function handle(g,color){ return el('circle',{r:11,fill:'#fff',stroke:color,'stroke-width':2,'fill-opacity':0.6,style:'cursor:grab'},g); }
+  function place(h,z){ const p=X(z); h.setAttribute('cx',p[0]); h.setAttribute('cy',p[1]); }
+  function tri(g,P,Q,R,color){ el('polygon',{points:[P,Q,R].map(X).map(p=>p.join(',')).join(' '),fill:color,'fill-opacity':0.12,stroke:color,'stroke-width':0.8,'stroke-dasharray':'3 2'},g); }
+  function labelAt(g,z,s,color,off){ const p=X(z); const t=text(g,p[0]+(off?off[0]:8),p[1]+(off?off[1]:-8),s,'lbl','start'); t.setAttribute('fill',color); }
+
+  // ---- panel 1 ----
+  const L1=stage($('s1')); let a=[1.4,0.8], b=[0.6,1.1]; const h1a=handle(L1.handles,C.red), h1b=handle(L1.handles,C.blue);
+  function draw1(){ clear(L1.draw); const g=L1.draw; const ab=M.mul(a,b);
+    tri(g,[0,0],[1,0],a,C.red); tri(g,[0,0],b,ab,C.purple);
+    const aa=M.ang(a), ba=M.ang(b);
+    arc(g,0,aa,26,C.red); arc(g,0,ba,36,C.blue); arc(g,0,ba,48,C.blue); arc(g,ba,ba+aa,48,C.red);
+    arrow(g,a,C.red); arrow(g,b,C.blue); arrow(g,ab,C.purple,3);
+    labelAt(g,a,'a',C.red); labelAt(g,b,'b',C.blue); labelAt(g,ab,'a·b',C.purple);
+    { const m=ba+aa/2; text(g,O[0]+62*Math.cos(m),O[1]-62*Math.sin(m)+4,'b, then a','lbl s',Math.cos(m)<0?'end':'start'); }
+    place(h1a,a); place(h1b,b);
+    $('r1a').textContent=M.len(a).toFixed(2); $('r1aa').textContent=deg(aa); $('r1b').textContent=M.len(b).toFixed(2); $('r1ba').textContent=deg(ba);
+    $('r1p').textContent=M.len(ab).toFixed(2)+' = '+M.len(a).toFixed(2)+'×'+M.len(b).toFixed(2); $('r1pa').textContent=deg(M.ang(ab))+' = '+deg(aa)+' + '+deg(ba)+(aa+ba>Math.PI?' − 360°':aa+ba<=-Math.PI?' + 360°':''); }
+
+  // ---- panel 2 ----
+  const L2=stage($('s2')); let w=[1.15,0.55]; const h2=handle(L2.handles,C.teal); let trailW=[], trailQ=[];
+  const tW=el('path',{fill:'none',stroke:C.teal,'stroke-width':1,opacity:0.5},L2.back), tQ=el('path',{fill:'none',stroke:C.purple,'stroke-width':1,opacity:0.5},L2.back);
+  function draw2(){ clear(L2.draw); const g=L2.draw; const q=M.square(w); const wa=M.ang(w);
+    arc(g,0,wa,30,C.teal); arc(g,0,wa,44,C.teal); arc(g,wa,2*wa,44,C.teal,'3 2');
+    arrow(g,w,C.teal); arrow(g,q,C.purple,3); labelAt(g,w,'w',C.teal); labelAt(g,q,'w²',C.purple);
+    place(h2,w); const pathOf=t=>t.map((z,i)=>(i?'L':'M')+X(z).join(' ')).join(' '); tW.setAttribute('d',pathOf(trailW)); tQ.setAttribute('d',pathOf(trailQ));
+    $('r2w').textContent=M.len(w).toFixed(2); $('r2wa').textContent=deg(wa); $('r2q').textContent=M.len(q).toFixed(2)+' = '+M.len(w).toFixed(2)+'²'; $('r2qa').textContent=deg(M.ang(q))+' = 2 × '+deg(wa)+(Math.abs(2*wa)>Math.PI?' (mod 360°)':''); }
+  let anim=null; $('walk2').addEventListener('click',()=>{ if(anim) return; const r=M.len(w), a0=M.ang(w); const N=reduce?12:160; let i=0; trailW=[]; trailQ=[];
+    const step=()=>{ i++; w=M.polar(r,a0+2*Math.PI*i/N); trailW.push(w); trailQ.push(M.square(w)); draw2(); if(i<N) anim=setTimeout(step,reduce?120:18); else anim=null; }; step(); });
+
+  // ---- panel 3 ----
+  const L3=stage($('s3')); let z=[1.0,1.6]; const h3=handle(L3.handles,C.gold);
+  function draw3(){ clear(L3.draw); const g=L3.draw; const [r1,r2]=M.roots(z); const za=M.ang(z);
+    arc(g,0,za,30,C.gold); arc(g,0,za/2,44,C.purple); arc(g,za,za+2*Math.PI,30,C.gold,'2 3'); arc(g,za/2,za/2+Math.PI,56,C.purple,'3 2');
+    arrow(g,z,C.gold,3); arrow(g,r1,C.purple); arrow(g,r2,C.purple,1.4); el('circle',{cx:X(r2)[0],cy:X(r2)[1],r:4,fill:'#fff',stroke:C.purple,'stroke-width':1.6},g);
+    labelAt(g,z,'z',C.gold); labelAt(g,r1,'√z',C.purple); labelAt(g,r2,'−√z',C.purple);
+    place(h3,z);
+    $('r3z').textContent=M.len(z).toFixed(2); $('r3za').textContent=deg(za)+' (or '+deg(za+2*Math.PI)+')';
+    $('r3r').textContent=Math.sqrt(M.len(z)).toFixed(2)+' = √'+M.len(z).toFixed(2); $('r3ra').textContent=deg(za/2); $('r3rb').textContent=deg(za/2+Math.PI); }
+
+  // ---- drag ----
+  let drag=null; const pt=(svg,ev)=>{const r=svg.getBoundingClientRect();const vb=svg.viewBox.baseVal;return [(ev.clientX-r.left)/r.width*vb.width,(ev.clientY-r.top)/r.height*vb.height];};
+  const bind=(h,k)=>h.addEventListener('pointerdown',ev=>{ev.preventDefault();drag={k,id:ev.pointerId};});
+  bind(h1a,'a'); bind(h1b,'b'); bind(h2,'w'); bind(h3,'z');
+  const clampZ=q=>{ const r=Math.hypot(q[0],q[1]); if(r<0.15) return null; const m=2.5; return r>m?[q[0]*m/r,q[1]*m/r]:q; };
+  window.addEventListener('pointermove',ev=>{ if(!drag||ev.pointerId!==drag.id) return;
+    if(drag.k==='a'||drag.k==='b'){ const q=clampZ(Xi(pt($('s1'),ev))); if(!q) return; if(drag.k==='a') a=q; else b=q; draw1(); }
+    else if(drag.k==='w'){ const q=clampZ(Xi(pt($('s2'),ev))); if(!q) return; w=q; trailW=[]; trailQ=[]; draw2(); }
+    else { const q=clampZ(Xi(pt($('s3'),ev))); if(!q) return; z=q; draw3(); } });
+  const end=ev=>{ if(drag&&ev.pointerId===drag.id) drag=null; }; window.addEventListener('pointerup',end); window.addEventListener('pointercancel',end);
+  draw1(); draw2(); draw3();
+})();
+</script>
+</main>
+</body>
+</html>
