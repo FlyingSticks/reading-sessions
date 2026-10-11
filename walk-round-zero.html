@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Walk round zero</title>
+<style>
+  :root{--paper:#fbf8f1;--ink:#222222;--rule:#cfc8b8;--soft:#6b6557;--panel:#fffdf8;--crimson:#c0322b;--blue:#2b5fc0;--purple:#6a2c91;--gold:#b08948;--teal:#177f75}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 Georgia,'Times New Roman',serif}
+  main{max-width:1040px;margin:0 auto;padding:22px 18px 60px}
+  h1{font-size:30px;margin:0 0 4px;font-weight:normal}
+  h2{font-size:19px;margin:30px 0 8px;font-weight:normal;border-bottom:1px solid var(--rule);padding-bottom:4px}
+  .sub{color:var(--soft);margin:0 0 16px;font-size:15px}
+  .panes{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media (max-width:720px){.panes{grid-template-columns:1fr}}
+  .pane{background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:10px}
+  .pane h3{margin:0 0 6px;font-size:16px;font-weight:normal}
+  svg{width:100%;height:auto;display:block;touch-action:none;user-select:none}
+  .lbl{font:13px Georgia,serif;fill:var(--ink)} .lbl.s{fill:var(--soft);font-size:11.5px}
+  .read{margin-top:8px;font-size:14.5px;border-top:1px dashed var(--rule);padding-top:8px}
+  .read div{padding:2px 0}
+  .k{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13.5px}
+  button{font:14px Georgia,serif;background:#fff;border:1px solid var(--rule);border-radius:14px;padding:3px 12px;cursor:pointer;color:var(--ink);margin:6px 6px 0 0}
+  p{margin:8px 0;max-width:70ch} .note{font-size:13.5px;color:var(--soft)}
+</style>
+</head>
+<body>
+<main>
+  <h1>Walk round zero</h1>
+  <p class="sub">The same hole in two places. On a line, removing zero leaves two pieces and a wall between them: that wall is what a sign is. In a plane, removing zero leaves one piece, and the walk goes round.</p>
+
+  <div class="panes">
+    <div class="pane">
+      <h3>The real line with zero removed</h3>
+      <svg id="line" viewBox="0 0 480 170"></svg>
+      <div class="read">
+        <div>x = <span class="k" id="lx"></span></div>
+        <div>sign: <span id="lsign"></span></div>
+        <div class="note" id="lnote">Drag the point. Try to take it across zero.</div>
+      </div>
+    </div>
+    <div class="pane">
+      <h3>The complex plane with zero removed</h3>
+      <svg id="plane" viewBox="0 0 480 400"></svg>
+      <button id="loop">Walk once round zero</button><button id="reset">Reset</button>
+      <div class="read">
+        <div>z = <span class="k" id="pz"></span> &nbsp; direction from zero: <span class="k" id="parg"></span></div>
+        <div>turns made round zero: <span class="k" id="pwind"></span></div>
+        <div>the square root you are holding: <span class="k" id="proot"></span> &nbsp;<span id="pswap"></span></div>
+        <div class="note">Drag z anywhere except onto zero. The two small points are the two square roots of z; the filled one is the root you started with and have followed without a jump.</div>
+      </div>
+    </div>
+  </div>
+
+  <h2>What to look for</h2>
+  <p><strong>Left.</strong> The point cannot reach the other half. Everything on its side is red, everything beyond the hole is blue, and the names are permanent: nothing you do to the point changes which piece it is in. That permanence is the sign. Zero is not in either piece; it is the wall.</p>
+  <p><strong>Right.</strong> The point goes anywhere. The colour under it is its direction from zero, a whole circle of hues, not two. Nothing is permanent: drag the point once round the hole and it comes back with the same z, and the root you were holding has become the other root. No boundary was crossed; the swap happened smoothly, a little at each step. After a second turn it is restored. A loop that does not enclose zero changes nothing, which is how you know it is the hole, not the walking, that does it.</p>
+  <p>Zero on the right is still a point you cannot stand on, and it still marks where the two roots coincide: an incidence, convention-free. But it is a post you walk round, not a wall you stand beside. That is the whole difference between a zero with a sign and a zero without one.</p>
+  <p class="note">check-walk-round-zero.js, node, 7 assertions: the wall holds from both sides; same-side steps pass; one loop round zero turns the followed root into its negative; two loops restore it; a loop missing zero changes nothing; the followed root never jumps; the inline math block is walk-math.js verbatim.</p>
+
+<script id="walk-math">
+// walk-round-zero — shared math. Inline in walk-round-zero.html (script id="walk-math"), loaded by check-walk-round-zero.js.
+(function (root) {
+  const M = {};
+  // Real line minus zero: a move from x to x' is allowed only if it does not cross 0.
+  M.realStep = function (x, target) {
+    if (x === 0) return x;
+    if (Math.sign(target) === Math.sign(x) && target !== 0) return target;
+    return Math.sign(x) * 1e-9;           // stopped at the wall, on the side you came from
+  };
+  // Principal square root of z = (re, im).
+  M.sqrt = function (z) {
+    const r = Math.hypot(z[0], z[1]), a = Math.atan2(z[1], z[0]) / 2, s = Math.sqrt(r);
+    return [s * Math.cos(a), s * Math.sin(a)];
+  };
+  // Follow the root continuously: of the two roots ±sqrt(z), keep the one nearer the root you held.
+  M.followRoot = function (prevRoot, z) {
+    const w = M.sqrt(z), m = [-w[0], -w[1]];
+    const d = (p, q) => Math.hypot(p[0] - q[0], p[1] - q[1]);
+    return d(prevRoot, w) <= d(prevRoot, m) ? w : m;
+  };
+  // Accumulated turning about 0 along a polyline (radians); winding number = total / 2π.
+  M.turning = function (path) {
+    let t = 0;
+    for (let i = 1; i < path.length; i++) {
+      let d = Math.atan2(path[i][1], path[i][0]) - Math.atan2(path[i - 1][1], path[i - 1][0]);
+      while (d > Math.PI) d -= 2 * Math.PI; while (d < -Math.PI) d += 2 * Math.PI;
+      t += d;
+    }
+    return t;
+  };
+  // Walk a path, following the root from its start; report the root at the end and the winding.
+  M.walk = function (path) {
+    let w = M.sqrt(path[0]);
+    const w0 = w;
+    for (let i = 1; i < path.length; i++) w = M.followRoot(w, path[i]);
+    return { start: w0, end: w, winding: M.turning(path) / (2 * Math.PI) };
+  };
+  M.circle = (cx, cy, r, n) => Array.from({ length: n + 1 }, (_, i) => [cx + r * Math.cos(2 * Math.PI * i / n), cy + r * Math.sin(2 * Math.PI * i / n)]);
+  root.WalkMath = M;
+})(typeof window !== 'undefined' ? window : globalThis);
+</script>
+<script>
+(function(){
+  const M=window.WalkMath, NS='http://www.w3.org/2000/svg';
+  const el=(n,at,p)=>{const e=document.createElementNS(NS,n);for(const k in at)e.setAttribute(k,at[k]);if(p)p.appendChild(e);return e;};
+  const text=(g,x,y,s,cls,anc)=>{const t=el('text',{x,y,class:cls||'lbl','text-anchor':anc||'middle'},g);t.textContent=s;return t;};
+  const C={red:'#c0322b',blue:'#2b5fc0',ink:'#222222',soft:'#6b6557',purple:'#6a2c91',gold:'#b08948',teal:'#177f75'};
+  const hue=a=>`hsl(${((a*180/Math.PI)+360)%360} 60% 45%)`;
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---------- real line ----------
+  const L=document.getElementById('line'); const LX=x=>240+x*70, LXinv=px=>(px-240)/70; let x=1.2;
+  const lg={back:el('g',{},L),marks:el('g',{},L),handle:el('g',{},L)};
+  (function(){ const g=lg.back; el('line',{x1:30,y1:85,x2:236,y2:85,stroke:C.blue,'stroke-width':5,'stroke-linecap':'round'},g); el('line',{x1:244,y1:85,x2:450,y2:85,stroke:C.red,'stroke-width':5,'stroke-linecap':'round'},g);
+    el('circle',{cx:240,cy:85,r:6,fill:'#fff',stroke:C.ink,'stroke-width':1.6},g); el('line',{x1:240,y1:60,x2:240,y2:110,stroke:C.ink,'stroke-width':1,'stroke-dasharray':'3 3'},g);
+    text(g,240,128,'0 — the wall','lbl s'); text(g,100,60,'negative piece','lbl s'); text(g,380,60,'positive piece','lbl s');
+    for(const v of [-2,-1,1,2]){ el('line',{x1:LX(v),y1:80,x2:LX(v),y2:90,stroke:C.ink,'stroke-width':1},g); text(g,LX(v),105,String(v),'lbl s'); } })();
+  const lh=el('circle',{cx:LX(x),cy:85,r:9,fill:'#fff',stroke:C.ink,'stroke-width':2,style:'cursor:grab'},lg.handle);
+  const lghost=el('circle',{cx:LX(x),cy:85,r:5,fill:'none',stroke:C.soft,'stroke-dasharray':'2 2',visibility:'hidden'},lg.marks);
+  function drawLine(target){ lh.setAttribute('cx',LX(x)); lh.setAttribute('fill',x>0?C.red:C.blue);
+    if(target!==undefined&&Math.sign(target)!==Math.sign(x)){ lghost.setAttribute('cx',LX(Math.max(-3,Math.min(3,target)))); lghost.setAttribute('visibility','visible'); document.getElementById('lnote').textContent='Stopped at the wall. The other piece is where your finger is; the point cannot follow.'; }
+    else { lghost.setAttribute('visibility','hidden'); document.getElementById('lnote').textContent='Drag the point. Try to take it across zero.'; }
+    document.getElementById('lx').textContent=x.toFixed(2); document.getElementById('lsign').innerHTML=x>0?'<span style="color:#c0322b">positive</span> — it has never been anything else':'<span style="color:#2b5fc0">negative</span> — it has never been anything else'; }
+
+  // ---------- complex plane ----------
+  const P=document.getElementById('plane'); const PC=[240,200], PS=70; const PX=z=>[PC[0]+z[0]*PS, PC[1]-z[1]*PS]; const PXinv=p=>[(p[0]-PC[0])/PS, (PC[1]-p[1])/PS];
+  let z=[1.6,0.6], root=M.sqrt(z), root0=root, path=[z.slice()];
+  const pg={back:el('g',{},P),trail:el('g',{},P),roots:el('g',{},P),handle:el('g',{},P)};
+  (function(){ const g=pg.back;
+    // hue wheel: direction from zero
+    for(let k=0;k<72;k++){ const a0=k*Math.PI/36, a1=(k+1)*Math.PI/36+0.01; const r1=180,r0=14; const p=(a,r)=>[PC[0]+r*Math.cos(a),PC[1]-r*Math.sin(a)];
+      const A=p(a0,r0),B=p(a0,r1),Cc=p(a1,r1),D=p(a1,r0); el('path',{d:`M${A} L${B} A${r1} ${r1} 0 0 0 ${Cc} L${D} A${r0} ${r0} 0 0 1 ${A}`,fill:hue(a0),opacity:0.13},g); }
+    el('line',{x1:40,y1:PC[1],x2:440,y2:PC[1],stroke:C.soft,'stroke-width':0.7},g); el('line',{x1:PC[0],y1:20,x2:PC[0],y2:380,stroke:C.soft,'stroke-width':0.7},g);
+    el('circle',{cx:PC[0],cy:PC[1],r:6,fill:'#fff',stroke:C.ink,'stroke-width':1.6},g); text(g,PC[0]+10,PC[1]+16,'0 — the post','lbl s','start');
+    text(g,430,PC[1]-6,'real','lbl s','end'); text(g,PC[0]+6,28,'imaginary','lbl s','start');
+    el('circle',{cx:PC[0],cy:PC[1],r:PS,fill:'none',stroke:C.soft,'stroke-width':0.6,'stroke-dasharray':'3 3'},g); })();
+  const trail=el('path',{fill:'none',stroke:C.ink,'stroke-width':1.2,opacity:0.6},pg.trail);
+  const ray=el('line',{stroke:C.ink,'stroke-width':1,'stroke-dasharray':'3 3'},pg.roots);
+  const rA=el('circle',{r:5,fill:C.purple,stroke:C.purple},pg.roots), rB=el('circle',{r:5,fill:'#fff',stroke:C.purple,'stroke-width':1.6},pg.roots);
+  const rAl=text(pg.roots,0,0,'√z you hold','lbl s'), rBl=text(pg.roots,0,0,'the other root','lbl s');
+  const ph=el('circle',{r:9,fill:'#fff',stroke:C.ink,'stroke-width':2,style:'cursor:grab'},pg.handle);
+  function drawPlane(){ const p=PX(z); ph.setAttribute('cx',p[0]); ph.setAttribute('cy',p[1]); const a=Math.atan2(z[1],z[0]); ph.setAttribute('fill',hue(a));
+    ray.setAttribute('x1',PC[0]); ray.setAttribute('y1',PC[1]); ray.setAttribute('x2',p[0]); ray.setAttribute('y2',p[1]);
+    trail.setAttribute('d',path.map((q,i)=>(i?'L':'M')+PX(q).join(' ')).join(' '));
+    const w=PX(root), m=PX([-root[0],-root[1]]); rA.setAttribute('cx',w[0]); rA.setAttribute('cy',w[1]); rB.setAttribute('cx',m[0]); rB.setAttribute('cy',m[1]);
+    rAl.setAttribute('x',w[0]); rAl.setAttribute('y',w[1]+18); rBl.setAttribute('x',m[0]); rBl.setAttribute('y',m[1]+18);
+    const wind=M.turning(path)/(2*Math.PI); const swapped=Math.hypot(root[0]-root0[0],root[1]-root0[1])>Math.hypot(root[0]+root0[0],root[1]+root0[1]);
+    document.getElementById('pz').textContent=z[0].toFixed(2)+(z[1]<0?' − ':' + ')+Math.abs(z[1]).toFixed(2)+'i';
+    document.getElementById('parg').textContent=Math.round(((a*180/Math.PI)+360)%360)+'°';
+    document.getElementById('pwind').textContent=wind.toFixed(2);
+    document.getElementById('proot').textContent=root[0].toFixed(2)+(root[1]<0?' − ':' + ')+Math.abs(root[1]).toFixed(2)+'i';
+    document.getElementById('pswap').innerHTML=swapped?'<span style="color:#6a2c91">— this is the other root now; no boundary was crossed</span>':'— the root you started with'; }
+  function moveZ(nz){ if(Math.hypot(nz[0],nz[1])<0.12) return; z=nz; root=M.followRoot(root,z); path.push(z.slice()); if(path.length>900) path.shift(); drawPlane(); }
+  document.getElementById('reset').addEventListener('click',()=>{ z=[1.6,0.6]; root=M.sqrt(z); root0=root; path=[z.slice()]; drawPlane(); });
+  let anim=null;
+  document.getElementById('loop').addEventListener('click',()=>{ if(anim) return; const r=Math.hypot(z[0],z[1]), a0=Math.atan2(z[1],z[0]); const N=reduce?8:180; let i=0;
+    const step=()=>{ i++; moveZ([r*Math.cos(a0+2*Math.PI*i/N), r*Math.sin(a0+2*Math.PI*i/N)]); if(i<N) anim=setTimeout(step,reduce?120:16); else anim=null; }; step(); });
+
+  // ---------- drag: window-level, pointerId-filtered ----------
+  let drag=null;
+  const pt=(svg,ev)=>{const r=svg.getBoundingClientRect();const vb=svg.viewBox.baseVal;return [(ev.clientX-r.left)/r.width*vb.width,(ev.clientY-r.top)/r.height*vb.height];};
+  lh.addEventListener('pointerdown',ev=>{ev.preventDefault();drag={k:'line',id:ev.pointerId};});
+  ph.addEventListener('pointerdown',ev=>{ev.preventDefault();drag={k:'plane',id:ev.pointerId};});
+  window.addEventListener('pointermove',ev=>{ if(!drag||ev.pointerId!==drag.id) return;
+    if(drag.k==='line'){ const t=Math.max(-3,Math.min(3,LXinv(pt(L,ev)[0]))); x=M.realStep(x,t); drawLine(t); }
+    else { const q=PXinv(pt(P,ev)); moveZ([Math.max(-2.6,Math.min(2.6,q[0])),Math.max(-2.3,Math.min(2.3,q[1]))]); } });
+  const end=ev=>{ if(drag&&ev.pointerId===drag.id){ drag=null; drawLine(); } }; window.addEventListener('pointerup',end); window.addEventListener('pointercancel',end);
+  drawLine(); drawPlane();
+})();
+</script>
+</main>
+</body>
+</html>
