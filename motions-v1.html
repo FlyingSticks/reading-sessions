@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Motions of the plane — four kinds, one primitive</title>
+<style>
+  :root { --ink:#222; --mute:#666; --rule:#bbb; --purple:#534AB7; --green:#1D9E75; --mirror:#D85A30; }
+  html,body { margin:0; background:#fbfaf7; color:var(--ink); font:18px/1.6 Georgia, "Times New Roman", serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 20px 80px; }
+  h1 { font-size: 30px; font-weight: normal; margin: 0 0 4px; }
+  h2 { font-size: 22px; font-weight: normal; margin: 44px 0 8px; border-top: 1px solid var(--rule); padding-top: 18px; }
+  p.byline { color: var(--mute); margin: 0 0 24px; font-size: 16px; }
+  figure { margin: 20px 0 8px; }
+  svg { width: 100%; height: auto; display: block; }
+  figcaption { font-size: 16px; color: var(--mute); margin-top: 6px; }
+  svg text { font: 15px Helvetica, Arial, sans-serif; fill: var(--ink); }
+  svg text.h { font-size: 17px; font-weight: bold; }
+  svg text.s { font-size: 14px; fill: var(--mute); }
+  table { border-collapse: collapse; width: 100%; font-size: 17px; margin: 16px 0; }
+  th, td { border: 1px solid var(--rule); padding: 10px 12px; text-align: left; vertical-align: top; }
+  th { font-weight: normal; color: var(--mute); background: #f3f1ea; }
+  .controls { display:flex; gap:8px; flex-wrap:wrap; margin: 10px 0; }
+  button { font: 15px Helvetica, Arial, sans-serif; padding: 8px 14px; border: 1px solid #999; border-radius: 8px; background: #fff; color: var(--ink); cursor: pointer; }
+  button.on { background: #ece9df; }
+  .msg { font: 15px/1.5 Helvetica, Arial, sans-serif; color: var(--mute); min-height: 3.2em; }
+  dl { margin: 0; } dt { font-weight: bold; margin-top: 14px; } dd { margin: 2px 0 0 0; }
+  .note { font-size: 16px; color: var(--mute); }
+</style>
+</head>
+<body>
+<main>
+<h1>Motions of the plane</h1>
+<p class="byline">Four kinds, one primitive. 2 November 2026.</p>
+
+<p>A motion is a rule that moves every point of the plane to a point of the plane so that all distances are kept — equivalently, a way of picking the plane up as a rigid thing and setting it down on itself. This page sorts the motions into their four kinds, shows that all four are built from one of them, and lets the building be watched step by step.</p>
+
+<h2>1. Four kinds</h2>
+<p>Two questions sort every motion. Does it keep handedness — does a small clockwise arrow drawn on the paper stay clockwise? And does it leave any point where it was?</p>
+<table>
+<tr><th></th><th>fixes a point</th><th>fixes no point</th></tr>
+<tr><th>keeps handedness</th><td>rotation — spin about the fixed point. "Do nothing" is the rotation by 0°.</td><td>translation — slide. Every point moves the same distance in the same direction.</td></tr>
+<tr><th>reverses handedness</th><td>reflection — mirror in a line. The whole line is fixed.</td><td>glide reflection — mirror in a line, then slide along it. Nothing is fixed, but the line is carried onto itself.</td></tr>
+</table>
+<p>Keeping handedness is the same as being doable without lifting the paper: sliding and spinning on the table never reverse an arrow, and flipping the paper always does. So the top row stays on the table and the bottom row has to be lifted.</p>
+<p>Examples as rules on coordinates. Slide: (x, y) ↦ (x + 3, y). Spin: (x, y) ↦ (−y, x), the quarter-turn about 0; (x, y) ↦ (−x, −y), the half-turn. Mirror: (x, y) ↦ (−x, y), in the vertical axis; (x, y) ↦ (y, x), in the diagonal. Glide: (x, y) ↦ (x + 3, −y). Not motions: (x, y) ↦ (2x, 2y), a stretch; (x, y) ↦ (x + y, y), a shear; (x, y) ↦ (0, x), the collapse ×ε; and f ↦ f², squaring, which doubles angles and squares distances. The test in every case: pick two points, measure their separation before and after. A motion never changes that number.</p>
+
+<h2>2. The mirror is the primitive</h2>
+<figure>
+<svg viewBox="0 0 720 470" role="img" aria-label="Two crossing mirrors make a rotation, two parallel mirrors make a translation, three mirrors make a glide">
+<text class="h" x="360" y="30" text-anchor="middle">every motion is at most three mirrors</text>
+<line x1="60" y1="120" x2="400" y2="120" stroke="#D85A30" stroke-width="1.5"/>
+<line x1="107.4" y1="185" x2="332.6" y2="55" stroke="#D85A30" stroke-width="1.5"/>
+<line x1="266.7" y1="158.6" x2="297.3" y2="184.3" stroke="#534AB7" stroke-width="2.5" stroke-linecap="round"/><circle cx="297.3" cy="184.3" r="5" fill="#534AB7"/>
+<line x1="266.7" y1="81.4" x2="297.3" y2="55.7" stroke="#888780" stroke-width="1.5" stroke-dasharray="4 3"/><circle cx="297.3" cy="55.7" r="5" fill="none" stroke="#888780" stroke-width="1"/>
+<line x1="276.3" y1="99.5" x2="313.9" y2="85.8" stroke="#1D9E75" stroke-width="2.5" stroke-linecap="round"/><circle cx="313.9" cy="85.8" r="5" fill="#1D9E75"/>
+<circle cx="220" cy="120" r="4" fill="#D85A30"/>
+<text x="440" y="100" text-anchor="start">two mirrors, crossing at angle θ:</text>
+<text x="440" y="126" text-anchor="start">a rotation by 2θ about the crossing</text>
+<text class="s" x="440" y="150" text-anchor="start">here θ = 30°, so the turn is 60°</text>
+
+<line x1="180" y1="250" x2="180" y2="340" stroke="#D85A30" stroke-width="1.5"/>
+<line x1="240" y1="250" x2="240" y2="340" stroke="#D85A30" stroke-width="1.5"/>
+<line x1="110" y1="310" x2="140" y2="280" stroke="#534AB7" stroke-width="2.5" stroke-linecap="round"/><circle cx="140" cy="280" r="5" fill="#534AB7"/>
+<line x1="250" y1="310" x2="220" y2="280" stroke="#888780" stroke-width="1.5" stroke-dasharray="4 3"/><circle cx="220" cy="280" r="5" fill="none" stroke="#888780" stroke-width="1"/>
+<line x1="230" y1="310" x2="260" y2="280" stroke="#1D9E75" stroke-width="2.5" stroke-linecap="round"/><circle cx="260" cy="280" r="5" fill="#1D9E75"/>
+<text x="440" y="280" text-anchor="start">two mirrors, parallel at distance d:</text>
+<text x="440" y="306" text-anchor="start">a slide by 2d, across the mirrors</text>
+<text class="s" x="440" y="330" text-anchor="start">here d = 60, so the slide is 120</text>
+
+<line x1="60" y1="415" x2="400" y2="415" stroke="#D85A30" stroke-width="1.5"/>
+<line x1="180" y1="360" x2="180" y2="465" stroke="#D85A30" stroke-width="1.5"/>
+<line x1="240" y1="360" x2="240" y2="465" stroke="#D85A30" stroke-width="1.5"/>
+<line x1="110" y1="395" x2="140" y2="375" stroke="#534AB7" stroke-width="2.5" stroke-linecap="round"/><circle cx="140" cy="375" r="5" fill="#534AB7"/>
+<line x1="110" y1="435" x2="140" y2="455" stroke="#888780" stroke-width="1.5" stroke-dasharray="4 3"/><circle cx="140" cy="455" r="5" fill="none" stroke="#888780" stroke-width="1"/>
+<line x1="230" y1="435" x2="260" y2="455" stroke="#1D9E75" stroke-width="2.5" stroke-linecap="round"/><circle cx="260" cy="455" r="5" fill="#1D9E75"/>
+<text x="440" y="400" text-anchor="start">three mirrors:</text>
+<text x="440" y="426" text-anchor="start">a glide — mirror in the path,</text>
+<text x="440" y="452" text-anchor="start">then slide along it</text>
+</svg>
+<figcaption>Purple: before. Dashed: after one mirror. Green: after all. The figure is a stroke with a dot at one end — the simplest thing with a handedness. In the third row the dashed position is after the first mirror only; the two uprights then slide it along the path.</figcaption>
+</figure>
+<p>A single mirror reverses handedness and fixes a line. Two mirrors reverse handedness twice, so restore it, and between them fix one point (where the lines cross) or nothing (when they are parallel): those are the rotation and the translation, with the amounts doubled — twice the angle, twice the distance. Three mirrors reverse handedness, so give a reflection or a glide; the glide is the only new thing three can make, and it appears exactly when the last two mirrors slide along the first. Four mirrors collapse back to two. So every motion is a word of length at most three in the single letter "mirror," and the four-kinds table is the mirror count: even count, top row; odd count, bottom row.</p>
+
+<h2>3. Watch the mirrors compose</h2>
+<div class="controls">
+  <button id="s0">crossing mirrors</button>
+  <button id="s1">parallel mirrors</button>
+  <button id="s2">three mirrors</button>
+</div>
+<figure>
+<svg viewBox="0 0 720 400" role="img" aria-label="mirror stage">
+<g id="mirrors"></g>
+<g id="ghosts"></g>
+<line id="fig" x1="0" y1="0" x2="0" y2="0" stroke="#534AB7" stroke-width="3" stroke-linecap="round"/>
+<circle id="figd" cx="0" cy="0" r="6" fill="#534AB7"/>
+<text id="lab" class="s" x="360" y="385" text-anchor="middle"></text>
+</svg>
+</figure>
+<div class="controls">
+  <button id="next">next mirror</button>
+  <button id="play">play all</button>
+  <button id="reset">reset</button>
+</div>
+<p class="msg" id="msg"></p>
+<p class="note">The animation passes the arrow through each line and out the other side; that is a drawing of the flip, not geometry. A mirror has no "during." Only the start and end of each step are the mathematics. Previous positions remain as dashed ghosts; mirrors already used go faint; the arrow turns green when the last mirror is done.</p>
+
+<h2>4. Where the fold sits</h2>
+<p>The pairing of the fold through a point is the half-turn, which is two mirrors at right angles. The pairing of the fold across a line is one mirror. So the two folds of the six-to-three page differ by exactly one mirror — the one that flips the paper. The fold squaring makes is an even fold; the mirror fold is an odd one.</p>
+<p>A sign, as defined on that page, needs a motion that undoes itself. Of the four kinds, only two contain such motions: half-turns (one per point) and mirrors (one per line). Other rotations need more than two turns to return; translations and glides never return. A glide done twice is a pure slide, so a glide is a square root of a translation — sign-like in form, but it does not come back.</p>
+
+<h2>Glossary</h2>
+<p class="note">Drawing words and mathematical words are kept apart.</p>
+<dl>
+<dt>motion</dt><dd>A rule moving every point of the plane to a point of the plane, keeping all distances. Always undoable. Also called an isometry or a rigid motion.</dd>
+<dt>map</dt><dd>Any rule moving every point to a point, distances kept or not. Every motion is a map; the stretch, the shear, the collapse ×ε and squaring are maps that are not motions.</dd>
+<dt>handedness</dt><dd>Whether a small clockwise arrow stays clockwise. Kept by rotations and translations, reversed by reflections and glides. Keeping it is the same as not having to lift the paper.</dd>
+<dt>fixed point</dt><dd>A point a motion leaves where it was. A rotation fixes one point, a reflection fixes a line, a translation and a glide fix nothing.</dd>
+<dt>rotation (spin)</dt><dd>Turning the plane about one fixed point through an angle. The half-turn is the rotation by 180°.</dd>
+<dt>translation (slide)</dt><dd>Moving every point the same distance in the same direction.</dd>
+<dt>reflection (mirror)</dt><dd>Sending each point to the point the same distance away on the other side of a fixed line, at a right angle to it. The line is the mirror line.</dd>
+<dt>glide reflection (glide)</dt><dd>A mirror in a line followed by a slide along that same line. The footprint motion.</dd>
+<dt>primitive</dt><dd>The one kind the others are built from. The mirror is primitive: every motion is one, two or three mirrors.</dd>
+<dt>involution</dt><dd>A motion that undoes itself: done twice, nothing. Half-turns and mirrors are the involutions among the motions.</dd>
+<dt>stroke with a dot (drawing word)</dt><dd>The test figure in the diagrams: a short line with a dot at its head. Its only job is to have a handedness, so that a mirror image can be told from a turned copy.</dd>
+<dt>ghost (drawing word)</dt><dd>A dashed copy of the figure at an earlier position. It records where the figure was; it is not a second figure.</dd>
+</dl>
+
+<script>
+(function(){
+var NS='http://www.w3.org/2000/svg';
+var scenes=[
+ {mirrors:[{p:[300,210],d:[1,0],ext:230},{p:[300,210],d:[Math.cos(Math.PI/6),-Math.sin(Math.PI/6)],ext:180}],fig:[[366,265],[410,302]],
+  notes:['the arrow, before any mirror','after mirror 1: flipped across the horizontal — handedness reversed','after mirror 2: flipped again — handedness restored. Net: a rotation by 60°, twice the 30° between the mirrors, about their crossing'],
+  lab:'two mirrors crossing at 30°'},
+ {mirrors:[{p:[240,210],d:[0,1],ext:130},{p:[320,210],d:[0,1],ext:130}],fig:[[150,230],[190,190]],
+  notes:['the arrow, before any mirror','after mirror 1: flipped across the first line — handedness reversed','after mirror 2: flipped back. Net: a slide by 160, twice the 80 between the mirrors, with no turning'],
+  lab:'two parallel mirrors, 80 apart'},
+ {mirrors:[{p:[300,210],d:[1,0],ext:230},{p:[240,210],d:[0,1],ext:130},{p:[320,210],d:[0,1],ext:130}],fig:[[150,170],[190,140]],
+  notes:['the arrow, before any mirror','after mirror 1: flipped across the path line','after mirror 2: flipped across the first upright — now a plain mirror image in a shifted line','after mirror 3: slid along the path. Net: a glide — mirror in the path and slide along it. Handedness reversed, nothing fixed'],
+  lab:'three mirrors: one along the path, two across it'}
+];
+var cur=0,step=0,pts=[],busy=false;
+var gM=document.getElementById('mirrors'),gG=document.getElementById('ghosts'),fig=document.getElementById('fig'),figd=document.getElementById('figd'),lab=document.getElementById('lab'),msg=document.getElementById('msg');
+function el(t,a){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);return e}
+function drawMirrors(){while(gM.firstChild)gM.removeChild(gM.firstChild);var sc=scenes[cur];sc.mirrors.forEach(function(m,i){gM.appendChild(el('line',{x1:m.p[0]-m.d[0]*m.ext,y1:m.p[1]-m.d[1]*m.ext,x2:m.p[0]+m.d[0]*m.ext,y2:m.p[1]+m.d[1]*m.ext,stroke:'#D85A30','stroke-width':i<step?'1':'2','stroke-opacity':i<step?'0.4':'1'}));var t=el('text',{x:m.p[0]+m.d[0]*m.ext+(m.d[0]?6:8),y:m.p[1]+m.d[1]*m.ext+(m.d[1]?-6:5),'font-size':'14',fill:'#D85A30'});t.textContent='m'+(i+1);gM.appendChild(t);});}
+function setFig(p){fig.setAttribute('x1',p[0][0]);fig.setAttribute('y1',p[0][1]);fig.setAttribute('x2',p[1][0]);fig.setAttribute('y2',p[1][1]);figd.setAttribute('cx',p[1][0]);figd.setAttribute('cy',p[1][1]);}
+function ghost(p){gG.appendChild(el('line',{x1:p[0][0],y1:p[0][1],x2:p[1][0],y2:p[1][1],stroke:'#888780','stroke-width':'1.5','stroke-dasharray':'4 3'}));gG.appendChild(el('circle',{cx:p[1][0],cy:p[1][1],r:'5',fill:'none',stroke:'#888780','stroke-width':'1'}));}
+function refl(q,m,s){var n=[-m.d[1],m.d[0]];var dist=(q[0]-m.p[0])*n[0]+(q[1]-m.p[1])*n[1];var k=(1-s)*dist;return [q[0]-k*n[0],q[1]-k*n[1]];}
+function reset(){step=0;busy=false;pts=scenes[cur].fig.map(function(q){return q.slice()});while(gG.firstChild)gG.removeChild(gG.firstChild);drawMirrors();setFig(pts);lab.textContent=scenes[cur].lab;msg.textContent=scenes[cur].notes[0];fig.setAttribute('stroke','#534AB7');figd.setAttribute('fill','#534AB7');}
+function next(cb){var sc=scenes[cur];if(busy||step>=sc.mirrors.length){if(cb)cb();return}busy=true;var m=sc.mirrors[step];var from=pts.map(function(q){return q.slice()});ghost(from);var t0=null;function fr(ts){if(!t0)t0=ts;var u=Math.min(1,(ts-t0)/800);var s=1-2*u;var c=from.map(function(q){return refl(q,m,s)});setFig(c);if(u<1)requestAnimationFrame(fr);else{pts=c;step++;busy=false;drawMirrors();msg.textContent=sc.notes[step];if(step===sc.mirrors.length){fig.setAttribute('stroke','#1D9E75');figd.setAttribute('fill','#1D9E75');}if(cb)cb();}}requestAnimationFrame(fr);}
+function playAll(){reset();(function go(){if(step<scenes[cur].mirrors.length)setTimeout(function(){next(go)},400)})();}
+function pick(i){cur=i;[0,1,2].forEach(function(k){document.getElementById('s'+k).className=k===i?'on':''});reset();}
+document.getElementById('s0').onclick=function(){pick(0)};document.getElementById('s1').onclick=function(){pick(1)};document.getElementById('s2').onclick=function(){pick(2)};
+document.getElementById('next').onclick=function(){next()};document.getElementById('play').onclick=playAll;document.getElementById('reset').onclick=reset;
+pick(0);
+})();
+</script>
+</main>
+</body>
+</html>
