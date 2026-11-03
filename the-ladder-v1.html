@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The ladder — a mirror on every rung, a half-turn on the rung above</title>
+<style>
+  :root { --ink:#222; --mute:#666; --rule:#bbb; --purple:#534AB7; --green:#1D9E75; --fix:#D85A30; --merged:#444; }
+  html,body { margin:0; background:#fbfaf7; color:var(--ink); font:18px/1.6 Georgia, "Times New Roman", serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 20px 80px; }
+  h1 { font-size: 30px; font-weight: normal; margin: 0 0 4px; }
+  h2 { font-size: 22px; font-weight: normal; margin: 44px 0 8px; border-top: 1px solid var(--rule); padding-top: 18px; }
+  h3 { font-size: 18px; font-weight: bold; margin: 22px 0 4px; }
+  p.byline { color: var(--mute); margin: 0 0 24px; font-size: 16px; }
+  figure { margin: 16px 0 8px; }
+  svg { width: 100%; height: auto; display: block; }
+  figcaption { font-size: 16px; color: var(--mute); margin-top: 6px; }
+  svg text { font: 15px Helvetica, Arial, sans-serif; fill: var(--ink); }
+  svg text.h { font-size: 17px; font-weight: bold; }
+  svg text.s { font-size: 14px; fill: var(--mute); }
+  .controls { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin:10px 0; font: 15px Helvetica, Arial, sans-serif; }
+  button { font: 15px Helvetica, Arial, sans-serif; padding: 8px 14px; border: 1px solid #999; border-radius: 8px; background: #fff; color: var(--ink); cursor: pointer; }
+  button.on { background: #ece9df; }
+  .readout { font: 15px Helvetica, Arial, sans-serif; color: var(--mute); }
+  .readout b { color: var(--ink); }
+  .msg { font: 15px/1.5 Helvetica, Arial, sans-serif; color: var(--mute); min-height: 3.2em; margin: 6px 0 0; }
+  dl { margin: 0; } dt { font-weight: bold; margin-top: 14px; } dd { margin: 2px 0 0 0; }
+  .note { font-size: 16px; color: var(--mute); }
+  table { border-collapse: collapse; width: 100%; font-size: 17px; margin: 16px 0; }
+  th, td { border: 1px solid var(--rule); padding: 10px 12px; text-align: left; vertical-align: top; }
+  th { font-weight: normal; color: var(--mute); background: #f3f1ea; }
+</style>
+</head>
+<body>
+<main>
+<h1>The ladder</h1>
+<p class="byline">A mirror on every rung, a half-turn on the rung above. 2 November 2026.</p>
+
+<p>On every rung of the ladder of dimensions, a mirror is the pairing of a fold with two readings. The two readings are congruent — every distance and angle agrees — and from inside that rung they cannot be identified: there is no path from one to the other. Climb one rung and a path appears: the mirror below is the shadow of a half-turn above. The half-turn carries one reading onto the other and the two become one. That is the gain. The loss is the sign: once identified, the readings can no longer be told apart. Rung 3 is where we live, and there the physical world has kept the sign.</p>
+
+<h2>1. Climb the ladder</h2>
+<div class="controls">
+  <span class="readout">rung:</span>
+  <button id="r1">1 · line in plane</button>
+  <button id="r2">2 · plane in space</button>
+  <button id="r3">3 · space in ?</button>
+</div>
+<div class="controls">
+  <button id="inside">view from inside</button>
+  <button id="up">go up a rung</button>
+  <span class="readout">readings: <b id="nread">two</b> · sign: <b id="nsign">kept</b></span>
+</div>
+<figure>
+<svg viewBox="0 0 720 320" role="img" aria-label="ladder stage">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#888780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<g id="stage"></g>
+<text id="lab" class="s" x="360" y="306" text-anchor="middle"></text>
+</svg>
+</figure>
+<p class="msg" id="msg"></p>
+<figcaption>Purple and green are the two readings of the fold: the figure and its mirror image. The red set is what the mirror fixes — a point, a line, a plane. "Go up a rung" performs the half-turn that lives one dimension higher; when it lands, the two readings are drawn in one colour because they have become one. On rung 3 the button has nothing to turn through.</figcaption>
+
+<h2>2. What each rung says</h2>
+<table>
+<tr><th>rung</th><th>the mirror, from inside</th><th>the half-turn, one rung up</th><th>what identifying would cost</th></tr>
+<tr><td>1 · line</td><td>x ↔ −x: mirror in the point 0. The ordinary sign.</td><td>In the plane, turn about 0 through 180°; x travels over the top and lands on −x.</td><td>Positive and negative would be one thing. Measure without sign.</td></tr>
+<tr><td>2 · plane</td><td>Figure ↔ mirror image across a line. A clockwise arrow becomes counterclockwise.</td><td>In space, flip the sheet about the line; the figure travels through the air and lands face down.</td><td>Clockwise and counterclockwise would be one thing. Handedness of plane figures gone.</td></tr>
+<tr><td>3 · space</td><td>Right hand ↔ left hand across a plane. Every measurement agrees; no movement connects them.</td><td>Would be a half-turn about the plane through a fourth dimension. Not available.</td><td>Right and left hand would be one object. Chirality gone — and physics says it is not.</td></tr>
+</table>
+
+<h2>3. Where the paradoxes are</h2>
+<p>There is no contradiction in the ladder; a fourth dimension is as consistent as a third. The paradoxes sit at the border: truths of one rung that stop being true one rung up.</p>
+<h3>Incongruent counterparts</h3>
+<p>A left hand and a right hand agree in every measurement and yet no movement in space makes one into the other. Kant took this to show that space is more than the relations among the things in it: nothing inside the hand says which hand it is. One rung up the distinction is gone. Handedness is a property of an object together with the dimension it is confined to, not of the object alone.</p>
+<h3>The flip from inside</h3>
+<p>A flat figure on a Möbius strip can travel around the strip and return as its own mirror image without leaving the surface: the rung-2 flip performed from inside, by a surface that is not orientable. The rung-3 version is a non-orientable space, in which a long enough trip would bring a traveller home with heart on the right. Nothing in physics rules this out for the cosmos as a whole, and no local measurement can decide it.</p>
+<h3>Chemistry has drawn the line</h3>
+<p>Many molecules come in left and right forms, identical in every measurement. Living things are built from one hand only; the mirror form of a drug can be inert or harmful. Nature cannot perform the rung-3 flip either, so the two forms are different substances. One rung up they would be one substance.</p>
+<h3>The mirror is not a symmetry of physics</h3>
+<p>Until 1956 it was assumed that the laws of nature read the same in a mirror, so that handedness was a convention like the direction of an axis. Then the weak interaction was found to distinguish left from right: certain decays send their electrons preferentially one way. The world is not even-handed. Rung 3 is not merely unavailable to us; the universe itself can tell which side of the mirror plane it is on. The sign is kept by the laws.</p>
+
+<h2>4. The thread back to the fold</h2>
+<p>Every fold with two readings has a pairing that undoes itself, and a mirror is such a pairing on every rung. From inside the rung the two readings are congruent and cannot be identified; that is what makes the choice between them a sign and not a label. Going up a rung supplies the half-turn that identifies them — and in the same stroke loses the sign, because a sign is exactly what the identification forgets. The square and its two roots are rung 1 seen in the plane of roots: the half-turn about 0 is the pairing, and squaring is the climb that loses it.</p>
+
+<h2>Glossary</h2>
+<p class="note">Drawing words and mathematical words are kept apart.</p>
+<dl>
+<dt>rung</dt><dd>A dimension, numbered by the space the mirror acts in: rung 1 the line, rung 2 the plane, rung 3 space. The rung above is the space one dimension larger, in which the rung's mirror becomes a half-turn.</dd>
+<dt>mirror (reflection)</dt><dd>On rung n, the map that sends each point to its partner across a fixed set of dimension n − 1: a point on the line, a line in the plane, a plane in space. Undoes itself. Reverses handedness.</dd>
+<dt>half-turn</dt><dd>A rotation by 180° about an axis set. On the rung above, the half-turn about the mirror's fixed set carries each point onto its partner; its shadow on the rung below is the mirror.</dd>
+<dt>shadow</dt><dd>What a map of the higher space does to the lower space sitting inside it, read off after the fact: where points of the lower space end up, ignoring the path. The shadow of the half-turn is the mirror.</dd>
+<dt>reading</dt><dd>One member of each pair under a self-undoing pairing. A fold has two readings; here they are a figure and its mirror image.</dd>
+<dt>congruent</dt><dd>Agreeing in every distance and angle. A figure and its mirror image are always congruent.</dd>
+<dt>identify</dt><dd>To treat two things as one. The half-turn identifies the two readings by landing one on the other. Identification is the fold itself, seen from above.</dd>
+<dt>sign</dt><dd>The choice between a point and its partner under a self-undoing pairing that prefers neither. Kept while the readings are distinct; lost when they are identified.</dd>
+<dt>handedness (chirality)</dt><dd>The property a figure has when it is not congruent to its mirror image by any movement within its own rung. A clockwise arrow on rung 2, a hand on rung 3.</dd>
+<dt>incongruent counterparts</dt><dd>Kant's name for a figure and its mirror image: congruent in all measurements, not interchangeable by movement.</dd>
+<dt>orientable</dt><dd>A space is orientable when no closed trip inside it brings a figure home as its mirror image. The plane and ordinary space are orientable; the Möbius strip is not. A non-orientable space performs its own rung's flip from inside.</dd>
+<dt>parity</dt><dd>Physics' word for the mirror of space. Parity is conserved when the laws read the same in a mirror. The weak interaction violates it.</dd>
+<dt>stroke with a dot, hand-shaped figure (drawing words)</dt><dd>The test figures on rungs 2 and 3: the simplest shapes with a handedness, so that a mirror image can be told from a turned copy.</dd>
+<dt>arc (drawing word)</dt><dd>The dashed path of one point under the half-turn, standing for the travel of all of them. Real travel on rungs 1 and 2; on rung 3 drawn dotted as a question, since there is nothing for it to travel through.</dd>
+</dl>
+
+<script>
+(function(){
+var NS='http://www.w3.org/2000/svg';
+var stage=document.getElementById('stage'),lab=document.getElementById('lab'),msg=document.getElementById('msg'),nread=document.getElementById('nread'),nsign=document.getElementById('nsign');
+var rung=1,busy=false,identified=false;
+function el(t,a){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);stage.appendChild(e);return e}
+function clear(){while(stage.firstChild)stage.removeChild(stage.firstChild);}
+var mov=[];
+function stroke(pts,col,w){var p=el('polyline',{points:pts.map(function(q){return q[0]+','+q[1]}).join(' '),fill:'none',stroke:col,'stroke-width':w||3,'stroke-linecap':'round','stroke-linejoin':'round'});return p}
+function dot(q,col,r){return el('circle',{cx:q[0],cy:q[1],r:r||5,fill:col})}
+function build(){clear();mov=[];identified=false;
+ if(rung===1){
+  el('line',{x1:120,y1:170,x2:600,y2:170,stroke:'#888780','stroke-width':0.7});
+  dot([360,170],'#D85A30',5);var t=el('text',{x:360,y:194,'text-anchor':'middle','class':'s'});t.textContent='0, fixed';
+  el('path',{d:'M 480 164 A 120 120 0 0 0 240 164',fill:'none',stroke:'#888780','stroke-width':1,'stroke-dasharray':'4 4','marker-end':'url(#ah)'});
+  var g=dot([240,170],'#1D9E75',6);var tg=el('text',{x:240,y:194,'text-anchor':'middle'});tg.textContent='−x';
+  var p=dot([480,170],'#534AB7',6);var tp=el('text',{x:480,y:194,'text-anchor':'middle'});tp.textContent='x';
+  mov=[{node:p,from:[480,170],to:[240,170],lift:120,kind:'c'}];
+  var c=el('text',{x:360,y:24,'text-anchor':'middle','class':'s'});c.textContent='the line, seen from the plane above it';
+  lab.textContent='rung 1: mirror in the point 0 — the ordinary sign';
+ } else if(rung===2){
+  el('polygon',{points:'140,240 540,240 640,110 240,110',fill:'none',stroke:'#888780','stroke-width':0.7});
+  el('line',{x1:190,y1:175,x2:590,y2:175,stroke:'#D85A30','stroke-width':2.5});var t=el('text',{x:598,y:180,'class':'s'});t.textContent='fixed line';
+  var A=[325,147],B=[362,151],A2=[275,203],B2=[318,199];
+  el('path',{d:'M 362 151 C 380 50 300 50 318 199',fill:'none',stroke:'#888780','stroke-width':1,'stroke-dasharray':'4 4','marker-end':'url(#ah)'});
+  stroke([A2,B2],'#1D9E75');dot(B2,'#1D9E75');
+  var s=stroke([A,B],'#534AB7');var d=dot(B,'#534AB7');
+  mov=[{node:s,pts:[A,B],to:[A2,B2],kind:'s'},{node:d,from:B,to:B2,kind:'c'}];
+  var c=el('text',{x:360,y:60,'text-anchor':'middle','class':'s'});c.textContent='the sheet, seen from the space above it';
+  lab.textContent='rung 2: mirror in the line — the flip of a page';
+ } else {
+  el('polygon',{points:'330,90 390,90 412,270 352,270',fill:'#FAECE7',stroke:'#D85A30','stroke-width':1});var t=el('text',{x:420,y:262,'class':'s'});t.textContent='fixed plane';
+  stroke([[170,200],[240,200],[240,145]],'#534AB7');dot([240,145],'#534AB7');stroke([[170,200],[198,232]],'#534AB7');
+  stroke([[550,200],[480,200],[480,145]],'#1D9E75');dot([480,145],'#1D9E75');stroke([[550,200],[522,232]],'#1D9E75');
+  el('path',{d:'M 240 140 C 280 50 440 50 480 140',fill:'none',stroke:'#888780','stroke-width':1,'stroke-dasharray':'1 6'});
+  var c=el('text',{x:360,y:60,'text-anchor':'middle','class':'s'});c.textContent='space, with nothing above it to look down from';
+  lab.textContent='rung 3: mirror in the plane — right hand to left hand';
+ }
+ nread.textContent='two';nsign.textContent='kept';
+ msg.textContent=rung===3?'From inside: the two hands are congruent in every measurement and no movement connects them. Press "go up a rung" to see what the ladder cannot offer here.':'From inside: two readings, congruent, with no path between them. The sign is the choice of which to call positive.';
+}
+function goUp(){if(busy)return;
+ if(rung===3){msg.textContent='No fourth dimension to turn through. The half-turn that would land one hand on the other does not exist for us, and physics says the world keeps the difference: the weak interaction tells left from right. Readings stay two; the sign is kept — by the laws.';nread.textContent='two';nsign.textContent='kept by the world';return;}
+ if(identified){return;}
+ busy=true;var t0=null;
+ function fr(ts){if(!t0)t0=ts;var u=Math.min(1,(ts-t0)/1400);var th=Math.PI*u;
+  mov.forEach(function(m){
+   if(m.kind==='c'){var mid=[(m.from[0]+m.to[0])/2,(m.from[1]+m.to[1])/2];var hx=(m.from[0]-m.to[0])/2,hy=(m.from[1]-m.to[1])/2;var L=m.lift||Math.hypot(hx,hy);
+     m.node.setAttribute('cx',(mid[0]+Math.cos(th)*hx).toFixed(1));m.node.setAttribute('cy',(mid[1]+Math.cos(th)*hy-Math.sin(th)*L).toFixed(1));}
+   else{var pts=m.pts.map(function(p,i){var q=m.to[i];var mid=[(p[0]+q[0])/2,(p[1]+q[1])/2];var hx=(p[0]-q[0])/2,hy=(p[1]-q[1])/2;var L=Math.hypot(hx,hy);return [(mid[0]+Math.cos(th)*hx).toFixed(1),(mid[1]+Math.cos(th)*hy-Math.sin(th)*L).toFixed(1)]});
+     m.node.setAttribute('points',pts.map(function(q){return q[0]+','+q[1]}).join(' '));}
+  });
+  if(u<1)requestAnimationFrame(fr);else{busy=false;identified=true;
+   Array.prototype.slice.call(stage.querySelectorAll('[stroke="#534AB7"],[stroke="#1D9E75"]')).forEach(function(n){n.setAttribute('stroke','#444')});
+   Array.prototype.slice.call(stage.querySelectorAll('[fill="#534AB7"],[fill="#1D9E75"]')).forEach(function(n){n.setAttribute('fill','#444');if(n.tagName==='circle'){el('circle',{cx:n.getAttribute('cx'),cy:n.getAttribute('cy'),r:12,fill:'none',stroke:'#444','stroke-width':1,'stroke-dasharray':'3 3'})}});
+   nread.textContent='one';nsign.textContent='lost';
+   msg.textContent=rung===1?'From the plane: x has been carried onto −x by a half-turn about 0. They are one point now, ringed. Positive and negative are no longer distinguishable — the sign is gone.':'From space: the figure has been flipped about the line and lies on its mirror image. One figure now, ringed. Clockwise and counterclockwise are no longer distinguishable — the sign is gone.';
+  }}
+ requestAnimationFrame(fr);
+}
+function pick(r){rung=r;[1,2,3].forEach(function(k){document.getElementById('r'+k).className=k===r?'on':''});build();}
+document.getElementById('r1').onclick=function(){pick(1)};document.getElementById('r2').onclick=function(){pick(2)};document.getElementById('r3').onclick=function(){pick(3)};
+document.getElementById('inside').onclick=build;document.getElementById('up').onclick=goUp;
+pick(1);
+})();
+</script>
+</main>
+</body>
+</html>
