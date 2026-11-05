@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compose, Multiply, Sign — five diagrams</title>
+<style>
+  :root{
+    --ink:#1d1d1b; --paper:#fbfaf7; --rule:#d9d5cc; --muted:#6b675f;
+    --mirror:#2aa9a1; --mirror2:#b8862b; --mirror3:#7a5bb0; --mirror4:#4a7cc9; --mirror5:#c2588a;
+    --figure:#1d1d1b; --image:#d23f2f; --ghost:#b9b5ab; --accent:#2aa9a1;
+  }
+  html{background:var(--paper);}
+  body{margin:0;color:var(--ink);font:17px/1.55 Georgia,"Times New Roman",serif;}
+  main{max-width:820px;margin:0 auto;padding:28px 20px 80px;}
+  h1{font-size:30px;line-height:1.2;margin:0 0 6px;font-weight:normal;}
+  h2{font-size:22px;margin:52px 0 10px;font-weight:normal;border-top:1px solid var(--rule);padding-top:18px;}
+  p{margin:10px 0;}
+  .byline{color:var(--muted);font-size:14px;margin:0 0 10px;}
+  .claim{font-size:18px;border-left:3px solid var(--accent);padding:6px 14px;margin:14px 0 6px;background:#fff;}
+  figure{margin:18px 0 8px;background:#fff;border:1px solid var(--rule);border-radius:6px;padding:12px 12px 8px;}
+  figure svg{width:100%;height:auto;display:block;touch-action:none;}
+  figcaption{font-size:14.5px;color:var(--muted);line-height:1.45;margin-top:8px;padding-top:8px;border-top:1px dashed var(--rule);}
+  .controls{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;font-size:14.5px;margin:6px 0 4px;}
+  .controls label[hidden]{display:none;}
+  .controls label{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;}
+  .controls input[type=range]{width:150px;accent-color:var(--accent);}
+  .controls input[type=checkbox],.controls input[type=radio]{accent-color:var(--accent);}
+  .controls button{font:inherit;font-size:14px;padding:4px 10px;border:1px solid var(--rule);background:#f6f4ef;border-radius:4px;cursor:pointer;}
+  .controls button:active{background:#e8e5dd;}
+  .controls select{font:inherit;font-size:14px;padding:2px 6px;}
+  .readout{font-variant-numeric:tabular-nums;color:var(--ink);background:#f1efe9;padding:1px 7px;border-radius:4px;}
+  .verdict{font-size:15px;padding:6px 10px;border-radius:4px;background:#f1efe9;margin-top:6px;font-variant-numeric:tabular-nums;}
+  .verdict.same{background:#e2f3f1;} .verdict.diff{background:#fbe6e2;} .verdict.warn{background:#fff3d6;}
+  .key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted);margin:4px 0 0;}
+  .key span::before{content:"";display:inline-block;width:14px;height:3px;margin-right:6px;vertical-align:middle;background:currentColor;}
+  .note{font-size:15px;color:var(--muted);}
+  code{font-family:Menlo,Consolas,monospace;font-size:14px;background:#f1efe9;padding:0 4px;border-radius:3px;}
+  .mono{font-family:Menlo,Consolas,monospace;font-size:14px;}
+</style>
+</head>
+<body>
+<main>
+
+<h1>Compose, Multiply, Sign</h1>
+<p class="byline">Five diagrams, one per claim, on how the sign of a congruence works</p>
+
+<p>Terms as on the <i>One Generator</i> page: a <b>congruence</b> is a distance-preserving map of the plane; a <b>mirror</b> is reflection in a line; the probe figure is an <b>L</b>, chosen because it has a hand. One new term here: to <b>compose</b> maps <i>A</i> and <i>B</i> means to do <i>A</i>, then do <i>B</i>; the result is written <i>BA</i>, read right to left in the order applied. The word <b>multiply</b> is used on this page only for numbers.</p>
+
+<!-- ===================== 1 ===================== -->
+<h2>1. Mirrors don't multiply; they compose</h2>
+<p class="claim">Composing two maps means doing one, then the other. The result is a single map. Order matters, which is the first sign that this is not arithmetic.</p>
+
+<figure id="d1">
+  <svg viewBox="0 0 600 340"></svg>
+  <div class="controls">
+    <label>Step <input type="range" id="d1s" min="0" max="2" value="0" step="1"> <span class="readout" id="d1sr">0: figure</span></label>
+    <label><input type="radio" name="d1o" value="AB" checked> do A, then B &nbsp;(written <span class="mono">BA</span>)</label>
+    <label><input type="radio" name="d1o" value="BA"> do B, then A &nbsp;(written <span class="mono">AB</span>)</label>
+    <label><input type="checkbox" id="d1one"> show the result as one map</label>
+    <label>angle between A and B <input type="range" id="d1a" min="10" max="80" value="35"> <span class="readout" id="d1ar">35°</span></label>
+  </div>
+  <div class="verdict" id="d1v"></div>
+  <div class="key"><span style="color:var(--figure)">figure</span><span style="color:var(--ghost)">after the first mirror</span><span style="color:var(--image)">after the second</span><span style="color:var(--mirror)">mirror A</span><span style="color:var(--mirror2)">mirror B</span></div>
+  <figcaption>Diagram 1. Step through: figure, then the first mirror, then the second. Switch the order: <i>A</i> then <i>B</i> rotates the figure one way about the crossing point; <i>B</i> then <i>A</i> rotates it the other way. Numbers multiplied in either order give the same product; these maps composed in different orders give different results. "Show the result as one map" draws the arc of the single rotation that the two mirrors amount to; that single map is the composition.</figcaption>
+</figure>
+
+<!-- ===================== 2 ===================== -->
+<h2>2. The signs multiply</h2>
+<p class="claim">Attach the number −1 to every mirror. The sign of a composition is the product of the numbers attached to its mirrors. The maps compose; the numbers multiply.</p>
+
+<figure id="d2">
+  <svg viewBox="0 0 600 430"></svg>
+  <div class="controls">
+    <button id="d2add">add a mirror</button>
+    <button id="d2rem">remove last mirror</button>
+    <span class="readout" id="d2n">1 mirror</span>
+  </div>
+  <div class="verdict" id="d2v"></div>
+  <div class="key"><span style="color:var(--figure)">figure</span><span style="color:var(--ghost)">intermediate images</span><span style="color:var(--image)">final image</span></div>
+  <figcaption>Diagram 2. Each mirror added is drawn as a line and, in the strip below, as a card carrying the number −1. The strip shows the product of the cards; the drawing shows the final image. Watch the two bookkeepings side by side as mirrors are added: the product alternates +1, −1, +1, … and the hand of the final image alternates with it. The composition is one map (the red L); the product is one number.</figcaption>
+</figure>
+
+<!-- ===================== 3 ===================== -->
+<h2>3. Why this is not circular, and where the content is</h2>
+<p class="claim">The same congruence can be composed from mirrors in many ways. The sign is well defined only because every way uses the same parity of mirrors. The independent witness is the determinant, which depends on the map alone.</p>
+
+<figure id="d3">
+  <svg viewBox="0 0 600 360"></svg>
+  <div class="controls">
+    <label>turn the pair of mirrors <input type="range" id="d3r" min="0" max="180" value="0"> <span class="readout" id="d3rr">0°</span></label>
+    <button id="d3add">insert a cancelling pair</button>
+    <button id="d3reset">reset to two mirrors</button>
+    <span class="readout" id="d3n">2 mirrors</span>
+  </div>
+  <div class="verdict" id="d3v"></div>
+  <div class="key"><span style="color:var(--figure)">figure</span><span style="color:var(--image)">final image (does not move)</span><span style="color:var(--mirror)">mirror 1</span><span style="color:var(--mirror2)">mirror 2</span><span style="color:var(--mirror3)">inserted pair (two coincident mirrors)</span></div>
+  <figcaption>Diagram 3. The target map is fixed: rotation by 60° about <i>P</i>. It is composed from two mirrors through <i>P</i> at 30°; turning the pair together changes which two mirrors are used, and the red image does not move. "Insert a cancelling pair" adds two coincident mirrors in the middle of the recipe: a different factorization of the same map, with two more mirrors. The count changes; its parity does not; the image does not. The matrix at right is the linear part of the composed map, recomputed from the image each time; its determinant never leaves +1. That number is a property of the map, not of the recipe, and it equals (−1) to the power of the count for every recipe. That agreement is the content.</figcaption>
+</figure>
+
+<!-- ===================== 4 ===================== -->
+<h2>4. "Homomorphism" means this</h2>
+<p class="claim">The sign respects composition: sign(<i>BA</i>) = sign(<i>B</i>) · sign(<i>A</i>). Compose maps on one side, multiply numbers on the other, and the two bookkeepings agree.</p>
+
+<figure id="d4">
+  <svg viewBox="0 0 600 300"></svg>
+  <div class="controls">
+    <label>A = <select id="d4a">
+      <option value="mirror">mirror</option><option value="rotation">rotation 70°</option><option value="translation">translation</option><option value="glide">glide</option><option value="halfturn">half-turn</option>
+    </select></label>
+    <label>B = <select id="d4b">
+      <option value="mirror">mirror</option><option value="rotation" selected>rotation 70°</option><option value="translation">translation</option><option value="glide">glide</option><option value="halfturn">half-turn</option>
+    </select></label>
+  </div>
+  <div class="verdict" id="d4v"></div>
+  <div class="key"><span style="color:var(--figure)">figure</span><span style="color:var(--ghost)">after A</span><span style="color:var(--image)">after B</span></div>
+  <figcaption>Diagram 4. Pick any two congruences. Left bookkeeping: compose them and read the hand of the final image directly from the drawing (the verdict computes it from the image, with no reference to mirror counts). Right bookkeeping: multiply the two signs. For every pair the two agree. That agreement, for all pairs, is what the word "homomorphism" asserts; nothing more.</figcaption>
+</figure>
+
+<!-- ===================== 5 ===================== -->
+<h2>5. Discrete, and nothing between</h2>
+<p class="claim">The sign takes one of two values. Along any continuous path of congruences it cannot change, because there is no continuous route from +1 to −1 inside a two-element set. The only way to get from a figure to its mirror image continuously is to pass through maps that are not congruences.</p>
+
+<figure id="d5">
+  <svg viewBox="0 0 600 340"></svg>
+  <div class="controls">
+    <label><input type="radio" name="d5m" value="rot" checked> path of rotations</label>
+    <label><input type="radio" name="d5m" value="mir"> path of mirrors</label>
+    <label><input type="radio" name="d5m" value="morph"> straight-line morph to the mirror image</label>
+    <label>t <input type="range" id="d5t" min="0" max="100" value="0"> <span class="readout" id="d5tr">0.00</span></label>
+  </div>
+  <div class="verdict" id="d5v"></div>
+  <div class="key"><span style="color:var(--figure)">figure</span><span style="color:var(--image)">image at t</span><span style="color:var(--mirror)">mirror line</span></div>
+  <figcaption>Diagram 5. Three continuous paths, each driven by <i>t</i>. <i>Rotations</i>: from the identity to the half-turn; every map on the path is a congruence and the sign lamp stays at +1. <i>Mirrors</i>: the mirror line slides and turns; every map on the path is a congruence and the lamp stays at −1. Neither path crosses. <i>Morph</i>: each vertex moves in a straight line from the figure to its mirror image; this does reach the mirror image, but in between the short bar of the L shrinks to zero and the figure collapses to a segment. The length readout shows the distortion. Those intermediate maps are not congruences, so they have no sign. The lamp has two positions and no needle.</figcaption>
+</figure>
+
+<p class="note">Summary: congruences compose; signs multiply; the sign of a composition is the product of the signs; the sign is a property of the map and not of its recipe; and because a sign is one of two numbers, it cannot drift.</p>
+
+</main>
+
+<script>
+(function(){
+'use strict';
+const NS='http://www.w3.org/2000/svg';
+const C={ink:'#1d1d1b',image:'#d23f2f',mirror:'#2aa9a1',mirror2:'#b8862b',mirror3:'#7a5bb0',mirror4:'#4a7cc9',mirror5:'#c2588a',ghost:'#b9b5ab',muted:'#6b675f',ok:'#2aa9a1',bad:'#d23f2f'};
+const MC=[C.mirror,C.mirror2,C.mirror3,C.mirror4,C.mirror5];
+const deg=d=>d*Math.PI/180;
+function reflect(p,P,a){const ux=Math.cos(a),uy=Math.sin(a);const vx=p.x-P.x,vy=p.y-P.y;const t=vx*ux+vy*uy;return{x:P.x+2*t*ux-vx,y:P.y+2*t*uy-vy};}
+function rotate(p,P,a){const vx=p.x-P.x,vy=p.y-P.y;const c=Math.cos(a),s=Math.sin(a);return{x:P.x+c*vx-s*vy,y:P.y+s*vx+c*vy};}
+function translate(p,dx,dy){return{x:p.x+dx,y:p.y+dy};}
+const mapPts=(pts,f)=>pts.map(f);
+function Lpts(ox,oy,s){s=s||1;return [[0,0],[40,0],[40,-12],[12,-12],[12,-50],[0,-50]].map(q=>({x:ox+q[0]*s,y:oy+q[1]*s}));}
+function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
+function clear(svg){while(svg.firstChild)svg.removeChild(svg.firstChild);}
+function poly(svg,pts,stroke,fill,extra){const d=pts.map((p,i)=>(i?'L':'M')+p.x.toFixed(2)+' '+p.y.toFixed(2)).join(' ')+' Z';return el('path',Object.assign({d,stroke,fill:fill||'none','stroke-width':2,'stroke-linejoin':'round'},extra||{}),svg);}
+function line(svg,a,b,stroke,extra){return el('line',Object.assign({x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke,'stroke-width':2},extra||{}),svg);}
+function infLine(svg,P,a,stroke,extra){const L=1000;const d={x:Math.cos(a)*L,y:Math.sin(a)*L};return line(svg,{x:P.x-d.x,y:P.y-d.y},{x:P.x+d.x,y:P.y+d.y},stroke,extra);}
+function text(svg,x,y,s,extra){const t=el('text',Object.assign({x,y,'font-family':'Georgia, serif','font-size':13,fill:C.muted},extra||{}),svg);t.textContent=s;return t;}
+function dot(svg,p,r,fill){return el('circle',{cx:p.x,cy:p.y,r,fill},svg);}
+function frame(svg,w,h){el('rect',{x:0,y:0,width:w,height:h,fill:'#fff'},svg);}
+function arcPath(c,r,a0,a1){const p0={x:c.x+r*Math.cos(a0),y:c.y+r*Math.sin(a0)},p1={x:c.x+r*Math.cos(a1),y:c.y+r*Math.sin(a1)};const large=Math.abs(a1-a0)>Math.PI?1:0;const sweep=a1>a0?1:0;return `M${p0.x} ${p0.y} A${r} ${r} 0 ${large} ${sweep} ${p1.x} ${p1.y}`;}
+// hand of an L from its vertices: signed area of (v0,v1,v5)
+function hand(pts){const a=pts[0],b=pts[1],c=pts[5];return Math.sign((b.x-a.x)*(c.y-a.y)-(b.y-a.y)*(c.x-a.x));}
+function sameHand(A,B){return hand(A)===hand(B);}
+// linear part of the map that sends fig -> img (assumes it is affine): use v1-v0 and v5-v0
+function linearPart(fig,img){const e1={x:fig[1].x-fig[0].x,y:fig[1].y-fig[0].y},e2={x:fig[5].x-fig[0].x,y:fig[5].y-fig[0].y};const f1={x:img[1].x-img[0].x,y:img[1].y-img[0].y},f2={x:img[5].x-img[0].x,y:img[5].y-img[0].y};
+  // solve M e1 = f1, M e2 = f2
+  const det=e1.x*e2.y-e1.y*e2.x;const inv=[[e2.y/det,-e2.x/det],[-e1.y/det,e1.x/det]];
+  const F=[[f1.x,f2.x],[f1.y,f2.y]];const M=[[F[0][0]*inv[0][0]+F[0][1]*inv[1][0],F[0][0]*inv[0][1]+F[0][1]*inv[1][1]],[F[1][0]*inv[0][0]+F[1][1]*inv[1][0],F[1][0]*inv[0][1]+F[1][1]*inv[1][1]]];return M;}
+function fmt(x){const s=(Math.abs(x)<5e-3?0:x).toFixed(2);return (x>=0?' ':'')+s;}
+// a lamp: two positions
+function lamp(svg,x,y,val,label){el('rect',{x:x,y:y,width:120,height:54,rx:6,fill:'#f6f4ef',stroke:C.ghost},svg);
+  text(svg,x+8,y+16,label||'sign',{'font-size':12});
+  el('circle',{cx:x+35,cy:y+36,r:10,fill:val===1?C.ok:'#e6e3dc',stroke:C.ghost},svg);text(svg,x+50,y+41,'+1',{fill:val===1?C.ink:C.ghost,'font-size':14});
+  el('circle',{cx:x+80,cy:y+36,r:10,fill:val===-1?C.bad:'#e6e3dc',stroke:C.ghost},svg);text(svg,x+95,y+41,'−1',{fill:val===-1?C.ink:C.ghost,'font-size':14});
+  if(val===null){text(svg,x,y+70,'no sign: not a congruence',{fill:C.bad,'font-size':12});}
+}
+
+// ---------- Diagram 1 ----------
+(function(){
+  const svg=document.querySelector('#d1 svg');const S=document.getElementById('d1s'),SR=document.getElementById('d1sr'),A=document.getElementById('d1a'),AR=document.getElementById('d1ar'),ONE=document.getElementById('d1one'),V=document.getElementById('d1v');
+  const P={x:300,y:180};
+  function draw(){
+    clear(svg);frame(svg,600,340);
+    const th=deg(+A.value);AR.textContent=A.value+'°';
+    const aA=deg(90),aB=deg(90)+th;
+    const order=document.querySelector('input[name=d1o]:checked').value;
+    const first=order==='AB'?{P,a:aA,name:'A'}:{P,a:aB,name:'B'};
+    const second=order==='AB'?{P,a:aB,name:'B'}:{P,a:aA,name:'A'};
+    infLine(svg,P,aA,C.mirror,{'stroke-width':3});infLine(svg,P,aB,C.mirror2,{'stroke-width':3});
+    text(svg,P.x+6,18,'A',{fill:C.mirror,'font-size':15});text(svg,P.x+Math.cos(aB)*165+6,P.y+Math.sin(aB)*165,'B',{fill:C.mirror2,'font-size':15});
+    dot(svg,P,4,C.ink);text(svg,P.x+8,P.y+16,'P');
+    const fig=Lpts(165,240);
+    const g1=mapPts(fig,p=>reflect(p,first.P,first.a));const img=mapPts(g1,p=>reflect(p,second.P,second.a));
+    const step=+S.value;
+    SR.textContent=step===0?'0: figure':step===1?('1: after '+first.name):('2: after '+first.name+' then '+second.name);
+    poly(svg,fig,C.ink,'#fff');
+    if(step>=1)poly(svg,g1,step===1?C.image:C.ghost,step===1?'#fff':'none',step===1?{}:{'stroke-dasharray':'4 3'});
+    if(step>=2)poly(svg,img,C.image,'#fff');
+    if(ONE.checked){
+      const c0=fig[0],c1=img[0];const r=Math.hypot(c0.x-P.x,c0.y-P.y);const b0=Math.atan2(c0.y-P.y,c0.x-P.x);let b1=Math.atan2(c1.y-P.y,c1.x-P.x);let d=b1-b0;while(d>Math.PI)d-=2*Math.PI;while(d<-Math.PI)d+=2*Math.PI;
+      el('path',{d:arcPath(P,r,b0,b0+d),stroke:C.image,fill:'none','stroke-width':1.5,'stroke-dasharray':'5 4'},svg);
+      line(svg,P,c0,C.ghost,{'stroke-width':1});line(svg,P,c1,C.ghost,{'stroke-width':1});
+      if(step<2)poly(svg,img,C.image,'none',{'stroke-dasharray':'2 3'});
+      const mid=b0+d/2;text(svg,P.x+Math.cos(mid)*(r+16)-10,P.y+Math.sin(mid)*(r+16)+4,'one rotation, '+(2*(+A.value))+'°',{fill:C.image});
+    }
+    let dd=0;{const c0=fig[0],c1=img[0];const b0=Math.atan2(c0.y-P.y,c0.x-P.x),b1=Math.atan2(c1.y-P.y,c1.x-P.x);dd=b1-b0;while(dd>Math.PI)dd-=2*Math.PI;while(dd<-Math.PI)dd+=2*Math.PI;}
+    const sense=dd>0?'the clockwise sense as drawn':'the counterclockwise sense as drawn';
+    V.textContent=(order==='AB'?'A then B':'B then A')+': the composition is a single rotation by '+(2*(+A.value))+'° about P, in '+sense+'. Reverse the order and the rotation reverses: composition is not commutative, so it is not multiplication of numbers.';
+    V.className='verdict';
+  }
+  [S,A].forEach(e=>e.addEventListener('input',draw));ONE.addEventListener('change',draw);document.querySelectorAll('input[name=d1o]').forEach(r=>r.addEventListener('change',draw));draw();
+})();
+
+// ---------- Diagram 2 ----------
+(function(){
+  const svg=document.querySelector('#d2 svg');const ADD=document.getElementById('d2add'),REM=document.getElementById('d2rem'),N=document.getElementById('d2n'),V=document.getElementById('d2v');
+  const O={x:300,y:170};const specs=[{P:O,a:deg(90)},{P:O,a:deg(135)},{P:O,a:0},{P:O,a:deg(60)},{P:O,a:deg(20)}];
+  let n=1;
+  function draw(){
+    clear(svg);frame(svg,600,430);
+    N.textContent=n+(n===1?' mirror':' mirrors');
+    for(let i=0;i<n;i++){infLine(svg,specs[i].P,specs[i].a,MC[i],{'stroke-width':3});text(svg,O.x+Math.cos(specs[i].a)*160+4,O.y+Math.sin(specs[i].a)*160-4,String(i+1),{fill:MC[i],'font-size':14});}
+        const fig=Lpts(200,200);let cur=fig;const steps=[];
+    for(let i=0;i<n;i++){cur=mapPts(cur,p=>reflect(p,specs[i].P,specs[i].a));steps.push(cur);}
+    poly(svg,fig,C.ink,'#fff');
+    steps.forEach((s,i)=>{if(i<n-1)poly(svg,s,C.ghost,'none',{'stroke-dasharray':'4 3'});});
+    if(n)poly(svg,steps[n-1],C.image,'#fff');
+    // strip of cards
+    el('rect',{x:0,y:345,width:600,height:85,fill:'#f6f4ef'},svg);
+    text(svg,12,362,'numbers attached to the mirrors, multiplied:',{'font-size':12});
+    let x=14;
+    for(let i=0;i<n;i++){el('rect',{x,y:370,width:44,height:44,rx:5,fill:'#fff',stroke:MC[i],'stroke-width':2},svg);text(svg,x+11,399,'−1',{fill:C.ink,'font-size':16});x+=50;if(i<n-1){text(svg,x+2,399,'×',{'font-size':16});x+=20;}}
+    text(svg,x+6,399,'=',{'font-size':16});
+    const prod=n%2===0?1:-1;
+    el('rect',{x:x+24,y:370,width:54,height:44,rx:5,fill:prod===1?'#e2f3f1':'#fbe6e2',stroke:C.ghost},svg);text(svg,x+36,399,prod===1?'+1':'−1',{fill:C.ink,'font-size':18});
+    const same=sameHand(fig,n?steps[n-1]:fig);
+    V.textContent=`Composition: ${n} mirror${n===1?'':'s'}, one resulting map. Product of the attached numbers: ${prod===1?'+1':'−1'}. Hand of the final image, read from the drawing: ${same?'same as the figure':'opposite to the figure'}.`;
+    V.className='verdict '+(prod===1?'same':'diff');
+  }
+  ADD.addEventListener('click',()=>{if(n<5){n++;draw();}});REM.addEventListener('click',()=>{if(n>0){n--;draw();}});draw();
+})();
+
+// ---------- Diagram 3 ----------
+(function(){
+  const svg=document.querySelector('#d3 svg');const R=document.getElementById('d3r'),RR=document.getElementById('d3rr'),ADD=document.getElementById('d3add'),RESET=document.getElementById('d3reset'),N=document.getElementById('d3n'),V=document.getElementById('d3v');
+  const P={x:210,y:180};let extra=0;
+  function draw(){
+    clear(svg);frame(svg,600,360);
+    const r=deg(+R.value);RR.textContent=R.value+'°';
+    const a1=deg(90)+r,a2=deg(90)+r+deg(30);
+    // inserted cancelling pairs: coincident mirrors at a fixed angle, applied between a1 and a2
+    const aX=deg(150);
+    const fig=Lpts(100,260,.9);
+    const recipe=[{a:a1,c:C.mirror}];
+    for(let i=0;i<extra;i++){recipe.push({a:aX,c:C.mirror3});recipe.push({a:aX,c:C.mirror3});}
+    recipe.push({a:a2,c:C.mirror2});
+    recipe.forEach(m=>infLine(svg,P,m.a,m.c,{'stroke-width':3,opacity:m.c===C.mirror3?.6:1}));
+    el('rect',{x:420,y:0,width:180,height:360,fill:'#f6f4ef'},svg);
+    let cur=fig;recipe.forEach(m=>{cur=mapPts(cur,p=>reflect(p,P,m.a));});
+    const img=cur;
+    // arc 60
+    const c0=fig[0],c1=img[0];const rad=Math.hypot(c0.x-P.x,c0.y-P.y);const b0=Math.atan2(c0.y-P.y,c0.x-P.x);let b1=Math.atan2(c1.y-P.y,c1.x-P.x);let d=b1-b0;while(d>Math.PI)d-=2*Math.PI;while(d<-Math.PI)d+=2*Math.PI;
+    el('path',{d:arcPath(P,rad,b0,b0+d),stroke:C.image,fill:'none','stroke-width':1.2,'stroke-dasharray':'5 4'},svg);
+    poly(svg,fig,C.ink,'#fff');poly(svg,img,C.image,'#fff');dot(svg,P,4,C.ink);text(svg,P.x+8,P.y+16,'P');
+    text(svg,20,24,'target: rotation by 60° about P',{fill:C.image});
+    // matrix
+    const M=linearPart(fig,img);const det=M[0][0]*M[1][1]-M[0][1]*M[1][0];
+    const count=recipe.length;
+    text(svg,432,30,'linear part of the composed map',{'font-size':12});
+    text(svg,432,34+22,'(read off the image, not the recipe)',{'font-size':11});
+    const mono={'font-family':'Menlo, Consolas, monospace','font-size':14,fill:C.ink};
+    text(svg,440,90,'⎡'+fmt(M[0][0])+'  '+fmt(M[0][1])+'⎤',mono);text(svg,440,112,'⎣'+fmt(M[1][0])+'  '+fmt(M[1][1])+'⎦',mono);
+    text(svg,432,150,'determinant = '+fmt(det).trim(),{fill:C.ink,'font-size':14});
+    text(svg,432,185,'mirrors in this recipe: '+count,{fill:C.ink,'font-size':14});
+    text(svg,432,208,'(−1)^'+count+' = '+(count%2?'−1':'+1'),{fill:C.ink,'font-size':14});
+    lamp(svg,432,240,det>0?1:-1,'sign of the map');
+    N.textContent=count+' mirrors';
+    V.textContent=`Recipe uses ${count} mirrors; the pair is turned by ${R.value}°. The image is the same. Determinant ${fmt(det).trim()} agrees with (−1)^${count}. Every recipe for this map has even parity.`;
+    V.className='verdict same';
+  }
+  R.addEventListener('input',draw);ADD.addEventListener('click',()=>{if(extra<2){extra++;draw();}});RESET.addEventListener('click',()=>{extra=0;R.value=0;draw();});draw();
+})();
+
+// ---------- Diagram 4 ----------
+(function(){
+  const svg=document.querySelector('#d4 svg');const SA=document.getElementById('d4a'),SB=document.getElementById('d4b'),V=document.getElementById('d4v');
+  const P={x:300,y:150};
+  const maps={
+    mirror:{sign:-1,f:p=>reflect(p,P,deg(90)),draw:s=>{infLine(s,P,deg(90),C.mirror,{'stroke-width':2,opacity:.6});}},
+    rotation:{sign:1,f:p=>rotate(p,P,deg(70)),draw:s=>{dot(s,P,4,C.ink);}},
+    translation:{sign:1,f:p=>translate(p,120,0),draw:()=>{}},
+    glide:{sign:-1,f:p=>translate(reflect(p,P,0),110,0),draw:s=>{infLine(s,P,0,C.mirror2,{'stroke-width':2,opacity:.6});}},
+    halfturn:{sign:1,f:p=>rotate(p,P,Math.PI),draw:s=>{dot(s,P,4,C.ink);}}
+  };
+  const names={mirror:'mirror',rotation:'rotation',translation:'translation',glide:'glide',halfturn:'half-turn'};
+  function draw(){
+    clear(svg);frame(svg,600,300);
+    const A=maps[SA.value],B=maps[SB.value];
+    A.draw(svg);B.draw(svg);
+    const fig=Lpts(130,200,.9);const g=mapPts(fig,A.f);const img=mapPts(g,B.f);
+    poly(svg,fig,C.ink,'#fff');poly(svg,g,C.ghost,'none',{'stroke-dasharray':'4 3'});poly(svg,img,C.image,'#fff');
+    const lab=(pts,t,c)=>{const ys=pts.map(p=>p.y),xs=pts.map(p=>p.x);text(svg,Math.min(...xs),Math.max(...ys)+16,t,{fill:c});};lab(fig,'figure',C.muted);lab(g,'after A',C.ghost);lab(img,'after B',C.image);
+    const handSame=sameHand(fig,img);const left=handSame?1:-1;const right=A.sign*B.sign;
+    // two ledgers
+    el('rect',{x:10,y:10,width:270,height:62,rx:6,fill:'#f6f4ef'},svg);
+    text(svg,20,28,'left bookkeeping: compose, then look',{'font-size':12});
+    text(svg,20,52,'hand of final image: '+(handSame?'same  → +1':'opposite  → −1'),{fill:C.ink,'font-size':14});
+    el('rect',{x:320,y:10,width:270,height:62,rx:6,fill:'#f6f4ef'},svg);
+    text(svg,330,28,'right bookkeeping: multiply the signs',{'font-size':12});
+    text(svg,330,52,`sign(B)·sign(A) = (${B.sign>0?'+1':'−1'})(${A.sign>0?'+1':'−1'}) = ${right>0?'+1':'−1'}`,{fill:C.ink,'font-size':14});
+    V.textContent=`A = ${names[SA.value]} (sign ${A.sign>0?'+1':'−1'}), B = ${names[SB.value]} (sign ${B.sign>0?'+1':'−1'}). Left gives ${left>0?'+1':'−1'}, right gives ${right>0?'+1':'−1'}: ${left===right?'they agree.':'DISAGREE (this should never happen).'}`;
+    V.className='verdict '+(left===right?'same':'diff');
+  }
+  SA.addEventListener('change',draw);SB.addEventListener('change',draw);draw();
+})();
+
+// ---------- Diagram 5 ----------
+(function(){
+  const svg=document.querySelector('#d5 svg');const T=document.getElementById('d5t'),TR=document.getElementById('d5tr'),V=document.getElementById('d5v');
+  const P={x:260,y:180};
+  function draw(){
+    clear(svg);frame(svg,600,340);
+    const t=(+T.value)/100;TR.textContent=t.toFixed(2);
+    const mode=document.querySelector('input[name=d5m]:checked').value;
+    const fig=Lpts(150,240);let img,sign,msg;
+    if(mode==='rot'){img=mapPts(fig,p=>rotate(p,P,Math.PI*t));dot(svg,P,4,C.ink);text(svg,P.x+8,P.y+16,'P');sign=1;
+      const c0=fig[0];const r=Math.hypot(c0.x-P.x,c0.y-P.y);const b0=Math.atan2(c0.y-P.y,c0.x-P.x);el('path',{d:arcPath(P,r,b0,b0+Math.PI*t+1e-6),stroke:C.ghost,fill:'none','stroke-width':1,'stroke-dasharray':'3 4'},svg);
+      msg=`Rotation by ${(180*t).toFixed(0)}°: a congruence at every t. Sign +1 throughout.`;}
+    else if(mode==='mir'){const Q={x:P.x+60*t,y:P.y};const a=deg(90)+deg(50)*t;infLine(svg,Q,a,C.mirror,{'stroke-width':3});img=mapPts(fig,p=>reflect(p,Q,a));sign=-1;
+      msg=`Mirror in a line that slides and turns with t: a congruence at every t. Sign −1 throughout. A mirror can move continuously; it cannot become a rotation.`;}
+    else{infLine(svg,P,deg(90),C.mirror,{'stroke-width':3});const mir=mapPts(fig,p=>reflect(p,P,deg(90)));img=fig.map((p,i)=>({x:(1-t)*p.x+t*mir[i].x,y:(1-t)*p.y+t*mir[i].y}));
+      const shortLen=Math.hypot(img[1].x-img[0].x,img[1].y-img[0].y),longLen=Math.hypot(img[5].x-img[0].x,img[5].y-img[0].y);
+      const isCong=t===0||t===1;sign=isCong?(t===0?1:-1):null;
+      fig.forEach((p,i)=>line(svg,p,mir[i],C.ghost,{'stroke-width':1,'stroke-dasharray':'3 4'}));
+      text(svg,20,300,`short bar length: ${shortLen.toFixed(1)}  (figure: 40.0)`,{fill:isCong?C.ink:C.bad,'font-size':14});
+      text(svg,20,320,`long bar length: ${longLen.toFixed(1)}  (figure: 50.0)`,{fill:C.ink,'font-size':14});
+      msg=isCong?(t===0?'t = 0: the figure itself. Sign +1.':'t = 1: the mirror image. Sign −1.'):`0 < t < 1: distances are not preserved (short bar ${shortLen.toFixed(1)} instead of 40). Not a congruence, so no sign. The path reaches the mirror image only by leaving the congruences.`;}
+    poly(svg,fig,C.ink,'#fff');poly(svg,img,C.image,sign===null?'none':'#fff');
+    lamp(svg,460,20,sign,'sign lamp');
+    V.textContent=msg;V.className='verdict '+(sign===null?'warn':(sign===1?'same':'diff'));
+  }
+  T.addEventListener('input',draw);document.querySelectorAll('input[name=d5m]').forEach(r=>r.addEventListener('change',draw));draw();
+})();
+})();
+</script>
+</body>
+</html>
