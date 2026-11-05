@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The fold line as axis of revolution</title>
+<style>
+  :root{
+    --ink:#222; --mute:#777; --panel:#fafaf7; --rule:#ddd;
+    --teal:#3b8686; --red:#b0413e; --grey:#9a9a9a; --green:#5cb85c; --gold:#b8860b;
+  }
+  html,body{margin:0;background:#fff;color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;font-size:17px;line-height:1.5}
+  main{max-width:760px;margin:0 auto;padding:24px 18px 80px}
+  h1{font-weight:normal;font-size:1.7em;margin:.2em 0 .1em}
+  h2{font-weight:normal;font-size:1.25em;margin:1.8em 0 .4em}
+  p{margin:.6em 0}
+  .sub{color:var(--mute);margin-top:0}
+  .panel{background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:12px 14px;margin:14px 0}
+  svg{width:100%;height:auto;display:block}
+  .controls{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin-top:8px}
+  .controls label{display:flex;align-items:center;gap:8px}
+  input[type=range]{width:200px;accent-color:var(--teal)}
+  .val{min-width:3.2em;text-align:right;font-variant-numeric:tabular-nums;background:#fff;border:1px solid var(--rule);padding:1px 6px;border-radius:4px}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.9em;color:var(--mute);margin-top:8px}
+  .sw{display:inline-block;width:16px;height:3px;vertical-align:middle;margin-right:6px}
+  .readings{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:.95em;margin:8px 0}
+  .readings b{font-weight:normal;color:var(--mute)}
+  .readings span{font-variant-numeric:tabular-nums}
+  .caption{font-size:.92em;color:var(--mute);margin:8px 0 0}
+  dl{margin:.4em 0}
+  dt{margin-top:.6em}
+  dd{margin:0 0 0 1.2em;color:#444}
+  .verdict{font-weight:bold}
+  .yes{color:var(--teal)} .no{color:var(--red)}
+  .term{font-style:italic}
+  table{border-collapse:collapse;width:100%;font-size:.95em;margin:.6em 0}
+  td,th{border-top:1px solid var(--rule);padding:6px 8px;text-align:left;vertical-align:top}
+  th{font-weight:normal;color:var(--mute)}
+  .foot{color:var(--mute);font-size:.85em;margin-top:40px;border-top:1px solid var(--rule);padding-top:10px}
+</style>
+</head>
+<body>
+<main>
+
+<h1>The fold line as axis of revolution</h1>
+<p class="sub">One line, two uses: the hinge of a mirror, and the hinge of a drawing. Plate v1.</p>
+
+<p>Two fold lines appear in the plan-and-elevation sketch of a pin being turned out of its plane. One is the hinge of the half-turn that produces the mirror; its angle is free, and its angle is the measure. The other is the line between plan and elevation; its angle is fixed at 90° by the convention of descriptive geometry, and it is never read. This plate works out what each one does to the figure, in the same drawing, driven by the same dial.</p>
+
+<div class="panel">
+<h2 style="margin-top:0">Terms used on this plate</h2>
+<dl>
+<dt><span class="term">fixed line</span> (of a map)</dt><dd>the line of points the map leaves where they are. A mirror of the plane is determined by its fixed line; a half-turn of space is determined by its fixed line (its axis).</dd>
+<dt><span class="term">fold line</span></dt><dd>on this plate, always the mirror’s hinge: the fixed line shared by the mirror of the plane and the half-turn of space. Drawn teal.</dd>
+<dt><span class="term">ground line</span></dt><dd>Monge’s term (<i>ligne de terre</i>) for the line between plan and elevation, where the two picture planes meet. The drafting “fold line” — called ground line here so the two hinges never share a name. Drawn dark grey.</dd>
+<dt><span class="term">revolution</span> (Monge: <i>rabattement</i>)</dt><dd>rotating a figure about a line lying in a picture plane. Each point travels on a circle whose plane is perpendicular to the axis.</dd>
+<dt><span class="term">trace</span></dt><dd>what the plan sees of a figure in space: its orthogonal projection onto the plan plane.</dd>
+<dt><span class="term">trace map</span></dt><dd>the map of the plan plane that sends each point’s position at 0° to the trace of its position at the current angle θ. Written <i>T<sub>θ</sub></i>.</dd>
+<dt><span class="term">congruence</span></dt><dd>a map of the plane that preserves every distance. Its determinant is +1 or −1 and nothing else.</dd>
+<dt><span class="term">projector</span></dt><dd>a line joining a point’s plan position to its elevation position, perpendicular to the ground line. Drawn green, dashed.</dd>
+</dl>
+</div>
+
+<h2>1. The pin, revolved — plan over elevation</h2>
+<p>The pin lies in the plan plane, parallel to the fold line, at distance <i>d</i> from it. Turn the dial: the pin revolves about the fold line. The elevation looks along the fold line, so the fold line is a point there and the pin is a point travelling on a circle of radius <i>d</i>. The plan sees only the pin’s shadow, which slides toward the fold line, crosses it, and arrives on the far side.</p>
+
+<div class="panel">
+<svg id="fig1" viewBox="0 0 600 540" aria-label="plan over elevation of a pin revolved about the fold line">
+  <!-- plan region -->
+  <text x="22" y="34" fill="#999" font-size="14">plan</text>
+  <line x1="380" y1="18" x2="380" y2="252" stroke="#3b8686" stroke-width="2.5"/>
+  <text x="388" y="248" fill="#3b8686" font-size="13">fold line</text>
+  <!-- pin at 0 -->
+  <line id="p1-pin0" x1="240" y1="90" x2="240" y2="210" stroke="#9a9a9a" stroke-width="5" stroke-linecap="round"/>
+  <circle id="p1-head0" cx="240" cy="210" r="7" fill="#9a9a9a"/>
+  <text x="228" y="76" fill="#9a9a9a" font-size="12">0°</text>
+  <!-- mirror ghost -->
+  <line x1="520" y1="90" x2="520" y2="210" stroke="#bbb" stroke-width="2" stroke-dasharray="3 4"/>
+  <circle cx="520" cy="210" r="5" fill="none" stroke="#bbb" stroke-width="1.5"/>
+  <text x="494" y="76" fill="#aaa" font-size="12">180°</text>
+  <!-- path of head in plan -->
+  <line x1="240" y1="210" x2="520" y2="210" stroke="#bbb" stroke-width="1" stroke-dasharray="2 4"/>
+  <!-- projectors -->
+  <line id="p1-proj0" x1="240" y1="210" x2="240" y2="470" stroke="#5cb85c" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line id="p1-projF" x1="380" y1="252" x2="380" y2="470" stroke="#5cb85c" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line id="p1-proj" x1="240" y1="210" x2="240" y2="470" stroke="#5cb85c" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <!-- pin during fold (trace) -->
+  <line id="p1-pin" x1="240" y1="90" x2="240" y2="210" stroke="#b0413e" stroke-width="5" stroke-linecap="round"/>
+  <circle id="p1-head" cx="240" cy="210" r="7" fill="#b0413e"/>
+  <!-- ground line -->
+  <line x1="10" y1="280" x2="590" y2="280" stroke="#444" stroke-width="2"/>
+  <text x="22" y="272" fill="#999" font-size="14">plan</text>
+  <text x="22" y="300" fill="#999" font-size="14">elevation</text>
+  <text x="470" y="272" fill="#444" font-size="12">ground line (90°, fixed)</text>
+  <!-- elevation -->
+  <line x1="120" y1="470" x2="560" y2="470" stroke="#777" stroke-width="1.5"/>
+  <text x="540" y="490" fill="#777" font-size="12">plane</text>
+  <path d="M240,470 A140,140 0 0 1 520,470" fill="none" stroke="#bbb" stroke-width="1" stroke-dasharray="3 4"/>
+  <circle cx="240" cy="470" r="4" fill="#9a9a9a"/>
+  <circle cx="380" cy="470" r="6" fill="#3b8686"/>
+  <text x="340" y="496" fill="#3b8686" font-size="12">fold line (end-on)</text>
+  <path id="p1-arc" d="" fill="none" stroke="#444" stroke-width="1"/>
+  <text id="p1-ang" x="356" y="440" fill="#444" font-size="13" text-anchor="end">0°</text>
+  <line id="p1-arm" x1="380" y1="470" x2="240" y2="470" stroke="#444" stroke-width="1.5"/>
+  <circle id="p1-pt" cx="240" cy="470" r="7" fill="#b0413e"/>
+  <text id="p1-ptlab" x="226" y="455" fill="#b0413e" font-size="12" text-anchor="end">pin (end-on)</text>
+  <!-- height marker -->
+  <line id="p1-h" x1="240" y1="470" x2="240" y2="470" stroke="#b0413e" stroke-width="1" stroke-dasharray="2 3"/>
+</svg>
+<div class="controls">
+  <label>Fold angle θ <input id="theta" type="range" min="0" max="180" value="0" step="1"> <span class="val" id="theta-val">0°</span></label>
+  <label><input id="run" type="checkbox"> run</label>
+</div>
+<div class="legend">
+  <span><i class="sw" style="background:#9a9a9a"></i>pin at 0°</span>
+  <span><i class="sw" style="background:#b0413e"></i>pin during the fold (its trace, in plan)</span>
+  <span><i class="sw" style="background:#3b8686"></i>fold line</span>
+  <span><i class="sw" style="background:#5cb85c"></i>projectors</span>
+  <span><i class="sw" style="background:#444"></i>ground line</span>
+</div>
+<div class="readings">
+  <b>distance of trace from fold line</b><span id="r-plan">d · cos 0° = +1.00 d</span>
+  <b>height of pin above the plane</b><span id="r-elev">d · sin 0° = 0.00 d</span>
+  <b>determinant of the trace map T<sub>θ</sub></b><span id="r-det">cos 0° = +1.00</span>
+  <b>is T<sub>θ</sub> a congruence?</b><span id="r-cong" class="verdict yes">yes — the identity</span>
+</div>
+<p class="caption">The projectors are the plan traces of the circles of revolution: each circle’s plane is perpendicular to the fold line, so the plan sees it edge-on, as a line perpendicular to the fold line. That is Monge’s construction for rabattement, and it is also why the pin’s shadow slides along a straight line.</p>
+</div>
+
+<h2>2. What the plan sees: the trace map</h2>
+<p>Take the pin’s side of the plan plane as a figure in its own right — here a flag, so that handedness shows. Revolve the whole figure with the pin. The plan sees each point at distance <i>x</i> from the fold line arrive at distance <i>x</i>·cos θ. The trace map is a compression toward the fold line:</p>
+<p style="text-align:center"><i>T<sub>θ</sub></i>(<i>x</i>, <i>y</i>) = (<i>x</i>·cos θ, <i>y</i>), determinant cos θ.</p>
+
+<div class="panel">
+<svg id="fig2" viewBox="0 0 600 300" aria-label="the trace map applied to a flag-shaped figure">
+  <line x1="300" y1="14" x2="300" y2="286" stroke="#3b8686" stroke-width="2.5"/>
+  <text x="308" y="282" fill="#3b8686" font-size="13">fold line</text>
+  <polygon id="f2-orig" points="" fill="none" stroke="#bbb" stroke-width="1.5" stroke-dasharray="3 4"/>
+  <polygon id="f2-trace" points="" fill="rgba(176,65,62,0.12)" stroke="#b0413e" stroke-width="2.5" stroke-linejoin="round"/>
+  <text id="f2-lab" x="20" y="34" fill="#444" font-size="13"></text>
+</svg>
+<!-- determinant dial -->
+<svg id="dial" viewBox="0 0 600 90" aria-label="determinant of the trace map from +1 through 0 to −1">
+  <line x1="60" y1="40" x2="540" y2="40" stroke="#777" stroke-width="1.5"/>
+  <g stroke="#777" stroke-width="1.5">
+    <line x1="60" y1="32" x2="60" y2="48"/><line x1="300" y1="32" x2="300" y2="48"/><line x1="540" y1="32" x2="540" y2="48"/>
+  </g>
+  <text x="60" y="70" fill="#444" font-size="13" text-anchor="middle">+1  identity</text>
+  <text x="300" y="70" fill="#444" font-size="13" text-anchor="middle">0  collapse (ε)</text>
+  <text x="540" y="70" fill="#444" font-size="13" text-anchor="middle">−1  mirror</text>
+  <text x="60" y="20" fill="#999" font-size="12" text-anchor="middle">0°</text>
+  <text x="300" y="20" fill="#999" font-size="12" text-anchor="middle">90°</text>
+  <text x="540" y="20" fill="#999" font-size="12" text-anchor="middle">180°</text>
+  <circle id="dial-pt" cx="60" cy="40" r="8" fill="#b0413e"/>
+  <text x="20" y="44" fill="#999" font-size="12">det</text>
+</svg>
+<div class="readings">
+  <b>determinant</b><span id="r2-det">+1.00</span>
+  <b>handedness of the trace</b><span id="r2-hand">same as the figure</span>
+</div>
+<p class="caption">The plan’s own congruences have determinant +1 or −1 and nothing between. The trace map runs continuously from +1 to −1, which a congruence cannot do, because it passes through every value between — including 0, where the figure is crushed onto the fold line and the map is not invertible. This is the exact content of “the sign would have to jump”: in the plane, the only way from identity to mirror is to pass through a collapse. Space replaces shrinking by turning.</p>
+</div>
+
+<h2>3. The ground line: the same hinge, used once</h2>
+<p>Descriptive geometry also revolves about a line in a picture plane — but it revolves the <i>elevation plane itself</i>, and only ever by 90°. In working position the elevation plane stands perpendicular to the plan, so each plane is edge-on in the other: depth in one is height in the other. To draw both on one sheet, the elevation plane is laid down about the ground line. Look along the ground line to watch it happen.</p>
+
+<div class="panel">
+<svg id="fig3" viewBox="0 0 600 300" aria-label="end view along the ground line: the elevation plane laid down onto the plan plane">
+  <line x1="60" y1="220" x2="560" y2="220" stroke="#777" stroke-width="2"/>
+  <text x="540" y="240" fill="#777" font-size="12">plan plane (edge-on)</text>
+  <circle cx="300" cy="220" r="6" fill="#444"/>
+  <text x="300" y="262" fill="#444" font-size="13" text-anchor="middle">ground line (end-on)</text>
+  <path d="M300,60 A160,160 0 0 1 460,220" fill="none" stroke="#bbb" stroke-width="1" stroke-dasharray="3 4"/>
+  <line x1="300" y1="220" x2="300" y2="60" stroke="#ccc" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="292" y="50" fill="#aaa" font-size="12" text-anchor="end">elevation plane, working position (90°)</text>
+  <line id="f3-plane" x1="300" y1="220" x2="300" y2="60" stroke="#444" stroke-width="3" stroke-linecap="round"/>
+  <path id="f3-arcP" d="" fill="none" stroke="#5cb85c" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <circle id="f3-P" cx="300" cy="110" r="7" fill="#b0413e"/>
+  <text id="f3-Plab" x="312" y="114" fill="#b0413e" font-size="12">a point of the elevation, height h</text>
+  <circle cx="410" cy="220" r="5" fill="none" stroke="#b0413e" stroke-width="1.5"/>
+  <text x="410" y="200" fill="#b0413e" font-size="12" text-anchor="middle">lands at distance h from the ground line</text>
+</svg>
+<div class="controls">
+  <label>Laying-down angle φ <input id="phi" type="range" min="0" max="90" value="90" step="1"> <span class="val" id="phi-val">90°</span></label>
+</div>
+<div class="readings">
+  <b>angle between the planes</b><span id="r3">90° — working position: each plane is edge-on in the other</span>
+</div>
+<p class="caption">Only the two ends of this dial are ever used: 90° is where the elevation plane does its work, 0° is where it is drawn. The intermediate angles are never read, so the ground line carries a view and no measure. In the pin figure, 90° was the angle of collapse; here the same angle is chosen on purpose — the elevation plane is placed exactly where the plan would see it as a line, then swung flat.</p>
+</div>
+
+<h2>4. One hinge, two uses</h2>
+<table>
+<tr><th></th><th>fold line (mirror)</th><th>ground line (drafting)</th></tr>
+<tr><td>what revolves</td><td>the figure (the pin); the plane stays put</td><td>a picture plane, carrying its image</td></tr>
+<tr><td>the angle</td><td>free, 0° to 180°; it is the measure</td><td>fixed at 90°; a constant of the convention</td></tr>
+<tr><td>what the plan reads</td><td>the trace: compressed by cos θ, crossing the fold line at 90°</td><td>a second view, in true size, laid beside the first</td></tr>
+<tr><td>at 90°</td><td>collapse: the figure becomes a line on the fold line</td><td>working position: the planes are perpendicular</td></tr>
+<tr><td>at 180°</td><td>the mirror: trace congruent to the figure, hand reversed</td><td>not used</td></tr>
+<tr><td>the construction</td><td colspan="2">identical: each point on a circle perpendicular to the axis, seen in plan as a projector perpendicular to the axis</td></tr>
+</table>
+<p>So the mirror fold line is not a new object. It is the axis of a rabattement, the thing descriptive geometry has always had — with its dial unlocked, and read.</p>
+
+<p class="foot">Plate v1, 5 Nov 2026. Self-contained; no check file. “v1” is a placeholder for the register.</p>
+
+</main>
+<script>
+(function(){
+  var d = 140, foldX = 380, planeY = 470, headY = 210, pinTop = 90;
+  var theta = document.getElementById('theta'), thetaVal = document.getElementById('theta-val');
+  var run = document.getElementById('run');
+  function fmt(v){ return (v>=0?'+':'−') + Math.abs(v).toFixed(2); }
+  function g(id){ return document.getElementById(id); }
+
+  // flag figure, in plan coords relative to fold line (x measured from fold line, negative = pin side)
+  var flag = [[-220,60],[-220,250],[-200,250],[-200,170],[-90,170],[-130,115],[-90,60]];
+  function poly(pts){ return pts.map(function(p){ return p[0]+','+p[1]; }).join(' '); }
+  g('f2-orig').setAttribute('points', poly(flag.map(function(p){ return [300+p[0], p[1]]; })));
+
+  function update(){
+    var t = +theta.value, r = t*Math.PI/180, c = Math.cos(r), s = Math.sin(r);
+    thetaVal.textContent = t + '°';
+    // fig 1 plan
+    var x = foldX - d*c;
+    g('p1-pin').setAttribute('x1', x); g('p1-pin').setAttribute('x2', x);
+    g('p1-head').setAttribute('cx', x);
+    g('p1-proj').setAttribute('x1', x); g('p1-proj').setAttribute('x2', x);
+    // fig 1 elevation
+    var px = foldX - d*c, py = planeY - d*s;
+    g('p1-arm').setAttribute('x2', px); g('p1-arm').setAttribute('y2', py);
+    g('p1-pt').setAttribute('cx', px); g('p1-pt').setAttribute('cy', py);
+    g('p1-ptlab').setAttribute('x', px - 12); g('p1-ptlab').setAttribute('y', py - 12);
+    g('p1-h').setAttribute('x1', px); g('p1-h').setAttribute('x2', px); g('p1-h').setAttribute('y1', py); g('p1-h').setAttribute('y2', planeY);
+    var R = 34, ax = foldX - R, ay = planeY, bx = foldX - R*c, by = planeY - R*s;
+    g('p1-arc').setAttribute('d', t===0 ? '' : 'M'+ax+','+ay+' A'+R+','+R+' 0 '+(t>180?1:0)+' 1 '+bx+','+by);
+    g('p1-ang').textContent = t + '°';
+    g('p1-ang').setAttribute('x', foldX - 42*Math.cos(r/2) - 4); g('p1-ang').setAttribute('y', planeY - 42*Math.sin(r/2) + 4);
+    // readings
+    g('r-plan').textContent = 'd · cos ' + t + '° = ' + fmt(c) + ' d';
+    g('r-elev').textContent = 'd · sin ' + t + '° = ' + s.toFixed(2) + ' d';
+    g('r-det').textContent = 'cos ' + t + '° = ' + fmt(c);
+    var cong = g('r-cong');
+    if (t===0){ cong.textContent='yes — the identity'; cong.className='verdict yes'; }
+    else if (t===180){ cong.textContent='yes — the mirror'; cong.className='verdict yes'; }
+    else if (t===90){ cong.textContent='no — collapse onto the fold line (not invertible)'; cong.className='verdict no'; }
+    else { cong.textContent='no — distances across the fold line are scaled by ' + Math.abs(c).toFixed(2); cong.className='verdict no'; }
+    // fig 2
+    g('f2-trace').setAttribute('points', poly(flag.map(function(p){ return [300 + p[0]*c, p[1]]; })));
+    g('f2-lab').textContent = 'θ = ' + t + '°   T(x, y) = (' + fmt(c) + ' x, y)';
+    g('dial-pt').setAttribute('cx', 300 - 240*c);
+    g('r2-det').textContent = fmt(c);
+    g('r2-hand').textContent = t<90 ? 'same as the figure' : t===90 ? 'none — the figure has no area' : 'reversed';
+  }
+  theta.addEventListener('input', update);
+  var dir = 1, timer = null;
+  run.addEventListener('change', function(){
+    if (run.checked){ timer = setInterval(function(){
+      var v = +theta.value + dir; if (v>=180){ v=180; dir=-1; } if (v<=0){ v=0; dir=1; }
+      theta.value = v; update(); }, 30); }
+    else { clearInterval(timer); }
+  });
+  update();
+
+  // fig 3
+  var phi = g('phi'), phiVal = g('phi-val');
+  function update3(){
+    var p = +phi.value, r = p*Math.PI/180, L = 160, h = 110;
+    phiVal.textContent = p + '°';
+    g('f3-plane').setAttribute('x2', 300 + L*Math.cos(r)); g('f3-plane').setAttribute('y2', 220 - L*Math.sin(r));
+    var Px = 300 + h*Math.cos(r), Py = 220 - h*Math.sin(r);
+    g('f3-P').setAttribute('cx', Px); g('f3-P').setAttribute('cy', Py);
+    g('f3-Plab').setAttribute('x', Px + 12); g('f3-Plab').setAttribute('y', Py + 4);
+    g('f3-arcP').setAttribute('d', p===90 ? '' : 'M300,'+(220-h)+' A'+h+','+h+' 0 0 1 '+Px+','+Py);
+    var r3 = g('r3');
+    if (p===90) r3.textContent = '90° — working position: each plane is edge-on in the other';
+    else if (p===0) r3.textContent = '0° — drawn position: heights appear as distances from the ground line';
+    else r3.textContent = p + '° — passed through, never read';
+  }
+  phi.addEventListener('input', update3);
+  update3();
+})();
+</script>
+</body>
+</html>
