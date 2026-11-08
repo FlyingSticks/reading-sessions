@@ -53,12 +53,12 @@
 <dl>
 <dt><span class="term">fixed line</span> (of a map)</dt><dd>the line of points the map leaves where they are. A mirror of the plane is determined by its fixed line; a half-turn of space is determined by its fixed line (its axis).</dd>
 <dt><span class="term">fold line</span></dt><dd>on this plate, always the mirror’s hinge: the fixed line shared by the mirror of the plane and the half-turn of space. Drawn teal.</dd>
-<dt><span class="term">ground line</span></dt><dd>Monge’s term (<i>ligne de terre</i>) for the line between plan and elevation, where the two picture planes meet. The drafting “fold line” — called ground line here so the two hinges never share a name. Drawn dark grey.</dd>
+<dt><span class="term">hinge <i>a</i></span></dt><dd>the line in which the plan plane and the elevation plane meet; the drafting hinge, about which the elevation plane is laid down onto the plan. Named <i>a</i> to match the Monge plates, where it is the line H∩V. Drawn dark grey. Not called <i>ground line</i>: Monge’s <i>ligne de terre</i> belongs to first-angle projection, where the object stands on the plan plane; these plates are plan-over-elevation, where that plane lies above the object.</dd>
 <dt><span class="term">revolution</span> (Monge: <i>rabattement</i>)</dt><dd>rotating a figure about a line lying in a picture plane. Each point travels on a circle whose plane is perpendicular to the axis.</dd>
-<dt><span class="term">trace</span></dt><dd>what the plan sees of a figure in space: its orthogonal projection onto the plan plane.</dd>
+<dt><span class="term">trace</span></dt><dd>on this plate: what the plan sees of a figure in space, its orthogonal projection onto the plan plane. (On the Monge plates the same word names the line where two picture planes meet; that line is called hinge <i>a</i> here, so the two uses never share a plate.)</dd>
 <dt><span class="term">trace map</span></dt><dd>the map of the plan plane that sends each point’s position at 0° to the trace of its position at the current angle θ. Written <i>T<sub>θ</sub></i>.</dd>
 <dt><span class="term">congruence</span></dt><dd>a map of the plane that preserves every distance. Its determinant is +1 or −1 and nothing else.</dd>
-<dt><span class="term">projector</span></dt><dd>a line joining a point’s plan position to its elevation position, perpendicular to the ground line. Drawn green, dashed.</dd>
+<dt><span class="term">projector</span></dt><dd>a line joining a point’s plan position to its elevation position, perpendicular to the hinge <i>a</i>. Drawn green, dashed.</dd>
 </dl>
 </div>
 
@@ -88,11 +88,11 @@
   <!-- pin during fold (trace) -->
   <line id="p1-pin" x1="240" y1="90" x2="240" y2="210" stroke="#b0413e" stroke-width="5" stroke-linecap="round"/>
   <circle id="p1-head" cx="240" cy="210" r="7" fill="#b0413e"/>
-  <!-- ground line -->
+  <!-- hinge a -->
   <line x1="10" y1="280" x2="590" y2="280" stroke="#444" stroke-width="2"/>
   <text x="22" y="272" fill="#999" font-size="14">plan</text>
   <text x="22" y="300" fill="#999" font-size="14">elevation</text>
-  <text x="470" y="272" fill="#444" font-size="12">ground line (90°, fixed)</text>
+  <text x="470" y="272" fill="#444" font-size="12">hinge a (90°, fixed)</text>
   <!-- elevation -->
   <line x1="120" y1="470" x2="560" y2="470" stroke="#777" stroke-width="1.5"/>
   <text x="540" y="490" fill="#777" font-size="12">plane</text>
@@ -117,7 +117,7 @@
   <span><i class="sw" style="background:#b0413e"></i>pin during the fold (its trace, in plan)</span>
   <span><i class="sw" style="background:#3b8686"></i>fold line</span>
   <span><i class="sw" style="background:#5cb85c"></i>projectors</span>
-  <span><i class="sw" style="background:#444"></i>ground line</span>
+  <span><i class="sw" style="background:#444"></i>hinge a</span>
 </div>
 <div class="readings">
   <b>distance of trace from fold line</b><span id="r-plan">d · cos 0° = +1.00 d</span>
@@ -166,15 +166,15 @@
 <p class="caption">The plan’s own congruences have determinant +1 or −1 and nothing between. The trace map runs continuously from +1 to −1, which a congruence cannot do, because it passes through every value between — including 0, where the figure is crushed onto the fold line and the map is not invertible. This is the exact content of “the sign would have to jump”: in the plane, the only way from identity to mirror is to pass through a collapse. Space replaces shrinking by turning.</p>
 </div>
 
-<h2>3. The ground line: the same hinge, used once</h2>
-<p>Descriptive geometry also revolves about a line in a picture plane — but it revolves the <i>elevation plane itself</i>, and only ever by 90°. In working position the elevation plane stands perpendicular to the plan, so each plane is edge-on in the other: depth in one is height in the other. To draw both on one sheet, the elevation plane is laid down about the ground line. Look along the ground line to watch it happen.</p>
+<h2>3. The hinge <i>a</i>: the same construction, used once</h2>
+<p>Descriptive geometry also revolves about a line in a picture plane — but it revolves the <i>elevation plane itself</i>, and only ever by 90°. In working position the elevation plane stands perpendicular to the plan, so each plane is edge-on in the other: depth in one is height in the other. To draw both on one sheet, the elevation plane is laid down about the hinge <i>a</i>. Look along <i>a</i> to watch it happen.</p>
 
 <div class="panel">
-<svg id="fig3" viewBox="0 0 600 300" aria-label="end view along the ground line: the elevation plane laid down onto the plan plane">
+<svg id="fig3" viewBox="0 0 600 300" aria-label="end view along the hinge a: the elevation plane laid down onto the plan plane">
   <line x1="60" y1="220" x2="560" y2="220" stroke="#777" stroke-width="2"/>
   <text x="540" y="240" fill="#777" font-size="12">plan plane (edge-on)</text>
   <circle cx="300" cy="220" r="6" fill="#444"/>
-  <text x="300" y="262" fill="#444" font-size="13" text-anchor="middle">ground line (end-on)</text>
+  <text x="300" y="262" fill="#444" font-size="13" text-anchor="middle">hinge a (end-on)</text>
   <path d="M300,60 A160,160 0 0 1 460,220" fill="none" stroke="#bbb" stroke-width="1" stroke-dasharray="3 4"/>
   <line x1="300" y1="220" x2="300" y2="60" stroke="#ccc" stroke-width="1.5" stroke-dasharray="4 4"/>
   <text x="292" y="50" fill="#aaa" font-size="12" text-anchor="end">elevation plane, working position (90°)</text>
@@ -183,7 +183,7 @@
   <circle id="f3-P" cx="300" cy="110" r="7" fill="#b0413e"/>
   <text id="f3-Plab" x="312" y="114" fill="#b0413e" font-size="12">a point of the elevation, height h</text>
   <circle cx="410" cy="220" r="5" fill="none" stroke="#b0413e" stroke-width="1.5"/>
-  <text x="410" y="200" fill="#b0413e" font-size="12" text-anchor="middle">lands at distance h from the ground line</text>
+  <text x="410" y="200" fill="#b0413e" font-size="12" text-anchor="middle">lands at distance h from the hinge a</text>
 </svg>
 <div class="controls">
   <label>Laying-down angle φ <input id="phi" type="range" min="0" max="90" value="90" step="1"> <span class="val" id="phi-val">90°</span></label>
@@ -191,12 +191,12 @@
 <div class="readings">
   <b>angle between the planes</b><span id="r3">90° — working position: each plane is edge-on in the other</span>
 </div>
-<p class="caption">Only the two ends of this dial are ever used: 90° is where the elevation plane does its work, 0° is where it is drawn. The intermediate angles are never read, so the ground line carries a view and no measure. In the pin figure, 90° was the angle of collapse; here the same angle is chosen on purpose — the elevation plane is placed exactly where the plan would see it as a line, then swung flat.</p>
+<p class="caption">Only the two ends of this dial are ever used: 90° is where the elevation plane does its work, 0° is where it is drawn. The intermediate angles are never read, so the hinge <i>a</i> carries a view and no measure. In the pin figure, 90° was the angle of collapse; here the same angle is chosen on purpose — the elevation plane is placed exactly where the plan would see it as a line, then swung flat.</p>
 </div>
 
 <h2>4. One hinge, two uses</h2>
 <table>
-<tr><th></th><th>fold line (mirror)</th><th>ground line (drafting)</th></tr>
+<tr><th></th><th>fold line (mirror)</th><th>hinge <i>a</i> (drafting)</th></tr>
 <tr><td>what revolves</td><td>the figure (the pin); the plane stays put</td><td>a picture plane, carrying its image</td></tr>
 <tr><td>the angle</td><td>free, 0° to 180°; it is the measure</td><td>fixed at 90°; a constant of the convention</td></tr>
 <tr><td>what the plan reads</td><td>the trace: compressed by cos θ, crossing the fold line at 90°</td><td>a second view, in true size, laid beside the first</td></tr>
@@ -206,7 +206,7 @@
 </table>
 <p>So the mirror fold line is not a new object. It is the axis of a rabattement, the thing descriptive geometry has always had — with its dial unlocked, and read.</p>
 
-<p class="foot">Plate v1, 5 Nov 2026. Self-contained; no check file. “v1” is a placeholder for the register.</p>
+<p class="foot">Plate v1, 5 Nov 2026; “ground line” renamed “hinge <i>a</i>” 8 Nov 2026. Self-contained; no check file. “v1” is a placeholder for the register.</p>
 
 </main>
 <script>
@@ -281,7 +281,7 @@
     g('f3-arcP').setAttribute('d', p===90 ? '' : 'M300,'+(220-h)+' A'+h+','+h+' 0 0 1 '+Px+','+Py);
     var r3 = g('r3');
     if (p===90) r3.textContent = '90° — working position: each plane is edge-on in the other';
-    else if (p===0) r3.textContent = '0° — drawn position: heights appear as distances from the ground line';
+    else if (p===0) r3.textContent = '0° — drawn position: heights appear as distances from the hinge a';
     else r3.textContent = p + '° — passed through, never read';
   }
   phi.addEventListener('input', update3);
