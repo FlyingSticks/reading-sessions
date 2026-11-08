@@ -38,7 +38,7 @@
     <button type="button" id="b90">flat sheet (90°)</button>
     <label><input type="checkbox" id="pt" checked> show a point and its three images</label>
   </div>
-  <div class="key"><span style="color:var(--a)">trace <i>a</i> = H∩V (the ground line)</span><span style="color:var(--b)">trace <i>b</i> = H∩P</span><span style="color:var(--c)">trace <i>c</i> = V∩P</span><span style="color:var(--q)">point Q and its images</span></div>
+  <div class="key"><span style="color:var(--a)">trace <i>a</i> = H∩V (hinge of H)</span><span style="color:var(--b)">trace <i>b</i> = H∩P</span><span style="color:var(--c)">trace <i>c</i> = V∩P</span><span style="color:var(--q)">point Q and its images</span></div>
   <figcaption id="cap"></figcaption>
 </figure>
 
@@ -62,12 +62,14 @@
   <dt>corner point</dt><dd>The single point common to H, V and P; equivalently the point where the three traces meet.</dd>
   <dt>quarter-turn</dt><dd>Rotation of a plane through 90° about one of its traces, used to lay H and P into the plane of V. H turns about <i>a</i>; P turns about <i>c</i>. Not a <i>fold</i> in the sense of the mirrors page, which is a half-turn.</dd>
   <dt>copy of a trace <span class="dw">drawing word</span></dt><dd>Where a trace lands on the flat sheet. <i>a</i> and <i>c</i> are hinges, so they do not move and have one copy each. <i>b</i> lies in both turning planes and is carried by each, so it has two copies: along the vertical line above the corner (carried by H) and along the horizontal line to the right of the corner (carried by P).</dd>
-  <dt>ground line <span class="dw">drawing word</span></dt><dd>The drawn copy of <i>a</i>: the horizontal line between the plan and the elevation, ending at the corner. The horizontal line to the right of the corner is not the ground line; it is a copy of <i>b</i>.</dd>
   <dt>45° line <span class="dw">drawing word</span></dt><dd>The line through the corner bisecting the angle between the two copies of <i>b</i>. It carries each point of one copy to the same point of the other, which is how a depth read in the plan is transferred to the profile.</dd>
-  <dt>field <span class="dw">drawing word</span></dt><dd>The region of the flat sheet occupied by one view: plan above the ground line, elevation below it, profile to the right of the vertical line. Fields carry no signs.</dd>
+  <dt>field <span class="dw">drawing word</span></dt><dd>The region of the flat sheet occupied by one view: plan above <i>a</i>, elevation below it, profile to the right of <i>c</i>. Fields carry no signs.</dd>
   <dt>image of a point <span class="dw">drawing word</span></dt><dd>The foot of the perpendicular from the point to a projection plane, carried along when the plane is turned. Q has three: on H (plan image), on V (elevation image), on P (profile image).</dd>
 </dl>
 
+<dl>
+  <dt>ground line <span class="dw">not used</span></dt><dd>Monge's <i>ligne de terre</i>: the trace H∩V in first-angle projection, where the object stands on H and the line is literally the ground, with the elevation drawn above it. These plates are plan-over-elevation (third-angle), in which H lies above the object; there the word misleads, so the line is named by its trace, <i>a</i>.</dd>
+</dl>
 <p class="note">This plate settles the trace question and nothing more. Everything on it is at 90°, which is why it has eight maps and no measure; the continuous part of the subject begins when two mirrors meet at some other angle.</p>
 
 <script>
@@ -137,7 +139,7 @@ function draw(){
    ? 'At 0°: three planes in space. The three traces a, b, c meet at the corner point; b is one line, drawn once. Q is a point in the object space with its three perpendiculars to H, V, P; their feet are its three images.'
    : deg<90
    ? `At ${deg}°: H turns about a, P turns about c. The trace b lies in both and is carried by both, so it is now two lines in space (solid: carried by H; dashed: carried by P). The images on H and P travel with their planes; the perpendiculars from Q, which only make sense in space, fade.`
-   : 'At 90°: the flat Monge sheet. a is the ground line; c is the vertical line below the corner; the two copies of b are the vertical line above the corner and the horizontal line to the right. The green projectors join the three images; the 45° line through the corner carries a point of one copy of b to the same point of the other.';
+   : 'At 90°: the flat Monge sheet. a is the horizontal line to the left of the corner (hinge of H); c is the vertical line below it (hinge of P); the two copies of b are the vertical line above the corner and the horizontal line to the right. The green projectors join the three images; the 45° line through the corner carries a point of one copy of b to the same point of the other.';
 }
 TH.addEventListener('input',draw); PT.addEventListener('change',draw);
 document.getElementById('b0').onclick=()=>{TH.value=0;draw();}; document.getElementById('b90').onclick=()=>{TH.value=90;draw();};

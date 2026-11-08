@@ -208,7 +208,7 @@
     </div>
   </div>
   <div class="key"><span style="color:var(--mirror3)">x, read from the trace of P</span><span style="color:var(--mirror2)">y, read from the trace of V</span><span class="k-mir">z, read from the trace of H</span><span style="color:#2a7">projectors</span></div>
-  <figcaption>Figure 7. Plan over elevation, profile to the right. The two drawn lines are the traces of the three planes (each drawn line carries two traces; see the glossary). The probe is a frame: a point with arms in the directions of increasing x, y, z; each view shows the two arms it can. Push through H: the plan image stays put, the elevation and profile images cross the trace of H. Push through H twice: every side is restored and the map is the identity. Push through H then V: two sides have changed, yet the sign is even — the map is the half-turn about the ground line.</figcaption>
+  <figcaption>Figure 7. Plan over elevation, profile to the right. The two drawn lines carry the three traces <i>a</i> = H∩V, <i>b</i> = H∩P, <i>c</i> = V∩P; <i>b</i> is drawn twice (see the glossary). The probe is a frame: a point with arms in the directions of increasing x, y, z; each view shows the two arms it can. Push through H: the plan image stays put, the elevation and profile images cross the trace of H. Push through H twice: every side is restored and the map is the identity. Push through H then V: two sides have changed, yet the sign is even — the map is the half-turn about the trace <i>a</i> = H∩V.</figcaption>
 </figure>
 
 <p><b>Each view is blind to its own mirror.</b> <span class="price">observation</span> The mirror in H changes only z, and the plan does not show z. The two views adjacent to H each display z as a depth measured from the trace of H, and each sees the probe jump across that trace. This is the <i>skip-a-plane</i> rule of descriptive geometry read as a statement about a mirror: the coordinate a mirror reverses is exactly the depth that the two adjacent views display, measured from the trace of that mirror's plane.</p>
@@ -250,10 +250,10 @@
   <dt>mirror line</dt><dd><i>Drawing term.</i> The drawn line of a mirror; the line of its fixed points.</dd>
   <dt>plan / elevation</dt><dd><i>Drawing terms.</i> Plan: the plane viewed face-on. Elevation: the same plane viewed edge-on, so that a fold is seen as an arc.</dd>
 
-  <dt>trace (of a projection plane)</dt><dd><i>Drawing term.</i> The drawn line in which one projection plane meets another. On the flat sheet of Figure 7 each drawn straight line carries two traces: the horizontal line is H∩V to the left of the corner and H∩P to the right; the vertical line is P∩H above the corner and P∩V below. Distinct from <i>trace</i> of a map, above.</dd>
-  <dt>ground line</dt><dd><i>Drawing term.</i> The horizontal line between plan and elevation; the drawing of the trace H∩V.</dd>
-  <dt>probe image (plan, elevation, profile)</dt><dd><i>Drawing term.</i> The drawing of the frame in one view: the point and the two arms that view can show. In Figure 7, x is read leftward from the vertical line (plan and elevation); y upward from the ground line (plan) and rightward from the vertical line (profile); z downward from the ground line (elevation and profile). A negative value is drawn on the other side of the line.</dd>
+  <dt>trace (of a projection plane)</dt><dd><i>Drawing term.</i> The line in which two projection planes meet: <i>a</i> = H∩V, <i>b</i> = H∩P, <i>c</i> = V∩P, all through the corner point. To lay the sheet flat, H is turned about <i>a</i> and P about <i>c</i>; these two are hinges and are drawn once. <i>b</i> lies in both turning planes and is carried by both, so it is drawn twice: above the corner (with H) and to the right of it (with P). Hence each drawn line carries two traces: the horizontal line is <i>a</i> on the left and <i>b</i> on the right; the vertical line is <i>b</i> above and <i>c</i> below. Distinct from <i>trace</i> of a map, above.</dd>
+  <dt>probe image (plan, elevation, profile)</dt><dd><i>Drawing term.</i> The drawing of the frame in one view: the point and the two arms that view can show. In Figure 7, x is read leftward from the vertical line (plan and elevation); y upward from <i>a</i> (plan) and rightward from <i>c</i> (profile); z downward from the horizontal line (<i>a</i> in the elevation, <i>b</i> in the profile). A negative value is drawn on the other side of the line.</dd>
 
+  <dt class="retired">ground line <span class="note">(not used)</span></dt><dd class="retired">Monge's <i>ligne de terre</i>: the trace H∩V in first-angle projection, where the object stands on H and the line is literally the ground, with the elevation above it. The plates here are plan-over-elevation, in which H lies above the object; there the word misleads, so the line is named by its trace, <i>a</i>.</dd>
   <dt class="retired">flip <span class="note">(retired)</span></dt><dd class="retired">Used in the sketch both for the in-plane half-turn and for the out-of-plane fold, which are different maps. Replaced by <i>half-turn</i> and <i>fold</i>.</dd>
   <dt class="retired">parallel / perpendicular <span class="note">(re-assigned)</span></dt><dd class="retired">In the sketch these labeled the pin's orientation relative to the axis. They are now used only for the arrangement of a pair of mirror lines (Step 3), which is what they were tracking.</dd>
   <dt class="retired">helicity <span class="note">(removed)</span></dt><dd class="retired">A physics term, frame-dependent there, with no clean analog in the plane. The notion wanted was <i>chirality</i>.</dd>
@@ -538,7 +538,7 @@ function base(){
   hl.V=el('polyline',{points:'30,240 480,240 480,455',stroke:colY,'stroke-width':3},hl);
   hl.P=el('line',{x1:480,y1:20,x2:480,y2:455,stroke:colX,'stroke-width':3},hl);
   el('line',{x1:270,y1:450,x2:700,y2:20,stroke:'#b9b5ab','stroke-width':1,'stroke-dasharray':'4 3'});
-  text(36,233,'ground line · trace of H in V');text(620,233,'trace of H in P');text(486,32,'trace of P in H');text(486,452,'trace of P in V');
+  text(36,233,'a = H∩V · hinge of H');text(600,233,'b = H∩P · carried by P');text(486,32,'b = H∩P · carried by H');text(486,452,'c = V∩P · hinge of P');
   text(40,40,'plan (onto H)',{'font-size':14,fill:ink});text(40,440,'elevation (onto V)',{'font-size':14,fill:ink});text(600,440,'profile (onto P)',{'font-size':14,fill:ink});
   tags.Plan=text(40,58,'',{'font-size':11});tags.Elev=text(40,425,'',{'font-size':11});tags.Prof=text(600,425,'',{'font-size':11});
   dyn=el('g',{});
@@ -579,7 +579,7 @@ function draw(){
   set('f7par',par);
   const hand=sx*sy*sz;   // sign of the determinant of the three arm vectors
   document.getElementById('f7hand').textContent=hand>0?'right (as at start)':'left';
-  const names={'':'identity',H:'mirror in H',V:'mirror in V',P:'mirror in P',HV:'half-turn about H∩V (ground line)',HP:'half-turn about H∩P',PV:'half-turn about P∩V',HPV:'point-reflection in the corner'};
+  const names={'':'identity',H:'mirror in H',V:'mirror in V',P:'mirror in P',HV:'half-turn about a = H∩V',HP:'half-turn about b = H∩P',PV:'half-turn about c = V∩P',HPV:'point-reflection in the corner'};
   const key=(sz<0?'H':'')+(sx<0?'P':'')+(sy<0?'V':'');
   document.getElementById('f7map').textContent=names[key]+' — '+(par>0?'even':'odd');
 }
