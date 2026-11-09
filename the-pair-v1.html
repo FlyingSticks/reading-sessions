@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The pair: two mirrors at a general angle</title>
+<style>
+  :root{--ink:#1d1d1b;--paper:#fbfaf7;--rule:#d9d5cc;--muted:#6b675f;--mirror:#2aa9a1;--mirror2:#b8862b;--image:#d23f2f;--ghost:#b9b5ab;--alt:#7a5bb0;}
+  html{background:var(--paper);} body{margin:0;color:var(--ink);font:17px/1.55 Georgia,"Times New Roman",serif;}
+  main{max-width:820px;margin:0 auto;padding:28px 20px 80px;}
+  h1{font-size:28px;font-weight:normal;margin:0 0 4px;letter-spacing:-.01em;} .byline{color:var(--muted);font-size:14px;margin:0 0 10px;}
+  h2{font-size:21px;font-weight:normal;margin:46px 0 8px;border-top:1px solid var(--rule);padding-top:16px;}
+  p{margin:10px 0;} .thesis{font-size:19px;border-left:3px solid var(--mirror);padding:8px 14px;margin:18px 0 6px;background:#fff;}
+  figure{margin:16px 0 8px;background:#fff;border:1px solid var(--rule);border-radius:6px;padding:12px 12px 8px;}
+  figure svg{width:100%;height:auto;display:block;touch-action:none;}
+  figcaption{font-size:14.5px;color:var(--muted);line-height:1.45;margin-top:8px;padding-top:8px;border-top:1px dashed var(--rule);}
+  .controls{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14.5px;margin:6px 0 4px;}
+  .controls label{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;}
+  .controls input[type=range]{width:170px;accent-color:var(--mirror);} .controls input[type=checkbox],.controls input[type=radio]{accent-color:var(--mirror);}
+  .readout{font-variant-numeric:tabular-nums;background:#f1efe9;padding:1px 7px;border-radius:4px;}
+  .ledger{display:grid;grid-template-columns:auto 1fr;gap:3px 14px;font-size:14.5px;margin:8px 0 2px;background:#f1efe9;padding:8px 10px;border-radius:4px;}
+  .ledger b{font-weight:normal;color:var(--muted);} .ledger span{font-variant-numeric:tabular-nums;}
+  .yes{color:var(--mirror);font-weight:bold;} .no{color:var(--image);font-weight:bold;}
+  .key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted);margin:6px 0 0;}
+  .key span::before{content:"";display:inline-block;width:14px;height:3px;margin-right:6px;vertical-align:middle;background:currentColor;}
+  .price{display:inline-block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--rule);border-radius:3px;padding:0 6px;margin-left:6px;color:var(--muted);vertical-align:middle;}
+  dl{margin:10px 0;} dt{font-weight:bold;margin-top:12px;} dd{margin:2px 0 0 0;}
+  .dw{font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-left:6px;font-weight:normal;}
+  .note{font-size:15px;color:var(--muted);} table{border-collapse:collapse;width:100%;font-size:15px;margin:12px 0;}
+  th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--rule);vertical-align:top;} th{font-weight:normal;color:var(--muted);font-size:13px;letter-spacing:.06em;text-transform:uppercase;}
+  .foot{color:var(--muted);font-size:13px;margin-top:40px;border-top:1px solid var(--rule);padding-top:10px;}
+</style>
+</head>
+<body><main>
+<h1>The pair</h1>
+<p class="byline">Two mirrors at a general angle — where measure enters. Plate v1.</p>
+
+<p class="thesis">A single mirror has a sign and no measure. Two mirrors have a measure: the angle between their lines. The product of the two is a turn through twice that angle, and it remembers the angle and nothing else about the pair.</p>
+
+<p>Everything on the Monge plates happened at 90°, where two mirrors compose to a half-turn and the order of the two does not matter. This plate unlocks the angle. Two mirror lines <i>A</i> and <i>B</i> cross at the point O at angle φ. The probe is the L. The first dial sets φ. The second dial turns the <i>pair</i> of lines together about O, keeping φ fixed. The switch reverses the order in which the two mirrors are applied.</p>
+
+<figure id="f">
+  <svg viewBox="0 0 760 520" aria-label="two mirror lines crossing at O, an L, its image after one mirror and after both"></svg>
+  <div class="controls">
+    <label>separation φ <input type="range" id="phi" min="0" max="90" value="30"> <span class="readout" id="phir">30°</span></label>
+    <label>turn the pair <input type="range" id="alpha" min="0" max="180" value="90"> <span class="readout" id="alphar">90°</span></label>
+  </div>
+  <div class="controls">
+    <span>order:</span>
+    <label><input type="radio" name="ord" value="AB" checked> <i>A</i> then <i>B</i></label>
+    <label><input type="radio" name="ord" value="BA"> <i>B</i> then <i>A</i></label>
+    <label><input type="checkbox" id="both"> show the other order too</label>
+    <label><input type="checkbox" id="mark" checked> mark where the image was when the pair stood at 90°</label>
+  </div>
+  <div class="ledger">
+    <b>separation of the pair</b><span id="l-phi"></span>
+    <b>angle of the resulting turn</b><span id="l-rot"></span>
+    <b>sign of the product</b><span id="l-sign">even (two mirrors): the image is the same hand as the L</span>
+    <b>image moved when the pair was turned?</b><span id="l-pair"></span>
+    <b>do the two orders agree?</b><span id="l-ord"></span>
+  </div>
+  <div class="key"><span class="k" style="color:var(--ink)">the L</span><span style="color:var(--ghost)">image after the first mirror</span><span style="color:var(--image)">image after both</span><span style="color:var(--alt)">image in the other order</span><span style="color:var(--mirror)">mirror line <i>A</i></span><span style="color:var(--mirror2)">mirror line <i>B</i></span></div>
+  <figcaption id="cap"></figcaption>
+</figure>
+
+<h2>What the plate shows</h2>
+
+<p><b>1. The product is a turn through 2φ about O.</b> <span class="price">theorem</span> Measure directions from O by their angle. A mirror whose line makes angle β with the reference sends a direction at angle θ to the direction at angle 2β − θ (the line is the bisector of the two). Take <i>A</i> as the reference, β = 0, and <i>B</i> at β = φ. Then <i>A</i> sends θ to −θ, and <i>B</i> sends −θ to 2φ + θ. Net: θ to θ + 2φ, for every θ. Every direction has been turned through 2φ, and O stays put: that is the turn through 2φ about O. Drag φ to 90° and the turn is 180°, the half-turn of the pin sketches and of the Monge plates. Drag φ to 0° and the two mirrors coincide and cancel: the turn is 0°, the identity.</p>
+
+<p><b>2. The product remembers only the separation.</b> <span class="price">theorem</span> Turn the pair with the second dial. The two mirror lines swing about O, the grey intermediate image swings with them, and the red image does not move. The argument of item 1 used only φ, never the absolute position of <i>A</i>: so any pair of mirrors through O with separation φ gives the same turn. The pair is not recoverable from the product. What survives is the measure, 2φ, and the point O.</p>
+
+<p><b>3. Order matters, except at 0° and 90°.</b> <span class="price">theorem</span> <i>A</i> then <i>B</i> turns through +2φ; <i>B</i> then <i>A</i> turns through −2φ (run item 1 with the roles exchanged). The two agree only when +2φ and −2φ are the same turn, that is when 4φ is a multiple of 360°: φ = 0° or φ = 90°. At 90° both orders give the half-turn, which is why the three Monge mirrors could be pushed in any order on the mirrors page. Away from 90° the purple image sits elsewhere — the <i>A</i>·<i>B</i> versus <i>B</i>·<i>A</i> of the first sketch.</p>
+
+<p><b>4. Sign and measure, side by side.</b> <span class="price">observation</span> Whatever the dials say, the red L is the same hand as the black one: two mirrors, even. The sign never moves. The measure moves continuously with φ. One mirror cannot be turned a little; a pair can. This is the thesis of the mirrors page with the dial in hand.</p>
+
+<p><b>What this plate is not.</b> <span class="price">ledger note</span> The two lines cross. Two <i>parallel</i> mirror lines compose to a shift, with measure a distance rather than an angle; that case is on the mirrors page, Figure 3, and is not repeated here. Nor does this plate leave the plane: the fold of the revolution plate is a half-turn of <i>space</i>, a different map whose trace in the plane is a single mirror.</p>
+
+<h2>Glossary for this plate</h2>
+<dl>
+  <dt>mirror</dt><dd>Reflection of the plane in a line: fixes every point of the line, sends every other point to the point the same distance away on the far side, along the perpendicular. Odd.</dd>
+  <dt>mirror line <span class="dw">drawing word</span></dt><dd>The drawn line of a mirror; the line of its fixed points. Two on this plate, <i>A</i> (teal) and <i>B</i> (gold).</dd>
+  <dt>pair</dt><dd>Two mirrors whose lines cross at a point O. Its <b>separation</b> is the angle φ between the lines, taken from <i>A</i> to <i>B</i>, 0° ≤ φ ≤ 90°.</dd>
+  <dt>product</dt><dd>One mirror followed by the other. Written in words — “<i>A</i> then <i>B</i>” — because the dot notation is read in both directions in the literature.</dd>
+  <dt>turn (rotation)</dt><dd>The map that fixes one point O and turns every direction through the same angle about it. Even. The product of a pair with separation φ is the turn through 2φ about O. The <b>half-turn</b> is the case 2φ = 180°.</dd>
+  <dt>measure</dt><dd>The number carried by the product of a pair: here the angle 2φ. A single mirror has no measure. The measure is an invariant of the product; the pair that produced it is not.</dd>
+  <dt>sign</dt><dd>Even or odd, by the count of mirrors. The product of a pair is always even, whatever φ.</dd>
+  <dt>order</dt><dd>Which of the two mirrors is applied first. Changing the order changes the turn from +2φ to −2φ. Two maps for which order does not matter are said to <b>commute</b>; a pair commutes only at φ = 0° and φ = 90°.</dd>
+  <dt>the L <span class="dw">drawing word</span></dt><dd>The probe: a short bar and a long bar at a right angle, unequal so that it has a hand. Drawn black; its image after one mirror grey; after both red; in the other order purple.</dd>
+  <dt>mark <span class="dw">drawing word</span></dt><dd>A thin dotted outline recording where the red image stood when the pair dial was at 90°. The red image stays inside it as the pair is turned; that is item 2 made visible.</dd>
+</dl>
+
+<p class="foot">Plate v1, 8 Nov 2026. Self-contained. Numerical check in the page: the ledger’s “image moved?” line is computed from the drawn coordinates, not from the theorem.</p>
+
+<script>
+(function(){
+'use strict';
+const NS='http://www.w3.org/2000/svg';
+const svg=document.querySelector('#f svg');
+const PHI=document.getElementById('phi'),PHIR=document.getElementById('phir'),AL=document.getElementById('alpha'),ALR=document.getElementById('alphar');
+const BOTH=document.getElementById('both'),MARK=document.getElementById('mark'),CAP=document.getElementById('cap');
+const C={ink:'#1d1d1b',image:'#d23f2f',A:'#2aa9a1',B:'#b8862b',ghost:'#b9b5ab',alt:'#7a5bb0',muted:'#6b675f'};
+const O={x:380,y:270};
+const deg=d=>d*Math.PI/180;
+function reflect(p,beta){const ux=Math.cos(beta),uy=Math.sin(beta);const vx=p.x-O.x,vy=p.y-O.y;const t=vx*ux+vy*uy;return{x:O.x+2*t*ux-vx,y:O.y+2*t*uy-vy};}
+function Lpts(ox,oy,s){return[[0,0],[40,0],[40,-12],[12,-12],[12,-50],[0,-50]].map(q=>({x:ox+q[0]*s,y:oy+q[1]*s}));}
+const fig=Lpts(O.x-205,O.y+70,1);
+const el=(t,a,txt)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(txt!==undefined)e.textContent=txt;svg.appendChild(e);return e;};
+const poly=(pts,stroke,fill,extra)=>el('path',Object.assign({d:pts.map((p,i)=>(i?'L':'M')+p.x.toFixed(2)+' '+p.y.toFixed(2)).join(' ')+' Z',stroke,fill:fill||'none','stroke-width':2,'stroke-linejoin':'round'},extra||{}));
+const infLine=(beta,stroke,extra)=>{const L=600,dx=Math.cos(beta)*L,dy=Math.sin(beta)*L;return el('line',Object.assign({x1:O.x-dx,y1:O.y-dy,x2:O.x+dx,y2:O.y+dy,stroke,'stroke-width':3},extra||{}));};
+const text=(x,y,s,extra)=>el('text',Object.assign({x,y,'font-family':'Georgia, serif','font-size':13,fill:C.muted},extra||{}),s);
+function order(){return document.querySelector('input[name=ord]:checked').value;}
+function arcPath(r,a0,a1){const p0={x:O.x+r*Math.cos(a0),y:O.y+r*Math.sin(a0)},p1={x:O.x+r*Math.cos(a1),y:O.y+r*Math.sin(a1)};const large=Math.abs(a1-a0)>Math.PI?1:0,sweep=a1>a0?1:0;return `M${p0.x} ${p0.y} A${r} ${r} 0 ${large} ${sweep} ${p1.x} ${p1.y}`;}
+function wrap(d){while(d>Math.PI)d-=2*Math.PI;while(d<-Math.PI)d+=2*Math.PI;return d;}
+// reference: final image when the pair stands at alpha = 90° (mirror A vertical)
+function finalImage(phiDeg,alphaDeg,ord){const a=deg(alphaDeg),b=a+deg(phiDeg);const first=ord==='AB'?a:b,second=ord==='AB'?b:a;const g=fig.map(p=>reflect(p,first));return{mid:g,fin:g.map(p=>reflect(p,second))};}
+function draw(){
+  while(svg.firstChild)svg.removeChild(svg.firstChild);
+  el('rect',{x:0,y:0,width:760,height:520,fill:'#fff'});
+  const phi=+PHI.value, al=+AL.value, ord=order();
+  PHIR.textContent=phi+'°'; ALR.textContent=al+'°';
+  const a=deg(al), b=a+deg(phi);
+  // mirror lines
+  infLine(a,C.A); infLine(b,C.B);
+  const lab=(beta,s,col)=>{const r=235;text(O.x+Math.cos(beta)*r+6,O.y+Math.sin(beta)*r-6,s,{fill:col,'font-size':15,'font-style':'italic'});};
+  lab(a-Math.PI,'A',C.A); lab(b-Math.PI,'B',C.B);
+  // small arc marking φ between the lines
+  if(phi>0){el('path',{d:arcPath(40,a,b),stroke:C.muted,fill:'none','stroke-width':1});const m=(a+b)/2;text(O.x+Math.cos(m)*54-5,O.y+Math.sin(m)*54+5,'φ');}
+  // images
+  const {mid,fin}=finalImage(phi,al,ord);
+  const ref=finalImage(phi,90,ord).fin;
+  if(MARK.checked)poly(ref,C.image,'none',{'stroke-width':1,'stroke-dasharray':'2 3',opacity:.8});
+  if(BOTH.checked){const other=finalImage(phi,al,ord==='AB'?'BA':'AB').fin;poly(other,C.alt,'none',{'stroke-dasharray':'6 3'});text(other[0].x+2,other[0].y+16,'other order',{fill:C.alt});}
+  // arc of the turn: from the L's corner to the image's corner
+  const c0=fig[0],c1=fin[0];const r=Math.hypot(c0.x-O.x,c0.y-O.y);
+  const b0=Math.atan2(c0.y-O.y,c0.x-O.x);let d=wrap(Math.atan2(c1.y-O.y,c1.x-O.x)-b0);
+  // at φ=90 the turn is 180°, d=±π: choose the sign of the order so the arc is drawn consistently
+  if(Math.abs(Math.abs(d)-Math.PI)<1e-9)d=(ord==='AB'?1:-1)*Math.PI*(1-1e-6);
+  if(phi>0){el('path',{d:arcPath(r,b0,b0+d),stroke:C.image,fill:'none','stroke-width':1.5,'stroke-dasharray':'5 4'});
+    el('line',{x1:O.x,y1:O.y,x2:c0.x,y2:c0.y,stroke:C.ghost,'stroke-width':1});el('line',{x1:O.x,y1:O.y,x2:c1.x,y2:c1.y,stroke:C.ghost,'stroke-width':1});
+    const mAng=b0+d/2;text(O.x+Math.cos(mAng)*(r+16)-14,O.y+Math.sin(mAng)*(r+16)+5,'2φ = '+(2*phi)+'°',{fill:C.image});}
+  poly(fig,C.ink,'#fff'); if(phi>0)poly(mid,C.ghost,'none',{'stroke-dasharray':'4 3'}); poly(fin,C.image,'#fff');
+  text(fig[0].x+2,fig[0].y+16,'the L',{fill:C.ink}); text(fin[0].x+2,fin[0].y+16,'image after both',{fill:C.image});
+  if(phi>0)text(mid[0].x+2,mid[0].y+16,'after the first',{fill:C.ghost});
+  el('circle',{cx:O.x,cy:O.y,r:4,fill:C.ink}); text(O.x+7,O.y+17,'O',{fill:C.ink});
+  // ledger (computed from coordinates)
+  document.getElementById('l-phi').textContent=phi+'°';
+  document.getElementById('l-rot').textContent=(2*phi)+'°'+(phi===90?' — the half-turn':phi===0?' — the identity':'')+(ord==='AB'?' (A then B)':' (B then A: the opposite sense)');
+  const moved=Math.max(...fin.map((p,i)=>Math.hypot(p.x-ref[i].x,p.y-ref[i].y)));
+  const lp=document.getElementById('l-pair');
+  lp.innerHTML=al===90?'pair at its reference position (90°)':`<span class="${moved<1e-6?'yes':'no'}">${moved<1e-6?'no':'yes'}</span> — largest displacement of any vertex: ${moved.toExponential(1)} px`;
+  const other=finalImage(phi,al,ord==='AB'?'BA':'AB').fin;
+  const diff=Math.max(...fin.map((p,i)=>Math.hypot(p.x-other[i].x,p.y-other[i].y)));
+  const lo=document.getElementById('l-ord');
+  lo.innerHTML=diff<1e-6?`<span class="yes">yes</span> — at φ = ${phi}° the pair commutes`:`<span class="no">no</span> — the two orders differ by a turn through ${4*phi}°; they agree only at φ = 0° and 90°`;
+  CAP.textContent=`Figure 1. Mirror lines A and B through O at separation φ = ${phi}°. The L is reflected in the first line (grey), then in the second (red). The dashed arc about O marks the resulting turn, 2φ = ${2*phi}°. Turn the pair: the lines and the grey image swing, the red image does not. ${phi===90?'At 90° the turn is the half-turn and both orders give the same image.':phi===0?'At 0° the two mirrors coincide and cancel.':'Switch the order to see the turn reverse its sense.'}`;
+}
+[PHI,AL].forEach(e=>e.addEventListener('input',draw));
+[BOTH,MARK].forEach(e=>e.addEventListener('change',draw));
+document.querySelectorAll('input[name=ord]').forEach(r=>r.addEventListener('change',draw));
+draw();
+})();
+</script>
+</main></body></html>
