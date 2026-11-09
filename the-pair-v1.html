@@ -67,6 +67,36 @@
 
 <p><b>1. The product is a turn through 2φ about O.</b> <span class="price">theorem</span> Measure directions from O by their angle. A mirror whose line makes angle β with the reference sends a direction at angle θ to the direction at angle 2β − θ (the line is the bisector of the two). Take <i>A</i> as the reference, β = 0, and <i>B</i> at β = φ. Then <i>A</i> sends θ to −θ, and <i>B</i> sends −θ to 2φ + θ. Net: θ to θ + 2φ, for every θ. Every direction has been turned through 2φ, and O stays put: that is the turn through 2φ about O. Drag φ to 90° and the turn is 180°, the half-turn of the pin sketches and of the Monge plates. Drag φ to 0° and the two mirrors coincide and cancel: the turn is 0°, the identity.</p>
 
+<p>Where does the doubling come from? Not from a formula. It comes from one property of a mirror line — it is the <b>bisector</b> between every point and its partner — used on a well-chosen probe: the mirror line <i>A</i> itself. Figure 2 builds the argument in the three steps of the sketch of 9 Nov, with a fourth as a check.</p>
+
+<figure id="g">
+  <svg viewBox="0 0 760 480" aria-label="the mirror line A reflected across B lands at twice the separation"></svg>
+  <div class="controls">
+    <label>separation θ <input type="range" id="th2" min="5" max="85" value="32"> <span class="readout" id="th2r">32°</span></label>
+  </div>
+  <div class="controls">
+    <span>step:</span>
+    <label><input type="radio" name="st" value="1"> 1 · one mirror line</label>
+    <label><input type="radio" name="st" value="2"> 2 · the pair, at θ</label>
+    <label><input type="radio" name="st" value="3" checked> 3 · <i>A</i> sent across <i>B</i></label>
+    <label><input type="radio" name="st" value="4"> 4 · check: <i>B</i> as the probe</label>
+  </div>
+  <div class="ledger">
+    <b>separation θ</b><span id="g-th"></span>
+    <b>angle from <i>A</i> to its image <i>A′</i></b><span id="g-dbl"></span>
+    <b>read how</b><span id="g-how"></span>
+  </div>
+  <div class="key"><span style="color:var(--mirror)">mirror line <i>A</i></span><span style="color:var(--mirror2)">mirror line <i>B</i></span><span style="color:var(--image)">image line</span><span style="color:var(--ghost)">a point and its partner, joined</span><span style="color:#3a9a3a">the angle 2θ</span></div>
+  <figcaption id="g-cap"></figcaption>
+</figure>
+
+<p><b>1a. The argument, step by step.</b> <span class="price">theorem</span>
+<i>Step 1.</i> One mirror line, <i>A</i>. It fixes every point on itself.
+<i>Step 2.</i> A second mirror line <i>B</i> through the same point O, at separation θ.
+<i>Step 3.</i> Send <i>A</i> across <i>B</i>. Take any point X of <i>A</i>; its partner X′ lies on the perpendicular from X to <i>B</i>, the same distance beyond (the right-angle marks). Two such partners fix the image line <i>A′</i>. Since <i>B</i> is the perpendicular bisector of every segment XX′, <i>B</i> bisects the angle between <i>A</i> and <i>A′</i>: θ on one side, θ on the other, so <i>A</i> to <i>A′</i> is 2θ. That is the doubling, and it is only the bisecting property, used once.
+Now read it as the product “<i>A</i> then <i>B</i>”: the first mirror leaves its own line alone, so on this probe only the second mirror acts, and it carries <i>A</i> to <i>A′</i>. A map fixing O that swings a line through O by 2θ is the turn through 2θ about O.
+<i>Step 4.</i> Choose <i>B</i> as the probe instead. The first mirror carries <i>B</i> to <i>B″</i>, at θ on the far side of <i>A</i>, which is 2θ from <i>B</i>. The second carries <i>B″</i>, at −2θ from <i>B</i>, to +2θ from <i>B</i>. <i>B</i> has been turned through 2θ: the same answer from a different probe.</p>
+
 <p><b>2. The product remembers only the separation.</b> <span class="price">theorem</span> Turn the pair with the second dial. The two mirror lines swing about O, the grey intermediate image swings with them, and the red image does not move. The argument of item 1 used only φ, never the absolute position of <i>A</i>: so any pair of mirrors through O with separation φ gives the same turn. The pair is not recoverable from the product. What survives is the measure, 2φ, and the point O.</p>
 
 <p><b>3. Order matters, except at 0° and 90°.</b> <span class="price">theorem</span> <i>A</i> then <i>B</i> turns through +2φ; <i>B</i> then <i>A</i> turns through −2φ (run item 1 with the roles exchanged). The two agree only when +2φ and −2φ are the same turn, that is when 4φ is a multiple of 360°: φ = 0° or φ = 90°. At 90° both orders give the half-turn, which is why the three Monge mirrors could be pushed in any order on the mirrors page. Away from 90° the purple image sits elsewhere — the <i>A</i>·<i>B</i> versus <i>B</i>·<i>A</i> of the first sketch.</p>
@@ -84,12 +114,14 @@
   <dt>turn (rotation)</dt><dd>The map that fixes one point O and turns every direction through the same angle about it. Even. The product of a pair with separation φ is the turn through 2φ about O. The <b>half-turn</b> is the case 2φ = 180°.</dd>
   <dt>measure</dt><dd>The number carried by the product of a pair: here the angle 2φ. A single mirror has no measure. The measure is an invariant of the product; the pair that produced it is not.</dd>
   <dt>sign</dt><dd>Even or odd, by the count of mirrors. The product of a pair is always even, whatever φ.</dd>
+  <dt>bisector</dt><dd>A mirror line <i>m</i> is the perpendicular bisector of the segment joining any point to its partner: it meets the segment at right angles and at its midpoint. Hence <i>m</i> bisects the angle between any line through a point of <i>m</i> and that line's image. This single property is the source of the doubling.</dd>
   <dt>order</dt><dd>Which of the two mirrors is applied first. Changing the order changes the turn from +2φ to −2φ. Two maps for which order does not matter are said to <b>commute</b>; a pair commutes only at φ = 0° and φ = 90°.</dd>
+  <dt>image line <span class="dw">drawing word</span></dt><dd>In Figure 2, the line <i>A′</i> (or <i>B″</i>, <i>B‴</i>) drawn red: where a mirror line lands when sent across the other. Two partners determine it.</dd>
   <dt>the L <span class="dw">drawing word</span></dt><dd>The probe: a short bar and a long bar at a right angle, unequal so that it has a hand. Drawn black; its image after one mirror grey; after both red; in the other order purple.</dd>
   <dt>mark <span class="dw">drawing word</span></dt><dd>A thin dotted outline recording where the red image stood when the pair dial was at 90°. The red image stays inside it as the pair is turned; that is item 2 made visible.</dd>
 </dl>
 
-<p class="foot">Plate v1, 8 Nov 2026. Self-contained. Numerical check in the page: the ledger’s “image moved?” line is computed from the drawn coordinates, not from the theorem.</p>
+<p class="foot">Plate v1, 8 Nov 2026; Figure 2 (the doubling, from the sketch of 9 Nov) added 9 Nov 2026. Self-contained. Numerical check in the page: the ledger’s “image moved?” line is computed from the drawn coordinates, not from the theorem.</p>
 
 <script>
 (function(){
@@ -158,6 +190,77 @@ function draw(){
 [BOTH,MARK].forEach(e=>e.addEventListener('change',draw));
 document.querySelectorAll('input[name=ord]').forEach(r=>r.addEventListener('change',draw));
 draw();
+})();
+</script>
+
+<script>
+(function(){
+'use strict';
+const NS='http://www.w3.org/2000/svg';
+const svg=document.querySelector('#g svg'),TH=document.getElementById('th2'),THR=document.getElementById('th2r');
+const C={ink:'#1d1d1b',image:'#d23f2f',A:'#2aa9a1',B:'#b8862b',ghost:'#b9b5ab',green:'#3a9a3a',muted:'#6b675f'};
+const O={x:380,y:250}, A0=20;   // A at 20° above the horizontal
+const deg=d=>d*Math.PI/180;
+const pt=(ang,r)=>({x:O.x+r*Math.cos(deg(ang)),y:O.y-r*Math.sin(deg(ang))});
+const el=(t,a,txt)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(txt!==undefined)e.textContent=txt;svg.appendChild(e);return e;};
+const line=(p,q,stroke,extra)=>el('line',Object.assign({x1:p.x,y1:p.y,x2:q.x,y2:q.y,stroke,'stroke-width':2.5},extra||{}));
+const full=(ang,stroke,extra)=>line(pt(ang,-330),pt(ang,330),stroke,extra);
+const text=(x,y,s,extra)=>el('text',Object.assign({x,y,'font-family':'Georgia, serif','font-size':13,fill:C.muted},extra||{}),s);
+const labelAt=(ang,s,col,r)=>{const p=pt(ang,r||230);text(p.x+5,p.y-5,s,{fill:col,'font-size':15,'font-style':'italic'});};
+function arc(a0,a1,r,stroke,extra){const p0=pt(a0,r),p1=pt(a1,r);const large=Math.abs(a1-a0)>180?1:0;const sweep=a1>a0?0:1;return el('path',Object.assign({d:`M${p0.x} ${p0.y} A${r} ${r} 0 ${large} ${sweep} ${p1.x} ${p1.y}`,fill:'none',stroke,'stroke-width':1.3},extra||{}));}
+function arcLabel(a0,a1,r,s,col){const p=pt((a0+a1)/2,r+(s.length>2?30:16));text(p.x-6,p.y+5,s,{fill:col,'font-size':14});}
+// reflect a point across the line through O at angle b (degrees)
+function refl(p,b){const u={x:Math.cos(deg(b)),y:-Math.sin(deg(b))};const vx=p.x-O.x,vy=p.y-O.y;const t=vx*u.x+vy*u.y;return{x:O.x+2*t*u.x-vx,y:O.y+2*t*u.y-vy};}
+function rightAngle(foot,b,towardP){ // small square at the foot, on line b, opening toward the point
+  const u={x:Math.cos(deg(b)),y:-Math.sin(deg(b))},n={x:towardP.x-foot.x,y:towardP.y-foot.y};const L=Math.hypot(n.x,n.y);n.x/=L;n.y/=L;const s=8;
+  el('path',{d:`M${foot.x+u.x*s} ${foot.y+u.y*s} L${foot.x+u.x*s+n.x*s} ${foot.y+u.y*s+n.y*s} L${foot.x+n.x*s} ${foot.y+n.y*s}`,fill:'none',stroke:C.ghost,'stroke-width':1});}
+function partner(ang,r,b,label){ // point on line at angle ang, distance r; its partner across line b
+  const X=pt(ang,r),Xp=refl(X,b);const foot={x:(X.x+Xp.x)/2,y:(X.y+Xp.y)/2};
+  line(X,Xp,C.ghost,{'stroke-width':1,'stroke-dasharray':'3 3'});rightAngle(foot,b,X);
+  el('circle',{cx:X.x,cy:X.y,r:4,fill:C.A});el('circle',{cx:Xp.x,cy:Xp.y,r:4,fill:C.image});
+  if(label){text(X.x+7,X.y+14,label,{fill:C.A});text(Xp.x+7,Xp.y+14,label+'′',{fill:C.image});}
+  return Xp;
+}
+function step(){return +document.querySelector('input[name=st]:checked').value;}
+function draw(){
+  while(svg.firstChild)svg.removeChild(svg.firstChild);
+  el('rect',{x:0,y:0,width:760,height:480,fill:'#fff'});
+  const th=+TH.value, st=step(); THR.textContent=th+'°';
+  const a=A0, b=A0+th, ap=A0+2*th;
+  full(a,C.A); labelAt(a,'A',C.A);
+  el('circle',{cx:O.x,cy:O.y,r:4,fill:C.ink}); text(O.x+6,O.y+18,'O',{fill:C.ink});
+  let how='', dbl='—', cap='';
+  if(st===1){cap='Step 1. One mirror line, A. Every point of A is its own partner: the mirror with line A leaves A where it is. Nothing yet to measure.';how='no second line yet';}
+  if(st>=2){full(b,C.B); labelAt(b,'B',C.B); arc(a,b,48,C.B); arcLabel(a,b,48,'θ',C.B); arc(a+180,b+180,48,C.B); arcLabel(a+180,b+180,48,'θ',C.B);}
+  if(st===2){cap=`Step 2. A second mirror line B through O, at separation θ = ${th}°, marked on both sides of O. This is the pair.`;how='the pair alone: nothing has been sent anywhere';}
+  if(st===3){
+    full(ap,C.image,{'stroke-width':2,'stroke-dasharray':'8 4'}); labelAt(ap,'A′',C.image,200);
+    partner(a,170,b,'X'); partner(a,-120,b,'Y');
+    arc(b,ap,48,C.image); arcLabel(b,ap,48,'θ',C.image); arc(b+180,ap+180,48,C.image); arcLabel(b+180,ap+180,48,'θ',C.image);
+    arc(a+180,ap+180,150,C.green,{'stroke-width':2}); arcLabel(a+180,ap+180,150,'2θ = '+(2*th)+'°',C.green);
+    // measured angle from drawn image points
+    const Xp=refl(pt(a,170),b); const meas=((Math.atan2(-(Xp.y-O.y),Xp.x-O.x)*180/Math.PI - a)+360)%360;
+    dbl=meas.toFixed(1)+'°  (measured from the drawn partner X′, not from the formula)';
+    how='B is the perpendicular bisector of XX′ and of YY′, so B bisects the angle between A and A′: θ + θ';
+    cap=`Step 3. A sent across B. From the points X and Y of A, perpendiculars to B (right-angle marks); the partners X′ and Y′ lie as far beyond. They fix the image line A′. B makes θ with A and θ with A′, so A to A′ is 2θ = ${2*th}°, the green arc. As the product “A then B”: the first mirror leaves A alone; the second carries A to A′; the turn is 2θ.`;
+  }
+  if(st===4){
+    const bpp=A0-th, bppp=b+2*th;
+    full(bpp,C.ghost,{'stroke-width':2,'stroke-dasharray':'8 4'}); labelAt(bpp,'B″ (B after A)',C.ghost,230);
+    full(bppp,C.image,{'stroke-width':2,'stroke-dasharray':'8 4'}); labelAt(bppp,'B‴ (then after B)',C.image,200);
+    arc(bpp,a,40,C.ghost); arcLabel(bpp,a,40,'θ',C.ghost); arc(b,bppp,60,C.image); arcLabel(b,bppp,60,'2θ',C.image); arc(bpp,b,80,C.ghost); arcLabel(bpp,b,80,'2θ',C.ghost);
+    arc(b+180,bppp+180,150,C.green,{'stroke-width':2}); arcLabel(b+180,bppp+180,150,'2θ = '+(2*th)+'°',C.green);
+    const P=refl(refl(pt(b,170),a),b); const meas=((Math.atan2(-(P.y-O.y),P.x-O.x)*180/Math.PI - b)+360)%360;
+    dbl=meas.toFixed(1)+'°  from B to B‴ (measured from a drawn point of B sent through both mirrors)';
+    how='B as probe: A carries B to B″ at −θ from A, i.e. −2θ from B; then B carries B″ to +2θ from B';
+    cap=`Step 4, the check. Use B as the probe. The first mirror, A, sends B to B″, at θ on the far side of A — that is 2θ away from B. The second mirror, B, sends B″ from −2θ to +2θ: the line B‴. B has been turned through 2θ = ${2*th}°. Same turn, different probe: the product does not care which line you watch.`;
+  }
+  document.getElementById('g-th').textContent=th+'°';
+  document.getElementById('g-dbl').textContent=dbl;
+  document.getElementById('g-how').textContent=how;
+  document.getElementById('g-cap').textContent='Figure 2. '+cap;
+}
+TH.addEventListener('input',draw); document.querySelectorAll('input[name=st]').forEach(r=>r.addEventListener('change',draw)); draw();
 })();
 </script>
 </main></body></html>
