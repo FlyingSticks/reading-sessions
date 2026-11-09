@@ -77,7 +77,7 @@
 
 <h2>Glossary for this plate</h2>
 <dl>
-  <dt>mirror</dt><dd>Reflection of the plane in a line: fixes every point of the line, sends every other point to the point the same distance away on the far side, along the perpendicular. Odd.</dd>
+  <dt>mirror</dt><dd>The map of the plane determined by a line <i>m</i>: each point of <i>m</i> stays; each other point <i>P</i> goes to the point <i>P′</i> for which <i>m</i> is the perpendicular bisector of <i>PP′</i> — the same distance away on the far side, along the perpendicular. Called “reflection in <i>m</i>” or “reflection across <i>m</i>” in the textbooks; here “the mirror with line <i>m</i>”, or as a name “the mirror in <i>m</i>”. The “in” names the line, as in “the image in the glass”; it is not a direction. Odd.</dd>
   <dt>mirror line <span class="dw">drawing word</span></dt><dd>The drawn line of a mirror; the line of its fixed points. Two on this plate, <i>A</i> (teal) and <i>B</i> (gold).</dd>
   <dt>pair</dt><dd>Two mirrors whose lines cross at a point O. Its <b>separation</b> is the angle φ between the lines, taken from <i>A</i> to <i>B</i>, 0° ≤ φ ≤ 90°.</dd>
   <dt>product</dt><dd>One mirror followed by the other. Written in words — “<i>A</i> then <i>B</i>” — because the dot notation is read in both directions in the literature.</dd>
@@ -152,7 +152,7 @@ function draw(){
   const diff=Math.max(...fin.map((p,i)=>Math.hypot(p.x-other[i].x,p.y-other[i].y)));
   const lo=document.getElementById('l-ord');
   lo.innerHTML=diff<1e-6?`<span class="yes">yes</span> — at φ = ${phi}° the pair commutes`:`<span class="no">no</span> — the two orders differ by a turn through ${4*phi}°; they agree only at φ = 0° and 90°`;
-  CAP.textContent=`Figure 1. Mirror lines A and B through O at separation φ = ${phi}°. The L is reflected in the first line (grey), then in the second (red). The dashed arc about O marks the resulting turn, 2φ = ${2*phi}°. Turn the pair: the lines and the grey image swing, the red image does not. ${phi===90?'At 90° the turn is the half-turn and both orders give the same image.':phi===0?'At 0° the two mirrors coincide and cancel.':'Switch the order to see the turn reverse its sense.'}`;
+  CAP.textContent=`Figure 1. Mirror lines A and B through O at separation φ = ${phi}°. The L is sent across the first line by its mirror (grey), then across the second (red). The dashed arc about O marks the resulting turn, 2φ = ${2*phi}°. Turn the pair: the lines and the grey image swing, the red image does not. ${phi===90?'At 90° the turn is the half-turn and both orders give the same image.':phi===0?'At 0° the two mirrors coincide and cancel.':'Switch the order to see the turn reverse its sense.'}`;
 }
 [PHI,AL].forEach(e=>e.addEventListener('input',draw));
 [BOTH,MARK].forEach(e=>e.addEventListener('change',draw));

@@ -66,7 +66,7 @@
 
 <!-- ===================== STEP 1 ===================== -->
 <h2>1. One generator: the mirror <small>Cartan–Dieudonné</small></h2>
-<p>A <b>mirror</b> is reflection of the plane in a line. It fixes every point of the line and sends every other point to the point the same distance away on the far side, along the perpendicular. The theorem of Cartan and Dieudonné says that every congruence of <i>n</i>-dimensional space is a product of at most <i>n</i> mirrors; in the plane, at most two — three if translations are included in the count, as they are below. So the list of binaries on the sketch (plus/minus, odd/even, left/right versus front/back) is replaced by one object. Everything else on this page is built from it.</p>
+<p>A <b>mirror</b> is a map of the plane determined by one line <i>m</i>, its <b>mirror line</b>: every point of <i>m</i> stays where it is, and every other point <i>P</i> goes to the one point <i>P′</i> for which <i>m</i> is the perpendicular bisector of <i>PP′</i> — the same distance away on the far side, along the perpendicular. Nothing travels; the map is the finished pairing of each point with its partner, and doing it twice gives every point back. The textbooks call this map “reflection in <i>m</i>” (British usage) or “reflection across <i>m</i>” (American). The preposition is an idiom naming the line that does the reflecting, as in “your image in the mirror”; it does not describe a direction. On this page the map is called <b>the mirror with line <i>m</i></b>, or as a shorter name, <b>the mirror in <i>m</i></b>. The theorem of Cartan and Dieudonné says that every congruence of <i>n</i>-dimensional space is a product of at most <i>n</i> mirrors; in the plane, at most two — three if translations are included in the count, as they are below. So the list of binaries on the sketch (plus/minus, odd/even, left/right versus front/back) is replaced by one object. Everything else on this page is built from it.</p>
 
 <figure id="f1">
   <svg viewBox="0 0 600 340" aria-label="A mirror line and a figure with its image"></svg>
@@ -168,7 +168,7 @@
     <label>Slide <input type="range" id="f6s" min="-150" max="150" value="80"> <span class="readout" id="f6sr">80</span></label>
   </div>
   <div class="key"><span class="k-fig">figure</span><span class="k-gho">after the mirror</span><span class="k-img">after the slide</span><span class="k-mir">mirror line</span></div>
-  <figcaption>Figure 6. The glide reflection: mirror in the line, then translate along the line. The translation is itself two mirrors perpendicular to the line, so the count is three and the sign is odd, but no single mirror produces this image (a mirror has a line of fixed points; the glide has none). It is the only odd congruence of the plane other than the mirror itself.</figcaption>
+  <figcaption>Figure 6. The glide reflection: the mirror with line <i>m</i>, then translate along <i>m</i>. The translation is itself two mirrors perpendicular to the line, so the count is three and the sign is odd, but no single mirror produces this image (a mirror has a line of fixed points; the glide has none). It is the only odd congruence of the plane other than the mirror itself.</figcaption>
 </figure>
 
 <p class="note">A different thing from <i>glide projection</i>, the lateral drawing construction; the two share only the idea of a slide combined with another operation.</p>
@@ -221,7 +221,8 @@
 <p class="note">Mathematical terms first, then drawing terms, then terms retired from the sketch.</p>
 <dl>
   <dt>congruence</dt><dd>A map of the plane (or of space) to itself that preserves every distance. Also called an isometry. Every congruence is a product of mirrors.</dd>
-  <dt>mirror</dt><dd>Reflection in a line (in the plane) or in a plane (in space). Fixes the line point by point; sends every other point to the same distance on the far side along the perpendicular. The single generator on this page.</dd>
+  <dt>mirror</dt><dd>The map of the plane determined by a line <i>m</i>: each point of <i>m</i> stays; each other point <i>P</i> goes to the point <i>P′</i> for which <i>m</i> is the perpendicular bisector of <i>PP′</i>. In space, the same with a plane in place of the line. Called “reflection in <i>m</i>” or “reflection across <i>m</i>” in the textbooks; here, “the mirror with line <i>m</i>” or, as a name, “the mirror in <i>m</i>”. Its fixed points are exactly <i>m</i>; applied twice it is the identity (an <i>involution</i>); it preserves every distance. The single generator on this page.</dd>
+  <dt>“in”, as in <i>mirror in m</i></dt><dd>A name, not a direction. Inherited from everyday speech about mirrors (“the image in the glass”), where the preposition points at the thing that reflects. Nothing goes into the line; each point goes <i>across</i> it to its partner. “Through” is kept for the push of a probe (a drawing word); “about” is kept for turns.</dd>
   <dt>sign</dt><dd>The parity of the number of mirrors in a congruence: even or odd. Equivalently the determinant, +1 or −1. Invariant: the same for every way of writing the congruence as a product of mirrors.</dd>
   <dt>even / odd</dt><dd>A congruence is even if it is a product of an even number of mirrors (it preserves hand), odd if of an odd number (it reverses hand).</dd>
   <dt>measure</dt><dd>The number carried by an even congruence: the angle of a rotation, the distance of a translation. It is twice the separation of the pair of mirrors that compose to it. A single mirror has no measure.</dd>
