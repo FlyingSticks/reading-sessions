@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The glide — three mirrors (v1)</title>
+<style>
+  :root { --ink:#222; --mute:#666; --rule:#bbb; --teal:#0F6E56; --purple:#534AB7; --B:#B8321F; }
+  html,body { margin:0; background:#fbfaf7; color:var(--ink); font:18px/1.6 Georgia, "Times New Roman", serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 20px 80px; }
+  h1 { font-size: 30px; font-weight: normal; margin: 0 0 4px; }
+  h2 { font-size: 22px; font-weight: normal; margin: 48px 0 8px; border-top: 1px solid var(--rule); padding-top: 18px; }
+  p.byline { color: var(--mute); margin: 0 0 24px; font-size: 16px; }
+  figure { margin: 12px 0 8px; }
+  svg { width: 100%; height: auto; display: block; }
+  figcaption { font-size: 16px; color: var(--mute); margin-top: 6px; }
+  svg text { font: 15px Helvetica, Arial, sans-serif; fill: var(--ink); }
+  svg text.s { font-size: 14px; fill: var(--mute); }
+  dl { margin: 0; } dt { font-weight: bold; margin-top: 14px; } dd { margin: 2px 0 0 0; }
+  .note { font-size: 16px; color: var(--mute); }
+  .controls { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin:10px 0; font: 15px Helvetica, Arial, sans-serif; }
+  .controls .s { color: var(--mute); }
+  button { font: 15px Helvetica, Arial, sans-serif; padding: 8px 14px; border: 1px solid #999; border-radius: 8px; background: #fff; color: var(--ink); cursor: pointer; }
+  button.on { background: #ece9df; border-color:#555; }
+  input[type=range] { min-width: 200px; flex:1; }
+  table { border-collapse: collapse; width: 100%; font: 15px/1.45 Helvetica, Arial, sans-serif; margin: 10px 0; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #ddd; vertical-align: top; }
+  th { font-weight: bold; color: var(--mute); }
+  td.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .msg { font: 15px/1.5 Helvetica, Arial, sans-serif; color: var(--mute); min-height: 3.2em; margin: 6px 0; }
+</style>
+</head>
+<body>
+<main>
+<h1>The glide</h1>
+<p class="byline">Three mirrors. Euclidean plane only. Version 1, 10 November 2026.</p>
+
+<p>One mirror reverses handedness. A pair of mirrors restores it and carries a measure: a turn if the lines cross, a slide if they are parallel. This plate adds a third mirror to a parallel pair. The product is a glide: a slide along a line together with a mirror in that same line. It is the first map on these plates that is odd and yet carries a continuous measure. Figure 1 builds the glide from three mirrors, one step at a time. Figure 2 repeats a glide and a slide side by side and shows that both are square roots of the same longer slide. A glossary follows; drawing words and mathematical words are kept apart.</p>
+
+<h2>1. Three mirrors, one glide</h2>
+<p>Mirror lines <i>A</i> and <i>B</i> are parallel, with separation <i>d</i>. Mirror line <i>C</i> is perpendicular to both. The probe is the figure <i>L</i>.</p>
+<div class="controls">
+  <button id="s1">1 · A</button>
+  <button id="s2">2 · then B</button>
+  <button id="s3">3 · then C</button>
+  <button id="s4">4 · check</button>
+</div>
+<div class="controls">
+  <label class="s" for="sd">separation d, from A to B</label>
+  <input type="range" min="30" max="130" value="80" step="1" id="sd">
+  <span id="sdout" class="s" style="min-width:52px;text-align:right;"></span>
+</div>
+<p class="msg" id="msg1"></p>
+<figure>
+<svg viewBox="0 0 720 400" role="img" aria-label="A glide built from three mirrors: A and B parallel, C perpendicular to them">
+<defs><clipPath id="c1"><rect x="6" y="6" width="708" height="388"/></clipPath></defs>
+<rect x="6" y="6" width="708" height="388" fill="none" stroke="#ddd"/>
+<g id="g1" clip-path="url(#c1)"></g>
+</svg>
+<figcaption>Black line <i>A</i>, red-brown line <i>B</i>, blue line <i>C</i>. Green figures have the handedness of <i>L</i>; purple figures have the opposite handedness. <i>L′</i> is <i>L</i> after the mirror with line <i>A</i>; <i>L″</i> after <i>A</i> then <i>B</i>; <i>L‴</i> after <i>A</i> then <i>B</i> then <i>C</i>. In step 4 the thin grey segments join each of three points of <i>L</i> to the same point of <i>L‴</i>, and the small black dots are the midpoints of those segments.</figcaption>
+</figure>
+<table>
+<tr><th>ledger, computed from the drawn coordinates</th><th style="text-align:right">value</th></tr>
+<tr><td>separation from <i>A</i> to <i>B</i></td><td class="n" id="a1"></td></tr>
+<tr><td>length of the slide that carries <i>L</i> to <i>L″</i></td><td class="n" id="a2"></td></tr>
+<tr><td>distance from the line <i>C</i>: corner of <i>L</i>, corner of <i>L‴</i> (positive above)</td><td class="n" id="a3"></td></tr>
+<tr><td>distance from the line <i>C</i> to each of the three midpoints</td><td class="n" id="a4"></td></tr>
+<tr><td>determinant: <i>A</i>; <i>A</i> then <i>B</i>; <i>A</i> then <i>B</i> then <i>C</i></td><td class="n" id="a5"></td></tr>
+</table>
+<p><b>What the three mirrors do.</b> The first two are the parallel pair of the previous plate: together they slide <i>L</i> by 2<i>d</i>, perpendicular to their lines. The line <i>C</i> runs in exactly that direction, so the slide is along <i>C</i>. The third mirror then sends the slid figure across <i>C</i>. The whole product is "slide along <i>C</i> by 2<i>d</i>, then mirror with line <i>C</i>". That is the definition of a glide with axis <i>C</i> and length 2<i>d</i>.</p>
+<p><b>What a glide keeps.</b> No point stays where it was: every point is moved along by 2<i>d</i> at least. But the line <i>C</i> as a whole is carried onto itself, each of its points moving 2<i>d</i> along it. Step 4 shows a property that lets a draftsman find the axis from a figure and its image alone: join any point to its image, and the midpoint of that segment lies on the axis. Three such midpoints are drawn; the ledger measures their distance from <i>C</i>.</p>
+<p><b>The sign and the measure.</b> Three mirrors, so the sign is −1: <i>L‴</i> is purple. Yet the glide also carries a measure, its length, which the slider changes continuously. A single mirror has a sign and no measure. A pair has a measure and sign +1. The glide has both a sign of −1 and a measure. The measure belongs to the parallel pair inside it; the sign belongs to the count of three.</p>
+<p><b>The order of the third mirror.</b> Because <i>C</i> is perpendicular to <i>A</i> and to <i>B</i>, the mirror with line <i>C</i> can be done first, second or third without changing the product. This was checked numerically. It is not true of three mirrors in general.</p>
+
+<h2>2. Two square roots of one slide</h2>
+<p>Take the figure <i>L</i> and repeat a map on it. In green outline, the map is a slide of length <i>g</i>. In filled colour, the map is a glide of the same length <i>g</i>, with the blue line as axis. Step forward one map at a time.</p>
+<div class="controls">
+  <label class="s" for="sn">number of steps</label>
+  <input type="range" min="0" max="4" value="1" step="1" id="sn">
+  <span id="snout" class="s" style="min-width:20px;text-align:right;"></span>
+</div>
+<div class="controls">
+  <label class="s" for="sc">position of the glide's axis</label>
+  <input type="range" min="-70" max="30" value="0" step="1" id="sc">
+</div>
+<p class="msg" id="msg2"></p>
+<figure>
+<svg viewBox="0 0 720 400" role="img" aria-label="A slide and a glide of the same length, each repeated; after every second step the two agree">
+<defs><clipPath id="c2"><rect x="6" y="6" width="708" height="388"/></clipPath></defs>
+<rect x="6" y="6" width="708" height="388" fill="none" stroke="#ddd"/>
+<g id="g2" clip-path="url(#c2)"></g>
+</svg>
+<figcaption>Blue line: the axis of the glide. Filled figures: <i>L</i> and its images under the glide, repeated; green where the handedness is that of <i>L</i>, purple where it is the opposite. Dashed black outlines: the images of <i>L</i> under the slide, repeated. The numbers count the steps. Where a dashed outline lies exactly on a filled figure, the two maps have brought <i>L</i> to the same place.</figcaption>
+</figure>
+<table>
+<tr><th>ledger, computed from the drawn coordinates</th><th style="text-align:right">value</th></tr>
+<tr><td>length <i>g</i> of one step</td><td class="n">1.20</td></tr>
+<tr><td>after the last step shown: distance between the slide's image of the corner and the glide's image of the corner</td><td class="n" id="b1"></td></tr>
+<tr><td>determinant of one step: slide, glide</td><td class="n" id="b2"></td></tr>
+<tr><td>determinant of two steps: slide, glide</td><td class="n" id="b3"></td></tr>
+</table>
+<p>After one step the two disagree: the slide's image is above the axis and green in outline, the glide's is below and purple. After two steps they agree exactly, and again after four. The glide done twice is: slide, mirror, slide, mirror. The two mirrors have the same line and undo each other, and the two slides add. So <b>a glide of length <i>g</i>, done twice, is a slide of length 2<i>g</i></b> — the same result as the slide of length <i>g</i> done twice.</p>
+<p>In the language of the fold page, the slide of length 2<i>g</i> is a square, and it has more than one root. One root is even: the slide of length <i>g</i>. The glide of length <i>g</i> is an odd root. Move the second slider: the axis can be placed anywhere, keeping its direction, and the glide is still a root of the same slide. So this square has one even root and a whole family of odd roots, one for each line parallel to the slide. The pattern "one square, two readings" holds here for the sign — even or odd — but not for the count.</p>
+<p>This also settles what the measure of a glide is. The glide itself is odd, and odd maps were said to have a sign and no measure. But its square is an even map with a measure, 2<i>g</i>. The glide's measure is half the measure of its square.</p>
+<p>The row of filled figures, alternating above and below the axis, is the footprint pattern: left, right, left, right along a line of walking.</p>
+
+<h2>What is and is not drawn</h2>
+<p class="note">Drawn: the Euclidean plane only; one arrangement of three mirror lines, two parallel and the third perpendicular to them. Not drawn, and stated here without demonstration: any three mirrors whose lines neither all pass through one point nor are all parallel have a glide as their product (a standard theorem, not checked on this plate); three mirrors whose lines all pass through one point, or are all parallel, have a single mirror as their product. Also not drawn: the parabolic and Minkowski planes. Checked numerically before issue, over the slider ranges: <i>L″</i> is <i>L</i> moved by exactly 2<i>d</i> along <i>C</i>; corresponding points of <i>L</i> and <i>L‴</i> are at equal and opposite distances from <i>C</i>, so their midpoints lie on <i>C</i>; the mirror with line <i>C</i> may be done first, second or third with the same result; the determinants are −1, +1, −1; for every axis position, the glide done twice agrees with the slide done twice at every point tested.</p>
+
+<h2>Glossary</h2>
+<p class="note">Terms carried over from the earlier plates keep their meaning.</p>
+<dl>
+<dt>mirror with line <i>m</i></dt><dd>The map of the plane that keeps every point of <i>m</i> where it is and pairs every other point <i>X</i> with a partner <i>X′</i>, so that <i>m</i> is the perpendicular bisector of the segment <i>XX′</i>.</dd>
+<dt>slide (standard name: translation)</dt><dd>A map of the plane that moves every point the same distance in the same direction.</dd>
+<dt>glide (standard name: glide reflection)</dt><dd>A slide along a line, together with the mirror that has that same line as its mirror line. The two may be done in either order with the same result. It keeps distances and reverses handedness.</dd>
+<dt>axis (of a glide)</dt><dd>The line along which the glide slides and which is its mirror line. The glide carries the axis onto itself. It contains the midpoint of every segment joining a point to its image.</dd>
+<dt>length (of a glide or a slide)</dt><dd>The distance every point of the axis is moved; for a slide, the distance every point is moved. A glide of length 0 is a single mirror.</dd>
+<dt>product "<i>A</i> then <i>B</i> then <i>C</i>"</dt><dd>The map obtained by doing the three mirrors one after another in that order.</dd>
+<dt>sign</dt><dd>+1 if a map is a product of an even number of mirrors, −1 if odd. It equals the sign of the determinant. Even maps keep handedness; odd maps reverse it.</dd>
+<dt>measure</dt><dd>Of a pair of mirrors: the separation of their lines. Of a glide: its length, which is half the length of the slide obtained by doing the glide twice.</dd>
+<dt>square, root</dt><dd>The square of a map is the map done twice. A root of a map <i>S</i> is a map whose square is <i>S</i>. Used here as on the fold page, with maps in place of numbers.</dd>
+<dt>even root, odd root</dt><dd>A root with sign +1, a root with sign −1.</dd>
+<dt>handedness</dt><dd>What a mirror reverses and a slide or turn keeps. Green figures have the handedness of <i>L</i>; purple figures the opposite.</dd>
+<dt>probe</dt><dd>A figure watched in order to see what a map does.</dd>
+<dt>corner, top, tip (drawing words)</dt><dd>Three points of the figure <i>L</i>: where its two strokes meet, the free end of the long stroke, the free end of the short stroke.</dd>
+<dt>outline, filled (drawing words)</dt><dd>In Figure 2, a dashed black outline is an image under the slide; a figure in solid colour is an image under the glide.</dd>
+<dt>footprint pattern (drawing word)</dt><dd>The row of images of one figure under a repeated glide: alternately on one side of the axis and the other, alternately of one handedness and the other.</dd>
+<dt>determinant</dt><dd>The factor by which a map multiplies signed area: −1 for a mirror or a glide, +1 for a slide or a turn.</dd>
+</dl>
+</main>
+<script>
+(function(){
+function f2(v){var s=(Math.round(v*100)/100).toFixed(2);return s==='-0.00'?'0.00':s.replace('-','−')}
+function refl(q,e,X){var vx=X[0]-q[0],vy=X[1]-q[1],t=vx*e[0]+vy*e[1];return [q[0]+2*t*e[0]-vx,q[1]+2*t*e[1]-vy];}
+function Lp(a){return [[a[0],a[1]+0.9],[a[0],a[1]],[a[0]+0.5,a[1]]];}
+function det(f){var o=f([0,0]),a=f([1,0]),b=f([0,1]);return (a[0]-o[0])*(b[1]-o[1])-(a[1]-o[1])*(b[0]-o[0]);}
+function ln(a,b,st){return '<line x1="'+a[0].toFixed(1)+'" y1="'+a[1].toFixed(1)+'" x2="'+b[0].toFixed(1)+'" y2="'+b[1].toFixed(1)+'" '+st+'/>'}
+function ci(p,r,st){return '<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="'+r+'" '+st+'/>'}
+function tx(x,y,s,st){return '<text x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" '+(st||'')+'>'+s+'</text>'}
+function drawL(T,pts,col,dash){var d=pts.map(function(z,i){var q=T(z);return (i?'L':'M')+q[0].toFixed(1)+' '+q[1].toFixed(1)}).join('');
+  return '<path d="'+d+'" fill="none" stroke="'+col+'" stroke-width="'+(dash?1.8:5)+'" stroke-linecap="round" stroke-linejoin="round"'+(dash?' stroke-dasharray="5 4"':'')+'/>'+(dash?'':ci(T(pts[1]),4,'fill="#fbfaf7" stroke="'+col+'" stroke-width="1.5"'));}
+var TE='#0F6E56',PU='#534AB7',RB='#B8321F',BL='#1F5FA8',V=[0,1],H=[1,0];
+function sgn(v){return (v>0?'+':'')+f2(v)}
+
+/* ---------- Figure 1 ---------- */
+var sd=document.getElementById('sd'),sdout=document.getElementById('sdout'),msg1=document.getElementById('msg1');
+var sb=[1,2,3,4].map(function(i){return document.getElementById('s'+i)}),step=3;
+sb.forEach(function(b,i){b.onclick=function(){step=i+1;draw1()}});
+var AX=-1.4,L0=[-3.4,0.45];
+function maps1(d){return {A:function(X){return refl([AX,0],V,X)},B:function(X){return refl([AX+d,0],V,X)},C:function(X){return refl([0,0],H,X)}};}
+var MSG=['Step 1. The mirror with line A sends L to L′. One mirror: handedness reversed.',
+ 'Step 2. The mirror with line B sends L′ to L″. Two parallel mirrors: L″ is L slid by 2d, handedness restored.',
+ 'Step 3. The mirror with line C sends L″ to L‴. Three mirrors: L‴ is L slid along C by 2d and sent across C. This is the glide.',
+ 'Step 4. Check. Each grey segment joins a point of L to the same point of L‴. Every midpoint lies on C, the axis of the glide.'];
+function draw1(){
+  sb.forEach(function(b,i){b.className=(i+1===step)?'on':''});msg1.textContent=MSG[step-1];
+  var d=+sd.value/100;sdout.textContent=f2(d);
+  var ox=360,oy=200,sc=72;function T(z){return [ox+sc*z[0],oy-sc*z[1]]}
+  var M=maps1(d),L=Lp(L0),L1=L.map(M.A),L2=L1.map(M.B),L3=L2.map(M.C);
+  var s='';
+  if(step>=3)s+=ln(T([-9,0]),T([9,0]),'stroke="'+BL+'" stroke-width="2"')+tx(T([4.55,0])[0],T([0,0])[1]-9,'C','style="fill:'+BL+';font-weight:bold" text-anchor="middle"');
+  s+=ln(T([AX,-9]),T([AX,9]),'stroke="#222" stroke-width="2"')+tx(T([AX,0])[0]-12,30,'A','style="font-weight:bold" text-anchor="middle"');
+  if(step>=2)s+=ln(T([AX+d,-9]),T([AX+d,9]),'stroke="'+RB+'" stroke-width="2"')+tx(T([AX+d,0])[0]+12,30,'B','style="fill:'+RB+';font-weight:bold" text-anchor="middle"');
+  function lab(pts,t,col,below){var q=T(pts[0]);return tx(q[0],q[1]+(below?22:-10),t,'style="fill:'+col+';font-weight:bold" text-anchor="middle"');}
+  if(step===4){[0,1,2].forEach(function(i){s+=ln(T(L[i]),T(L3[i]),'stroke="#888" stroke-width="1"');});}
+  var faint=step===4?' opacity="0.25"':'';
+  s+='<g'+faint+'>'+drawL(T,L1,PU)+lab(L1,'L′',PU)+'</g>';
+  if(step>=2)s+='<g'+faint+'>'+drawL(T,L2,TE)+lab(L2,'L″',TE)+'</g>';
+  s+=drawL(T,L,TE)+lab(L,'L',TE);
+  if(step>=3)s+=drawL(T,L3,PU)+lab(L3,'L‴',PU,true);
+  if(step===4){[0,1,2].forEach(function(i){s+=ci(T([(L[i][0]+L3[i][0])/2,(L[i][1]+L3[i][1])/2]),3.4,'fill="#222"');});}
+  document.getElementById('g1').innerHTML=s;
+  document.getElementById('a1').textContent=f2(d);
+  document.getElementById('a2').textContent=step>=2?f2(Math.hypot(L2[1][0]-L[1][0],L2[1][1]-L[1][1])):'— (step 2)';
+  document.getElementById('a3').textContent=step>=3?sgn(L[1][1])+', '+sgn(L3[1][1]).replace('+−','−'):'— (step 3)';
+  document.getElementById('a4').textContent=step>=4?[0,1,2].map(function(i){return f2((L[i][1]+L3[i][1])/2)}).join(', '):'— (step 4)';
+  var d1=det(M.A),d2=det(function(X){return M.B(M.A(X))}),d3=det(function(X){return M.C(M.B(M.A(X)))});
+  document.getElementById('a5').textContent=f2(d1)+(step>=2?'; '+sgn(d2):'')+(step>=3?'; '+f2(d3):'');
+}
+sd.oninput=draw1;
+
+/* ---------- Figure 2 ---------- */
+var sn=document.getElementById('sn'),scs=document.getElementById('sc'),snout=document.getElementById('snout'),msg2=document.getElementById('msg2');var G=1.2,S0=[-2.9,0.5];
+function slide(X){return [X[0]+G,X[1]]}
+function glideAt(c){return function(X){return refl([0,c],H,[X[0]+G,X[1]]);}}
+function draw2(){
+  var n=+sn.value,c=+scs.value/100;snout.textContent=n;
+  var ox=360,oy=200,sc=72;function T(z){return [ox+sc*z[0],oy-sc*z[1]]}
+  var gl=glideAt(c);var s='';
+  s+=ln(T([-9,c]),T([9,c]),'stroke="'+BL+'" stroke-width="2"')+tx(T([4.5,0])[0],T([0,c])[1]-9,'axis','style="fill:'+BL+'" text-anchor="middle"');
+  var Ls=Lp(S0),Lg=Lp(S0),lastS=Ls,lastG=Lg;
+  var out='';
+  for(var k=0;k<=n;k++){
+    var col=(k%2===0)?TE:PU;
+    out+=drawL(T,Lg,col);
+    var q=T(Lg[0]);var below=Lg[0][1]<Lg[1][1];
+    out+=tx(q[0],q[1]+(below?22:-10),String(k),'style="fill:'+col+';font-weight:bold" text-anchor="middle"');
+    if(k>0){out+=drawL(T,Ls,'#222',true);if(k%2===1){var qs=T(Ls[0]);out+=tx(qs[0]+14,qs[1]-10,String(k),'class="s" text-anchor="middle"');}}
+    lastS=Ls;lastG=Lg;
+    Ls=Ls.map(slide);Lg=Lg.map(gl);
+  }
+  s+=out;
+  document.getElementById('g2').innerHTML=s;
+  document.getElementById('b1').textContent=f2(Math.hypot(lastS[1][0]-lastG[1][0],lastS[1][1]-lastG[1][1]));
+  document.getElementById('b2').textContent=sgn(det(slide))+', '+f2(det(gl));
+  document.getElementById('b3').textContent=sgn(det(function(X){return slide(slide(X))}))+', '+sgn(det(function(X){return gl(gl(X))}));
+  msg2.textContent=n===0?'No steps yet: only L is drawn. Move the first slider.':(n%2===1?'After '+n+' step'+(n>1?'s':'')+': the slide and the glide disagree. The glide\'s image is on the other side of the axis and has the other handedness.':'After '+n+' steps: the slide and the glide agree exactly. The dashed outline lies on the filled figure.');
+}
+sn.oninput=draw2;scs.oninput=draw2;
+draw1();draw2();
+window.__check=function(){var bad=[];
+  for(var di=30;di<=130;di++){var d=di/100,M=maps1(d);Lp(L0).concat([[0.3,-1.7],[2,2]]).forEach(function(X){
+    var X2=M.B(M.A(X)),X3=M.C(X2);
+    if(Math.abs(X2[0]-X[0]-2*d)>1e-9||Math.abs(X2[1]-X[1])>1e-9)bad.push(['slide',d]);
+    if(Math.abs(X3[1]+X[1])>1e-9||Math.abs(X3[0]-X[0]-2*d)>1e-9)bad.push(['glide',d]);
+    var o1=M.B(M.A(M.C(X))),o2=M.B(M.C(M.A(X)));if(Math.hypot(o1[0]-X3[0],o1[1]-X3[1])>1e-9||Math.hypot(o2[0]-X3[0],o2[1]-X3[1])>1e-9)bad.push(['order',d]);});
+    var d1=det(M.A),d2=det(function(X){return M.B(M.A(X))}),d3=det(function(X){return M.C(M.B(M.A(X)))});
+    if(Math.abs(d1+1)>1e-9||Math.abs(d2-1)>1e-9||Math.abs(d3+1)>1e-9)bad.push(['det',d]);}
+  for(var ci2=-70;ci2<=30;ci2++){var gl=glideAt(ci2/100);[[-2.9,0.5],[1,1],[0,-2],[3.3,0.2]].forEach(function(X){var a=gl(gl(X)),b=slide(slide(X));
+    if(Math.hypot(a[0]-b[0],a[1]-b[1])>1e-9)bad.push(['root',ci2]);var m=gl(X);if(Math.abs((X[1]+m[1])/2-ci2/100)>1e-9)bad.push(['mid',ci2]);});
+    if(Math.abs(det(gl)+1)>1e-9)bad.push(['detg',ci2]);}
+  return bad;};
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The parallel pair — two mirrors whose lines never meet (v1)</title>
+<style>
+  :root { --ink:#222; --mute:#666; --rule:#bbb; --teal:#0F6E56; --purple:#534AB7; --B:#B8321F; }
+  html,body { margin:0; background:#fbfaf7; color:var(--ink); font:18px/1.6 Georgia, "Times New Roman", serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 20px 80px; }
+  h1 { font-size: 30px; font-weight: normal; margin: 0 0 4px; }
+  h2 { font-size: 22px; font-weight: normal; margin: 48px 0 8px; border-top: 1px solid var(--rule); padding-top: 18px; }
+  p.byline { color: var(--mute); margin: 0 0 24px; font-size: 16px; }
+  figure { margin: 12px 0 8px; }
+  svg { width: 100%; height: auto; display: block; }
+  figcaption { font-size: 16px; color: var(--mute); margin-top: 6px; }
+  svg text { font: 15px Helvetica, Arial, sans-serif; fill: var(--ink); }
+  svg text.s { font-size: 14px; fill: var(--mute); }
+  dl { margin: 0; } dt { font-weight: bold; margin-top: 14px; } dd { margin: 2px 0 0 0; }
+  .note { font-size: 16px; color: var(--mute); }
+  .controls { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin:10px 0; font: 15px Helvetica, Arial, sans-serif; }
+  .controls .s { color: var(--mute); }
+  button { font: 15px Helvetica, Arial, sans-serif; padding: 8px 14px; border: 1px solid #999; border-radius: 8px; background: #fff; color: var(--ink); cursor: pointer; }
+  button.on { background: #ece9df; border-color:#555; }
+  input[type=range] { min-width: 200px; flex:1; }
+  table { border-collapse: collapse; width: 100%; font: 15px/1.45 Helvetica, Arial, sans-serif; margin: 10px 0; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #ddd; vertical-align: top; }
+  th { font-weight: bold; color: var(--mute); }
+  td.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+</style>
+</head>
+<body>
+<main>
+<h1>The parallel pair</h1>
+<p class="byline">Two mirrors whose lines never meet. Euclidean plane only. Version 1, 10 November 2026.</p>
+
+<p>The pair plate took two mirrors whose lines cross at a point, and found a turn about that point by twice the angle between the lines. This plate takes two mirrors whose lines are parallel, so that there is no crossing point. The product is a slide: every point moves the same distance in the same direction, and that distance is twice the separation of the lines. Figure 1 shows the slide and where the factor of two comes from. Figure 2 shows how the slide is related to the turn: move the crossing point of a crossing pair farther and farther away, and the turn comes closer and closer to the slide. A glossary follows; drawing words and mathematical words are kept apart.</p>
+
+<h2>1. Two parallel mirrors give a slide</h2>
+<p>Mirror line <i>A</i> and mirror line <i>B</i> are parallel. The probe is the figure <i>L</i>. The first mirror sends <i>L</i> to <i>L′</i>; the second sends <i>L′</i> to <i>L″</i>.</p>
+<div class="controls">
+  <label class="s" for="sd">separation d, from A to B</label>
+  <input type="range" min="-120" max="120" value="70" step="1" id="sd">
+  <span id="sdout" class="s" style="min-width:52px;text-align:right;"></span>
+</div>
+<div class="controls">
+  <label class="s" for="sa">position of the pair (d held)</label>
+  <input type="range" min="-100" max="100" value="0" step="1" id="sa">
+</div>
+<div class="controls">
+  <button id="oAB">A then B</button>
+  <button id="oBA">B then A</button>
+</div>
+<figure>
+<svg viewBox="0 0 720 400" role="img" aria-label="Two parallel mirror lines A and B, a probe L, its image L prime after the first mirror, and L double prime after the second">
+<defs><clipPath id="c1"><rect x="6" y="6" width="708" height="388"/></clipPath></defs>
+<rect x="6" y="6" width="708" height="388" fill="none" stroke="#ddd"/>
+<g id="g1" clip-path="url(#c1)"></g>
+</svg>
+<figcaption>Black line <i>A</i>, red-brown line <i>B</i>. Green figures: <i>L</i> and <i>L″</i>, which have the same handedness. Purple figure: <i>L′</i>, which has the opposite handedness. <i>P</i>, <i>P′</i>, <i>P″</i>: the corner of each figure. Small black dots: the midpoint of <i>PP′</i> and the midpoint of <i>P′P″</i>; each lies on the line of the mirror that made that step. The two measuring lines with end ticks are dimension lines: the upper one from <i>A</i> to <i>B</i>, the lower one from <i>P</i> to <i>P″</i>.</figcaption>
+</figure>
+<table>
+<tr><th>ledger, computed from the drawn coordinates</th><th style="text-align:right">value</th></tr>
+<tr><td>separation from <i>A</i> to <i>B</i> (positive to the right)</td><td class="n" id="a1"></td></tr>
+<tr><td>how far each of three points of <i>L</i> has moved to reach <i>L″</i>: corner, top, tip</td><td class="n" id="a2"></td></tr>
+<tr><td>how far each has moved up or down</td><td class="n" id="a3"></td></tr>
+<tr><td>determinant: first mirror, second mirror, the product</td><td class="n" id="a4"></td></tr>
+</table>
+<p><b>Where the factor of two comes from.</b> Look at the corner. The first mirror's line passes through the midpoint of <i>PP′</i>. The second mirror's line passes through the midpoint of <i>P′P″</i>. Both midpoints lie on the one line through <i>P</i> perpendicular to the mirror lines, so the distance from the first midpoint to the second is the separation <i>d</i>. Now the step from <i>P</i> to <i>P″</i> is made of four pieces: <i>P</i> to the first midpoint, the same length again to <i>P′</i>, then <i>P′</i> to the second midpoint, and the same length again to <i>P″</i>. The two middle pieces together are the distance between the midpoints, which is <i>d</i>. The two outer pieces are copies of the two middle ones. So the whole step is 2<i>d</i>. This holds for every point, not only the corner, which is why all three numbers in the second row of the ledger are equal.</p>
+<p><b>Only the separation matters.</b> Move the second slider. The pair travels across the page, <i>L′</i> travels with it, and <i>L″</i> does not move at all. A slide has no location: the pair that produces it can stand anywhere, provided its separation and its direction are kept. Compare the pair plate, where turning the crossing pair as a whole about its crossing point left the turn unchanged.</p>
+<p><b>The order matters.</b> Press "B then A". The slide has the same length and the opposite direction. The same was true of the turn on the pair plate.</p>
+<p><b>The sign.</b> Each mirror reverses handedness; two of them restore it. The determinants are −1, −1 and +1, as for the crossing pair.</p>
+
+<h2>2. A slide is what a turn becomes when its centre leaves the page</h2>
+<p>Here <i>A</i> and <i>B</i> cross at a point <i>O</i>, as on the pair plate, so their product is a turn about <i>O</i>. The gap between the two lines, measured along the grey level line, is held at 0.80. The slider moves <i>O</i> down the line <i>A</i>, away from the probe.</p>
+<div class="controls">
+  <label class="s" for="sr">distance of O below the level line</label>
+  <input type="range" min="0" max="100" value="8" step="1" id="sr">
+  <span id="srout" class="s" style="min-width:64px;text-align:right;"></span>
+</div>
+<figure>
+<svg viewBox="0 0 720 460" role="img" aria-label="A crossing pair whose crossing point O is moved far away; the turn of the probe approaches the slide of the parallel pair">
+<defs><clipPath id="c2"><rect x="6" y="6" width="708" height="448"/></clipPath></defs>
+<rect x="6" y="6" width="708" height="448" fill="none" stroke="#ddd"/>
+<g id="g2" clip-path="url(#c2)"></g>
+</svg>
+<figcaption>Black line <i>A</i>, red-brown line <i>B</i>, crossing at <i>O</i>. Grey horizontal line: the level line, along which the gap between <i>A</i> and <i>B</i> is held at 0.80. Green figures: <i>L</i> and its image <i>L″</i> under "<i>A</i> then <i>B</i>". Green arc: the path of the corner <i>P</i> about <i>O</i>. Dashed outline: where the parallel pair with separation 0.80 would put <i>L</i>. <i>L′</i> is not drawn.</figcaption>
+</figure>
+<table>
+<tr><th>ledger, computed from the drawn coordinates</th><th style="text-align:right">value</th></tr>
+<tr><td>angle from <i>A</i> to <i>B</i></td><td class="n" id="b1"></td></tr>
+<tr><td>angle of the turn that carries <i>L</i> to <i>L″</i></td><td class="n" id="b2"></td></tr>
+<tr><td>distance from <i>O</i> to the corner <i>P</i></td><td class="n" id="b3"></td></tr>
+<tr><td>straight-line distance from <i>P</i> to <i>P″</i></td><td class="n" id="b4"></td></tr>
+<tr><td>twice the gap (what the parallel pair gives)</td><td class="n">1.60</td></tr>
+<tr><td>distance from <i>P″</i> to the corner of the dashed outline</td><td class="n" id="b5"></td></tr>
+</table>
+<p>As <i>O</i> goes farther away, three things happen together. The angle between the lines shrinks toward 0°, so the lines look more and more parallel. The arc flattens toward a straight segment. And <i>L″</i> settles onto the dashed outline. The angle of the turn is going to zero while the distance to the centre is growing without limit; the distance actually travelled by <i>P</i> stays near 1.60 throughout.</p>
+<p>A statement to read literally: at no position of the slider is the product a slide. While <i>O</i> exists, however far off, the product is a turn, and <i>L″</i> is tilted by a small angle against <i>L</i>. The parallel pair of Figure 1 is the case in which there is no <i>O</i>. What Figure 2 shows is that nothing jumps between the two cases: the parallel pair is what the crossing pair approaches.</p>
+<p>This is why the thread speaks of one measure with two readings on the drawing. The measure of a pair is its separation, doubled by the product. For a crossing pair the separation is an angle and the product is a turn. For a parallel pair the separation is a distance and the product is a slide.</p>
+
+<h2>What is and is not drawn</h2>
+<p class="note">Drawn: the Euclidean plane only; mirror lines upright in Figure 1; one fixed gap in Figure 2. Not drawn: parallel pairs in other directions (the slide is always perpendicular to the two lines); the parabolic and Minkowski planes. Checked numerically before issue, over both slider ranges of Figure 1 and both orders: all three points of <i>L</i> move by exactly twice the separation, and not at all up or down; the determinants are −1, −1, +1. For Figure 2: the image of <i>P</i> under the two mirrors agrees with <i>P</i> turned about <i>O</i> by twice the angle from <i>A</i> to <i>B</i>; with <i>O</i> at distance one million, the distance from <i>P</i> to <i>P″</i> differs from 1.60 by less than 0.00001.</p>
+
+<h2>Glossary</h2>
+<p class="note">Terms carried over from the earlier plates keep their meaning.</p>
+<dl>
+<dt>mirror with line <i>m</i></dt><dd>The map of the plane that keeps every point of <i>m</i> where it is and pairs every other point <i>X</i> with a partner <i>X′</i>, so that <i>m</i> is the perpendicular bisector of the segment <i>XX′</i>.</dd>
+<dt>parallel pair</dt><dd>Two mirrors, taken in order, whose lines are parallel and therefore have no point in common.</dd>
+<dt>crossing pair</dt><dd>Two mirrors, taken in order, whose lines have exactly one point in common, the crossing point. The pair of the pair plate.</dd>
+<dt>separation (of a parallel pair)</dt><dd>The distance from the first line to the second, measured along any line perpendicular to both. Counted with a sign: positive when the second line is to the right of the first, as drawn here.</dd>
+<dt>slide (standard name: translation)</dt><dd>A map of the plane that moves every point the same distance in the same direction. It keeps distances and handedness. It leaves no point where it was, unless the distance is zero.</dd>
+<dt>turn (standard name: rotation)</dt><dd>A map of the plane that keeps one point, the centre, and carries every other point along a circle about the centre through the same angle.</dd>
+<dt>product "<i>A</i> then <i>B</i>"</dt><dd>The map obtained by doing the mirror with line <i>A</i> first and the mirror with line <i>B</i> second.</dd>
+<dt>probe</dt><dd>A figure watched in order to see what a map does. <i>L</i> is used because it has a handedness: its mirror image cannot be slid or turned onto it.</dd>
+<dt>handedness</dt><dd>What a mirror reverses and a slide or turn keeps. On this plate, figures of one handedness are drawn green and figures of the other purple.</dd>
+<dt>corner, top, tip (drawing words)</dt><dd>Three points of the figure <i>L</i>: the corner where its two strokes meet, the free end of the long stroke, and the free end of the short stroke.</dd>
+<dt>dimension line (drawing word)</dt><dd>A thin line with a tick at each end and a number, showing a measured distance, as on a working drawing. It is not part of the geometry.</dd>
+<dt>level line (drawing word)</dt><dd>In Figure 2, the grey horizontal line along which the gap between <i>A</i> and <i>B</i> is measured and held.</dd>
+<dt>gap (drawing word)</dt><dd>In Figure 2, the distance between <i>A</i> and <i>B</i> measured along the level line. For a parallel pair it is the separation.</dd>
+<dt>determinant</dt><dd>The factor by which a map multiplies signed area. −1 for a mirror, +1 for a slide or a turn. Its sign is the sign of the map in the mirror-count ledger.</dd>
+<dt>measure (of a pair)</dt><dd>The separation of the two mirror lines: an angle if they cross, a distance if they are parallel. The product of the pair carries twice the measure.</dd>
+</dl>
+</main>
+<script>
+(function(){
+function f2(v){var s=(Math.round(v*100)/100).toFixed(2);return s==='-0.00'?'0.00':s.replace('-','−')}
+function refl(q,e,X){var vx=X[0]-q[0],vy=X[1]-q[1],t=vx*e[0]+vy*e[1];return [q[0]+2*t*e[0]-vx,q[1]+2*t*e[1]-vy];}
+function Lp(a){return [[a[0],a[1]+0.9],[a[0],a[1]],[a[0]+0.5,a[1]]];}
+function det(f){var o=f([0,0]),a=f([1,0]),b=f([0,1]);return (a[0]-o[0])*(b[1]-o[1])-(a[1]-o[1])*(b[0]-o[0]);}
+function ln(a,b,st){return '<line x1="'+a[0].toFixed(1)+'" y1="'+a[1].toFixed(1)+'" x2="'+b[0].toFixed(1)+'" y2="'+b[1].toFixed(1)+'" '+st+'/>'}
+function ci(p,r,st){return '<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="'+r+'" '+st+'/>'}
+function tx(x,y,s,st){return '<text x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" '+(st||'')+'>'+s+'</text>'}
+function drawL(T,pts,col,dash){var d=pts.map(function(z,i){var q=T(z);return (i?'L':'M')+q[0].toFixed(1)+' '+q[1].toFixed(1)}).join('');
+  return '<path d="'+d+'" fill="none" stroke="'+col+'" stroke-width="'+(dash?1.6:5)+'" stroke-linecap="round" stroke-linejoin="round"'+(dash?' stroke-dasharray="5 4"':'')+'/>'+(dash?'':ci(T(pts[1]),4,'fill="#fbfaf7" stroke="'+col+'" stroke-width="1.5"'));}
+function dim(T,x1,x2,y,lab){var a=T([x1,y]),b=T([x2,y]);var st='stroke="#555" stroke-width="1"';
+  return ln(a,b,st)+ln([a[0],a[1]-6],[a[0],a[1]+6],st)+ln([b[0],b[1]-6],[b[0],b[1]+6],st)+tx(Math.max(a[0],b[0])+9,a[1]+5,lab,'class="s" text-anchor="start" style="paint-order:stroke;stroke:#fbfaf7;stroke-width:5px"');}
+var TE='#0F6E56',PU='#534AB7',RB='#B8321F';
+
+/* ---------- Figure 1 ---------- */
+var sd=document.getElementById('sd'),sa=document.getElementById('sa'),sdout=document.getElementById('sdout');
+var oAB=document.getElementById('oAB'),oBA=document.getElementById('oBA'),order=1;
+oAB.onclick=function(){order=1;draw1()};oBA.onclick=function(){order=-1;draw1()};
+var E=[0,1];
+function maps1(a,d,ord){var qa=[a,0],qb=[a+d,0];var f1=ord>0?qa:qb,f2q=ord>0?qb:qa;
+  return {m1:function(X){return refl(f1,E,X)},m2:function(X){return refl(f2q,E,X)}};}
+function draw1(){
+  oAB.className=order>0?'on':'';oBA.className=order<0?'on':'';
+  var d=+sd.value/100,a=+sa.value/100,b=a+d;sdout.textContent=f2(d);
+  var ox=360,oy=215,sc=70;function T(z){return [ox+sc*z[0],oy-sc*z[1]]}
+  var M=maps1(a,d,order);var L=Lp([-1.9,-0.3]),L1=L.map(M.m1),L2=L1.map(M.m2);
+  var s='';
+  s+=ln(T([a,-9]),T([a,9]),'stroke="#222" stroke-width="2"')+ln(T([b,-9]),T([b,9]),'stroke="'+RB+'" stroke-width="2"');
+  var la=T([a,2.55]),lb=T([b,2.55]);var close=Math.abs(d)<0.2;
+  s+=tx(la[0]+(d>=0?-12:12),la[1],'A','style="font-weight:bold" text-anchor="middle"')+tx(lb[0]+(d>=0?12:-12),lb[1],'B','style="fill:'+RB+';font-weight:bold" text-anchor="middle"');
+  var P=L[1],P1=L1[1],P2=L2[1];
+  s+=ln(T(P),T(P2),'stroke="#888" stroke-width="1"')+ln(T(P),T(P1),'stroke="#888" stroke-width="1"');
+  s+=drawL(T,L1,PU)+drawL(T,L,TE)+drawL(T,L2,TE);
+  s+=ci(T([(P[0]+P1[0])/2,P[1]]),3.2,'fill="#222"')+ci(T([(P1[0]+P2[0])/2,P[1]]),3.2,'fill="#222"');
+  function lab(pts,t,col){var q=T(pts[0]);return tx(q[0],q[1]-10,t,'style="fill:'+col+';font-weight:bold" text-anchor="middle"');}
+  s+=lab(L1,'L′',PU)+lab(L,'L',TE)+lab(L2,'L″',TE);
+  function pl(z,t,col){var q=T(z);return tx(q[0]-4,q[1]+20,t,'style="fill:'+col+'" text-anchor="end"');}
+  s+=pl(P1,'P′',PU)+pl(P,'P',TE)+pl(P2,'P″',TE);
+  if(Math.abs(d)>0.04){s+=dim(T,a,b,1.95,'A to B: '+f2(b-a));s+=dim(T,P[0],P2[0],-1.75,'P to P″: '+f2(P2[0]-P[0]));}
+  document.getElementById('g1').innerHTML=s;
+  document.getElementById('a1').textContent=f2(b-a);
+  document.getElementById('a2').textContent=[1,0,2].map(function(i){return f2(L2[i][0]-L[i][0])}).join(', ');
+  document.getElementById('a3').textContent=[1,0,2].map(function(i){return f2(L2[i][1]-L[i][1])}).join(', ');
+  var dp=det(function(X){return M.m2(M.m1(X))});
+  document.getElementById('a4').textContent=f2(det(M.m1))+', '+f2(det(M.m2))+', '+(dp>0?'+':'')+f2(dp);
+}
+sd.oninput=draw1;sa.oninput=draw1;
+
+/* ---------- Figure 2 ---------- */
+var sr=document.getElementById('sr'),srout=document.getElementById('srout');var GAP=0.8;
+function Rof(v){return 1.2*Math.pow(1000/1.2,v/100)}
+function maps2(R){var O=[0,-R],n=Math.hypot(GAP,R),eB=[GAP/n,R/n];
+  return {O:O,eB:eB,m1:function(X){return refl(O,[0,1],X)},m2:function(X){return refl(O,eB,X)},th:Math.atan2(eB[1],eB[0])-Math.PI/2};}
+function rot(O,ang,X){var c=Math.cos(ang),s=Math.sin(ang),x=X[0]-O[0],y=X[1]-O[1];return [O[0]+c*x-s*y,O[1]+s*x+c*y];}
+function draw2(){
+  var R=Rof(+sr.value);srout.textContent=R<100?f2(R):String(Math.round(R));
+  var ox=330,oy=170,sc=95;function T(z){return [ox+sc*z[0],oy-sc*z[1]]}
+  var M=maps2(R);var L=Lp([-0.95,0.25]),L2=L.map(function(X){return M.m2(M.m1(X))});
+  var ghost=L.map(function(X){return [X[0]+2*GAP,X[1]]});
+  var s='';
+  s+=ln(T([-9,0]),T([9,0]),'stroke="#aaa" stroke-width="1"');
+  s+=ln(T([0,-9]),T([0,9]),'stroke="#222" stroke-width="2"');
+  var e=M.eB;s+=ln(T([GAP-12*e[0],-12*e[1]]),T([GAP+12*e[0],12*e[1]]),'stroke="'+RB+'" stroke-width="2"');
+  s+=tx(T([0,1.55])[0]-12,T([0,1.55])[1],'A','style="font-weight:bold" text-anchor="middle"');
+  var bt=T([GAP+1.55*e[0]/e[1],1.55]);s+=tx(bt[0]+13,bt[1],'B','style="fill:'+RB+';font-weight:bold" text-anchor="middle"');
+  s+=dim(T,0,GAP,-0.28,'gap 0.80');
+  var o=T(M.O);
+  if(o[1]<446){s+=ci(o,4,'fill="#222"')+tx(o[0]-10,o[1]+5,'O','style="font-weight:bold" text-anchor="end"');}
+  else{s+=tx(T([0,0])[0]-10,440,'O is below the frame','class="s" text-anchor="end"');}
+  var P=L[1],d='';for(var i=0;i<=40;i++){var q=T(rot(M.O,2*M.th*i/40,P));d+=(i?'L':'M')+q[0].toFixed(1)+' '+q[1].toFixed(1);}
+  s+='<path d="'+d+'" fill="none" stroke="'+TE+'" stroke-width="1.3"/>';
+  s+=drawL(T,ghost,'#555',true)+drawL(T,L,TE)+drawL(T,L2,TE);
+  var q=T(L[0]);s+=tx(q[0],q[1]-10,'L','style="fill:'+TE+';font-weight:bold" text-anchor="middle"');
+  var q2=T(L2[0]);s+=tx(q2[0]+16,q2[1]-8,'L″','style="fill:'+TE+';font-weight:bold" text-anchor="middle"');
+  var qp=T(P);s+=tx(qp[0]-8,qp[1]+18,'P','style="fill:'+TE+'" text-anchor="end"');
+  var qp2=T(L2[1]);s+=tx(qp2[0]-6,qp2[1]+20,'P″','style="fill:'+TE+'" text-anchor="end"');
+  document.getElementById('g2').innerHTML=s;
+  var P2=L2[1];
+  var aAB=M.th*180/Math.PI;
+  var v1=[L[0][0]-L[1][0],L[0][1]-L[1][1]],v2=[L2[0][0]-L2[1][0],L2[0][1]-L2[1][1]];
+  var turn=(Math.atan2(v2[1],v2[0])-Math.atan2(v1[1],v1[0]))*180/Math.PI;
+  document.getElementById('b1').textContent=f2(aAB)+'°';
+  document.getElementById('b2').textContent=f2(turn)+'°';
+  var dist=Math.hypot(P[0]-M.O[0],P[1]-M.O[1]);
+  document.getElementById('b3').textContent=dist<100?f2(dist):String(Math.round(dist));
+  document.getElementById('b4').textContent=f2(Math.hypot(P2[0]-P[0],P2[1]-P[1]));
+  document.getElementById('b5').textContent=f2(Math.hypot(P2[0]-ghost[1][0],P2[1]-ghost[1][1]));
+}
+sr.oninput=draw2;
+draw1();draw2();
+window.__check=function(){var bad=[];
+  for(var di=-120;di<=120;di+=5)for(var ai=-100;ai<=100;ai+=10)[1,-1].forEach(function(ord){var d=di/100,a=ai/100,M=maps1(a,d,ord);
+    Lp([-1.9,-0.3]).forEach(function(X){var Y=M.m2(M.m1(X));if(Math.abs(Y[0]-X[0]-ord*2*d)>1e-9||Math.abs(Y[1]-X[1])>1e-9)bad.push(['slide',d,a,ord]);});
+    if(Math.abs(det(M.m1)+1)>1e-9||Math.abs(det(M.m2)+1)>1e-9||Math.abs(det(function(X){return M.m2(M.m1(X))})-1)>1e-9)bad.push(['det',d,a]);});
+  for(var v=0;v<=100;v++){var M=maps2(Rof(v)),P=[-0.95,0.25],Y=M.m2(M.m1(P)),Z=rot(M.O,2*M.th,P);if(Math.hypot(Y[0]-Z[0],Y[1]-Z[1])>1e-7)bad.push(['turn',v]);}
+  var M=maps2(1e6),P=[-0.95,0.25],Y=M.m2(M.m1(P));if(Math.abs(Math.hypot(Y[0]-P[0],Y[1]-P[1])-1.6)>1e-5)bad.push(['limit',Math.hypot(Y[0]-P[0],Y[1]-P[1])]);
+  return bad;};
+})();
+</script>
+</body>
+</html>
