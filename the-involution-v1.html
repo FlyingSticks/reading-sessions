@@ -31,13 +31,14 @@
   th { font-weight: bold; color: var(--mute); }
   td.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
   .msg { font: 15px/1.5 Helvetica, Arial, sans-serif; color: var(--mute); min-height: 3.1em; margin: 6px 0; }
-  .pu { color: var(--purple); } .te { color: var(--teal); } .bb { color: var(--B); }
+  
 </style>
 </head>
 <body>
 <main>
 <h1>The involution</h1>
-<p class="byline">What the mirror is made of. Version 1, 11 November 2026.</p>
+<p class="byline">What the mirror is made of. Version 1, 11 November 2026. Revised 11 November 2026: placed in the thread (line below); the centre renamed <i>K</i> (the letter <i>K</i> names a mirror line on other plates); colours brought into line with the three-pairs plate; “involution” now excludes the rule that does nothing.</p>
+<p class="threadline" style="font:15px/1.5 Helvetica,Arial,sans-serif;color:#666;margin:0 0 22px;padding:6px 0;border-top:1px solid #ddd;border-bottom:1px solid #ddd">The mirror thread · plate 9 of 10 · previous: <a href="the-three-pairs-v2.html">Three pairs</a> · next: <a href="the-root-v1.html">The root</a> · <a href="the-thread.html">index</a></p>
 
 <p>On the earlier plates the mirror is the generator: every congruence of the plane is a product of mirrors, the count of mirrors gives the sign, and the pair gives the measure. This plate goes one level below the mirror and asks what the mirror itself is made of. The answer uses only two things: a pairing of points that undoes itself, and the harmonic relation, the value −1.</p>
 
@@ -45,57 +46,57 @@
 
 <h2>1. The pairing</h2>
 
-<p>An <b>involution</b> is a rule that pairs points: each point <i>X</i> has one partner <i>X′</i>, and the partner of <i>X′</i> is <i>X</i> again. Applying the rule twice returns every point to where it started. A point that is its own partner is a <b>fixed point</b>.</p>
+<p>An <b>involution</b> is a rule that pairs points: each point <i>X</i> has one partner <i>X′</i>, and the partner of <i>X′</i> is <i>X</i> again. Applying the rule twice returns every point to where it started. A point that is its own partner is a <b>fixed point</b>. The rule that leaves every point where it is would pass this test; it is not counted as an involution, on this plate or on the later ones.</p>
 
-<p>The pairing of this plate is built from two given things: a line <i>m</i> and a point <i>C</i> that is not on <i>m</i>. To find the partner of a point <i>X</i>:</p>
+<p>The pairing of this plate is built from two given things: a line <i>m</i> and a point <i>K</i> that is not on <i>m</i>. To find the partner of a point <i>X</i>:</p>
 <ol>
-<li>Draw the straight line through <i>C</i> and <i>X</i>. It crosses <i>m</i> at a point; call it <i>F</i>.</li>
-<li>The partner <i>X′</i> is the point on that same line for which the four points <i>C</i>, <i>F</i>, <i>X</i>, <i>X′</i> are <b>harmonic</b>: their cross-ratio is −1. (The glossary gives the formula.)</li>
+<li>Draw the straight line through <i>K</i> and <i>X</i>. It crosses <i>m</i> at a point; call it <i>F</i>.</li>
+<li>The partner <i>X′</i> is the point on that same line for which the four points <i>K</i>, <i>F</i>, <i>X</i>, <i>X′</i> are <b>harmonic</b>: their cross-ratio is −1. (The glossary gives the formula.)</li>
 </ol>
-<p>This plate calls it <b>the harmonic pairing with line <i>m</i> and centre <i>C</i></b>.</p>
+<p>This plate calls it <b>the harmonic pairing with line <i>m</i> and centre <i>K</i></b>.</p>
 
-<p>In Figure 1, drag <i>X</i> or <i>C</i>. Three things to try. Put <i>X</i> on <i>m</i>: its partner is itself. Put <i>X</i> on <i>C</i>: its partner is itself. Put <i>X</i> where <i>X′</i> was: the partner lands where <i>X</i> was.</p>
+<p>In Figure 1, drag <i>X</i> or <i>K</i>. Three things to try. Put <i>X</i> on <i>m</i>: its partner is itself. Put <i>X</i> on <i>K</i>: its partner is itself. Put <i>X</i> where <i>X′</i> was: the partner lands where <i>X</i> was.</p>
 
 <div class="controls">
   <button id="q1">Show the straightedge construction</button>
   <button id="r1">Reset</button>
 </div>
 <figure>
-<svg id="fig1" viewBox="0 0 720 516" role="img" aria-label="Figure 1: the harmonic pairing with line m and centre C"></svg>
-<figcaption>Figure 1. Solid red-brown line: <i>m</i>. Filled green dot: the centre <i>C</i>. Filled black dot: the point <i>X</i>. Thin grey line: the line through <i>C</i> and <i>X</i>. Small ringed dot on <i>m</i>: the point <i>F</i>. Ringed purple dot: the partner <i>X′</i>. With the construction shown: grey dots <i>P</i>, <i>Q</i>, <i>R</i>, <i>S</i> and their six joining lines; the dashed purple line through <i>R</i> and <i>S</i> crosses the line <i>CF</i> at <i>X′</i>.</figcaption>
+<svg id="fig1" viewBox="0 0 720 516" role="img" aria-label="Figure 1: the harmonic pairing with line m and centre K"></svg>
+<figcaption>Figure 1. Red-brown line: <i>m</i>. Filled black dot <i>K</i>: the centre. Filled black dot <i>X</i>: the point. Thin grey line: the line through <i>K</i> and <i>X</i>. Small ringed dot on <i>m</i>: the point <i>F</i>. Larger ringed dot: the partner <i>X′</i>. With the construction shown: grey dots <i>P</i>, <i>Q</i>, <i>R</i>, <i>S</i> and their six joining lines; the dashed gold line through <i>R</i> and <i>S</i> crosses the line <i>KF</i> at <i>X′</i>.</figcaption>
 </figure>
 <table id="led1"></table>
 <div class="msg" id="msg1"></div>
 
 <h3>The straightedge construction</h3>
-<p>The partner can be found with a straightedge alone, with no measuring. Choose any point <i>P</i> off the line <i>CF</i>, and any point <i>Q</i> on the line <i>PX</i>. Join <i>C</i> to <i>Q</i>; that line crosses <i>PF</i> at <i>R</i>. Join <i>F</i> to <i>Q</i>; that line crosses <i>PC</i> at <i>S</i>. The line through <i>R</i> and <i>S</i> crosses the line <i>CF</i> at <i>X′</i>. The four points <i>P</i>, <i>Q</i>, <i>R</i>, <i>S</i> are a complete quadrangle, the figure of your incidence sheet. So the pairing is stated by incidence only, and −1 is the one value incidence can state. The button draws this, and the ledger checks that it lands on the same <i>X′</i>.</p>
+<p>The partner can be found with a straightedge alone, with no measuring. Choose any point <i>P</i> off the line <i>KF</i>, and any point <i>Q</i> on the line <i>PX</i>. Join <i>K</i> to <i>Q</i>; that line crosses <i>PF</i> at <i>R</i>. Join <i>F</i> to <i>Q</i>; that line crosses <i>PK</i> at <i>S</i>. The line through <i>R</i> and <i>S</i> crosses the line <i>KF</i> at <i>X′</i>. The four points <i>P</i>, <i>Q</i>, <i>R</i>, <i>S</i> are a complete quadrangle, the figure of your incidence sheet. So the pairing is stated by incidence only, and −1 is the one value incidence can state. The button draws this, and the ledger checks that it lands on the same <i>X′</i>.</p>
 
 <h3>Why the value is −1</h3>
-<p>Suppose a rule keeps straight lines straight, fixes every point of <i>m</i>, fixes <i>C</i>, and is an involution. Then the value −1 is forced. The reason, in four steps:</p>
+<p>Suppose a rule keeps straight lines straight, fixes every point of <i>m</i>, fixes <i>K</i>, and is an involution. Then the value −1 is forced. The reason, in four steps:</p>
 <ol>
-<li>The line through <i>C</i> and <i>X</i> contains two fixed points, <i>C</i> and <i>F</i>. A straight line is settled by two of its points, so the rule sends this line to itself. Hence <i>X′</i> is on it.</li>
-<li>A rule that keeps straight lines straight keeps the cross-ratio of four points on a line. (This is a standard theorem, used here and not proved here.) So the cross-ratio of <i>C</i>, <i>F</i>, <i>X</i>, <i>X′</i> equals the cross-ratio of their partners <i>C</i>, <i>F</i>, <i>X′</i>, <i>X</i>.</li>
+<li>The line through <i>K</i> and <i>X</i> contains two fixed points, <i>K</i> and <i>F</i>. A straight line is settled by two of its points, so the rule sends this line to itself. Hence <i>X′</i> is on it.</li>
+<li>A rule that keeps straight lines straight keeps the cross-ratio of four points on a line. (This is a standard theorem, used here and not proved here.) So the cross-ratio of <i>K</i>, <i>F</i>, <i>X</i>, <i>X′</i> equals the cross-ratio of their partners <i>K</i>, <i>F</i>, <i>X′</i>, <i>X</i>.</li>
 <li>Exchanging the last two points of a cross-ratio turns its value <i>r</i> into 1 ÷ <i>r</i>. So <i>r</i> = 1 ÷ <i>r</i>, that is, <i>r</i>² = 1.</li>
-<li>The equation <i>r</i>² = 1 has two roots. The root +1 happens only when <i>X</i> and <i>X′</i> are the same point, which is the rule that does nothing. The other root is −1.</li>
+<li>The equation <i>r</i>² = 1 has two roots. The root +1 happens only when <i>X</i> and <i>X′</i> are the same point, which is the rule that does nothing, and that rule is not counted as an involution. The other root is −1.</li>
 </ol>
-<p>Step 4 is the fold page again: one square, two roots. The root +1 is the pairing that leaves every point alone. The root −1 is the pairing of this plate.</p>
+<p>Step 4 is the fold page again: one square, two roots. The root +1 is the rule that does nothing, which is set aside. The root −1 is the pairing of this plate.</p>
 
 <h2>2. The centre leaves the page</h2>
 
 <p>The pairing of Figure 1 is not a congruence. It keeps straight lines straight, but it does not keep lengths. Figure 2 shows this with the probe of the earlier plates, a letter L, and then shows what removes the distortion.</p>
 
-<p>The slider moves <i>C</i> away from <i>m</i> along the line through 0 perpendicular to <i>m</i>. At the right-hand end of the slider <i>C</i> is at infinity: the grey lines, which all passed through <i>C</i>, are then parallel, and each is perpendicular to <i>m</i>.</p>
+<p>The slider moves <i>K</i> away from <i>m</i> along the line through 0 perpendicular to <i>m</i>. At the right-hand end of the slider <i>K</i> is at infinity: the grey lines, which all passed through <i>K</i>, are then parallel, and each is perpendicular to <i>m</i>.</p>
 
-<p>Two things happen together at that end. First, the harmonic relation becomes the midpoint rule: <i>F</i> is the midpoint of <i>X</i> and <i>X′</i>. Second, the dashed line <i>h</i> leaves the page. The line <i>h</i> is the set of points whose partners are at infinity; it lies halfway between <i>m</i> and <i>C</i>. While <i>h</i> is on the page, parallel lines have partners that converge, and lengths are not kept. When <i>C</i> is at infinity, so is <i>h</i>: points at infinity are then paired with points at infinity, and the pairing is the mirror with line <i>m</i>.</p>
+<p>Two things happen together at that end. First, the harmonic relation becomes the midpoint rule: <i>F</i> is the midpoint of <i>X</i> and <i>X′</i>. Second, the dashed line <i>h</i> leaves the page. The line <i>h</i> is the set of points whose partners are at infinity; it lies halfway between <i>m</i> and <i>K</i>. While <i>h</i> is on the page, parallel lines have partners that converge, and lengths are not kept. When <i>K</i> is at infinity, so is <i>h</i>: points at infinity are then paired with points at infinity, and the pairing is the mirror with line <i>m</i>.</p>
 
 <div class="controls">
-  <span class="s"><i>C</i> near <i>m</i></span>
-  <input type="range" id="s2" min="0" max="100" step="1" value="0" aria-label="Distance of C from m">
-  <span class="s"><i>C</i> at infinity</span>
+  <span class="s"><i>K</i> near <i>m</i></span>
+  <input type="range" id="s2" min="0" max="100" step="1" value="0" aria-label="Distance of K from m">
+  <span class="s"><i>K</i> at infinity</span>
 </div>
 <figure>
-<svg id="fig2" viewBox="0 0 720 516" role="img" aria-label="Figure 2: the centre C moves to infinity and the pairing becomes the mirror"></svg>
-<figcaption>Figure 2. Solid red-brown line: <i>m</i>. Filled green dot: <i>C</i>, while it is on the page. Dotted line through 0: the perpendicular to <i>m</i>, along which <i>C</i> moves. Dashed grey line: <i>h</i>, while it is on the page. Black L: the probe, with corner <i>X</i>. Purple L: its partner, with corner <i>X′</i>. Thin grey lines: the lines from <i>C</i> through the three ends of the probe. Small ringed dot: <i>F</i> for the corner <i>X</i>.</figcaption>
+<svg id="fig2" viewBox="0 0 720 516" role="img" aria-label="Figure 2: the centre K moves to infinity and the pairing becomes the mirror"></svg>
+<figcaption>Figure 2. Red-brown line: <i>m</i>. Filled black dot: <i>K</i>, while it is on the page. Dotted line through 0: the perpendicular to <i>m</i>, along which <i>K</i> moves. Dashed grey line: <i>h</i>, while it is on the page. Black L: the probe, with corner <i>X</i>. Second L, with corner <i>X′</i>: the partner of the probe. It is a pale dashed outline while the pairing is not a mirror, and solid purple, the Euclidean plane's colour, when it is the Euclidean mirror. Thin grey lines: the lines from <i>K</i> through the three ends of the probe. Small ringed dot: <i>F</i> for the corner <i>X</i>.</figcaption>
 </figure>
 <table id="led2"></table>
 
@@ -103,25 +104,25 @@
 
 <h2>3. The direction of the centre</h2>
 
-<p>In Figure 3 the centre <i>C</i> stays at infinity. A point at infinity is a direction, so all that is left of <i>C</i> is a dial. Whatever the dial reads, the pairing is still an involution, each point of <i>m</i> is still fixed, and <i>F</i> is still the midpoint of <i>X</i> and <i>X′</i>. What changes is which lengths, if any, are kept.</p>
+<p>In Figure 3 the centre <i>K</i> stays at infinity. A point at infinity is a direction, so all that is left of <i>K</i> is a dial. Whatever the dial reads, the pairing is still an involution, each point of <i>m</i> is still fixed, and <i>F</i> is still the midpoint of <i>X</i> and <i>X′</i>. What changes is which lengths, if any, are kept.</p>
 
 <p>The three-pairs plate named this direction the <b>across direction</b>, and gave one drawing rule for it: the across direction is the direction of the tangent to the unit locus at the point where <i>m</i> crosses it. Each decree has its own unit locus, so each decree sets the dial differently. The three buttons set the dial by that rule. The ledger then measures all three forms at the corner <i>X</i> and at its partner <i>X′</i>, and reports which form is kept.</p>
 
 <p>So a decree does one job here. The line <i>m</i> is given. The pairing is harmonic in every case. The decree only says which point at infinity is the centre that goes with <i>m</i>.</p>
 
 <div class="controls">
-  <button id="k0">Euclidean</button>
-  <button id="k1">Parabolic</button>
-  <button id="k2">Minkowski</button>
+  <button id="k0">g² = −1 · Euclidean</button>
+  <button id="k1">g² = 0 · parabolic</button>
+  <button id="k2">g² = +1 · Minkowski</button>
 </div>
 <div class="controls">
-  <span class="s">direction of <i>C</i></span>
-  <input type="range" id="a3" min="35" max="175" step="1" value="120" aria-label="Direction of the centre C, in degrees from the horizontal axis">
+  <span class="s">direction of <i>K</i></span>
+  <input type="range" id="a3" min="35" max="175" step="1" value="120" aria-label="Direction of the centre K, in degrees from the horizontal axis">
   <span class="s" id="a3v"></span>
 </div>
 <figure>
 <svg id="fig3" viewBox="0 0 720 516" role="img" aria-label="Figure 3: the centre at infinity, its direction on a dial, and the three decrees"></svg>
-<figcaption>Figure 3. Faint grey lines: the horizontal and vertical axes through 0. Solid red-brown line: <i>m</i>, through 0. Dotted line through 0: the direction of <i>C</i>. Black L: the probe, corner <i>X</i>. Purple L: its partner, corner <i>X′</i>. Thin grey lines: the lines through the three ends of the probe toward <i>C</i>; they are parallel. Small ringed dots on <i>m</i>: the three midpoints. When the dial stands at a decree's across direction: thin green curve, that decree's unit locus; small ringed dot, where <i>m</i> crosses it; short black segment, the tangent there.</figcaption>
+<figcaption>Figure 3. Faint grey lines: the horizontal and vertical axes through 0. Red-brown line: <i>m</i>, through 0. Dotted line through 0: the direction of <i>K</i>. Black L: the probe, corner <i>X</i>. Second L, corner <i>X′</i>: its partner. It is a pale dashed outline while the dial stands at no decree's across direction. When the dial stands at one, the partner is solid in that plane's colour (purple for the Euclidean plane, grey for the parabolic, green for the Minkowski, as on the fold page and the three-pairs plate), and three more things are drawn: the plane's unit locus as a thin curve in the same colour; a small ringed dot where <i>m</i> crosses it; a short black segment, the tangent there. Thin grey lines: the lines through the three ends of the probe toward <i>K</i>; they are parallel. Small ringed dots on <i>m</i>: the three midpoints.</figcaption>
 </figure>
 <table id="led3"></table>
 <div class="msg" id="msg3"></div>
@@ -131,9 +132,9 @@
 <h2>4. What is claimed</h2>
 <table>
 <tr><th>Statement</th><th>Price</th></tr>
-<tr><td>The harmonic pairing with line <i>m</i> and centre <i>C</i> is an involution. Its fixed points are the points of <i>m</i> and the point <i>C</i>. It keeps straight lines straight.</td><td>Theorem (standard). Checked numerically for this plate.</td></tr>
-<tr><td>Any involution that keeps straight lines straight and fixes every point of a line <i>m</i> and one point <i>C</i> off it is this pairing: the value −1 is forced.</td><td>Theorem. The argument is in section 1; it rests on one standard theorem that is not proved here.</td></tr>
-<tr><td>When <i>C</i> is at infinity, harmonic means midpoint.</td><td>Theorem. Checked numerically.</td></tr>
+<tr><td>The harmonic pairing with line <i>m</i> and centre <i>K</i> is an involution. Its fixed points are the points of <i>m</i> and the point <i>K</i>. It keeps straight lines straight.</td><td>Theorem (standard). Checked numerically for this plate.</td></tr>
+<tr><td>Any involution that keeps straight lines straight and fixes every point of a line <i>m</i> and one point <i>K</i> off it is this pairing: the value −1 is forced.</td><td>Theorem. The argument is in section 1; it rests on one standard theorem that is not proved here.</td></tr>
+<tr><td>When <i>K</i> is at infinity, harmonic means midpoint.</td><td>Theorem. Checked numerically.</td></tr>
 <tr><td>In each of the three planes, the mirror with line <i>m</i> is the harmonic pairing with line <i>m</i> and centre at infinity in that plane's across direction.</td><td>Theorem (standard). On this plate it is checked for one line <i>m</i>, not proved.</td></tr>
 <tr><td>The equation <i>r</i>² = 1 of section 1 is the squaring of the fold page.</td><td>Observation. The equation is the same; nothing more is claimed.</td></tr>
 <tr><td>How a decree picks the across direction without the unit locus (by its absolute, as in “Two Absolutes”).</td><td>Not drawn here.</td></tr>
@@ -142,14 +143,14 @@
 <h2>5. Glossary</h2>
 <h3>Mathematical words</h3>
 <dl>
-<dt>Involution</dt><dd>A rule that sends each point to a partner, such that applying the rule twice returns every point. A mirror is an involution. So is a half-turn. This plate treats the kind that fixes every point of one line.</dd>
+<dt>Involution</dt><dd>A rule that sends each point to a partner, such that applying the rule twice returns every point, and applying it once moves at least one point. The rule that does nothing (standard name: the identity) is left out. A mirror is an involution. So is a half-turn. This plate treats the kind that fixes every point of one line.</dd>
 <dt>Partner</dt><dd>The point that a pairing assigns to a given point. The partner of <i>X</i> is written <i>X′</i>.</dd>
 <dt>Fixed point</dt><dd>A point that is its own partner.</dd>
-<dt>Cross-ratio</dt><dd>A number belonging to four points on one line, taken in order. Measure positions <i>c</i>, <i>f</i>, <i>x</i>, <i>x′</i> along the line from any starting point. The cross-ratio of <i>C</i>, <i>F</i>, <i>X</i>, <i>X′</i> is ((<i>x</i> − <i>c</i>) × (<i>x′</i> − <i>f</i>)) ÷ ((<i>x′</i> − <i>c</i>) × (<i>x</i> − <i>f</i>)). It does not depend on the starting point or on the unit of length.</dd>
+<dt>Cross-ratio</dt><dd>A number belonging to four points on one line, taken in order. Measure positions <i>c</i>, <i>f</i>, <i>x</i>, <i>x′</i> along the line from any starting point. The cross-ratio of <i>K</i>, <i>F</i>, <i>X</i>, <i>X′</i> is ((<i>x</i> − <i>c</i>) × (<i>x′</i> − <i>f</i>)) ÷ ((<i>x′</i> − <i>c</i>) × (<i>x</i> − <i>f</i>)). It does not depend on the starting point or on the unit of length.</dd>
 <dt>Harmonic</dt><dd>Four points on a line are harmonic when their cross-ratio is −1.</dd>
-<dt>Harmonic pairing with line <i>m</i> and centre <i>C</i></dt><dd>The pairing defined in section 1. This is the plate's own name. The standard name is <i>harmonic homology</i> with axis <i>m</i> and centre <i>C</i>.</dd>
+<dt>Harmonic pairing with line <i>m</i> and centre <i>K</i></dt><dd>The pairing defined in section 1. This is the plate's own name. The standard name is <i>harmonic homology</i> with axis <i>m</i> and centre <i>K</i>.</dd>
 <dt>Point at infinity</dt><dd>The point where a family of parallel lines is said to meet. Each direction has exactly one. It has no dot on the drawing; it shows only as lines being parallel.</dd>
-<dt>The line <i>h</i></dt><dd>The set of points whose partners are at infinity. It is parallel to <i>m</i> and halfway between <i>m</i> and <i>C</i>.</dd>
+<dt>The line <i>h</i></dt><dd>The set of points whose partners are at infinity. It is parallel to <i>m</i> and halfway between <i>m</i> and <i>K</i>.</dd>
 <dt>Across direction, unit locus, decree, form</dt><dd>As on the three-pairs plate. The three forms, with <i>x</i> measured across the page from 0 and <i>y</i> up the page from 0: Euclidean <i>x</i>² + <i>y</i>², parabolic <i>x</i>², Minkowski <i>x</i>² − <i>y</i>². The unit locus is where the form equals 1.</dd>
 <dt>Mirror with line <i>m</i></dt><dd>As on the earlier plates. On this plate it is found to be the harmonic pairing with line <i>m</i> whose centre is the point at infinity in the across direction.</dd>
 </dl>
@@ -158,7 +159,8 @@
 <dt>Filled dot</dt><dd>A solid disc marking a given point.</dd>
 <dt>Ringed dot</dt><dd>A small open circle marking a point that is found, not given. “Ringed” is a drawing word only.</dd>
 <dt>Probe</dt><dd>The black letter L. It has a corner <i>X</i>, a long stroke and a short stroke.</dd>
-<dt>Dashed, dotted</dt><dd>Dashed: the line <i>h</i>, and in Figure 1 the line through <i>R</i> and <i>S</i>. Dotted: a direction line through 0.</dd>
+<dt>Dashed, dotted</dt><dd>Dashed grey: the line <i>h</i>. Dashed gold: in Figure 1, the line through <i>R</i> and <i>S</i>, a line that is found. Pale dashed outline: a partner L under a pairing that is not a mirror of any of the three planes. Dotted: a direction line through 0.</dd>
+<dt>Plane colours</dt><dd>Purple for the Euclidean plane, grey for the parabolic, green for the Minkowski, as on the fold page and the three-pairs plate.</dd>
 </dl>
 
 <p class="note">Checks: the mathematics in this file is run by a separate script before the figures are built. It tests the involution, the fixed points, the cross-ratio −1, the straightedge construction, the midpoint rule, and the three forms.</p>
@@ -221,6 +223,7 @@ function inView(p){return !!p&&Math.abs(p[0])<354/SC&&Math.abs(p[1])<252/SC;}
 function poly(pts,attr){var s='';for(var i=0;i<pts.length;i++){var A=T(pts[i]);s+=(i?' ':'')+f1(A[0])+','+f1(A[1]);}return '<polyline points="'+s+'" fill="none" '+attr+'/>';}
 var GREY='stroke="#999" stroke-width="1"', MLINE='stroke="#B8321F" stroke-width="2.2"';
 var RING='fill="#fff" stroke="#222" stroke-width="1.2"';
+var PLANE=['#534AB7','#5F5E5A','#0F6E56'];
 function mLine(){var r=276/SC;return fullD([0,0],U,MLINE)+tx([r*U[0],r*U[1]],-4,-10,'m','i');}
 function row(a,b){return '<tr><td>'+a+'</td><td class="n">'+b+'</td></tr>';}
 function $(id){return document.getElementById(id);}
@@ -233,8 +236,8 @@ function draw1(){
   var Ch=H(C1),Xh=H(X1),lc=d3(LM,Ch),lx=d3(LM,Xh);
   s+=mLine();
   if(Math.abs(lc)<0.12){
-    msg='<i>C</i> is on <i>m</i> (or nearly). The pairing needs a centre that is not on <i>m</i>. Drag <i>C</i> away from the line.';
-    led=row('Cross-ratio of <i>C</i>, <i>F</i>, <i>X</i>, <i>X′</i>','—');
+    msg='<i>K</i> is on <i>m</i> (or nearly). The pairing needs a centre that is not on <i>m</i>. Drag <i>K</i> away from the line.';
+    led=row('Cross-ratio of <i>K</i>, <i>F</i>, <i>X</i>, <i>X′</i>','—');
   } else {
     var F=P2(foot(Xh,Ch)),Xp=P2(partner(Xh,Ch));
     if(dist(X1,C1)>1e-6) s+=full(C1,X1,GREY);
@@ -244,7 +247,7 @@ function draw1(){
     if(quadOn&&F&&dist(X1,C1)>0.05&&Math.abs(lx)>0.03){
       var q=quad(C1,F,X1),g='stroke="#aaa" stroke-width="1"';
       s+=full(q.P,C1,g)+full(q.P,F,g)+full(q.P,X1,g)+full(C1,q.Q,g)+full(F,q.Q,g);
-      if(q.R&&q.S) s+=full(q.R,q.S,'stroke="#534AB7" stroke-width="1.3" stroke-dasharray="7 5"');
+      if(q.R&&q.S) s+=full(q.R,q.S,'stroke="#8A6A00" stroke-width="1.5" stroke-dasharray="7 5"');
       var gd='fill="#888"';
       s+=ci(q.P,4,gd)+tx(q.P,8,-8,'P','s')+ci(q.Q,4,gd)+tx(q.Q,8,-8,'Q','s');
       if(q.R) s+=ci(q.R,4,gd)+tx(q.R,8,-8,'R','s');
@@ -252,16 +255,16 @@ function draw1(){
       led+=row('Straightedge result: distance from it to <i>X′</i>',(q.X2&&Xp)?n3(dist(q.X2,Xp)):'—');
     }
     if(F) s+=ci(F,4.5,RING)+tx(F,9,18,'F','i');
-    if(Xp) s+=ci(Xp,7,'fill="#fff" stroke="#534AB7" stroke-width="2.2"')+tx(Xp,11,-9,'X′','i');
-    led=row('Cross-ratio of <i>C</i>, <i>F</i>, <i>X</i>, <i>X′</i>, from their drawn positions',cr===null||!isFinite(cr)?'—':n3(cr))
+    if(Xp) s+=ci(Xp,7,'fill="#fff" stroke="#222" stroke-width="2.2"')+tx(Xp,11,-9,'X′','i');
+    led=row('Cross-ratio of <i>K</i>, <i>F</i>, <i>X</i>, <i>X′</i>, from their drawn positions',cr===null||!isFinite(cr)?'—':n3(cr))
        +row('Pair <i>X′</i> again: distance from the result to <i>X</i>',back?n3(dist(back,X1)):'—')+led;
     if(Math.abs(lx)<=0.03) msg='<i>X</i> is on <i>m</i>. It is its own partner: <i>X</i>, <i>X′</i> and <i>F</i> are one point, so there are not four points to take a cross-ratio of.';
-    else if(dist(X1,C1)<=0.05) msg='<i>X</i> is on <i>C</i>. It is its own partner.';
-    else if(!Xp) msg='<i>X</i> is exactly halfway between <i>C</i> and <i>m</i>. Its partner is at infinity.';
-    else if(!inView(Xp)) msg='<i>X′</i> is off the page. <i>X</i> is close to halfway between <i>C</i> and <i>m</i>; points halfway have partners at infinity.';
-    else if(!F) msg='The line through <i>C</i> and <i>X</i> is parallel to <i>m</i>, so <i>F</i> is at infinity. Then <i>C</i> is the midpoint of <i>X</i> and <i>X′</i>.';
+    else if(dist(X1,C1)<=0.05) msg='<i>X</i> is on <i>K</i>. It is its own partner.';
+    else if(!Xp) msg='<i>X</i> is exactly halfway between <i>K</i> and <i>m</i>. Its partner is at infinity.';
+    else if(!inView(Xp)) msg='<i>X′</i> is off the page. <i>X</i> is close to halfway between <i>K</i> and <i>m</i>; points halfway have partners at infinity.';
+    else if(!F) msg='The line through <i>K</i> and <i>X</i> is parallel to <i>m</i>, so <i>F</i> is at infinity. Then <i>K</i> is the midpoint of <i>X</i> and <i>X′</i>.';
   }
-  s+=ci(C1,6.5,'fill="#0F6E56"')+tx(C1,11,18,'C','i');
+  s+=ci(C1,6.5,'fill="#222"')+tx(C1,11,18,'K','i');
   s+=ci(X1,6.5,'fill="#222"')+tx(X1,-22,-10,'X','i');
   s+=ci(C1,26,'class="grab" data-h="C"')+ci(X1,26,'class="grab" data-h="X"');
   $('fig1').innerHTML=s;$('led1').innerHTML=led;$('msg1').innerHTML=msg;
@@ -281,9 +284,9 @@ function draw1(){
 
 /* ---------- probe helpers ---------- */
 function probeImg(Ch){return {X:P2(partner(H(PROBE.X),Ch)),Y:P2(partner(H(PROBE.Y),Ch)),Z:P2(partner(H(PROBE.Z),Ch))};}
-function drawProbe(I){
+function drawProbe(I,col,pale){
   var s=poly([PROBE.Y,PROBE.X,PROBE.Z],'stroke="#222" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"');
-  if(I.X&&I.Y&&I.Z) s+=poly([I.Y,I.X,I.Z],'stroke="#534AB7" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"');
+  if(I.X&&I.Y&&I.Z) s+=poly([I.Y,I.X,I.Z],pale?'stroke="#999" stroke-width="2.4" stroke-dasharray="6 5" stroke-linejoin="round" stroke-linecap="round"':'stroke="'+col+'" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"');
   s+=tx(PROBE.X,-24,4,'X','i');
   if(I.X) s+=tx(I.X,10,18,'X′','i');
   return s;
@@ -306,28 +309,28 @@ function draw2(){
   var keys=['X','Y','Z'];
   for(k=0;k<3;k++){var p=PROBE[keys[k]];s+=C?full(p,C,GREY):fullD(p,NV,GREY);}
   var I=probeImg(Ch),F=P2(foot(H(PROBE.X),Ch));
-  s+=drawProbe(I);
+  s+=drawProbe(I,PLANE[0],!!C);
   s+=ci(F,4.5,RING)+tx(F,-14,26,'F','i');
   s+=ci([0,0],3,'fill="#222"')+tx([0,0],10,-8,'0','s');
-  if(C&&inView(C)) s+=ci(C,6.5,'fill="#0F6E56"')+tx(C,11,18,'C','i');
+  if(C&&inView(C)) s+=ci(C,6.5,'fill="#222"')+tx(C,11,18,'K','i');
   $('fig2').innerHTML=s;
   var a=dist(PROBE.X,F),b=dist(F,I.X);
   $('led2').innerHTML=
-    row('Distance from <i>C</i> to <i>m</i>',C?n3(d):'infinite')+
+    row('Distance from <i>K</i> to <i>m</i>',C?n3(d):'infinite')+
     row('Distance from <i>h</i> to <i>m</i>',C?n3(d/2):'infinite')+
     row('<i>X</i> to <i>F</i>',n3(a))+
     row('<i>F</i> to <i>X′</i>',n3(b))+
     row('(<i>F</i> to <i>X′</i>) ÷ (<i>X</i> to <i>F</i>)',n3(b/a))+
     row('Long stroke: probe, partner',n3(dist(PROBE.X,PROBE.Y))+', '+n3(dist(I.X,I.Y)))+
     row('Short stroke: probe, partner',n3(dist(PROBE.X,PROBE.Z))+', '+n3(dist(I.X,I.Z)))+
-    row('Purple L congruent to black L',congruent(I)?'yes':'no');
+    row('Partner L congruent to black L',congruent(I)?'yes':'no');
 }
 $('s2').addEventListener('input',draw2);
 
 /* ---------- Figure 3 ---------- */
 var NAMES=['Euclidean','parabolic','Minkowski'],FORMS=['<i>x</i>² + <i>y</i>²','<i>x</i>²','<i>x</i>² − <i>y</i>²'];
 function locus(k){
-  var g='fill="none" stroke="#0F6E56" stroke-width="1.3"',s='',i,a=[],b=[],t;
+  var g='fill="none" stroke="'+PLANE[k]+'" stroke-width="1.3"',s='',i,a=[],b=[],t;
   if(k===0) return '<circle cx="'+OX+'" cy="'+OY+'" r="'+SC+'" '+g+'/>';
   if(k===1) return fullD([1,0],[0,1],g)+fullD([-1,0],[0,1],g);
   for(i=-60;i<=60;i++){t=i/20;a.push([Math.cosh(t),Math.sinh(t)]);b.push([-Math.cosh(t),Math.sinh(t)]);}
@@ -348,12 +351,12 @@ function draw3(){
   s+=mLine();
   var keys=['X','Y','Z'],I=probeImg(Ch);
   for(i=0;i<3;i++){var p=PROBE[keys[i]];s+=fullD(p,w,GREY);}
-  s+=drawProbe(I);
+  s+=drawProbe(I,match>=0?PLANE[match]:'',match<0);
   for(i=0;i<3;i++){var Fi=P2(foot(H(PROBE[keys[i]]),Ch));if(Fi)s+=ci(Fi,3.5,RING);}
   s+=ci([0,0],3,'fill="#222"')+tx([0,0],8,18,'0','s');
   $('fig3').innerHTML=s;
   var F=P2(foot(H(PROBE.X),Ch)),a=dist(PROBE.X,F),b=dist(F,I.X);
-  var t='<tr><td>Direction of <i>C</i>, from the horizontal axis</td><td class="n" colspan="3">'+al+'°</td></tr>'+
+  var t='<tr><td>Direction of <i>K</i>, from the horizontal axis</td><td class="n" colspan="3">'+al+'°</td></tr>'+
         '<tr><td><i>X</i> to <i>F</i>, <i>F</i> to <i>X′</i></td><td class="n" colspan="3">'+n3(a)+', '+n3(b)+'</td></tr>'+
         '<tr><td>Pair <i>X′</i> again: distance from the result to <i>X</i></td><td class="n" colspan="3">'+n3(dist(P2(partner(H(I.X),Ch)),PROBE.X))+'</td></tr>'+
         '<tr><th>Form</th><th style="text-align:right">at <i>X</i></th><th style="text-align:right">at <i>X′</i></th><th style="text-align:right">kept</th></tr>';
@@ -365,7 +368,7 @@ function draw3(){
   }
   $('led3').innerHTML=t;
   var m='';
-  if(match>=0) m='The dial stands at the '+NAMES[match]+' across direction. The pairing is the '+NAMES[match]+' mirror with line <i>m</i>: it keeps the '+NAMES[match]+' form, at all three ends of the probe.'+(match===0?' The purple L is congruent to the black L on the page.':' The purple L is not congruent to the black L by a ruler on the page; it is congruent under this decree.');
+  if(match>=0) m='The dial stands at the '+NAMES[match]+' across direction. The pairing is the '+NAMES[match]+' mirror with line <i>m</i>: it keeps the '+NAMES[match]+' form, at all three ends of the probe.'+(match===0?' The partner L is congruent to the black L on the page.':' The partner L is not congruent to the black L by a ruler on the page; it is congruent under this decree.');
   else m='The dial stands at none of the three across directions. The pairing is still an involution and still obeys the midpoint rule, but it keeps none of the three forms.';
   $('msg3').innerHTML=m;
 }
