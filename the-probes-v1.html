@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Probes — a figure detects only what moves it (v1)</title>
+<style>
+  :root{
+    --ink:#1d1d1b; --paper:#fbfaf7; --rule:#d9d5cc; --muted:#6b675f;
+    --mirror:#2aa9a1; --mirror2:#b8862b; --mirror3:#7a5bb0;
+    --figure:#1d1d1b; --image:#d23f2f; --ghost:#b9b5ab; --accent:#2aa9a1;
+  }
+  html{background:var(--paper);}
+  body{margin:0;color:var(--ink);font:17px/1.55 Georgia,"Times New Roman",serif;}
+  main{max-width:820px;margin:0 auto;padding:28px 20px 80px;}
+  h1{font-size:30px;line-height:1.2;margin:0 0 6px;font-weight:normal;letter-spacing:-.01em;}
+  h2{font-size:22px;margin:52px 0 10px;font-weight:normal;border-top:1px solid var(--rule);padding-top:18px;}
+  h2 small{color:var(--muted);font-size:14px;margin-left:10px;letter-spacing:.06em;text-transform:uppercase;}
+  p{margin:10px 0;}
+  .thesis{font-size:19px;border-left:3px solid var(--accent);padding:8px 14px;margin:18px 0 6px;background:#fff;}
+  .byline{color:var(--muted);font-size:14px;margin:0 0 10px;}
+  figure{margin:18px 0 8px;background:#fff;border:1px solid var(--rule);border-radius:6px;padding:12px 12px 8px;}
+  figure svg{width:100%;height:auto;display:block;touch-action:none;}
+  figcaption{font-size:14.5px;color:var(--muted);line-height:1.45;margin-top:8px;padding-top:8px;border-top:1px dashed var(--rule);}
+  .controls{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;font-size:14.5px;margin:6px 0 4px;}
+  .controls label[hidden]{display:none;}
+  .controls label{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;}
+  .controls input[type=range]{width:150px;accent-color:var(--accent);}
+  .controls input[type=checkbox],.controls input[type=radio]{accent-color:var(--accent);}
+  .readout{font-variant-numeric:tabular-nums;color:var(--ink);background:#f1efe9;padding:1px 7px;border-radius:4px;}
+  .verdict{font-size:15px;padding:6px 10px;border-radius:4px;background:#f1efe9;margin-top:6px;}
+  .verdict.same{background:#e2f3f1;} .verdict.diff{background:#fbe6e2;}
+  table{border-collapse:collapse;width:100%;font-size:15px;margin:14px 0;}
+  th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--rule);vertical-align:top;}
+  th{font-weight:normal;color:var(--muted);font-size:13px;letter-spacing:.06em;text-transform:uppercase;}
+  dl{margin:10px 0;}
+  dt{font-weight:bold;margin-top:12px;}
+  dd{margin:2px 0 0 0;}
+  .retired{color:var(--muted);}
+  .key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted);margin:4px 0 0;}
+  .key span::before{content:"";display:inline-block;width:14px;height:3px;margin-right:6px;vertical-align:middle;background:currentColor;}
+  .k-fig{color:var(--figure);} .k-img{color:var(--image);} .k-mir{color:var(--mirror);} .k-gho{color:var(--ghost);}
+  .note{font-size:15px;color:var(--muted);}
+  .controls button{font:inherit;font-size:14.5px;padding:4px 12px;border:1px solid var(--muted);border-radius:4px;background:#fff;color:var(--ink);cursor:pointer;}
+  .controls button:active{background:#f1efe9;}
+  .ledgers{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;}
+  @media(max-width:560px){.ledgers{grid-template-columns:1fr;}}
+  .ledger{border:1px solid var(--rule);border-radius:4px;padding:8px 10px;font-size:14.5px;background:#f1efe9;}
+  .ledger h4{margin:0 0 6px;font-weight:normal;color:var(--muted);font-size:13px;letter-spacing:.06em;text-transform:uppercase;}
+  .ledger table{margin:0;font-size:14.5px;} .ledger td{padding:3px 4px;border:0;} .ledger td:first-child{color:var(--muted);white-space:nowrap;}
+  .pm{font-family:Menlo,Consolas,monospace;font-weight:bold;} .plus{color:var(--image);} .minus{color:var(--mirror);}
+  .price{display:inline-block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--rule);border-radius:3px;padding:0 6px;margin-left:6px;color:var(--muted);vertical-align:middle;}
+  .flash{animation:flash .9s ease-out;} @keyframes flash{0%{stroke-width:8;}100%{stroke-width:3;}}
+  code{font-family:Menlo,Consolas,monospace;font-size:14px;background:#f1efe9;padding:0 4px;border-radius:3px;}
+</style>
+</head>
+<body>
+<main>
+
+<h1>Probes</h1>
+<p class="byline">A figure detects only what moves it. Side plate, version 1. Moved here on 11 November 2026 from the One Generator page, where it was step 5. Text and figure are unchanged except for numbering and cross-references.</p>
+<p class="threadline" style="font:15px/1.5 Helvetica,Arial,sans-serif;color:#666;margin:0 0 22px;padding:6px 0;border-top:1px solid #ddd;border-bottom:1px solid #ddd">The mirror thread · side plate D · branches from <a href="mirrors.html">One Generator</a> · <a href="the-thread.html">index</a></p>
+
+<p>Every plate of the thread watches a figure, the probe, to see what a map has done. This side plate states the rule that governs what a probe can and cannot show, and why the thread uses the L.</p>
+
+<h2>A figure detects only what moves it</h2>
+<p>This is the principle the pin sketches were built on, stated outright. <b>A figure can distinguish two congruences only if their difference moves it.</b> (The difference of maps <i>A</i> and <i>B</i> is <i>B</i>⁻¹<i>A</i>; if that fixes every point of the figure, the figure cannot tell <i>A</i> from <i>B</i>.)</p>
+<p>The half-turn about a point <i>P</i> is the product of two perpendicular mirrors through <i>P</i>: the mirror in the vertical line, then the mirror in the horizontal line. Their difference is the horizontal mirror. A pin lying <i>on</i> the horizontal line is fixed point by point by that mirror, so on that pin the half-turn and the vertical mirror are the same map; this is the “perpendicular” block of the sketch, where both pictures came out alike. A pin parallel to the vertical line but off the horizontal one does feel the horizontal mirror, as head-up becoming head-down; that is the “parallel” block, where the pictures differed. A single pin is a vector and has no hand; only a figure that spans the plane (the L) detects the sign under every placement.</p>
+
+<figure id="f5">
+  <svg viewBox="0 0 600 300" aria-label="Half-turn versus vertical mirror applied to a chosen figure"></svg>
+  <div class="controls">
+    <label><input type="radio" name="f5fig" value="pinOn" checked> pin on the horizontal line</label>
+    <label><input type="radio" name="f5fig" value="pinOff"> pin parallel, off the line</label>
+    <label><input type="radio" name="f5fig" value="L"> L (spans the plane)</label>
+  </div>
+  <div class="verdict" id="f5v"></div>
+  <div class="key"><span class="k-fig">figure</span><span class="k-img">image</span><span class="k-mir">vertical mirror</span><span style="color:var(--mirror2)">horizontal mirror</span></div>
+  <figcaption>Figure 1. Left panel: the half-turn about <i>P</i> (two perpendicular mirrors). Right panel: the vertical mirror alone. The verdict compares the two images point by point. The pin on the horizontal line gives the same image under both; the pin off the line and the L do not. Nothing about the maps changed between the three cases; only the probe changed.</figcaption>
+</figure>
+
+
+<h2>Glossary for this plate</h2>
+<p class="note">Terms not listed here are as on the One Generator page. Mathematical terms first, then drawing terms.</p>
+<dl>
+  <dt>probe</dt><dd>A figure used to test a map by looking at its image. A probe distinguishes two maps only if the difference of the maps moves the probe. A single pin is a weak probe (it is a vector, with no hand); an L is a complete probe in the plane.</dd>
+  <dt>difference of two maps</dt><dd>For maps <i>A</i> and <i>B</i>, the map <i>B</i>⁻¹<i>A</i>. If it fixes a figure point by point, <i>A</i> and <i>B</i> agree on that figure.</dd>
+  <dt>half-turn</dt><dd>Rotation by 180°: the product of two perpendicular mirrors. Even. The in-plane operation drawn with an arc in the sketch.</dd>
+  <dt>hand</dt><dd>The property of a figure that a mirror reverses and an even congruence preserves. “Opposite hand” means mirror image.</dd>
+  <dt>pin</dt><dd><i>Drawing term.</i> A segment with a head at one end, drawn as a black stroke with a red disc. It represents an oriented segment: a vector with a position.</dd>
+  <dt>head</dt><dd><i>Drawing term.</i> The red disc marking which end of a pin is which.</dd>
+  <dt>L</dt><dd><i>Drawing term.</i> The figure used as a probe with a hand: a short bar and a long bar meeting at a right angle, unequal so that its mirror image cannot be rotated onto it.</dd>
+</dl>
+
+</main>
+
+<script>
+(function(){
+'use strict';
+const NS='http://www.w3.org/2000/svg';
+const C={ink:'#1d1d1b',image:'#d23f2f',mirror:'#2aa9a1',mirror2:'#b8862b',mirror3:'#7a5bb0',ghost:'#b9b5ab',muted:'#6b675f'};
+const deg=d=>d*Math.PI/180;
+
+// ---------- geometry ----------
+// reflect point p across line through P with direction angle a (radians)
+function reflect(p,P,a){const ux=Math.cos(a),uy=Math.sin(a);const vx=p.x-P.x,vy=p.y-P.y;const t=vx*ux+vy*uy;return{x:P.x+2*t*ux-vx,y:P.y+2*t*uy-vy};}
+function rotate(p,P,a){const vx=p.x-P.x,vy=p.y-P.y;const c=Math.cos(a),s=Math.sin(a);return{x:P.x+c*vx-s*vy,y:P.y+s*vx+c*vy};}
+function translate(p,dx,dy){return{x:p.x+dx,y:p.y+dy};}
+const mapPts=(pts,f)=>pts.map(f);
+
+// L figure: short bar 40 wide, long bar 50 tall, 12 thick. origin at corner.
+function Lpts(ox,oy,s){s=s||1;return [[0,0],[40,0],[40,-12],[12,-12],[12,-50],[0,-50]].map(q=>({x:ox+q[0]*s,y:oy+q[1]*s}));}
+
+// ---------- svg helpers ----------
+function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
+function clear(svg){while(svg.firstChild)svg.removeChild(svg.firstChild);}
+function poly(svg,pts,stroke,fill,extra){const d=pts.map((p,i)=>(i?'L':'M')+p.x.toFixed(2)+' '+p.y.toFixed(2)).join(' ')+' Z';return el('path',Object.assign({d,stroke,fill:fill||'none','stroke-width':2,'stroke-linejoin':'round'},extra||{}),svg);}
+function line(svg,a,b,stroke,extra){return el('line',Object.assign({x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke,'stroke-width':2},extra||{}),svg);}
+function infLine(svg,P,a,stroke,extra){const L=1000;const d={x:Math.cos(a)*L,y:Math.sin(a)*L};return line(svg,{x:P.x-d.x,y:P.y-d.y},{x:P.x+d.x,y:P.y+d.y},stroke,extra);}
+function text(svg,x,y,s,extra){const t=el('text',Object.assign({x,y,'font-family':'Georgia, serif','font-size':13,fill:C.muted},extra||{}),svg);t.textContent=s;return t;}
+function dot(svg,p,r,fill){return el('circle',{cx:p.x,cy:p.y,r,fill},svg);}
+// pin: from tail a to head b
+function pin(svg,a,b,color,opacity){line(svg,a,b,color,{'stroke-width':5,'stroke-linecap':'round',opacity:opacity||1});dot(svg,b,7,opacity&&opacity<1?C.ghost:C.image);if(color!==C.ink&&color!==C.ghost){/* image pin head stays red */}}
+function pinFig(svg,a,b,isImage,ghost){const col=ghost?C.ghost:(isImage?C.image:C.ink);line(svg,a,b,col,{'stroke-width':5,'stroke-linecap':'round'});dot(svg,b,7,ghost?C.ghost:C.image);}
+function labelLine(svg,P,a,s,color,off){const o=off||150;text(svg,P.x+Math.cos(a)*o+6,P.y+Math.sin(a)*o-6,s,{fill:color});}
+function frame(svg,w,h){el('rect',{x:0,y:0,width:w,height:h,fill:'#fff'},svg);}
+
+function samePts(A,B){if(A.length!==B.length)return false;return A.every((p,i)=>Math.abs(p.x-B[i].x)<1e-6&&Math.abs(p.y-B[i].y)<1e-6);}
+
+// ---------- Figure 5: probes ----------
+(function(){
+  const svg=document.querySelector('#f5 svg');const V=document.getElementById('f5v');
+  const radios=document.querySelectorAll('input[name=f5fig]');
+  function figPts(kind,P){
+    if(kind==='pinOn')return{kind,pts:[{x:P.x-110,y:P.y},{x:P.x-20,y:P.y}]};            // tail far, head near P, on horizontal line
+    if(kind==='pinOff')return{kind,pts:[{x:P.x-60,y:P.y+60},{x:P.x-60,y:P.y-40}]};       // vertical pin, head up, off the horizontal line
+    return{kind,pts:Lpts(P.x-100,P.y+50,.8)};
+  }
+  function drawPanel(ox,title,P,fig,map,colorNote){
+    const a1=deg(90),a2=0;
+    infLine(svg,P,a1,C.mirror,{'stroke-width':3});
+    infLine(svg,P,a2,C.mirror2,{'stroke-width':3,opacity:map==='half'?1:.25});
+    text(svg,ox+10,20,title,{'font-size':14,fill:C.ink});
+    dot(svg,P,4,C.ink);text(svg,P.x+6,P.y+16,'P');
+    const img=fig.pts.map(p=>map==='half'?reflect(reflect(p,P,a1),P,a2):reflect(p,P,a1));
+    if(fig.kind==='L'){poly(svg,fig.pts,C.ink,'#fff');poly(svg,img,C.image,'#fff');}
+    else{pinFig(svg,fig.pts[0],fig.pts[1],false,false);pinFig(svg,img[0],img[1],true,false);}
+    return img;
+  }
+  function draw(){
+    clear(svg);frame(svg,600,300);
+    const kind=document.querySelector('input[name=f5fig]:checked').value;
+    el('rect',{x:300,y:0,width:1,height:300,fill:'#e4e1d9'},svg);
+    // clip each panel
+    const PL={x:150,y:150},PR={x:450,y:150};
+    const fl=figPts(kind,PL),fr=figPts(kind,PR);
+    const defs=el('defs',{},svg);
+    const c1=el('clipPath',{id:'f5c1'},defs);el('rect',{x:0,y:0,width:299,height:300},c1);
+    const c2=el('clipPath',{id:'f5c2'},defs);el('rect',{x:301,y:0,width:299,height:300},c2);
+    const g1=el('g',{'clip-path':'url(#f5c1)'},svg),g2=el('g',{'clip-path':'url(#f5c2)'},svg);
+    // temporarily redirect drawing into groups
+    const sv=svg;
+    const imgL=(function(){const hold=[];const orig=sv.appendChild.bind(sv);sv.appendChild=n=>{g1.appendChild(n);return n;};const r=drawPanel(0,'half-turn about P (two mirrors)',PL,fl,'half');sv.appendChild=orig;return r;})();
+    const imgR=(function(){const orig=sv.appendChild.bind(sv);sv.appendChild=n=>{g2.appendChild(n);return n;};const r=drawPanel(300,'vertical mirror alone',PR,fr,'mirror');sv.appendChild=orig;return r;})();
+    // compare relative to each P
+    const rel=(pts,P)=>pts.map(p=>({x:p.x-P.x,y:p.y-P.y}));
+    const same=samePts(rel(imgL,PL),rel(imgR,PR));
+    const names={pinOn:'The pin on the horizontal line',pinOff:'The pin parallel to the vertical line, off the horizontal line',L:'The L'};
+    V.textContent=same?`${names[kind]} gives the same image under both maps. The difference of the maps (the horizontal mirror) fixes every point of this figure, so it cannot tell them apart.`:`${names[kind]} gives different images. The difference of the maps (the horizontal mirror) moves this figure, so it detects the sign.`;
+    V.className='verdict '+(same?'same':'diff');
+  }
+  radios.forEach(r=>r.addEventListener('change',draw));draw();
+})();
+
+})();
+</script>
+</body>
+</html>

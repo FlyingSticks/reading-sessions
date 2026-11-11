@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dimension: the fold — a mirror as the trace of a half-turn of space (v1)</title>
+<style>
+  :root{
+    --ink:#1d1d1b; --paper:#fbfaf7; --rule:#d9d5cc; --muted:#6b675f;
+    --mirror:#2aa9a1; --mirror2:#b8862b; --mirror3:#7a5bb0;
+    --figure:#1d1d1b; --image:#d23f2f; --ghost:#b9b5ab; --accent:#2aa9a1;
+  }
+  html{background:var(--paper);}
+  body{margin:0;color:var(--ink);font:17px/1.55 Georgia,"Times New Roman",serif;}
+  main{max-width:820px;margin:0 auto;padding:28px 20px 80px;}
+  h1{font-size:30px;line-height:1.2;margin:0 0 6px;font-weight:normal;letter-spacing:-.01em;}
+  h2{font-size:22px;margin:52px 0 10px;font-weight:normal;border-top:1px solid var(--rule);padding-top:18px;}
+  h2 small{color:var(--muted);font-size:14px;margin-left:10px;letter-spacing:.06em;text-transform:uppercase;}
+  p{margin:10px 0;}
+  .thesis{font-size:19px;border-left:3px solid var(--accent);padding:8px 14px;margin:18px 0 6px;background:#fff;}
+  .byline{color:var(--muted);font-size:14px;margin:0 0 10px;}
+  figure{margin:18px 0 8px;background:#fff;border:1px solid var(--rule);border-radius:6px;padding:12px 12px 8px;}
+  figure svg{width:100%;height:auto;display:block;touch-action:none;}
+  figcaption{font-size:14.5px;color:var(--muted);line-height:1.45;margin-top:8px;padding-top:8px;border-top:1px dashed var(--rule);}
+  .controls{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;font-size:14.5px;margin:6px 0 4px;}
+  .controls label[hidden]{display:none;}
+  .controls label{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;}
+  .controls input[type=range]{width:150px;accent-color:var(--accent);}
+  .controls input[type=checkbox],.controls input[type=radio]{accent-color:var(--accent);}
+  .readout{font-variant-numeric:tabular-nums;color:var(--ink);background:#f1efe9;padding:1px 7px;border-radius:4px;}
+  .verdict{font-size:15px;padding:6px 10px;border-radius:4px;background:#f1efe9;margin-top:6px;}
+  .verdict.same{background:#e2f3f1;} .verdict.diff{background:#fbe6e2;}
+  table{border-collapse:collapse;width:100%;font-size:15px;margin:14px 0;}
+  th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--rule);vertical-align:top;}
+  th{font-weight:normal;color:var(--muted);font-size:13px;letter-spacing:.06em;text-transform:uppercase;}
+  dl{margin:10px 0;}
+  dt{font-weight:bold;margin-top:12px;}
+  dd{margin:2px 0 0 0;}
+  .retired{color:var(--muted);}
+  .key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted);margin:4px 0 0;}
+  .key span::before{content:"";display:inline-block;width:14px;height:3px;margin-right:6px;vertical-align:middle;background:currentColor;}
+  .k-fig{color:var(--figure);} .k-img{color:var(--image);} .k-mir{color:var(--mirror);} .k-gho{color:var(--ghost);}
+  .note{font-size:15px;color:var(--muted);}
+  .controls button{font:inherit;font-size:14.5px;padding:4px 12px;border:1px solid var(--muted);border-radius:4px;background:#fff;color:var(--ink);cursor:pointer;}
+  .controls button:active{background:#f1efe9;}
+  .ledgers{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;}
+  @media(max-width:560px){.ledgers{grid-template-columns:1fr;}}
+  .ledger{border:1px solid var(--rule);border-radius:4px;padding:8px 10px;font-size:14.5px;background:#f1efe9;}
+  .ledger h4{margin:0 0 6px;font-weight:normal;color:var(--muted);font-size:13px;letter-spacing:.06em;text-transform:uppercase;}
+  .ledger table{margin:0;font-size:14.5px;} .ledger td{padding:3px 4px;border:0;} .ledger td:first-child{color:var(--muted);white-space:nowrap;}
+  .pm{font-family:Menlo,Consolas,monospace;font-weight:bold;} .plus{color:var(--image);} .minus{color:var(--mirror);}
+  .price{display:inline-block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--rule);border-radius:3px;padding:0 6px;margin-left:6px;color:var(--muted);vertical-align:middle;}
+  .flash{animation:flash .9s ease-out;} @keyframes flash{0%{stroke-width:8;}100%{stroke-width:3;}}
+  code{font-family:Menlo,Consolas,monospace;font-size:14px;background:#f1efe9;padding:0 4px;border-radius:3px;}
+</style>
+</head>
+<body>
+<main>
+
+<h1>Dimension: the fold</h1>
+<p class="byline">A mirror of the plane as the trace of a half-turn of space. Side plate, version 1. Moved here on 11 November 2026 from the One Generator page, where it was step 4. Text and figure are unchanged except for numbering and cross-references.</p>
+<p class="threadline" style="font:15px/1.5 Helvetica,Arial,sans-serif;color:#666;margin:0 0 22px;padding:6px 0;border-top:1px solid #ddd;border-bottom:1px solid #ddd">The mirror thread · side plate A · branches from <a href="mirrors.html">One Generator</a> · continued on side plate B, <a href="the-revolution-v1.html">The fold line as axis of revolution</a> · <a href="the-thread.html">index</a></p>
+
+<p>The One Generator page shows that a single mirror has a sign and no measure. This side plate asks where a measure for it could come from, and finds it one dimension up. The revolution plate (side plate B) and the ladder (side plate C) continue from here.</p>
+
+<h2>The fold</h2>
+<p>In the plane the mirror is discrete: no continuous path of congruences of the plane leads from the identity to a mirror, because the sign would have to jump. The wavy fold lines in the sketch already say what changes this. In space, a half-turn about the mirror line — a <b>fold</b> — is continuous, carries a measure (the angle turned, up to 180°), and its <b>trace</b> in the plane, what the plane sees when the fold is complete, is exactly the mirror.</p>
+<p>The plane therefore cannot tell whether its mirror is the trace of a mirror in space (odd, one mirror) or of a fold (even, two mirrors). <b>The sign of an ambient map is not determined by its trace.</b> Every mirror in <i>n</i> dimensions is a rotation in <i>n</i> + 1 dimensions, restricted; “discrete” means that the arc lives in a dimension the plane does not have.</p>
+
+<figure id="f4">
+  <svg viewBox="0 0 600 340" aria-label="A fold seen in plan and in elevation"></svg>
+  <div class="controls">
+    <label>Fold angle <input type="range" id="f4t" min="0" max="180" value="0"> <span class="readout" id="f4tr">0°</span></label>
+    <label><input type="checkbox" id="f4play"> run</label>
+  </div>
+  <div class="key"><span class="k-fig">pin at 0°</span><span class="k-img">pin during the fold</span><span class="k-mir">fold line</span><span class="k-gho">path of the head</span></div>
+  <figcaption>Figure 1. Left, plan: the plane as the plane sees it. The pin (segment with a head) lies beside the fold line; as the fold proceeds the pin's distance from the fold line foreshortens to zero and the pin re-emerges on the far side, head still at the same end. Right, elevation: the same fold seen along the fold line, so the pin appears end-on as a dot and the thin gray line is the folded part of the plane. The pin travels a semicircle. The plan view at 180° is the mirror image of the plan view at 0°; the plan view never sees the arc.</figcaption>
+</figure>
+
+<p>Chirality is dimension-relative for the same reason. An L in the plane is <b>chiral</b>: no rotation or translation of the plane superposes it on its mirror image. The same L in space is achiral, because a fold through the spare dimension does superpose it. A figure can be chiral in <i>n</i> dimensions only if it spans all <i>n</i> directions; anything spanning fewer can be turned over through a spare one.</p>
+
+
+<h2>Glossary for this plate</h2>
+<p class="note">Terms not listed here are as on the One Generator page. Mathematical terms first, then drawing terms.</p>
+<dl>
+  <dt>fold</dt><dd>A half-turn of space about a line lying in the plane. Continuous, even in space, with a measure (the fold angle). Its trace in the plane, when complete, is the mirror in that line. The fold page uses the same word for a related but different thing: counting a point and its half-turn partner as one. The ladder, side plate C, connects the two uses.</dd>
+  <dt>trace</dt><dd>What a map of space does to the plane, considered only on the plane. Two different maps of space can have the same trace; in particular a mirror in space and a fold have the same trace, so the trace does not determine the sign of the ambient map.</dd>
+  <dt>chiral / achiral</dt><dd>A figure is chiral in a given space if no even congruence of that space superposes it on its mirror image; achiral otherwise. Chirality is relative to the space: a figure can be chiral in <i>n</i> dimensions and achiral in <i>n</i> + 1. A figure is chiral in <i>n</i> dimensions only if it spans all <i>n</i> directions.</dd>
+  <dt>hand</dt><dd>The property of a figure that a mirror reverses and an even congruence preserves. “Opposite hand” means mirror image.</dd>
+  <dt>pin</dt><dd><i>Drawing term.</i> A segment with a head at one end, drawn as a black stroke with a red disc. It represents an oriented segment: a vector with a position.</dd>
+  <dt>head</dt><dd><i>Drawing term.</i> The red disc marking which end of a pin is which.</dd>
+  <dt>L</dt><dd><i>Drawing term.</i> The figure used as a probe with a hand: a short bar and a long bar meeting at a right angle, unequal so that its mirror image cannot be rotated onto it.</dd>
+  <dt>fold line</dt><dd><i>Drawing term.</i> The drawn line about which a fold is performed; the same line that the resulting mirror fixes.</dd>
+  <dt>mirror line</dt><dd><i>Drawing term.</i> The drawn line of a mirror; the line of its fixed points.</dd>
+  <dt>plan / elevation</dt><dd><i>Drawing terms.</i> Plan: the plane viewed face-on. Elevation: the same plane viewed edge-on, so that a fold is seen as an arc.</dd>
+</dl>
+
+</main>
+
+<script>
+(function(){
+'use strict';
+const NS='http://www.w3.org/2000/svg';
+const C={ink:'#1d1d1b',image:'#d23f2f',mirror:'#2aa9a1',mirror2:'#b8862b',mirror3:'#7a5bb0',ghost:'#b9b5ab',muted:'#6b675f'};
+const deg=d=>d*Math.PI/180;
+
+// ---------- geometry ----------
+// reflect point p across line through P with direction angle a (radians)
+function reflect(p,P,a){const ux=Math.cos(a),uy=Math.sin(a);const vx=p.x-P.x,vy=p.y-P.y;const t=vx*ux+vy*uy;return{x:P.x+2*t*ux-vx,y:P.y+2*t*uy-vy};}
+function rotate(p,P,a){const vx=p.x-P.x,vy=p.y-P.y;const c=Math.cos(a),s=Math.sin(a);return{x:P.x+c*vx-s*vy,y:P.y+s*vx+c*vy};}
+function translate(p,dx,dy){return{x:p.x+dx,y:p.y+dy};}
+const mapPts=(pts,f)=>pts.map(f);
+
+// L figure: short bar 40 wide, long bar 50 tall, 12 thick. origin at corner.
+function Lpts(ox,oy,s){s=s||1;return [[0,0],[40,0],[40,-12],[12,-12],[12,-50],[0,-50]].map(q=>({x:ox+q[0]*s,y:oy+q[1]*s}));}
+
+// ---------- svg helpers ----------
+function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
+function clear(svg){while(svg.firstChild)svg.removeChild(svg.firstChild);}
+function poly(svg,pts,stroke,fill,extra){const d=pts.map((p,i)=>(i?'L':'M')+p.x.toFixed(2)+' '+p.y.toFixed(2)).join(' ')+' Z';return el('path',Object.assign({d,stroke,fill:fill||'none','stroke-width':2,'stroke-linejoin':'round'},extra||{}),svg);}
+function line(svg,a,b,stroke,extra){return el('line',Object.assign({x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke,'stroke-width':2},extra||{}),svg);}
+function infLine(svg,P,a,stroke,extra){const L=1000;const d={x:Math.cos(a)*L,y:Math.sin(a)*L};return line(svg,{x:P.x-d.x,y:P.y-d.y},{x:P.x+d.x,y:P.y+d.y},stroke,extra);}
+function text(svg,x,y,s,extra){const t=el('text',Object.assign({x,y,'font-family':'Georgia, serif','font-size':13,fill:C.muted},extra||{}),svg);t.textContent=s;return t;}
+function dot(svg,p,r,fill){return el('circle',{cx:p.x,cy:p.y,r,fill},svg);}
+// pin: from tail a to head b
+function pin(svg,a,b,color,opacity){line(svg,a,b,color,{'stroke-width':5,'stroke-linecap':'round',opacity:opacity||1});dot(svg,b,7,opacity&&opacity<1?C.ghost:C.image);if(color!==C.ink&&color!==C.ghost){/* image pin head stays red */}}
+function pinFig(svg,a,b,isImage,ghost){const col=ghost?C.ghost:(isImage?C.image:C.ink);line(svg,a,b,col,{'stroke-width':5,'stroke-linecap':'round'});dot(svg,b,7,ghost?C.ghost:C.image);}
+function labelLine(svg,P,a,s,color,off){const o=off||150;text(svg,P.x+Math.cos(a)*o+6,P.y+Math.sin(a)*o-6,s,{fill:color});}
+function frame(svg,w,h){el('rect',{x:0,y:0,width:w,height:h,fill:'#fff'},svg);}
+
+function samePts(A,B){if(A.length!==B.length)return false;return A.every((p,i)=>Math.abs(p.x-B[i].x)<1e-6&&Math.abs(p.y-B[i].y)<1e-6);}
+
+// ---------- Figure 4: the fold ----------
+(function(){
+  const svg=document.querySelector('#f4 svg');const T=document.getElementById('f4t'),TR=document.getElementById('f4tr'),PL=document.getElementById('f4play');
+  let timer=null;
+  function draw(){
+    clear(svg);frame(svg,600,340);
+    const t=+T.value;TR.textContent=t+'°';const th=deg(t);
+    // --- plan (left) ---
+    const F={x:160,y:170};             // point on fold line
+    const foldA=deg(90);
+    infLine(svg,F,foldA,C.mirror,{'stroke-width':3});
+    el('rect',{x:300,y:0,width:1,height:340,fill:'#e4e1d9'},svg);
+    text(svg,14,22,'plan',{'font-size':14});text(svg,314,22,'elevation',{'font-size':14});
+    text(svg,F.x+6,330,'fold line',{fill:C.mirror});
+    // pin: tail at (F.x-90, 120), head at (F.x-90, 220) : parallel to fold line, offset -90
+    const off=-90;const tail0={x:F.x+off,y:120},head0={x:F.x+off,y:220};
+    const k=Math.cos(th);const tail={x:F.x+off*k,y:tail0.y},head={x:F.x+off*k,y:head0.y};
+    // path of the head in plan: a straight segment (the arc seen face-on)
+    line(svg,{x:F.x+off,y:head0.y},{x:F.x-off,y:head0.y},C.ghost,{'stroke-width':1,'stroke-dasharray':'3 4'});
+    pinFig(svg,tail0,head0,false,true);  // ghost of the 0° position
+    el('text',{x:tail0.x-24,y:tail0.y-10,'font-size':12,fill:C.muted,'font-family':'Georgia, serif'},svg).textContent='0°';
+    pinFig(svg,tail,head,true,false);
+    // --- elevation (right): fold line is a point E; pin seen edge-on as a point at distance off ---
+    const E={x:450,y:200};
+    line(svg,{x:330,y:E.y},{x:570,y:E.y},C.ghost,{'stroke-width':1});
+    text(svg,560,E.y+16,'plane',{'font-size':12});
+    // semicircle path of head
+    el('path',{d:`M${E.x+off} ${E.y} A${-off} ${-off} 0 0 1 ${E.x-off} ${E.y}`,stroke:C.ghost,fill:'none','stroke-width':1,'stroke-dasharray':'3 4'},svg);
+    dot(svg,E,5,C.mirror);text(svg,E.x-20,E.y+30,'fold line (end-on)',{fill:C.mirror,'font-size':12});
+    const hp={x:E.x+off*Math.cos(th),y:E.y-(-off)*Math.sin(th)*(off<0?1:-1)};
+    // fix: head height = |off| sin θ above the plane
+    const hpt={x:E.x+off*Math.cos(th),y:E.y-Math.abs(off)*Math.sin(th)};
+    line(svg,E,hpt,C.muted,{'stroke-width':1.5});
+    dot(svg,hpt,7,C.image);
+    text(svg,hpt.x+10,hpt.y+4,'pin (end-on)',{fill:C.image,'font-size':12});
+    dot(svg,{x:E.x+off,y:E.y},4,C.ghost);
+    // angle marker
+    if(t>0&&t<180)el('path',{d:`M${E.x+off*0.3} ${E.y} A${Math.abs(off)*0.3} ${Math.abs(off)*0.3} 0 0 1 ${E.x+off*0.3*Math.cos(th)} ${E.y-Math.abs(off)*0.3*Math.sin(th)}`,stroke:C.muted,fill:'none','stroke-width':1},svg);
+    text(svg,E.x-10,E.y-40,t+'°',{fill:C.ink});
+    text(svg,330,300,t===180?'At 180° the plan shows the mirror image of the 0° pin.':t===0?'At 0° the pin lies in the plane.':'The plane sees the pin at a foreshortened distance from the fold line.',{'font-size':12.5});
+  }
+  T.addEventListener('input',draw);
+  PL.addEventListener('change',()=>{if(PL.checked){timer=setInterval(()=>{let v=(+T.value+2);if(v>180){v=0;}T.value=v;draw();},40);}else{clearInterval(timer);timer=null;}});
+  draw();
+})();
+
+})();
+</script>
+</body>
+</html>

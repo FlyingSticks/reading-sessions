@@ -58,12 +58,12 @@
 <main>
 
 <h1>One Generator</h1>
-<p class="byline">Mirrors, sign, and measure in the plane — a reorganization of the pin sketches. Revised 11 November 2026: placed in the thread (line below); one cross-reference corrected; two forward references added.</p>
-<p class="threadline" style="font:15px/1.5 Helvetica,Arial,sans-serif;color:#666;margin:0 0 22px;padding:6px 0;border-top:1px solid #ddd;border-bottom:1px solid #ddd">The mirror thread · plate 1 of 10 · next: <a href="sign.html">Compose, Multiply, Sign</a> · <a href="the-thread.html">index</a></p>
+<p class="byline">Mirrors, sign, and measure in the plane — a reorganization of the pin sketches. Revised 11 November 2026: placed in the thread (line below); steps 4, 5 and 6 moved, unchanged, to side plates A, D and E; Figure 6 renumbered Figure 4; one forward reference added.</p>
+<p class="threadline" style="font:15px/1.5 Helvetica,Arial,sans-serif;color:#666;margin:0 0 22px;padding:6px 0;border-top:1px solid #ddd;border-bottom:1px solid #ddd">The mirror thread · plate 1 of 10 · next: <a href="sign.html">Compose, Multiply, Sign</a> (optional), then <a href="the-pair-v1.html">The pair</a> · <a href="the-thread.html">index</a></p>
 
 <p class="thesis">Every congruence of the plane is a product of mirrors. The <b>sign</b> of a congruence is the count of its mirrors, mod 2. The <b>measure</b> of a congruence is the separation of a pair of mirrors. A single mirror has sign and no measure.</p>
 
-<p>The pin sketches asked a question the textbook does not start from: what can a figure tell about the map that was done to it? This page keeps that question and puts the standard structure under it. Five steps, each with a diagram you can operate, then the complete list of plane congruences, then a glossary. All terms used here are defined in the glossary; a drawing word (pin, head, fold line) is never used for a mathematical object, and a mathematical word (mirror, half-turn, sign) is never used for a drawing.</p>
+<p>The pin sketches asked a question the textbook does not start from: what can a figure tell about the map that was done to it? This page keeps that question and puts the standard structure under it. Three steps, each with a diagram you can operate, then the complete list of plane congruences, then a glossary. All terms used here are defined in the glossary; a drawing word (mirror line, L) is never used for a mathematical object, and a mathematical word (mirror, half-turn, sign) is never used for a drawing.</p>
 
 <!-- ===================== STEP 1 ===================== -->
 <h2>1. One generator: the mirror <small>Cartan–Dieudonné</small></h2>
@@ -112,42 +112,10 @@
   </div>
   <div class="verdict" id="f3v"></div>
   <div class="key"><span class="k-fig">figure</span><span class="k-gho">image after mirror 1</span><span class="k-img">image after mirror 2</span><span class="k-mir">mirror 1</span><span style="color:var(--mirror2)">mirror 2</span></div>
-  <figcaption>Figure 3. Crossing lines: the arc marks 2θ, the angle of the resulting rotation, which is twice the angle between the mirror lines. Set θ = 90° for the half-turn. Parallel lines: the arrow marks 2<i>d</i>, the resulting translation, twice the distance between the lines. In both modes the final image is the same hand as the figure: two mirrors, even.</figcaption>
+  <figcaption>Figure 3. (Each case has its own plate: the pair, plate 3, and the parallel pair, plate 4.) Crossing lines: the arc marks 2θ, the angle of the resulting rotation, which is twice the angle between the mirror lines. Set θ = 90° for the half-turn. Parallel lines: the arrow marks 2<i>d</i>, the resulting translation, twice the distance between the lines. In both modes the final image is the same hand as the figure: two mirrors, even.</figcaption>
 </figure>
 
-<!-- ===================== STEP 4 ===================== -->
-<h2>4. Dimension: the fold</h2>
-<p>In the plane the mirror is discrete: no continuous path of congruences of the plane leads from the identity to a mirror, because the sign would have to jump. The wavy fold lines in the sketch already say what changes this. In space, a half-turn about the mirror line — a <b>fold</b> — is continuous, carries a measure (the angle turned, up to 180°), and its <b>trace</b> in the plane, what the plane sees when the fold is complete, is exactly the mirror.</p>
-<p>The plane therefore cannot tell whether its mirror is the trace of a mirror in space (odd, one mirror) or of a fold (even, two mirrors). <b>The sign of an ambient map is not determined by its trace.</b> Every mirror in <i>n</i> dimensions is a rotation in <i>n</i> + 1 dimensions, restricted; “discrete” means that the arc lives in a dimension the plane does not have.</p>
-
-<figure id="f4">
-  <svg viewBox="0 0 600 340" aria-label="A fold seen in plan and in elevation"></svg>
-  <div class="controls">
-    <label>Fold angle <input type="range" id="f4t" min="0" max="180" value="0"> <span class="readout" id="f4tr">0°</span></label>
-    <label><input type="checkbox" id="f4play"> run</label>
-  </div>
-  <div class="key"><span class="k-fig">pin at 0°</span><span class="k-img">pin during the fold</span><span class="k-mir">fold line</span><span class="k-gho">path of the head</span></div>
-  <figcaption>Figure 4. Left, plan: the plane as the plane sees it. The pin (segment with a head) lies beside the fold line; as the fold proceeds the pin's distance from the fold line foreshortens to zero and the pin re-emerges on the far side, head still at the same end. Right, elevation: the same fold seen along the fold line, so the pin appears end-on as a dot and the thin gray line is the folded part of the plane. The pin travels a semicircle. The plan view at 180° is the mirror image of the plan view at 0°; the plan view never sees the arc.</figcaption>
-</figure>
-
-<p>Chirality is dimension-relative for the same reason. An L in the plane is <b>chiral</b>: no rotation or translation of the plane superposes it on its mirror image. The same L in space is achiral, because a fold through the spare dimension does superpose it. A figure can be chiral in <i>n</i> dimensions only if it spans all <i>n</i> directions; anything spanning fewer can be turned over through a spare one.</p>
-
-<!-- ===================== STEP 5 ===================== -->
-<h2>5. Probes: a figure detects only what moves it</h2>
-<p>This is the principle the pin sketches were built on, stated outright. <b>A figure can distinguish two congruences only if their difference moves it.</b> (The difference of maps <i>A</i> and <i>B</i> is <i>B</i>⁻¹<i>A</i>; if that fixes every point of the figure, the figure cannot tell <i>A</i> from <i>B</i>.)</p>
-<p>The half-turn about a point <i>P</i> is the product of two perpendicular mirrors through <i>P</i>: the mirror in the vertical line, then the mirror in the horizontal line. Their difference is the horizontal mirror. A pin lying <i>on</i> the horizontal line is fixed point by point by that mirror, so on that pin the half-turn and the vertical mirror are the same map; this is the “perpendicular” block of the sketch, where both pictures came out alike. A pin parallel to the vertical line but off the horizontal one does feel the horizontal mirror, as head-up becoming head-down; that is the “parallel” block, where the pictures differed. A single pin is a vector and has no hand; only a figure that spans the plane (the L) detects the sign under every placement.</p>
-
-<figure id="f5">
-  <svg viewBox="0 0 600 300" aria-label="Half-turn versus vertical mirror applied to a chosen figure"></svg>
-  <div class="controls">
-    <label><input type="radio" name="f5fig" value="pinOn" checked> pin on the horizontal line</label>
-    <label><input type="radio" name="f5fig" value="pinOff"> pin parallel, off the line</label>
-    <label><input type="radio" name="f5fig" value="L"> L (spans the plane)</label>
-  </div>
-  <div class="verdict" id="f5v"></div>
-  <div class="key"><span class="k-fig">figure</span><span class="k-img">image</span><span class="k-mir">vertical mirror</span><span style="color:var(--mirror2)">horizontal mirror</span></div>
-  <figcaption>Figure 5. Left panel: the half-turn about <i>P</i> (two perpendicular mirrors). Right panel: the vertical mirror alone. The verdict compares the two images point by point. The pin on the horizontal line gives the same image under both; the pin off the line and the L do not. Nothing about the maps changed between the three cases; only the probe changed.</figcaption>
-</figure>
+<p class="note">Three excursions stood here as steps 4, 5 and 6. They are now side plates, unchanged: <a href="the-fold-line-v1.html">Dimension: the fold</a> (side plate A), <a href="the-probes-v1.html">Probes</a> (side plate D), and <a href="the-monge-mirrors-v1.html">Three mirrors, one sheet</a> (side plate E). The main line continues with the complete list.</p>
 
 <!-- ===================== COMPLETE LIST ===================== -->
 <h2>The complete list of plane congruences</h2>
@@ -169,57 +137,14 @@
     <label>Slide <input type="range" id="f6s" min="-150" max="150" value="80"> <span class="readout" id="f6sr">80</span></label>
   </div>
   <div class="key"><span class="k-fig">figure</span><span class="k-gho">after the mirror</span><span class="k-img">after the slide</span><span class="k-mir">mirror line</span></div>
-  <figcaption>Figure 6. The glide reflection: the mirror with line <i>m</i>, then translate along <i>m</i>. The translation is itself two mirrors perpendicular to the line, so the count is three and the sign is odd, but no single mirror produces this image (a mirror has a line of fixed points; the glide has none). It is the only odd congruence of the plane other than the mirror itself.</figcaption>
+  <figcaption>Figure 4. The glide reflection: the mirror with line <i>m</i>, then translate along <i>m</i>. The translation is itself two mirrors perpendicular to the line, so the count is three and the sign is odd, but no single mirror produces this image (a mirror has a line of fixed points; the glide has none). It is the only odd congruence of the plane other than the mirror itself.</figcaption>
 </figure>
 
 <p class="note">A different thing from <i>glide projection</i>, the lateral drawing construction; the two share only the idea of a slide combined with another operation.</p>
 
-<!-- ===================== STEP 6 ===================== -->
-<h2>6. Three mirrors, one sheet <small>Monge</small></h2>
-<p>The Monge sheet — plan over elevation, profile to the right — is three projection planes <b>H</b>, <b>V</b>, <b>P</b> laid flat. Each plane defines one mirror of space. Below, a probe sits in space; push it through any of the three mirrors and watch two kinds of sign change: the <b>side</b> of the point (which side of a plane it lies on) and the <b>sign</b> of the map that has been done so far. They are kept in separate ledgers because they are separate things. A reversed coordinate is drawn on the far side of its trace — the “jump” of the sketch — so an image may land in another view's field; the small gray label beside each image says which view it belongs to.</p>
-
-<figure id="f7">
-  <svg viewBox="0 0 760 470" aria-label="Monge sheet with three mirror planes and a probe"></svg>
-  <div class="controls">
-    <span>Push the probe through:</span>
-    <button type="button" data-m="H">mirror in H</button>
-    <button type="button" data-m="V">mirror in V</button>
-    <button type="button" data-m="P">mirror in P</button>
-    <button type="button" data-m="reset">reset</button>
-  </div>
-  <div class="ledgers">
-    <div class="ledger">
-      <h4>Side — a property of the point</h4>
-      <table>
-        <tr><td>x, signed distance from P</td><td id="f7sx" class="pm"></td></tr>
-        <tr><td>y, signed distance from V</td><td id="f7sy" class="pm"></td></tr>
-        <tr><td>z, signed distance from H</td><td id="f7sz" class="pm"></td></tr>
-      </table>
-      <div class="note" id="f7sidenote"></div>
-    </div>
-    <div class="ledger">
-      <h4>Sign — a property of the map</h4>
-      <table>
-        <tr><td>mirrors applied</td><td id="f7seq">—</td></tr>
-        <tr><td>count k</td><td id="f7k">0</td></tr>
-        <tr><td>(−1)<sup>k</sup></td><td id="f7par" class="pm"></td></tr>
-        <tr><td>hand of the frame</td><td id="f7hand"></td></tr>
-        <tr><td>the map so far</td><td id="f7map"></td></tr>
-      </table>
-    </div>
-  </div>
-  <div class="key"><span style="color:var(--mirror3)">x, read from the trace of P</span><span style="color:var(--mirror2)">y, read from the trace of V</span><span class="k-mir">z, read from the trace of H</span><span style="color:#2a7">projectors</span></div>
-  <figcaption>Figure 7. Plan over elevation, profile to the right. The two drawn lines carry the three traces <i>a</i> = H∩V, <i>b</i> = H∩P, <i>c</i> = V∩P; <i>b</i> is drawn twice (see the glossary). The probe is a frame: a point with arms in the directions of increasing x, y, z; each view shows the two arms it can. Push through H: the plan image stays put, the elevation and profile images cross the trace of H. Push through H twice: every side is restored and the map is the identity. Push through H then V: two sides have changed, yet the sign is even — the map is the half-turn about the trace <i>a</i> = H∩V.</figcaption>
-</figure>
-
-<p><b>Each view is blind to its own mirror.</b> <span class="price">observation</span> The mirror in H changes only z, and the plan does not show z. The two views adjacent to H each display z as a depth measured from the trace of H, and each sees the probe jump across that trace. This is the <i>skip-a-plane</i> rule of descriptive geometry read as a statement about a mirror: the coordinate a mirror reverses is exactly the depth that the two adjacent views display, measured from the trace of that mirror's plane.</p>
-<p><b>Side and sign are different −1's.</b> <span class="price">theorem</span> Side belongs to a point; sign belongs to a map. One mirror reverses one side and the sign. Two mirrors reverse two sides and no sign. The sign read from the count agrees with the hand of the frame after every sequence of pushes: Step 2 at work in space.</p>
-<p><b>The eight maps.</b> <span class="price">theorem</span> Whatever order you push in, the map so far is one of eight: the identity, three mirrors, three half-turns (one about each trace), and the point-reflection. Their signs are even, odd, odd, odd, even, even, even, odd.</p>
-<p><b>What this is not.</b> <span class="price">ledger note</span> The equality of depths in two adjacent views is an equality of <i>measures</i> (the same coordinate shown twice), not a product of signs. The three Monge mirrors are all at 90° to one another, so no measure other than 90° ever enters this figure; it is the sign half of the structure, closed on eight elements. The continuous half — pairs of mirrors at other angles — is the subject of the pair plate, plate 3 of the thread. (The revolution plate, a side plate, takes up the fold line of Step 4.)</p>
-
 <!-- ===================== GLOSSARY ===================== -->
 <h2>Glossary</h2>
-<p class="note">Mathematical terms first, then drawing terms, then terms retired from the sketch.</p>
+<p class="note">Mathematical terms first, then drawing terms, then terms retired from the sketch. The terms of the three side plates (fold, trace, chiral, probe, side, frame and the drawing terms that go with them) are in those plates' glossaries.</p>
 <dl>
   <dt>congruence</dt><dd>A map of the plane (or of space) to itself that preserves every distance. Also called an isometry. Every congruence is a product of mirrors.</dd>
   <dt>mirror</dt><dd>The map of the plane determined by a line <i>m</i>: each point of <i>m</i> stays; each other point <i>P</i> goes to the point <i>P′</i> for which <i>m</i> is the perpendicular bisector of <i>PP′</i>. In space, the same with a plane in place of the line. Called “reflection in <i>m</i>” or “reflection across <i>m</i>” in the textbooks; here, “the mirror with line <i>m</i>” or, as a name, “the mirror in <i>m</i>”. Its fixed points are exactly <i>m</i>; applied twice it is the identity (an <i>involution</i>); it preserves every distance. The single generator on this page.</dd>
@@ -231,32 +156,16 @@
   <dt>half-turn</dt><dd>Rotation by 180°: the product of two perpendicular mirrors. Even. The in-plane operation drawn with an arc in the sketch.</dd>
   <dt>translation</dt><dd>Product of two mirrors in parallel lines at distance <i>d</i>: a shift by 2<i>d</i> perpendicular to the lines. Even.</dd>
   <dt>glide reflection</dt><dd>A mirror followed by a translation along the mirror's own line. Three mirrors; odd; no fixed points.</dd>
-  <dt>fold</dt><dd>A half-turn of space about a line lying in the plane. Continuous, even in space, with a measure (the fold angle). Its trace in the plane, when complete, is the mirror in that line. The fold page uses the same word for a related but different thing: counting a point and its half-turn partner as one. The ladder plate connects the two uses.</dd>
-  <dt>trace</dt><dd>What a map of space does to the plane, considered only on the plane. Two different maps of space can have the same trace; in particular a mirror in space and a fold have the same trace, so the trace does not determine the sign of the ambient map.</dd>
   <dt>hand</dt><dd>The property of a figure that a mirror reverses and an even congruence preserves. “Opposite hand” means mirror image.</dd>
-  <dt>chiral / achiral</dt><dd>A figure is chiral in a given space if no even congruence of that space superposes it on its mirror image; achiral otherwise. Chirality is relative to the space: a figure can be chiral in <i>n</i> dimensions and achiral in <i>n</i> + 1. A figure is chiral in <i>n</i> dimensions only if it spans all <i>n</i> directions.</dd>
-  <dt>probe</dt><dd>A figure used to test a map by looking at its image. A probe distinguishes two maps only if the difference of the maps moves the probe. A single pin is a weak probe (it is a vector, with no hand); an L is a complete probe in the plane.</dd>
-  <dt>difference of two maps</dt><dd>For maps <i>A</i> and <i>B</i>, the map <i>B</i>⁻¹<i>A</i>. If it fixes a figure point by point, <i>A</i> and <i>B</i> agree on that figure.</dd>
   <dt>fixed point</dt><dd>A point sent to itself by a map. The set of fixed points classifies plane congruences: every point (identity), a line (mirror), one point (rotation), none (translation, glide).</dd>
   <dt>Cartan–Dieudonné theorem</dt><dd>Every congruence of <i>n</i>-dimensional space is a product of at most <i>n</i> mirrors (at most <i>n</i> + 1 when translations are counted, as on this page). The floor under everything here.</dd>
 
-  <dt>projection plane</dt><dd>One of H (horizontal), V (vertical), P (profile): three mutually perpendicular planes in space (Step 6). Each defines a mirror of space.</dd>
-  <dt>side</dt><dd>The sign of a point's signed distance from a plane: which side of the plane it lies on. A property of a point, not of a map. A mirror in that plane reverses it.</dd>
-  <dt>frame</dt><dd>A point with three short arms in the directions of increasing x, y, z (the signed distances from P, V, H). It has a hand: right if the arms, taken in the order x, y, z, are arranged as at the start of Figure 7; left otherwise. “Right” is the name given to the starting hand.</dd>
-  <dt>point-reflection</dt><dd>The product of three mutually perpendicular mirrors of space: every coordinate reversed. Odd.</dd>
 
-  <dt>pin</dt><dd><i>Drawing term.</i> A segment with a head at one end, drawn as a black stroke with a red disc. It represents an oriented segment: a vector with a position.</dd>
-  <dt>head</dt><dd><i>Drawing term.</i> The red disc marking which end of a pin is which.</dd>
   <dt>L</dt><dd><i>Drawing term.</i> The figure used as a probe with a hand: a short bar and a long bar meeting at a right angle, unequal so that its mirror image cannot be rotated onto it.</dd>
-  <dt>fold line</dt><dd><i>Drawing term.</i> The drawn line about which a fold is performed; the same line that the resulting mirror fixes.</dd>
   <dt>mirror line</dt><dd><i>Drawing term.</i> The drawn line of a mirror; the line of its fixed points.</dd>
-  <dt>plan / elevation</dt><dd><i>Drawing terms.</i> Plan: the plane viewed face-on. Elevation: the same plane viewed edge-on, so that a fold is seen as an arc.</dd>
 
-  <dt>trace (of a projection plane)</dt><dd><i>Drawing term.</i> The line in which two projection planes meet: <i>a</i> = H∩V, <i>b</i> = H∩P, <i>c</i> = V∩P, all through the corner point. To lay the sheet flat, H is turned about <i>a</i> and P about <i>c</i>; these two are hinges and are drawn once. <i>b</i> lies in both turning planes and is carried by both, so it is drawn twice: above the corner (with H) and to the right of it (with P). Hence each drawn line carries two traces: the horizontal line is <i>a</i> on the left and <i>b</i> on the right; the vertical line is <i>b</i> above and <i>c</i> below. Distinct from <i>trace</i> of a map, above.</dd>
-  <dt>probe image (plan, elevation, profile)</dt><dd><i>Drawing term.</i> The drawing of the frame in one view: the point and the two arms that view can show. In Figure 7, x is read leftward from the vertical line (plan and elevation); y upward from <i>a</i> (plan) and rightward from <i>c</i> (profile); z downward from the horizontal line (<i>a</i> in the elevation, <i>b</i> in the profile). A negative value is drawn on the other side of the line.</dd>
 
-  <dt class="retired">ground line <span class="note">(not used)</span></dt><dd class="retired">Monge's <i>ligne de terre</i>: the trace H∩V in first-angle projection, where the object stands on H and the line is literally the ground, with the elevation above it. The plates here are plan-over-elevation, in which H lies above the object; there the word misleads, so the line is named by its trace, <i>a</i>.</dd>
-  <dt class="retired">flip <span class="note">(retired)</span></dt><dd class="retired">Used in the sketch both for the in-plane half-turn and for the out-of-plane fold, which are different maps. Replaced by <i>half-turn</i> and <i>fold</i>.</dd>
+  <dt class="retired">flip <span class="note">(retired)</span></dt><dd class="retired">Used in the sketch both for the in-plane half-turn and for the out-of-plane fold, which are different maps. Replaced by <i>half-turn</i> and <i>fold</i> (the fold is on side plate A).</dd>
   <dt class="retired">parallel / perpendicular <span class="note">(re-assigned)</span></dt><dd class="retired">In the sketch these labeled the pin's orientation relative to the axis. They are now used only for the arrangement of a pair of mirror lines (Step 3), which is what they were tracking.</dd>
   <dt class="retired">helicity <span class="note">(removed)</span></dt><dd class="retired">A physics term, frame-dependent there, with no clean analog in the plane. The notion wanted was <i>chirality</i>.</dd>
   <dt class="retired">left/right, front/back <span class="note">(absorbed)</span></dt><dd class="retired">Not primary binaries; a corollary of Step 2. The mirror reverses front/back; “left/right” names the axis after a chosen even companion is composed in.</dd>
@@ -404,97 +313,6 @@ function samePts(A,B){if(A.length!==B.length)return false;return A.every((p,i)=>
   modeEls.forEach(r=>r.addEventListener('change',draw));T.addEventListener('input',draw);D.addEventListener('input',draw);draw();
 })();
 
-// ---------- Figure 4: the fold ----------
-(function(){
-  const svg=document.querySelector('#f4 svg');const T=document.getElementById('f4t'),TR=document.getElementById('f4tr'),PL=document.getElementById('f4play');
-  let timer=null;
-  function draw(){
-    clear(svg);frame(svg,600,340);
-    const t=+T.value;TR.textContent=t+'°';const th=deg(t);
-    // --- plan (left) ---
-    const F={x:160,y:170};             // point on fold line
-    const foldA=deg(90);
-    infLine(svg,F,foldA,C.mirror,{'stroke-width':3});
-    el('rect',{x:300,y:0,width:1,height:340,fill:'#e4e1d9'},svg);
-    text(svg,14,22,'plan',{'font-size':14});text(svg,314,22,'elevation',{'font-size':14});
-    text(svg,F.x+6,330,'fold line',{fill:C.mirror});
-    // pin: tail at (F.x-90, 120), head at (F.x-90, 220) : parallel to fold line, offset -90
-    const off=-90;const tail0={x:F.x+off,y:120},head0={x:F.x+off,y:220};
-    const k=Math.cos(th);const tail={x:F.x+off*k,y:tail0.y},head={x:F.x+off*k,y:head0.y};
-    // path of the head in plan: a straight segment (the arc seen face-on)
-    line(svg,{x:F.x+off,y:head0.y},{x:F.x-off,y:head0.y},C.ghost,{'stroke-width':1,'stroke-dasharray':'3 4'});
-    pinFig(svg,tail0,head0,false,true);  // ghost of the 0° position
-    el('text',{x:tail0.x-24,y:tail0.y-10,'font-size':12,fill:C.muted,'font-family':'Georgia, serif'},svg).textContent='0°';
-    pinFig(svg,tail,head,true,false);
-    // --- elevation (right): fold line is a point E; pin seen edge-on as a point at distance off ---
-    const E={x:450,y:200};
-    line(svg,{x:330,y:E.y},{x:570,y:E.y},C.ghost,{'stroke-width':1});
-    text(svg,560,E.y+16,'plane',{'font-size':12});
-    // semicircle path of head
-    el('path',{d:`M${E.x+off} ${E.y} A${-off} ${-off} 0 0 1 ${E.x-off} ${E.y}`,stroke:C.ghost,fill:'none','stroke-width':1,'stroke-dasharray':'3 4'},svg);
-    dot(svg,E,5,C.mirror);text(svg,E.x-20,E.y+30,'fold line (end-on)',{fill:C.mirror,'font-size':12});
-    const hp={x:E.x+off*Math.cos(th),y:E.y-(-off)*Math.sin(th)*(off<0?1:-1)};
-    // fix: head height = |off| sin θ above the plane
-    const hpt={x:E.x+off*Math.cos(th),y:E.y-Math.abs(off)*Math.sin(th)};
-    line(svg,E,hpt,C.muted,{'stroke-width':1.5});
-    dot(svg,hpt,7,C.image);
-    text(svg,hpt.x+10,hpt.y+4,'pin (end-on)',{fill:C.image,'font-size':12});
-    dot(svg,{x:E.x+off,y:E.y},4,C.ghost);
-    // angle marker
-    if(t>0&&t<180)el('path',{d:`M${E.x+off*0.3} ${E.y} A${Math.abs(off)*0.3} ${Math.abs(off)*0.3} 0 0 1 ${E.x+off*0.3*Math.cos(th)} ${E.y-Math.abs(off)*0.3*Math.sin(th)}`,stroke:C.muted,fill:'none','stroke-width':1},svg);
-    text(svg,E.x-10,E.y-40,t+'°',{fill:C.ink});
-    text(svg,330,300,t===180?'At 180° the plan shows the mirror image of the 0° pin.':t===0?'At 0° the pin lies in the plane.':'The plane sees the pin at a foreshortened distance from the fold line.',{'font-size':12.5});
-  }
-  T.addEventListener('input',draw);
-  PL.addEventListener('change',()=>{if(PL.checked){timer=setInterval(()=>{let v=(+T.value+2);if(v>180){v=0;}T.value=v;draw();},40);}else{clearInterval(timer);timer=null;}});
-  draw();
-})();
-
-// ---------- Figure 5: probes ----------
-(function(){
-  const svg=document.querySelector('#f5 svg');const V=document.getElementById('f5v');
-  const radios=document.querySelectorAll('input[name=f5fig]');
-  function figPts(kind,P){
-    if(kind==='pinOn')return{kind,pts:[{x:P.x-110,y:P.y},{x:P.x-20,y:P.y}]};            // tail far, head near P, on horizontal line
-    if(kind==='pinOff')return{kind,pts:[{x:P.x-60,y:P.y+60},{x:P.x-60,y:P.y-40}]};       // vertical pin, head up, off the horizontal line
-    return{kind,pts:Lpts(P.x-100,P.y+50,.8)};
-  }
-  function drawPanel(ox,title,P,fig,map,colorNote){
-    const a1=deg(90),a2=0;
-    infLine(svg,P,a1,C.mirror,{'stroke-width':3});
-    infLine(svg,P,a2,C.mirror2,{'stroke-width':3,opacity:map==='half'?1:.25});
-    text(svg,ox+10,20,title,{'font-size':14,fill:C.ink});
-    dot(svg,P,4,C.ink);text(svg,P.x+6,P.y+16,'P');
-    const img=fig.pts.map(p=>map==='half'?reflect(reflect(p,P,a1),P,a2):reflect(p,P,a1));
-    if(fig.kind==='L'){poly(svg,fig.pts,C.ink,'#fff');poly(svg,img,C.image,'#fff');}
-    else{pinFig(svg,fig.pts[0],fig.pts[1],false,false);pinFig(svg,img[0],img[1],true,false);}
-    return img;
-  }
-  function draw(){
-    clear(svg);frame(svg,600,300);
-    const kind=document.querySelector('input[name=f5fig]:checked').value;
-    el('rect',{x:300,y:0,width:1,height:300,fill:'#e4e1d9'},svg);
-    // clip each panel
-    const PL={x:150,y:150},PR={x:450,y:150};
-    const fl=figPts(kind,PL),fr=figPts(kind,PR);
-    const defs=el('defs',{},svg);
-    const c1=el('clipPath',{id:'f5c1'},defs);el('rect',{x:0,y:0,width:299,height:300},c1);
-    const c2=el('clipPath',{id:'f5c2'},defs);el('rect',{x:301,y:0,width:299,height:300},c2);
-    const g1=el('g',{'clip-path':'url(#f5c1)'},svg),g2=el('g',{'clip-path':'url(#f5c2)'},svg);
-    // temporarily redirect drawing into groups
-    const sv=svg;
-    const imgL=(function(){const hold=[];const orig=sv.appendChild.bind(sv);sv.appendChild=n=>{g1.appendChild(n);return n;};const r=drawPanel(0,'half-turn about P (two mirrors)',PL,fl,'half');sv.appendChild=orig;return r;})();
-    const imgR=(function(){const orig=sv.appendChild.bind(sv);sv.appendChild=n=>{g2.appendChild(n);return n;};const r=drawPanel(300,'vertical mirror alone',PR,fr,'mirror');sv.appendChild=orig;return r;})();
-    // compare relative to each P
-    const rel=(pts,P)=>pts.map(p=>({x:p.x-P.x,y:p.y-P.y}));
-    const same=samePts(rel(imgL,PL),rel(imgR,PR));
-    const names={pinOn:'The pin on the horizontal line',pinOff:'The pin parallel to the vertical line, off the horizontal line',L:'The L'};
-    V.textContent=same?`${names[kind]} gives the same image under both maps. The difference of the maps (the horizontal mirror) fixes every point of this figure, so it cannot tell them apart.`:`${names[kind]} gives different images. The difference of the maps (the horizontal mirror) moves this figure, so it detects the sign.`;
-    V.className='verdict '+(same?'same':'diff');
-  }
-  radios.forEach(r=>r.addEventListener('change',draw));draw();
-})();
-
 // ---------- Figure 6: glide ----------
 (function(){
   const svg=document.querySelector('#f6 svg');const S=document.getElementById('f6s'),SR=document.getElementById('f6sr');
@@ -512,90 +330,6 @@ function samePts(A,B){if(A.length!==B.length)return false;return A.every((p,i)=>
   }
   S.addEventListener('input',draw);draw();
 })();
-})();
-</script>
-<script>
-// ---------- Figure 7: three mirrors, one sheet ----------
-(function(){
-'use strict';
-const NS='http://www.w3.org/2000/svg';
-const svg=document.querySelector('#f7 svg');
-const S=34, OX=480, OY=240;                 // px per unit; corner of the sheet
-const start={x:3.4,y:1.3,z:2.9};
-let pt={...start}, seq=[];
-const colX='#7a5bb0', colY='#b8862b', colZ='#2aa9a1', colProj='#2a7', ink='#1d1d1b', muted='#6b675f';
-const mirCol={H:colZ,V:colY,P:colX};
-function el(tag,attrs,parent,txt){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(txt!==undefined)e.textContent=txt;(parent||svg).appendChild(e);return e;}
-function text(x,y,s,extra){return el('text',Object.assign({x,y,'font-family':'Georgia, serif','font-size':12,fill:muted},extra||{}),svg,s);}
-const plan=p=>({x:OX-p.x*S,y:OY-p.y*S}), elev=p=>({x:OX-p.x*S,y:OY+p.z*S}), prof=p=>({x:OX+p.y*S,y:OY+p.z*S});
-const fmt=v=>v>0?'+':'−';
-let dyn, hl, tags={};
-function base(){
-  while(svg.firstChild)svg.removeChild(svg.firstChild);
-  el('rect',{x:0,y:0,width:760,height:470,fill:'#fff'});
-  el('line',{x1:30,y1:240,x2:740,y2:240,stroke:ink,'stroke-width':2});
-  el('line',{x1:480,y1:20,x2:480,y2:455,stroke:ink,'stroke-width':2});
-  hl=el('g',{fill:'none','stroke-linecap':'round',opacity:0});
-  hl.H=el('line',{x1:30,y1:240,x2:740,y2:240,stroke:colZ,'stroke-width':3},hl);
-  hl.V=el('polyline',{points:'30,240 480,240 480,455',stroke:colY,'stroke-width':3},hl);
-  hl.P=el('line',{x1:480,y1:20,x2:480,y2:455,stroke:colX,'stroke-width':3},hl);
-  el('line',{x1:270,y1:450,x2:700,y2:20,stroke:'#b9b5ab','stroke-width':1,'stroke-dasharray':'4 3'});
-  text(36,233,'a = H∩V · hinge of H');text(600,233,'b = H∩P · carried by P');text(486,32,'b = H∩P · carried by H');text(486,452,'c = V∩P · hinge of P');
-  text(40,40,'plan (onto H)',{'font-size':14,fill:ink});text(40,440,'elevation (onto V)',{'font-size':14,fill:ink});text(600,440,'profile (onto P)',{'font-size':14,fill:ink});
-  tags.Plan=text(40,58,'',{'font-size':11});tags.Elev=text(40,425,'',{'font-size':11});tags.Prof=text(600,425,'',{'font-size':11});
-  dyn=el('g',{});
-}
-function tick(x1,y1,x2,y2,col,label,lx,ly){el('line',{x1,y1,x2,y2,stroke:col,'stroke-width':1.2,'stroke-dasharray':'2 2'},dyn);el('text',{x:lx,y:ly,fill:col,'font-size':12,'font-style':'italic','font-family':'Georgia, serif'},dyn,label);}
-function probe(c,ax,ay,la,lb,ca,cb,view,left){
-  el('text',{x:left?c.x-8:c.x+8,y:c.y-8,fill:muted,'font-size':10,'font-family':'Georgia, serif','text-anchor':left?'end':'start'},dyn,view);
-  el('line',{x1:c.x,y1:c.y,x2:c.x+ax.x,y2:c.y+ax.y,stroke:ca,'stroke-width':3,'stroke-linecap':'round'},dyn);
-  el('line',{x1:c.x,y1:c.y,x2:c.x+ay.x,y2:c.y+ay.y,stroke:cb,'stroke-width':3,'stroke-linecap':'round'},dyn);
-  el('circle',{cx:c.x,cy:c.y,r:3.5,fill:ink},dyn);
-  el('text',{x:c.x+ax.x*1.25-3,y:c.y+ax.y*1.25+4,fill:ca,'font-size':12,'font-style':'italic','font-family':'Georgia, serif'},dyn,la);
-  el('text',{x:c.x+ay.x*1.25-3,y:c.y+ay.y*1.25+4,fill:cb,'font-size':12,'font-style':'italic','font-family':'Georgia, serif'},dyn,lb);
-}
-function draw(){
-  while(dyn.firstChild)dyn.removeChild(dyn.firstChild);
-  const a=0.9*S, sx=Math.sign(pt.x), sy=Math.sign(pt.y), sz=Math.sign(pt.z);
-  const Ppl=plan(pt),Pel=elev(pt),Ppr=prof(pt);
-  el('line',{x1:Ppl.x,y1:Ppl.y,x2:Pel.x,y2:Pel.y,stroke:colProj,'stroke-width':1},dyn);
-  el('line',{x1:Pel.x,y1:Pel.y,x2:Ppr.x,y2:Ppr.y,stroke:colProj,'stroke-width':1},dyn);
-  const tx=OX+(OY-Ppl.y);
-  el('polyline',{points:`${Ppl.x},${Ppl.y} ${tx},${Ppl.y} ${tx},${Ppr.y}`,fill:'none',stroke:colProj,'stroke-width':1},dyn);
-  tick(OX,Ppl.y-14,Ppl.x,Ppl.y-14,colX,'x',(OX+Ppl.x)/2-4,Ppl.y-18);
-  tick(OX,Pel.y+14,Pel.x,Pel.y+14,colX,'x',(OX+Pel.x)/2-4,Pel.y+27);
-  tick(Ppl.x-14,OY,Ppl.x-14,Ppl.y,colY,'y',Ppl.x-30,(OY+Ppl.y)/2+4);
-  tick(Ppr.x,OY-14,OX,OY-14,colY,'y',(OX+Ppr.x)/2-4,OY-18);
-  tick(Pel.x-14,OY,Pel.x-14,Pel.y,colZ,'z',Pel.x-30,(OY+Pel.y)/2+4);
-  tick(Ppr.x+14,OY,Ppr.x+14,Ppr.y,colZ,'z',Ppr.x+20,(OY+Ppr.y)/2+4);
-  probe(Ppl,{x:-a,y:0},{x:0,y:-a},'x','y',colX,colY,'plan image');
-  probe(Pel,{x:-a,y:0},{x:0,y:a},'x','z',colX,colZ,'elevation image',true);
-  probe(Ppr,{x:a,y:0},{x:0,y:a},'y','z',colY,colZ,'profile image');
-  const set=(id,v)=>{const e=document.getElementById(id);e.textContent=fmt(v);e.className='pm '+(v>0?'plus':'minus');};
-  set('f7sx',pt.x);set('f7sy',pt.y);set('f7sz',pt.z);
-  const neg=[];if(sx<0)neg.push('P');if(sy<0)neg.push('V');if(sz<0)neg.push('H');
-  document.getElementById('f7sidenote').textContent=neg.length?'Coordinates reversed so far: '+neg.join(', ')+' — each is drawn on the other side of its trace.':'All three on the starting side.';
-  const k=seq.length, par=k%2?-1:1;
-  document.getElementById('f7seq').textContent=k?seq.join(' then '):'—';
-  document.getElementById('f7k').textContent=k;
-  set('f7par',par);
-  const hand=sx*sy*sz;   // sign of the determinant of the three arm vectors
-  document.getElementById('f7hand').textContent=hand>0?'right (as at start)':'left';
-  const names={'':'identity',H:'mirror in H',V:'mirror in V',P:'mirror in P',HV:'half-turn about a = H∩V',HP:'half-turn about b = H∩P',PV:'half-turn about c = V∩P',HPV:'point-reflection in the corner'};
-  const key=(sz<0?'H':'')+(sx<0?'P':'')+(sy<0?'V':'');
-  document.getElementById('f7map').textContent=names[key]+' — '+(par>0?'even':'odd');
-}
-function push(m){
-  if(m==='reset'){pt={...start};seq=[];hl.setAttribute('opacity',0);for(const t in tags)tags[t].textContent='';draw();return;}
-  if(m==='H')pt.z=-pt.z;if(m==='V')pt.y=-pt.y;if(m==='P')pt.x=-pt.x;
-  seq.push(m);draw();
-  hl.setAttribute('opacity',1);
-  for(const q of ['H','V','P']){const e=hl[q];e.style.display=q===m?'':'none';e.classList.remove('flash');void e.getBoundingClientRect();e.classList.add('flash');}
-  const blind={H:'Plan',V:'Elev',P:'Prof'}[m];
-  for(const t in tags)tags[t].textContent=t===blind?'unchanged — this view lies in the mirror plane':'image crossed the trace of '+m;
-}
-document.querySelectorAll('#f7 .controls button').forEach(b=>b.addEventListener('click',()=>push(b.dataset.m)));
-base();draw();
 })();
 </script>
 </body>
