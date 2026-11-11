@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The root — what the pair keeps and the congruence forgets (v1)</title>
+<style>
+  :root { --ink:#222; --mute:#666; --rule:#bbb; --teal:#0F6E56; --purple:#534AB7; --B:#B8321F; --gold:#8A6A00; }
+  html,body { margin:0; background:#fbfaf7; color:var(--ink); font:18px/1.6 Georgia, "Times New Roman", serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 20px 80px; }
+  h1 { font-size: 30px; font-weight: normal; margin: 0 0 4px; }
+  h2 { font-size: 22px; font-weight: normal; margin: 48px 0 8px; border-top: 1px solid var(--rule); padding-top: 18px; }
+  h3 { font-size: 18px; font-weight: bold; margin: 26px 0 4px; }
+  p.byline { color: var(--mute); margin: 0 0 24px; font-size: 16px; }
+  figure { margin: 12px 0 8px; }
+  svg { width: 100%; height: auto; display: block; background:#fff; border:1px solid #ddd; box-sizing:border-box; }
+  figcaption { font-size: 16px; color: var(--mute); margin-top: 6px; }
+  svg text { font: 15px Helvetica, Arial, sans-serif; fill: var(--ink); }
+  svg text.s { font-size: 14px; fill: var(--mute); }
+  svg text.i { font-style: italic; font-size: 17px; }
+  dl { margin: 0; } dt { font-weight: bold; margin-top: 14px; } dd { margin: 2px 0 0 0; }
+  .note { font-size: 16px; color: var(--mute); }
+  .controls { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin:10px 0; font: 15px Helvetica, Arial, sans-serif; }
+  .controls .s { color: var(--mute); min-width: 8.5em; }
+  .controls .v { color: var(--mute); min-width: 4em; text-align:right; font-variant-numeric: tabular-nums; }
+  button { font: 15px Helvetica, Arial, sans-serif; padding: 8px 14px; border: 1px solid #999; border-radius: 8px; background: #fff; color: var(--ink); cursor: pointer; }
+  button.on { background: #ece9df; border-color:#555; }
+  input[type=range] { min-width: 180px; flex:1; }
+  table { border-collapse: collapse; width: 100%; font: 15px/1.45 Helvetica, Arial, sans-serif; margin: 10px 0; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #ddd; vertical-align: top; }
+  th { font-weight: bold; color: var(--mute); }
+  td.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .msg { font: 15px/1.5 Helvetica, Arial, sans-serif; color: var(--mute); min-height: 4.6em; margin: 6px 0; }
+  .eq { font-style: italic; white-space: nowrap; }
+</style>
+</head>
+<body>
+<main>
+<h1>The root</h1>
+<p class="byline">What the pair keeps and the congruence forgets. Three planes; mirror lines through 0 only. Version 1, 11 November 2026.</p>
+
+<p>The pair plate found that two mirrors at angle φ make a turn by 2φ. The pair at φ and the pair at φ + 180° are the same two lines and make the same turn. So a pair of lines carries a half-measure, twice over, and the congruence it makes carries only the doubled measure. This plate writes the mirror and the pair in the arithmetic of each plane, the arithmetic of the fold page, and finds that the doubling is a squaring and the half-measure is a square root. It then settles a claim made before this plate was built; section 5 gives the verdict.</p>
+
+<h2>1. The arithmetic used</h2>
+<p>As on the fold page and the three-pairs plate, a point of the plane is a number <span class="eq">z = x + g y</span>, with <i>x</i> measured across the page from 0 and <i>y</i> up the page from 0. The three planes differ only in the square of <i>g</i>: <span class="eq">g² = −1</span> (Euclidean), <span class="eq">g² = 0</span> (parabolic), <span class="eq">g² = +1</span> (Minkowski). Numbers are multiplied by the ordinary rules, replacing <i>g</i>² by its value.</p>
+<p>Three more words, all in the glossary. The <b>bar</b> of <i>z</i> is <span class="eq">z̄ = x − g y</span>; on the page it is the partner of <i>z</i> under the mirror with the horizontal axis as its line. The <b>form</b> of <i>z</i> is <span class="eq">z × z̄</span>, which is the form of the three-pairs plate: <i>x</i>² + <i>y</i>², <i>x</i>², or <i>x</i>² − <i>y</i>². The <b>unit locus</b> is the set of numbers whose form is 1. For a number <i>a</i> on the unit locus, <span class="eq">a × ā = 1</span>, so dividing by <i>a</i> is the same as multiplying by <i>ā</i>.</p>
+<p>A mirror line <i>m</i> through 0 crosses the unit locus at two points, <i>b</i> and −<i>b</i>. Either one names the line.</p>
+
+<h2>2. One mirror, in numbers</h2>
+<p><b>Statement.</b> The mirror with line <i>m</i>, where <i>m</i> passes through 0 and the unit point <i>b</i>, sends each number <i>z</i> to</p>
+<p style="text-align:center" class="eq">z′ = b² × z̄.</p>
+<p><b>Reason.</b> Three short computations show that this rule has the properties that define the mirror.</p>
+<ol>
+<li><i>It fixes every point of m.</i> A point of <i>m</i> is <i>t</i> × <i>b</i> with <i>t</i> an ordinary number. The rule sends it to <span class="eq">b² × t × b̄ = t × b × (b × b̄) = t × b</span>.</li>
+<li><i>Applied twice it does nothing.</i> The bar of <span class="eq">b² × z̄</span> is <span class="eq">b̄² × z</span>. So the rule applied twice gives <span class="eq">b² × b̄² × z = (b × b̄)² × z = z</span>.</li>
+<li><i>It keeps the form.</i> The form of a product is the product of the forms, and the form of <i>b</i> is 1.</li>
+</ol>
+<p>A rule that keeps the form, fixes every point of <i>m</i>, undoes itself, and is not the rule that does nothing, is the mirror with line <i>m</i>. (Standard theorem, used here and not proved here; Figure 1 checks it against the drawing rule of the involution plate.)</p>
+
+<p><b>What to notice.</b> The unit point <i>b</i> enters only as <i>b</i>². Since <span class="eq">(−b)² = b²</span>, the points <i>b</i> and −<i>b</i> give the same rule, as they must: they name the same line. The line is ±<i>b</i>. The mirror is <i>b</i>².</p>
+
+<div class="controls">
+  <button id="f1k0">Euclidean</button><button id="f1k1">Parabolic</button><button id="f1k2">Minkowski</button>
+</div>
+<div class="controls"><span class="s">measure of <i>b</i></span><input type="range" id="f1s"><span class="v" id="f1v"></span></div>
+<div class="controls"><button id="f1n">Use −<i>b</i> in place of <i>b</i></button></div>
+<figure>
+<svg id="fig1" viewBox="0 0 720 516" role="img" aria-label="Figure 1: the mirror with line through b sends z to b squared times z bar"></svg>
+<figcaption>Figure 1. Faint grey lines: the two axes through 0. Thin green curve: the unit locus (in the parabolic and Minkowski planes it has two separate pieces). Solid red-brown line: the mirror line <i>m</i>. Filled green dot: the unit point in use, <i>b</i>. Ringed dots on the unit locus: 1, −<i>b</i> and <i>b</i>². Filled black dot: <i>z</i>. Ringed grey dot: <i>z̄</i>. Ringed purple dot: <i>z′</i>. Thin grey segments: from <i>z</i> to <i>z̄</i>, and from <i>z</i> to <i>z′</i>.</figcaption>
+</figure>
+<table id="led1"></table>
+<div class="msg" id="msg1"></div>
+
+<h2>3. The pair, in numbers</h2>
+<p>Let line <i>A</i> have unit point <i>a</i> and line <i>B</i> have unit point <i>b</i>. Apply section 2 twice. <i>A</i> sends <i>z</i> to <span class="eq">a² × z̄</span>. Then <i>B</i> sends that to <span class="eq">b² × (ā² × z)</span>. Collect the terms:</p>
+<p style="text-align:center" class="eq">A then B sends z to q² × z, where q = b × ā = b ÷ a.</p>
+<p>Three things follow.</p>
+<ul>
+<li><b>The bar has gone.</b> One mirror has one bar; two mirrors have none. The bar is the sign of the earlier plates: present for an odd product, absent for an even one.</li>
+<li><b>The doubling is a squaring.</b> The number <i>q</i> lies on the unit locus, and its measure is the measure from <i>A</i> to <i>B</i>. The congruence multiplies by <i>q</i>², whose measure is twice that.</li>
+<li><b>The pair knows <i>q</i> only up to sign.</b> Replace <i>b</i> by −<i>b</i>: the same line <i>B</i>, but <i>q</i> becomes −<i>q</i>. The congruence, <i>q</i>², does not change. So a pair of lines gives two numbers, <i>q</i> and −<i>q</i>, and the congruence gives one, their common square. These are the two roots of the fold page.</li>
+</ul>
+
+<div class="controls">
+  <button id="f2k0">Euclidean</button><button id="f2k1">Parabolic</button><button id="f2k2">Minkowski</button>
+</div>
+<div class="controls"><span class="s">measure of <i>b</i></span><input type="range" id="f2s"><span class="v" id="f2v"></span></div>
+<div class="controls"><button id="f2n">Use −<i>b</i> in place of <i>b</i></button></div>
+<figure>
+<svg id="fig2" viewBox="0 0 720 516" role="img" aria-label="Figure 2: the pair A then B multiplies by q squared, where q is b divided by a"></svg>
+<figcaption>Figure 2. Thin green curve: the unit locus. Solid green line: <i>A</i>, with filled green dot <i>a</i>. Solid purple line: <i>B</i>, with filled purple dot <i>b</i>. Filled gold dot: <i>q</i>. Ringed gold dots: −<i>q</i> and <i>q</i>². Ringed black dot: 1. Black L: the probe. Gold L″: the probe after <i>A</i> then <i>B</i>, found by the drawing rule for each mirror.</figcaption>
+</figure>
+<table id="led2"></table>
+<div class="msg" id="msg2"></div>
+
+<h2>4. Where the two roots can be told apart</h2>
+<p>Set Figure 2 to Euclidean and move the slider through 180°. The line <i>B</i> returns to where it was. The gold L″ returns to where it was. But <i>q</i> has travelled half-way round the circle and now stands where −<i>q</i> stood. The walk was continuous and nothing jumped. So in the Euclidean plane there is no way to say which of <i>q</i>, −<i>q</i> belongs to a pair of lines: either can be walked into the other while the lines end where they began.</p>
+<p>Set it to Parabolic or Minkowski. The unit locus now has two separate pieces. The slider moves <i>q</i> along one piece and can never carry it to the other; only the button, which is a jump, puts −<i>q</i> in use. In these two planes the root can be chosen once and for all: take the one on the piece that contains 1.</p>
+<p>This is where the square of <i>g</i> acts. With <i>g</i>² = −1 the unit locus is one closed loop, and the two roots are joined. With <i>g</i>² = 0 or +1 it is two pieces, and the two roots are separated.</p>
+
+<h2>5. The claim made before this plate</h2>
+<p>Before this plate was built, the claim was: “each mirror becomes a thing with a square (+1, 0, or −1), and ‘multiply the mirrors’ becomes literal multiplication. This looks like <i>g</i>² = −1, 0, +1.” It was priced as a rhyme. Now checked, it divides into three parts.</p>
+<table>
+<tr><th>Part</th><th>Verdict</th></tr>
+<tr><td>“Multiply the mirrors” is literal multiplication.</td><td><b>Holds.</b> The pair is the number <i>q</i> = <i>b</i> ÷ <i>a</i>; the congruence is multiplication by <i>q</i>². Sections 2 and 3.</td></tr>
+<tr><td>The square of a mirror is +1, 0 or −1, matching <i>g</i>².</td><td><b>Struck.</b> A mirror applied twice does nothing in all three planes; in numbers, <span class="eq">b × b̄ = 1</span> in all three. The square of <i>g</i> is not the square of any mirror.</td></tr>
+<tr><td>The square of <i>g</i> has a part in the doubling.</td><td><b>Holds, differently.</b> It decides whether the two roots <i>q</i>, −<i>q</i> can be walked into each other. Section 4.</td></tr>
+</table>
+<p class="note">There is a standard algebra (Clifford's) in which each mirror line through 0 is itself an element that can be multiplied, the product of two such elements is the number <i>q</i> or its bar, and the square of the element is the form at that point of the line. It says the same as sections 2 and 3 in another notation. It is not developed here.</p>
+
+<h2>6. Sign and measure in one line</h2>
+<table>
+<tr><th>Product of mirrors with lines through 0</th><th>Rule</th><th>Sign</th><th>Measure</th></tr>
+<tr><td>One mirror, line through <i>b</i></td><td class="eq">z → b² × z̄</td><td>bar: odd</td><td><i>b</i>², a point of the unit locus</td></tr>
+<tr><td><i>A</i> then <i>B</i></td><td class="eq">z → q² × z</td><td>no bar: even</td><td><i>q</i>², a point of the unit locus</td></tr>
+<tr><td>Any number of them</td><td class="eq">z → w × z̄ &nbsp;or&nbsp; z → w × z</td><td>bar or no bar</td><td><i>w</i>, a point of the unit locus</td></tr>
+</table>
+<p>The last row follows from the first two, because the unit locus is closed under multiplying and under the bar. The bar is the sign. The point <i>w</i> is the measure. What the rule does not hold is the root of <i>w</i>: that belongs to the lines, not to the congruence.</p>
+
+<h2>7. What is claimed</h2>
+<table>
+<tr><th>Statement</th><th>Price</th></tr>
+<tr><td>The mirror with line through 0 and unit point <i>b</i> is <span class="eq">z → b² × z̄</span>, in all three planes.</td><td>Theorem (standard). Argued in section 2 with one standard theorem assumed; checked numerically against the drawing rule.</td></tr>
+<tr><td><i>A</i> then <i>B</i> is <span class="eq">z → q² × z</span> with <span class="eq">q = b ÷ a</span>.</td><td>Theorem. Follows from the line above by the computation in section 3. Checked numerically.</td></tr>
+<tr><td>The two roots are joined in the Euclidean plane and separated in the other two.</td><td>Theorem. It is the statement that a circle is one piece, and that the parabolic and Minkowski unit loci are two pieces each.</td></tr>
+<tr><td>The verdicts of section 5.</td><td>As stated there.</td></tr>
+<tr><td>Mirror lines that do not pass through 0; Minkowski lines steeper than the diagonal.</td><td>Not treated on this plate.</td></tr>
+</table>
+
+<h2>8. Glossary</h2>
+<h3>Mathematical words</h3>
+<dl>
+<dt>Number <i>z</i> = <i>x</i> + <i>g</i> <i>y</i></dt><dd>A point of the plane, written so that it can be multiplied. <i>g</i>² is −1, 0 or +1 according to the plane.</dd>
+<dt>Bar, <i>z̄</i></dt><dd><i>x</i> − <i>g</i> <i>y</i>. The standard name is the conjugate.</dd>
+<dt>Form of <i>z</i></dt><dd><i>z</i> × <i>z̄</i> = <i>x</i>² − <i>g</i>² <i>y</i>². The same form as on the three-pairs plate.</dd>
+<dt>Unit locus</dt><dd>The numbers whose form is 1. Euclidean: a circle. Parabolic: the two vertical lines <i>x</i> = 1 and <i>x</i> = −1. Minkowski: the two branches of a hyperbola.</dd>
+<dt>Unit point of a line</dt><dd>A point where a line through 0 crosses the unit locus. Each mirror line of this plate has two, <i>b</i> and −<i>b</i>.</dd>
+<dt>Measure</dt><dd>As on the three-pairs plate: twice the area of the sector from 1 to the point, counted along the unit locus. In the Euclidean plane it is the angle, shown in degrees. In the other two planes it is shown as a plain number, and it is defined only on the piece of the unit locus that contains 1.</dd>
+<dt><i>q</i></dt><dd><i>b</i> ÷ <i>a</i>, which equals <i>b</i> × <i>ā</i>. The number that belongs to the pair <i>A</i>, <i>B</i> once unit points <i>a</i>, <i>b</i> are chosen.</dd>
+<dt>Root</dt><dd>A number whose square is a given number. <i>q</i> and −<i>q</i> are the two roots of <i>q</i>².</dd>
+<dt>Piece (of the unit locus)</dt><dd>A part that can be walked along without leaving the locus and without a jump.</dd>
+</dl>
+<h3>Drawing words</h3>
+<dl>
+<dt>Filled dot</dt><dd>A point that is given or in use.</dd>
+<dt>Ringed dot</dt><dd>A small open circle marking a point that is found. “Ringed” is a drawing word only.</dd>
+<dt>Probe</dt><dd>The black letter L of Figure 2.</dd>
+<dt>Drawing rule</dt><dd>The rule of the involution plate for finding a partner: the mirror line passes through the midpoint, and the segment runs in the across direction. It uses no arithmetic of the plane's numbers.</dd>
+</dl>
+
+<p class="note">Checks: the mathematics in this file is run by a separate script before the figures are built. It tests the mirror rule and the pair rule against the drawing rule in all three planes, the three computations of section 2, and the closure used in section 6.</p>
+</main>
+
+<script id="math">
+/*MATH-BEGIN*/
+var G2=[-1,0,1];
+function mul(k,z,w){return [z[0]*w[0]+G2[k]*z[1]*w[1],z[0]*w[1]+z[1]*w[0]];}
+function bar(z){return [z[0],-z[1]];}
+function neg(z){return [-z[0],-z[1]];}
+function form(k,z){return z[0]*z[0]-G2[k]*z[1]*z[1];}
+function dist(a,b){return Math.hypot(a[0]-b[0],a[1]-b[1]);}
+/* the point of the unit locus with measure m, on the piece that contains 1 (m in radians when k = 0) */
+function unit(k,m){return k===0?[Math.cos(m),Math.sin(m)]:(k===1?[1,m]:[Math.cosh(m),Math.sinh(m)]);}
+/* across direction for the line through 0 and u (involution plate, three-pairs plate) */
+function across(k,u){return [G2[k]*u[1],u[0]];}
+/* the mirror by the drawing rule: midpoint on the line, segment in the across direction */
+function mirGeo(k,u,X){var w=across(k,u),lX=-u[1]*X[0]+u[0]*X[1],lw=-u[1]*w[0]+u[0]*w[1],t=2*lX/lw;return [X[0]-t*w[0],X[1]-t*w[1]];}
+/* the mirror by numbers: z -> b^2 * bar(z) */
+function mirNum(k,b,z){return mul(k,mul(k,b,b),bar(z));}
+function quot(k,b,a){return mul(k,b,bar(a));}
+/* slider ranges: [min, max, default] ; degrees for k = 0, hundredths of measure otherwise */
+var R1=[[0,360,35],[-55,90,15],[-25,60,20]];
+var R2=[[0,360,30],[-100,35,10],[-70,30,20]];
+var MA=[-25*Math.PI/180,-0.4,-0.2];
+var Z1=[1.4,0.6];
+var PROBE=[[1.1,0.5],[1.1,-0.2],[1.6,-0.2]];
+function meas(k,v){return k===0?v*Math.PI/180:v/100;}
+/*MATH-END*/
+</script>
+<script>
+(function(){
+var SC=110,OX=360,OY=258;
+function T(p){return [OX+SC*p[0],OY-SC*p[1]];}
+function f1(v){return v.toFixed(1);}
+function n3(v){var s=v.toFixed(3);return s==='-0.000'?'0.000':s;}
+function num(z){var y=+z[1].toFixed(3);return n3(z[0])+(y<0?' − ':' + ')+Math.abs(z[1]).toFixed(3)+' <i>g</i>';}
+function ln(a,b,attr){var A=T(a),B=T(b);return '<line x1="'+f1(A[0])+'" y1="'+f1(A[1])+'" x2="'+f1(B[0])+'" y2="'+f1(B[1])+'" '+attr+'/>';}
+function fullD(a,d,attr){var n=Math.hypot(d[0],d[1]);if(n<1e-9)return '';var e=[d[0]/n*40,d[1]/n*40];return ln([a[0]-e[0],a[1]-e[1]],[a[0]+e[0],a[1]+e[1]],attr);}
+function ci(p,r,attr){var A=T(p);return '<circle cx="'+f1(A[0])+'" cy="'+f1(A[1])+'" r="'+r+'" '+attr+'/>';}
+function tx(p,dx,dy,s,cls,fill){var A=T(p);return '<text x="'+f1(A[0]+dx)+'" y="'+f1(A[1]+dy)+'"'+(cls?' class="'+cls+'"':'')+(fill?' style="fill:'+fill+'"':'')+'>'+s+'</text>';}
+function poly(pts,col,w){var s='';for(var i=0;i<pts.length;i++){var A=T(pts[i]);s+=(i?' ':'')+f1(A[0])+','+f1(A[1]);}
+  return '<polyline points="'+s+'" fill="none" stroke="'+col+'" stroke-width="'+w+'" stroke-linejoin="round" stroke-linecap="round"/>';}
+function row(a,b){return '<tr><td>'+a+'</td><td class="n">'+b+'</td></tr>';}
+function $(id){return document.getElementById(id);}
+var TEAL='#0F6E56',PURP='#534AB7',RB='#B8321F',GOLD='#8A6A00';
+function ring(col){return 'fill="#fff" stroke="'+col+'" stroke-width="1.6"';}
+function locus(k){
+  var g='stroke="'+TEAL+'" stroke-width="1.2" fill="none"',a=[],b=[],i,t;
+  if(k===0) return '<circle cx="'+OX+'" cy="'+OY+'" r="'+SC+'" '+g+'/>';
+  if(k===1) return fullD([1,0],[0,1],g)+fullD([-1,0],[0,1],g);
+  for(i=-60;i<=60;i++){t=i/20;a.push([Math.cosh(t),Math.sinh(t)]);b.push([-Math.cosh(t),Math.sinh(t)]);}
+  return poly(a,TEAL,1.2)+poly(b,TEAL,1.2);
+}
+function axes(){return fullD([0,0],[1,0],'stroke="#ddd" stroke-width="1"')+fullD([0,0],[0,1],'stroke="#ddd" stroke-width="1"');}
+function showMeasure(k,v){return k===0?v+'°':(v/100).toFixed(2);}
+function setRange(id,r,val){var e=$(id);e.min=r[0];e.max=r[1];e.step=k0step(r);e.value=val===undefined?r[2]:val;}
+function k0step(r){return r[1]===360?1:5;}
+var NAMES=['Euclidean','parabolic','Minkowski'];
+
+/* ---------- Figure 1 ---------- */
+var k1=0,neg1=false;
+function draw1(){
+  var v=+$('f1s').value,m=meas(k1,v),b=unit(k1,m);if(neg1)b=neg(b);
+  $('f1v').textContent=showMeasure(k1,v);
+  var b2=mul(k1,b,b),z=Z1,zb=bar(z),zn=mirNum(k1,b,z),zg=mirGeo(k1,b,z),s='';
+  s+=axes()+locus(k1)+fullD([0,0],b,'stroke="'+RB+'" stroke-width="2.2"');
+  var ms=(neg1?1:-1)*(k1===0?2.4:1.9);s+=tx([ms*b[0],ms*b[1]],6,-8,'m','i',RB);
+  s+=ln(z,zb,'stroke="#aaa" stroke-width="1"')+ln(z,zn,'stroke="#aaa" stroke-width="1"');
+  s+=ci([(z[0]+zn[0])/2,(z[1]+zn[1])/2],3.2,ring('#222'));
+  s+=ci([1,0],4.5,ring('#222'))+tx([1,0],8,18,'1','s');
+  s+=ci(b2,5,ring(TEAL))+tx(b2,9,-8,'b²','i',TEAL);
+  s+=ci(neg(b),5,ring(TEAL))+tx(neg(b),-30,-8,'−b','i',TEAL);
+  s+=ci(b,5.5,'fill="'+TEAL+'"')+tx(b,9,18,'b','i',TEAL);
+  s+=ci(zb,5.5,ring('#888'))+tx(zb,10,16,'z̄','i','#666');
+  s+=ci(zn,6.5,ring(PURP)+' stroke-width="2.2"')+tx(zn,11,-8,'z′','i',PURP);
+  s+=ci(z,6,'fill="#222"')+tx(z,10,-8,'z','i');
+  s+=ci([0,0],3,'fill="#222"')+tx([0,0],-16,18,'0','s');
+  $('fig1').innerHTML=s;
+  $('led1').innerHTML=
+    row('<i>b</i>',num(b))+
+    row('<i>b</i> × <i>b̄</i>',n3(form(k1,b)))+
+    row('<i>b</i>²',num(b2))+
+    row('<i>z</i>',num(z))+
+    row('<i>z′</i> by numbers: <i>b</i>² × <i>z̄</i>',num(zn))+
+    row('<i>z′</i> by the drawing rule',num(zg))+
+    row('Distance between the two',n3(dist(zn,zg)))+
+    row('Form of <i>z</i>, form of <i>z′</i>',n3(form(k1,z))+', '+n3(form(k1,zn)));
+  $('msg1').innerHTML=neg1?'The unit point in use is now the other end of the same line. The row for <i>b</i> has changed sign. The rows for <i>b</i>² and <i>z′</i> have not changed, and nothing but the two labels has moved on the drawing.':
+    'Compare the two rows for <i>z′</i>. The first is arithmetic. The second uses only the line <i>m</i>, its across direction, and a midpoint. Then press the button below the slider.';
+  $('f1n').className=neg1?'on':'';
+}
+function pick1(k){k1=k;neg1=false;setRange('f1s',R1[k]);for(var i=0;i<3;i++)$('f1k'+i).className=i===k?'on':'';draw1();}
+[0,1,2].forEach(function(k){$('f1k'+k).addEventListener('click',function(){pick1(k);});});
+$('f1s').addEventListener('input',draw1);
+$('f1n').addEventListener('click',function(){neg1=!neg1;draw1();});
+
+/* ---------- Figure 2 ---------- */
+var k2=0,neg2=false;
+function measOf(k,p){ /* measure of a unit-locus point, or null if it is on the other piece */
+  if(k===0){var a=Math.atan2(p[1],p[0])*180/Math.PI;if(a<-1e-9)a+=360;return n3(a)+'°';}
+  if(p[0]<0) return null;
+  return n3(k===1?p[1]/p[0]:Math.atanh(p[1]/p[0]));
+}
+function draw2(){
+  var v=+$('f2s').value,a=unit(k2,MA[k2]),b=unit(k2,meas(k2,v));if(neg2)b=neg(b);
+  $('f2v').textContent=showMeasure(k2,v);
+  var q=quot(k2,b,a),q2=mul(k2,q,q),s='';
+  s+=axes()+locus(k2);
+  s+=fullD([0,0],a,'stroke="'+TEAL+'" stroke-width="2.2"')+fullD([0,0],b,'stroke="'+PURP+'" stroke-width="2.2"');
+  var L0=PROBE,Lg=L0.map(function(X){return mirGeo(k2,b,mirGeo(k2,a,X));}),Ln=L0.map(function(X){return mul(k2,q2,X);});
+  s+=poly(Lg,GOLD,3.4)+tx(Lg[1],8,18,'L″',null,GOLD)+poly(L0,'#222',3.4)+tx(L0[1],-6,18,'L');
+  s+=ci([1,0],4.5,ring('#222'))+tx([1,0],8,18,'1','s');
+  s+=ci(a,5.5,'fill="'+TEAL+'"')+tx(a,9,18,'a','i',TEAL)+ci(b,5.5,'fill="'+PURP+'"')+tx(b,9,-9,'b','i',PURP);
+  s+=ci(q2,5,ring(GOLD))+tx(q2,9,-9,'q²','i',GOLD);
+  s+=ci(neg(q),5,ring(GOLD))+tx(neg(q),-32,-8,'−q','i',GOLD);
+  s+=ci(q,5.5,'fill="'+GOLD+'"')+tx(q,-20,-9,'q','i',GOLD);
+  s+=ci([0,0],3,'fill="#222"')+tx([0,0],-16,18,'0','s');
+  s+=tx(k2===1?[1.9*a[0],1.9*a[1]]:(k2===2?[2.2*a[0],2.2*a[1]]:[2.6*a[0],2.6*a[1]]),6,-8,'A','i',TEAL);
+  var bs=(neg2?1:-1)*(k2===0?2.3:1.9);s+=tx([bs*b[0],bs*b[1]],6,-8,'B','i',PURP);
+  $('fig2').innerHTML=s;
+  var mq=measOf(k2,q),mq2=measOf(k2,q2),gap=0,i;for(i=0;i<3;i++)gap=Math.max(gap,dist(Lg[i],Ln[i]));
+  $('led2').innerHTML=
+    row('<i>a</i>',num(a))+row('<i>b</i>',num(b))+
+    row('<i>q</i> = <i>b</i> × <i>ā</i>',num(q))+
+    row('<i>q</i>²',num(q2))+
+    row('Measure of <i>q</i>',mq===null?'none: <i>q</i> is on the other piece':mq)+
+    row('Measure of <i>q</i>²',mq2===null?'none':mq2)+
+    row('Greatest distance between L″ by the drawing rule and <i>q</i>² × L by numbers',n3(gap));
+  var m;
+  if(neg2) m='−<i>b</i> is in use. It names the same line <i>B</i>. The filled gold dot has jumped to where the ringed one was: <i>q</i> has become its own negative. The dot <i>q</i>² and the gold L″ have not moved.';
+  else if(k2===0) m='Move the slider through 180° and watch the filled gold dot <i>q</i> and the ringed dot <i>q</i>². The line <i>B</i> and the gold L″ come back to where they were; <i>q</i> does not.';
+  else m='The slider moves <i>q</i> along one piece of the unit locus. The ringed dot −<i>q</i> is on the other piece. No setting of the slider brings <i>q</i> there; only the button does.';
+  $('msg2').innerHTML=m;
+  $('f2n').className=neg2?'on':'';
+}
+function pick2(k){k2=k;neg2=false;setRange('f2s',R2[k]);for(var i=0;i<3;i++)$('f2k'+i).className=i===k?'on':'';draw2();}
+[0,1,2].forEach(function(k){$('f2k'+k).addEventListener('click',function(){pick2(k);});});
+$('f2s').addEventListener('input',draw2);
+$('f2n').addEventListener('click',function(){neg2=!neg2;draw2();});
+
+pick1(0);pick2(0);
+})();
+</script>
+</body>
+</html>
