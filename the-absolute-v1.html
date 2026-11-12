@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The absolute — how a decree chooses the centre (v1)</title>
+<style>
+  :root { --ink:#222; --mute:#666; --rule:#bbb; --B:#B8321F; }
+  html,body { margin:0; background:#fbfaf7; color:var(--ink); font:18px/1.6 Georgia, "Times New Roman", serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 20px 80px; }
+  h1 { font-size: 30px; font-weight: normal; margin: 0 0 4px; }
+  h2 { font-size: 22px; font-weight: normal; margin: 48px 0 8px; border-top: 1px solid var(--rule); padding-top: 18px; }
+  h3 { font-size: 18px; font-weight: bold; margin: 26px 0 4px; }
+  p.byline { color: var(--mute); margin: 0 0 24px; font-size: 16px; }
+  figure { margin: 12px 0 8px; }
+  svg { width: 100%; height: auto; display: block; background:#fff; border:1px solid #ddd; box-sizing:border-box; }
+  figcaption { font-size: 16px; color: var(--mute); margin-top: 6px; }
+  svg text { font: 15px Helvetica, Arial, sans-serif; fill: var(--ink); }
+  svg text.s { font-size: 14px; fill: var(--mute); }
+  svg text.i { font-style: italic; font-size: 17px; }
+  dl { margin: 0; } dt { font-weight: bold; margin-top: 14px; } dd { margin: 2px 0 0 0; }
+  .note { font-size: 16px; color: var(--mute); }
+  .controls { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin:10px 0; font: 15px Helvetica, Arial, sans-serif; }
+  .controls .s { color: var(--mute); min-width: 8.5em; }
+  .controls .v { color: var(--mute); min-width: 4em; text-align:right; font-variant-numeric: tabular-nums; }
+  button { font: 15px Helvetica, Arial, sans-serif; padding: 8px 14px; border: 1px solid #999; border-radius: 8px; background: #fff; color: var(--ink); cursor: pointer; }
+  button.on { background: #ece9df; border-color:#555; }
+  input[type=range] { min-width: 180px; flex:1; }
+  table { border-collapse: collapse; width: 100%; font: 15px/1.45 Helvetica, Arial, sans-serif; margin: 10px 0; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #ddd; vertical-align: top; }
+  th { font-weight: bold; color: var(--mute); }
+  td.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .msg { font: 15px/1.5 Helvetica, Arial, sans-serif; color: var(--mute); min-height: 4.6em; margin: 6px 0; }
+  .eq { font-style: italic; white-space: nowrap; }
+</style>
+</head>
+<body>
+<main>
+<h1>The absolute</h1>
+<p class="byline">How a decree chooses the centre. Three planes; mirror lines through 0. Version 1, 11 November 2026.</p>
+<p class="threadline" style="font:15px/1.5 Helvetica,Arial,sans-serif;color:#666;margin:0 0 22px;padding:6px 0;border-top:1px solid #ddd;border-bottom:1px solid #ddd">The mirror thread · plate 11 of 11 · previous: <a href="the-root-v1.html">The root</a> · <a href="the-thread.html">index</a></p>
+
+<p>The involution plate found that the mirror with line <i>m</i> is a harmonic pairing whose centre <i>K</i> is at infinity, and that the one job of a decree is to say in which direction <i>K</i> lies. It left open how the decree says so. The three-pairs plate gave a rule that uses the unit locus: take the tangent where <i>m</i> crosses it. This plate gives the rule with no unit locus at all. A decree is a pairing of directions. The direction of <i>K</i> is the partner of the direction of <i>m</i>.</p>
+
+<p>Figure 1 shows the pairing for one line <i>m</i> at a time. Figure 2 shows many pairs at once, and the three kinds of pairing that the three decrees give. Section 3 names what the pairing leaves fixed: the absolute. A list of what is claimed, and a glossary, follow. Drawing words and mathematical words are kept apart.</p>
+
+<h2>1. Directions, read on a horizon</h2>
+
+<p>A point at infinity is a direction (the involution plate). A direction cannot be given a dot on the page, but it can be read off. Draw the line through 0 in that direction, and see where it crosses the horizontal line one unit above 0. This plate calls that horizontal line the <b>horizon</b>, and the place where a line through 0 crosses it the <b>reading</b> of that direction. The reading is a single ordinary number, <i>t</i>: how far along the horizon the crossing is, measured from the point directly above 0. For any point <span class="eq">x + g y</span> of the line other than 0, <span class="eq">t = x ÷ y</span>.</p>
+
+<p>One direction has no reading: the 1-axis itself, which runs parallel to the horizon and never crosses it. The ε-axis, straight up from 0, has the reading 0.</p>
+
+<p>The word is the draftsman's. In a perspective drawing the horizon carries the vanishing points, one for each direction on the ground, and each is found by a line from the station point. Here 0 plays the part of the station point. The “Two Absolutes” page uses the same arrangement.</p>
+
+<h3>The rule</h3>
+<p>The three-pairs plate says: if the mirror line <i>m</i> is the line of the number <i>u</i>, its across direction is the line of <span class="eq">g × u</span>. Put <span class="eq">u = x + g y</span>. Then <span class="eq">g × u = g² y + g x</span>: the point that is <span class="eq">g² y</span> across and <i>x</i> up. Its reading is <span class="eq">g² y ÷ x</span>, and the reading of <i>u</i> is <span class="eq">t = x ÷ y</span>. So:</p>
+<p style="text-align:center" class="eq">t × t′ = g²</p>
+<p>where <i>t</i> is the reading of <i>m</i> and <i>t′</i> is the reading of its across direction. That is the whole rule. The decree enters as the single number on the right, and the unit locus is not used.</p>
+
+<p>In Figure 1 the slider turns <i>m</i> about 0. The point <i>T</i> on the horizon is the reading of <i>m</i>. The point <i>T′</i> is the reading of the dotted line, which is drawn by the three-pairs rule, not by the rule above. The ledger then multiplies the two readings as they stand on the drawing.</p>
+
+<div class="controls">
+  <button id="f1k0">g² = −1 · Euclidean</button><button id="f1k1">g² = 0 · parabolic</button><button id="f1k2">g² = +1 · Minkowski</button>
+</div>
+<div class="controls"><span class="s">direction of <i>m</i></span><input type="range" id="f1s" min="12" max="168" step="1" value="62"><span class="v" id="f1v"></span></div>
+<figure>
+<svg id="fig1" viewBox="0 0 720 516" role="img" aria-label="Figure 1: the mirror line m, its across direction, and their readings T and T prime on the horizon"></svg>
+<figcaption>Figure 1. Colours as on the three-pairs plate (purple for the Euclidean plane, grey for the parabolic, green for the Minkowski). Faint grey lines: the two axes through 0. Dark grey line: the horizon, one unit above 0. Red-brown line: the mirror line <i>m</i>. Dotted line through 0: the across direction of <i>m</i>. Small filled black dot <i>T</i>: where <i>m</i> crosses the horizon. Small ringed black dot <i>T′</i>: where the dotted line crosses it. Faint curve in the plane's colour: the unit locus; the small ringed dot on it and the short black segment are the tangent of the three-pairs plate, shown when <i>m</i> crosses the unit locus. Dashed lines in the plane's colour, with ringed dots where they cross the horizon: the self-paired directions of section 3 (none in the Euclidean plane). Filled dot <i>X</i> and ringed dot <i>X′</i> in the plane's colour: a point and its partner under the mirror with line <i>m</i>; the small black dot is their midpoint.</figcaption>
+</figure>
+<table id="led1"></table>
+<div class="msg" id="msg1"></div>
+
+<p class="note">The earlier plates draw only Minkowski mirror lines flatter than the diagonal. Here the slider carries <i>m</i> through every direction, steeper ones included, because the pairing treats a line and its across direction alike: if <i>T′</i> is the partner of <i>T</i>, then <i>T</i> is the partner of <i>T′</i>.</p>
+
+<h2>2. Three kinds of pairing</h2>
+
+<p>Figure 2 shows several pairs at once. Each arc joins a reading <i>t</i> to its partner <i>t′</i>. The arcs are a drawing device only: an arc is there to show which two points belong together.</p>
+
+<ul>
+<li><b>Euclidean, <span class="eq">t × t′ = −1</span>.</b> The product is negative, so the two points of a pair lie on opposite sides of the point above 0. Every arc spans that point, and any two arcs cross: any two pairs interlock.</li>
+<li><b>Minkowski, <span class="eq">t × t′ = +1</span>.</b> The product is positive, so the two points of a pair lie on the same side. The arcs nest, and no two cross. Each nest closes down on one point: +1 on the right, −1 on the left.</li>
+<li><b>Parabolic, <span class="eq">t × t′ = 0</span>.</b> Every reading has the same partner, 0. All the arcs end at one point. This is not a pairing in the full sense, since 0 has no single partner of its own; it is what the other two kinds become between them, as <i>g</i>² passes through 0.</li>
+</ul>
+
+<p>The sign of <i>g</i>² is therefore visible on the horizon with no arithmetic: arcs that cross, arcs that nest, arcs that meet at a point. The standard names are the <i>elliptic</i>, <i>hyperbolic</i> and <i>parabolic</i> cases, and the parabolic plane carries the third name. The “Two Absolutes” page shows the first two, as a negative and a positive product on its horizon.</p>
+
+<div class="controls">
+  <button id="f2k0">g² = −1 · Euclidean</button><button id="f2k1">g² = 0 · parabolic</button><button id="f2k2">g² = +1 · Minkowski</button>
+</div>
+<div class="controls"><span class="s">which pair to pick out</span><input type="range" id="f2s" min="0" max="5" step="1" value="1"><span class="v" id="f2v"></span></div>
+<figure>
+<svg id="fig2" viewBox="0 0 720 400" role="img" aria-label="Figure 2: several pairs of directions on the horizon, joined by arcs, in the chosen plane"></svg>
+<figcaption>Figure 2. Dark grey line: the horizon. Small black dot below it: 0. Small tick on the horizon: the point directly above 0, where the reading is 0. Filled dots on the horizon: readings <i>t</i>. Ringed dots: their partners <i>t′</i>. Arcs in the plane's colour: each joins a reading to its partner. One pair is picked out by the slider: its arc is drawn heavier, and the two lines from 0 through its points are drawn, red-brown for <i>m</i> and dotted for the across direction. Larger ringed dots in the plane's colour: self-paired readings.</figcaption>
+</figure>
+<table id="led2"></table>
+
+<h2>3. The absolute</h2>
+
+<p>A direction is <b>self-paired</b> when it is its own partner: <span class="eq">t′ = t</span>. By the rule, that is <span class="eq">t × t = g²</span>. So the self-paired readings are the square roots of <i>g</i>², taken among ordinary numbers.</p>
+
+<table>
+<tr><th>Plane</th><th>Equation</th><th>Self-paired directions</th></tr>
+<tr><td>Euclidean</td><td class="eq">t² = −1</td><td>None on the page. No ordinary number has the square −1.</td></tr>
+<tr><td>Parabolic</td><td class="eq">t² = 0</td><td>One, counted twice: the reading 0, the ε-axis.</td></tr>
+<tr><td>Minkowski</td><td class="eq">t² = +1</td><td>Two: the readings +1 and −1, the two diagonals.</td></tr>
+</table>
+
+<p>These are the directions of the null locus of the fold page, where the form is 0: a point of the line with reading <i>t</i> is <span class="eq">t y + g y</span>, its form is <span class="eq">(t² − g²) × y²</span>, and that is 0 exactly when <span class="eq">t² = g²</span>. The self-paired directions of a plane, taken together, are its <b>absolute</b>. Four things already met on the plates turn out to be this one thing.</p>
+
+<ul>
+<li><b>The lines that cannot be mirror lines</b> (three-pairs plate). If <i>m</i> is self-paired, <i>K</i> lies in the direction of <i>m</i> itself. A harmonic pairing needs its centre off its line. So a self-paired line has no mirror.</li>
+<li><b>The null locus</b> (fold page), as just shown.</li>
+<li><b>Where the unit locus leaves the page</b> (root plate, section 4). The two pieces of the parabolic and Minkowski unit loci run off to infinity in the self-paired directions. The Euclidean plane has none, and its unit locus never leaves the page: it is the closed loop on which the two roots are joined.</li>
+<li><b>The count of square roots of <i>g</i>²</b> among ordinary numbers: none, one counted twice, two. This is the fold page's question, asked of directions.</li>
+</ul>
+
+<p><b>In the Minkowski plane the pairing is harmonic.</b> The partner <i>T′</i> of <i>T</i> is the point for which the two self-paired points, <i>T</i> and <i>T′</i> are harmonic: their cross-ratio is −1. The ledger of Figure 1 measures it. So in that plane “across” means “harmonic with the two diagonals”, and the mirror is built from −1 twice over: once to find <i>K</i>, and once, on the involution plate, to find each partner.</p>
+
+<p><b>In the Euclidean plane the same sentence holds</b>, with the two square roots of −1 in place of +1 and −1. Those roots are the <i>i</i> and −<i>i</i> of the fold page. They are not ordinary numbers and have no place on the horizon, so this is stated here and not drawn. What can be drawn is its consequence, the right angle at 0 in Figure 2.</p>
+
+<h2>4. The chain, complete</h2>
+<table>
+<tr><th>Step</th><th>What is given or found</th><th>Plate</th></tr>
+<tr><td>1</td><td>A decree: the number <i>g</i>².</td><td>7</td></tr>
+<tr><td>2</td><td>A pairing of directions: <span class="eq">t × t′ = g²</span>.</td><td>this plate</td></tr>
+<tr><td>3</td><td>For a line <i>m</i>: the centre <i>K</i>, at infinity in the partner direction.</td><td>this plate</td></tr>
+<tr><td>4</td><td>The mirror with line <i>m</i>: the harmonic pairing with line <i>m</i> and centre <i>K</i>.</td><td>9</td></tr>
+<tr><td>5</td><td>Products of mirrors: sign from the count, measure from the pair.</td><td>1 to 6, 8, 10</td></tr>
+</table>
+<p>Steps 2 to 4 use straight lines, crossings and the value −1, and nothing else. Everything that makes one plane differ from another is in step 1.</p>
+
+<p class="note">What this hands on. The measure of a pair has so far been read from the unit locus, as twice a sector area. It can also be read on the horizon, from the cross-ratio of the two lines with the two self-paired directions. That is the next plate.</p>
+
+<h2>5. What is claimed</h2>
+<table>
+<tr><th>Statement</th><th>Price</th></tr>
+<tr><td>If <i>t</i> is the reading of a line through 0 and <i>t′</i> the reading of its across direction, then <span class="eq">t × t′ = g²</span>.</td><td>Theorem. Derived in section 1 from the three-pairs definition of the across direction. Checked numerically.</td></tr>
+<tr><td>In the Euclidean and Minkowski planes the pairing undoes itself. In the parabolic plane every reading has the partner 0.</td><td>Theorem. It follows from the rule by one division. Checked numerically.</td></tr>
+<tr><td>Any two Euclidean pairs interlock; no two Minkowski pairs do.</td><td>Theorem (standard). Checked numerically for the pairs drawn and for random pairs; not proved here.</td></tr>
+<tr><td>The self-paired directions are those of the null locus, and are the lines that cannot be mirror lines.</td><td>Theorem. Argued in section 3.</td></tr>
+<tr><td>In the Minkowski plane, the two self-paired readings, <i>t</i> and <i>t′</i> are harmonic.</td><td>Theorem. Checked numerically from the drawn positions.</td></tr>
+<tr><td>In the Euclidean plane the same holds with the two square roots of −1.</td><td>Theorem (standard). Checked by calculation with those roots; stated, not drawn.</td></tr>
+<tr><td>The mirror found with <i>K</i> in the partner direction keeps the plane's form, for Minkowski lines steeper than the diagonal as well as flatter.</td><td>Checked numerically. The steeper lines are not treated on the other plates.</td></tr>
+<tr><td>The horizon of this plate is the horizon of a perspective drawing, with 0 as station point.</td><td>Observation. The construction is the same; no use is made of it here.</td></tr>
+<tr><td>Mirror lines that do not pass through 0. The measure as a cross-ratio.</td><td>Not treated on this plate.</td></tr>
+</table>
+
+<h2>6. Glossary</h2>
+<h3>Mathematical words</h3>
+<dl>
+<dt>Direction</dt><dd>What all lines parallel to one line have in common. Each direction is one point at infinity (involution plate). Through 0 there is exactly one line in each direction.</dd>
+<dt>Reading, <i>t</i></dt><dd>The number that names a direction on this plate: for any point <i>x</i> + <i>g</i> <i>y</i> of the line through 0 in that direction, other than 0, <i>t</i> = <i>x</i> ÷ <i>y</i>. The 1-axis has no reading.</dd>
+<dt>Pairing of directions</dt><dd>The rule that gives each direction a partner. On this plate: <i>t</i> × <i>t′</i> = <i>g</i>². The partner of the direction of a mirror line is its across direction.</dd>
+<dt>Self-paired</dt><dd>A direction that is its own partner.</dd>
+<dt>Absolute</dt><dd>The self-paired directions of a plane, taken together. The word is Cayley's and Klein's: the figure at infinity against which a geometry measures. For these three planes it comes down to this: no direction (Euclidean), one counted twice (parabolic), two (Minkowski). The fold page kept the word apart from “null locus”; the two are now seen to be the same lines, the null locus being the lines through 0 and the absolute their directions.</dd>
+<dt>Interlock</dt><dd>Two pairs of points on a line interlock when exactly one point of the second pair lies between the two points of the first. Standard word: the pairs separate each other.</dd>
+<dt>Harmonic, cross-ratio</dt><dd>As on the involution plate.</dd>
+<dt>Across direction, unit locus, decree, form, null locus</dt><dd>As on the three-pairs plate and the fold page.</dd>
+<dt>Centre <i>K</i></dt><dd>As on the involution plate: the centre of the harmonic pairing that is the mirror with line <i>m</i>. It is the point at infinity in the across direction of <i>m</i>.</dd>
+</dl>
+<h3>Drawing words</h3>
+<dl>
+<dt>Horizon</dt><dd>The horizontal line one unit above 0, on which directions are read. It stands in for the line at infinity, which cannot be drawn. A draftsman's word, used as on the “Two Absolutes” page.</dd>
+<dt><i>T</i>, <i>T′</i></dt><dd>The points of the horizon where <i>m</i> and its across direction cross it.</dd>
+<dt>Arc</dt><dd>In Figure 2, a half-circle joining a reading to its partner. It shows which two points form a pair and has no other meaning.</dd>
+<dt>Filled dot, ringed dot</dt><dd>As on the earlier plates: a point given, a point found. “Ringed” is a drawing word only.</dd>
+<dt>Dashed line in the plane's colour</dt><dd>A self-paired direction, drawn as the line through 0.</dd>
+</dl>
+
+<p class="note">Checks: the mathematics in this file is run by a separate script before the figures are built. It tests the rule <i>t</i> × <i>t′</i> = <i>g</i>², the pairing undoing itself, the interlocking, the harmonic statement in the Minkowski plane and (with the two roots of −1) in the Euclidean, the form kept by the mirror for every direction of <i>m</i>, and the directions in which the unit locus leaves the page.</p>
+</main>
+
+<script id="math">
+/*MATH-BEGIN*/
+var G2=[-1,0,1],DEG=Math.PI/180;
+function form(k,p){return p[0]*p[0]-G2[k]*p[1]*p[1];}
+function dirOf(a){return [Math.cos(a*DEG),Math.sin(a*DEG)];}
+/* g times u: the across direction of the line of u (three-pairs plate) */
+function gTimes(k,u){return [G2[k]*u[1],u[0]];}
+/* reading of a direction on the horizon y = 1: t = x / y ; null when the line is parallel to the horizon */
+function reading(p){return Math.abs(p[1])<1e-12?null:p[0]/p[1];}
+/* partner reading by the rule t * t' = g^2 ; null = no reading (the 1-axis) ; undefined = no partner */
+function partnerT(k,t){
+  if(t===null) return 0;
+  if(k===1) return Math.abs(t)<1e-12?undefined:0;
+  if(Math.abs(t)<1e-12) return null;
+  return G2[k]/t;
+}
+function selfPaired(k){return k===0?[]:(k===1?[0]:[1,-1]);}
+/* cross-ratio (A,B;C,D) of four positions on a line */
+function cr(a,b,c,d){return ((c-a)*(d-b))/((d-a)*(c-b));}
+/* two pairs of readings interlock exactly when their cross-ratio is negative */
+function interlock(p,q){return cr(p[0],p[1],q[0],q[1])<0;}
+/* the mirror with line of u: harmonic pairing with centre at infinity in the direction g*u (involution plate) */
+function mirror(k,u,X){var w=gTimes(k,u),lX=-u[1]*X[0]+u[0]*X[1],lw=-u[1]*w[0]+u[0]*w[1];
+  if(Math.abs(lw)<1e-12)return null;var s=2*lX/lw;return [X[0]-s*w[0],X[1]-s*w[1]];}
+var XP=[1.2,0.5];
+var SAMPLES=[[0.35,0.6,1,1.6,2.6,4.2],[-3.2,-2,-1,1,2,3.2],[1.25,1.7,2.4,3.4,-1.5,-2.6]];
+/*MATH-END*/
+</script>
+<script>
+(function(){
+var PLANE=['#534AB7','#5F5E5A','#0F6E56'],RB='#B8321F',NAMES=['Euclidean','parabolic','Minkowski'];
+function f1(v){return v.toFixed(1);}
+function n3(v){var s=v.toFixed(3);return s==='-0.000'?'0.000':s;}
+function row(a,b){return '<tr><td>'+a+'</td><td class="n">'+b+'</td></tr>';}
+function $(id){return document.getElementById(id);}
+function ring(col,w){return 'fill="#fff" stroke="'+col+'" stroke-width="'+(w||1.4)+'"';}
+function mk(SC,OX,OY){
+  var o={};
+  o.T=function(p){return [OX+SC*p[0],OY-SC*p[1]];};
+  o.ln=function(a,b,attr){var A=o.T(a),B=o.T(b);return '<line x1="'+f1(A[0])+'" y1="'+f1(A[1])+'" x2="'+f1(B[0])+'" y2="'+f1(B[1])+'" '+attr+'/>';};
+  o.full=function(a,d,attr){var n=Math.hypot(d[0],d[1]);if(n<1e-9)return '';var e=[d[0]/n*40,d[1]/n*40];return o.ln([a[0]-e[0],a[1]-e[1]],[a[0]+e[0],a[1]+e[1]],attr);};
+  o.ci=function(p,r,attr){var A=o.T(p);return '<circle cx="'+f1(A[0])+'" cy="'+f1(A[1])+'" r="'+r+'" '+attr+'/>';};
+  o.tx=function(p,dx,dy,s,cls,fill){var A=o.T(p);return '<text x="'+f1(A[0]+dx)+'" y="'+f1(A[1]+dy)+'"'+(cls?' class="'+cls+'"':'')+(fill?' style="fill:'+fill+'"':'')+'>'+s+'</text>';};
+  o.path=function(pts,attr){var d='';for(var i=0;i<pts.length;i++){var A=o.T(pts[i]);d+=(i?'L':'M')+f1(A[0])+' '+f1(A[1]);}return '<path d="'+d+'" fill="none" '+attr+'/>';};
+  o.SC=SC;o.OX=OX;o.OY=OY;return o;
+}
+function locus(g,k,attr){
+  var a=[],b=[],i,t;
+  if(k===0) return '<circle cx="'+g.OX+'" cy="'+g.OY+'" r="'+g.SC+'" fill="none" '+attr+'/>';
+  if(k===1) return g.full([1,0],[0,1],attr)+g.full([-1,0],[0,1],attr);
+  for(i=-60;i<=60;i++){t=i/20;a.push([Math.cosh(t),Math.sinh(t)]);b.push([-Math.cosh(t),Math.sinh(t)]);}
+  return g.path(a,attr)+g.path(b,attr);
+}
+function setButtons(pre,k){for(var i=0;i<3;i++)$(pre+'k'+i).className=i===k?'on':'';}
+
+/* ---------- Figure 1 ---------- */
+var k1=0;
+function draw1(){
+  var g=mk(70,360,300),al=+$('f1s').value,u=dirOf(al),w=gTimes(k1,u),col=PLANE[k1],s='',i;
+  $('f1v').textContent=al+'°';
+  var t=reading(u),tp=reading(w),selfp=Math.abs(-u[1]*w[0]+u[0]*w[1])<1e-9;
+  s+=g.full([0,0],[1,0],'stroke="#ddd" stroke-width="1"')+g.full([0,0],[0,1],'stroke="#ddd" stroke-width="1"');
+  s+=locus(g,k1,'stroke="'+col+'" stroke-width="1" opacity="0.45"');
+  var sp=selfPaired(k1);
+  for(i=0;i<sp.length;i++) s+=g.full([0,0],[sp[i],1],'stroke="'+col+'" stroke-width="1.2" stroke-dasharray="7 5"');
+  s+=g.ln([-9,1],[9,1],'stroke="#555" stroke-width="1.5"')+g.tx([-4.95,1],0,-8,'horizon','s');
+  if(!selfp) s+=g.full([0,0],w,'stroke="#777" stroke-width="1.2" stroke-dasharray="2 4"');
+  s+=g.full([0,0],u,'stroke="'+RB+'" stroke-width="2.2"')+g.tx([-2.9*u[0],-2.9*u[1]],8,-6,'m','i',RB);
+  var fu=form(k1,u);
+  if(fu>1e-9&&!selfp){var q=[u[0]/Math.sqrt(fu),u[1]/Math.sqrt(fu)],wn=Math.hypot(w[0],w[1]),h=0.55;
+    s+=g.ln([q[0]-h*w[0]/wn,q[1]-h*w[1]/wn],[q[0]+h*w[0]/wn,q[1]+h*w[1]/wn],'stroke="#222" stroke-width="1.8"')+g.ci(q,3.5,ring('#222',1.1));}
+  var X=XP,Xp=selfp?null:mirror(k1,u,X);
+  if(Xp){s+=g.ln(X,Xp,'stroke="'+col+'" stroke-width="1.2"')+g.ci([(X[0]+Xp[0])/2,(X[1]+Xp[1])/2],3,'fill="#222"');
+    s+=g.ci(Xp,6,ring(col,1.6))+g.tx(Xp,9,16,'X′','i',col);}
+  s+=g.ci(X,6,'fill="'+col+'"')+g.tx(X,9,-8,'X','i',col);
+  for(i=0;i<sp.length;i++) s+=g.ci([sp[i],1],7.5,ring(col,1.8));
+  if(tp!==null&&!selfp) s+=g.ci([tp,1],4.5,ring('#222'))+g.tx([tp,1],-7,-12,'T′','i');
+  if(t!==null) s+=g.ci([t,1],4.5,'fill="#222"')+g.tx([t,1],6,-12,'T','i');
+  s+=g.ci([0,0],3,'fill="#222"')+g.tx([0,0],8,18,'0','s');
+  $('fig1').innerHTML=s;
+  var led=row('Reading of <i>m</i>: <i>t</i>',t===null?'none':n3(t))
+     +row('Reading of the dotted line: <i>t′</i>',selfp?'the same as <i>t</i>':(tp===null?'none (it is the 1-axis)':n3(tp)))
+     +row('<i>t</i> × <i>t′</i>',(t!==null&&tp!==null)?n3(t*tp):'—')
+     +row('<i>g</i>² in this plane',(G2[k1]>0?'+':'')+G2[k1]+'.000');
+  var back=(tp===null||selfp)?null:partnerT(k1,tp);
+  if(k1!==1) led+=row('The rule applied to <i>t′</i> gives',selfp?n3(t):(tp===null?'—':(back===null?'none':n3(back))));
+  if(k1===2) led+=row('Cross-ratio of the readings +1, −1, <i>t</i>, <i>t′</i>',(t!==null&&tp!==null&&!selfp)?n3(cr(1,-1,t,tp)):'—');
+  led+=row('Form at <i>X</i>, form at <i>X′</i>',n3(form(k1,X))+', '+(Xp?n3(form(k1,Xp)):'—'));
+  $('led1').innerHTML=led;
+  var m;
+  if(selfp) m='<i>m</i> stands in a self-paired direction: <i>T</i> and <i>T′</i> are one point. The centre <i>K</i> would lie in the direction of <i>m</i> itself, so there is no mirror with this line, and no <i>X′</i> is drawn.';
+  else if(tp===null) m='The across direction is the 1-axis, which is parallel to the horizon and has no reading. <i>T′</i> is not on the page; it is the point at infinity of the horizon itself.';
+  else if(k1===1) m='In the parabolic plane the dotted line does not move: every <i>m</i> has the ε-axis as its across direction, and <i>T′</i> stays at the reading 0.';
+  else if(Math.abs(tp)>5.1) m='<i>T′</i> is off the page, to the '+(tp>0?'right':'left')+', at the reading shown in the ledger.';
+  else if(k1===0) m='<i>T</i> and <i>T′</i> are on opposite sides of the point above 0, and the two lines from 0 are at a right angle.';
+  else m='<i>T</i> and <i>T′</i> are on the same side of the point above 0. Move <i>m</i> toward a dashed line and <i>T</i> and <i>T′</i> close on each other from the two sides.';
+  $('msg1').innerHTML=m;
+}
+function pick1(k){k1=k;setButtons('f1',k);draw1();}
+[0,1,2].forEach(function(k){$('f1k'+k).addEventListener('click',function(){pick1(k);});});
+$('f1s').addEventListener('input',draw1);
+
+/* ---------- Figure 2 ---------- */
+var k2=0;
+function draw2(){
+  var g=mk(60,360,300),col=PLANE[k2],S=SAMPLES[k2],pick=+$('f2s').value,s='',i,j,pairs=[];
+  for(i=0;i<S.length;i++) pairs.push([S[i],partnerT(k2,S[i])]);
+  $('f2v').textContent=(pick+1)+' of '+S.length;
+  s+=g.ln([-9,1],[9,1],'stroke="#555" stroke-width="1.5"')+g.tx([-5.9,1],0,-8,'horizon','s');
+  s+=g.ln([0,0.9],[0,1.1],'stroke="#555" stroke-width="1.5"');
+  var P=pairs[pick];
+  s+=g.full([0,0],[P[1],1],'stroke="#777" stroke-width="1.2" stroke-dasharray="2 4"')+g.full([0,0],[P[0],1],'stroke="'+RB+'" stroke-width="2"');
+  if(k2===0){var a=[P[0],1],b=[P[1],1],na=Math.hypot(a[0],a[1]),nb=Math.hypot(b[0],b[1]),e=0.22;
+    var p1=[a[0]/na*e,a[1]/na*e],p2=[b[0]/nb*e,b[1]/nb*e];s+=g.path([p1,[p1[0]+p2[0],p1[1]+p2[1]],p2],'stroke="#222" stroke-width="1"');}
+  for(i=0;i<pairs.length;i++){
+    var A=g.T([pairs[i][0],1]),B=g.T([pairs[i][1],1]),r=Math.abs(A[0]-B[0])/2,x1=Math.min(A[0],B[0]),x2=Math.max(A[0],B[0]);
+    s+='<path d="M'+f1(x1)+' '+f1(A[1])+' A'+f1(r)+' '+f1(r)+' 0 0 1 '+f1(x2)+' '+f1(A[1])+'" fill="none" stroke="'+col+'" stroke-width="'+(i===pick?2.6:1.2)+'"'+(i===pick?'':' opacity="0.7"')+'/>';
+  }
+  var sp=selfPaired(k2);
+  for(i=0;i<sp.length;i++) s+=g.ci([sp[i],1],7.5,ring(col,1.8));
+  for(i=0;i<pairs.length;i++){s+=g.ci([pairs[i][1],1],4.2,ring('#222'))+g.ci([pairs[i][0],1],4.2,'fill="#222"');}
+  s+=g.tx([P[0],1],-4,20,'t','i')+(k2===1?'':g.tx([P[1],1],-6,20,'t′','i'));
+  s+=g.ci([0,0],3.2,'fill="#222"')+g.tx([0,0],8,18,'0','s');
+  $('fig2').innerHTML=s;
+  var n=0,tot=0,neg=0,pos=0,zero=0;
+  for(i=0;i<pairs.length;i++){var pr=pairs[i][0]*pairs[i][1];if(pr<-1e-9)neg++;else if(pr>1e-9)pos++;else zero++;
+    for(j=i+1;j<pairs.length;j++){tot++;if(k2!==1&&interlock(pairs[i],pairs[j]))n++;}}
+  $('led2').innerHTML=
+    row('The pair picked out: <i>t</i>, <i>t′</i>, <i>t</i> × <i>t′</i>',n3(P[0])+', '+n3(P[1])+', '+n3(P[0]*P[1]))+
+    row('Products <i>t</i> × <i>t′</i> over the '+pairs.length+' pairs: negative, zero, positive',neg+', '+zero+', '+pos)+
+    row('Pairs of pairs that interlock (arcs that cross)',k2===1?'none: all arcs share the point 0':(n+' of '+tot))+
+    row('Self-paired readings',sp.length===0?'none on the page':(sp.length===1?'one: 0':'two: +1 and −1'));
+}
+function pick2(k){k2=k;setButtons('f2',k);draw2();}
+[0,1,2].forEach(function(k){$('f2k'+k).addEventListener('click',function(){pick2(k);});});
+$('f2s').addEventListener('input',draw2);
+
+pick1(0);pick2(0);
+})();
+</script>
+</body>
+</html>
