@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The measure — read on the horizon as a cross-ratio (v1)</title>
+<style>
+  :root { --ink:#222; --mute:#666; --rule:#bbb; --B:#B8321F; }
+  html,body { margin:0; background:#fbfaf7; color:var(--ink); font:18px/1.6 Georgia, "Times New Roman", serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 20px 80px; }
+  h1 { font-size: 30px; font-weight: normal; margin: 0 0 4px; }
+  h2 { font-size: 22px; font-weight: normal; margin: 48px 0 8px; border-top: 1px solid var(--rule); padding-top: 18px; }
+  h3 { font-size: 18px; font-weight: bold; margin: 26px 0 4px; }
+  p.byline { color: var(--mute); margin: 0 0 24px; font-size: 16px; }
+  figure { margin: 12px 0 8px; }
+  svg { width: 100%; height: auto; display: block; background:#fff; border:1px solid #ddd; box-sizing:border-box; }
+  figcaption { font-size: 16px; color: var(--mute); margin-top: 6px; }
+  svg text { font: 15px Helvetica, Arial, sans-serif; fill: var(--ink); }
+  svg text.s { font-size: 14px; fill: var(--mute); }
+  svg text.i { font-style: italic; font-size: 17px; }
+  dl { margin: 0; } dt { font-weight: bold; margin-top: 14px; } dd { margin: 2px 0 0 0; }
+  .note { font-size: 16px; color: var(--mute); }
+  .controls { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin:10px 0; font: 15px Helvetica, Arial, sans-serif; }
+  .controls .s { color: var(--mute); min-width: 8.5em; }
+  .controls .s.ik { color:#222; } .controls .s.bb { color: var(--B); }
+  .controls .v { color: var(--mute); min-width: 4em; text-align:right; font-variant-numeric: tabular-nums; }
+  button { font: 15px Helvetica, Arial, sans-serif; padding: 8px 14px; border: 1px solid #999; border-radius: 8px; background: #fff; color: var(--ink); cursor: pointer; }
+  button.on { background: #ece9df; border-color:#555; }
+  input[type=range] { min-width: 180px; flex:1; }
+  table { border-collapse: collapse; width: 100%; font: 15px/1.45 Helvetica, Arial, sans-serif; margin: 10px 0; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #ddd; vertical-align: top; }
+  th { font-weight: bold; color: var(--mute); }
+  td.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .msg { font: 15px/1.5 Helvetica, Arial, sans-serif; color: var(--mute); min-height: 4.6em; margin: 6px 0; }
+  .eq { font-style: italic; white-space: nowrap; }
+  p.c { text-align:center; }
+</style>
+</head>
+<body>
+<main>
+<h1>The measure</h1>
+<p class="byline">Read on the horizon as a cross-ratio. Three planes; lines through 0. Version 1, 11 November 2026.</p>
+<p class="threadline" style="font:15px/1.5 Helvetica,Arial,sans-serif;color:#666;margin:0 0 22px;padding:6px 0;border-top:1px solid #ddd;border-bottom:1px solid #ddd">The mirror thread · plate 12 of 12 · previous: <a href="the-absolute-v1.html">The absolute</a> · <a href="the-thread.html">index</a></p>
+
+<p>The measure of a pair of lines has been read, since the three-pairs plate, from the unit locus: twice the area of the sector between the two unit points. The absolute plate read a decree on a horizon instead, and found the mirror there with no unit locus. This plate does the same for the measure. On the horizon there are four points to hand: the readings of the two lines, and the two self-paired readings. Four points on a line have a cross-ratio. That cross-ratio holds the measure.</p>
+
+<p>One figure serves all three planes. Section 1 states the result for each plane. Section 2 gives the reasons. Section 3 sets the cross-ratio beside the number <i>q</i>² of the root plate and finds them to be one thing. Section 4 returns to the value −1.</p>
+
+<h2>1. The result, plane by plane</h2>
+
+<p>Let <i>A</i> and <i>B</i> be two lines through 0, with readings <i>t</i><sub>A</sub> and <i>t</i><sub>B</sub> on the horizon. Let the self-paired readings of the plane be +γ and −γ: the two square roots of <i>g</i>² (absolute plate, section 3). Write <i>R</i> for the cross-ratio of the four readings taken in the order <i>t</i><sub>A</sub>, <i>t</i><sub>B</sub>, +γ, −γ. By the formula of the involution plate,</p>
+<p class="c eq">R = ((t<sub>A</sub> − γ) × (t<sub>B</sub> + γ)) ÷ ((t<sub>A</sub> + γ) × (t<sub>B</sub> − γ)).</p>
+
+<table>
+<tr><th>Plane</th><th>γ</th><th>What <i>R</i> is</th><th>Measure from <i>A</i> to <i>B</i></th></tr>
+<tr><td>Minkowski</td><td>1</td><td>An ordinary number. Positive when <i>A</i> and <i>B</i> are both flatter, or both steeper, than the diagonals.</td><td>Half the logarithm of <i>R</i>.</td></tr>
+<tr><td>Euclidean</td><td><i>i</i></td><td>Not an ordinary number: a point of the unit circle.</td><td>Half the angle of that point, measured round the circle from 1.</td></tr>
+<tr><td>Parabolic</td><td>0, twice</td><td>Always 1. The two self-paired readings are one point, and the cross-ratio has nothing to hold.</td><td><span class="eq">1 ÷ t<sub>B</sub> − 1 ÷ t<sub>A</sub></span>. It is what <span class="eq">(R − 1) ÷ (2γ)</span> comes to as γ shrinks to 0.</td></tr>
+</table>
+
+<p>In Figure 1 the two sliders turn <i>A</i> and <i>B</i> about 0. The ledger works out <i>R</i> from the positions on the horizon, turns it into a measure by the rule in the table, and sets that beside twice the sector area measured from the drawing, which is the measure of the three-pairs plate.</p>
+
+<div class="controls">
+  <button id="k0">g² = −1 · Euclidean</button><button id="k1">g² = 0 · parabolic</button><button id="k2">g² = +1 · Minkowski</button>
+</div>
+<div class="controls"><span class="s ik">direction of <i>A</i></span><input type="range" id="sA"><span class="v" id="vA"></span></div>
+<div class="controls"><span class="s bb">direction of <i>B</i></span><input type="range" id="sB"><span class="v" id="vB"></span></div>
+<figure>
+<svg id="fig1" viewBox="0 0 720 516" role="img" aria-label="Figure 1: two lines A and B through 0, their readings on the horizon, the self-paired readings, and the sector between the unit points"></svg>
+<figcaption>Figure 1. Colours as on the three-pairs plate (purple for the Euclidean plane, grey for the parabolic, green for the Minkowski). Dark grey line: the horizon, one unit above 0. Black line: <i>A</i>. Red-brown line: <i>B</i>. Small filled black dot on the horizon: <i>T</i><sub>A</sub>. Small filled red-brown dot on the horizon: <i>T</i><sub>B</sub>. Dashed lines in the plane's colour, with larger ringed dots where they cross the horizon: the self-paired directions (none in the Euclidean plane). Curve in the plane's colour: the unit locus. Small filled black dots on it: the unit points <i>a</i> and <i>b</i>. Shaded region: the sector from <i>a</i> to <i>b</i>. Small ringed black dots on the unit locus: 1 and <i>q</i>², when they are on the page.</figcaption>
+</figure>
+<table id="led1"></table>
+<div class="msg" id="msg1"></div>
+
+<p class="note">In the Euclidean plane a line has two unit points, <i>b</i> and −<i>b</i>, and the horizon cannot tell them apart: it holds lines, not unit points. The sector is therefore drawn to whichever unit point of <i>B</i> is nearer to <i>a</i>, and the measure runs from −90° to 90°. This is the fold of the root plate once more: the two roots <i>q</i> and −<i>q</i> have the same square.</p>
+
+<h2>2. The reasons</h2>
+
+<h3>The Euclidean plane</h3>
+<p>Take the unit point of <i>A</i>: <span class="eq">a = x + i y</span>, with <span class="eq">a × ā = 1</span>. The reading of <i>A</i> is <span class="eq">t = x ÷ y</span>. Then</p>
+<p class="c eq">(t − i) ÷ (t + i) = (x − i y) ÷ (x + i y) = ā ÷ a = ā².</p>
+<p>The last step uses <span class="eq">1 ÷ a = ā</span>. The same for <i>B</i> gives <span class="eq">(t<sub>B</sub> + i) ÷ (t<sub>B</sub> − i) = b²</span>. Multiply the two:</p>
+<p class="c eq">R = ā² × b² = (b × ā)² = q².</p>
+<p>So in the Euclidean plane the cross-ratio on the horizon is the number <i>q</i>² of the root plate, exactly. Its angle is twice the angle from <i>A</i> to <i>B</i>, which is the doubling. Nothing is assumed.</p>
+
+<h3>The Minkowski plane</h3>
+<p>Take the unit point of <i>A</i>: <span class="eq">a = x + j y</span>, with <span class="eq">x² − y² = 1</span>, that is, <span class="eq">(x − y) × (x + y) = 1</span>. Write λ(<i>a</i>) for the ordinary number <span class="eq">x + y</span>. Then <span class="eq">x − y = 1 ÷ λ(a)</span>, and</p>
+<p class="c eq">(t − 1) ÷ (t + 1) = (x − y) ÷ (x + y) = 1 ÷ λ(a)².</p>
+<p>The same for <i>B</i> gives <span class="eq">(t<sub>B</sub> + 1) ÷ (t<sub>B</sub> − 1) = λ(b)²</span>. So <span class="eq">R = λ(b)² ÷ λ(a)²</span>.</p>
+<p>Two facts about λ finish it. First, λ turns the plane's multiplication into ordinary multiplication: <span class="eq">λ(a × b) = λ(a) × λ(b)</span>, which is one line of algebra with <span class="eq">j² = 1</span>; and <span class="eq">λ(ā) = 1 ÷ λ(a)</span> for a unit point. Hence</p>
+<p class="c eq">R = λ(b × ā)² = λ(q)² = λ(q²).</p>
+<p>Second, the measure of a unit point is the logarithm of its λ. (This is the standard fact that the area cut off under a hyperbola is a logarithm. It is used here and not proved; the ledger checks it against the drawn sector.) The measure of <i>q</i>² is twice the measure from <i>A</i> to <i>B</i>. So the measure from <i>A</i> to <i>B</i> is half the logarithm of <i>R</i>.</p>
+
+<h3>The parabolic plane</h3>
+<p>The unit point of <i>A</i> is <span class="eq">a = 1 + g s</span>, where <i>s</i> is the slope of <i>A</i>, and its reading is <span class="eq">t = 1 ÷ s</span>. The three-pairs plate found the measure from <i>A</i> to <i>B</i> to be the difference of the slopes. That is <span class="eq">1 ÷ t<sub>B</sub> − 1 ÷ t<sub>A</sub></span>.</p>
+<p>The cross-ratio itself is no help: with both self-paired readings at 0, the formula gives <span class="eq">R = (t<sub>A</sub> × t<sub>B</sub>) ÷ (t<sub>A</sub> × t<sub>B</sub>) = 1</span>, whatever the lines. But pull the two self-paired readings a little apart, to +γ and −γ. Then <i>R</i> is a little more or less than 1, and <span class="eq">(R − 1) ÷ (2γ)</span> comes closer and closer to the difference of slopes as γ shrinks. The ledger shows it with γ = 0.001. So the parabolic measure is the last trace of the cross-ratio, caught as the two points of the absolute close into one.</p>
+
+<h3>Measures add because cross-ratios multiply</h3>
+<p>For three lines <i>A</i>, <i>B</i>, <i>C</i>, the formula for <i>R</i> gives at once <span class="eq">R(A, C) = R(A, B) × R(B, C)</span>: the middle factors cancel. A logarithm turns a product into a sum, and angles of points on the unit circle add when the points are multiplied. So the measure from <i>A</i> to <i>C</i> is the measure from <i>A</i> to <i>B</i> plus the measure from <i>B</i> to <i>C</i>, in every plane.</p>
+
+<h2>3. One object, seen twice</h2>
+<p>The root plate attached a number to a pair of lines: <i>q</i>², with <span class="eq">q = b ÷ a</span>. The congruence “<i>A</i> then <i>B</i>” is multiplication by it. This plate attaches a cross-ratio to the same pair. Section 2 shows how the two are related.</p>
+<table>
+<tr><th>Plane</th><th><i>q</i>², from the unit locus</th><th><i>R</i>, from the horizon</th></tr>
+<tr><td>Euclidean</td><td class="eq">x + i y</td><td><i>q</i>² itself</td></tr>
+<tr><td>Minkowski</td><td class="eq">x + j y</td><td class="eq">x + y</td></tr>
+<tr><td>Parabolic</td><td class="eq">1 + g × (twice the measure)</td><td>1</td></tr>
+</table>
+<p>One sentence covers the three rows: <b><i>R</i> is <i>q</i>² with <i>g</i> given the value of a self-paired reading.</b> In the Euclidean plane that value is <i>i</i>, which is <i>g</i> already, so nothing changes. In the Minkowski plane it is +1, and <span class="eq">x + j y</span> becomes <span class="eq">x + y</span>. In the parabolic plane it is 0, and the part of <i>q</i>² that carried the measure is wiped out, which is why that plane needs the limit of section 2.</p>
+<p>So the unit locus and the horizon are two ways of holding the same pair of lines. The first holds it as a point one can multiply. The second holds it as four points on a line and the one number that four such points have.</p>
+
+<h2>4. The value −1, again</h2>
+<p>The absolute plate found that <i>B</i> is the across direction of <i>A</i> exactly when the four readings are harmonic: <span class="eq">R = −1</span>. Read that with the table of section 1.</p>
+<ul>
+<li><b>Euclidean.</b> −1 is the point of the unit circle half-way round, at 180°. Half of that is 90°: <i>A</i> and <i>B</i> are perpendicular. And <span class="eq">q² = −1</span> is the half-turn. This is row 2 of the dictionary on the third-mirror plate: two lines are perpendicular exactly when “<i>A</i> then <i>B</i>” is an involution.</li>
+<li><b>Minkowski.</b> −1 is a negative number and has no logarithm. There is no measure from a line to its across direction: one is flatter than the diagonals and the other steeper, and no turning of the plane carries the first to the second. <i>R</i> is negative for every such pair. The sign of <i>R</i> says whether a measure exists; its size says what the measure is.</li>
+<li><b>Parabolic.</b> <i>R</i> is always 1 and never −1. No two parabolic mirror lines are perpendicular, as the third-mirror plate records.</li>
+</ul>
+<p>So the one value that incidence can state, −1, is the one value at which a measure is either a right angle or absent. Every other value of <i>R</i> is a measure, and to read it a decree is needed first: it supplies γ.</p>
+
+<h2>5. What is claimed</h2>
+<table>
+<tr><th>Statement</th><th>Price</th></tr>
+<tr><td>Euclidean plane: <i>R</i>, computed with <i>i</i> and −<i>i</i>, equals <i>q</i>².</td><td>Theorem. Proved in section 2 with nothing assumed. Checked numerically.</td></tr>
+<tr><td>Minkowski plane: <span class="eq">R = λ(q²)</span>, where λ of <span class="eq">x + j y</span> is <span class="eq">x + y</span>.</td><td>Theorem. Proved in section 2 with nothing assumed. Checked numerically.</td></tr>
+<tr><td>Minkowski plane: the measure from <i>A</i> to <i>B</i> is half the logarithm of <i>R</i>.</td><td>Theorem (standard; the Euclidean form is Laguerre's formula). It rests on one standard fact, that the measure of a unit point is the logarithm of its λ, which is used and not proved. Checked numerically against the drawn sector.</td></tr>
+<tr><td>Parabolic plane: <i>R</i> = 1; the measure is <span class="eq">1 ÷ t<sub>B</sub> − 1 ÷ t<sub>A</sub></span>, and is what <span class="eq">(R − 1) ÷ (2γ)</span> comes to as γ shrinks to 0.</td><td>Theorem. The first two parts are argued in section 2. The limit is checked numerically, not proved.</td></tr>
+<tr><td><span class="eq">R(A, C) = R(A, B) × R(B, C)</span>, so measures add.</td><td>Theorem. One line of algebra. Checked numerically.</td></tr>
+<tr><td><i>R</i> is <i>q</i>² with <i>g</i> given the value of a self-paired reading.</td><td>Theorem, as a summary of the three cases above.</td></tr>
+<tr><td>In the Minkowski plane <i>R</i> is negative exactly when one line is flatter than the diagonals and the other steeper.</td><td>Theorem. Checked numerically.</td></tr>
+<tr><td>“The sign of <i>R</i> says whether a measure exists; its size says what it is.”</td><td>Observation, for the Minkowski plane. In the Euclidean plane <i>R</i> has no sign.</td></tr>
+<tr><td>Lines that do not pass through 0; the measure of a parallel pair (a distance).</td><td>Not treated on this plate.</td></tr>
+</table>
+
+<h2>6. Glossary</h2>
+<h3>Mathematical words</h3>
+<dl>
+<dt>Reading, horizon, self-paired, absolute</dt><dd>As on the absolute plate.</dd>
+<dt>γ</dt><dd>A self-paired reading: a square root of <i>g</i>² among the numbers at hand. Minkowski: 1 (the other is −1). Euclidean: <i>i</i> (the other is −<i>i</i>); these are not ordinary numbers and are not on the page. Parabolic: 0, counted twice.</dd>
+<dt><i>R</i></dt><dd>The cross-ratio of the four readings <i>t</i><sub>A</sub>, <i>t</i><sub>B</sub>, +γ, −γ, in that order, by the formula of the involution plate.</dd>
+<dt>Measure from <i>A</i> to <i>B</i></dt><dd>As on the three-pairs plate: twice the area of the sector from the unit point of <i>A</i> to the unit point of <i>B</i>, positive counter-clockwise. Euclidean: the angle, shown here in degrees. Parabolic: the difference of slopes. Minkowski: a plain number.</dd>
+<dt>Logarithm (written ln)</dt><dd>The rule that turns multiplication into addition: ln(<i>u</i> × <i>v</i>) = ln <i>u</i> + ln <i>v</i>, with ln 1 = 0. Only positive ordinary numbers have one.</dd>
+<dt>λ</dt><dd>For a Minkowski number <i>x</i> + <i>j</i> <i>y</i>: the ordinary number <i>x</i> + <i>y</i>. It is the number with <i>j</i> given the value +1. This plate's own letter.</dd>
+<dt><i>q</i>, <i>q</i>², unit point, bar</dt><dd>As on the root plate.</dd>
+<dt>Angle of a point of the unit circle</dt><dd>Its measure in the sense of the root plate: the angle from 1 round to the point, counter-clockwise.</dd>
+<dt>Flatter, steeper (than the diagonals)</dt><dd>A line through 0 is flatter when it lies between the diagonals on the side of the 1-axis, steeper when it lies on the side of the <i>j</i>-axis. Flatter lines cross the unit locus; steeper lines do not.</dd>
+</dl>
+<h3>Drawing words</h3>
+<dl>
+<dt><i>T</i><sub>A</sub>, <i>T</i><sub>B</sub></dt><dd>The points of the horizon where <i>A</i> and <i>B</i> cross it.</dd>
+<dt>Sector</dt><dd>As on the three-pairs plate: the shaded region bounded by two segments from 0 and the piece of the unit locus between them. In the parabolic plane it is a triangle.</dd>
+<dt>Filled dot, ringed dot, dashed line</dt><dd>As on the absolute plate.</dd>
+</dl>
+
+<p class="note">Checks: the mathematics in this file is run by a separate script before the figure is built. It tests each row of the table in section 5 over the slider ranges and at random, and that every drawn point named in the caption is where the formulas put it.</p>
+</main>
+
+<script id="math">
+/*MATH-BEGIN*/
+var G2=[-1,0,1],DEG=Math.PI/180;
+function mul(k,z,w){return [z[0]*w[0]+G2[k]*z[1]*w[1],z[0]*w[1]+z[1]*w[0]];}
+function bar(z){return [z[0],-z[1]];}
+function form(k,p){return p[0]*p[0]-G2[k]*p[1]*p[1];}
+function dirOf(a){return [Math.cos(a*DEG),Math.sin(a*DEG)];}
+function reading(p){return Math.abs(p[1])<1e-12?null:p[0]/p[1];}
+/* cross-ratio (A,B;C,D) of four ordinary positions on a line (involution plate) */
+function cr(a,b,c,d){return ((c-a)*(d-b))/((d-a)*(c-b));}
+/* complex numbers as pairs, for the Euclidean cross-ratio with i and -i */
+function cmul(a,b){return [a[0]*b[0]-a[1]*b[1],a[0]*b[1]+a[1]*b[0]];}
+function cdiv(a,b){var d=b[0]*b[0]+b[1]*b[1];return [(a[0]*b[0]+a[1]*b[1])/d,(a[1]*b[0]-a[0]*b[1])/d];}
+/* R for the Euclidean plane: ((tA - i)(tB + i)) / ((tA + i)(tB - i)) */
+function REuclid(tA,tB){return cdiv(cmul([tA,-1],[tB,1]),cmul([tA,1],[tB,-1]));}
+/* R for the Minkowski plane (gamma = 1) and, with small gamma, for the parabolic limit */
+function RGamma(tA,tB,gam){return cr(tA,tB,gam,-gam);}
+/* unit point of the line in direction al (degrees), on the piece that contains 1; null if the line misses the unit locus */
+function unitPt(k,al){var u=dirOf(al),f=form(k,u);if(f<=1e-12)return null;var s=(u[0]<0?-1:1)/Math.sqrt(f);return [u[0]*s,u[1]*s];}
+/* measure of a unit point on the piece that contains 1 (radians when k = 0) */
+function meas(k,p){return k===0?Math.atan2(p[1],p[0]):(k===1?p[1]/p[0]:Math.atanh(p[1]/p[0]));}
+function unit(k,m){return k===0?[Math.cos(m),Math.sin(m)]:(k===1?[1,m]:[Math.cosh(m),Math.sinh(m)]);}
+/* twice the area of the sector from measure m1 to measure m2, measured from a drawn polygon */
+function sector(k,m1,m2){var pts=[[0,0]],i;for(i=0;i<=400;i++)pts.push(unit(k,m1+(m2-m1)*i/400));return pts;}
+function area2(pts){var A=0,i;for(i=0;i<pts.length;i++){var p=pts[i],q=pts[(i+1)%pts.length];A+=p[0]*q[1]-q[0]*p[1];}return A;}
+function lam(z){return z[0]+z[1];}
+/* slider ranges in degrees: [Amin,Amax,Adefault,Bmin,Bmax,Bdefault] */
+var RANGE=[[12,168,140,12,168,165],[12,74,20,12,74,50],[12,43,18,12,74,36]];
+/*MATH-END*/
+</script>
+<script>
+(function(){
+var PLANE=['#534AB7','#5F5E5A','#0F6E56'],TINT=['#D9D6F7','#DDDAD0','#BFE8D8'],RB='#B8321F',GN=['i','ε','j'];
+function f1(v){return v.toFixed(1);}
+function n3(v){var s=v.toFixed(3);return s==='-0.000'?'0.000':s;}
+function num(z,g){return n3(z[0])+(z[1]<-0.0005?' − ':' + ')+Math.abs(z[1]).toFixed(3)+' <i>'+g+'</i>';}
+function row(a,b){return '<tr><td>'+a+'</td><td class="n">'+b+'</td></tr>';}
+function $(id){return document.getElementById(id);}
+function ring(col,w){return 'fill="#fff" stroke="'+col+'" stroke-width="'+(w||1.4)+'"';}
+var SC=70,OX=360,OY=300;
+function T(p){return [OX+SC*p[0],OY-SC*p[1]];}
+function ln(a,b,attr){var A=T(a),B=T(b);return '<line x1="'+f1(A[0])+'" y1="'+f1(A[1])+'" x2="'+f1(B[0])+'" y2="'+f1(B[1])+'" '+attr+'/>';}
+function full(a,d,attr){var n=Math.hypot(d[0],d[1]);if(n<1e-9)return '';var e=[d[0]/n*40,d[1]/n*40];return ln([a[0]-e[0],a[1]-e[1]],[a[0]+e[0],a[1]+e[1]],attr);}
+function ci(p,r,attr){var A=T(p);return '<circle cx="'+f1(A[0])+'" cy="'+f1(A[1])+'" r="'+r+'" '+attr+'/>';}
+function tx(p,dx,dy,s,cls,fill){var A=T(p);return '<text x="'+f1(A[0]+dx)+'" y="'+f1(A[1]+dy)+'"'+(cls?' class="'+cls+'"':'')+(fill?' style="fill:'+fill+'"':'')+'>'+s+'</text>';}
+function path(pts,attr,close){var d='';for(var i=0;i<pts.length;i++){var A=T(pts[i]);d+=(i?'L':'M')+f1(A[0])+' '+f1(A[1]);}return '<path d="'+d+(close?'Z':'')+'" '+attr+'/>';}
+function locus(k,attr){
+  var a=[],b=[],i,t;
+  if(k===0) return '<circle cx="'+OX+'" cy="'+OY+'" r="'+SC+'" fill="none" '+attr+'/>';
+  if(k===1) return full([1,0],[0,1],attr)+full([-1,0],[0,1],attr);
+  for(i=-60;i<=60;i++){t=i/20;a.push([Math.cosh(t),Math.sinh(t)]);b.push([-Math.cosh(t),Math.sinh(t)]);}
+  return path(a,'fill="none" '+attr)+path(b,'fill="none" '+attr);
+}
+function onPage(p){return Math.abs(p[0])<5.05&&p[1]<4.2&&p[1]>-3.0;}
+var SUB='<tspan baseline-shift="sub" font-size="11" font-style="normal">';
+var k=0;
+function draw(){
+  var aA=+$('sA').value,aB=+$('sB').value,col=PLANE[k],s='',i;
+  $('vA').textContent=aA+'°';$('vB').textContent=aB+'°';
+  var uA=dirOf(aA),uB=dirOf(aB),tA=reading(uA),tB=reading(uB);
+  var a=unitPt(k,aA),b=unitPt(k,aB),th=null,q2=null;
+  if(a&&b){
+    th=meas(k,b)-meas(k,a);
+    if(k===0){while(th>Math.PI/2)th-=Math.PI;while(th<=-Math.PI/2)th+=Math.PI;b=unit(0,meas(0,a)+th);}
+    var q=mul(k,b,bar(a));q2=mul(k,q,q);
+  }
+  s+=full([0,0],[1,0],'stroke="#ddd" stroke-width="1"')+full([0,0],[0,1],'stroke="#ddd" stroke-width="1"');
+  if(th!==null) s+=path(sector(k,meas(k,a),meas(k,a)+th),'fill="'+TINT[k]+'" stroke="none" opacity="0.9"',true);
+  s+=locus(k,'stroke="'+col+'" stroke-width="1.5"');
+  var sp=k===0?[]:(k===1?[0]:[1,-1]);
+  for(i=0;i<sp.length;i++) s+=full([0,0],[sp[i],1],'stroke="'+col+'" stroke-width="1.2" stroke-dasharray="7 5"');
+  s+=ln([-9,1],[9,1],'stroke="#555" stroke-width="1.5"')+tx([-4.95,1],0,-8,'horizon','s');
+  s+=full([0,0],uA,'stroke="#222" stroke-width="2.2"')+full([0,0],uB,'stroke="'+RB+'" stroke-width="2.2"');
+  s+=tx([-2.6*uA[0],-2.6*uA[1]],8,16,'A','i')+tx([-3.3*uB[0],-3.3*uB[1]],-18,4,'B','i',RB);
+  for(i=0;i<sp.length;i++) s+=ci([sp[i],1],7.5,ring(col,1.8));
+  s+=ci([1,0],4,ring('#222',1.1))+tx([1,0],7,17,'1','s');
+  if(q2&&onPage(q2)) s+=ci(q2,4.5,ring('#222',1.3))+tx(q2,9,-7,k===0?'q² = R':'q²','i');
+  if(a) s+=ci(a,4.2,'fill="#222"')+tx(a,8,15,'a','i');
+  if(b) s+=ci(b,4.2,'fill="#222"')+tx(b,8,-6,'b','i');
+  s+=ci([tA,1],4.8,'fill="#222"')+tx([tA,1],2,-12,'T'+SUB+'A</tspan>','i');
+  s+=ci([tB,1],4.8,'fill="'+RB+'"')+tx([tB,1],2,-12,'T'+SUB+'B</tspan>','i',RB);
+  s+=ci([0,0],3,'fill="#222"')+tx([0,0],-16,18,'0','s');
+  $('fig1').innerHTML=s;
+  var led=row('Reading of <i>A</i>: <i>t</i><sub>A</sub>',n3(tA))+row('Reading of <i>B</i>: <i>t</i><sub>B</sub>',n3(tB)),m='';
+  var sec=th===null?null:area2(sector(k,meas(k,a),meas(k,a)+th));
+  if(k===0){
+    var R=REuclid(tA,tB),ang=Math.atan2(R[1],R[0])/DEG;
+    led+=row('<i>R</i>, from the four readings <i>t</i><sub>A</sub>, <i>t</i><sub>B</sub>, <i>i</i>, −<i>i</i>',num(R,'i'))
+       +row('<i>q</i>² = (<i>b</i> ÷ <i>a</i>)², from the unit points',num(q2,'i'))
+       +row('Distance on the page between <i>R</i> and <i>q</i>²',n3(Math.hypot(R[0]-q2[0],R[1]-q2[1])))
+       +row('Angle of <i>R</i>, from 1',n3(ang)+'°')
+       +row('Half of it: the measure from <i>A</i> to <i>B</i>, read on the horizon',n3(ang/2)+'°')
+       +row('Twice the sector area, as an angle: the measure of the three-pairs plate',n3(sec/DEG)+'°');
+    m=Math.abs(Math.abs(ang)-180)<1e-6?'<i>R</i> is −1: the four readings are harmonic, <i>B</i> is the across direction of <i>A</i>, and the measure is a right angle. <i>q</i>² = −1 is the half-turn.':
+      'The ringed dot <i>q</i>² on the circle is also the cross-ratio <i>R</i>. Its angle from 1 is twice the angle of the shaded sector. Set <i>B</i> 90° from <i>A</i> and <i>R</i> arrives at −1.';
+  } else if(k===2){
+    var R2=RGamma(tA,tB,1);
+    led+=row('<i>R</i>, from the four readings <i>t</i><sub>A</sub>, <i>t</i><sub>B</sub>, +1, −1',n3(R2));
+    if(R2>0&&th!==null){
+      led+=row('Half the logarithm of <i>R</i>: the measure, read on the horizon',n3(0.5*Math.log(R2)))
+         +row('Twice the sector area: the measure of the three-pairs plate',n3(sec))
+         +row('<i>q</i>² = (<i>b</i> ÷ <i>a</i>)², from the unit points',num(q2,'j'))
+         +row('λ(<i>q</i>²): its two parts added',n3(lam(q2)));
+      m='<i>A</i> and <i>B</i> are both flatter than the diagonals. <i>R</i> is positive, and half its logarithm agrees with the shaded sector. The last ledger row equals <i>R</i>.';
+    } else {
+      led+=row('Half the logarithm of <i>R</i>','none: <i>R</i> is negative')+row('Twice the sector area','no sector: <i>B</i> does not cross the unit locus');
+      m=Math.abs(R2+1)<1e-6?'<i>R</i> is −1: the four readings are harmonic, and <i>B</i> is the across direction of <i>A</i>. There is no measure from a line to its across direction in this plane.':
+        '<i>B</i> is steeper than the diagonals and <i>A</i> is flatter. On the horizon, <i>T</i><sub>B</sub> lies between the two self-paired points and <i>T</i><sub>A</sub> outside them. <i>R</i> is negative, and there is no measure from <i>A</i> to <i>B</i>.';
+    }
+  } else {
+    var gam=0.001,Rg=RGamma(tA,tB,gam);
+    led+=row('<i>R</i>, with both self-paired readings at 0','1.000')
+       +row('1 ÷ <i>t</i><sub>B</sub> − 1 ÷ <i>t</i><sub>A</sub>: the measure, read on the horizon',n3(1/tB-1/tA))
+       +row('Twice the sector area (a triangle): the measure of the three-pairs plate',n3(sec))
+       +row('(<i>R</i> − 1) ÷ (2γ), with the self-paired readings pulled apart to +γ and −γ, γ = 0.001',n3((Rg-1)/(2*gam)))
+       +row('<i>q</i>² = (<i>b</i> ÷ <i>a</i>)², from the unit points',num(q2,'ε'));
+    m='The cross-ratio is 1 for every pair of lines and holds no measure. The measure is the difference of the reciprocals of the two readings. The fourth row shows it returning as the limit of a cross-ratio.';
+  }
+  $('led1').innerHTML=led;$('msg1').innerHTML=m;
+}
+function pick(kk){k=kk;var r=RANGE[k],a=$('sA'),b=$('sB');a.min=r[0];a.max=r[1];a.step=1;a.value=r[2];b.min=r[3];b.max=r[4];b.step=1;b.value=r[5];
+  for(var i=0;i<3;i++)$('k'+i).className=i===k?'on':'';draw();}
+[0,1,2].forEach(function(i){$('k'+i).addEventListener('click',function(){pick(i);});});
+$('sA').addEventListener('input',draw);$('sB').addEventListener('input',draw);
+pick(2);
+})();
+</script>
+</body>
+</html>
