@@ -37,7 +37,7 @@
 <body>
 <main>
 <h1>The root</h1>
-<p class="byline">What the pair keeps and the congruence forgets. Three planes; mirror lines through 0 only. Version 1, 11 November 2026. Revised 11 November 2026: placed in the thread (line below); colours brought into line with the three-pairs plate; the opening and section 5 reworded so that the plate can be read without the conversation it came from.</p>
+<p class="byline">What the pair keeps and the congruence forgets. Three planes; mirror lines through 0 only. Version 1, 11 November 2026. Revised 11 November 2026: placed in the thread (line below); colours brought into line with the three-pairs plate; the opening and section 5 reworded so that the plate can be read without the conversation it came from. Corrected the same day: the reason in section 2 rested on a statement that is false as it was worded (it lacked the condition that straight lines stay straight); it is replaced by a direct proof.</p>
 <p class="threadline" style="font:15px/1.5 Helvetica,Arial,sans-serif;color:#666;margin:0 0 22px;padding:6px 0;border-top:1px solid #ddd;border-bottom:1px solid #ddd">The mirror thread · plate 10 of 10 · previous: <a href="the-involution-v1.html">The involution</a> · <a href="the-thread.html">index</a></p>
 
 <p>The pair plate found that two mirrors at angle φ make a turn by 2φ. The pair at φ and the pair at φ + 180° are the same two lines and make the same turn. So the product keeps the doubled number 2φ and nothing finer, while the pair of lines holds something finer that the product has lost. This plate writes the mirror and the pair in the arithmetic of each plane, the arithmetic of the fold page, and finds that the doubling is a squaring, and that what the product has lost is the choice between two square roots. Section 5 then tests a tempting claim about the square of <i>g</i>.</p>
@@ -50,13 +50,14 @@
 <h2>2. One mirror, in numbers</h2>
 <p><b>Statement.</b> The mirror with line <i>m</i>, where <i>m</i> passes through 0 and the unit point <i>b</i>, sends each number <i>z</i> to</p>
 <p style="text-align:center" class="eq">z′ = b² × z̄.</p>
-<p><b>Reason.</b> Three short computations show that this rule has the properties that define the mirror.</p>
+<p><b>Reason.</b> The three-pairs plate defines the mirror with line <i>m</i> by four properties. Four short computations show that this rule has all four. Each uses only <span class="eq">b × b̄ = 1</span> and two facts about any number <i>v</i>: <span class="eq">v + v̄</span> is an ordinary number (it has no <i>g</i> part), and <span class="eq">v − v̄</span> is an ordinary number times <i>g</i>.</p>
 <ol>
-<li><i>It fixes every point of m.</i> A point of <i>m</i> is <i>t</i> × <i>b</i> with <i>t</i> an ordinary number. The rule sends it to <span class="eq">b² × t × b̄ = t × b × (b × b̄) = t × b</span>.</li>
-<li><i>Applied twice it does nothing.</i> The bar of <span class="eq">b² × z̄</span> is <span class="eq">b̄² × z</span>. So the rule applied twice gives <span class="eq">b² × b̄² × z = (b × b̄)² × z = z</span>.</li>
-<li><i>It keeps the form.</i> The form of a product is the product of the forms, and the form of <i>b</i> is 1.</li>
+<li><i>It keeps every point of m where it is.</i> A point of <i>m</i> is <i>t</i> × <i>b</i> with <i>t</i> an ordinary number. The rule sends it to <span class="eq">b² × t × b̄ = t × b × (b × b̄) = t × b</span>.</li>
+<li><i>The midpoint of z and z′ lies on m.</i> <span class="eq">z + z′ = z + b² × z̄ = b × (b̄ × z + b × z̄)</span>. The bracket is a number plus its own bar, so it is an ordinary number. So <span class="eq">z + z′</span> is an ordinary number times <i>b</i>: a point of <i>m</i>. Half of it, the midpoint, is a point of <i>m</i> too.</li>
+<li><i>The segment from z to z′ lies in the across direction.</i> <span class="eq">z′ − z = b² × z̄ − z = b × (b × z̄ − b̄ × z)</span>. The bracket is a number minus its own bar, so it is an ordinary number times <i>g</i>. So <span class="eq">z′ − z</span> is an ordinary number times <span class="eq">g × b</span>, and the line of <span class="eq">g × b</span> is the across direction of <i>m</i> (three-pairs plate, glossary).</li>
+<li><i>It keeps the form.</i> The form of a product is the product of the forms; the form of <i>b</i> is 1; and <i>z̄</i> has the same form as <i>z</i>.</li>
 </ol>
-<p>A rule that keeps the form, fixes every point of <i>m</i>, undoes itself, and is not the rule that does nothing, is the mirror with line <i>m</i>. (Standard theorem, used here and not proved here; Figure 1 checks it against the drawing rule of the involution plate.)</p>
+<p>So the rule is the mirror with line <i>m</i>, by that definition, in all three planes. Nothing is assumed. One consequence, used below: applied twice, the rule does nothing, because the bar of <span class="eq">b² × z̄</span> is <span class="eq">b̄² × z</span>, and <span class="eq">b² × b̄² × z = (b × b̄)² × z = z</span>.</p>
 
 <p><b>What to notice.</b> The unit point <i>b</i> enters only as <i>b</i>². Since <span class="eq">(−b)² = b²</span>, the points <i>b</i> and −<i>b</i> give the same rule, as they must: they name the same line. The line is ±<i>b</i>. The mirror is <i>b</i>².</p>
 
@@ -121,7 +122,7 @@
 <h2>7. What is claimed</h2>
 <table>
 <tr><th>Statement</th><th>Price</th></tr>
-<tr><td>The mirror with line through 0 and unit point <i>b</i> is <span class="eq">z → b² × z̄</span>, in all three planes.</td><td>Theorem (standard). Argued in section 2 with one standard theorem assumed; checked numerically against the drawing rule.</td></tr>
+<tr><td>The mirror with line through 0 and unit point <i>b</i> is <span class="eq">z → b² × z̄</span>, in all three planes.</td><td>Theorem. Proved in section 2 from the definition of the mirror on the three-pairs plate, with nothing assumed. Also checked numerically against the drawing rule.</td></tr>
 <tr><td><i>A</i> then <i>B</i> is <span class="eq">z → q² × z</span> with <span class="eq">q = b ÷ a</span>.</td><td>Theorem. Follows from the line above by the computation in section 3. Checked numerically.</td></tr>
 <tr><td>The two roots are joined in the Euclidean plane and separated in the other two.</td><td>Theorem. It is the statement that a circle is one piece, and that the parabolic and Minkowski unit loci are two pieces each.</td></tr>
 <tr><td>The three verdicts of section 5.</td><td>As stated there; each rests on sections 2 to 4.</td></tr>
