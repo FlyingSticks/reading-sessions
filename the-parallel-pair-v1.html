@@ -27,12 +27,16 @@
   th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #ddd; vertical-align: top; }
   th { font-weight: bold; color: var(--mute); }
   td.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  table.claims{border-collapse:collapse;width:100%;font:15px/1.45 Helvetica,Arial,sans-serif;margin:10px 0;}
+  table.claims th,table.claims td{text-align:left;padding:6px 8px;border-bottom:1px solid #ddd;vertical-align:top;letter-spacing:0;text-transform:none;}
+  table.claims th{font-weight:bold;color:#666;font-size:15px;}
 </style>
 </head>
 <body>
 <main>
 <h1>The parallel pair</h1>
-<p class="byline">Two mirrors whose lines never meet. Euclidean plane only. Version 1, 10 November 2026. Revised 11 November 2026: placed in the thread (line below). No other change.</p>
+<p class="byline">Two mirrors whose lines never meet. Euclidean plane only. Version 1, 10 November 2026. Revised 11 November 2026: placed in the thread (line below). No other change. A “What is claimed” table added.</p>
 <p class="threadline" style="font:15px/1.5 Helvetica,Arial,sans-serif;color:#666;margin:0 0 22px;padding:6px 0;border-top:1px solid #ddd;border-bottom:1px solid #ddd">The mirror thread · plate 4 of 12 · previous: <a href="the-pair-v1.html">The pair</a> · next: <a href="the-glide-v1.html">The glide</a> · <a href="the-thread.html">index</a></p>
 
 <p>The pair plate took two mirrors whose lines cross at a point, and found a turn about that point by twice the angle between the lines. This plate takes two mirrors whose lines are parallel, so that there is no crossing point. The product is a slide: every point moves the same distance in the same direction, and that distance is twice the separation of the lines. Figure 1 shows the slide and where the factor of two comes from. Figure 2 shows how the slide is related to the turn: move the crossing point of a crossing pair farther and farther away, and the turn comes closer and closer to the slide. A glossary follows; drawing words and mathematical words are kept apart.</p>
@@ -99,6 +103,18 @@
 <p>As <i>O</i> goes farther away, three things happen together. The angle between the lines shrinks toward 0°, so the lines look more and more parallel. The arc flattens toward a straight segment. And <i>L″</i> settles onto the dashed outline. The angle of the turn is going to zero while the distance to the centre is growing without limit; the distance actually travelled by <i>P</i> stays near 1.60 throughout.</p>
 <p>A statement to read literally: at no position of the slider is the product a slide. While <i>O</i> exists, however far off, the product is a turn, and <i>L″</i> is tilted by a small angle against <i>L</i>. The parallel pair of Figure 1 is the case in which there is no <i>O</i>. What Figure 2 shows is that nothing jumps between the two cases: the parallel pair is what the crossing pair approaches.</p>
 <p>This is why the thread speaks of one measure with two readings on the drawing. The measure of a pair is its separation, doubled by the product. For a crossing pair the separation is an angle and the product is a turn. For a parallel pair the separation is a distance and the product is a slide.</p>
+
+<h2>What is claimed</h2>
+<p class="note">Each statement of this plate, with its price. The section after this one says in more detail what is drawn and what was checked.</p>
+<table class="claims">
+<tr><th>Statement</th><th>Price</th></tr>
+<tr><td>The product of two parallel mirrors at separation <i>d</i> is a slide by 2<i>d</i>, straight across the two lines.</td><td>Theorem. Argued in section 1 from the two midpoints. Checked numerically over both slider ranges.</td></tr>
+<tr><td>Only the separation and the direction of the pair matter: sliding the pair across the page, separation held, does not change the product.</td><td>Theorem. Shown by the second slider. Checked numerically.</td></tr>
+<tr><td>Reversing the order reverses the slide.</td><td>Theorem. Shown by the two buttons. Checked numerically.</td></tr>
+<tr><td>The determinants are −1, −1 and +1: each mirror is odd, the pair is even.</td><td>Checked numerically from the drawn maps.</td></tr>
+<tr><td>As the crossing point of a crossing pair moves away, with the gap between the lines held, the turn approaches the slide of the parallel pair. At no position is it a slide.</td><td>Theorem. Shown in Figure 2. Checked numerically, including at a distance of one million; the limit is not proved here.</td></tr>
+<tr><td>Parallel pairs in other directions; the parabolic and Minkowski planes.</td><td>Not drawn on this plate.</td></tr>
+</table>
 
 <h2>What is and is not drawn</h2>
 <p class="note">Drawn: the Euclidean plane only; mirror lines upright in Figure 1; one fixed gap in Figure 2. Not drawn: parallel pairs in other directions (the slide is always perpendicular to the two lines); the parabolic and Minkowski planes. Checked numerically before issue, over both slider ranges of Figure 1 and both orders: all three points of <i>L</i> move by exactly twice the separation, and not at all up or down; the determinants are −1, −1, +1. For Figure 2: the image of <i>P</i> under the two mirrors agrees with <i>P</i> turned about <i>O</i> by twice the angle from <i>A</i> to <i>B</i>; with <i>O</i> at distance one million, the distance from <i>P</i> to <i>P″</i> differs from 1.60 by less than 0.00001.</p>

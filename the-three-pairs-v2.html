@@ -31,12 +31,16 @@
   th { font-weight: bold; color: var(--mute); }
   td.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
   .pu { color: var(--purple); } .gr { color: var(--gray); } .te { color: var(--teal); } .bb { color: var(--B); }
+
+  table.claims{border-collapse:collapse;width:100%;font:15px/1.45 Helvetica,Arial,sans-serif;margin:10px 0;}
+  table.claims th,table.claims td{text-align:left;padding:6px 8px;border-bottom:1px solid #ddd;vertical-align:top;letter-spacing:0;text-transform:none;}
+  table.claims th{font-weight:bold;color:#666;font-size:15px;}
 </style>
 </head>
 <body>
 <main>
 <h1>Three pairs</h1>
-<p class="byline">The pair of mirrors under three decrees. Version 2, 10 November 2026. Changes from version 1: a reason for the doubling; a drawing rule for the across direction; labels <i>b</i> and <i>b</i>²; two table rows and one unproved paragraph removed. Revised 11 November 2026: placed in the thread (line below); two forward references added. Version 1 of this plate is superseded and is not part of the thread.</p>
+<p class="byline">The pair of mirrors under three decrees. Version 2, 10 November 2026. Changes from version 1: a reason for the doubling; a drawing rule for the across direction; labels <i>b</i> and <i>b</i>²; two table rows and one unproved paragraph removed. Revised 11 November 2026: placed in the thread (line below); two forward references added. Version 1 of this plate is superseded and is not part of the thread. A “What is claimed” table added.</p>
 <p class="threadline" style="font:15px/1.5 Helvetica,Arial,sans-serif;color:#666;margin:0 0 22px;padding:6px 0;border-top:1px solid #ddd;border-bottom:1px solid #ddd">The mirror thread · plate 8 of 12 · previous: <a href="the-fold-v4.html">The fold</a> · next: <a href="the-involution-v1.html">The involution</a> · <a href="the-thread.html">index</a></p>
 
 <p>The pair plate showed one fact in the Euclidean plane: two mirrors whose lines cross at θ compose to a turn by 2θ. The fold page showed three planes, one for each decree g² = −1, 0, +1. This plate draws the pair in all three. The construction is the same each time — mirror line <i>A</i>, mirror line <i>B</i>, a probe point sent across <i>A</i> and then across <i>B</i> — and only the decree changes. Figure 1 shows what one mirror is in each plane. Figure 2 shows the pair. The table after it sets the three results side by side. A glossary follows; drawing words and mathematical words are kept apart.</p>
@@ -44,7 +48,7 @@
 <h2>1. One mirror, in each plane</h2>
 <p>In every plane the mirror with line <i>m</i> is the same kind of map: each point of <i>m</i> stays where it is, and every other point <i>X</i> has a partner <i>X′</i> such that <i>m</i> passes through the midpoint of the segment <i>XX′</i>. What differs is the direction of that segment. Call it the <b>across direction</b>. In the Euclidean plane it is perpendicular to <i>m</i>. In the other two planes it is not.</p>
 <p>One drawing rule gives the across direction in all three planes: <b>it is the direction of the tangent to the unit locus at the point where <i>m</i> crosses it.</b> A tangent to a circle is perpendicular to the radius, which is the Euclidean case. In the parabolic plane the unit locus is itself a straight line, so its tangent is that line. In the Minkowski plane the tangent to the hyperbola leans toward <i>m</i>.</p>
-<p class="note">Taken further on the involution plate, plate 9: the across direction is the direction of the centre of a harmonic pairing, and the one job of a decree is to choose it.</p>
+<p class="note">Taken further on the involution plate, plate 9, and the absolute, plate 10: the across direction is the direction of the centre of a harmonic pairing, and the one job of a decree is to choose it.</p>
 <div class="controls">
   <label class="s" for="t1">tilt of m</label>
   <input type="range" min="-45" max="45" value="25" step="1" id="t1">
@@ -116,7 +120,7 @@
 <p><b>The track.</b> <i>P</i>, <i>P′</i> and <i>P″</i> all lie on the unit locus, because each mirror keeps the form. As the slider moves, <i>P″</i> runs along that locus and nowhere else: a circle, a straight line parallel to the ε-axis, or one branch of a hyperbola. This is the unit-locus row of diagram 2 on the fold page, now read as the path a probe is carried along by a pair of mirrors.</p>
 <p><b>The sign.</b> Each mirror has determinant −1; the product has determinant +1. One mirror is odd, a pair is even, in all three planes.</p>
 <p>The connection to the fold is the small ringed dots. The one on <i>B</i> is the unit point <i>b</i> of that line. The one on <i>A′</i> is the number <i>b</i>², the square of <i>b</i> in that plane's arithmetic. The product "<i>A</i> then <i>B</i>" is: multiply every point by <i>b</i>². The pair is the root; what it does is the square. And <i>b</i> and −<i>b</i> lie on the same line <i>B</i>, so the line cannot tell the two roots apart, which is the fold.</p>
-<p class="note">Taken further on the root plate, plate 10: the same statement for any two lines <i>A</i> and <i>B</i>, and where the two roots can and cannot be told apart.</p>
+<p class="note">Taken further on the root plate, plate 11: the same statement for any two lines <i>A</i> and <i>B</i>, and where the two roots can and cannot be told apart.</p>
 
 <h2>3. One construction, three decrees</h2>
 <table>
@@ -127,6 +131,20 @@
 <tr><td>lines that cannot be mirror lines</td><td>none</td><td>the ε-axis</td><td>the two diagonals</td></tr>
 </table>
 <p>The last row is the null locus of the fold page, reappearing a third time. A line can be a mirror line only if it is different from its own across direction. In the parabolic plane the ε-axis is the across direction of every mirror, so it can never be a mirror line. In the Minkowski plane a line on the diagonal is its own across direction — the two scissor blades have closed — so the diagonals cannot be mirror lines. In the Euclidean plane a line is never perpendicular to itself, so every line through 0 can be a mirror line.</p>
+
+<h2>What is claimed</h2>
+<p class="note">Each statement of this plate, with its price. The section after this one says in more detail what is drawn and what was checked.</p>
+<table class="claims">
+<tr><th>Statement</th><th>Price</th></tr>
+<tr><td>In each of the three planes the mirror with line <i>m</i> keeps the points of <i>m</i>, pairs every other point with a partner so that the midpoint lies on <i>m</i> and the segment lies in the across direction, and keeps the form.</td><td>Definition (glossary). That the map drawn has all these properties is checked numerically over the slider range.</td></tr>
+<tr><td>The across direction of <i>m</i> is the direction of the tangent to the unit locus at the point where <i>m</i> crosses it.</td><td>Theorem. Checked numerically. The absolute, plate 10, gives the same direction with no unit locus.</td></tr>
+<tr><td>The doubling: the measure from <i>P</i> to <i>P″</i> is twice the measure from <i>A</i> to <i>B</i>, in all three planes; the two shaded sectors have equal area.</td><td>Theorem. The reason is given in section 2 (the mirror with line <i>B</i> carries one sector onto the other). Checked numerically.</td></tr>
+<tr><td><i>P</i>, <i>P′</i> and <i>P″</i> lie on the unit locus.</td><td>Theorem, because each mirror keeps the form. Checked numerically.</td></tr>
+<tr><td>Each mirror has determinant −1 and the product +1, in all three planes.</td><td>Checked numerically.</td></tr>
+<tr><td>With <i>A</i> the 1-axis, the product “<i>A</i> then <i>B</i>” is: multiply every point by <i>b</i>².</td><td>Stated here. Proved on the root plate, plate 11, for any two lines <i>A</i> and <i>B</i>.</td></tr>
+<tr><td>The lines that cannot be mirror lines: none (Euclidean), the ε-axis (parabolic), the two diagonals (Minkowski). A line can be a mirror line only if it differs from its own across direction.</td><td>Theorem. Argued in section 3. Plate 10 identifies these lines as the absolute.</td></tr>
+<tr><td>Minkowski mirror lines steeper than the diagonal; pairs of lines that do not pass through one point.</td><td>Not drawn on this plate.</td></tr>
+</table>
 
 <h2>What is and is not drawn</h2>
 <p class="note">Drawn: mirror lines through 0 only; in the Minkowski plane only lines flatter than the diagonal, and only the right-hand branch of the hyperbola as track. Not drawn: Minkowski mirror lines steeper than the diagonal (they exist, and pair points along a direction flatter than the diagonal); pairs of mirror lines that do not pass through one point; the slider range is kept short so that <i>P″</i> stays inside the frame. Checked numerically before issue, for all three planes over the slider range: the two sectors' areas agree; the measure from <i>P</i> to <i>P″</i> is twice the measure from <i>A</i> to <i>B</i>; the form is 1 at <i>P</i>, <i>P′</i>, <i>P″</i>; the determinants are −1, −1, +1. Also checked numerically: the tangent to the unit locus at a line's unit point is parallel to that line's across direction; the mirror with line <i>B</i> carries the boundary of the darker sector onto the boundary of the lighter one. Not checked against a published source: the wording "across direction", which is this plate's own. Removed from version 1 as stated but not shown: the remark that only the Euclidean track closes up and its link to the seam of the fold page. Also removed: the names these maps carry in mechanics and relativity, which lead away from this plate's subject.</p>

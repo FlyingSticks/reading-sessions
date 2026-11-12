@@ -52,13 +52,17 @@
   .price{display:inline-block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--rule);border-radius:3px;padding:0 6px;margin-left:6px;color:var(--muted);vertical-align:middle;}
   .flash{animation:flash .9s ease-out;} @keyframes flash{0%{stroke-width:8;}100%{stroke-width:3;}}
   code{font-family:Menlo,Consolas,monospace;font-size:14px;background:#f1efe9;padding:0 4px;border-radius:3px;}
+
+  table.claims{border-collapse:collapse;width:100%;font:15px/1.45 Helvetica,Arial,sans-serif;margin:10px 0;}
+  table.claims th,table.claims td{text-align:left;padding:6px 8px;border-bottom:1px solid #ddd;vertical-align:top;letter-spacing:0;text-transform:none;}
+  table.claims th{font-weight:bold;color:#666;font-size:15px;}
 </style>
 </head>
 <body>
 <main>
 
 <h1>One Generator</h1>
-<p class="byline">Mirrors, sign, and measure in the plane — a reorganization of the pin sketches. Revised 11 November 2026: placed in the thread (line below); steps 4, 5 and 6 moved, unchanged, to side plates A, D and E; Figure 6 renumbered Figure 4; one forward reference added.</p>
+<p class="byline">Mirrors, sign, and measure in the plane — a reorganization of the pin sketches. Revised 11 November 2026: placed in the thread (line below); steps 4, 5 and 6 moved, unchanged, to side plates A, D and E; Figure 6 renumbered Figure 4; one forward reference added. A “What is claimed” table added.</p>
 <p class="threadline" style="font:15px/1.5 Helvetica,Arial,sans-serif;color:#666;margin:0 0 22px;padding:6px 0;border-top:1px solid #ddd;border-bottom:1px solid #ddd">The mirror thread · plate 1 of 12 · next: <a href="sign.html">Compose, Multiply, Sign</a> (optional), then <a href="the-pair-v1.html">The pair</a> · <a href="the-thread.html">index</a></p>
 
 <p class="thesis">Every congruence of the plane is a product of mirrors. The <b>sign</b> of a congruence is the count of its mirrors, mod 2. The <b>measure</b> of a congruence is the separation of a pair of mirrors. A single mirror has sign and no measure.</p>
@@ -141,6 +145,18 @@
 </figure>
 
 <p class="note">A different thing from <i>glide projection</i>, the lateral drawing construction; the two share only the idea of a slide combined with another operation.</p>
+
+<h2>What is claimed</h2>
+<p class="note">Each statement of this plate, with its price. “Standard” means the statement is in the textbooks; “not proved here” means the plate shows it and does not argue it.</p>
+<table class="claims">
+<tr><th>Statement</th><th>Price</th></tr>
+<tr><td>Every congruence of the plane is a product of at most three mirrors.</td><td>Theorem (standard: Cartan–Dieudonné). Stated in step 1, not proved here. The reason for the number three is on plate 6.</td></tr>
+<tr><td>The parity of the number of mirrors is the same for every way of writing a given congruence as a product of mirrors. That parity is the sign of the congruence.</td><td>Theorem (standard). Figure 2 shows the hand alternating with the count; it does not prove that the parity is independent of the recipe. Plate 2 argues that, with the determinant as witness.</td></tr>
+<tr><td>Two mirrors whose lines cross at angle θ make a rotation by 2θ about the crossing point. Two parallel mirrors at distance <i>d</i> make a translation by 2<i>d</i>.</td><td>Theorem. Shown in Figure 3, not argued here. The reasons are on plates 3 and 4.</td></tr>
+<tr><td>The product of a pair depends only on its separation (and its crossing point or direction), not on where the pair stands.</td><td>Theorem. Shown in Figure 3 by turning or sliding the pair; argued on plates 3 and 4.</td></tr>
+<tr><td>A single mirror has a sign and no measure; a pair has a measure and sign +1.</td><td>Definition of the two words, with the theorems above. The glide, which is odd and yet has a measure, is taken up on plate 5.</td></tr>
+<tr><td>The list of five kinds of congruence is complete. The glide reflection is the only odd congruence other than the mirror.</td><td>Theorem (standard). Stated, not proved here. Plate 6 shows exactly when three mirrors make a glide and when a single mirror.</td></tr>
+</table>
 
 <!-- ===================== GLOSSARY ===================== -->
 <h2>Glossary</h2>

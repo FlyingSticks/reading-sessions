@@ -35,12 +35,16 @@
   button.on { background: #ece9df; }
   input[type=range] { min-width: 200px; }
   .msg { font: 15px/1.5 Helvetica, Arial, sans-serif; color: var(--mute); min-height: 1.6em; }
+
+  table.claims{border-collapse:collapse;width:100%;font:15px/1.45 Helvetica,Arial,sans-serif;margin:10px 0;}
+  table.claims th,table.claims td{text-align:left;padding:6px 8px;border-bottom:1px solid #ddd;vertical-align:top;letter-spacing:0;text-transform:none;}
+  table.claims th{font-weight:bold;color:#666;font-size:15px;}
 </style>
 </head>
 <body>
 <main>
 <h1>The fold</h1>
-<p class="byline">Squaring and its two roots, in five points. Version 4, 2 November 2026. Revised 11 November 2026: placed in the thread (line below); the word “motion” replaced in two places; a note on the two uses of “fold” added to the glossary.</p>
+<p class="byline">Squaring and its two roots, in five points. Version 4, 2 November 2026. Revised 11 November 2026: placed in the thread (line below); the word “motion” replaced in two places; a note on the two uses of “fold” added to the glossary. A “What is claimed” table added.</p>
 <p class="threadline" style="font:15px/1.5 Helvetica,Arial,sans-serif;color:#666;margin:0 0 22px;padding:6px 0;border-top:1px solid #ddd;border-bottom:1px solid #ddd">The mirror thread · plate 7 of 12 · previous: <a href="the-third-mirror-v1.html">The third mirror</a> · next: <a href="the-three-pairs-v2.html">Three pairs</a> · <a href="the-thread.html">index</a></p>
 
 <p>Seven diagrams, one map. The map is squaring, <i>f</i> ↦ <i>f</i><sup>2</sup>, on the plane. Diagram 1 shows what squaring does to four points. Diagram 2 shows the three planes that a single question — what squares to −1, to 0, to +1? — generates, each with its unit locus and its null locus. Diagram 3 shows squaring and the principal root as mirror images under the one-to-one / onto distinction. Diagram 4 shows how restricting to one half of the plane repairs both defects at once. Diagram 5 shows the seam: the edge of that half, where the root is forced to jump. Diagram 6 shows the three generators of diagram 2 as maps of their planes, so that "squares to" reads as "done twice gives". Diagram 7 is interactive: the plan and elevation of the two layers of roots, with w driven once or twice around 0. A glossary of every term used follows; drawing words and mathematical words are kept apart.</p>
@@ -372,6 +376,20 @@ else{msg.textContent=near?'at the seam the rule jumps: √w flips to the other c
 th.oninput=draw;setMode('follow');
 })();
 </script>
+
+<h2>What is claimed</h2>
+<p class="note">Each statement of this plate, with its price. “Standard” means the statement is in the textbooks; “not proved here” means the plate shows it and does not argue it.</p>
+<table class="claims">
+<tr><th>Statement</th><th>Price</th></tr>
+<tr><td><i>f</i> and −<i>f</i> have the same square. Squaring is two-to-one, with the one exception 0.</td><td>Theorem (elementary). Diagram 1.</td></tr>
+<tr><td>The three planes of numbers <i>x</i> + <i>y</i>·<i>g</i>, with <i>g</i>² = −1, 0, +1; their forms, unit loci and null loci as drawn.</td><td>Definitions, with elementary consequences. Diagram 2.</td></tr>
+<tr><td>On the whole plane, squaring is onto and not one-to-one; the principal root is one-to-one and not onto. Restricted to one half of the plane, the two are exact inverses.</td><td>Theorem (standard). Diagrams 3 and 4. These are statements about the Euclidean plane of numbers only.</td></tr>
+<tr><td>No rule chooses a root continuously all the way round 0. Every rule has a seam; a different rule only moves it.</td><td>Theorem (standard). Diagrams 5 and 7 show it; the angle-halving argument in the text is the reason. Euclidean plane only.</td></tr>
+<tr><td>Multiplying by <i>i</i> is a quarter-turn, by ε a collapse onto the ε-axis, by <i>j</i> a reflection in the diagonal. Done twice they give a half-turn, nothing left, and every point back.</td><td>Theorem (elementary). Diagram 6, with the one line of algebra under it.</td></tr>
+<tr><td>In each plane the numbers with no reciprocal are exactly the null locus.</td><td>Theorem. Argued under diagram 6.</td></tr>
+<tr><td>“One congruence, two readings”: the square is the one value, the two roots the two readings.</td><td>A use of words, recorded in the glossary; not a claim.</td></tr>
+<tr><td>What the null locus is, seen as directions.</td><td>Not on this page. Plate 10, the absolute.</td></tr>
+</table>
 
 <h2>Glossary</h2>
 <p class="note">Drawing words and mathematical words are kept apart. Where a word has both senses, both are given. Terms that clash with a standard usage say so.</p>

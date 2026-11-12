@@ -37,13 +37,17 @@
   .note{font-size:15px;color:var(--muted);}
   code{font-family:Menlo,Consolas,monospace;font-size:14px;background:#f1efe9;padding:0 4px;border-radius:3px;}
   .mono{font-family:Menlo,Consolas,monospace;font-size:14px;}
+
+  table.claims{border-collapse:collapse;width:100%;font:15px/1.45 Helvetica,Arial,sans-serif;margin:10px 0;}
+  table.claims th,table.claims td{text-align:left;padding:6px 8px;border-bottom:1px solid #ddd;vertical-align:top;letter-spacing:0;text-transform:none;}
+  table.claims th{font-weight:bold;color:#666;font-size:15px;}
 </style>
 </head>
 <body>
 <main>
 
 <h1>Compose, Multiply, Sign</h1>
-<p class="byline">Five diagrams, one per claim, on how the sign of a congruence works. Revised 11 November 2026: placed in the thread (line below); wording of “mirror” and a note on notation brought into line with the later plates; marked optional.</p>
+<p class="byline">Five diagrams, one per claim, on how the sign of a congruence works. Revised 11 November 2026: placed in the thread (line below); wording of “mirror” and a note on notation brought into line with the later plates; marked optional. A “What is claimed” table added.</p>
 <p class="threadline" style="font:15px/1.5 Helvetica,Arial,sans-serif;color:#666;margin:0 0 22px;padding:6px 0;border-top:1px solid #ddd;border-bottom:1px solid #ddd">The mirror thread · plate 2 of 12, optional · previous: <a href="mirrors.html">One Generator</a> · next: <a href="the-pair-v1.html">The pair</a> · <a href="the-thread.html">index</a></p>
 
 <p class="note"><b>Optional plate.</b> Plate 1, step 2, states the result that the sign of a congruence is the parity of its mirror count; the thread can be followed from plate 1 straight to plate 3. This plate argues the result. Diagrams 1 and 2 repeat what plates 1 and 3 show. Diagrams 3, 4 and 5 are found nowhere else in the thread: the determinant as a witness that does not depend on the recipe of mirrors; the sign of a composition as the product of the signs, for any two congruences; and the absence of any path between the two signs.</p>
@@ -136,6 +140,17 @@
   <div class="key"><span style="color:var(--figure)">figure</span><span style="color:var(--image)">image at t</span><span style="color:var(--mirror)">mirror line</span></div>
   <figcaption>Diagram 5. Three continuous paths, each driven by <i>t</i>. <i>Rotations</i>: from the identity to the half-turn; every map on the path is a congruence and the sign lamp stays at +1. <i>Mirrors</i>: the mirror line slides and turns; every map on the path is a congruence and the lamp stays at −1. Neither path crosses. <i>Morph</i>: each vertex moves in a straight line from the figure to its mirror image; this does reach the mirror image, but in between the short bar of the L shrinks to zero and the figure collapses to a segment. The length readout shows the distortion. Those intermediate maps are not congruences, so they have no sign. The lamp has two positions and no needle.</figcaption>
 </figure>
+
+<h2>What is claimed</h2>
+<p class="note">Each statement of this plate, with its price. “Standard” means the statement is in the textbooks; “not proved here” means the plate shows it and does not argue it.</p>
+<table class="claims">
+<tr><th>Statement</th><th>Price</th></tr>
+<tr><td>Composing two mirrors in the two possible orders gives rotations in opposite senses; composition is not commutative.</td><td>Theorem. Diagram 1 shows it; the reason is on plate 3, item 3.</td></tr>
+<tr><td>Attach −1 to each mirror. The hand of the final image is reversed exactly when the product of the attached numbers is −1.</td><td>Theorem. Diagram 2 reads the hand from the drawn image for one to five mirrors; it is not proved here for every arrangement.</td></tr>
+<tr><td>The sign belongs to the map and not to the recipe: every way of composing a given congruence from mirrors uses the same parity. The determinant of the linear part, which depends on the map alone, equals (−1) to the power of the count.</td><td>Theorem (standard). Diagram 3 recomputes the determinant from the image for the recipes it offers; not proved here in general.</td></tr>
+<tr><td>sign(<i>BA</i>) = sign(<i>B</i>) · sign(<i>A</i>) for any two congruences.</td><td>Theorem (standard). Diagram 4 checks it from the drawing for every pair chosen from its five maps; not proved here in general.</td></tr>
+<tr><td>No continuous path of congruences leads from a congruence of sign +1 to one of sign −1.</td><td>Theorem (standard). Diagram 5 shows two paths that stay on one side and one path that crosses only by leaving the congruences; three examples, not a proof.</td></tr>
+</table>
 
 <p class="note">Summary: congruences compose; signs multiply; the sign of a composition is the product of the signs; the sign is a property of the map and not of its recipe; and because a sign is one of two numbers, it cannot drift.</p>
 
