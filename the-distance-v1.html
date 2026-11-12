@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The distance — a parallel pair as the limit of a crossing pair (v1)</title>
+<style>
+  :root { --ink:#222; --mute:#666; --rule:#bbb; --B:#B8321F; }
+  html,body { margin:0; background:#fbfaf7; color:var(--ink); font:18px/1.6 Georgia, "Times New Roman", serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 20px 80px; }
+  h1 { font-size: 30px; font-weight: normal; margin: 0 0 4px; }
+  h2 { font-size: 22px; font-weight: normal; margin: 48px 0 8px; border-top: 1px solid var(--rule); padding-top: 18px; }
+  h3 { font-size: 18px; font-weight: bold; margin: 26px 0 4px; }
+  p.byline { color: var(--mute); margin: 0 0 24px; font-size: 16px; }
+  figure { margin: 12px 0 8px; }
+  svg { width: 100%; height: auto; display: block; background:#fff; border:1px solid #ddd; box-sizing:border-box; }
+  figcaption { font-size: 16px; color: var(--mute); margin-top: 6px; }
+  svg text { font: 15px Helvetica, Arial, sans-serif; fill: var(--ink); }
+  svg text.s { font-size: 14px; fill: var(--mute); }
+  svg text.i { font-style: italic; font-size: 17px; }
+  dl { margin: 0; } dt { font-weight: bold; margin-top: 14px; } dd { margin: 2px 0 0 0; }
+  .note { font-size: 16px; color: var(--mute); }
+  .controls { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin:10px 0; font: 15px Helvetica, Arial, sans-serif; }
+  .controls .s { color: var(--mute); min-width: 8.5em; }
+  .controls .s.ik { color:#222; } .controls .s.bb { color: var(--B); }
+  .controls .v { color: var(--mute); min-width: 4em; text-align:right; font-variant-numeric: tabular-nums; }
+  button { font: 15px Helvetica, Arial, sans-serif; padding: 8px 14px; border: 1px solid #999; border-radius: 8px; background: #fff; color: var(--ink); cursor: pointer; }
+  button.on { background: #ece9df; border-color:#555; }
+  input[type=range] { min-width: 180px; flex:1; }
+  table { border-collapse: collapse; width: 100%; font: 15px/1.45 Helvetica, Arial, sans-serif; margin: 10px 0; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #ddd; vertical-align: top; }
+  th { font-weight: bold; color: var(--mute); }
+  td.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .msg { font: 15px/1.5 Helvetica, Arial, sans-serif; color: var(--mute); min-height: 4.6em; margin: 6px 0; }
+  .eq { font-style: italic; white-space: nowrap; }
+  p.c { text-align:center; }
+</style>
+</head>
+<body>
+<main>
+<h1>The distance</h1>
+<p class="byline">A parallel pair as the limit of a crossing pair. Three planes; mirror lines that do not pass through 0. Version 1, 12 November 2026.</p>
+<p class="threadline" style="font:15px/1.5 Helvetica,Arial,sans-serif;color:#666;margin:0 0 22px;padding:6px 0;border-top:1px solid #ddd;border-bottom:1px solid #ddd">The mirror thread · plate 13 of 13 · previous: <a href="the-measure-v1.html">The measure</a> · <a href="the-thread.html">index</a></p>
+
+<p>Plates 8 to 12 kept every mirror line through the point 0. That left two things out. A pair of mirror lines may cross at some other point. And a pair may not cross at all: the parallel pair of plate 4, whose measure is a distance, <i>d</i>. The measure plate read the measure of a crossing pair as a cross-ratio on a horizon, and said nothing of distance.</p>
+
+<p>This plate supplies both. Section 1 moves the crossing point away from 0 and finds that nothing changes. Section 2 sends the crossing point away without limit and watches the crossing pair become a parallel pair. Section 3 looks at the same thing on one line, and finds the parabolic case of the measure plate there, in all three planes. Section 4 follows the product of the two mirrors. Section 5 says where the unit of length comes in.</p>
+
+<h2>1. A pair that crosses away from 0</h2>
+
+<p>Let <i>A</i> and <i>B</i> be two mirror lines that cross at a point <i>O</i>, which need not be 0. Draw through 0 the line parallel to <i>A</i> and the line parallel to <i>B</i>. Parallel lines have one direction, and a reading belongs to a direction (absolute plate, section 1). So the readings <i>t</i><sub>A</sub> and <i>t</i><sub>B</sub> are those of the two parallels through 0, the cross-ratio <i>R</i> of the measure plate is formed from them as before, and the measure from <i>A</i> to <i>B</i> follows by that plate's rule. <b>The measure of a crossing pair belongs to the two directions. The crossing point has no part in it.</b></p>
+
+<p>There is a second way to the same number, which does not go through 0. The lines through <i>O</i> can be read on the horizon directly: each crosses it somewhere. Take the four lines through <i>O</i> that matter, <i>A</i>, <i>B</i> and the two self-paired lines, and take the four points where they cross the horizon. In the Minkowski plane all four are on the page. Their cross-ratio is <i>R</i> again. The reason is the involution plate's: four lines through one point cut every line that crosses them in four points with one and the same cross-ratio.</p>
+
+<p>In Figure 1 the slider moves <i>O</i>. The directions of <i>A</i> and <i>B</i> are fixed. The ledger works out <i>R</i> both ways.</p>
+
+<div class="controls">
+  <button id="k0">g² = −1 · Euclidean</button><button id="k1">g² = 0 · parabolic</button><button id="k2">g² = +1 · Minkowski</button>
+</div>
+<div class="controls"><span class="s ik">position of <i>O</i></span><input type="range" id="sO" min="0" max="200" value="100"><span class="v" id="vO"></span></div>
+<figure>
+<svg id="fig1" viewBox="0 0 720 380" role="img" aria-label="Figure 1: two lines A and B crossing at a point O away from 0, their parallels through 0, and the readings on the horizon"></svg>
+<figcaption>Figure 1. Colours as on the three-pairs plate (purple for the Euclidean plane, grey for the parabolic, green for the Minkowski). Dark grey line: the horizon, one unit above 0. Heavy black line: <i>A</i>. Heavy red-brown line: <i>B</i>. Small filled black dot <i>O</i>: where they cross. Thin dotted lines through 0, black and red-brown: the parallels to <i>A</i> and <i>B</i>. Small filled dots on the horizon, black and red-brown: <i>T</i><sub>A</sub> and <i>T</i><sub>B</sub>, where the parallels cross it. Small ringed dots on the horizon, black and red-brown: where <i>A</i> and <i>B</i> themselves cross it. Minkowski plane only: dashed green lines through <i>O</i> are the two self-paired lines through <i>O</i>, with larger ringed green dots where they cross the horizon. Parabolic plane only: the dashed grey line through <i>O</i> is the one self-paired line through <i>O</i>; it is parallel to the ε-axis and crosses the horizon at one ringed grey dot.</figcaption>
+</figure>
+<table id="led1"></table>
+<div class="msg" id="msg1"></div>
+
+<h2>2. Sending the crossing point away</h2>
+
+<p>Now fix two things: a line ℓ, and the two points of ℓ where <i>A</i> and <i>B</i> cross it. Call those points <i>H</i><sub>A</sub> and <i>H</i><sub>B</sub>. Then move <i>O</i> away from ℓ. The lines <i>A</i> and <i>B</i> must turn to keep passing through <i>H</i><sub>A</sub> and <i>H</i><sub>B</sub>, and the further <i>O</i> goes, the more nearly they agree in direction. With <i>O</i> gone altogether they are a parallel pair.</p>
+
+<p>For the figure, ℓ is the axis through 0 that carries <i>g</i> (the <i>i</i>-axis, ε-axis or <i>j</i>-axis), drawn upright. The point <i>O</i> is on the 1-axis, to the left of 0, at the distance ρ. The points <i>H</i><sub>A</sub> and <i>H</i><sub>B</sub> are at the heights <i>h</i><sub>A</sub> = 0.6 and <i>h</i><sub>B</sub> = 1.8 on ℓ. This choice is made so that ℓ lies in the across direction of the parallel pair that is being approached, in all three planes: the across direction of the 1-axis is the axis that carries <i>g</i>.</p>
+
+<p>The line <i>A</i> rises by <i>h</i><sub>A</sub> over the run ρ, so its slope is <span class="eq">s<sub>A</sub> = h<sub>A</sub> ÷ ρ</span>, and its reading is one over that (the slope and the reading of one line multiply to 1). The same for <i>B</i>. Write φ for the measure from <i>A</i> to <i>B</i>, found by the rule of the measure plate. Write <i>d</i> for the separation of the parallel pair that is being approached: <span class="eq">d = h<sub>B</sub> − h<sub>A</sub></span>, the length of the segment from <i>H</i><sub>A</sub> to <i>H</i><sub>B</sub>, here 1.2.</p>
+
+<p>As ρ grows, φ shrinks toward nothing. But the product ρ × φ does not: <b>ρ × φ comes closer and closer to <i>d</i></b>. In the parabolic plane it is equal to <i>d</i> at every ρ.</p>
+
+<div class="controls"><span class="s ik">ρ: distance of <i>O</i> from ℓ</span><input type="range" id="sR" min="0" max="200" value="0"><span class="v" id="vR"></span></div>
+<figure>
+<svg id="fig2" viewBox="0 0 720 524" role="img" aria-label="Figure 2: the lines A and B through O, the cutting line, the arc about O between A and B, and a probe point with its image under the two mirrors"></svg>
+<figcaption>Figure 2. Faint grey line: the 1-axis. Dark grey upright line: ℓ. Small black tick on ℓ: 0. Heavy black line: <i>A</i>. Heavy red-brown line: <i>B</i>. Small filled black dot <i>O</i>: where they cross, when it is on the page. Small filled dots on ℓ, black and red-brown: <i>H</i><sub>A</sub> and <i>H</i><sub>B</sub>. Thin dotted level lines through them, black and red-brown: the parallel pair that is being approached. Heavy black piece of ℓ: the segment from <i>H</i><sub>A</sub> to <i>H</i><sub>B</sub>, of length <i>d</i>. Heavy curve in the plane's colour, from <i>A</i> to <i>B</i>: the arc about <i>O</i> that passes through 0 (section 2). Minkowski plane only: dashed green lines through <i>O</i> are the two self-paired lines through <i>O</i>, with larger ringed green dots <i>N</i><sub>+</sub> and <i>N</i><sub>−</sub> where they cross ℓ, when those are on the page. Parabolic plane only: the dashed grey upright line through <i>O</i> is the one self-paired line through <i>O</i>; it is parallel to ℓ. Filled black dot <i>X</i>: a probe point. Ringed black dot <i>X″</i>: the probe after the mirror with line <i>A</i> and then the mirror with line <i>B</i>. Small grey cross: the place where the parallel pair would put the probe, straight above <i>X</i> at the height 2 × <i>d</i>.</figcaption>
+</figure>
+<table id="led2"></table>
+<div class="msg" id="msg2"></div>
+
+<h3>Why</h3>
+<p><b>Euclidean.</b> The measure is the angle φ at <i>O</i>, in radians. Draw the circle about <i>O</i> through 0; its radius is ρ. The piece of it between <i>A</i> and <i>B</i> has the length ρ × φ: that is what a radian is. The segment of ℓ from <i>H</i><sub>A</sub> to <i>H</i><sub>B</sub> has the length <i>d</i>. As ρ grows the circle flattens against ℓ, the arc lies down on the segment, and the two lengths come together. In numbers, <span class="eq">φ = arctan(h<sub>B</sub> ÷ ρ) − arctan(h<sub>A</sub> ÷ ρ)</span>, and the arctangent of a small number is nearly that number.</p>
+<p><b>Parabolic.</b> The measure is the difference of slopes (three-pairs plate): <span class="eq">φ = h<sub>B</sub> ÷ ρ − h<sub>A</sub> ÷ ρ = d ÷ ρ</span>. So <span class="eq">ρ × φ = d</span>, with nothing left over, at every ρ. The curve that stands in for the circle about <i>O</i> through 0 is, in this plane, an upright line through 0: it is ℓ. The arc and the segment are the same piece of the page.</p>
+<p><b>Minkowski.</b> The measure is <span class="eq">φ = artanh(h<sub>B</sub> ÷ ρ) − artanh(h<sub>A</sub> ÷ ρ)</span>, by the rule of the measure plate and the standard fact used there. The inverse hyperbolic tangent of a small number is nearly that number, so ρ × φ comes to <i>d</i> as before. The curve that stands in for the circle is one piece of a hyperbola about <i>O</i> through 0; it bends away from ℓ to the other side, and flattens against it as ρ grows.</p>
+<p>How close: in the Euclidean and Minkowski planes, ρ × φ differs from <i>d</i> by less than <span class="eq">(|h<sub>A</sub>|³ + |h<sub>B</sub>|³) ÷ ρ²</span> once ρ is at least three times the larger height. The check script tests that bound; it is not proved here.</p>
+
+<h2>3. The same thing on one line</h2>
+
+<p>The line ℓ can be used as the horizon was used. It is a line on which the lines through a point are read: the point is <i>O</i>, the line stands at the distance ρ in place of 1, and it is upright in place of level. The four lines through <i>O</i> that matter cross ℓ at four heights:</p>
+<table>
+<tr><th>Line through <i>O</i></th><th>Height at which it crosses ℓ</th></tr>
+<tr><td><i>A</i></td><td class="eq">h<sub>A</sub></td></tr>
+<tr><td><i>B</i></td><td class="eq">h<sub>B</sub></td></tr>
+<tr><td>the two self-paired lines</td><td><span class="eq">+ρ ÷ γ</span> and <span class="eq">−ρ ÷ γ</span></td></tr>
+</table>
+<p>In the Minkowski plane γ is 1, and the two self-paired lines cross ℓ at the heights +ρ and −ρ: the points <i>N</i><sub>+</sub> and <i>N</i><sub>−</sub> of Figure 2. In the Euclidean plane γ is <i>i</i>, the two heights are not ordinary numbers, and nothing is drawn; the arithmetic is the same. In the parabolic plane the one self-paired line through <i>O</i> is parallel to ℓ and does not cross it at all.</p>
+
+<p>By the reason given in section 1, the cross-ratio of the four heights is <i>R</i>:</p>
+<p class="c eq">R = ((h<sub>A</sub> − ρ ÷ γ) × (h<sub>B</sub> + ρ ÷ γ)) ÷ ((h<sub>A</sub> + ρ ÷ γ) × (h<sub>B</sub> − ρ ÷ γ)).</p>
+
+<p>Now let ρ grow, with <i>h</i><sub>A</sub> and <i>h</i><sub>B</sub> fixed. The points <i>N</i><sub>+</sub> and <i>N</i><sub>−</sub> leave the page, one upward and one downward. A line has one point at infinity, not two (involution plate: a point at infinity is a direction, and ℓ has one direction). So the two self-paired points of ℓ are heading for the same point. When they are there, ℓ carries a pairing with a single self-paired point, counted twice. <b>That is the parabolic pairing of the absolute plate, and it has arrived on ℓ whatever the plane.</b></p>
+
+<p>The measure plate has already dealt with that case. With the two self-paired points together, <i>R</i> is 1 and holds nothing; what survives is the last trace of <i>R</i> as they close, and it is a difference. Here the algebra is the same single line. Subtract 1 from the formula for <i>R</i>, multiply out the top, and multiply by ρ ÷ (2γ):</p>
+<p class="c eq">ρ × (R − 1) ÷ (2γ) = (h<sub>B</sub> − h<sub>A</sub>) × ρ² ÷ ((ρ + γ × h<sub>A</sub>) × (ρ − γ × h<sub>B</sub>)).</p>
+<p>As ρ grows, the fraction on the right comes to 1, and what is left is <span class="eq">h<sub>B</sub> − h<sub>A</sub> = d</span>.</p>
+
+<p>The two limits are one limit. Read each point of ℓ by one over its height. Then <i>H</i><sub>A</sub> and <i>H</i><sub>B</sub> have the readings <span class="eq">1 ÷ h<sub>A</sub></span> and <span class="eq">1 ÷ h<sub>B</sub></span>, the two self-paired points have the readings <span class="eq">+γ ÷ ρ</span> and <span class="eq">−γ ÷ ρ</span>, and the formula for <i>R</i> above becomes the formula of the measure plate, letter for letter, with γ ÷ ρ in place of γ. On the measure plate the two self-paired readings closed on 0 because γ shrank. Here they close on 0 because ρ grows. The measure that survives there was <span class="eq">1 ÷ t<sub>B</sub> − 1 ÷ t<sub>A</sub></span>; here that is <span class="eq">h<sub>B</sub> − h<sub>A</sub></span>.</p>
+
+<p>So a distance is a measure of the parabolic kind, in every one of the three planes. The planes differ in how the lines through a point are paired: three kinds. They do not differ in how the points along a mirror's across line are measured: one kind.</p>
+
+<h2>4. The product</h2>
+
+<p>The product “<i>A</i> then <i>B</i>” of a crossing pair keeps <i>O</i> in place and turns the plane about it through twice the measure, 2 × φ (plates 3 and 8; a turn in the Euclidean plane, and the congruence that takes its place in the other two). The product of a parallel pair is a slide through twice the separation, 2 × <i>d</i>, in the across direction (plate 4).</p>
+
+<p>Figure 2 shows the one becoming the other. The probe <i>X</i> is carried by the two mirrors to <i>X″</i>. The grey cross marks where the slide of the parallel pair would put it. At small ρ the two are well apart. As ρ grows, <i>X″</i> settles onto the cross. A slide is a turn about a point that has gone to infinity.</p>
+
+<p>In the parabolic plane <i>X″</i> is straight above <i>X</i> at every ρ, at the height <span class="eq">2 × φ × (the distance of <i>X</i> from the upright line through <i>O</i>)</span>. That distance is ρ plus the fixed distance of <i>X</i> from ℓ, so the height comes to 2 × <i>d</i> as ρ grows.</p>
+
+<h2>5. Where the unit comes in</h2>
+
+<p>The measure φ of a crossing pair is a plain number. It needs no unit of length: it is read from a cross-ratio. A distance <i>d</i> needs a unit. In section 2 the unit arrives with ρ: <i>d</i> is what ρ × φ comes to, and ρ is a length, measured along the 1-axis.</p>
+
+<p>So the limit does not make a length out of nothing. It takes a length along one line and yields a length along another line, in the across direction. What connects the two is φ, and φ depends on the decree. Change the decree, keep the same lines on the page and the same ρ, and <i>d</i> comes out differently. Lengths along one line can be compared with no decree at all, by ratios. Lengths along two different lines cannot. The decree is what compares them.</p>
+
+<p class="note">The document “A Projective Plane plus Signs” holds that a construction needs one ruler reading and no more, and that it should be named. On this plate it is ρ.</p>
+
+<p>One thing more is recorded and not pursued. In the Minkowski plane the form of the segment from <i>H</i><sub>A</sub> to <i>H</i><sub>B</sub> is −<i>d</i>², not <i>d</i>²: ℓ is steeper than the diagonals. This plate takes <i>d</i> as the plain length of the segment on the page and says nothing about the sign of its form.</p>
+
+<h2>6. What is claimed</h2>
+<table>
+<tr><th>Statement</th><th>Price</th></tr>
+<tr><td>The measure of a crossing pair is the same wherever the crossing point is: it is found from the readings of the two parallels through 0.</td><td>Theorem, given that a reading belongs to a direction (absolute plate).</td></tr>
+<tr><td>The four lines <i>A</i>, <i>B</i> and the two self-paired lines through <i>O</i> cut the horizon, and any other line that crosses all four, in four points whose cross-ratio is <i>R</i>.</td><td>Theorem (standard; stated on the involution plate). Checked numerically in the Minkowski plane and with γ between 0 and 1, for the horizon and for upright lines.</td></tr>
+<tr><td>With <i>A</i> and <i>B</i> held at the heights <i>h</i><sub>A</sub> and <i>h</i><sub>B</sub> on ℓ and <i>O</i> at the distance ρ: ρ × φ comes to <i>d</i> as ρ grows.</td><td>Theorem. Euclidean and Minkowski: it rests on the standard fact that the arctangent, and the inverse hyperbolic tangent, of a small number is nearly that number; used, not proved. Parabolic: exact, by one division. Checked numerically.</td></tr>
+<tr><td>The difference between ρ × φ and <i>d</i> is less than <span class="eq">(|h<sub>A</sub>|³ + |h<sub>B</sub>|³) ÷ ρ²</span>, for ρ at least three times the larger height.</td><td>Checked numerically. Not proved here.</td></tr>
+<tr><td>Euclidean plane: ρ × φ is the length of the arc of the circle about <i>O</i> through 0, between <i>A</i> and <i>B</i>.</td><td>Theorem (the definition of the radian).</td></tr>
+<tr><td>The cross-ratio of the four heights on ℓ is <i>R</i>, and <span class="eq">ρ × (R − 1) ÷ (2γ)</span> equals <span class="eq">d × ρ² ÷ ((ρ + γ × h<sub>A</sub>) × (ρ − γ × h<sub>B</sub>))</span>, which comes to <i>d</i> as ρ grows.</td><td>Theorem. One line of algebra. Checked numerically for γ = 1 and for γ between 0 and 1. For the Euclidean plane the same algebra holds with γ = <i>i</i>; that case is not drawn and was not run numerically.</td></tr>
+<tr><td>With each point of ℓ read by one over its height, the four readings are those of the measure plate with γ ÷ ρ in place of γ.</td><td>Theorem. Substitution. Checked numerically.</td></tr>
+<tr><td>“A distance is a measure of the parabolic kind, in every one of the three planes.”</td><td>Theorem, as a summary of the two rows above, for a distance taken along the across direction of a mirror line that is level on the page. For other mirror lines it is standard (Cayley, Klein) and not shown here.</td></tr>
+<tr><td>The mirror with a line that does not pass through 0 undoes itself, fixes each point of its line, keeps the plane's form, and moves each point along the across direction with the midpoint on the line.</td><td>Checked numerically, in the three planes, for lines of slope under 1 (Minkowski: flatter than the diagonals). It is the three-pairs rule with the point 0 moved; not proved again here.</td></tr>
+<tr><td>The product “<i>A</i> then <i>B</i>” of the crossing pair comes to the slide through 2 × <i>d</i> as ρ grows: <i>X″</i> lies within 40 ÷ ρ of the grey cross.</td><td>Checked numerically for the probe drawn, in the three planes. Not proved here.</td></tr>
+<tr><td>The product of the parallel pair at the heights <i>h</i><sub>A</sub> and <i>h</i><sub>B</sub> is the slide through 2 × <i>d</i>, in each of the three planes.</td><td>Theorem (plate 4 in the Euclidean plane). Checked numerically in the three planes.</td></tr>
+<tr><td>“A slide is a turn about a point that has gone to infinity.”</td><td>Observation.</td></tr>
+<tr><td>“The decree is what compares lengths along two different lines.”</td><td>Observation.</td></tr>
+<tr><td>Minkowski plane: the meaning of the sign of the form of the segment on ℓ.</td><td>Not treated.</td></tr>
+<tr><td>Minkowski lines steeper than the diagonals; a parallel pair whose lines are not level on the page; the length of a curve in the parabolic and Minkowski planes.</td><td>Not treated.</td></tr>
+</table>
+
+<h2>7. Glossary</h2>
+<h3>Mathematical words</h3>
+<dl>
+<dt>Reading, horizon, self-paired, across direction</dt><dd>As on the absolute plate.</dd>
+<dt>γ, <i>R</i>, measure from <i>A</i> to <i>B</i></dt><dd>As on the measure plate.</dd>
+<dt><i>O</i></dt><dd>The point where <i>A</i> and <i>B</i> cross. As on plates 3, 4 and 6. It is a point of the page and is not the number 0.</dd>
+<dt>Parallel</dt><dd>Two lines are parallel when they have one direction, which is to say when they do not cross.</dd>
+<dt>Slope, <i>s</i></dt><dd>Of a line: its rise divided by its run, <span class="eq">y ÷ x</span> for a step along it. The reading of the same direction is <span class="eq">x ÷ y</span>, so slope × reading = 1.</dd>
+<dt>φ</dt><dd>The measure from <i>A</i> to <i>B</i>, by the rule of the measure plate. A plain number. Euclidean: the angle, in radians on this plate (the ledger also shows degrees). Parabolic: the difference of slopes. Minkowski: half the logarithm of <i>R</i>.</dd>
+<dt>ρ</dt><dd>The distance of <i>O</i> from ℓ, measured along the 1-axis. A length. This plate's own letter.</dd>
+<dt>ℓ</dt><dd>The line on which <i>A</i> and <i>B</i> are held: the axis through 0 that carries <i>g</i>. This plate's own letter.</dd>
+<dt><i>h</i><sub>A</sub>, <i>h</i><sub>B</sub></dt><dd>The heights, above 0, at which <i>A</i> and <i>B</i> cross ℓ. Numbers.</dd>
+<dt><i>d</i></dt><dd>The separation of a parallel pair, as on plate 4. Here <span class="eq">d = h<sub>B</sub> − h<sub>A</sub></span>.</dd>
+<dt>Radian</dt><dd>The unit of angle for which an arc of a circle has the length radius × angle. A full turn is about 6.283 radians; 1 radian is about 57.3°.</dd>
+<dt>arctan, artanh</dt><dd>The rules that give the Euclidean and the Minkowski measure of a line from its slope (measure plate, in other words: the angle of the unit point, and the logarithm of its λ). For a small slope each gives back nearly the slope itself.</dd>
+<dt>Turn, slide</dt><dd>The product of a crossing pair; the product of a parallel pair. Each is a congruence made of two mirrors.</dd>
+<dt>Comes to</dt><dd>“<i>u</i> comes to <i>v</i> as ρ grows” means: the difference between <i>u</i> and <i>v</i> can be made as small as wanted by taking ρ large enough.</dd>
+</dl>
+<h3>Drawing words</h3>
+<dl>
+<dt><i>H</i><sub>A</sub>, <i>H</i><sub>B</sub></dt><dd>The points of ℓ where <i>A</i> and <i>B</i> cross it.</dd>
+<dt><i>N</i><sub>+</sub>, <i>N</i><sub>−</sub></dt><dd>Minkowski plane: the points of ℓ where the two self-paired lines through <i>O</i> cross it.</dd>
+<dt><i>T</i><sub>A</sub>, <i>T</i><sub>B</sub></dt><dd>The points of the horizon where the parallels to <i>A</i> and <i>B</i> through 0 cross it.</dd>
+<dt><i>X</i>, <i>X″</i></dt><dd>A probe point, and the same point after two mirrors.</dd>
+<dt>Arc</dt><dd>A piece of a curve between two of its points. In Figure 2: the piece, between <i>A</i> and <i>B</i>, of the curve of all points whose form from <i>O</i> is ρ², on the side that passes through 0. A circle, an upright line, or one piece of a hyperbola.</dd>
+<dt>Level, upright</dt><dd>Parallel to the bottom edge of the page; parallel to its side edge.</dd>
+<dt>Filled dot, ringed dot, dashed line</dt><dd>As on the absolute plate.</dd>
+</dl>
+
+<p class="note">Checks: the mathematics in this file is run by a separate script before the figure is built. It tests each row of the table in section 6 that is marked as checked, over the slider ranges and at random, and that every drawn point named in the captions is where the formulas put it.</p>
+</main>
+
+<script id="math">
+/*MATH-BEGIN*/
+var G2=[-1,0,1],DEG=Math.PI/180;
+function form(k,v){return v[0]*v[0]-G2[k]*v[1]*v[1];}
+function bil(k,u,v){return u[0]*v[0]-G2[k]*u[1]*v[1];}
+/* the mirror whose line passes through the point p in the direction b (three-pairs plate, moved from 0 to p) */
+function mirror(k,p,b,z){var v=[z[0]-p[0],z[1]-p[1]],c=2*bil(k,v,b)/form(k,b);return [p[0]+c*b[0]-v[0],p[1]+c*b[1]-v[1]];}
+/* cross-ratio (A,B;C,D) of four ordinary positions on a line (involution plate) */
+function cr(a,b,c,d){return ((c-a)*(d-b))/((d-a)*(c-b));}
+function cmul(a,b){return [a[0]*b[0]-a[1]*b[1],a[0]*b[1]+a[1]*b[0]];}
+function cdiv(a,b){var d=b[0]*b[0]+b[1]*b[1];return [(a[0]*b[0]+a[1]*b[1])/d,(a[1]*b[0]-a[0]*b[1])/d];}
+/* reading of a slope: t = 1 / s (absolute plate: t = x / y) */
+function REuclid(tA,tB){return cdiv(cmul([tA,-1],[tB,1]),cmul([tA,1],[tB,-1]));}
+function RGamma(tA,tB,gam){return cr(tA,tB,gam,-gam);}
+/* measure of the line of slope s through any point, from the 1-axis direction (measure plate) */
+function slopeMeas(k,s){return k===0?Math.atan(s):(k===1?s:Math.atanh(s));}
+function measure(k,sA,sB){return slopeMeas(k,sB)-slopeMeas(k,sA);}
+/* point at measure m on the locus of points whose form from O is rho squared, on the piece through O + (rho, 0) */
+function arcPt(k,O,rho,m){var u=k===0?[Math.cos(m),Math.sin(m)]:(k===1?[1,m]:[Math.cosh(m),Math.sinh(m)]);return [O[0]+rho*u[0],O[1]+rho*u[1]];}
+/* where the line through O with slope s crosses the horizontal line y = c, and the vertical line x = c */
+function crossH(O,s,c){return O[0]+(c-O[1])/s;}
+function crossV(O,s,c){return O[1]+(c-O[0])*s;}
+/* Figure 1: directions of A and B in degrees; path of O */
+var F1A=28,F1B=40;
+function F1O(u){return [-0.9+1.4*u,-2.1+0.9*u];}
+/* Figure 2: heights at which A and B cross the cutting line; the probe; rho from the slider */
+var HA=0.6,HB=1.8,PROBE=[1.0,-0.6];
+function rhoOf(u){return 3*Math.pow(10,u/100);}
+/* the two mirrors of Figure 2 applied in order, A then B */
+function pairF2(k,rho,z){var O=[-rho,0];return mirror(k,O,[rho,HB],mirror(k,O,[rho,HA],z));}
+/*MATH-END*/
+</script>
+<script>
+(function(){
+var PLANE=['#534AB7','#5F5E5A','#0F6E56'],RB='#B8321F',GN=['i','ε','j'];
+function f1(v){return v.toFixed(1);}
+function n3(v){var s=v.toFixed(3);return s==='-0.000'?'0.000':s;}
+function n5(v){var s=v.toFixed(5);return s==='-0.00000'?'0.00000':s;}
+function num(z,g){return n3(z[0])+(z[1]<-0.0005?' − ':' + ')+Math.abs(z[1]).toFixed(3)+' <i>'+g+'</i>';}
+function row(a,b){return '<tr><td>'+a+'</td><td class="n">'+b+'</td></tr>';}
+function $(id){return document.getElementById(id);}
+function ring(col,w){return 'fill="#fff" stroke="'+col+'" stroke-width="'+(w||1.4)+'"';}
+var SUB='<tspan baseline-shift="sub" font-size="11" font-style="normal">';
+function G(SC,OX,OY){
+  function T(p){return [OX+SC*p[0],OY-SC*p[1]];}
+  var g={T:T};
+  g.ln=function(a,b,attr){var A=T(a),B=T(b);return '<line x1="'+f1(A[0])+'" y1="'+f1(A[1])+'" x2="'+f1(B[0])+'" y2="'+f1(B[1])+'" '+attr+'/>';};
+  g.full=function(a,d,attr){var n=Math.hypot(d[0],d[1]);if(n<1e-12)return '';var e=[d[0]/n*40,d[1]/n*40];return g.ln([a[0]-e[0],a[1]-e[1]],[a[0]+e[0],a[1]+e[1]],attr);};
+  g.ci=function(p,r,attr){var A=T(p);return '<circle cx="'+f1(A[0])+'" cy="'+f1(A[1])+'" r="'+r+'" '+attr+'/>';};
+  g.tx=function(p,dx,dy,s,cls,fill){var A=T(p);return '<text x="'+f1(A[0]+dx)+'" y="'+f1(A[1]+dy)+'"'+(cls?' class="'+cls+'"':'')+(fill?' style="fill:'+fill+'"':'')+'>'+s+'</text>';};
+  g.path=function(pts,attr){var d='';for(var i=0;i<pts.length;i++){var A=T(pts[i]);d+=(i?'L':'M')+f1(A[0])+' '+f1(A[1]);}return '<path d="'+d+'" '+attr+'/>';};
+  return g;
+}
+var k=0;
+/* ---------- Figure 1 ---------- */
+function draw1(){
+  var g=G(70,360,220),col=PLANE[k],u=+$('sO').value/200,O=F1O(u),s='';
+  var sA=Math.tan(F1A*DEG),sB=Math.tan(F1B*DEG),tA=1/sA,tB=1/sB;
+  $('vO').textContent='('+O[0].toFixed(2)+', '+O[1].toFixed(2)+')';
+  s+=g.full([0,0],[1,0],'stroke="#ddd" stroke-width="1"')+g.full([0,0],[0,1],'stroke="#ddd" stroke-width="1"');
+  s+=g.ln([-9,1],[9,1],'stroke="#555" stroke-width="1.5"')+g.tx([-4.95,1],0,-8,'horizon','s');
+  if(k===2) s+=g.full(O,[1,1],'stroke="'+col+'" stroke-width="1.2" stroke-dasharray="7 5"')+g.full(O,[1,-1],'stroke="'+col+'" stroke-width="1.2" stroke-dasharray="7 5"');
+  if(k===1) s+=g.full(O,[0,1],'stroke="'+col+'" stroke-width="1.2" stroke-dasharray="7 5"');
+  s+=g.full([0,0],[1,sA],'stroke="#222" stroke-width="1.2" stroke-dasharray="2 5"')+g.full([0,0],[1,sB],'stroke="'+RB+'" stroke-width="1.2" stroke-dasharray="2 5"');
+  s+=g.full(O,[1,sA],'stroke="#222" stroke-width="2.4"')+g.full(O,[1,sB],'stroke="'+RB+'" stroke-width="2.4"');
+  var cA=crossH(O,sA,1),cB=crossH(O,sB,1);
+  if(k===2) s+=g.ci([crossH(O,1,1),1],7.5,ring(col,1.8))+g.ci([crossH(O,-1,1),1],7.5,ring(col,1.8));
+  if(k===1) s+=g.ci([O[0],1],7.5,ring(col,1.8));
+  s+=g.ci([cA,1],4.6,ring('#222',1.5))+g.ci([cB,1],4.6,ring(RB,1.5));
+  s+=g.ci([tA,1],4.8,'fill="#222"')+g.tx([tA,1],2,-12,'T'+SUB+'A</tspan>','i');
+  s+=g.ci([tB,1],4.8,'fill="'+RB+'"')+g.tx([tB,1],2,-12,'T'+SUB+'B</tspan>','i',RB);
+  s+=g.tx([O[0]+4.3,O[1]+4.3*sA],-4,22,'A','i')+g.tx([O[0]+2.0,O[1]+2.0*sB],-22,-4,'B','i',RB);
+  s+=g.ci(O,4.4,'fill="#222"')+g.tx(O,-24,6,'O','i');
+  s+=g.ci([0,0],3,'fill="#222"')+g.tx([0,0],8,18,'0','s');
+  $('fig1').innerHTML=s;
+  var led=row('Position of <i>O</i>','('+n3(O[0])+', '+n3(O[1])+')')
+    +row('Reading of the parallel to <i>A</i> through 0: <i>t</i><sub>A</sub>',n3(tA))
+    +row('Reading of the parallel to <i>B</i> through 0: <i>t</i><sub>B</sub>',n3(tB)),m='';
+  if(k===0){
+    var R=REuclid(tA,tB);
+    led+=row('<i>R</i>, from <i>t</i><sub>A</sub>, <i>t</i><sub>B</sub>, <i>i</i>, −<i>i</i>',num(R,'i'))
+       +row('Half the angle of <i>R</i>: the measure from <i>A</i> to <i>B</i>',n3(Math.atan2(R[1],R[0])/2/DEG)+'°');
+    m='Move <i>O</i>. The two readings do not change, so <i>R</i> and the measure do not change. The second way of section 1 cannot be drawn in this plane: the self-paired lines through <i>O</i> are not on the page.';
+  } else if(k===2){
+    var R2=RGamma(tA,tB,1),p=[cA,cB,crossH(O,1,1),crossH(O,-1,1)],R3=cr(p[0],p[1],p[2],p[3]);
+    led+=row('<i>R</i>, from <i>t</i><sub>A</sub>, <i>t</i><sub>B</sub>, +1, −1',n5(R2))
+       +row('Where <i>A</i>, <i>B</i> and the two self-paired lines through <i>O</i> cross the horizon',n3(p[0])+', '+n3(p[1])+', '+n3(p[2])+', '+n3(p[3]))
+       +row('Cross-ratio of those four positions',n5(R3))
+       +row('Half the logarithm of <i>R</i>: the measure from <i>A</i> to <i>B</i>',n3(0.5*Math.log(R2)));
+    m='Move <i>O</i>. All four crossings on the horizon move, and their cross-ratio stays where it is, equal to the <i>R</i> found from the two parallels through 0.';
+  } else {
+    led+=row('<i>R</i>',n3(1))
+       +row('<span class="eq">1 ÷ t<sub>B</sub> − 1 ÷ t<sub>A</sub></span>: the measure from <i>A</i> to <i>B</i>',n3(1/tB-1/tA));
+    m='Move <i>O</i>. The readings do not change, and neither does the measure. The one self-paired line through <i>O</i> stays upright; it is parallel to the self-paired line through 0, the ε-axis.';
+  }
+  $('led1').innerHTML=led;$('msg1').innerHTML=m;
+}
+/* ---------- Figure 2 ---------- */
+function draw2(){
+  var g=G(60,470,262),col=PLANE[k],rho=rhoOf(+$('sR').value),O=[-rho,0],s='',i;
+  var XL=-7.8,YT=4.3;
+  $('vR').textContent=rho<100?rho.toFixed(2):rho.toFixed(0);
+  var sA=HA/rho,sB=HB/rho,d=HB-HA,phi=measure(k,sA,sB);
+  s+=g.full([0,0],[1,0],'stroke="#ddd" stroke-width="1"');
+  s+=g.ln([-9,HA],[9,HA],'stroke="#222" stroke-width="1.1" stroke-dasharray="2 5"')+g.ln([-9,HB],[9,HB],'stroke="'+RB+'" stroke-width="1.1" stroke-dasharray="2 5"');
+  if(k===2) s+=g.full(O,[1,1],'stroke="'+col+'" stroke-width="1.2" stroke-dasharray="7 5"')+g.full(O,[1,-1],'stroke="'+col+'" stroke-width="1.2" stroke-dasharray="7 5"');
+  if(k===1&&rho<-XL) s+=g.full(O,[0,1],'stroke="'+col+'" stroke-width="1.2" stroke-dasharray="7 5"');
+  s+=g.full([0,0],[0,1],'stroke="#555" stroke-width="1.5"')+g.tx([0,-4.05],8,0,'ℓ','i');
+  s+=g.full([0,HA],[rho,HA],'stroke="#222" stroke-width="2.4"')+g.full([0,HB],[rho,HB],'stroke="'+RB+'" stroke-width="2.4"');
+  s+=g.ln([0,HA],[0,HB],'stroke="#222" stroke-width="4"');
+  var pts=[],mA=slopeMeas(k,sA),mB=slopeMeas(k,sB);
+  for(i=0;i<=40;i++)pts.push(arcPt(k,O,rho,mA+(mB-mA)*i/40));
+  s+=g.path(pts,'fill="none" stroke="'+col+'" stroke-width="3.2" stroke-linecap="round"');
+  s+=g.tx([-6.9,HA*(rho-6.9)/rho],0,k===0?18:18,'A','i')+g.tx([-6.9,HB*(rho-6.9)/rho],0,-8,'B','i',RB);
+  if(k===2&&rho<YT) s+=g.ci([0,rho],7.5,ring(col,1.8))+g.tx([0,rho],12,5,'N'+SUB+'+</tspan>','i',col)+g.ci([0,-rho],7.5,ring(col,1.8))+g.tx([0,-rho],12,5,'N'+SUB+'−</tspan>','i',col);
+  s+=g.ln([-0.09,0],[0.09,0],'stroke="#222" stroke-width="1.6"')+g.tx([0,0],8,18,'0','s');
+  s+=g.ci([0,HA],4.8,'fill="#222"')+g.tx([0,HA],10,16,'H'+SUB+'A</tspan>','i');
+  s+=g.ci([0,HB],4.8,'fill="'+RB+'"')+g.tx([0,HB],-34,-9,'H'+SUB+'B</tspan>','i',RB);
+  if(rho<-XL) s+=g.ci(O,4.4,'fill="#222"')+g.tx(O,-6,22,'O','i');
+  var X=PROBE,X2=pairF2(k,rho,X),Y=[X[0],X[1]+2*d],on=Math.abs(X2[1])<YT&&X2[0]<4.1&&X2[0]>XL;
+  s+=g.ln([Y[0]-0.13,Y[1]],[Y[0]+0.13,Y[1]],'stroke="#888" stroke-width="1.6"')+g.ln([Y[0],Y[1]-0.13],[Y[0],Y[1]+0.13],'stroke="#888" stroke-width="1.6"');
+  if(on) s+=g.ln(X,X2,'stroke="#bbb" stroke-width="1"')+g.ci(X2,5,ring('#222',1.5))+g.tx(X2,9,-7,'X″','i');
+  s+=g.ci(X,4.4,'fill="#222"')+g.tx(X,9,16,'X','i');
+  $('fig2').innerHTML=s;
+  var led=row('ρ',n3(rho))+row('Slope of <i>A</i>: <i>h</i><sub>A</sub> ÷ ρ',n5(sA))+row('Slope of <i>B</i>: <i>h</i><sub>B</sub> ÷ ρ',n5(sB)),m='';
+  if(k===0){
+    var R=REuclid(1/sA,1/sB);
+    led+=row('<i>R</i>, from the two readings and <i>i</i>, −<i>i</i>',num(R,'i'))
+       +row('φ: half the angle of <i>R</i>, in radians',n5(Math.atan2(R[1],R[0])/2)+' ('+n3(phi/DEG)+'°)');
+    m='The purple arc is a piece of the circle about <i>O</i> through 0. Its length is ρ × φ. As ρ grows it lies down on the black segment, whose length is <i>d</i>.';
+  } else if(k===2){
+    var R2=RGamma(1/sA,1/sB,1),R3=cr(HA,HB,rho,-rho);
+    led+=row('<i>R</i>, from the two readings and +1, −1',n5(R2))
+       +row('Heights of <i>H</i><sub>A</sub>, <i>H</i><sub>B</sub>, <i>N</i><sub>+</sub>, <i>N</i><sub>−</sub> on ℓ',n3(HA)+', '+n3(HB)+', '+n3(rho)+', '+n3(-rho))
+       +row('Cross-ratio of those four heights',n5(R3))
+       +row('φ: half the logarithm of <i>R</i>',n5(0.5*Math.log(R2)))
+       +row('ρ × (<i>R</i> − 1) ÷ 2',n5(rho*(R2-1)/2));
+    m=(rho<YT?'<i>N</i><sub>+</sub> and <i>N</i><sub>−</sub> are on the page, at the heights +ρ and −ρ. Increase ρ and they leave, one upward and one downward, toward the one point at infinity of ℓ.':'<i>N</i><sub>+</sub> and <i>N</i><sub>−</sub> have left the page. <i>R</i> is close to 1; the measure is what is left of it when multiplied by ρ.')+' The green arc is a piece of a hyperbola about <i>O</i> through 0.';
+  } else {
+    led+=row('<i>R</i>',n3(1))+row('φ: the difference of the slopes',n5(phi));
+    m='The self-paired line through <i>O</i> is parallel to ℓ and never crosses it: on ℓ the pairing is parabolic already, at every ρ. The grey arc is the black segment itself, and ρ × φ equals <i>d</i> exactly.';
+  }
+  led+=row('ρ × φ',n5(rho*phi))+row('<i>d</i> = <i>h</i><sub>B</sub> − <i>h</i><sub>A</sub>',n5(d))+row('ρ × φ − <i>d</i>',n5(rho*phi-d))
+     +row('Step from <i>X</i> to <i>X″</i>, under “<i>A</i> then <i>B</i>”','('+n3(X2[0]-X[0])+', '+n3(X2[1]-X[1])+')')
+     +row('Step from <i>X</i> to the grey cross: the slide of the parallel pair','('+n3(0)+', '+n3(2*d)+')');
+  if(!on) m+=' <i>X″</i> is off the page at this setting.';
+  $('led2').innerHTML=led;$('msg2').innerHTML=m;
+}
+function draw(){draw1();draw2();}
+function setK(v){k=v;for(var i=0;i<3;i++)$('k'+i).className=i===k?'on':'';draw();}
+$('k0').onclick=function(){setK(0);};$('k1').onclick=function(){setK(1);};$('k2').onclick=function(){setK(2);};
+$('sO').oninput=draw1;$('sR').oninput=draw2;
+setK(0);
+window.__check={k:function(v){setK(v);}};
+})();
+</script>
+</body>
+</html>
