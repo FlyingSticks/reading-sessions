@@ -37,7 +37,7 @@
 <body>
 <main>
 <h1>The third mirror</h1>
-<p class="byline">When three mirrors make one. Euclidean plane only. Version 1, 11 November 2026. Revised 11 November 2026: placed in the thread (line below); lines renamed <i>A</i>, <i>B</i>, <i>C</i>, <i>D</i> and coloured as on the parallel-pair and glide plates; the probe coloured by handedness; the crossing point renamed O; the lines of section 3 renamed <i>n</i> and <i>r</i>; “involution” defined as on plate 9; the fact that a mirror undoes itself now cited from plate 1.</p>
+<p class="byline">When three mirrors make one. Euclidean plane only. Version 1, 11 November 2026. Revised 11 November 2026: placed in the thread (line below); lines renamed <i>A</i>, <i>B</i>, <i>C</i>, <i>D</i> and coloured as on the parallel-pair and glide plates; the probe coloured by handedness; the crossing point renamed O; the lines of section 3 renamed <i>n</i> and <i>r</i>; “involution” defined as on plate 9; the fact that a mirror undoes itself now cited from plate 1. Amended after an outside audit, 11 November 2026: the case of <i>A</i>, <i>B</i> parallel with <i>C</i> crossing them is now argued and checked; two rows of the dictionary are recorded as failing in the parabolic plane; the plane is stated to be measured with real numbers.</p>
 <p class="threadline" style="font:15px/1.5 Helvetica,Arial,sans-serif;color:#666;margin:0 0 22px;padding:6px 0;border-top:1px solid #ddd;border-bottom:1px solid #ddd">The mirror thread · plate 6 of 10 · previous: <a href="the-glide-v1.html">The glide</a> · next: <a href="the-fold-v4.html">The fold</a> · <a href="the-thread.html">index</a></p>
 
 <p>Two mirrors make a turn or a slide. The glide plate added a third mirror to a parallel pair and found a glide. This plate asks the question the glide plate left open: when do three mirrors make something simpler than a glide, namely one single mirror? The answer is exact, and it is the step that lets statements about points and lines be rewritten as statements about products of mirrors.</p>
@@ -79,6 +79,8 @@
 <p>In Figure 2 the lines <i>A</i> and <i>B</i> cross at the point O and stay there. The line <i>C</i> can be moved off O. The product “<i>A</i> then <i>B</i> then <i>C</i>” is odd (three mirrors), so by the glide plate it is a mirror or a glide. The figure draws its axis and measures its slide. The slide is zero when <i>C</i> passes through O, and at no other setting.</p>
 
 <p>The reason of section 1 shows where it fails. Turning the pair <i>A</i>, <i>B</i> about O can bring <i>B</i> parallel to <i>C</i>, but never onto <i>C</i>, because <i>C</i> does not pass through O. A parallel pair <i>B</i>, <i>C</i> is a slide, not nothing, and that slide is what remains.</p>
+
+<p>One case is not in Figure 2: <i>A</i> and <i>B</i> parallel, at separation <i>d</i>, and <i>C</i> crossing them. Then “<i>A</i> then <i>B</i>” is a slide by 2<i>d</i>, straight across <i>A</i> and <i>B</i> (the parallel-pair plate). The mirror with line <i>C</i> follows. The part of that slide that runs along <i>C</i> is not undone by the mirror, and it is the slide of the glide. Its length is 2<i>d</i> × cos γ, where γ is the angle between <i>C</i> and the direction straight across <i>A</i> and <i>B</i>. It is zero only when γ is 90°, that is, when <i>C</i> is parallel to <i>A</i> and <i>B</i>.</p>
 
 <div class="controls"><span class="s bl">distance of <i>C</i> from O</span><input type="range" id="s2s" min="-100" max="100" step="5" value="70"><span class="v" id="v2s"></span></div>
 <div class="controls"><span class="s bl">direction of <i>C</i></span><input type="range" id="s2g" min="0" max="180" step="1" value="110"><span class="v" id="v2g"></span></div>
@@ -128,13 +130,15 @@
 <p>The earlier plates state that every congruence of the plane is a product of at most three mirrors. The limit comes from section 1. Take four mirrors <i>A</i>, <i>B</i>, <i>C</i> and a fourth, <i>E</i>, with <i>A</i>, <i>B</i> crossing at one point and <i>C</i>, <i>E</i> crossing at another. Turn the pair <i>A</i>, <i>B</i> until <i>B</i> passes through the crossing point of <i>C</i> and <i>E</i>. Then <i>B</i>, <i>C</i>, <i>E</i> pass through one point and make a single mirror. Four mirrors have become two. The cases with parallel pairs go the same way with a slide or a different choice of pair; they are not drawn here.</p>
 
 <h2>5. What is claimed</h2>
+<p class="note">Rows 1 to 4 are statements about the ordinary Euclidean plane, with lengths measured by real numbers.</p>
 <table>
 <tr><th>Statement</th><th>Price</th></tr>
 <tr><td>Three mirrors whose lines pass through one point, or are all parallel, make a single mirror.</td><td>Theorem (standard: the three-reflections theorem). The reason is given in section 1. Checked numerically.</td></tr>
-<tr><td>In every other case three mirrors make a glide whose slide is not zero.</td><td>Theorem (standard). Section 2 gives the reason for <i>A</i>, <i>B</i> crossing; checked numerically for that case. The case of <i>A</i>, <i>B</i> parallel and <i>C</i> crossing them is not drawn.</td></tr>
+<tr><td>In every other case three mirrors make a glide whose slide is not zero.</td><td>Theorem (standard). Section 2 gives the reason for <i>A</i>, <i>B</i> crossing; checked numerically for that case. The case of <i>A</i>, <i>B</i> parallel and <i>C</i> crossing them is argued in the last paragraph of section 2 and checked by calculation (the slide is 2<i>d</i> × cos γ); it is not drawn.</td></tr>
 <tr><td>The four rows of the dictionary.</td><td>Theorems, in the Euclidean plane. Row 3 is argued in section 3 and checked numerically; row 2 rests on the pair plate.</td></tr>
 <tr><td>Four mirrors reduce to two.</td><td>Theorem (standard). Argued here for one case only.</td></tr>
-<tr><td>The dictionary holds in the parabolic and Minkowski planes.</td><td>Not claimed. Not examined on this plate.</td></tr>
+<tr><td>The dictionary in the parabolic plane.</td><td>Rows 1 and 2 fail. With the parabolic mirror of the three-pairs plate, the product of two mirrors moves each point along the ε-axis, and repeating the product doubles the move; so the product never undoes itself unless it does nothing. Hence no product of two parabolic mirrors is an involution: no two mirror lines are perpendicular, and no point is a product of two mirrors. Checked by calculation. Rows 3 and 4: not examined.</td></tr>
+<tr><td>The dictionary in the Minkowski plane.</td><td>Not claimed. Not examined on this plate.</td></tr>
 </table>
 
 <h2>6. Glossary</h2>
