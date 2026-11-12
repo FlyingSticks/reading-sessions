@@ -39,7 +39,7 @@
 <body>
 <main>
 <h1>The measure</h1>
-<p class="byline">Read on the horizon as a cross-ratio. Three planes; lines through 0. Version 1, 11 November 2026.</p>
+<p class="byline">Read on the horizon as a cross-ratio. Three planes; lines through 0. Version 1, 11 November 2026. Amended after an outside audit, 12 November 2026: the lines to which each statement applies are now named (no line without a reading, no self-paired line, and in the Minkowski plane both lines flatter than the diagonals); the parabolic limit is now proved.</p>
 <p class="threadline" style="font:15px/1.5 Helvetica,Arial,sans-serif;color:#666;margin:0 0 22px;padding:6px 0;border-top:1px solid #ddd;border-bottom:1px solid #ddd">The mirror thread · plate 12 of 12 · previous: <a href="the-root-v1.html">The root</a> · <a href="the-thread.html">index</a></p>
 
 <p>The measure of a pair of lines has been read, since the three-pairs plate, from the unit locus: twice the area of the sector between the two unit points. The absolute plate read a decree on a horizon instead, and found the mirror there with no unit locus. This plate does the same for the measure. On the horizon there are four points to hand: the readings of the two lines, and the two self-paired readings. Four points on a line have a cross-ratio. That cross-ratio holds the measure.</p>
@@ -48,12 +48,12 @@
 
 <h2>1. The result, plane by plane</h2>
 
-<p>Let <i>A</i> and <i>B</i> be two lines through 0, with readings <i>t</i><sub>A</sub> and <i>t</i><sub>B</sub> on the horizon. Let the self-paired readings of the plane be +γ and −γ: the two square roots of <i>g</i>² (absolute plate, section 3). Write <i>R</i> for the cross-ratio of the four readings taken in the order <i>t</i><sub>A</sub>, <i>t</i><sub>B</sub>, +γ, −γ. By the formula of the involution plate,</p>
+<p>Let <i>A</i> and <i>B</i> be two lines through 0, with readings <i>t</i><sub>A</sub> and <i>t</i><sub>B</sub> on the horizon. Neither is the 1-axis, which has no reading, and neither is a self-paired line. Let the self-paired readings of the plane be +γ and −γ: the two square roots of <i>g</i>² (absolute plate, section 3). Write <i>R</i> for the cross-ratio of the four readings taken in the order <i>t</i><sub>A</sub>, <i>t</i><sub>B</sub>, +γ, −γ. By the formula of the involution plate,</p>
 <p class="c eq">R = ((t<sub>A</sub> − γ) × (t<sub>B</sub> + γ)) ÷ ((t<sub>A</sub> + γ) × (t<sub>B</sub> − γ)).</p>
 
 <table>
 <tr><th>Plane</th><th>γ</th><th>What <i>R</i> is</th><th>Measure from <i>A</i> to <i>B</i></th></tr>
-<tr><td>Minkowski</td><td>1</td><td>An ordinary number. Positive when <i>A</i> and <i>B</i> are both flatter, or both steeper, than the diagonals.</td><td>Half the logarithm of <i>R</i>.</td></tr>
+<tr><td>Minkowski</td><td>1</td><td>An ordinary number. Positive when <i>A</i> and <i>B</i> are both flatter, or both steeper, than the diagonals.</td><td>Half the logarithm of <i>R</i>, when both lines are flatter than the diagonals. When both are steeper, <i>R</i> is positive too, but such lines do not cross the unit locus, the plates define no sector for them, and that case is not treated.</td></tr>
 <tr><td>Euclidean</td><td><i>i</i></td><td>Not an ordinary number: a point of the unit circle.</td><td>Half the angle of that point, measured round the circle from 1.</td></tr>
 <tr><td>Parabolic</td><td>0, twice</td><td>Always 1. The two self-paired readings are one point, and the cross-ratio has nothing to hold.</td><td><span class="eq">1 ÷ t<sub>B</sub> − 1 ÷ t<sub>A</sub></span>. It is what <span class="eq">(R − 1) ÷ (2γ)</span> comes to as γ shrinks to 0.</td></tr>
 </table>
@@ -93,7 +93,7 @@
 
 <h3>The parabolic plane</h3>
 <p>The unit point of <i>A</i> is <span class="eq">a = 1 + g s</span>, where <i>s</i> is the slope of <i>A</i>, and its reading is <span class="eq">t = 1 ÷ s</span>. The three-pairs plate found the measure from <i>A</i> to <i>B</i> to be the difference of the slopes. That is <span class="eq">1 ÷ t<sub>B</sub> − 1 ÷ t<sub>A</sub></span>.</p>
-<p>The cross-ratio itself is no help: with both self-paired readings at 0, the formula gives <span class="eq">R = (t<sub>A</sub> × t<sub>B</sub>) ÷ (t<sub>A</sub> × t<sub>B</sub>) = 1</span>, whatever the lines. But pull the two self-paired readings a little apart, to +γ and −γ. Then <i>R</i> is a little more or less than 1, and <span class="eq">(R − 1) ÷ (2γ)</span> comes closer and closer to the difference of slopes as γ shrinks. The ledger shows it with γ = 0.001. So the parabolic measure is the last trace of the cross-ratio, caught as the two points of the absolute close into one.</p>
+<p>The cross-ratio itself is no help: with both self-paired readings at 0, the formula gives <span class="eq">R = (t<sub>A</sub> × t<sub>B</sub>) ÷ (t<sub>A</sub> × t<sub>B</sub>) = 1</span>, whatever the lines. But pull the two self-paired readings a little apart, to +γ and −γ. Then <i>R</i> is a little more or less than 1, and <span class="eq">(R − 1) ÷ (2γ)</span> comes closer and closer to the difference of slopes as γ shrinks. The reason is one line. Subtracting 1 from the formula for <i>R</i> and multiplying out the top gives <span class="eq">R − 1 = 2γ × (t<sub>A</sub> − t<sub>B</sub>) ÷ ((t<sub>A</sub> + γ) × (t<sub>B</sub> − γ))</span>. Divide by 2γ: what is left is <span class="eq">(t<sub>A</sub> − t<sub>B</sub>) ÷ ((t<sub>A</sub> + γ) × (t<sub>B</sub> − γ))</span>, and with γ at 0 that is <span class="eq">(t<sub>A</sub> − t<sub>B</sub>) ÷ (t<sub>A</sub> × t<sub>B</sub>) = 1 ÷ t<sub>B</sub> − 1 ÷ t<sub>A</sub></span>. The ledger shows it with γ = 0.001. So the parabolic measure is the last trace of the cross-ratio, caught as the two points of the absolute close into one.</p>
 
 <h3>Measures add because cross-ratios multiply</h3>
 <p>For three lines <i>A</i>, <i>B</i>, <i>C</i>, the formula for <i>R</i> gives at once <span class="eq">R(A, C) = R(A, B) × R(B, C)</span>: the middle factors cancel. A logarithm turns a product into a sum, and angles of points on the unit circle add when the points are multiplied. So the measure from <i>A</i> to <i>C</i> is the measure from <i>A</i> to <i>B</i> plus the measure from <i>B</i> to <i>C</i>, in every plane.</p>
@@ -122,13 +122,14 @@
 <table>
 <tr><th>Statement</th><th>Price</th></tr>
 <tr><td>Euclidean plane: <i>R</i>, computed with <i>i</i> and −<i>i</i>, equals <i>q</i>².</td><td>Theorem. Proved in section 2 with nothing assumed. Checked numerically.</td></tr>
-<tr><td>Minkowski plane: <span class="eq">R = λ(q²)</span>, where λ of <span class="eq">x + j y</span> is <span class="eq">x + y</span>.</td><td>Theorem. Proved in section 2 with nothing assumed. Checked numerically.</td></tr>
-<tr><td>Minkowski plane: the measure from <i>A</i> to <i>B</i> is half the logarithm of <i>R</i>.</td><td>Theorem (standard; the Euclidean form is Laguerre's formula). It rests on one standard fact, that the measure of a unit point is the logarithm of its λ, which is used and not proved. Checked numerically against the drawn sector.</td></tr>
-<tr><td>Parabolic plane: <i>R</i> = 1; the measure is <span class="eq">1 ÷ t<sub>B</sub> − 1 ÷ t<sub>A</sub></span>, and is what <span class="eq">(R − 1) ÷ (2γ)</span> comes to as γ shrinks to 0.</td><td>Theorem. The first two parts are argued in section 2. The limit is checked numerically, not proved.</td></tr>
-<tr><td><span class="eq">R(A, C) = R(A, B) × R(B, C)</span>, so measures add.</td><td>Theorem. One line of algebra. Checked numerically.</td></tr>
+<tr><td>Minkowski plane, <i>A</i> and <i>B</i> both flatter than the diagonals: <span class="eq">R = λ(q²)</span>, where λ of <span class="eq">x + j y</span> is <span class="eq">x + y</span>.</td><td>Theorem. Proved in section 2 with nothing assumed. Checked numerically.</td></tr>
+<tr><td>Minkowski plane, <i>A</i> and <i>B</i> both flatter than the diagonals: the measure from <i>A</i> to <i>B</i> is half the logarithm of <i>R</i>.</td><td>Theorem (standard; the Euclidean form is Laguerre's formula). It rests on one standard fact, that the measure of a unit point is the logarithm of its λ, which is used and not proved. Checked numerically against the drawn sector.</td></tr>
+<tr><td>Parabolic plane: <i>R</i> = 1; the measure is <span class="eq">1 ÷ t<sub>B</sub> − 1 ÷ t<sub>A</sub></span>, and is what <span class="eq">(R − 1) ÷ (2γ)</span> comes to as γ shrinks to 0.</td><td>Theorem. All three parts are argued in section 2; the limit is one line of algebra. Checked numerically.</td></tr>
+<tr><td><span class="eq">R(A, C) = R(A, B) × R(B, C)</span>, provided none of the three lines is self-paired; so measures add.</td><td>Theorem. One line of algebra. Checked numerically.</td></tr>
 <tr><td><i>R</i> is <i>q</i>² with <i>g</i> given the value of a self-paired reading.</td><td>Theorem, as a summary of the three cases above.</td></tr>
-<tr><td>In the Minkowski plane <i>R</i> is negative exactly when one line is flatter than the diagonals and the other steeper.</td><td>Theorem. Checked numerically.</td></tr>
+<tr><td>In the Minkowski plane, for two lines neither of which is a diagonal, <i>R</i> is negative exactly when one line is flatter than the diagonals and the other steeper.</td><td>Theorem. Checked numerically.</td></tr>
 <tr><td>“The sign of <i>R</i> says whether a measure exists; its size says what it is.”</td><td>Observation, for the Minkowski plane. In the Euclidean plane <i>R</i> has no sign.</td></tr>
+<tr><td>The measure of two Minkowski lines that are both steeper than the diagonals.</td><td>Not treated. <i>R</i> is positive for them, but the plates define no sector, and so no measure, for lines that miss the unit locus.</td></tr>
 <tr><td>Lines that do not pass through 0; the measure of a parallel pair (a distance).</td><td>Not treated on this plate.</td></tr>
 </table>
 
@@ -137,7 +138,7 @@
 <dl>
 <dt>Reading, horizon, self-paired, absolute</dt><dd>As on the absolute plate.</dd>
 <dt>γ</dt><dd>A self-paired reading: a square root of <i>g</i>² among the numbers at hand. Minkowski: 1 (the other is −1). Euclidean: <i>i</i> (the other is −<i>i</i>); these are not ordinary numbers and are not on the page. Parabolic: 0, counted twice.</dd>
-<dt><i>R</i></dt><dd>The cross-ratio of the four readings <i>t</i><sub>A</sub>, <i>t</i><sub>B</sub>, +γ, −γ, in that order, by the formula of the involution plate.</dd>
+<dt><i>R</i></dt><dd>The cross-ratio of the four readings <i>t</i><sub>A</sub>, <i>t</i><sub>B</sub>, +γ, −γ, in that order, by the formula of the involution plate. It is defined when both lines have readings and neither is self-paired.</dd>
 <dt>Measure from <i>A</i> to <i>B</i></dt><dd>As on the three-pairs plate: twice the area of the sector from the unit point of <i>A</i> to the unit point of <i>B</i>, positive counter-clockwise. Euclidean: the angle, shown here in degrees. Parabolic: the difference of slopes. Minkowski: a plain number.</dd>
 <dt>Logarithm (written ln)</dt><dd>The rule that turns multiplication into addition: ln(<i>u</i> × <i>v</i>) = ln <i>u</i> + ln <i>v</i>, with ln 1 = 0. Only positive ordinary numbers have one.</dd>
 <dt>λ</dt><dd>For a Minkowski number <i>x</i> + <i>j</i> <i>y</i>: the ordinary number <i>x</i> + <i>y</i>. It is the number with <i>j</i> given the value +1. This plate's own letter.</dd>
