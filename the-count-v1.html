@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Counting the Lines of Two Slits</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* layout idea: one paraline drawing, three tabs above it, the numbers as sliders below it */
+:root{
+  --bg:#f3f4f1; --panel:#ffffff; --ink:#1c2126; --muted:#5b636b; --rule:#cdd2ce;
+  --slit-a:#c0322b; --slit-b:#6a2c91; --plane:#96762f; --both:#2f7d34;
+  --display:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14171a; --panel:#1c2024; --ink:#e7e9e6; --muted:#9ba2a9; --rule:#353b41;
+    --slit-a:#ec6f65; --slit-b:#bd92e4; --plane:#d3b16c; --both:#70c474; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14171a; --panel:#1c2024; --ink:#e7e9e6; --muted:#9ba2a9; --rule:#353b41;
+  --slit-a:#ec6f65; --slit-b:#bd92e4; --plane:#d3b16c; --both:#70c474; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--display);font-size:16px;line-height:1.45}
+main{max-width:560px;margin:0 auto;padding:20px 16px 40px;display:flex;flex-direction:column;gap:16px}
+h1{font-size:1.3rem;font-weight:600;margin:0;text-wrap:balance}
+p{margin:0}
+.lede{color:var(--muted);font-size:.95rem}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tabs button{font:inherit;font-size:.86rem;font-weight:500;padding:10px 6px;border:1.5px solid var(--rule);
+  background:var(--panel);color:var(--ink);border-radius:8px;cursor:pointer;line-height:1.2}
+.tabs button[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 -3px 0 var(--tab)}
+.tabs button:focus-visible, input:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.stage{background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:6px}
+svg{display:block;width:100%;height:auto}
+svg text{font-family:var(--display);font-size:10.5px;fill:var(--muted)}
+.count{display:flex;align-items:baseline;gap:12px;border-left:4px solid var(--tab);padding:4px 0 4px 12px}
+.count b{font-family:var(--mono);font-size:2.4rem;font-weight:500;line-height:1}
+.count span{font-size:.95rem}
+.ctl{display:flex;flex-direction:column;gap:12px}
+.row{display:grid;grid-template-columns:1fr auto;gap:2px 10px;align-items:center}
+.row label{font-size:.9rem}
+.row output{font-family:var(--mono);font-size:.9rem;font-variant-numeric:tabular-nums}
+.row input[type=range]{grid-column:1 / -1;width:100%;margin:0;accent-color:var(--tab)}
+.row.fixed label,.row.fixed output{color:var(--muted)}
+.row .tag{font-size:.75rem;color:var(--muted);margin-left:6px}
+.lock{display:flex;gap:10px;align-items:flex-start;font-size:.92rem;padding:10px 12px;border:1px solid var(--rule);border-radius:8px;background:var(--panel)}
+.lock input{margin-top:3px;width:18px;height:18px;accent-color:var(--both);flex:none}
+.say{font-size:.95rem;padding:12px;border-radius:8px;background:var(--panel);border:1px solid var(--rule)}
+.say strong{font-weight:600}
+dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:.88rem}
+dt{font-weight:600}
+dd{margin:0;color:var(--muted)}
+h2{font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:8px 0 0}
+.view{border-top:1px solid var(--rule);padding-top:12px}
+</style>
+</head>
+<body>
+<main>
+  <h1>Counting the lines of two slits</h1>
+  <p class="lede">A paraline drawing (parallel projection: lines parallel in space stay parallel on the page). Each slider is one number. The drawing shows one line at a time.</p>
+
+  <div class="tabs" role="group" aria-label="Which family of lines">
+    <button id="tab-1" type="button" aria-pressed="true">Complex 1<br>meets slit a</button>
+    <button id="tab-2" type="button" aria-pressed="false">Complex 2<br>meets slit b</button>
+    <button id="tab-3" type="button" aria-pressed="false">Both<br>the line family</button>
+  </div>
+
+  <div class="stage"><svg id="scene" viewBox="0 0 360 330" role="img" aria-label="Paraline drawing of two slits and one line"></svg></div>
+
+  <div class="count" id="count"><b id="count-n">3</b><span id="count-t"></span></div>
+
+  <div class="ctl" id="ctl"></div>
+
+  <label class="lock" id="lock-wrap"><input type="checkbox" id="lock"><span id="lock-t"></span></label>
+
+  <div class="say" id="say"></div>
+
+  <div class="row view">
+    <label for="yaw">Turn the drawing (changes the view only, not the line)</label><output id="yaw-o"></output>
+    <input type="range" id="yaw" min="12" max="78" step="1" value="34">
+  </div>
+
+  <h2>Words used on this page</h2>
+  <dl>
+    <dt>slit a</dt><dd>the straight line x = 0 at depth z = 150. It runs up and down (the y direction).</dd>
+    <dt>slit b</dt><dd>the straight line y = 0 at depth z = 250. It runs left and right (the x direction).</dd>
+    <dt>frame</dt><dd>a drawn rectangle at one depth, only to show where that depth is. The picture plane is the frame at z = 0.</dd>
+    <dt>bearing</dt><dd>how far the line's direction is turned to the left or right of the depth axis, in degrees.</dd>
+    <dt>tilt</dt><dd>how far the line's direction rises above or drops below horizontal, in degrees.</dd>
+    <dt>miss</dt><dd>where the line crosses the other slit's frame: its distance from that slit, measured in the frame. Miss 0 means the line meets the slit.</dd>
+    <dt>complex</dt><dd>a family of lines that needs three numbers to pick out one line.</dd>
+  </dl>
+</main>
+
+<script>
+/* ---------- geometry (pure functions) ---------- */
+var ZA = 150, ZB = 250, GAP = ZB - ZA;
+var RAD = Math.PI / 180;
+/* direction from bearing and tilt; sgn = +1 heads to greater depth, -1 to lesser depth */
+function dirOf(bearing, tilt, sgn){
+  var b = bearing * RAD, t = tilt * RAD;
+  return [Math.sin(b) * Math.cos(t), Math.sin(t), sgn * Math.cos(b) * Math.cos(t)];
+}
+function at(p, d, k){ return [p[0] + k * d[0], p[1] + k * d[1], p[2] + k * d[2]]; }
+function atDepth(p, d, z){ return at(p, d, (z - p[2]) / d[2]); }
+/* complex 1: line through A = (0, ya, ZA). Tilt that makes it meet slit b */
+function tiltToMeetB(ya, bearing){ return Math.atan(-ya * Math.cos(bearing * RAD) / GAP) / RAD; }
+/* complex 2: line through B = (xb, 0, ZB). Bearing that makes it meet slit a */
+function bearingToMeetA(xb){ return Math.atan(-xb / GAP) / RAD; }
+/* clip the line p + k d to a box; returns [k0, k1] or null */
+var BOX = { x: [-160, 160], y: [-135, 135], z: [-35, 285] };
+function clip(p, d){
+  var k0 = -1e9, k1 = 1e9, ax = ['x', 'y', 'z'];
+  for (var i = 0; i < 3; i++){
+    var lo = BOX[ax[i]][0], hi = BOX[ax[i]][1];
+    if (Math.abs(d[i]) < 1e-12){ if (p[i] < lo || p[i] > hi) return null; continue; }
+    var u = (lo - p[i]) / d[i], v = (hi - p[i]) / d[i];
+    if (u > v){ var s = u; u = v; v = s; }
+    if (u > k0) k0 = u; if (v < k1) k1 = v;
+  }
+  return k0 < k1 ? [k0, k1] : null;
+}
+if (typeof module !== 'undefined' && module.exports){
+  module.exports = { dirOf: dirOf, atDepth: atDepth, tiltToMeetB: tiltToMeetB, bearingToMeetA: bearingToMeetA, clip: clip, ZA: ZA, ZB: ZB };
+}
+
+/* ---------- page ---------- */
+if (typeof document !== 'undefined') (function(){
+  var S = { mode: 1, ya: 55, xb: 85, bearing: 22, tilt: 8, lock: false, yaw: 34 };
+  var PITCH = 24, SC = 0.76, CX = 168, CY = 170, MID = [0, 0, 130];
+  var $ = function(id){ return document.getElementById(id); };
+  var root = document.documentElement;
+  function css(n){ return getComputedStyle(root).getPropertyValue(n).trim(); }
+
+  function proj(p){
+    var a = S.yaw * RAD, t = PITCH * RAD, x = p[0] - MID[0], y = p[1] - MID[1], z = p[2] - MID[2];
+    var rx = x * Math.cos(a) + z * Math.sin(a);
+    var dz = -x * Math.sin(a) + z * Math.cos(a);
+    return [CX + SC * rx, CY - SC * (y * Math.cos(t) + dz * Math.sin(t))];
+  }
+  function f(n){ return n.toFixed(1); }
+  function seg(a, b, col, w, dash, op){
+    var A = proj(a), B = proj(b);
+    return '<line x1="' + f(A[0]) + '" y1="' + f(A[1]) + '" x2="' + f(B[0]) + '" y2="' + f(B[1]) + '" stroke="' + col +
+      '" stroke-width="' + w + '"' + (dash ? ' stroke-dasharray="' + dash + '"' : '') + (op ? ' stroke-opacity="' + op + '"' : '') + ' stroke-linecap="round"/>';
+  }
+  function dot(p, col, r, hollow){
+    var P = proj(p);
+    return '<circle cx="' + f(P[0]) + '" cy="' + f(P[1]) + '" r="' + r + '" fill="' + (hollow ? css('--panel') : col) + '" stroke="' + col + '" stroke-width="1.8"/>';
+  }
+  function label(p, s, col, dx, dy, anchor){
+    var P = proj(p);
+    return '<text x="' + f(P[0] + (dx || 0)) + '" y="' + f(P[1] + (dy || 0)) + '"' + (col ? ' style="fill:' + col + '"' : '') +
+      (anchor ? ' text-anchor="' + anchor + '"' : '') + '>' + s + '</text>';
+  }
+  function frame(z, col, op, fill){
+    var c = [[-140, -110, z], [140, -110, z], [140, 110, z], [-140, 110, z]].map(proj);
+    var pts = c.map(function(q){ return f(q[0]) + ',' + f(q[1]); }).join(' ');
+    return '<polygon points="' + pts + '" fill="' + col + '" fill-opacity="' + fill + '" stroke="' + col + '" stroke-opacity="' + op + '" stroke-width="1"/>';
+  }
+
+  /* the current line: a point on it, its direction, and which numbers are fixed */
+  function current(){
+    var r = { tilt: S.tilt, bearing: S.bearing };
+    if (S.mode === 1){
+      if (S.lock) r.tilt = tiltToMeetB(S.ya, S.bearing);
+      r.p = [0, S.ya, ZA]; r.d = dirOf(r.bearing, r.tilt, 1);
+      r.hit = atDepth(r.p, r.d, ZB); r.miss = Math.abs(r.hit[1]); r.foot = [r.hit[0], 0, ZB];
+    } else if (S.mode === 2){
+      if (S.lock) r.bearing = bearingToMeetA(S.xb);
+      r.p = [S.xb, 0, ZB]; r.d = dirOf(r.bearing, r.tilt, -1);
+      r.hit = atDepth(r.p, r.d, ZA); r.miss = Math.abs(r.hit[0]); r.foot = [0, r.hit[1], ZA];
+    } else {
+      r.p = [0, S.ya, ZA]; var q = [S.xb, 0, ZB];
+      r.d = [q[0] - r.p[0], q[1] - r.p[1], q[2] - r.p[2]]; r.q = q; r.miss = 0;
+      var h = Math.hypot(r.d[0], r.d[2]);
+      r.bearing = Math.atan2(r.d[0], r.d[2]) / RAD; r.tilt = Math.atan2(r.d[1], h) / RAD;
+    }
+    if (r.miss < 0.05) r.miss = 0;
+    return r;
+  }
+
+  function draw(){
+    var ink = css('--ink'), mut = css('--muted'), ca = css('--slit-a'), cb = css('--slit-b'), cp = css('--plane'), cg = css('--both');
+    var r = current(), both = r.miss === 0;
+    var lineCol = both ? cg : (S.mode === 1 ? ca : cb);
+    var o = '';
+    /* frames and depth axis */
+    o += frame(0, cp, 0.9, 0.07) + frame(ZA, ca, 0.35, 0.03) + frame(ZB, cb, 0.35, 0.03);
+    o += seg([0, 0, -35], [0, 0, 285], mut, 0.8, '2 4');
+    o += label([-140, -110, 0], 'picture plane, z = 0', cp, -4, 13);
+    o += label([-140, 110, ZA], 'frame at z = 150', ca, 0, -5);
+    o += label([-140, 110, ZB], 'frame at z = 250', cb, 0, -5);
+    o += label([0, 0, 285], 'depth axis', null, 4, -5);
+    /* slits */
+    o += seg([0, -110, ZA], [0, 110, ZA], ca, 3.2);
+    o += seg([-140, 0, ZB], [140, 0, ZB], cb, 3.2);
+    o += label([0, -110, ZA], 'slit a', ca, 5, 11);
+    o += label([140, 0, ZB], 'slit b', cb, -2, -8, 'end');
+    /* the miss, drawn in the other slit's frame */
+    if (S.mode !== 3 && !both){
+      o += seg(r.hit, r.foot, ink, 1.4, '3 3');
+    }
+    /* the line */
+    var k = clip(r.p, r.d);
+    if (k) o += seg(at(r.p, r.d, k[0]), at(r.p, r.d, k[1]), lineCol, 2.4);
+    /* where it crosses the picture plane */
+    var pp = atDepth(r.p, r.d, 0);
+    if (Math.abs(pp[0]) <= 160 && Math.abs(pp[1]) <= 135) o += dot(pp, cp, 3.2, true);
+    /* marked points */
+    if (S.mode === 1){ o += dot(r.p, ca, 4.6); o += dot(r.hit, both ? cg : ink, 3.4, !both); }
+    if (S.mode === 2){ o += dot(r.p, cb, 4.6); o += dot(r.hit, both ? cg : ink, 3.4, !both); }
+    if (S.mode === 3){ o += dot(r.p, ca, 4.6); o += dot(r.q, cb, 4.6); }
+    $('scene').innerHTML = o;
+    return r;
+  }
+
+  function slider(id, text, min, max, val, unit, fixed, tag){
+    return '<div class="row' + (fixed ? ' fixed' : '') + '"><label for="' + id + '">' + text + (tag ? '<span class="tag">' + tag + '</span>' : '') +
+      '</label><output id="' + id + '-o">' + val.toFixed(fixed ? 1 : 0) + unit + '</output>' +
+      '<input type="range" id="' + id + '" min="' + min + '" max="' + max + '" step="1" value="' + val.toFixed(2) + '"' + (fixed ? ' disabled' : '') + '></div>';
+  }
+
+  function build(){
+    var r = current(), h = '';
+    if (S.mode === 1){
+      h += slider('ya', 'Number 1: where on slit a (y)', -110, 110, S.ya, '');
+      h += slider('bearing', 'Number 2: bearing', -55, 55, S.bearing, '°');
+      h += S.lock ? slider('tilt', 'Tilt', -50, 50, r.tilt, '°', true, 'fixed by numbers 1 and 2')
+                  : slider('tilt', 'Number 3: tilt', -50, 50, S.tilt, '°');
+    } else if (S.mode === 2){
+      h += slider('xb', 'Number 1: where on slit b (x)', -140, 140, S.xb, '');
+      h += S.lock ? slider('bearing', 'Bearing', -55, 55, r.bearing, '°', true, 'fixed by number 1')
+                  : slider('bearing', 'Number 2: bearing', -55, 55, S.bearing, '°');
+      h += slider('tilt', (S.lock ? 'Number 2' : 'Number 3') + ': tilt', -50, 50, S.tilt, '°');
+    } else {
+      h += slider('ya', 'Number 1: where on slit a (y)', -110, 110, S.ya, '');
+      h += slider('xb', 'Number 2: where on slit b (x)', -140, 140, S.xb, '');
+    }
+    $('ctl').innerHTML = h;
+    ['ya', 'xb', 'bearing', 'tilt'].forEach(function(id){
+      var e = $(id); if (!e || e.disabled) return;
+      e.addEventListener('input', function(){ S[id] = +e.value; $(id + '-o').textContent = (+e.value).toFixed(0) + (id === 'ya' || id === 'xb' ? '' : '°'); paint(); });
+    });
+    $('lock-wrap').style.display = S.mode === 3 ? 'none' : 'flex';
+    $('lock').checked = S.lock;
+    $('lock-t').textContent = S.mode === 1 ? 'Require this line to meet slit b as well' : 'Require this line to meet slit a as well';
+    [1, 2, 3].forEach(function(m){ $('tab-' + m).setAttribute('aria-pressed', String(S.mode === m)); });
+    var tab = S.mode === 1 ? '--slit-a' : S.mode === 2 ? '--slit-b' : '--both';
+    document.querySelector('main').style.setProperty('--tab', 'var(' + tab + ')');
+    paint();
+  }
+
+  function paint(){
+    var r = draw(), other = S.mode === 1 ? 'slit b' : 'slit a';
+    var free = S.mode === 3 ? 2 : (S.lock ? 2 : 3);
+    $('count-n').textContent = free;
+    $('count-t').textContent = free === 3 ? 'numbers pick out one line of this complex' : 'numbers pick out one line that meets both slits';
+    if (S.lock && S.mode === 1){ $('tilt-o').textContent = r.tilt.toFixed(1) + '°'; $('tilt').value = r.tilt; }
+    if (S.lock && S.mode === 2){ $('bearing-o').textContent = r.bearing.toFixed(1) + '°'; $('bearing').value = r.bearing; }
+    var s;
+    if (S.mode === 3){
+      s = '<strong>The line is in both complexes.</strong> Choosing a point on slit a and a point on slit b settles the line. Its direction is not chosen: bearing ' +
+          r.bearing.toFixed(1) + '°, tilt ' + r.tilt.toFixed(1) + '° follow from the two points.';
+    } else if (S.lock){
+      s = '<strong>Miss 0. The line meets ' + other + ', so it is in both complexes.</strong> The one requirement took away one number: ' +
+          (S.mode === 1 ? 'the tilt' : 'the bearing') + ' can no longer be chosen. Three numbers, less one requirement, leaves two.';
+    } else if (r.miss === 0){
+      s = '<strong>Miss 0. This line happens to meet ' + other + '.</strong> It is in both complexes.';
+    } else {
+      s = '<strong>Miss ' + r.miss.toFixed(1) + '.</strong> The dashed segment shows it. The line meets ' + (S.mode === 1 ? 'slit a' : 'slit b') +
+          ' but passes ' + other + ' without touching it, so it is in complex ' + S.mode + ' only.';
+    }
+    $('say').innerHTML = s;
+    $('yaw-o').textContent = S.yaw + '°';
+  }
+
+  [1, 2, 3].forEach(function(m){ $('tab-' + m).addEventListener('click', function(){ S.mode = m; build(); }); });
+  $('lock').addEventListener('change', function(){ S.lock = $('lock').checked; build(); });
+  $('yaw').addEventListener('input', function(){ S.yaw = +$('yaw').value; paint(); });
+  if (window.matchMedia) window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', paint);
+  new MutationObserver(paint).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+  build();
+})();
+</script>
+</body>
+</html>
