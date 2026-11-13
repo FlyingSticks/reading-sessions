@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Two Meanings of Congruence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* layout idea: one column; three numbered diagrams, each with its sliders directly beneath and one plain sentence of result */
+:root{
+  --bg:#f3f4f1; --panel:#ffffff; --ink:#1c2126; --muted:#5b636b; --rule:#cdd2ce;
+  --slit-a:#c0322b; --slit-b:#6a2c91; --family:#2f7d34; --image:#1f5fa8; --no:#a8521a;
+  --display:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14171a; --panel:#1c2024; --ink:#e7e9e6; --muted:#9ba2a9; --rule:#353b41;
+    --slit-a:#ec6f65; --slit-b:#bd92e4; --family:#70c474; --image:#7db4ee; --no:#e79a5c; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14171a; --panel:#1c2024; --ink:#e7e9e6; --muted:#9ba2a9; --rule:#353b41;
+  --slit-a:#ec6f65; --slit-b:#bd92e4; --family:#70c474; --image:#7db4ee; --no:#e79a5c; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--display);font-size:16px;line-height:1.5}
+main{max-width:580px;margin:0 auto;padding:22px 16px 44px;display:flex;flex-direction:column;gap:18px}
+h1{font-size:1.45rem;font-weight:600;margin:0;text-wrap:balance;line-height:1.2}
+h2{font-size:1.1rem;font-weight:600;margin:14px 0 0;text-wrap:balance;line-height:1.25;padding-top:16px;border-top:1px solid var(--rule)}
+h2 small{display:block;font-size:.76rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+h3{font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:10px 0 0}
+p{margin:0}
+ul{margin:0;padding-left:1.15em;display:flex;flex-direction:column;gap:5px}
+.lede{color:var(--muted)}
+.stage{background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:6px}
+svg{display:block;width:100%;height:auto}
+svg text{font-family:var(--display);font-size:10.5px;fill:var(--muted)}
+.ctl{display:flex;flex-direction:column;gap:12px}
+.row{display:grid;grid-template-columns:1fr auto;gap:2px 10px;align-items:center}
+.row label{font-size:.9rem}
+.row output{font-family:var(--mono);font-size:.9rem;font-variant-numeric:tabular-nums}
+.row input[type=range]{grid-column:1 / -1;width:100%;margin:0;accent-color:var(--acc,var(--ink))}
+.row.view label{color:var(--muted)}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tabs button{font:inherit;font-size:.84rem;font-weight:500;padding:9px 6px;border:1.5px solid var(--rule);background:var(--panel);color:var(--ink);border-radius:8px;cursor:pointer;line-height:1.2}
+.tabs button[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 -3px 0 var(--acc,var(--ink))}
+button:focus-visible,input:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:.92rem}
+.check input{margin-top:3px;width:18px;height:18px;flex:none;accent-color:var(--family)}
+.say{font-size:.95rem;padding:12px;border-radius:8px;background:var(--panel);border:1px solid var(--rule);border-left:4px solid var(--acc,var(--ink))}
+.say strong{font-weight:600}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{text-align:left;vertical-align:top;padding:8px 10px;border-bottom:1px solid var(--rule)}
+thead th{font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600}
+tbody th{font-weight:600;white-space:nowrap}
+dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:.88rem}
+dt{font-weight:600}
+dd{margin:0;color:var(--muted)}
+.rev{font-size:.78rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<main>
+  <h1>Two meanings of "congruence"</h1>
+  <p class="lede">The book and the plates use the same word for two unrelated things. Both come from one Latin root, <em>congruere</em>, "to come together, to agree". Neither is a special case of the other.</p>
+  <ul>
+    <li><strong>Line congruence</strong> (the book): a set of lines in space.</li>
+    <li><strong>Congruence map</strong> (the plates): a map of the plane that keeps every distance.</li>
+  </ul>
+
+  <!-- ============ 1 ============ -->
+  <h2 id="lines"><small>Diagram 1 · the book's sense</small>A line congruence is a set of lines</h2>
+  <ul>
+    <li>Picking out one line among all the lines of space takes four numbers. A line congruence is a family of lines in which two numbers are enough.</li>
+    <li>The book's case: choose a point on slit a (one number) and a point on slit b (one number), and join them. Every line of the family arises this way.</li>
+    <li>The thin green lines are 25 members of the family. The thick green line is the one member the two sliders select.</li>
+  </ul>
+  <div class="stage"><svg id="svg1" viewBox="0 0 360 330" role="img" aria-label="Paraline drawing: two slits and lines that meet both"></svg></div>
+  <div class="ctl" style="--acc:var(--family)">
+    <div class="row"><label for="a-ya">Number 1: where on slit a (y)</label><output id="a-ya-o"></output><input type="range" id="a-ya" min="-110" max="110" step="1" value="-40"></div>
+    <div class="row"><label for="a-xb">Number 2: where on slit b (x)</label><output id="a-xb-o"></output><input type="range" id="a-xb" min="-140" max="140" step="1" value="85"></div>
+    <div class="row"><label for="a-k">Stretch all of space along the depth axis, by the factor</label><output id="a-k-o"></output><input type="range" id="a-k" min="0.6" max="1.3" step="0.01" value="1"></div>
+    <label class="check"><input type="checkbox" id="a-fam" checked><span>Show the 25 sample lines of the family</span></label>
+    <div class="row view"><label for="a-yaw">Turn the drawing (changes the view only)</label><output id="a-yaw-o"></output><input type="range" id="a-yaw" min="12" max="78" step="1" value="34"></div>
+  </div>
+  <div class="say" id="say1" style="--acc:var(--family)"></div>
+  <p>Nothing here is a map: no point is sent anywhere. And no distance is used: the definition says only "meets slit a and meets slit b". The stretch slider shows this. A stretch changes lengths, yet the stretched family is still exactly the lines meeting the two stretched slits.</p>
+  <p>The name is from 19th-century line geometry (Plücker). As far as I know, the "agreement" is that these are the lines two larger families have in common: the lines meeting slit a, and the lines meeting slit b. I have not checked that reading against Plücker's text.</p>
+
+  <!-- ============ 2 ============ -->
+  <h2 id="map"><small>Diagram 2 · the plates' sense</small>A congruence map keeps every distance</h2>
+  <ul>
+    <li>This sense descends from Euclid: two figures are congruent when one can be laid on the other so that they agree everywhere.</li>
+    <li>The plates give the name to the map that does the laying-on: a map of the plane that keeps every distance. The thread's claim is that every such map is a product of mirrors.</li>
+    <li>The dark figure is the original. The blue figure is its image under the map. P and Q are two marked points of the figure; P′ and Q′ are their images.</li>
+  </ul>
+  <div class="tabs" role="group" aria-label="Which map" style="--acc:var(--image)">
+    <button type="button" id="b-m1" aria-pressed="false">One mirror</button>
+    <button type="button" id="b-m2" aria-pressed="true">Two mirrors</button>
+    <button type="button" id="b-m0" aria-pressed="false">A stretch</button>
+  </div>
+  <div class="stage"><svg id="svg2" viewBox="0 0 360 300" role="img" aria-label="Plane drawing: a figure and its image under a map"></svg></div>
+  <div class="ctl" id="ctl2" style="--acc:var(--image)"></div>
+  <div class="say" id="say2" style="--acc:var(--image)"></div>
+  <p>Here distance is the whole content, and the thing named is a map, not a collection. The stretch is shown for contrast: it is a map of the plane too, but it changes distances, so it is not a congruence map.</p>
+
+  <!-- ============ table ============ -->
+  <h2 id="table"><small>Side by side</small>Where the two senses stand to each other</h2>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th></th><th>Line congruence (book)</th><th>Congruence map (plates)</th></tr></thead>
+    <tbody>
+      <tr><th>Kind of thing</th><td>a set of lines</td><td>a map</td></tr>
+      <tr><th>Lives in</th><td>space</td><td>the plane</td></tr>
+      <tr><th>Needs distance?</th><td>no</td><td>yes</td></tr>
+      <tr><th>What "agrees"</th><td>lines shared by two families</td><td>a figure with its image</td></tr>
+      <tr><th>Numbers</th><td>two numbers pick one line</td><td>not a count; a condition on a map</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <!-- ============ 3 ============ -->
+  <h2 id="bridge"><small>Diagram 3 · the one bridge</small>The map σ that belongs to the two slits</h2>
+  <ul>
+    <li>Through any point P off the slits runs exactly one line of the family. It meets slit a at A and slit b at B.</li>
+    <li>σ pairs P with the point P′ on that same line for which (P, P′; A, B) = −1. Applied twice, σ returns every point.</li>
+    <li>The lines σ sends onto themselves are exactly the book's line family. So the line congruence belongs to one map.</li>
+    <li>Is that map a congruence map in the plates' sense? Compare the length PQ with the length P′Q′, and push slit b away.</li>
+  </ul>
+  <div class="stage"><svg id="svg3" viewBox="0 0 360 330" role="img" aria-label="Paraline drawing: points P and Q and their partners under sigma"></svg></div>
+  <div class="ctl" style="--acc:var(--slit-b)">
+    <div class="row"><label for="c-u">Push slit b away along the depth axis. Its depth z:</label><output id="c-u-o"></output><input type="range" id="c-u" min="0" max="1" step="0.01" value="0"></div>
+    <div class="row"><label for="c-px">P: left or right (x)</label><output id="c-px-o"></output><input type="range" id="c-px" min="-110" max="110" step="1" value="-100"></div>
+    <div class="row"><label for="c-pz">P: depth (z)</label><output id="c-pz-o"></output><input type="range" id="c-pz" min="20" max="125" step="1" value="50"></div>
+    <div class="row view"><label for="c-yaw">Turn the drawing (changes the view only)</label><output id="c-yaw-o"></output><input type="range" id="c-yaw" min="12" max="78" step="1" value="34"></div>
+  </div>
+  <div class="say" id="say3" style="--acc:var(--slit-b)"></div>
+  <p>With slit b at a finite depth, σ changes distances, so it is not a congruence map. With slit b at infinity and perpendicular to slit a, σ is the half-turn about slit a: two perpendicular mirror planes that both contain slit a. That one case is where the two senses of the word meet. In general, the book's line congruence belongs to a map that is not a congruence in the plates' sense.</p>
+
+  <h3>Words used on this page</h3>
+  <dl>
+    <dt>slit a</dt><dd>the straight line x = 0 at depth z = 150. It runs up and down (the y direction).</dd>
+    <dt>slit b</dt><dd>the straight line y = 0 at depth z = 250 unless a slider changes that depth. It runs left and right (the x direction).</dd>
+    <dt>frame</dt><dd>a drawn rectangle at one depth, only to show where that depth is.</dd>
+    <dt>line family</dt><dd>all the lines that meet both slits. This is the book's line congruence.</dd>
+    <dt>map</dt><dd>a rule that sends each point to a point.</dd>
+    <dt>image</dt><dd>where a map sends a point or a figure.</dd>
+    <dt>mirror with line m</dt><dd>the map of the plane that pairs points across the line m, with m the perpendicular bisector of each pair.</dd>
+    <dt>product of mirrors</dt><dd>one mirror applied, then another applied to the result.</dd>
+    <dt>sign</dt><dd>+1 for an even number of mirrors, −1 for an odd number.</dd>
+    <dt>stretch</dt><dd>a map that multiplies distances in one direction by a factor and leaves the perpendicular direction alone.</dd>
+    <dt>σ</dt><dd>the map of space defined under Diagram 3.</dd>
+    <dt>half-turn about a line</dt><dd>the map of space that turns every point 180° about that line.</dd>
+  </dl>
+  <p class="rev">13 Nov 2026. The geometry of Diagram 3 follows check-the-two-slit-involution.js (28/28, 12 Nov 2026). No outside audit yet.</p>
+</main>
+
+<script>
+/* ================= pure geometry ================= */
+var RAD = Math.PI / 180, ZA = 150;
+function sub(a, b){ return [a[0]-b[0], a[1]-b[1], a[2]-b[2]]; }
+function at(p, d, k){ return [p[0]+k*d[0], p[1]+k*d[1], p[2]+k*d[2]]; }
+function len(a, b){ return Math.hypot(a[0]-b[0], a[1]-b[1], (a[2]||0)-(b[2]||0)); }
+/* clip the line p + k d to a box */
+function clip(p, d, B){
+  var k0 = -1e9, k1 = 1e9;
+  for (var i = 0; i < 3; i++){
+    if (Math.abs(d[i]) < 1e-12){ if (p[i] < B[i][0] || p[i] > B[i][1]) return null; continue; }
+    var u = (B[i][0]-p[i])/d[i], v = (B[i][1]-p[i])/d[i];
+    if (u > v){ var s = u; u = v; v = s; }
+    if (u > k0) k0 = u; if (v < k1) k1 = v;
+  }
+  return k0 < k1 ? [k0, k1] : null;
+}
+/* sigma for slit a (x=0, z=za) and slit b (y=0, z=zb); zb = Infinity gives the half-turn about slit a.
+   Returns the partner P2 and the point A where the line of the family through P meets slit a,
+   and B where it meets slit b (null when slit b is at infinity). */
+function sigma(P, za, zb){
+  if (!isFinite(zb)) return { P2: [-P[0], P[1], 2*za - P[2]], A: [0, P[1], za], B: null };
+  var A = [0, P[1]*(za-zb)/(P[2]-zb), za], B = [P[0]*(zb-za)/(P[2]-za), 0, zb];
+  var k = (P[2]-za)/(zb-za), k2 = k/(2*k-1);
+  return { P2: at(A, sub(B, A), k2), A: A, B: B, k: k, k2: k2 };
+}
+/* plane maps */
+function mirror(p, ang){ var c = Math.cos(2*ang*RAD), s = Math.sin(2*ang*RAD); return [c*p[0]+s*p[1], s*p[0]-c*p[1]]; }
+function stretch(p, f){ return [f*p[0], p[1]]; }
+if (typeof module !== 'undefined' && module.exports){ module.exports = { sigma: sigma, mirror: mirror, stretch: stretch, len: len, clip: clip }; }
+
+/* ================= page ================= */
+if (typeof document !== 'undefined') (function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var root = document.documentElement;
+  function css(n){ return getComputedStyle(root).getPropertyValue(n).trim(); }
+  function f(n){ return n.toFixed(1); }
+  var PITCH = 24, SC = 0.76, CX = 168, CY = 170, MID = [0, 0, 130];
+  var BOX = [[-160, 160], [-135, 135], [-35, 330]];
+
+  /* a paraline drawing surface: parallel projection, turned by yaw */
+  function Pen(yaw){
+    var a = yaw * RAD, t = PITCH * RAD, o = '';
+    function pr(p){ var x = p[0]-MID[0], y = p[1]-MID[1], z = p[2]-MID[2];
+      var rx = x*Math.cos(a) + z*Math.sin(a), dz = -x*Math.sin(a) + z*Math.cos(a);
+      return [CX + SC*rx, CY - SC*(y*Math.cos(t) + dz*Math.sin(t))]; }
+    return {
+      seg: function(p, q, col, w, dash, op){ var A = pr(p), B = pr(q);
+        o += '<line x1="'+f(A[0])+'" y1="'+f(A[1])+'" x2="'+f(B[0])+'" y2="'+f(B[1])+'" stroke="'+col+'" stroke-width="'+w+'"'+
+          (dash ? ' stroke-dasharray="'+dash+'"' : '')+(op ? ' stroke-opacity="'+op+'"' : '')+' stroke-linecap="round"/>'; },
+      line: function(p, d, col, w, op){ var k = clip(p, d, BOX); if (k) this.seg(at(p, d, k[0]), at(p, d, k[1]), col, w, null, op); },
+      dot: function(p, col, r, hollow){ var P = pr(p);
+        o += '<circle cx="'+f(P[0])+'" cy="'+f(P[1])+'" r="'+r+'" fill="'+(hollow ? css('--panel') : col)+'" stroke="'+col+'" stroke-width="1.8"/>'; },
+      text: function(p, s, col, dx, dy, anchor){ var P = pr(p);
+        o += '<text x="'+f(P[0]+(dx||0))+'" y="'+f(P[1]+(dy||0))+'"'+(col ? ' style="fill:'+col+'"' : '')+(anchor ? ' text-anchor="'+anchor+'"' : '')+'>'+s+'</text>'; },
+      frame: function(z, col){ var c = [[-140,-110,z],[140,-110,z],[140,110,z],[-140,110,z]].map(pr);
+        o += '<polygon points="'+c.map(function(q){ return f(q[0])+','+f(q[1]); }).join(' ')+'" fill="'+col+'" fill-opacity="0.03" stroke="'+col+'" stroke-opacity="0.35" stroke-width="1"/>'; },
+      inBox: function(p){ return p.every(function(v, i){ return isFinite(v) && v >= BOX[i][0] && v <= BOX[i][1]; }); },
+      out: function(){ return o; }
+    };
+  }
+  function slits(pen, za, zb, ca, cb, mut){
+    if (isFinite(zb) && zb <= BOX[2][1]) pen.frame(zb, cb);
+    pen.frame(za, ca);
+    pen.seg([0, 0, BOX[2][0]], [0, 0, BOX[2][1]], mut, 0.8, '2 4');
+    pen.seg([0, -110, za], [0, 110, za], ca, 3.2);
+    pen.text([0, -110, za], 'slit a', ca, 5, 11);
+    if (isFinite(zb) && zb <= BOX[2][1]){
+      pen.seg([-140, 0, zb], [140, 0, zb], cb, 3.2);
+      pen.text([140, 0, zb], 'slit b', cb, -2, -8, 'end');
+    }
+  }
+
+  /* ---------- Diagram 1 ---------- */
+  function draw1(){
+    var ya = +$('a-ya').value, xb = +$('a-xb').value, k = +$('a-k').value, yaw = +$('a-yaw').value;
+    var za = 150 * k, zb = 250 * k;
+    var ca = css('--slit-a'), cb = css('--slit-b'), cg = css('--family'), mut = css('--muted');
+    var pen = Pen(yaw);
+    slits(pen, za, zb, ca, cb, mut);
+    if ($('a-fam').checked){
+      [-90, -45, 0, 45, 90].forEach(function(y){ [-110, -55, 0, 55, 110].forEach(function(x){
+        var d = [x, -y, zb - za], g = zb - za;            /* drawn only from a little before slit a to a little past slit b */
+        pen.seg(at([0, y, za], d, -0.45), at([0, y, za], d, 1.25), cg, 0.9, null, 0.55); }); });
+    }
+    var A = [0, ya, za], B = [xb, 0, zb];
+    pen.line(A, sub(B, A), cg, 2.6);
+    pen.dot(A, ca, 4.6); pen.dot(B, cb, 4.6);
+    $('svg1').innerHTML = pen.out();
+    $('a-ya-o').textContent = ya; $('a-xb-o').textContent = xb; $('a-k-o').textContent = k.toFixed(2); $('a-yaw-o').textContent = yaw + '°';
+    $('say1').innerHTML = '<strong>Two numbers, ' + ya + ' and ' + xb + ', select this one line.</strong> ' +
+      (Math.abs(k - 1) < 0.005 ? 'Slit a is at depth 150, slit b at depth 250.' :
+        'Space is stretched by ' + k.toFixed(2) + ' along the depth axis: slit a is now at depth ' + za.toFixed(1) + ', slit b at ' + zb.toFixed(1) +
+        '. Every length along the depth axis has changed. The family is still the lines meeting both slits.');
+  }
+  ['a-ya', 'a-xb', 'a-k', 'a-yaw', 'a-fam'].forEach(function(id){ $(id).addEventListener('input', draw1); });
+
+  /* ---------- Diagram 2 ---------- */
+  var S2 = { mode: 2, alpha: 20, phi: 35, fac: 1.5 };
+  var FIG = [[20, 15], [95, 15], [95, 38], [45, 38], [45, 105], [20, 105]];   /* an L: it has no mirror line of its own */
+  var P0 = [95, 15], Q0 = [20, 105];
+  function build2(){
+    var h = '';
+    function row(id, text, min, max, step, val){ return '<div class="row"><label for="'+id+'">'+text+'</label><output id="'+id+'-o"></output><input type="range" id="'+id+'" min="'+min+'" max="'+max+'" step="'+step+'" value="'+val+'"></div>'; }
+    if (S2.mode === 0) h += row('b-fac', 'Stretch factor (left-right direction)', 0.5, 2, 0.01, S2.fac);
+    else h += row('b-alpha', 'Direction of mirror line m₁', 0, 180, 1, S2.alpha);
+    if (S2.mode === 2) h += row('b-phi', 'Angle from m₁ to m₂ (φ)', 5, 90, 1, S2.phi);
+    $('ctl2').innerHTML = h;
+    [['b-fac', 'fac'], ['b-alpha', 'alpha'], ['b-phi', 'phi']].forEach(function(pr){
+      var e = $(pr[0]); if (e) e.addEventListener('input', function(){ S2[pr[1]] = +e.value; draw2(); }); });
+    $('b-m1').setAttribute('aria-pressed', String(S2.mode === 1));
+    $('b-m2').setAttribute('aria-pressed', String(S2.mode === 2));
+    $('b-m0').setAttribute('aria-pressed', String(S2.mode === 0));
+    draw2();
+  }
+  function draw2(){
+    var ink = css('--ink'), mut = css('--muted'), ca = css('--slit-a'), cb = css('--slit-b'), ci = css('--image'), cn = css('--no'), rule = css('--rule');
+    var OX = 180, OY = 150, K = 1.0, o = '';
+    function px(p){ return [OX + K*p[0], OY - K*p[1]]; }
+    function poly(pts, col, fillop, w, dash){ return '<polygon points="'+pts.map(px).map(function(q){ return f(q[0])+','+f(q[1]); }).join(' ')+'" fill="'+col+'" fill-opacity="'+fillop+'" stroke="'+col+'" stroke-width="'+w+'"'+(dash ? ' stroke-dasharray="'+dash+'"' : '')+' stroke-linejoin="round"/>'; }
+    function ln(p, q, col, w, dash){ var A = px(p), B = px(q); return '<line x1="'+f(A[0])+'" y1="'+f(A[1])+'" x2="'+f(B[0])+'" y2="'+f(B[1])+'" stroke="'+col+'" stroke-width="'+w+'"'+(dash ? ' stroke-dasharray="'+dash+'"' : '')+' stroke-linecap="round"/>'; }
+    function pt(p, col, hollow){ var A = px(p); return '<circle cx="'+f(A[0])+'" cy="'+f(A[1])+'" r="3.6" fill="'+(hollow ? css('--panel') : col)+'" stroke="'+col+'" stroke-width="1.8"/>'; }
+    function tx(p, s, col, dx, dy){ var A = px(p); return '<text x="'+f(A[0]+dx)+'" y="'+f(A[1]+dy)+'" style="fill:'+col+'">'+s+'</text>'; }
+    function mline(ang, col, name){ var c = Math.cos(ang*RAD), s = Math.sin(ang*RAD), R = 168;
+      var e = [R*c, R*s]; if (Math.abs(e[1]) > 138){ var q = 138/Math.abs(e[1]); e = [e[0]*q, e[1]*q]; }
+      return ln([-e[0], -e[1]], e, col, 2.2) + tx(e, name, col, e[0] > 0 ? -16 : 6, e[1] > 0 ? 12 : -5); }
+    var map, col = ci, mid = null;
+    if (S2.mode === 1) map = function(p){ return mirror(p, S2.alpha); };
+    else if (S2.mode === 2){ map = function(p){ return mirror(mirror(p, S2.alpha), S2.alpha + S2.phi); }; mid = function(p){ return mirror(p, S2.alpha); }; }
+    else { map = function(p){ return stretch(p, S2.fac); }; if (Math.abs(S2.fac - 1) > 0.005) col = cn; }
+    /* faint axes cross at the centre */
+    o += ln([-170, 0], [170, 0], rule, 0.8) + ln([0, -140], [0, 140], rule, 0.8);
+    if (S2.mode >= 1) o += mline(S2.alpha, ca, 'm₁');
+    if (S2.mode === 2) o += mline(S2.alpha + S2.phi, cb, 'm₂');
+    if (mid) o += poly(FIG.map(mid), mut, 0.04, 1, '3 3');
+    o += poly(FIG, ink, 0.10, 1.6);
+    o += poly(FIG.map(map), col, 0.14, 1.6);
+    var P2 = map(P0), Q2 = map(Q0);
+    o += ln(P0, Q0, ink, 1.2, '4 3') + ln(P2, Q2, col, 1.2, '4 3');
+    o += pt(P0, ink) + pt(Q0, ink) + pt(P2, col, true) + pt(Q2, col, true);
+    o += tx(P0, 'P', ink, 6, 12) + tx(Q0, 'Q', ink, -12, -5) + tx(P2, 'P′', col, 6, 12) + tx(Q2, 'Q′', col, 6, -5);
+    $('svg2').innerHTML = o;
+    var d1 = len(P0, Q0), d2 = len(P2, Q2), kept = Math.abs(d1 - d2) < 0.005, s;
+    var nums = 'Length PQ = <span class="num">' + d1.toFixed(2) + '</span>. Length P′Q′ = <span class="num">' + d2.toFixed(2) + '</span>. ';
+    if (S2.mode === 1){ $('b-alpha-o').textContent = S2.alpha + '°';
+      s = '<strong>Distance kept: a congruence map.</strong> ' + nums + 'One mirror, sign −1. The blue figure is the dark one turned over: its L reads the other way round.'; }
+    else if (S2.mode === 2){ $('b-alpha-o').textContent = S2.alpha + '°'; $('b-phi-o').textContent = S2.phi + '°';
+      s = '<strong>Distance kept: a congruence map.</strong> ' + nums + 'Two mirrors, sign +1. Mirror m₁ first (dotted grey figure), then mirror m₂. The result is a turn about the crossing point by 2φ = ' + (2*S2.phi) + '°.'; }
+    else { $('b-fac-o').textContent = S2.fac.toFixed(2);
+      s = kept ? '<strong>Factor 1: nothing is changed.</strong> ' + nums + 'Move the slider off 1.' :
+        '<strong>Distance not kept: not a congruence map.</strong> ' + nums + 'The stretch is a map of the plane, but no product of mirrors gives it.'; }
+    $('say2').innerHTML = s;
+  }
+  $('b-m1').addEventListener('click', function(){ S2.mode = 1; build2(); });
+  $('b-m2').addEventListener('click', function(){ S2.mode = 2; build2(); });
+  $('b-m0').addEventListener('click', function(){ S2.mode = 0; build2(); });
+
+  /* ---------- Diagram 3 ---------- */
+  var Q3 = [-50, -40, 100];
+  function draw3(){
+    var u = +$('c-u').value, yaw = +$('c-yaw').value;
+    var zb = u >= 0.995 ? Infinity : ZA + 100 / (1 - u);
+    var P = [+$('c-px').value, 50, +$('c-pz').value];
+    var ink = css('--ink'), mut = css('--muted'), ca = css('--slit-a'), cb = css('--slit-b'), cg = css('--family'), ci = css('--image'), cn = css('--no');
+    var pen = Pen(yaw);
+    slits(pen, ZA, zb, ca, cb, mut);
+    var sp = sigma(P, ZA, zb), sq = sigma(Q3, ZA, zb);
+    var kept = !isFinite(zb), c2 = kept ? ci : cn;
+    /* the two lines of the family, through P and through Q */
+    pen.line(sp.A, sub(P, sp.A), cg, 1.6); pen.line(sq.A, sub(Q3, sq.A), cg, 1.6);
+    pen.dot(sp.A, ca, 2.6); pen.dot(sq.A, ca, 2.6);
+    if (sp.B && pen.inBox(sp.B)) pen.dot(sp.B, cb, 2.6);
+    if (sq.B && pen.inBox(sq.B)) pen.dot(sq.B, cb, 2.6);
+    pen.seg(P, Q3, ink, 1.6);
+    var shown = pen.inBox(sp.P2) && pen.inBox(sq.P2);
+    if (shown) pen.seg(sp.P2, sq.P2, c2, 1.6, '4 3');
+    pen.dot(P, ink, 4); pen.dot(Q3, ink, 4);
+    pen.text(P, 'P', ink, 7, -5); pen.text(Q3, 'Q', ink, -13, 4);
+    if (pen.inBox(sp.P2)){ pen.dot(sp.P2, c2, 4, true); pen.text(sp.P2, 'P′', c2, 7, -5); }
+    if (pen.inBox(sq.P2)){ pen.dot(sq.P2, c2, 4, true); pen.text(sq.P2, 'Q′', c2, 7, 12); }
+    if (!isFinite(zb)) pen.text([150, 0, 300], 'slit b is at infinity', cb, 0, 0, 'end');
+    else if (zb > BOX[2][1]) pen.text([150, 0, 300], 'slit b is off the drawing', cb, 0, 0, 'end');
+    $('svg3').innerHTML = pen.out();
+    $('c-u-o').textContent = isFinite(zb) ? zb.toFixed(zb < 1000 ? 1 : 0) : 'infinity';
+    $('c-px-o').textContent = P[0]; $('c-pz-o').textContent = P[2]; $('c-yaw-o').textContent = yaw + '°';
+    var d1 = len(P, Q3), d2 = len(sp.P2, sq.P2);
+    var nums = 'Length PQ = <span class="num">' + d1.toFixed(1) + '</span>. Length P′Q′ = <span class="num">' + d2.toFixed(1) + '</span>. ';
+    $('say3').innerHTML = kept ?
+      '<strong>Distance kept.</strong> ' + nums + 'With slit b at infinity, σ is the half-turn about slit a. Here σ is a congruence map, and its invariant lines (green) are still a line congruence: the lines meeting slit a at a right angle.' :
+      '<strong>Distance not kept.</strong> ' + nums + 'σ is not a congruence map. The green lines, one through P and P′ and one through Q and Q′, are lines of the family.' +
+      (shown ? '' : ' A partner point lies outside the drawing at this setting.');
+  }
+  ['c-u', 'c-px', 'c-pz', 'c-yaw'].forEach(function(id){ $(id).addEventListener('input', draw3); });
+
+  function all(){ draw1(); draw2(); draw3(); }
+  if (window.matchMedia) window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', all);
+  new MutationObserver(all).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+  draw1(); build2(); draw3();
+})();
+</script>
+</body>
+</html>
