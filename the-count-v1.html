@@ -58,6 +58,7 @@ dt{font-weight:600}
 dd{margin:0;color:var(--muted)}
 h2{font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:8px 0 0}
 .view{border-top:1px solid var(--rule);padding-top:12px}
+.turn label{color:var(--muted)}
 .pp{display:flex;flex-direction:column;gap:10px;border-top:1px solid var(--rule);padding-top:12px}
 .pp .row input[type=range]{accent-color:var(--plane)}
 .presets{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
@@ -84,6 +85,11 @@ h2{font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase
 
   <div class="stage"><svg id="scene" viewBox="0 0 360 330" role="img" aria-label="Paraline drawing of two slits and one line"></svg></div>
 
+  <div class="row turn">
+    <label for="yaw">Turn the drawing (changes the view only, not the line)</label><output id="yaw-o"></output>
+    <input type="range" id="yaw" min="0" max="90" step="1" value="34">
+  </div>
+
   <div class="count" id="count"><b id="count-n">3</b><span id="count-t"></span></div>
 
   <div class="ctl" id="ctl"></div>
@@ -109,10 +115,6 @@ h2{font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase
     <div class="say" id="pp-say"></div>
   </div>
 
-  <div class="row view">
-    <label for="yaw">Turn the drawing (changes the view only, not the line)</label><output id="yaw-o"></output>
-    <input type="range" id="yaw" min="12" max="78" step="1" value="34">
-  </div>
 
   <h2>Words used on this page</h2>
   <dl>
@@ -132,7 +134,7 @@ h2{font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase
     <dt>ruled surface</dt><dd>a surface swept by a straight line as one number runs. Each position of the line is called a ruling line.</dd>
     <dt>doubly ruled surface</dt><dd>a surface that is ruled in two different ways: through each of its points pass two straight lines that lie wholly in the surface. On the fourth tab the green lines are one set of ruling lines and the grey lines are the other set.</dd>
   </dl>
-  <p class="rev">Revised 13 Nov 2026: the picture plane can be moved in depth; a fourth tab shows the doubly ruled surface.</p>
+  <p class="rev">Revised 13 Nov 2026: the picture plane can be moved in depth; a fourth tab shows the doubly ruled surface. The turn slider sits directly under the drawing and runs from 0° to 90°.</p>
 </main>
 
 <script>
