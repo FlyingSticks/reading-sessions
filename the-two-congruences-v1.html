@@ -83,6 +83,7 @@ dd{margin:0;color:var(--muted)}
   <div class="stage"><svg id="svg1" viewBox="0 0 360 330" role="img" aria-label="Paraline drawing: two slits and lines that meet both"></svg></div>
   <div class="ctl" style="--acc:var(--family)">
     <div class="row view"><label for="a-yaw">Turn the drawing (changes the view only)</label><output id="a-yaw-o"></output><input type="range" id="a-yaw" min="0" max="90" step="1" value="34"></div>
+    <div class="row view"><label for="a-pitch">Raise the viewpoint (changes the view only): 0° looks level from the side, 90° looks straight down from above</label><output id="a-pitch-o"></output><input type="range" id="a-pitch" min="0" max="90" step="1" value="24"></div>
     <div class="row"><label for="a-ya">Number 1: where on slit a (y)</label><output id="a-ya-o"></output><input type="range" id="a-ya" min="-110" max="110" step="1" value="-40"></div>
     <div class="row"><label for="a-xb">Number 2: where on slit b (x)</label><output id="a-xb-o"></output><input type="range" id="a-xb" min="-140" max="140" step="1" value="85"></div>
     <div class="row"><label for="a-k">Stretch all of space along the depth axis, by the factor</label><output id="a-k-o"></output><input type="range" id="a-k" min="0.6" max="1.3" step="0.01" value="1"></div>
@@ -135,6 +136,7 @@ dd{margin:0;color:var(--muted)}
   <div class="stage"><svg id="svg3" viewBox="0 0 360 330" role="img" aria-label="Paraline drawing: points P and Q and their partners under sigma"></svg></div>
   <div class="ctl" style="--acc:var(--slit-b)">
     <div class="row view"><label for="c-yaw">Turn the drawing (changes the view only)</label><output id="c-yaw-o"></output><input type="range" id="c-yaw" min="0" max="90" step="1" value="34"></div>
+    <div class="row view"><label for="c-pitch">Raise the viewpoint (changes the view only): 0° looks level from the side, 90° looks straight down from above</label><output id="c-pitch-o"></output><input type="range" id="c-pitch" min="0" max="90" step="1" value="24"></div>
     <div class="row"><label for="c-u">Push slit b away along the depth axis. Its depth z:</label><output id="c-u-o"></output><input type="range" id="c-u" min="0" max="1" step="0.01" value="0"></div>
     <div class="row"><label for="c-px">P: left or right (x)</label><output id="c-px-o"></output><input type="range" id="c-px" min="-110" max="110" step="1" value="-100"></div>
     <div class="row"><label for="c-pz">P: depth (z)</label><output id="c-pz-o"></output><input type="range" id="c-pz" min="20" max="125" step="1" value="50"></div>
@@ -157,7 +159,7 @@ dd{margin:0;color:var(--muted)}
     <dt>σ</dt><dd>the map of space defined under Diagram 3.</dd>
     <dt>half-turn about a line</dt><dd>the map of space that turns every point 180° about that line.</dd>
   </dl>
-  <p class="rev">13 Nov 2026; revised the same day (turn sliders moved directly under the drawings, range 0° to 90°). The geometry of Diagram 3 follows check-the-two-slit-involution.js (28/28, 12 Nov 2026). No outside audit yet.</p>
+  <p class="rev">13 Nov 2026; revised the same day (turn sliders moved directly under the drawings, range 0° to 90°) and on 15 Nov (a second view slider raises the viewpoint). The geometry of Diagram 3 follows check-the-two-slit-involution.js (28/28, 12 Nov 2026). No outside audit yet.</p>
 </main>
 
 <script>
@@ -197,12 +199,12 @@ if (typeof document !== 'undefined') (function(){
   var root = document.documentElement;
   function css(n){ return getComputedStyle(root).getPropertyValue(n).trim(); }
   function f(n){ return n.toFixed(1); }
-  var PITCH = 24, SC = 0.76, CX = 168, CY = 170, MID = [0, 0, 130];
+  var SC = 0.76, CX = 168, CY = 170, MID = [0, 0, 130];
   var BOX = [[-160, 160], [-135, 135], [-35, 330]];
 
   /* a paraline drawing surface: parallel projection, turned by yaw */
-  function Pen(yaw){
-    var a = yaw * RAD, t = PITCH * RAD, o = '';
+  function Pen(yaw, pitch){
+    var a = yaw * RAD, t = pitch * RAD, o = '';
     function pr(p){ var x = p[0]-MID[0], y = p[1]-MID[1], z = p[2]-MID[2];
       var rx = x*Math.cos(a) + z*Math.sin(a), dz = -x*Math.sin(a) + z*Math.cos(a);
       return [CX + SC*rx, CY - SC*(y*Math.cos(t) + dz*Math.sin(t))]; }
@@ -235,10 +237,10 @@ if (typeof document !== 'undefined') (function(){
 
   /* ---------- Diagram 1 ---------- */
   function draw1(){
-    var ya = +$('a-ya').value, xb = +$('a-xb').value, k = +$('a-k').value, yaw = +$('a-yaw').value;
+    var ya = +$('a-ya').value, xb = +$('a-xb').value, k = +$('a-k').value, yaw = +$('a-yaw').value, pitch = +$('a-pitch').value;
     var za = 150 * k, zb = 250 * k;
     var ca = css('--slit-a'), cb = css('--slit-b'), cg = css('--family'), mut = css('--muted');
-    var pen = Pen(yaw);
+    var pen = Pen(yaw, pitch);
     slits(pen, za, zb, ca, cb, mut);
     if ($('a-fam').checked){
       [-90, -45, 0, 45, 90].forEach(function(y){ [-110, -55, 0, 55, 110].forEach(function(x){
@@ -249,13 +251,13 @@ if (typeof document !== 'undefined') (function(){
     pen.line(A, sub(B, A), cg, 2.6);
     pen.dot(A, ca, 4.6); pen.dot(B, cb, 4.6);
     $('svg1').innerHTML = pen.out();
-    $('a-ya-o').textContent = ya; $('a-xb-o').textContent = xb; $('a-k-o').textContent = k.toFixed(2); $('a-yaw-o').textContent = yaw + '°';
+    $('a-ya-o').textContent = ya; $('a-xb-o').textContent = xb; $('a-k-o').textContent = k.toFixed(2); $('a-yaw-o').textContent = yaw + '°'; $('a-pitch-o').textContent = pitch + '°';
     $('say1').innerHTML = '<strong>Two numbers, ' + ya + ' and ' + xb + ', select this one line.</strong> ' +
       (Math.abs(k - 1) < 0.005 ? 'Slit a is at depth 150, slit b at depth 250.' :
         'Space is stretched by ' + k.toFixed(2) + ' along the depth axis: slit a is now at depth ' + za.toFixed(1) + ', slit b at ' + zb.toFixed(1) +
         '. Every length along the depth axis has changed. The family is still the lines meeting both slits.');
   }
-  ['a-ya', 'a-xb', 'a-k', 'a-yaw', 'a-fam'].forEach(function(id){ $(id).addEventListener('input', draw1); });
+  ['a-ya', 'a-xb', 'a-k', 'a-yaw', 'a-pitch', 'a-fam'].forEach(function(id){ $(id).addEventListener('input', draw1); });
 
   /* ---------- Diagram 2 ---------- */
   var S2 = { mode: 2, alpha: 20, phi: 35, fac: 1.5 };
@@ -320,11 +322,11 @@ if (typeof document !== 'undefined') (function(){
   /* ---------- Diagram 3 ---------- */
   var Q3 = [-50, -40, 100];
   function draw3(){
-    var u = +$('c-u').value, yaw = +$('c-yaw').value;
+    var u = +$('c-u').value, yaw = +$('c-yaw').value, pitch = +$('c-pitch').value;
     var zb = u >= 0.995 ? Infinity : ZA + 100 / (1 - u);
     var P = [+$('c-px').value, 50, +$('c-pz').value];
     var ink = css('--ink'), mut = css('--muted'), ca = css('--slit-a'), cb = css('--slit-b'), cg = css('--family'), ci = css('--image'), cn = css('--no');
-    var pen = Pen(yaw);
+    var pen = Pen(yaw, pitch);
     slits(pen, ZA, zb, ca, cb, mut);
     var sp = sigma(P, ZA, zb), sq = sigma(Q3, ZA, zb);
     var kept = !isFinite(zb), c2 = kept ? ci : cn;
@@ -344,7 +346,7 @@ if (typeof document !== 'undefined') (function(){
     else if (zb > BOX[2][1]) pen.text([150, 0, 300], 'slit b is off the drawing', cb, 0, 0, 'end');
     $('svg3').innerHTML = pen.out();
     $('c-u-o').textContent = isFinite(zb) ? zb.toFixed(zb < 1000 ? 1 : 0) : 'infinity';
-    $('c-px-o').textContent = P[0]; $('c-pz-o').textContent = P[2]; $('c-yaw-o').textContent = yaw + '°';
+    $('c-px-o').textContent = P[0]; $('c-pz-o').textContent = P[2]; $('c-yaw-o').textContent = yaw + '°'; $('c-pitch-o').textContent = pitch + '°';
     var d1 = len(P, Q3), d2 = len(sp.P2, sq.P2);
     var nums = 'Length PQ = <span class="num">' + d1.toFixed(1) + '</span>. Length P′Q′ = <span class="num">' + d2.toFixed(1) + '</span>. ';
     $('say3').innerHTML = kept ?
@@ -352,7 +354,7 @@ if (typeof document !== 'undefined') (function(){
       '<strong>Distance not kept.</strong> ' + nums + 'σ is not a congruence map. The green lines, one through P and P′ and one through Q and Q′, are lines of the family.' +
       (shown ? '' : ' A partner point lies outside the drawing at this setting.');
   }
-  ['c-u', 'c-px', 'c-pz', 'c-yaw'].forEach(function(id){ $(id).addEventListener('input', draw3); });
+  ['c-u', 'c-px', 'c-pz', 'c-yaw', 'c-pitch'].forEach(function(id){ $(id).addEventListener('input', draw3); });
 
   function all(){ draw1(); draw2(); draw3(); }
   if (window.matchMedia) window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', all);

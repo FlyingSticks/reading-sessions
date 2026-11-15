@@ -89,6 +89,10 @@ h2{font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase
     <label for="yaw">Turn the drawing (changes the view only, not the line)</label><output id="yaw-o"></output>
     <input type="range" id="yaw" min="0" max="90" step="1" value="34">
   </div>
+  <div class="row turn">
+    <label for="pitch">Raise the viewpoint (changes the view only): 0° looks level from the side, 90° looks straight down from above</label><output id="pitch-o"></output>
+    <input type="range" id="pitch" min="0" max="90" step="1" value="24">
+  </div>
 
   <div class="count" id="count"><b id="count-n">3</b><span id="count-t"></span></div>
 
@@ -130,11 +134,11 @@ h2{font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase
     <dt>tilt</dt><dd>how far the line's direction rises above or drops below horizontal, in degrees.</dd>
     <dt>miss</dt><dd>where the line crosses the other slit's frame: its distance from that slit, measured in the frame. Miss 0 means the line meets the slit.</dd>
     <dt>complex</dt><dd>a family of lines that needs three numbers to pick out one line.</dd>
-    <dt>third line c</dt><dd>the blue line (fourth tab). It lies in the frame at z = 200, passes through the depth axis, and is turned from the vertical by the angle θ. It meets neither slit.</dd>
+    <dt>third line c</dt><dd>the blue line (fourth tab). It passes through the depth axis at z = 200. It is turned from the vertical by the angle θ, and it leans in depth by κ: for each 1 unit of height it gains κ units of depth. With κ = 0 it lies in the frame at z = 200, parallel to both slit frames. It meets neither slit.</dd>
     <dt>ruled surface</dt><dd>a surface swept by a straight line as one number runs. Each position of the line is called a ruling line.</dd>
     <dt>doubly ruled surface</dt><dd>a surface that is ruled in two different ways: through each of its points pass two straight lines that lie wholly in the surface. On the fourth tab the green lines are one set of ruling lines and the grey lines are the other set.</dd>
   </dl>
-  <p class="rev">Revised 13 Nov 2026: the picture plane can be moved in depth; a fourth tab shows the doubly ruled surface. The turn slider sits directly under the drawing and runs from 0° to 90°.</p>
+  <p class="rev">Revised 13 Nov 2026: the picture plane can be moved in depth; a fourth tab shows the doubly ruled surface. Revised 15 Nov 2026: on the fourth tab the line c can lean in depth, which gives the hyperboloid of one sheet; the tab's one number is now the height u of a point of c; a second view slider raises the viewpoint from 0° to 90°. The turn slider sits directly under the drawing and runs from 0° to 90°.</p>
 </main>
 
 <script>
@@ -154,10 +158,10 @@ function tiltToMeetB(ya, bearing){ return Math.atan(-ya * Math.cos(bearing * RAD
 function bearingToMeetA(xb){ return Math.atan(-xb / GAP) / RAD; }
 /* clip the line p + k d to a box; returns [k0, k1] or null */
 var BOX = { x: [-160, 160], y: [-135, 135], z: [-35, 305] };
-function clip(p, d){
-  var k0 = -1e9, k1 = 1e9, ax = ['x', 'y', 'z'];
+function clip(p, d, box){
+  var k0 = -1e9, k1 = 1e9, ax = ['x', 'y', 'z']; box = box || BOX;
   for (var i = 0; i < 3; i++){
-    var lo = BOX[ax[i]][0], hi = BOX[ax[i]][1];
+    var lo = box[ax[i]][0], hi = box[ax[i]][1];
     if (Math.abs(d[i]) < 1e-12){ if (p[i] < lo || p[i] > hi) return null; continue; }
     var u = (lo - p[i]) / d[i], v = (hi - p[i]) / d[i];
     if (u > v){ var s = u; u = v; v = s; }
@@ -174,20 +178,44 @@ function lineThrough(x, y, p){ var s = scales(p); return { xb: x / s.x, ya: y / 
    Point of the surface: t = position on slit a of the green line through it, s = its depth as a fraction from slit a to slit b */
 function surfPoint(m, t, s){ return [s * m * t, (1 - s) * t, ZA + GAP * s]; }
 function onSurface(m, P){ return P[0] * (ZB - P[2]) - m * P[1] * (P[2] - ZA); }   /* 0 exactly on the surface */
+/* fourth tab, general third line c: through (0, 0, 200), direction (m, 1, kap).
+   m = tan(theta) turns c from the vertical; kap leans it in depth (kap = 0: parallel to the frames). */
+function cPoint(m, kap, u){ return [m * u, u, 200 + kap * u]; }
+/* direction of the one line of the family through cPoint(m, kap, u); never infinite */
+function greenDir(m, kap, u){ var s = 0.5 + kap * u / GAP; return [m * u * (1 - s), -u * s, GAP * s * (1 - s)]; }
+/* 0 exactly on the surface swept by those lines (an equation of degree 2) */
+function quad(m, kap, P){ return kap * P[0] * P[1] + 0.5 * P[0] * (ZB - P[2]) - 0.5 * m * P[1] * (P[2] - ZA); }
+function cross3(a, b){ return [a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]]; }
+function sub3(a, b){ return [a[0]-b[0], a[1]-b[1], a[2]-b[2]]; }
+function dot3(a, b){ return a[0]*b[0] + a[1]*b[1] + a[2]*b[2]; }
+/* the line of the OTHER set through P0: it must meet the green lines through cPoint(u1) and cPoint(u2) */
+function greyDir(m, kap, P0, u1, u2){
+  var n1 = cross3(sub3(cPoint(m, kap, u1), P0), greenDir(m, kap, u1));
+  var n2 = cross3(sub3(cPoint(m, kap, u2), P0), greenDir(m, kap, u2));
+  return cross3(n1, n2);
+}
+/* parameter along the line P + k g of its point nearest the line Q + j e, and the gap between the two lines there */
+function nearest(P, g, Q, e){
+  var w = sub3(P, Q), a = dot3(g, g), b = dot3(g, e), c = dot3(e, e), d = dot3(g, w), f = dot3(e, w), den = a * c - b * b;
+  if (Math.abs(den) < 1e-12 * a * c) return null;
+  var k = (b * f - c * d) / den, j = (a * f - b * d) / den;
+  var X = [P[0]+k*g[0]-Q[0]-j*e[0], P[1]+k*g[1]-Q[1]-j*e[1], P[2]+k*g[2]-Q[2]-j*e[2]];
+  return { k: k, gap: Math.hypot(X[0], X[1], X[2]) };
+}
 if (typeof module !== 'undefined' && module.exports){
-  module.exports = { surfPoint: surfPoint, onSurface: onSurface, GAP: GAP, scales: scales, crossing: crossing, lineThrough: lineThrough, dirOf: dirOf, atDepth: atDepth, tiltToMeetB: tiltToMeetB, bearingToMeetA: bearingToMeetA, clip: clip, ZA: ZA, ZB: ZB };
+  module.exports = { cPoint: cPoint, greenDir: greenDir, quad: quad, greyDir: greyDir, nearest: nearest, surfPoint: surfPoint, onSurface: onSurface, GAP: GAP, scales: scales, crossing: crossing, lineThrough: lineThrough, dirOf: dirOf, atDepth: atDepth, tiltToMeetB: tiltToMeetB, bearingToMeetA: bearingToMeetA, clip: clip, ZA: ZA, ZB: ZB };
 }
 
 /* ---------- page ---------- */
 if (typeof document !== 'undefined') (function(){
-  var S = { mode: 1, ya: -40, xb: 85, bearing: 22, tilt: 8, lock: false, yaw: 34, pp: 200, theta: 35 };
-  var PITCH = 24, SC = 0.76, CX = 168, CY = 170, MID = [0, 0, 130];
+  var S = { mode: 1, ya: -40, xb: 85, bearing: 22, tilt: 8, lock: false, yaw: 34, pp: 200, theta: 35, kap: 0.3, u: -20, pitch: 24 };
+  var SC = 0.76, CX = 168, CY = 170, MID = [0, 0, 130];
   var $ = function(id){ return document.getElementById(id); };
   var root = document.documentElement;
   function css(n){ return getComputedStyle(root).getPropertyValue(n).trim(); }
 
   function proj(p){
-    var a = S.yaw * RAD, t = PITCH * RAD, x = p[0] - MID[0], y = p[1] - MID[1], z = p[2] - MID[2];
+    var a = S.yaw * RAD, t = S.pitch * RAD, x = p[0] - MID[0], y = p[1] - MID[1], z = p[2] - MID[2];
     var rx = x * Math.cos(a) + z * Math.sin(a);
     var dz = -x * Math.sin(a) + z * Math.cos(a);
     return [CX + SC * rx, CY - SC * (y * Math.cos(t) + dz * Math.sin(t))];
@@ -226,9 +254,13 @@ if (typeof document !== 'undefined') (function(){
       if (S.lock) r.bearing = bearingToMeetA(S.xb);
       r.p = [S.xb, 0, ZB]; r.d = dirOf(r.bearing, r.tilt, -1);
       r.hit = atDepth(r.p, r.d, ZA); r.miss = Math.abs(r.hit[0]); r.foot = [0, r.hit[1], ZA];
-    } else {
+    } else if (S.mode === 4){
       r.m = Math.tan(S.theta * RAD);
-      r.p = [0, S.ya, ZA]; var q = [S.mode === 4 ? r.m * S.ya : S.xb, 0, ZB];
+      r.p = cPoint(r.m, S.kap, S.u); r.d = greenDir(r.m, S.kap, S.u); r.miss = 0;
+      r.A = Math.abs(r.d[2]) > 1e-9 ? atDepth(r.p, r.d, ZA) : null;
+      r.B = Math.abs(r.d[2]) > 1e-9 ? atDepth(r.p, r.d, ZB) : null;
+    } else {
+      r.p = [0, S.ya, ZA]; var q = [S.xb, 0, ZB];
       r.d = [q[0] - r.p[0], q[1] - r.p[1], q[2] - r.p[2]]; r.q = q; r.miss = 0;
       var h = Math.hypot(r.d[0], r.d[2]);
       r.bearing = Math.atan2(r.d[0], r.d[2]) / RAD; r.tilt = Math.atan2(r.d[1], h) / RAD;
@@ -262,16 +294,38 @@ if (typeof document !== 'undefined') (function(){
     o += seg([-140, 0, ZB], [140, 0, ZB], cb, 3.2);
     o += label([0, -110, ZA], 'slit a', ca, 5, 11);
     o += label([140, 0, ZB], 'slit b', cb, -2, -8, 'end');
-    /* fourth tab: the two sets of ruling lines, the third line c, and the surface's trace in the picture plane */
+    /* fourth tab: the two sets of ruling lines, the third line c, and the surface's cut by the picture plane */
     if (S.mode === 4){
-      var m = r.m, c3 = css('--third'), i;
-      for (i = -3; i <= 13; i++){ if (i === 0 || i === 5 || i === 10) continue;           /* grey set: one line at each of these depths */
-        o += seg(surfPoint(m, -100, i / 10), surfPoint(m, 100, i / 10), mut, 0.9, null, 0.75); }
-      for (i = -4; i <= 4; i++){ if (i === 0 && Math.abs(S.ya) < 1) continue;              /* green set: nine lines of the family */
-        o += seg(surfPoint(m, 25 * i, -0.3), surfPoint(m, 25 * i, 1.3), cg, 0.9, null, 0.6); }
-      o += seg(surfPoint(m, -110, 0.5), surfPoint(m, 110, 0.5), c3, 3.2);
-      o += label(surfPoint(m, 110, 0.5), 'c', c3, 6, 0);
-      o += seg(crossing(-100, -100 * m, S.pp), crossing(100, 100 * m, S.pp), cp, 2.6);
+      var m = r.m, kap = S.kap, c3 = css('--third'), i, kk;
+      var NET = { x: [-160, 160], y: [-135, 135], z: [118, 282] };
+      function inside(P){ return isFinite(P[0]) && Math.abs(P[0]) <= 160 && Math.abs(P[1]) <= 135; }
+      /* grey set: lines of the other ruling, one through each of these points of a reference green line */
+      var U0 = 30, P0c = cPoint(m, kap, U0), d0 = greenDir(m, kap, U0), sC = 0.5 + kap * U0 / GAP;
+      for (i = -3; i <= 13; i++){
+        var sv = i / 10; if (i === 0 || i === 10 || Math.abs(sv - sC) < 0.03) continue;      /* slit a, slit b and c are drawn on their own */
+        var G0 = atDepth(P0c, d0, ZA + GAP * sv), g = greyDir(m, kap, G0, -60, 80);
+        var e1 = nearest(G0, g, cPoint(m, kap, -100), greenDir(m, kap, -100)), e2 = nearest(G0, g, cPoint(m, kap, 100), greenDir(m, kap, 100));
+        kk = clip(G0, g); if (!kk || !e1 || !e2) continue;
+        var lo = Math.max(kk[0], Math.min(e1.k, e2.k)), hi = Math.min(kk[1], Math.max(e1.k, e2.k));
+        if (lo < hi) o += seg(at(G0, g, lo), at(G0, g, hi), mut, 0.9, null, 0.75);
+      }
+      /* green set: nine lines of the family, each through one point of c */
+      for (i = -4; i <= 4; i++){
+        var Cu = cPoint(m, kap, 25 * i), du = greenDir(m, kap, 25 * i); kk = clip(Cu, du, NET);
+        if (kk) o += seg(at(Cu, du, kk[0]), at(Cu, du, kk[1]), cg, 0.9, null, 0.6);
+      }
+      kk = clip([0, 0, 200], [m, 1, kap]);
+      if (kk){ var ka = Math.max(kk[0], -115), kb = Math.min(kk[1], 115);
+        o += seg(cPoint(m, kap, ka), cPoint(m, kap, kb), c3, 3.2); o += label(cPoint(m, kap, kb), 'c', c3, 6, 0); }
+      /* where the surface cuts the picture plane: a straight line (saddle) or a hyperbola (hyperboloid) */
+      var prev = null;
+      for (i = -300; i <= 300; i++){
+        var uu = i / 2, Cq = cPoint(m, kap, uu), dq = greenDir(m, kap, uu), X = Math.abs(dq[2]) > 1e-9 ? atDepth(Cq, dq, S.pp) : null;
+        if (X && Math.abs(X[0]) <= 140 && Math.abs(X[1]) <= 110){
+          if (prev && Math.hypot(X[0] - prev[0], X[1] - prev[1]) < 30) o += seg(prev, X, cp, 2.6);
+          prev = X;
+        } else prev = null;
+      }
     }
     /* the miss, drawn in the other slit's frame */
     if (S.mode < 3 && !both){
@@ -282,12 +336,16 @@ if (typeof document !== 'undefined') (function(){
     if (k) o += seg(at(r.p, r.d, k[0]), at(r.p, r.d, k[1]), lineCol, 2.4);
     /* where it crosses the picture plane */
     var pp = atDepth(r.p, r.d, S.pp); r.cross = pp;
-    if (Math.abs(pp[0]) <= 160 && Math.abs(pp[1]) <= 135) o += dot(pp, cp, 3.6, true);
+    if (isFinite(pp[0]) && Math.abs(pp[0]) <= 160 && Math.abs(pp[1]) <= 135) o += dot(pp, cp, 3.6, true);
     /* marked points */
     if (S.mode === 1){ o += dot(r.p, ca, 4.6); o += dot(r.hit, both ? cg : ink, 3.4, !both); }
     if (S.mode === 2){ o += dot(r.p, cb, 4.6); o += dot(r.hit, both ? cg : ink, 3.4, !both); }
-    if (S.mode >= 3){ o += dot(r.p, ca, 4.6); o += dot(r.q, cb, 4.6); }
-    if (S.mode === 4) o += dot(surfPoint(r.m, S.ya, 0.5), css('--third'), 4.6);
+    if (S.mode === 3){ o += dot(r.p, ca, 4.6); o += dot(r.q, cb, 4.6); }
+    if (S.mode === 4){
+      if (r.A && Math.abs(r.A[1]) <= 135) o += dot(r.A, ca, 4.6);
+      if (r.B && Math.abs(r.B[0]) <= 160) o += dot(r.B, cb, 4.6);
+      o += dot(r.p, css('--third'), 4.6);
+    }
     $('scene').innerHTML = o;
     return r;
   }
@@ -311,16 +369,19 @@ if (typeof document !== 'undefined') (function(){
                   : slider('bearing', 'Number 2: bearing', -55, 55, S.bearing, '°');
       h += slider('tilt', (S.lock ? 'Number 2' : 'Number 3') + ': tilt', -50, 50, S.tilt, '°');
     } else if (S.mode === 4){
-      h += slider('ya', 'The one number: where on slit a (y)', -110, 110, S.ya, '');
-      h += slider('theta', 'Choice of the third line c: its turn from the vertical (θ)', -50, 50, S.theta, '°');
+      h += slider('u', 'The one number: which point of c (its height u)', -100, 100, S.u, '');
+      h += slider('theta', 'Choice of c: its turn from the vertical (θ)', -50, 50, S.theta, '°');
+      h += '<div class="row"><label for="kap">Choice of c: its lean in depth (κ), the depth it gains for each 1 unit of height</label><output id="kap-o">' + S.kap.toFixed(2) +
+           '</output><input type="range" id="kap" min="-0.6" max="0.6" step="0.02" value="' + S.kap + '"></div>';
     } else {
       h += slider('ya', 'Number 1: where on slit a (y)', -110, 110, S.ya, '');
       h += slider('xb', 'Number 2: where on slit b (x)', -140, 140, S.xb, '');
     }
     $('ctl').innerHTML = h;
-    ['ya', 'xb', 'bearing', 'tilt', 'theta'].forEach(function(id){
+    ['ya', 'xb', 'bearing', 'tilt', 'theta', 'u', 'kap'].forEach(function(id){
       var e = $(id); if (!e || e.disabled) return;
-      e.addEventListener('input', function(){ S[id] = +e.value; $(id + '-o').textContent = (+e.value).toFixed(0) + (id === 'ya' || id === 'xb' ? '' : '°'); paint(); });
+      e.addEventListener('input', function(){ S[id] = +e.value;
+        $(id + '-o').textContent = id === 'kap' ? (+e.value).toFixed(2) : (+e.value).toFixed(0) + (id === 'ya' || id === 'xb' || id === 'u' ? '' : '°'); paint(); });
     });
     $('lock-wrap').style.display = S.mode >= 3 ? 'none' : 'flex';
     $('lock').checked = S.lock;
@@ -340,11 +401,19 @@ if (typeof document !== 'undefined') (function(){
     if (S.lock && S.mode === 2){ $('bearing-o').textContent = r.bearing.toFixed(1) + '°'; $('bearing').value = r.bearing; }
     var s;
     if (S.mode === 4){
-      var xbNow = r.m * S.ya;
-      s = Math.abs(S.theta) < 0.5 ?
-        '<strong>θ = 0: c is parallel to slit a.</strong> The two lie in one plane, so c no longer keeps clear of slit a, and the surface has flattened into that plane. Turn c away from the vertical.' :
-        '<strong>The line meets slit a, slit b and c.</strong> Meeting c ties the two numbers together: number 2 = ' + r.m.toFixed(3) + ' × number 1 = ' + xbNow.toFixed(1) +
-        '. One number is left, so the line sweeps a surface: the saddle (hyperbolic paraboloid). Green lines are one set of its ruling lines. Grey lines, with slit a, slit b and c among them, are the other set. Every green line meets every grey line.';
+      var flat = Math.abs(S.kap) < 0.005, lean = Math.atan(Math.abs(S.kap) / Math.hypot(1, r.m)) / RAD;
+      var n1 = r.A ? r.A[1] : null, n2 = r.B ? r.B[0] : null;
+      if (Math.abs(S.theta) < 0.5){
+        s = '<strong>θ = 0: c lies in one plane with slit a.</strong> It no longer keeps clear of slit a, and the surface breaks down into flat planes. Turn c away from the vertical.';
+      } else {
+        s = '<strong>Surface: ' + (flat ? 'hyperbolic paraboloid (the saddle).' : 'hyperboloid of one sheet.') + '</strong> ' +
+          (flat ? 'c is parallel to the frames.' : 'c leans out of the frames by ' + lean.toFixed(1) + '°.') +
+          ' The blue dot is the point of c at height u = ' + S.u + '. The thick green line is the one line of the family through it' +
+          (n1 !== null ? ': it meets slit a at height ' + n1.toFixed(1) + ' and slit b at position ' + n2.toFixed(1) + '.' : '. Here that line is parallel to the frames.') +
+          ' Rule tying the two numbers: ' + (flat ? 'number 2 = ' + r.m.toFixed(3) + ' × number 1.' :
+            'number 2 = ' + (50 * r.m).toFixed(1) + ' × number 1 ÷ (50 + ' + S.kap.toFixed(2) + ' × number 1).') +
+          ' Green lines are one set of ruling lines. Grey lines, with slit a, slit b and c among them, are the other set.';
+      }
     } else if (S.mode === 3){
       s = '<strong>The line is in both complexes.</strong> Choosing a point on slit a and a point on slit b settles the line. Its direction is not chosen: bearing ' +
           r.bearing.toFixed(1) + '°, tilt ' + r.tilt.toFixed(1) + '° follow from the two points.';
@@ -358,11 +427,11 @@ if (typeof document !== 'undefined') (function(){
           ' but passes ' + other + ' without touching it, so it is in complex ' + S.mode + ' only.';
     }
     var c = r.cross, sc = scales(S.pp);
-    s += '<br>Crossing of the picture plane: x = ' + c[0].toFixed(1) + ', y = ' + c[1].toFixed(1) + '.';
+    s += isFinite(c[0]) ? '<br>Crossing of the picture plane: x = ' + c[0].toFixed(1) + ', y = ' + c[1].toFixed(1) + '.' : '<br>This line is parallel to the picture plane and does not cross it.';
     if (S.mode === 3) s += ' That is ' + sc.x.toFixed(3) + ' × number 2 and ' + sc.y.toFixed(3) + ' × number 1.';
-    if (S.mode === 4) s += ' The thick gold line is where the surface cuts the picture plane: a straight line, and one of the grey set.';
+    if (S.mode === 4) s += ' The thick gold mark is where the surface cuts the picture plane: ' + (Math.abs(S.kap) < 0.005 ? 'a straight line, one of the grey set.' : 'a curve (a hyperbola), no longer a straight line.');
     $('say').innerHTML = s;
-    $('yaw-o').textContent = S.yaw + '°';
+    $('yaw-o').textContent = S.yaw + '°'; $('pitch-o').textContent = S.pitch + '°';
     paintPlane(sc);
   }
 
@@ -392,6 +461,7 @@ if (typeof document !== 'undefined') (function(){
   [1, 2, 3, 4].forEach(function(m){ $('tab-' + m).addEventListener('click', function(){ S.mode = m; build(); }); });
   $('lock').addEventListener('change', function(){ S.lock = $('lock').checked; build(); });
   $('yaw').addEventListener('input', function(){ S.yaw = +$('yaw').value; paint(); });
+  $('pitch').addEventListener('input', function(){ S.pitch = +$('pitch').value; paint(); });
   if (window.matchMedia) window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', paint);
   new MutationObserver(paint).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
   build();
