@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pinhole, Double Slit and Four</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: a drafting plate. Three stacked figures drawn from one projection, captions beneath each, conventions and glossary after. */
+:root{
+  --bg:#f3f5f7; --panel:#ffffff; --ink:#1b2430; --muted:#5a6676; --hair:#c9d1db;
+  --red:#c2362c; --green:#18804a; --purple:#7446b0; --blue:#1f55c0;
+  --card-fill:rgba(116,70,176,.10); --plane-fill:rgba(60,72,90,.10);
+  --wedge-b:rgba(60,72,90,.26); --wedge-a:rgba(24,128,74,.22);
+  --display:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#11151b; --panel:#181d25; --ink:#e7ebf1; --muted:#9aa6b6; --hair:#364050;
+    --red:#ff8073; --green:#55cf8e; --purple:#b99cf0; --blue:#86acff;
+    --card-fill:rgba(185,156,240,.13); --plane-fill:rgba(200,210,225,.10);
+    --wedge-b:rgba(200,210,225,.24); --wedge-a:rgba(85,207,142,.22);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#11151b; --panel:#181d25; --ink:#e7ebf1; --muted:#9aa6b6; --hair:#364050;
+  --red:#ff8073; --green:#55cf8e; --purple:#b99cf0; --blue:#86acff;
+  --card-fill:rgba(185,156,240,.13); --plane-fill:rgba(200,210,225,.10);
+  --wedge-b:rgba(200,210,225,.24); --wedge-a:rgba(85,207,142,.22);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--display);font-size:17px;line-height:1.55}
+main{max-width:980px;margin:0 auto;padding:28px 18px 64px;display:flex;flex-direction:column;gap:28px}
+header h1{font-size:30px;line-height:1.15;margin:0 0 8px;font-weight:600;letter-spacing:-.01em;text-wrap:balance}
+header p{margin:0;color:var(--muted);max-width:65ch}
+.eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+figure{margin:0;background:var(--panel);border:1px solid var(--hair);border-radius:6px;overflow:hidden}
+.draw{overflow-x:auto}
+.draw svg{display:block;width:100%;min-width:680px;height:auto}
+figcaption{border-top:1px solid var(--hair);padding:14px 18px 16px}
+figcaption h2{font-size:18px;margin:0 0 4px;font-weight:600;text-wrap:balance}
+figcaption p{margin:0;max-width:68ch;color:var(--ink)}
+figcaption p + p{margin-top:8px;color:var(--muted)}
+.sum{background:var(--panel);border:1px solid var(--hair);border-radius:6px;padding:18px}
+.sum h2{font-size:22px;margin:0 0 12px;font-weight:600}
+.four{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.four div{border:1px solid var(--hair);border-radius:4px;padding:10px 12px}
+.four .k{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;color:var(--muted);display:block}
+.four .v{font-family:var(--mono);font-size:24px;font-weight:500;font-variant-numeric:tabular-nums}
+.four .pos .v{color:var(--blue)} .four .dir .v{color:var(--green)}
+.sum p{margin:12px 0 0;max-width:68ch}
+section h2{font-size:20px;margin:0 0 10px;font-weight:600}
+section ul{margin:0;padding-left:20px;max-width:70ch}
+section li{margin:0 0 9px}
+dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:8px 18px;max-width:78ch}
+dt{font-family:var(--mono);font-size:14px;font-weight:600;padding-top:2px}
+dd{margin:0}
+@media (max-width:560px){ .four{grid-template-columns:repeat(2,1fr)} dl{grid-template-columns:1fr;gap:2px 0} dd{margin-bottom:10px} }
+
+/* drawing marks */
+svg text{font-family:var(--mono);fill:var(--ink)}
+.lab{font-size:13px;font-weight:500;letter-spacing:.02em}
+.lab.small{font-size:12px;font-weight:400;fill:var(--muted)}
+.lab.red{fill:var(--red)} .lab.green{fill:var(--green)} .lab.purple{fill:var(--purple)}
+.num{font-size:13px;font-weight:600;fill:var(--blue)}
+.num.big{font-size:15px}
+.halo{paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round}
+.rline{stroke:var(--red);stroke-width:1.5;fill:none}
+.gline{stroke:var(--green);stroke-width:3;fill:none;stroke-linecap:round}
+.back{opacity:.36}
+.card{fill:var(--card-fill);stroke:var(--purple);stroke-width:1.6}
+.rule{stroke:var(--blue);stroke-width:.8;opacity:.55}
+.unit{stroke:var(--ink);stroke-width:4.5;stroke-linecap:round}
+.rspot{fill:var(--red)} .ospot{fill:var(--ink)} .gspot{fill:var(--green);stroke:var(--panel);stroke-width:1.5}
+.leader{stroke:var(--muted);stroke-width:1;fill:none}
+.leader.gl{stroke:var(--green)}
+.tf-muted{fill:var(--muted)} .tf-green{fill:var(--green)} .tf-purple{fill:var(--purple)} .tf-ink{fill:var(--ink)}
+.axisarrow{stroke:var(--purple);stroke-width:1.4}
+.axis{stroke:var(--ink);stroke-width:1.1}
+.plane{fill:var(--plane-fill);stroke:var(--muted);stroke-width:.8;stroke-dasharray:5 4}
+.wedge-b{fill:var(--wedge-b)} .wedge-a{fill:var(--wedge-a)}
+.arc-b{fill:none;stroke:var(--ink);stroke-width:1.2}
+.arc-a{fill:none;stroke:var(--green);stroke-width:1.2}
+.shadow{stroke:var(--green);stroke-width:1.6;stroke-dasharray:9 4}
+.plumb{stroke:var(--muted);stroke-width:1.1;stroke-dasharray:3 4}
+.tick{fill:none;stroke:var(--muted);stroke-width:1}
+.square{stroke:var(--ink);stroke-width:1.1;stroke-dasharray:4 4}
+.slit{stroke:var(--ink);stroke-width:5;stroke-linecap:round}
+.hole{fill:var(--panel);stroke:var(--ink);stroke-width:2.5}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:620px;font-variant-numeric:tabular-nums}
+th,td{border:1px solid var(--hair);padding:9px 12px;text-align:left;vertical-align:top}
+thead th{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--muted)}
+tbody th{font-weight:600}
+td{font-family:var(--mono);font-size:15px}
+td.fixed{color:var(--muted)} td.free{color:var(--green);font-weight:600} td.all{color:var(--blue);font-weight:600}
+td small,th small{display:block;font-family:var(--display);font-size:13px;font-weight:400;color:var(--muted)}
+.count{font-family:var(--mono);font-weight:600;white-space:nowrap}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <p class="eyebrow">Plate · lines in space</p>
+  <h1>Pinhole, Double Slit and the Number Four</h1>
+  <p>A line in space takes four numbers. A camera fixes two of them in advance and leaves two free. The pinhole and the double slit differ only in which two they fix.</p>
+</header>
+
+<figure>
+  <div class="draw"><svg viewBox="0 0 1000 445" role="img" aria-label="The green line pierces two parallel cards. Its piercing spot on card 1 is minus one, minus one; on card 2 it is 0.68, 0.83.">
+<defs><marker id="tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-muted"/></marker><marker id="tipg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-green"/></marker><marker id="tipp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-purple"/></marker><marker id="tipi" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-ink"/></marker></defs>
+<line x1="293.0" y1="310.3" x2="318.4" y2="293.4" class="gline back" />
+<line x1="426.2" y1="222.0" x2="539.8" y2="146.7" class="gline back" />
+<line x1="425.8" y1="206.3" x2="504.0" y2="229.2" class="square back" />
+<polygon points="291.5,345.9 448.5,270.6 448.5,34.1 291.5,109.4" class="card"/>
+<line x1="317.7" y1="293.9" x2="317.7" y2="136.3" class="rule" />
+<line x1="317.7" y1="293.9" x2="422.3" y2="243.7" class="rule" />
+<line x1="370.0" y1="268.8" x2="370.0" y2="111.2" class="rule" />
+<line x1="317.7" y1="215.1" x2="422.3" y2="164.9" class="rule" />
+<line x1="422.3" y1="243.7" x2="422.3" y2="86.1" class="rule" />
+<line x1="317.7" y1="136.3" x2="422.3" y2="86.1" class="rule" />
+<polygon points="425.5,385.1 582.5,309.8 582.5,73.4 425.5,148.6" class="card"/>
+<line x1="451.6" y1="333.1" x2="451.6" y2="175.5" class="rule" />
+<line x1="451.6" y1="333.1" x2="556.3" y2="282.9" class="rule" />
+<line x1="504.0" y1="308.0" x2="504.0" y2="150.4" class="rule" />
+<line x1="451.6" y1="254.3" x2="556.3" y2="204.1" class="rule" />
+<line x1="556.3" y1="282.9" x2="556.3" y2="125.3" class="rule" />
+<line x1="451.6" y1="175.5" x2="556.3" y2="125.3" class="rule" />
+<line x1="206.8" y1="367.4" x2="293.0" y2="310.3" class="gline" />
+<line x1="318.4" y1="293.4" x2="426.2" y2="222.0" class="gline" />
+<line x1="539.8" y1="146.7" x2="677.0" y2="55.8" class="gline" />
+<line x1="370.0" y1="190.0" x2="425.8" y2="206.3" class="square" />
+<circle cx="370.0" cy="190.0" r="4" class="ospot"/>
+<circle cx="504.0" cy="229.2" r="4" class="ospot"/>
+<circle cx="317.7" cy="293.9" r="5.5" class="gspot"/>
+<circle cx="539.5" cy="146.9" r="5.5" class="gspot"/>
+<text x="465.1" y="241.0" class="lab small halo" text-anchor="middle"><tspan x="465.1" dy="0">2 units</tspan></text>
+<line x1="180.0" y1="160.0" x2="362.0" y2="188.0" class="leader" marker-end="url(#tip)"/>
+<text x="174.0" y="152.0" class="lab" text-anchor="end"><tspan x="174.0" dy="0">ZERO MARK O₁</tspan><tspan x="174.0" dy="15">of card 1</tspan></text>
+<line x1="207.7" y1="263.9" x2="308.7" y2="290.9" class="leader gl" marker-end="url(#tipg)"/>
+<text x="201.7" y="241.9" class="lab green" text-anchor="end"><tspan x="201.7" dy="0">PIERCING SPOT ON CARD 1</tspan><tspan x="201.7" dy="15">across₁ = −1</tspan><tspan x="201.7" dy="15">up₁ = −1</tspan></text>
+<line x1="689.5" y1="172.9" x2="548.5" y2="148.9" class="leader gl" marker-end="url(#tipg)"/>
+<text x="695.5" y="168.9" class="lab green" text-anchor="start"><tspan x="695.5" dy="0">PIERCING SPOT ON CARD 2</tspan><tspan x="695.5" dy="15">across₂ = 0.68</tspan><tspan x="695.5" dy="15">up₂ = 0.83</tspan></text>
+<line x1="694.0" y1="261.2" x2="512.0" y2="231.2" class="leader" marker-end="url(#tip)"/>
+<text x="700.0" y="265.2" class="lab" text-anchor="start"><tspan x="700.0" dy="0">ZERO MARK O₂</tspan><tspan x="700.0" dy="15">straight in front of O₁</tspan></text>
+<text x="686.0" y="57.8" class="lab green" text-anchor="start"><tspan x="686.0" dy="0">THE SAME GREEN LINE</tspan><tspan x="686.0" dy="15">as in the previous plate</tspan></text>
+<line x1="282.9" y1="50.4" x2="321.9" y2="91.4" class="leader" marker-end="url(#tip)"/>
+<text x="276.9" y="36.4" class="lab purple" text-anchor="end"><tspan x="276.9" dy="0">CARD 1</tspan><tspan x="276.9" dy="15">the card of the</tspan><tspan x="276.9" dy="15">previous plate</tspan></text>
+<line x1="644.5" y1="328.2" x2="585.5" y2="284.2" class="leader" marker-end="url(#tip)"/>
+<text x="650.5" y="332.2" class="lab purple" text-anchor="start"><tspan x="650.5" dy="0">CARD 2</tspan><tspan x="650.5" dy="15">parallel to card 1,</tspan><tspan x="650.5" dy="15">2 units in front of it</tspan></text>
+<text x="30.0" y="429.0" class="lab small" text-anchor="start"><tspan x="30.0" dy="0">Lines are drawn paler where a card is in front of them.</tspan></text>
+</svg></div>
+  <figcaption>
+    <h2>1. The same green line, named by two cards: two + two = four numbers</h2>
+    <p>Add a second card, parallel to the first and 2 units in front of it. The green line pierces each card at one spot, and each spot has two numbers: (across₁, up₁) = (−1, −1) on card 1 and (across₂, up₂) = (0.68, 0.83) on card 2.</p>
+    <p>These are the same line's four numbers as before, converted: across₂ = across₁ + 2·tan β and up₂ = up₁ + 2·tan α ÷ cos β, with α = 35° and β = 40°. The values 0.68 and 0.83 are rounded to two places.</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <div class="draw"><svg viewBox="0 0 1000 445" role="img" aria-label="A pinhole at the point C of card 2. Every ray passes through C. Each ray is named by its landing spot on card 1. The green line is the ray landing at minus one, minus one.">
+<defs><marker id="tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-muted"/></marker><marker id="tipg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-green"/></marker><marker id="tipp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-purple"/></marker><marker id="tipi" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-ink"/></marker></defs>
+<line x1="292.8" y1="135.1" x2="319.3" y2="136.4" class="rline back" />
+<line x1="440.6" y1="142.2" x2="541.0" y2="147.0" class="rline back" />
+<line x1="387.2" y1="67.8" x2="423.2" y2="86.6" class="rline back" />
+<line x1="487.2" y1="119.8" x2="540.3" y2="147.3" class="rline back" />
+<line x1="387.2" y1="272.8" x2="423.2" y2="243.0" class="rline back" />
+<line x1="426.2" y1="240.5" x2="540.3" y2="146.3" class="rline back" />
+<line x1="319.2" y1="202.9" x2="371.3" y2="189.7" class="rline back" />
+<line x1="426.3" y1="175.7" x2="540.6" y2="146.6" class="rline back" />
+<line x1="293.0" y1="310.3" x2="318.4" y2="293.4" class="gline back" />
+<line x1="426.2" y1="222.0" x2="539.8" y2="146.7" class="gline back" />
+<polygon points="291.5,345.9 448.5,270.6 448.5,34.1 291.5,109.4" class="card"/>
+<line x1="317.7" y1="293.9" x2="317.7" y2="136.3" class="rule" />
+<line x1="317.7" y1="293.9" x2="422.3" y2="243.7" class="rule" />
+<line x1="370.0" y1="268.8" x2="370.0" y2="111.2" class="rule" />
+<line x1="317.7" y1="215.1" x2="422.3" y2="164.9" class="rule" />
+<line x1="422.3" y1="243.7" x2="422.3" y2="86.1" class="rule" />
+<line x1="317.7" y1="136.3" x2="422.3" y2="86.1" class="rule" />
+<polygon points="425.5,385.1 582.5,309.8 582.5,73.4 425.5,148.6" class="card"/>
+<line x1="451.6" y1="333.1" x2="451.6" y2="175.5" class="rule" />
+<line x1="451.6" y1="333.1" x2="556.3" y2="282.9" class="rule" />
+<line x1="504.0" y1="308.0" x2="504.0" y2="150.4" class="rule" />
+<line x1="451.6" y1="254.3" x2="556.3" y2="204.1" class="rule" />
+<line x1="556.3" y1="282.9" x2="556.3" y2="125.3" class="rule" />
+<line x1="451.6" y1="175.5" x2="556.3" y2="125.3" class="rule" />
+<line x1="251.1" y1="133.1" x2="292.8" y2="135.1" class="rline" />
+<line x1="319.3" y1="136.4" x2="440.6" y2="142.2" class="rline" />
+<line x1="541.0" y1="147.0" x2="705.8" y2="154.9" class="rline" />
+<line x1="423.2" y1="86.6" x2="487.2" y2="119.8" class="rline" />
+<line x1="540.3" y1="147.3" x2="627.3" y2="192.5" class="rline" />
+<line x1="423.2" y1="243.0" x2="426.2" y2="240.5" class="rline" />
+<line x1="540.3" y1="146.3" x2="627.3" y2="74.3" class="rline" />
+<line x1="371.3" y1="189.7" x2="426.3" y2="175.7" class="rline" />
+<line x1="540.6" y1="146.6" x2="666.5" y2="114.6" class="rline" />
+<line x1="206.8" y1="367.4" x2="293.0" y2="310.3" class="gline" />
+<line x1="318.4" y1="293.4" x2="426.2" y2="222.0" class="gline" />
+<line x1="539.8" y1="146.7" x2="677.0" y2="55.8" class="gline" />
+<circle cx="317.7" cy="136.3" r="3.4" class="rspot"/>
+<circle cx="422.3" cy="86.1" r="3.4" class="rspot"/>
+<circle cx="422.3" cy="243.7" r="3.4" class="rspot"/>
+<circle cx="370.0" cy="190.0" r="3.4" class="rspot"/>
+<circle cx="317.7" cy="293.9" r="5.5" class="gspot"/>
+<circle cx="539.5" cy="146.9" r="7.5" class="hole"/>
+<line x1="669.5" y1="230.9" x2="547.5" y2="153.9" class="leader" marker-end="url(#tip)"/>
+<text x="675.5" y="230.9" class="lab" text-anchor="start"><tspan x="675.5" dy="0">PINHOLE C ON CARD 2</tspan><tspan x="675.5" dy="15">across₂ = 0.68  FIXED</tspan><tspan x="675.5" dy="15">up₂ = 0.83  FIXED</tspan><tspan x="675.5" dy="15">every ray passes through C</tspan></text>
+<line x1="207.7" y1="263.9" x2="308.7" y2="290.9" class="leader gl" marker-end="url(#tipg)"/>
+<text x="201.7" y="226.9" class="lab green" text-anchor="end"><tspan x="201.7" dy="0">LANDING SPOT ON CARD 1</tspan><tspan x="201.7" dy="15">across₁  FREE</tspan><tspan x="201.7" dy="15">up₁  FREE</tspan><tspan x="201.7" dy="15">green ray: (−1, −1)</tspan></text>
+<line x1="197.7" y1="170.3" x2="310.7" y2="139.3" class="leader" marker-end="url(#tip)"/>
+<text x="191.7" y="166.3" class="lab red" text-anchor="end"><tspan x="191.7" dy="0">another landing spot,</tspan><tspan x="191.7" dy="15">another ray: (−1, 1)</tspan></text>
+<text x="686.0" y="57.8" class="lab green" text-anchor="start"><tspan x="686.0" dy="0">THE SAME GREEN LINE,</tspan><tspan x="686.0" dy="15">now one ray of the pinhole</tspan></text>
+<line x1="282.9" y1="50.4" x2="321.9" y2="91.4" class="leader" marker-end="url(#tip)"/>
+<text x="276.9" y="36.4" class="lab purple" text-anchor="end"><tspan x="276.9" dy="0">CARD 1</tspan><tspan x="276.9" dy="15">receives the rays</tspan></text>
+<line x1="644.5" y1="328.2" x2="585.5" y2="284.2" class="leader" marker-end="url(#tip)"/>
+<text x="650.5" y="332.2" class="lab purple" text-anchor="start"><tspan x="650.5" dy="0">CARD 2</tspan><tspan x="650.5" dy="15">carries the pinhole</tspan></text>
+<text x="30.0" y="429.0" class="lab small" text-anchor="start"><tspan x="30.0" dy="0">Lines are drawn paler where a card is in front of them.</tspan></text>
+</svg></div>
+  <figcaption>
+    <h2>2. Pinhole: both numbers on card 2 are fixed</h2>
+    <p>Pierce card 2 with a pinhole at C = (0.68, 0.83). Only lines through C are admitted, so every ray has the same across₂ and the same up₂. What is left free is the landing spot on card 1. Two free numbers name each ray; the green line is the ray (−1, −1).</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <div class="draw"><svg viewBox="0 0 1000 465" role="img" aria-label="Slit a on card 1, parallel to across. Slit b on card 2, parallel to up. Every ray crosses both slits. Each ray is named by s, its position along slit a, and t, its position along slit b. The green line is the ray s equals minus one, t equals 0.83.">
+<defs><marker id="tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-muted"/></marker><marker id="tipg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-green"/></marker><marker id="tipp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-purple"/></marker><marker id="tipi" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-ink"/></marker></defs>
+<line x1="292.7" y1="306.9" x2="317.7" y2="303.9" class="rline back" />
+<line x1="425.8" y1="291.0" x2="540.6" y2="277.2" class="rline back" />
+<line x1="346.4" y1="302.3" x2="390.9" y2="268.8" class="rline back" />
+<line x1="426.6" y1="241.9" x2="540.2" y2="156.4" class="rline back" />
+<line x1="346.4" y1="266.2" x2="390.9" y2="268.8" class="rline back" />
+<line x1="426.6" y1="270.8" x2="540.2" y2="277.4" class="rline back" />
+<line x1="400.8" y1="259.0" x2="540.0" y2="214.1" class="rline back" />
+<line x1="293.0" y1="320.3" x2="318.4" y2="303.4" class="gline back" />
+<line x1="426.2" y1="232.0" x2="539.8" y2="156.7" class="gline back" />
+<polygon points="291.5,355.9 448.5,280.6 448.5,44.1 291.5,119.4" class="card"/>
+<line x1="317.7" y1="303.9" x2="317.7" y2="146.3" class="rule" />
+<line x1="317.7" y1="303.9" x2="422.3" y2="253.7" class="rule" />
+<line x1="370.0" y1="278.8" x2="370.0" y2="121.2" class="rule" />
+<line x1="317.7" y1="225.1" x2="422.3" y2="174.9" class="rule" />
+<line x1="422.3" y1="253.7" x2="422.3" y2="96.1" class="rule" />
+<line x1="317.7" y1="146.3" x2="422.3" y2="96.1" class="rule" />
+<line x1="291.5" y1="316.4" x2="448.5" y2="241.2" class="slit" />
+<polygon points="425.5,395.1 582.5,319.8 582.5,83.4 425.5,158.6" class="card"/>
+<line x1="451.6" y1="343.1" x2="451.6" y2="185.5" class="rule" />
+<line x1="451.6" y1="343.1" x2="556.3" y2="292.9" class="rule" />
+<line x1="504.0" y1="318.0" x2="504.0" y2="160.4" class="rule" />
+<line x1="451.6" y1="264.3" x2="556.3" y2="214.1" class="rule" />
+<line x1="556.3" y1="292.9" x2="556.3" y2="135.3" class="rule" />
+<line x1="451.6" y1="185.5" x2="556.3" y2="135.3" class="rule" />
+<line x1="539.5" y1="340.4" x2="539.5" y2="104.0" class="slit" />
+<line x1="251.1" y1="311.9" x2="292.7" y2="306.9" class="rline" />
+<line x1="317.7" y1="303.9" x2="425.8" y2="291.0" class="rline" />
+<line x1="540.6" y1="277.2" x2="650.3" y2="264.1" class="rline" />
+<line x1="390.9" y1="268.8" x2="426.6" y2="241.9" class="rline" />
+<line x1="540.2" y1="156.4" x2="613.7" y2="101.0" class="rline" />
+<line x1="390.9" y1="268.8" x2="426.6" y2="270.8" class="rline" />
+<line x1="540.2" y1="277.4" x2="613.7" y2="281.6" class="rline" />
+<line x1="540.0" y1="214.1" x2="592.8" y2="197.1" class="rline" />
+<line x1="206.8" y1="377.4" x2="293.0" y2="320.3" class="gline" />
+<line x1="318.4" y1="303.4" x2="426.2" y2="232.0" class="gline" />
+<line x1="539.8" y1="156.7" x2="677.0" y2="65.8" class="gline" />
+<circle cx="317.7" cy="303.9" r="3.4" class="rspot"/>
+<circle cx="539.5" cy="277.4" r="3.4" class="rspot"/>
+<circle cx="390.9" cy="268.8" r="3.4" class="rspot"/>
+<circle cx="539.5" cy="156.9" r="3.4" class="rspot"/>
+<circle cx="390.9" cy="268.8" r="3.4" class="rspot"/>
+<circle cx="539.5" cy="277.4" r="3.4" class="rspot"/>
+<circle cx="432.8" cy="248.7" r="3.4" class="rspot"/>
+<circle cx="539.5" cy="214.3" r="3.4" class="rspot"/>
+<circle cx="317.7" cy="303.9" r="5.5" class="gspot"/>
+<circle cx="539.5" cy="156.9" r="5.5" class="gspot"/>
+<line x1="221.5" y1="220.4" x2="299.5" y2="308.4" class="leader" marker-end="url(#tip)"/>
+<text x="215.5" y="184.4" class="lab" text-anchor="end"><tspan x="215.5" dy="0">SLIT a ON CARD 1</tspan><tspan x="215.5" dy="15">parallel to ACROSS</tspan><tspan x="215.5" dy="15">up₁ = −1  FIXED</tspan><tspan x="215.5" dy="15">s = across₁  FREE</tspan></text>
+<line x1="221.7" y1="347.9" x2="309.7" y2="308.9" class="leader gl" marker-end="url(#tipg)"/>
+<text x="215.7" y="351.9" class="lab green" text-anchor="end"><tspan x="215.7" dy="0">green ray crosses</tspan><tspan x="215.7" dy="15">slit a at s = −1</tspan></text>
+<line x1="689.5" y1="108.0" x2="545.5" y2="114.0" class="leader" marker-end="url(#tip)"/>
+<text x="695.5" y="98.0" class="lab" text-anchor="start"><tspan x="695.5" dy="0">SLIT b ON CARD 2</tspan><tspan x="695.5" dy="15">parallel to UP</tspan><tspan x="695.5" dy="15">across₂ = 0.68  FIXED</tspan><tspan x="695.5" dy="15">t = up₂  FREE</tspan></text>
+<line x1="689.5" y1="218.9" x2="548.5" y2="160.9" class="leader gl" marker-end="url(#tipg)"/>
+<text x="695.5" y="218.9" class="lab green" text-anchor="start"><tspan x="695.5" dy="0">green ray crosses</tspan><tspan x="695.5" dy="15">slit b at t = 0.83</tspan></text>
+<text x="686.0" y="51.8" class="lab green" text-anchor="start"><tspan x="686.0" dy="0">THE SAME GREEN LINE,</tspan><tspan x="686.0" dy="15">now one ray of the double slit</tspan></text>
+<line x1="282.9" y1="60.4" x2="321.9" y2="101.4" class="leader" marker-end="url(#tip)"/>
+<text x="276.9" y="46.4" class="lab purple" text-anchor="end"><tspan x="276.9" dy="0">CARD 1</tspan><tspan x="276.9" dy="15">carries slit a</tspan></text>
+<line x1="644.5" y1="338.2" x2="585.5" y2="294.2" class="leader" marker-end="url(#tip)"/>
+<text x="650.5" y="342.2" class="lab purple" text-anchor="start"><tspan x="650.5" dy="0">CARD 2</tspan><tspan x="650.5" dy="15">carries slit b</tspan></text>
+<text x="30.0" y="449.0" class="lab small" text-anchor="start"><tspan x="30.0" dy="0">Lines are drawn paler where a card is in front of them.</tspan></text>
+</svg></div>
+  <figcaption>
+    <h2>3. Double slit: one number fixed on each card</h2>
+    <p>Cut slit a in card 1, parallel to ACROSS, at up₁ = −1. Cut slit b in card 2, parallel to UP, at across₂ = 0.68. Only lines crossing both slits are admitted. Slit a fixes up₁ and leaves across₁ free: call it s. Slit b fixes across₂ and leaves up₂ free: call it t. Two free numbers name each ray; the green line is the ray (s, t) = (−1, 0.83).</p>
+  </figcaption>
+</figure>
+
+<div class="sum">
+  <h2>Where the four numbers go</h2>
+  <div class="tbl">
+  <table>
+    <thead><tr><th></th><th>across₁</th><th>up₁</th><th>across₂</th><th>up₂</th><th>count</th></tr></thead>
+    <tbody>
+      <tr><th>Any line<small>no camera</small></th><td class="all">−1</td><td class="all">−1</td><td class="all">0.68</td><td class="all">0.83</td><td class="count">4 free</td></tr>
+      <tr><th>Pinhole at C<small>one point on card 2</small></th><td class="free">−1<small>free</small></td><td class="free">−1<small>free</small></td><td class="fixed">0.68<small>fixed by C</small></td><td class="fixed">0.83<small>fixed by C</small></td><td class="count">4 − 2 = 2</td></tr>
+      <tr><th>Double slit<small>one slit on each card</small></th><td class="free">−1<small>free: s</small></td><td class="fixed">−1<small>fixed by slit a</small></td><td class="fixed">0.68<small>fixed by slit b</small></td><td class="free">0.83<small>free: t</small></td><td class="count">4 − 1 − 1 = 2</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>The values in each row are those of the green line. It is one line in space, a ray of the pinhole and a ray of the double slit at once, because C lies on slit b and the spot (−1, −1) lies on slit a.</p>
+</div>
+
+<section>
+  <h2>What the plate shows</h2>
+  <ul>
+    <li><strong>A point costs two numbers; a slit costs one.</strong> Requiring a line to pass through a point fixes two of its four numbers. Requiring it to cross a slit fixes one.</li>
+    <li><strong>Both cameras leave two.</strong> That is why each produces a two-number family of rays, enough to fill a flat picture and no more.</li>
+    <li><strong>A pinhole is two slits crossed on one card.</strong> A slit parallel to ACROSS at up₂ = 0.83 and a slit parallel to UP at across₂ = 0.68, both cut in card 2, cross at C. Their common opening is the pinhole. The double slit is such a pair of cuts placed on two different cards, one cut on each.</li>
+    <li><strong>The free numbers are not the same kind in the two cameras.</strong> In the pinhole both free numbers sit on one card and amount to a direction from C. In the double slit one sits on each card, and the rays have no common point.</li>
+    <li><strong>Through a general point of space</strong> there is exactly one ray of the pinhole, and exactly one ray of this double slit.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Conventions</h2>
+  <ul>
+    <li><strong>Card 1</strong> is the card of the previous plate, with the same zero mark, unit of length, ACROSS and UP.</li>
+    <li><strong>Card 2</strong> is parallel to card 1 and 2 units in front of it. Its zero mark O₂ lies on the line through O₁ square to both cards, and its ACROSS and UP are parallel to those of card 1.</li>
+    <li><strong>The slits are straight here.</strong> A curved slit, such as a half-circle cut in a sphere, still costs one number, so the count 4 − 1 − 1 = 2 is unchanged. What changes is that the fixed number can no longer be read as a single ruling on a card, and a general point may lie on more than one ray.</li>
+    <li><strong>One exception, as before.</strong> A line parallel to the cards pierces neither, and has no numbers in this scheme.</li>
+  </ul>
+</section>
+</main>
+</body>
+</html>
