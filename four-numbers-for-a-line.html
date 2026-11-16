@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Four Numbers for a Line</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: a drafting plate. Three stacked figures drawn from one projection, captions beneath each, conventions and glossary after. */
+:root{
+  --bg:#f3f5f7; --panel:#ffffff; --ink:#1b2430; --muted:#5a6676; --hair:#c9d1db;
+  --red:#c2362c; --green:#18804a; --purple:#7446b0; --blue:#1f55c0;
+  --card-fill:rgba(116,70,176,.10); --plane-fill:rgba(60,72,90,.10);
+  --wedge-b:rgba(60,72,90,.26); --wedge-a:rgba(24,128,74,.22);
+  --display:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#11151b; --panel:#181d25; --ink:#e7ebf1; --muted:#9aa6b6; --hair:#364050;
+    --red:#ff8073; --green:#55cf8e; --purple:#b99cf0; --blue:#86acff;
+    --card-fill:rgba(185,156,240,.13); --plane-fill:rgba(200,210,225,.10);
+    --wedge-b:rgba(200,210,225,.24); --wedge-a:rgba(85,207,142,.22);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#11151b; --panel:#181d25; --ink:#e7ebf1; --muted:#9aa6b6; --hair:#364050;
+  --red:#ff8073; --green:#55cf8e; --purple:#b99cf0; --blue:#86acff;
+  --card-fill:rgba(185,156,240,.13); --plane-fill:rgba(200,210,225,.10);
+  --wedge-b:rgba(200,210,225,.24); --wedge-a:rgba(85,207,142,.22);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--display);font-size:17px;line-height:1.55}
+main{max-width:980px;margin:0 auto;padding:28px 18px 64px;display:flex;flex-direction:column;gap:28px}
+header h1{font-size:30px;line-height:1.15;margin:0 0 8px;font-weight:600;letter-spacing:-.01em;text-wrap:balance}
+header p{margin:0;color:var(--muted);max-width:65ch}
+.eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+figure{margin:0;background:var(--panel);border:1px solid var(--hair);border-radius:6px;overflow:hidden}
+.draw{overflow-x:auto}
+.draw svg{display:block;width:100%;min-width:680px;height:auto}
+figcaption{border-top:1px solid var(--hair);padding:14px 18px 16px}
+figcaption h2{font-size:18px;margin:0 0 4px;font-weight:600;text-wrap:balance}
+figcaption p{margin:0;max-width:68ch;color:var(--ink)}
+figcaption p + p{margin-top:8px;color:var(--muted)}
+.sum{background:var(--panel);border:1px solid var(--hair);border-radius:6px;padding:18px}
+.sum h2{font-size:22px;margin:0 0 12px;font-weight:600}
+.four{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.four div{border:1px solid var(--hair);border-radius:4px;padding:10px 12px}
+.four .k{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;color:var(--muted);display:block}
+.four .v{font-family:var(--mono);font-size:24px;font-weight:500;font-variant-numeric:tabular-nums}
+.four .pos .v{color:var(--blue)} .four .dir .v{color:var(--green)}
+.sum p{margin:12px 0 0;max-width:68ch}
+section h2{font-size:20px;margin:0 0 10px;font-weight:600}
+section ul{margin:0;padding-left:20px;max-width:70ch}
+section li{margin:0 0 9px}
+dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:8px 18px;max-width:78ch}
+dt{font-family:var(--mono);font-size:14px;font-weight:600;padding-top:2px}
+dd{margin:0}
+@media (max-width:560px){ .four{grid-template-columns:repeat(2,1fr)} dl{grid-template-columns:1fr;gap:2px 0} dd{margin-bottom:10px} }
+
+/* drawing marks */
+svg text{font-family:var(--mono);fill:var(--ink)}
+.lab{font-size:13px;font-weight:500;letter-spacing:.02em}
+.lab.small{font-size:12px;font-weight:400;fill:var(--muted)}
+.lab.red{fill:var(--red)} .lab.green{fill:var(--green)} .lab.purple{fill:var(--purple)}
+.num{font-size:13px;font-weight:600;fill:var(--blue)}
+.num.big{font-size:15px}
+.halo{paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round}
+.rline{stroke:var(--red);stroke-width:1.5;fill:none}
+.gline{stroke:var(--green);stroke-width:3;fill:none;stroke-linecap:round}
+.back{opacity:.36}
+.card{fill:var(--card-fill);stroke:var(--purple);stroke-width:1.6}
+.rule{stroke:var(--blue);stroke-width:.8;opacity:.55}
+.unit{stroke:var(--ink);stroke-width:4.5;stroke-linecap:round}
+.rspot{fill:var(--red)} .ospot{fill:var(--ink)} .gspot{fill:var(--green);stroke:var(--panel);stroke-width:1.5}
+.leader{stroke:var(--muted);stroke-width:1;fill:none}
+.leader.gl{stroke:var(--green)}
+.tf-muted{fill:var(--muted)} .tf-green{fill:var(--green)} .tf-purple{fill:var(--purple)} .tf-ink{fill:var(--ink)}
+.axisarrow{stroke:var(--purple);stroke-width:1.4}
+.axis{stroke:var(--ink);stroke-width:1.1}
+.plane{fill:var(--plane-fill);stroke:var(--muted);stroke-width:.8;stroke-dasharray:5 4}
+.wedge-b{fill:var(--wedge-b)} .wedge-a{fill:var(--wedge-a)}
+.arc-b{fill:none;stroke:var(--ink);stroke-width:1.2}
+.arc-a{fill:none;stroke:var(--green);stroke-width:1.2}
+.shadow{stroke:var(--green);stroke-width:1.6;stroke-dasharray:9 4}
+.plumb{stroke:var(--muted);stroke-width:1.1;stroke-dasharray:3 4}
+.tick{fill:none;stroke:var(--muted);stroke-width:1}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <p class="eyebrow">Plate · lines in space</p>
+  <h1>Four Numbers for a Line</h1>
+  <p>A straight line in space is named by four numbers measured against one fixed card: two for where the line pierces the card, two for which way the line points.</p>
+</header>
+
+<figure>
+  <div class="draw"><svg viewBox="0 0 1000 410" role="img" aria-label="A family of parallel lines in space, with no card and no numbers.">
+<defs><marker id="tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-muted"/></marker><marker id="tipg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-green"/></marker><marker id="tipp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-purple"/></marker><marker id="tipi" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-ink"/></marker></defs>
+<line x1="239.4" y1="210.2" x2="517.5" y2="59.0" class="rline" />
+<line x1="317.2" y1="187.2" x2="595.4" y2="36.0" class="rline" />
+<line x1="395.1" y1="164.2" x2="673.2" y2="13.0" class="rline" />
+<line x1="239.4" y1="296.3" x2="517.5" y2="145.1" class="rline" />
+<line x1="317.2" y1="273.3" x2="595.4" y2="122.1" class="rline" />
+<line x1="395.1" y1="250.3" x2="673.2" y2="99.1" class="rline" />
+<line x1="239.4" y1="382.4" x2="517.5" y2="231.2" class="rline" />
+<line x1="317.2" y1="359.4" x2="595.4" y2="208.2" class="rline" />
+<line x1="395.1" y1="336.4" x2="673.2" y2="185.2" class="rline" />
+<line x1="301.7" y1="226.3" x2="579.8" y2="75.0" class="rline" />
+<line x1="770.6" y1="187.7" x2="626.6" y2="131.7" class="leader" marker-end="url(#tip)"/>
+<text x="776.6" y="191.7" class="lab red" text-anchor="start"><tspan x="776.6" dy="0">FAMILY OF</tspan><tspan x="776.6" dy="15">PARALLEL LINES</tspan></text>
+</svg></div>
+  <figcaption>
+    <h2>1. Given: a family of parallel lines</h2>
+    <p>No card, no zero mark, no unit of length. The family is already complete; nothing in it depends on any choice of ours.</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <div class="draw"><svg viewBox="0 0 1000 545" role="img" aria-label="The family of parallel lines piercing a card. Each line is named by the two numbers, across and up, of its piercing spot. The green line pierces at minus one, minus one.">
+<defs><marker id="tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-muted"/></marker><marker id="tipg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-green"/></marker><marker id="tipp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-purple"/></marker><marker id="tipi" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-ink"/></marker></defs>
+<line x1="229.4" y1="304.6" x2="372.2" y2="226.9" class="rline back" />
+<line x1="307.2" y1="281.6" x2="450.0" y2="203.9" class="rline back" />
+<line x1="385.0" y1="258.5" x2="527.8" y2="180.9" class="rline back" />
+<line x1="229.4" y1="390.7" x2="372.2" y2="313.0" class="rline back" />
+<line x1="307.2" y1="367.7" x2="450.0" y2="290.0" class="rline back" />
+<line x1="385.0" y1="344.6" x2="527.8" y2="267.0" class="rline back" />
+<line x1="229.4" y1="476.8" x2="372.2" y2="399.1" class="gline back" />
+<line x1="307.2" y1="453.8" x2="450.0" y2="376.1" class="rline back" />
+<line x1="385.0" y1="430.7" x2="527.8" y2="353.1" class="rline back" />
+<line x1="291.6" y1="320.6" x2="434.4" y2="242.9" class="rline back" />
+<polygon points="325.5,464.6 574.5,390.9 574.5,115.4 325.5,189.1" class="card"/>
+<line x1="372.2" y1="399.1" x2="372.2" y2="226.9" class="rule" />
+<line x1="372.2" y1="399.1" x2="527.8" y2="353.1" class="rule" />
+<line x1="450.0" y1="376.1" x2="450.0" y2="203.9" class="rule" />
+<line x1="372.2" y1="313.0" x2="527.8" y2="267.0" class="rule" />
+<line x1="527.8" y1="353.1" x2="527.8" y2="180.9" class="rule" />
+<line x1="372.2" y1="226.9" x2="527.8" y2="180.9" class="rule" />
+<line x1="450.0" y1="290.0" x2="527.8" y2="267.0" class="unit" />
+<line x1="372.2" y1="226.9" x2="612.7" y2="96.1" class="rline" />
+<line x1="450.0" y1="203.9" x2="690.5" y2="73.1" class="rline" />
+<line x1="527.8" y1="180.9" x2="768.4" y2="50.1" class="rline" />
+<line x1="372.2" y1="313.0" x2="612.7" y2="182.2" class="rline" />
+<line x1="450.0" y1="290.0" x2="690.5" y2="159.2" class="rline" />
+<line x1="527.8" y1="267.0" x2="768.4" y2="136.2" class="rline" />
+<line x1="372.2" y1="399.1" x2="612.7" y2="268.3" class="gline" />
+<line x1="450.0" y1="376.1" x2="690.5" y2="245.3" class="rline" />
+<line x1="527.8" y1="353.1" x2="768.4" y2="222.3" class="rline" />
+<line x1="434.4" y1="242.9" x2="675.0" y2="112.2" class="rline" />
+<circle cx="372.2" cy="226.9" r="3.2" class="rspot"/>
+<circle cx="450.0" cy="203.9" r="3.2" class="rspot"/>
+<circle cx="527.8" cy="180.9" r="3.2" class="rspot"/>
+<circle cx="372.2" cy="313.0" r="3.2" class="rspot"/>
+<circle cx="450.0" cy="290.0" r="3.2" class="rspot"/>
+<circle cx="527.8" cy="267.0" r="3.2" class="rspot"/>
+<circle cx="450.0" cy="376.1" r="3.2" class="rspot"/>
+<circle cx="527.8" cy="353.1" r="3.2" class="rspot"/>
+<circle cx="434.4" cy="242.9" r="3.2" class="rspot"/>
+<circle cx="450.0" cy="290.0" r="4.5" class="ospot"/>
+<circle cx="372.2" cy="399.1" r="5.5" class="gspot"/>
+<text x="534.8" y="282.0" class="num halo" text-anchor="start"><tspan x="534.8" dy="0">(1, 0)</tspan></text>
+<text x="457.0" y="218.9" class="num halo" text-anchor="start"><tspan x="457.0" dy="0">(0, 1)</tspan></text>
+<text x="379.2" y="328.0" class="num halo" text-anchor="start"><tspan x="379.2" dy="0">(−1, 0)</tspan></text>
+<text x="457.0" y="391.1" class="num halo" text-anchor="start"><tspan x="457.0" dy="0">(0, −1)</tspan></text>
+<text x="519.8" y="173.9" class="num halo" text-anchor="end"><tspan x="519.8" dy="0">(1, 1)</tspan></text>
+<text x="442.4" y="258.9" class="num halo" text-anchor="start"><tspan x="442.4" dy="0">(−0.2, 0.6)</tspan></text>
+<text x="441.0" y="307.0" class="num halo" text-anchor="end"><tspan x="441.0" dy="0">(0, 0)</tspan></text>
+<line x1="396.7" y1="117.1" x2="425.7" y2="156.1" class="leader" marker-end="url(#tip)"/>
+<text x="390.7" y="117.1" class="lab purple" text-anchor="end"><tspan x="390.7" dy="0">CARD</tspan></text>
+<line x1="180.0" y1="130.0" x2="443.0" y2="285.0" class="leader" marker-end="url(#tip)"/>
+<text x="174.0" y="122.0" class="lab" text-anchor="end"><tspan x="174.0" dy="0">ZERO MARK O</tspan><tspan x="174.0" dy="15">the card's origin</tspan></text>
+<line x1="222.2" y1="365.1" x2="363.2" y2="396.1" class="leader gl" marker-end="url(#tipg)"/>
+<text x="216.2" y="331.1" class="lab green" text-anchor="end"><tspan x="216.2" dy="0">PIERCING SPOT</tspan><tspan x="216.2" dy="15">of the green line</tspan><tspan x="216.2" dy="15">(−1, −1)</tspan><tspan x="216.2" dy="15">two numbers: across, up</tspan></text>
+<line x1="742.8" y1="355.3" x2="495.8" y2="282.3" class="leader" marker-end="url(#tip)"/>
+<text x="748.8" y="359.3" class="lab" text-anchor="start"><tspan x="748.8" dy="0">UNIT OF LENGTH</tspan><tspan x="748.8" dy="15">from (0, 0) to (1, 0)</tspan></text>
+<line x1="403.3" y1="460.5" x2="520.0" y2="426.0" class="axisarrow" marker-end="url(#tipp)"/>
+<text x="528.0" y="436.0" class="lab purple" text-anchor="start"><tspan x="528.0" dy="0">ACROSS (x)</tspan></text>
+<line x1="309.9" y1="348.7" x2="309.9" y2="245.4" class="axisarrow" marker-end="url(#tipp)"/>
+<text x="300.9" y="301.0" class="lab purple halo" text-anchor="end"><tspan x="300.9" dy="0">UP (y)</tspan></text>
+<line x1="790.0" y1="270.5" x2="603.7" y2="275.5" class="leader gl" marker-end="url(#tipg)"/>
+<text x="796.0" y="266.5" class="lab green" text-anchor="start"><tspan x="796.0" dy="0">UNIQUE PARALLEL</tspan><tspan x="796.0" dy="15">THROUGH THE</tspan><tspan x="796.0" dy="15">PIERCING SPOT</tspan></text>
+<line x1="783.3" y1="68.6" x2="729.3" y2="74.6" class="leader" marker-end="url(#tip)"/>
+<text x="789.3" y="64.6" class="lab red" text-anchor="start"><tspan x="789.3" dy="0">FAMILY OF</tspan><tspan x="789.3" dy="15">PARALLEL LINES</tspan></text>
+<text x="30.0" y="529.0" class="lab small" text-anchor="start"><tspan x="30.0" dy="0">Lines are drawn paler where they are behind the card.</tspan></text>
+</svg></div>
+  <figcaption>
+    <h2>2. Two numbers describe the position of each parallel piercing the card</h2>
+    <p>Each line of the family pierces the card at one spot, and that spot has two numbers: across and up, counted from the zero mark in units of length. The green line pierces at (−1, −1).</p>
+    <p>The nine ruled spots are a sample. There is a line of the family through every spot on the card, such as the one at (−0.2, 0.6).</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <div class="draw"><svg viewBox="0 0 1000 590" role="img" aria-label="The same card and the green line. Bearing beta is measured in the level plane from the line square to the card to the shadow of the green line. Altitude alpha is measured upright from the shadow to the green line.">
+<defs><marker id="tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-muted"/></marker><marker id="tipg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-green"/></marker><marker id="tipp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-purple"/></marker><marker id="tipi" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-ink"/></marker></defs>
+<line x1="179.4" y1="456.8" x2="322.2" y2="379.1" class="gline back" />
+<line x1="251.3" y1="336.4" x2="322.2" y2="379.1" class="axis back" />
+<polygon points="275.5,444.6 524.5,370.9 524.5,95.4 275.5,169.1" class="card"/>
+<line x1="322.2" y1="379.1" x2="322.2" y2="206.9" class="rule" />
+<line x1="322.2" y1="379.1" x2="477.8" y2="333.1" class="rule" />
+<line x1="400.0" y1="356.1" x2="400.0" y2="183.9" class="rule" />
+<line x1="322.2" y1="293.0" x2="477.8" y2="247.0" class="rule" />
+<line x1="477.8" y1="333.1" x2="477.8" y2="160.9" class="rule" />
+<line x1="322.2" y1="206.9" x2="477.8" y2="160.9" class="rule" />
+<circle cx="400.0" cy="270.0" r="4.0" class="ospot"/>
+<text x="391.0" y="262.0" class="lab halo" text-anchor="end"><tspan x="391.0" dy="0">O</tspan></text>
+<polygon points="287.2,389.5 559.5,308.9 706.7,397.7 434.3,478.3" class="plane"/>
+<line x1="287.2" y1="389.5" x2="324.4" y2="378.5" class="axis" />
+<line x1="324.4" y1="378.5" x2="532.6" y2="316.9" class="axis back" />
+<line x1="532.6" y1="316.9" x2="625.7" y2="289.3" class="axis" />
+<line x1="322.2" y1="426.5" x2="322.2" y2="120.8" class="axis" />
+<line x1="322.2" y1="379.1" x2="469.3" y2="467.9" class="axis" />
+<polygon points="322.2,379.1 417.5,436.7 422.2,435.2 426.8,433.7 431.3,432.2 435.6,430.5 439.7,428.8 443.8,427.0 447.7,425.2 451.4,423.3 455.0,421.4 458.4,419.4 461.6,417.4 464.7,415.3 467.6,413.2 470.3,411.0 472.9,408.8 475.2,406.6 477.4,404.3 479.4,402.0 481.2,399.7 482.8,397.3" class="wedge-b"/>
+<polygon points="322.2,379.1 551.6,405.1 551.6,401.3 551.4,397.6 551.3,393.8 551.0,390.0 550.7,386.2 550.3,382.5 549.9,378.7 549.4,374.9 548.8,371.1 548.1,367.3 547.4,363.6 546.6,359.8 545.7,356.0 544.8,352.3 543.8,348.5 542.7,344.8 541.6,341.0 540.4,337.3 539.1,333.6 537.8,329.9 536.4,326.2 534.9,322.6 533.4,318.9 531.8,315.3 530.1,311.7 528.4,308.1 526.6,304.6 524.7,301.0 522.8,297.5 520.9,294.0 518.8,290.5 516.7,287.1 514.6,283.7 512.4,280.3 510.1,276.9" class="wedge-a"/>
+<polyline points="417.5,436.7 422.2,435.2 426.8,433.7 431.3,432.2 435.6,430.5 439.7,428.8 443.8,427.0 447.7,425.2 451.4,423.3 455.0,421.4 458.4,419.4 461.6,417.4 464.7,415.3 467.6,413.2 470.3,411.0 472.9,408.8 475.2,406.6 477.4,404.3 479.4,402.0 481.2,399.7 482.8,397.3" class="arc-b" marker-start="url(#tipi)" marker-end="url(#tipi)"/>
+<polyline points="551.6,405.1 551.6,401.3 551.4,397.6 551.3,393.8 551.0,390.0 550.7,386.2 550.3,382.5 549.9,378.7 549.4,374.9 548.8,371.1 548.1,367.3 547.4,363.6 546.6,359.8 545.7,356.0 544.8,352.3 543.8,348.5 542.7,344.8 541.6,341.0 540.4,337.3 539.1,333.6 537.8,329.9 536.4,326.2 534.9,322.6 533.4,318.9 531.8,315.3 530.1,311.7 528.4,308.1 526.6,304.6 524.7,301.0 522.8,297.5 520.9,294.0 518.8,290.5 516.7,287.1 514.6,283.7 512.4,280.3 510.1,276.9" class="arc-a" marker-start="url(#tipg)" marker-end="url(#tipg)"/>
+<line x1="322.2" y1="379.1" x2="643.4" y2="415.5" class="shadow" />
+<line x1="570.2" y1="244.2" x2="570.2" y2="407.2" class="plumb" />
+<polyline points="558.3,405.9 558.3,394.7 570.2,396.0" class="tick"/>
+<line x1="322.2" y1="379.1" x2="604.1" y2="225.9" class="gline" />
+<circle cx="322.2" cy="379.1" r="5.5" class="gspot"/>
+<text x="634.7" y="294.3" class="lab purple" text-anchor="start"><tspan x="634.7" dy="0">x′  parallel to ACROSS</tspan></text>
+<text x="322.2" y="96.8" class="lab purple" text-anchor="middle"><tspan x="322.2" dy="0">y′</tspan><tspan x="322.2" dy="14">parallel to UP</tspan></text>
+<text x="475.3" y="487.9" class="lab" text-anchor="start"><tspan x="475.3" dy="0">z′  SQUARE TO THE CARD</tspan><tspan x="475.3" dy="15">β = 0 along this line</tspan></text>
+<text x="674.3" y="430.1" class="lab green" text-anchor="start"><tspan x="674.3" dy="0">SHADOW of the green line</tspan><tspan x="674.3" dy="15">on the level plane</tspan><tspan x="674.3" dy="15">α = 0 along this line</tspan></text>
+<text x="476.8" y="437.1" class="lab" text-anchor="start"><tspan x="476.8" dy="0">β = BEARING</tspan></text>
+<text x="412.1" y="377.3" class="lab green" text-anchor="start"><tspan x="412.1" dy="0">α = ALTITUDE</tspan></text>
+<line x1="320.3" y1="497.4" x2="403.3" y2="449.4" class="leader" marker-end="url(#tip)"/>
+<text x="314.3" y="505.4" class="lab" text-anchor="end"><tspan x="314.3" dy="0">LEVEL PLANE</tspan><tspan x="314.3" dy="15">the plane through x′ and z′</tspan></text>
+<text x="613.1" y="199.9" class="lab green" text-anchor="start"><tspan x="613.1" dy="0">GREEN LINE</tspan><tspan x="613.1" dy="15">its direction is the direction</tspan><tspan x="613.1" dy="15">of the whole family</tspan></text>
+<line x1="636.2" y1="259.4" x2="574.2" y2="265.4" class="leader" marker-end="url(#tip)"/>
+<text x="642.2" y="257.4" class="lab" text-anchor="start"><tspan x="642.2" dy="0">PLUMB LINE, parallel to y′,</tspan><tspan x="642.2" dy="15">dropped onto the level plane</tspan></text>
+<line x1="180.5" y1="159.2" x2="273.5" y2="197.2" class="leader" marker-end="url(#tip)"/>
+<text x="174.5" y="153.2" class="lab purple" text-anchor="end"><tspan x="174.5" dy="0">CARD</tspan><tspan x="174.5" dy="15">the same card</tspan><tspan x="174.5" dy="15">as in panel 2</tspan></text>
+<line x1="202.2" y1="339.1" x2="313.2" y2="375.1" class="leader gl" marker-end="url(#tipg)"/>
+<text x="196.2" y="317.1" class="lab green" text-anchor="end"><tspan x="196.2" dy="0">PIERCING SPOT</tspan><tspan x="196.2" dy="15">(−1, −1)</tspan><tspan x="196.2" dy="15">x′, y′, z′ cross here</tspan></text>
+<text x="30.0" y="574.0" class="lab small" text-anchor="start"><tspan x="30.0" dy="0">Lines are drawn paler where they are behind the card or behind the green wedge.</tspan></text>
+</svg></div>
+  <figcaption>
+    <h2>3. Two numbers, α and β, describe the direction of the family with respect to the card</h2>
+    <p>Drop the green line straight down onto the level plane to get its shadow. Bearing β is the angle in the level plane from z′ to the shadow. Altitude α is the upright angle from the shadow to the green line. Here α = 35° and β = 40°.</p>
+    <p>x′, y′ and z′ are parallel copies of the card's axes, moved from the zero mark to the piercing spot. Angles are unchanged by that move, so every line of the family has the same α and β.</p>
+  </figcaption>
+</figure>
+
+<div class="sum">
+  <h2>Two + two = four numbers</h2>
+  <div class="four">
+    <div class="pos"><span class="k">ACROSS</span><span class="v">−1</span></div>
+    <div class="pos"><span class="k">UP</span><span class="v">−1</span></div>
+    <div class="dir"><span class="k">ALTITUDE α</span><span class="v">35°</span></div>
+    <div class="dir"><span class="k">BEARING β</span><span class="v">40°</span></div>
+  </div>
+  <p>These four numbers name the green line and no other line in space.</p>
+</div>
+
+<section>
+  <h2>Conventions</h2>
+  <ul>
+    <li><strong>One card.</strong> Panels 2 and 3 show the same card in the same place. All four numbers are measured against it.</li>
+    <li><strong>The card need not be square to the lines.</strong> Here it is not: if it were, α and β would both be 0.</li>
+    <li><strong>A line has no arrowhead.</strong> The pairs (α, β) and (−α, β + 180°) describe the same family. Keeping β between −90° and +90° gives each family exactly one pair.</li>
+    <li><strong>One exception.</strong> A family lying parallel to the card never pierces it, so it has no piercing spot and no four numbers on this card.</li>
+    <li><strong>What is convention and what is not.</strong> The zero mark, the unit of length, the turn of the card and the card itself are choices. Changing them changes the numbers. It does not move the line, and it does not change the count: four.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Terms</h2>
+  <dl>
+    <dt>card</dt><dd>A flat reference surface, fixed once, that the lines pierce.</dd>
+    <dt>zero mark O</dt><dd>The spot on the card counted as (0, 0).</dd>
+    <dt>across, up</dt><dd>The two ruled directions on the card; x and y.</dd>
+    <dt>piercing spot</dt><dd>The one spot where a given line passes through the card.</dd>
+    <dt>x′, y′, z′</dt><dd>Lines through the piercing spot: x′ parallel to across, y′ parallel to up, z′ square to the card.</dd>
+    <dt>level plane</dt><dd>The plane through x′ and z′.</dd>
+    <dt>plumb line</dt><dd>A line parallel to y′, used to drop a point onto the level plane.</dd>
+    <dt>shadow</dt><dd>The line in the level plane directly beneath the green line; its plan projection.</dd>
+    <dt>bearing β</dt><dd>The angle in the level plane from z′ (β = 0) to the shadow.</dd>
+    <dt>altitude α</dt><dd>The upright angle from the shadow (α = 0) to the line.</dd>
+  </dl>
+</section>
+</main>
+</body>
+</html>
