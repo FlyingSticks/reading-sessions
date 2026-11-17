@@ -89,6 +89,13 @@ svg text{font-family:var(--mono);fill:var(--ink)}
 .shadow{stroke:var(--green);stroke-width:1.6;stroke-dasharray:9 4}
 .plumb{stroke:var(--muted);stroke-width:1.1;stroke-dasharray:3 4}
 .tick{fill:none;stroke:var(--muted);stroke-width:1}
+.kline{stroke:var(--blue);stroke-width:2.6;stroke-linecap:round}
+.pt{fill:var(--ink);stroke:var(--panel);stroke-width:1.5}
+.letter{font-size:17px;font-weight:600}
+.eqtick{stroke:var(--ink);stroke-width:1.4}
+.tf-blue{fill:var(--blue)} .lab.blue{fill:var(--blue)} .bpt{fill:var(--blue);stroke:var(--panel);stroke-width:1.5}
+.turn{fill:none;stroke:var(--ink);stroke-width:1.2;stroke-dasharray:5 4}
+.status{font-size:15px;color:var(--muted);max-width:70ch;margin:0}
 .square{stroke:var(--ink);stroke-width:1.1;stroke-dasharray:4 4}
 .slit{stroke:var(--ink);stroke-width:5;stroke-linecap:round}
 .hole{fill:var(--panel);stroke:var(--ink);stroke-width:2.5}
@@ -311,12 +318,273 @@ td small,th small{display:block;font-family:var(--display);font-size:13px;font-w
   <p>The values in each row are those of the green line. It is one line in space, a ray of the pinhole and a ray of the double slit at once, because C lies on slit b and the spot (−1, −1) lies on slit a.</p>
 </div>
 
+<header>
+  <p class="eyebrow">Addendum · the word congruence</p>
+  <h1 style="font-size:24px">Two meanings of congruence</h1>
+  <p>First meaning, the book's: a congruence is a two-number family of lines in space. Second meaning: a congruence is a distance-preserving map, the kind that carries a figure onto a congruent figure. Panels 4, 5 and 6 show how the two are tied.</p>
+</header>
+
+<div class="sum">
+  <h2>First meaning: a family of lines, sorted by its free numbers</h2>
+  <div class="tbl">
+  <table>
+    <thead><tr><th>free numbers</th><th>classical name</th><th>on this plate</th></tr></thead>
+    <tbody>
+      <tr><td class="all">4</td><th>all lines in space</th><td>the top row of the table above</td></tr>
+      <tr><td class="all">3</td><th>complex</th><td>the lines crossing one slit: 4 − 1 = 3</td></tr>
+      <tr><td class="free">2</td><th>congruence</th><td>the rays of the pinhole; the rays of the double slit</td></tr>
+      <tr><td class="all">1</td><th>ruled surface</th><td>not drawn</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>Both cameras are congruences, of different kinds. Through a general point each has exactly one ray. A general plane contains no ray of the pinhole, because it misses C, and exactly one ray of the double slit: the plane meets each slit once, and the ray joins the two meeting points. The double slit's congruence is the one in the title of <em>One Congruence, Two Readings</em>; the two slits are its focal lines.</p>
+</div>
+
+<figure>
+  <div class="draw"><svg viewBox="0 0 1000 540" role="img" aria-label="On the green ray, A is the crossing with slit a and B the crossing with slit b. A point P of the ray is paired with the point P prime for which P, P prime, A, B are in harmonic relation.">
+<defs><marker id="tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-muted"/></marker><marker id="tipg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-green"/></marker><marker id="tipp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-purple"/></marker><marker id="tipi" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-ink"/></marker></defs>
+<line x1="293.0" y1="310.3" x2="318.6" y2="293.3" class="gline back" />
+<line x1="426.1" y1="222.0" x2="541.3" y2="145.7" class="gline back" />
+<polygon points="291.5,345.9 448.5,270.6 448.5,34.1 291.5,109.4" class="card"/>
+<line x1="317.7" y1="293.9" x2="317.7" y2="136.3" class="rule" />
+<line x1="317.7" y1="293.9" x2="422.3" y2="243.7" class="rule" />
+<line x1="370.0" y1="268.8" x2="370.0" y2="111.2" class="rule" />
+<line x1="317.7" y1="215.1" x2="422.3" y2="164.9" class="rule" />
+<line x1="422.3" y1="243.7" x2="422.3" y2="86.1" class="rule" />
+<line x1="317.7" y1="136.3" x2="422.3" y2="86.1" class="rule" />
+<line x1="291.5" y1="306.4" x2="448.5" y2="231.2" class="slit" />
+<polygon points="425.5,385.1 582.5,309.8 582.5,73.4 425.5,148.6" class="card"/>
+<line x1="451.6" y1="333.1" x2="451.6" y2="175.5" class="rule" />
+<line x1="451.6" y1="333.1" x2="556.3" y2="282.9" class="rule" />
+<line x1="504.0" y1="308.0" x2="504.0" y2="150.4" class="rule" />
+<line x1="451.6" y1="254.3" x2="556.3" y2="204.1" class="rule" />
+<line x1="556.3" y1="282.9" x2="556.3" y2="125.3" class="rule" />
+<line x1="451.6" y1="175.5" x2="556.3" y2="125.3" class="rule" />
+<line x1="539.5" y1="330.4" x2="539.5" y2="94.0" class="slit" />
+<line x1="62.6" y1="462.9" x2="293.0" y2="310.3" class="gline" />
+<line x1="318.6" y1="293.3" x2="426.1" y2="222.0" class="gline" />
+<line x1="541.3" y1="145.7" x2="677.0" y2="55.8" class="gline" />
+<circle cx="317.7" cy="293.9" r="5.5" class="pt"/>
+<circle cx="539.5" cy="146.9" r="5.5" class="pt"/>
+<circle cx="391.6" cy="244.9" r="5.5" class="pt"/>
+<circle cx="95.9" cy="440.9" r="5.5" class="pt"/>
+<text x="322.7" y="317.9" class="letter halo" text-anchor="start"><tspan x="322.7" dy="0">A</tspan></text>
+<text x="552.5" y="164.9" class="letter halo" text-anchor="start"><tspan x="552.5" dy="0">B</tspan></text>
+<text x="380.6" y="234.9" class="letter halo" text-anchor="end"><tspan x="380.6" dy="0">P</tspan></text>
+<text x="84.9" y="430.9" class="letter halo" text-anchor="end"><tspan x="84.9" dy="0">P′</tspan></text>
+<line x1="221.5" y1="210.4" x2="299.5" y2="298.4" class="leader" marker-end="url(#tip)"/>
+<text x="215.5" y="200.4" class="lab" text-anchor="end"><tspan x="215.5" dy="0">SLIT a ON CARD 1</tspan><tspan x="215.5" dy="15">the ray crosses it at A</tspan></text>
+<line x1="689.5" y1="98.0" x2="545.5" y2="104.0" class="leader" marker-end="url(#tip)"/>
+<text x="695.5" y="96.0" class="lab" text-anchor="start"><tspan x="695.5" dy="0">SLIT b ON CARD 2</tspan><tspan x="695.5" dy="15">the ray crosses it at B</tspan></text>
+<text x="695.5" y="216.9" class="lab green" text-anchor="start"><tspan x="695.5" dy="0">(P, P′; A, B) = −1</tspan><tspan x="695.5" dy="15">P′ is the harmonic partner</tspan><tspan x="695.5" dy="15">of P with respect to A and B</tspan></text>
+<line x1="191.9" y1="470.9" x2="104.9" y2="445.9" class="leader" marker-end="url(#tip)"/>
+<text x="197.9" y="474.9" class="lab" text-anchor="start"><tspan x="197.9" dy="0">P′ lies on the same ray,</tspan><tspan x="197.9" dy="15">behind card 1</tspan></text>
+<text x="686.0" y="41.8" class="lab green" text-anchor="start"><tspan x="686.0" dy="0">THE SAME GREEN LINE,</tspan><tspan x="686.0" dy="15">one ray of the double slit</tspan></text>
+<line x1="282.9" y1="50.4" x2="321.9" y2="91.4" class="leader" marker-end="url(#tip)"/>
+<text x="276.9" y="36.4" class="lab purple" text-anchor="end"><tspan x="276.9" dy="0">CARD 1</tspan><tspan x="276.9" dy="15">carries slit a</tspan></text>
+<line x1="644.5" y1="328.2" x2="585.5" y2="284.2" class="leader" marker-end="url(#tip)"/>
+<text x="650.5" y="332.2" class="lab purple" text-anchor="start"><tspan x="650.5" dy="0">CARD 2</tspan><tspan x="650.5" dy="15">carries slit b</tspan></text>
+<text x="30.0" y="524.0" class="lab small" text-anchor="start"><tspan x="30.0" dy="0">Lines are drawn paler where a card is in front of them.</tspan></text>
+</svg></div>
+  <figcaption>
+    <h2>4. The pairing that keeps every ray in place</h2>
+    <p>Take any point P. One ray passes through it, crossing slit a at A and slit b at B. Pair P with the point P′ of that ray for which (P, P′; A, B) = −1. Here P is one third of the way from A to B, and P′ lies as far behind A as B lies in front of it.</p>
+    <p>Do this for every point of space and the result is a map that undoes itself when applied twice. The lines it carries onto themselves are the rays of the double slit, together with the two slits. So the family of rays is the set of lines that one map leaves in place.</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <div class="draw"><svg viewBox="0 0 1000 560" role="img" aria-label="A card carrying slit a, parallel to up. A level plane through A stands for slit b at infinity. A level ray through A carries P and P prime at equal distances from A; arrowheads at both ends point to B at infinity. A half-turn about slit a carries P to P prime.">
+<defs><marker id="tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-muted"/></marker><marker id="tipg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-green"/></marker><marker id="tipp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-purple"/></marker><marker id="tipi" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-ink"/></marker><marker id="tipb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-blue"/></marker></defs>
+<polygon points="218.4,281.0 465.4,162.5 623.5,208.8 376.5,327.2" class="plane"/>
+<line x1="460.0" y1="123.7" x2="500.4" y2="147.9" class="rline back" />
+<line x1="391.3" y1="265.9" x2="500.0" y2="268.0" class="kline back" />
+<line x1="410.9" y1="309.2" x2="405.3" y2="307.4" class="turn back" />
+<line x1="405.3" y1="307.4" x2="399.9" y2="305.5" class="turn back" />
+<line x1="399.9" y1="305.5" x2="394.8" y2="303.5" class="turn back" />
+<line x1="394.8" y1="303.5" x2="390.0" y2="301.4" class="turn back" />
+<polygon points="391.0,484.4 609.0,379.9 609.0,51.6 391.0,156.1" class="card"/>
+<line x1="391.0" y1="320.2" x2="609.0" y2="215.8" class="rule" />
+<line x1="362.0" y1="454.5" x2="638.0" y2="322.2" class="rline" />
+<line x1="500.0" y1="410.2" x2="500.0" y2="125.8" class="slit" />
+<polygon points="376.5,327.2 623.5,208.8 800.2,260.5 553.2,378.9" class="plane"/>
+<line x1="418.7" y1="98.9" x2="460.0" y2="123.7" class="rline" />
+<line x1="500.4" y1="147.9" x2="625.1" y2="222.6" class="rline" />
+<line x1="258.4" y1="263.3" x2="391.3" y2="265.9" class="kline" />
+<line x1="641.4" y1="270.8" x2="640.8" y2="273.5" class="turn" />
+<line x1="640.8" y1="273.5" x2="639.9" y2="276.3" class="turn" />
+<line x1="639.9" y1="276.3" x2="638.5" y2="279.0" class="turn" />
+<line x1="638.5" y1="279.0" x2="636.8" y2="281.7" class="turn" />
+<line x1="636.8" y1="281.7" x2="634.7" y2="284.4" class="turn" />
+<line x1="634.7" y1="284.4" x2="632.2" y2="287.0" class="turn" />
+<line x1="632.2" y1="287.0" x2="629.4" y2="289.6" class="turn" />
+<line x1="629.4" y1="289.6" x2="626.2" y2="292.1" class="turn" />
+<line x1="626.2" y1="292.1" x2="622.6" y2="294.5" class="turn" />
+<line x1="622.6" y1="294.5" x2="618.8" y2="296.9" class="turn" />
+<line x1="618.8" y1="296.9" x2="614.6" y2="299.2" class="turn" />
+<line x1="614.6" y1="299.2" x2="610.0" y2="301.4" class="turn" />
+<line x1="610.0" y1="301.4" x2="605.2" y2="303.5" class="turn" />
+<line x1="605.2" y1="303.5" x2="600.1" y2="305.5" class="turn" />
+<line x1="600.1" y1="305.5" x2="594.7" y2="307.4" class="turn" />
+<line x1="594.7" y1="307.4" x2="589.1" y2="309.2" class="turn" />
+<line x1="589.1" y1="309.2" x2="583.2" y2="310.9" class="turn" />
+<line x1="583.2" y1="310.9" x2="577.1" y2="312.5" class="turn" />
+<line x1="577.1" y1="312.5" x2="570.8" y2="313.9" class="turn" />
+<line x1="570.8" y1="313.9" x2="564.3" y2="315.3" class="turn" />
+<line x1="564.3" y1="315.3" x2="557.6" y2="316.5" class="turn" />
+<line x1="557.6" y1="316.5" x2="550.7" y2="317.5" class="turn" />
+<line x1="550.7" y1="317.5" x2="543.8" y2="318.4" class="turn" />
+<line x1="543.8" y1="318.4" x2="536.6" y2="319.2" class="turn" />
+<line x1="536.6" y1="319.2" x2="529.4" y2="319.9" class="turn" />
+<line x1="529.4" y1="319.9" x2="522.2" y2="320.4" class="turn" />
+<line x1="522.2" y1="320.4" x2="514.8" y2="320.8" class="turn" />
+<line x1="514.8" y1="320.8" x2="507.4" y2="321.0" class="turn" />
+<line x1="507.4" y1="321.0" x2="500.0" y2="321.0" class="turn" />
+<line x1="500.0" y1="321.0" x2="492.6" y2="321.0" class="turn" />
+<line x1="492.6" y1="321.0" x2="485.2" y2="320.8" class="turn" />
+<line x1="485.2" y1="320.8" x2="477.8" y2="320.4" class="turn" />
+<line x1="477.8" y1="320.4" x2="470.6" y2="319.9" class="turn" />
+<line x1="470.6" y1="319.9" x2="463.4" y2="319.2" class="turn" />
+<line x1="463.4" y1="319.2" x2="456.2" y2="318.4" class="turn" />
+<line x1="456.2" y1="318.4" x2="449.3" y2="317.5" class="turn" />
+<line x1="449.3" y1="317.5" x2="442.4" y2="316.5" class="turn" />
+<line x1="442.4" y1="316.5" x2="435.7" y2="315.3" class="turn" />
+<line x1="435.7" y1="315.3" x2="429.2" y2="313.9" class="turn" />
+<line x1="429.2" y1="313.9" x2="422.9" y2="312.5" class="turn" />
+<line x1="422.9" y1="312.5" x2="416.8" y2="310.9" class="turn" />
+<line x1="416.8" y1="310.9" x2="410.9" y2="309.2" class="turn" />
+<line x1="390.0" y1="301.4" x2="385.4" y2="299.2" class="turn" />
+<line x1="385.4" y1="299.2" x2="381.2" y2="296.9" class="turn" />
+<line x1="381.2" y1="296.9" x2="377.4" y2="294.5" class="turn" />
+<line x1="377.4" y1="294.5" x2="373.8" y2="292.1" class="turn" />
+<line x1="373.8" y1="292.1" x2="370.6" y2="289.6" class="turn" />
+<line x1="370.6" y1="289.6" x2="367.8" y2="287.0" class="turn" />
+<line x1="367.8" y1="287.0" x2="365.3" y2="284.4" class="turn" />
+<line x1="365.3" y1="284.4" x2="363.2" y2="281.7" class="turn" />
+<line x1="363.2" y1="281.7" x2="361.5" y2="279.0" class="turn" />
+<line x1="361.5" y1="279.0" x2="360.1" y2="276.3" class="turn" />
+<line x1="360.1" y1="276.3" x2="359.2" y2="273.5" class="turn" />
+<line x1="359.2" y1="273.5" x2="358.6" y2="270.8" class="turn" />
+<line x1="358.6" y1="270.8" x2="358.4" y2="268.0" class="turn" />
+<line x1="358.4" y1="268.0" x2="358.6" y2="265.2" class="turn" />
+<line x1="500.0" y1="268.0" x2="741.6" y2="272.7" class="kline" marker-end="url(#tipb)"/>
+<line x1="270.2" y1="263.5" x2="258.4" y2="263.3" class="kline" marker-end="url(#tipb)"/>
+<polyline points="520.0,268.4 520.0,249.8 500.0,249.4" class="tick"/>
+<line x1="566.6" y1="279.2" x2="566.6" y2="259.5" class="eqtick" />
+<line x1="574.8" y1="279.3" x2="574.8" y2="259.6" class="eqtick" />
+<line x1="425.2" y1="276.4" x2="425.2" y2="256.7" class="eqtick" />
+<line x1="433.4" y1="276.5" x2="433.4" y2="256.8" class="eqtick" />
+<circle cx="500.0" cy="147.7" r="3.4" class="rspot"/>
+<circle cx="500.0" cy="388.3" r="3.4" class="rspot"/>
+<circle cx="412.8" cy="309.8" r="3.2" class="pt"/>
+<circle cx="500.0" cy="268.0" r="5.5" class="pt"/>
+<circle cx="641.4" cy="270.8" r="5.5" class="pt"/>
+<circle cx="358.6" cy="265.2" r="5.5" class="pt"/>
+<text x="490.0" y="259.0" class="letter halo" text-anchor="end"><tspan x="490.0" dy="0">A</tspan></text>
+<text x="643.4" y="258.8" class="letter halo" text-anchor="start"><tspan x="643.4" dy="0">P</tspan></text>
+<text x="354.6" y="253.2" class="letter halo" text-anchor="end"><tspan x="354.6" dy="0">P′</tspan></text>
+<text x="753.6" y="270.7" class="lab blue" text-anchor="start"><tspan x="753.6" dy="0">B, at infinity</tspan><tspan x="753.6" dy="15">in this direction</tspan></text>
+<text x="246.4" y="251.3" class="lab blue" text-anchor="end"><tspan x="246.4" dy="0">the same B:</tspan><tspan x="246.4" dy="15">a line has one</tspan><tspan x="246.4" dy="15">point at infinity</tspan></text>
+<line x1="802.7" y1="178.2" x2="696.7" y2="237.2" class="leader" marker-end="url(#tip)"/>
+<text x="808.7" y="162.2" class="lab" text-anchor="start"><tspan x="808.7" dy="0">LEVEL PLANE THROUGH A</tspan><tspan x="808.7" dy="15">stands for slit b:</tspan><tspan x="808.7" dy="15">every direction in it</tspan><tspan x="808.7" dy="15">is a point of slit b</tspan></text>
+<line x1="266.6" y1="209.2" x2="351.6" y2="260.2" class="leader" marker-end="url(#tip)"/>
+<text x="260.6" y="197.2" class="lab" text-anchor="end"><tspan x="260.6" dy="0">AP′ = AP</tspan><tspan x="260.6" dy="15">A is the midpoint of P and P′</tspan></text>
+<line x1="292.8" y1="343.8" x2="406.8" y2="312.8" class="leader" marker-end="url(#tip)"/>
+<text x="286.8" y="339.8" class="lab" text-anchor="end"><tspan x="286.8" dy="0">the arc crosses the card here,</tspan><tspan x="286.8" dy="15">on the level line through A</tspan></text>
+<line x1="671.8" y1="378.1" x2="563.8" y2="320.1" class="leader" marker-end="url(#tip)"/>
+<text x="677.8" y="382.1" class="lab" text-anchor="start"><tspan x="677.8" dy="0">HALF-TURN ABOUT SLIT a</tspan><tspan x="677.8" dy="15">carries P to P′, staying</tspan><tspan x="677.8" dy="15">in the level plane</tspan></text>
+<text x="410.7" y="96.9" class="lab red" text-anchor="end"><tspan x="410.7" dy="0">another level ray</tspan></text>
+<text x="354.0" y="458.5" class="lab red" text-anchor="end"><tspan x="354.0" dy="0">a level ray lying in the card</tspan></text>
+<line x1="650.0" y1="462.8" x2="505.0" y2="407.8" class="leader" marker-end="url(#tip)"/>
+<text x="656.0" y="466.8" class="lab" text-anchor="start"><tspan x="656.0" dy="0">SLIT a</tspan><tspan x="656.0" dy="15">parallel to UP</tspan></text>
+<line x1="657.9" y1="39.6" x2="582.9" y2="62.6" class="leader" marker-end="url(#tip)"/>
+<text x="663.9" y="41.6" class="lab purple" text-anchor="start"><tspan x="663.9" dy="0">CARD</tspan><tspan x="663.9" dy="15">carries slit a</tspan></text>
+<text x="30.0" y="546.0" class="lab small" text-anchor="start"><tspan x="30.0" dy="0">Lines are drawn paler where the card is in front of them.</tspan></text>
+</svg></div>
+  <figcaption>
+    <h2>5. Where the second meaning appears: slit b at infinity</h2>
+    <p>Slit a is parallel to UP, so the planes at right angles to it are the level planes. All level planes share one line at infinity, their common horizon. Let slit b be that line. A line meets slit b exactly when it is level, so the rays are now the level lines crossing slit a, and every ray meets slit a at a right angle.</p>
+    <p>A paraline has no vanishing points, so nothing at infinity has a place on the drawing. Slit b is shown by one level plane: every direction in that plane is a point of slit b. B is shown by the arrowheads on the ray; both arrowheads point to the same B. With B at infinity, the harmonic partner of P is the point P′ that has A as midpoint. The pairing has become the half-turn about slit a, which preserves distance: a congruence in the second meaning.</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <div class="draw"><svg viewBox="0 0 1000 330" role="img" aria-label="One ray drawn four times. With A at 0 and P at 1, the harmonic partner P prime sits at minus 3 when B is at 3, at minus 2 when B is at 4, at minus 1.25 when B is at 10, and at minus 1 when B is at infinity.">
+<defs><marker id="tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-muted"/></marker><marker id="tipg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-green"/></marker><marker id="tipp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-purple"/></marker><marker id="tipi" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-ink"/></marker><marker id="tipb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-blue"/></marker></defs>
+<line x1="95.4" y1="62.0" x2="963.4" y2="62.0" class="kline" />
+<circle cx="114.0" cy="62.0" r="5.2" class="pt"/>
+<text x="114.0" y="50.0" class="letter" text-anchor="middle"><tspan x="114.0" dy="0">P′</tspan></text>
+<text x="114.0" y="84.0" class="num" text-anchor="middle"><tspan x="114.0" dy="0">−3</tspan></text>
+<circle cx="300.0" cy="62.0" r="5.2" class="pt"/>
+<text x="300.0" y="50.0" class="letter" text-anchor="middle"><tspan x="300.0" dy="0">A</tspan></text>
+<text x="300.0" y="84.0" class="num" text-anchor="middle"><tspan x="300.0" dy="0">0</tspan></text>
+<circle cx="362.0" cy="62.0" r="5.2" class="pt"/>
+<text x="362.0" y="50.0" class="letter" text-anchor="middle"><tspan x="362.0" dy="0">P</tspan></text>
+<text x="362.0" y="84.0" class="num" text-anchor="middle"><tspan x="362.0" dy="0">1</tspan></text>
+<circle cx="486.0" cy="62.0" r="5.2" class="bpt"/>
+<text x="486.0" y="50.0" class="letter" text-anchor="middle"><tspan x="486.0" dy="0">B</tspan></text>
+<text x="486.0" y="84.0" class="num" text-anchor="middle"><tspan x="486.0" dy="0">3</tspan></text>
+<text x="24.0" y="66.0" class="lab" text-anchor="start"><tspan x="24.0" dy="0">B at 3</tspan></text>
+<line x1="95.4" y1="132.0" x2="963.4" y2="132.0" class="kline" />
+<circle cx="176.0" cy="132.0" r="5.2" class="pt"/>
+<text x="176.0" y="120.0" class="letter" text-anchor="middle"><tspan x="176.0" dy="0">P′</tspan></text>
+<text x="176.0" y="154.0" class="num" text-anchor="middle"><tspan x="176.0" dy="0">−2</tspan></text>
+<circle cx="300.0" cy="132.0" r="5.2" class="pt"/>
+<text x="300.0" y="120.0" class="letter" text-anchor="middle"><tspan x="300.0" dy="0">A</tspan></text>
+<text x="300.0" y="154.0" class="num" text-anchor="middle"><tspan x="300.0" dy="0">0</tspan></text>
+<circle cx="362.0" cy="132.0" r="5.2" class="pt"/>
+<text x="362.0" y="120.0" class="letter" text-anchor="middle"><tspan x="362.0" dy="0">P</tspan></text>
+<text x="362.0" y="154.0" class="num" text-anchor="middle"><tspan x="362.0" dy="0">1</tspan></text>
+<circle cx="548.0" cy="132.0" r="5.2" class="bpt"/>
+<text x="548.0" y="120.0" class="letter" text-anchor="middle"><tspan x="548.0" dy="0">B</tspan></text>
+<text x="548.0" y="154.0" class="num" text-anchor="middle"><tspan x="548.0" dy="0">4</tspan></text>
+<text x="24.0" y="136.0" class="lab" text-anchor="start"><tspan x="24.0" dy="0">B at 4</tspan></text>
+<line x1="95.4" y1="202.0" x2="963.4" y2="202.0" class="kline" />
+<circle cx="222.5" cy="202.0" r="5.2" class="pt"/>
+<text x="222.5" y="190.0" class="letter" text-anchor="middle"><tspan x="222.5" dy="0">P′</tspan></text>
+<text x="222.5" y="224.0" class="num" text-anchor="middle"><tspan x="222.5" dy="0">−1.25</tspan></text>
+<circle cx="300.0" cy="202.0" r="5.2" class="pt"/>
+<text x="300.0" y="190.0" class="letter" text-anchor="middle"><tspan x="300.0" dy="0">A</tspan></text>
+<text x="300.0" y="224.0" class="num" text-anchor="middle"><tspan x="300.0" dy="0">0</tspan></text>
+<circle cx="362.0" cy="202.0" r="5.2" class="pt"/>
+<text x="362.0" y="190.0" class="letter" text-anchor="middle"><tspan x="362.0" dy="0">P</tspan></text>
+<text x="362.0" y="224.0" class="num" text-anchor="middle"><tspan x="362.0" dy="0">1</tspan></text>
+<circle cx="920.0" cy="202.0" r="5.2" class="bpt"/>
+<text x="920.0" y="190.0" class="letter" text-anchor="middle"><tspan x="920.0" dy="0">B</tspan></text>
+<text x="920.0" y="224.0" class="num" text-anchor="middle"><tspan x="920.0" dy="0">10</tspan></text>
+<text x="24.0" y="206.0" class="lab" text-anchor="start"><tspan x="24.0" dy="0">B at 10</tspan></text>
+<line x1="95.4" y1="272.0" x2="963.4" y2="272.0" class="kline" marker-end="url(#tipb)"/>
+<circle cx="238.0" cy="272.0" r="5.2" class="pt"/>
+<text x="238.0" y="260.0" class="letter" text-anchor="middle"><tspan x="238.0" dy="0">P′</tspan></text>
+<text x="238.0" y="294.0" class="num" text-anchor="middle"><tspan x="238.0" dy="0">−1</tspan></text>
+<circle cx="300.0" cy="272.0" r="5.2" class="pt"/>
+<text x="300.0" y="260.0" class="letter" text-anchor="middle"><tspan x="300.0" dy="0">A</tspan></text>
+<text x="300.0" y="294.0" class="num" text-anchor="middle"><tspan x="300.0" dy="0">0</tspan></text>
+<circle cx="362.0" cy="272.0" r="5.2" class="pt"/>
+<text x="362.0" y="260.0" class="letter" text-anchor="middle"><tspan x="362.0" dy="0">P</tspan></text>
+<text x="362.0" y="294.0" class="num" text-anchor="middle"><tspan x="362.0" dy="0">1</tspan></text>
+<text x="957.4" y="260.0" class="lab blue" text-anchor="end"><tspan x="957.4" dy="0">B at infinity</tspan></text>
+<line x1="328.0" y1="266.0" x2="328.0" y2="278.0" class="eqtick" />
+<line x1="334.0" y1="266.0" x2="334.0" y2="278.0" class="eqtick" />
+<line x1="266.0" y1="266.0" x2="266.0" y2="278.0" class="eqtick" />
+<line x1="272.0" y1="266.0" x2="272.0" y2="278.0" class="eqtick" />
+<text x="24.0" y="276.0" class="lab" text-anchor="start"><tspan x="24.0" dy="0">B at ∞</tspan></text>
+</svg></div>
+  <figcaption>
+    <h2>6. As slit b recedes, P′ closes in on the half-turn position</h2>
+    <p>One ray, drawn four times and measured along itself, with A at 0 and P at 1. While B is at a finite place, AP′ and AP are unequal and the pairing does not preserve distance. As B moves out, P′ moves in: −3, −2, −1.25. Only with B at infinity does P′ reach −1, where AP′ = AP.</p>
+    <p>So the pairing of panel 4 preserves distance in this case only. It is the pushbroom corner of the book: one slit at a finite depth, the other at infinity. The two meanings name different things, a family and a map, and they are tied together at that one corner.</p>
+  </figcaption>
+</figure>
+
+<p class="status"><strong>Status.</strong> Panels 4, 5 and 6 state classical facts. A numerical check on this plate's own slits (check-congruence.py, 9/9) confirms that the pairing undoes itself, carries the green ray onto itself, carries a line that is not a ray to a different line, and preserves distance in the half-turn case but not in general. Not established here: whether the seam pairing of Chapter 3, VM · VI = VP², is this map restricted to a line.</p>
+
 <section>
   <h2>What the plate shows</h2>
   <ul>
     <li><strong>A point costs two numbers; a slit costs one.</strong> Requiring a line to pass through a point fixes two of its four numbers. Requiring it to cross a slit fixes one.</li>
     <li><strong>Both cameras leave two.</strong> That is why each produces a two-number family of rays, enough to fill a flat picture and no more.</li>
-    <li><strong>A pinhole is two slits crossed on one card.</strong> A slit parallel to ACROSS at up₂ = 0.83 and a slit parallel to UP at across₂ = 0.68, both cut in card 2, cross at C. Their common opening is the pinhole. The double slit is such a pair of cuts placed on two different cards, one cut on each.</li>
+    <li><strong>A pinhole is two slits crossed on one card.</strong> A slit parallel to ACROSS at up₂ = 0.83 and a slit parallel to UP at across₂ = 0.68, both cut in card 2, cross at C. Their common opening is the pinhole. The double slit is such a pair of cuts placed on two different cards, one cut on each. Stated for the families of lines: when the two slits cross at C, the lines meeting both fall into two pieces, the lines through C and the lines lying in the card. The pinhole is the first piece.</li>
     <li><strong>The free numbers are not the same kind in the two cameras.</strong> In the pinhole both free numbers sit on one card and amount to a direction from C. In the double slit one sits on each card, and the rays have no common point.</li>
     <li><strong>Through a general point of space</strong> there is exactly one ray of the pinhole, and exactly one ray of this double slit.</li>
   </ul>
