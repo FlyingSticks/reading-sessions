@@ -104,6 +104,10 @@ svg text{font-family:var(--mono);fill:var(--ink)}
 .card2{fill:none;stroke:var(--purple);stroke-width:1.1;stroke-dasharray:6 4}
 .dashlevel{stroke:var(--ink);stroke-width:1.3;stroke-dasharray:7 4}
 .count-lab{font-size:19px;font-weight:600}
+.hop{fill:none;stroke:var(--ink);stroke-width:1.4}
+.step{stroke:var(--ink);stroke-width:2;fill:none}
+.step.back{opacity:.6}
+.lab.green{fill:var(--green)}
 .tf-green{fill:var(--green)}
 .square{stroke:var(--ink);stroke-width:1.1;stroke-dasharray:4 4}
 .slit{stroke:var(--ink);stroke-width:5;stroke-linecap:round}
@@ -341,6 +345,174 @@ td small,th small{display:block;font-family:var(--display);font-size:13px;font-w
   <p>Slit b at infinity is the second row. The phrase "square to slit a" on the previous plate meant the second row and could be read as the first, so it is retired: the plates say "level" for the second row and keep "square to the card" for z′.</p>
 </div>
 
+<header>
+  <p class="eyebrow">Addendum · sign</p>
+  <h1 style="font-size:24px">One point at infinity, two senses</h1>
+  <p>A level ray has one point at infinity, B, yet it can be followed two ways. The two ways are the two senses of the line. Parallel lines share a direction but not a sense, so B does not record which way you went. Calling one end plus is a choice; incidence does not supply it. The pairing of P with P′ swaps the two senses, and it can be made in two ways that differ in sign.</p>
+</header>
+
+<figure>
+  <div class="draw"><svg viewBox="0 0 1000 250" role="img" aria-label="The ray drawn alone, with a plus end and a minus end. The mirror with point A carries P at plus 1.2 to P prime at minus 1.2 in one step. A and B stay where they are.">
+<defs><marker id="tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-muted"/></marker><marker id="tipg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-green"/></marker><marker id="tipp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-purple"/></marker><marker id="tipi" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-ink"/></marker><marker id="tipb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-blue"/></marker></defs>
+<line x1="500.0" y1="150.0" x2="837.5" y2="150.0" class="kline" marker-end="url(#tipb)"/>
+<line x1="500.0" y1="150.0" x2="162.5" y2="150.0" class="kline" marker-end="url(#tipb)"/>
+<line x1="500.0" y1="116.0" x2="500.0" y2="184.0" class="zline" />
+<line x1="587.0" y1="143.0" x2="587.0" y2="157.0" class="eqtick" />
+<line x1="593.0" y1="143.0" x2="593.0" y2="157.0" class="eqtick" />
+<line x1="407.0" y1="143.0" x2="407.0" y2="157.0" class="eqtick" />
+<line x1="413.0" y1="143.0" x2="413.0" y2="157.0" class="eqtick" />
+<polyline points="680.0,106.0 680.0,72.0 320.0,72.0 320.0,104.0" class="hop" marker-end="url(#tipi)"/>
+<circle cx="680.0" cy="150.0" r="5.5" class="pt"/>
+<text x="680.0" y="134.0" class="letter halo" text-anchor="middle"><tspan x="680.0" dy="0">P</tspan></text>
+<text x="680.0" y="180.0" class="num" text-anchor="middle"><tspan x="680.0" dy="0">+1.2</tspan></text>
+<circle cx="500.0" cy="150.0" r="5.5" class="pt"/>
+<text x="512.0" y="134.0" class="letter halo" text-anchor="start"><tspan x="512.0" dy="0">A</tspan></text>
+<text x="516.0" y="180.0" class="num" text-anchor="middle"><tspan x="516.0" dy="0">0</tspan></text>
+<circle cx="320.0" cy="150.0" r="5.5" class="pt"/>
+<text x="320.0" y="134.0" class="letter halo" text-anchor="middle"><tspan x="320.0" dy="0">P′</tspan></text>
+<text x="320.0" y="180.0" class="num" text-anchor="middle"><tspan x="320.0" dy="0">−1.2</tspan></text>
+<text x="500.0" y="62.0" class="lab" text-anchor="middle"><tspan x="500.0" dy="0">ONE STEP: P to P′, with no positions in between</tspan></text>
+<text x="500.0" y="212.0" class="lab" text-anchor="middle"><tspan x="500.0" dy="0">MIRROR WITH POINT A</tspan></text>
+<text x="851.5" y="146.0" class="lab blue" text-anchor="start"><tspan x="851.5" dy="0">+ END</tspan><tspan x="851.5" dy="15">toward B</tspan></text>
+<text x="148.5" y="146.0" class="lab blue" text-anchor="end"><tspan x="148.5" dy="0">− END</tspan><tspan x="148.5" dy="15">toward the</tspan><tspan x="148.5" dy="15">same B</tspan></text>
+<text x="30.0" y="36.0" class="count-lab" text-anchor="start"><tspan x="30.0" dy="0">ONE MIRROR</tspan></text>
+<text x="30.0" y="58.0" class="lab" text-anchor="start"><tspan x="30.0" dy="0">sign −1</tspan></text>
+</svg></div>
+  <figcaption>
+    <h2>5. First way: one mirror, on the line</h2>
+    <p>Draw the ray alone, with A at 0 and one end chosen as plus. The mirror with point A pairs each point with the point at the same distance on the other side: P at +1.2 with P′ at −1.2. It is one mirror, so its sign is −1, and it is a single step with no positions in between. It exchanges the plus end and the minus end. A stays where it is, and so does B.</p>
+    <p>This is the harmonic pairing of the previous plate: A and B are the two points that stay, and (P, P′; A, B) = −1.</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <div class="draw"><svg viewBox="0 0 1000 580" role="img" aria-label="Two mirrors carry P to P prime in two steps. Mirror 1, the card, carries P to P star. Mirror 2, the plane through slit a square to the card, carries P star to P prime. Together they are the half-turn about slit a.">
+<defs><marker id="tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-muted"/></marker><marker id="tipg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-green"/></marker><marker id="tipp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-purple"/></marker><marker id="tipi" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-ink"/></marker><marker id="tipb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-blue"/></marker></defs>
+<polygon points="207.7,300.7 454.7,182.2 603.5,225.8 356.5,344.2" class="plane"/>
+<polygon points="331.2,329.0 331.2,153.9 480.0,197.5 480.0,372.5" class="vplane"/>
+<line x1="373.9" y1="282.9" x2="480.0" y2="285.0" class="kline back" />
+<line x1="528.9" y1="260.7" x2="438.6" y2="234.3" class="step back" />
+<line x1="438.6" y1="234.3" x2="370.5" y2="266.9" class="step back" />
+<line x1="390.9" y1="326.2" x2="385.3" y2="324.4" class="turn back" />
+<line x1="385.3" y1="324.4" x2="379.9" y2="322.5" class="turn back" />
+<line x1="379.9" y1="322.5" x2="374.8" y2="320.5" class="turn back" />
+<line x1="374.8" y1="320.5" x2="370.0" y2="318.4" class="turn back" />
+<polygon points="371.0,501.4 589.0,396.9 589.0,68.6 371.0,173.1" class="card"/>
+<line x1="371.0" y1="337.2" x2="589.0" y2="232.8" class="across" />
+<line x1="480.0" y1="427.2" x2="480.0" y2="142.8" class="slit" />
+<polygon points="356.5,344.2 603.5,225.8 780.2,277.5 533.2,395.9" class="plane"/>
+<polygon points="480.0,372.5 480.0,197.5 656.7,249.2 656.7,424.2" class="vplane"/>
+<line x1="244.3" y1="280.4" x2="373.9" y2="282.9" class="kline" />
+<line x1="480.0" y1="285.0" x2="715.7" y2="289.6" class="kline" />
+<line x1="621.4" y1="287.8" x2="528.9" y2="260.7" class="step" />
+<line x1="370.5" y1="266.9" x2="338.6" y2="282.2" class="step" />
+<line x1="621.4" y1="287.8" x2="620.8" y2="290.5" class="turn" />
+<line x1="620.8" y1="290.5" x2="619.9" y2="293.3" class="turn" />
+<line x1="619.9" y1="293.3" x2="618.5" y2="296.0" class="turn" />
+<line x1="618.5" y1="296.0" x2="616.8" y2="298.7" class="turn" />
+<line x1="616.8" y1="298.7" x2="614.7" y2="301.4" class="turn" />
+<line x1="614.7" y1="301.4" x2="612.2" y2="304.0" class="turn" />
+<line x1="612.2" y1="304.0" x2="609.4" y2="306.6" class="turn" />
+<line x1="609.4" y1="306.6" x2="606.2" y2="309.1" class="turn" />
+<line x1="606.2" y1="309.1" x2="602.6" y2="311.5" class="turn" />
+<line x1="602.6" y1="311.5" x2="598.8" y2="313.9" class="turn" />
+<line x1="598.8" y1="313.9" x2="594.6" y2="316.2" class="turn" />
+<line x1="594.6" y1="316.2" x2="590.0" y2="318.4" class="turn" />
+<line x1="590.0" y1="318.4" x2="585.2" y2="320.5" class="turn" />
+<line x1="585.2" y1="320.5" x2="580.1" y2="322.5" class="turn" />
+<line x1="580.1" y1="322.5" x2="574.7" y2="324.4" class="turn" />
+<line x1="574.7" y1="324.4" x2="569.1" y2="326.2" class="turn" />
+<line x1="569.1" y1="326.2" x2="563.2" y2="327.9" class="turn" />
+<line x1="563.2" y1="327.9" x2="557.1" y2="329.5" class="turn" />
+<line x1="557.1" y1="329.5" x2="550.8" y2="330.9" class="turn" />
+<line x1="550.8" y1="330.9" x2="544.3" y2="332.3" class="turn" />
+<line x1="544.3" y1="332.3" x2="537.6" y2="333.5" class="turn" />
+<line x1="537.6" y1="333.5" x2="530.7" y2="334.5" class="turn" />
+<line x1="530.7" y1="334.5" x2="523.8" y2="335.4" class="turn" />
+<line x1="523.8" y1="335.4" x2="516.6" y2="336.2" class="turn" />
+<line x1="516.6" y1="336.2" x2="509.4" y2="336.9" class="turn" />
+<line x1="509.4" y1="336.9" x2="502.2" y2="337.4" class="turn" />
+<line x1="502.2" y1="337.4" x2="494.8" y2="337.8" class="turn" />
+<line x1="494.8" y1="337.8" x2="487.4" y2="338.0" class="turn" />
+<line x1="487.4" y1="338.0" x2="480.0" y2="338.0" class="turn" />
+<line x1="480.0" y1="338.0" x2="472.6" y2="338.0" class="turn" />
+<line x1="472.6" y1="338.0" x2="465.2" y2="337.8" class="turn" />
+<line x1="465.2" y1="337.8" x2="457.8" y2="337.4" class="turn" />
+<line x1="457.8" y1="337.4" x2="450.6" y2="336.9" class="turn" />
+<line x1="450.6" y1="336.9" x2="443.4" y2="336.2" class="turn" />
+<line x1="443.4" y1="336.2" x2="436.2" y2="335.4" class="turn" />
+<line x1="436.2" y1="335.4" x2="429.3" y2="334.5" class="turn" />
+<line x1="429.3" y1="334.5" x2="422.4" y2="333.5" class="turn" />
+<line x1="422.4" y1="333.5" x2="415.7" y2="332.3" class="turn" />
+<line x1="415.7" y1="332.3" x2="409.2" y2="330.9" class="turn" />
+<line x1="409.2" y1="330.9" x2="402.9" y2="329.5" class="turn" />
+<line x1="402.9" y1="329.5" x2="396.8" y2="327.9" class="turn" />
+<line x1="396.8" y1="327.9" x2="390.9" y2="326.2" class="turn" />
+<line x1="370.0" y1="318.4" x2="365.4" y2="316.2" class="turn" />
+<line x1="365.4" y1="316.2" x2="361.2" y2="313.9" class="turn" />
+<line x1="361.2" y1="313.9" x2="357.4" y2="311.5" class="turn" />
+<line x1="357.4" y1="311.5" x2="353.8" y2="309.1" class="turn" />
+<line x1="353.8" y1="309.1" x2="350.6" y2="306.6" class="turn" />
+<line x1="350.6" y1="306.6" x2="347.8" y2="304.0" class="turn" />
+<line x1="347.8" y1="304.0" x2="345.3" y2="301.4" class="turn" />
+<line x1="345.3" y1="301.4" x2="343.2" y2="298.7" class="turn" />
+<line x1="343.2" y1="298.7" x2="341.5" y2="296.0" class="turn" />
+<line x1="341.5" y1="296.0" x2="340.1" y2="293.3" class="turn" />
+<line x1="340.1" y1="293.3" x2="339.2" y2="290.5" class="turn" />
+<line x1="339.2" y1="290.5" x2="338.6" y2="287.8" class="turn" />
+<line x1="338.6" y1="287.8" x2="338.4" y2="285.0" class="turn" />
+<line x1="338.4" y1="285.0" x2="338.6" y2="282.2" class="turn" />
+<line x1="715.7" y1="289.6" x2="725.1" y2="289.8" class="kline" marker-end="url(#tipb)"/>
+<line x1="244.3" y1="280.4" x2="234.9" y2="280.2" class="kline" marker-end="url(#tipb)"/>
+<circle cx="480.0" cy="285.0" r="5.5" class="pt"/>
+<circle cx="621.4" cy="287.8" r="5.5" class="pt"/>
+<circle cx="438.6" cy="234.3" r="5.5" class="pt"/>
+<circle cx="338.6" cy="282.2" r="5.5" class="pt"/>
+<circle cx="530.0" cy="261.0" r="3.0" class="pt"/>
+<circle cx="388.6" cy="258.2" r="3.0" class="pt"/>
+<text x="491.0" y="307.0" class="letter halo" text-anchor="start"><tspan x="491.0" dy="0">A</tspan></text>
+<text x="625.4" y="275.8" class="letter halo" text-anchor="start"><tspan x="625.4" dy="0">P</tspan></text>
+<text x="440.6" y="222.3" class="letter halo" text-anchor="middle"><tspan x="440.6" dy="0">P*</tspan></text>
+<text x="332.6" y="270.2" class="letter halo" text-anchor="end"><tspan x="332.6" dy="0">P′</tspan></text>
+<text x="737.1" y="287.8" class="lab blue" text-anchor="start"><tspan x="737.1" dy="0">+ END</tspan><tspan x="737.1" dy="15">toward B</tspan></text>
+<text x="222.9" y="268.2" class="lab blue" text-anchor="end"><tspan x="222.9" dy="0">− END</tspan><tspan x="222.9" dy="15">toward the</tspan><tspan x="222.9" dy="15">same B</tspan></text>
+<line x1="633.5" y1="56.8" x2="566.5" y2="77.8" class="leader" marker-end="url(#tip)"/>
+<text x="639.5" y="50.8" class="lab purple" text-anchor="start"><tspan x="639.5" dy="0">MIRROR 1: THE CARD</tspan><tspan x="639.5" dy="15">reverses z′, the direction</tspan><tspan x="639.5" dy="15">square to the card</tspan></text>
+<line x1="678.1" y1="461.1" x2="642.1" y2="403.1" class="leader" marker-end="url(#tip)"/>
+<text x="684.1" y="469.1" class="lab green" text-anchor="start"><tspan x="684.1" dy="0">MIRROR 2: THE PLANE</tspan><tspan x="684.1" dy="15">THROUGH SLIT a</tspan><tspan x="684.1" dy="15">SQUARE TO THE CARD</tspan><tspan x="684.1" dy="15">reverses ACROSS</tspan></text>
+<line x1="721.8" y1="187.3" x2="575.8" y2="269.3" class="leader" marker-end="url(#tip)"/>
+<text x="727.8" y="183.3" class="lab" text-anchor="start"><tspan x="727.8" dy="0">STEP 1</tspan><tspan x="727.8" dy="15">mirror 1 carries P to P*</tspan></text>
+<line x1="236.8" y1="198.7" x2="362.8" y2="264.7" class="leader" marker-end="url(#tip)"/>
+<text x="230.8" y="186.7" class="lab" text-anchor="end"><tspan x="230.8" dy="0">STEP 2</tspan><tspan x="230.8" dy="15">mirror 2 carries P* to P′</tspan></text>
+<line x1="352.1" y1="406.7" x2="445.1" y2="341.7" class="leader" marker-end="url(#tip)"/>
+<text x="346.1" y="410.7" class="lab" text-anchor="end"><tspan x="346.1" dy="0">HALF-TURN ABOUT SLIT a</tspan><tspan x="346.1" dy="15">the same result, with</tspan><tspan x="346.1" dy="15">positions in between</tspan></text>
+<line x1="330.0" y1="85.5" x2="475.0" y2="149.5" class="leader" marker-end="url(#tip)"/>
+<text x="324.0" y="75.5" class="lab" text-anchor="end"><tspan x="324.0" dy="0">SLIT a</tspan><tspan x="324.0" dy="15">parallel to UP</tspan></text>
+<text x="30.0" y="510.0" class="count-lab" text-anchor="start"><tspan x="30.0" dy="0">TWO MIRRORS</tspan></text>
+<text x="30.0" y="532.0" class="lab" text-anchor="start"><tspan x="30.0" dy="0">sign (−1) × (−1) = +1</tspan></text>
+<text x="30.0" y="566.0" class="lab small" text-anchor="start"><tspan x="30.0" dy="0">Lines are drawn paler where the card is in front of them.</tspan></text>
+</svg></div>
+  <figcaption>
+    <h2>6. Second way: two mirrors, the half-turn about slit a</h2>
+    <p>Mirror 1 is the card. It reverses z′ and carries P to P*, the point at the same distance behind the card. Mirror 2 is the plane through slit a square to the card. It reverses ACROSS and carries P* to P′. Two mirrors, so the sign is (−1) × (−1) = +1. Their product is the half-turn about slit a, and a half-turn has positions in between: the dashed arc.</p>
+    <p>So the same pairing, with the same measure AP′ = AP, has sign −1 on the line and sign +1 in the level plane and in space. What is a mirror on the line is a half-turn one dimension up.</p>
+  </figcaption>
+</figure>
+
+<div class="sum">
+  <h2>The two ways, side by side</h2>
+  <div class="tbl">
+  <table>
+    <thead><tr><th></th><th>where it acts</th><th>mirrors</th><th>sign</th><th>positions in between</th><th>what stays</th></tr></thead>
+    <tbody>
+      <tr><th>Mirror with point A</th><td>on the ray</td><td class="all">1</td><td class="all">−1</td><td>none</td><td>A and B</td></tr>
+      <tr><th>Half-turn about slit a</th><td>in the level plane, and in space</td><td class="free">2</td><td class="free">+1</td><td>the arc</td><td>every point of slit a</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>Both carry P to P′ and both keep AP′ = AP. The diagrams of the previous plate showed the measure and left the sign unmarked. Panels 5 and 6 state classical facts; no check script has been run on them.</p>
+</div>
+
 <section>
   <h2>Terms</h2>
   <dl>
@@ -357,6 +529,11 @@ td small,th small{display:block;font-family:var(--display);font-size:13px;font-w
     <dt>horizon</dt><dd>The collection of all level directions. In a perspective view, the line where all level planes appear to meet. In a paraline it has no place, and shows only as the fact that every level plane carries the same fan of directions.</dd>
     <dt>slit b at infinity</dt><dd>The horizon, used as the second slit.</dd>
     <dt>tilt</dt><dd>The angle between a ray and the level plane through the point where it crosses slit a.</dd>
+    <dt>sense</dt><dd>One of the two ways of following a line. A direction has two senses. Which one is called plus is a choice.</dd>
+    <dt>mirror with point A</dt><dd>On a line: the pairing of each point with the point at the same distance on the other side of A.</dd>
+    <dt>half-turn about slit a</dt><dd>The turn through 180° about slit a. It is the product of two mirrors whose planes meet at right angles along slit a.</dd>
+    <dt>sign</dt><dd>+1 for a map made of an even number of mirrors, −1 for an odd number.</dd>
+    <dt>P*</dt><dd>The point P is carried to by mirror 1 alone, before mirror 2 is applied.</dd>
     <dt>congruence</dt><dd>A two-number family of lines in space (first meaning).</dd>
   </dl>
 </section>
