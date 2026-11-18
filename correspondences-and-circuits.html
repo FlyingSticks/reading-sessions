@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Correspondences and Circuits</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: a drafting plate. Three stacked figures drawn from one projection, captions beneath each, conventions and glossary after. */
+:root{
+  --bg:#f3f5f7; --panel:#ffffff; --ink:#1b2430; --muted:#5a6676; --hair:#c9d1db;
+  --red:#c2362c; --green:#18804a; --purple:#7446b0; --blue:#1f55c0;
+  --card-fill:rgba(116,70,176,.10); --plane-fill:rgba(60,72,90,.10);
+  --wedge-b:rgba(60,72,90,.26); --wedge-a:rgba(24,128,74,.22);
+  --display:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#11151b; --panel:#181d25; --ink:#e7ebf1; --muted:#9aa6b6; --hair:#364050;
+    --red:#ff8073; --green:#55cf8e; --purple:#b99cf0; --blue:#86acff;
+    --card-fill:rgba(185,156,240,.13); --plane-fill:rgba(200,210,225,.10);
+    --wedge-b:rgba(200,210,225,.24); --wedge-a:rgba(85,207,142,.22);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#11151b; --panel:#181d25; --ink:#e7ebf1; --muted:#9aa6b6; --hair:#364050;
+  --red:#ff8073; --green:#55cf8e; --purple:#b99cf0; --blue:#86acff;
+  --card-fill:rgba(185,156,240,.13); --plane-fill:rgba(200,210,225,.10);
+  --wedge-b:rgba(200,210,225,.24); --wedge-a:rgba(85,207,142,.22);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--display);font-size:17px;line-height:1.55}
+main{max-width:980px;margin:0 auto;padding:28px 18px 64px;display:flex;flex-direction:column;gap:28px}
+header h1{font-size:30px;line-height:1.15;margin:0 0 8px;font-weight:600;letter-spacing:-.01em;text-wrap:balance}
+header p{margin:0;color:var(--muted);max-width:65ch}
+.eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+figure{margin:0;background:var(--panel);border:1px solid var(--hair);border-radius:6px;overflow:hidden}
+.draw{overflow-x:auto}
+.draw svg{display:block;width:100%;min-width:680px;height:auto}
+figcaption{border-top:1px solid var(--hair);padding:14px 18px 16px}
+figcaption h2{font-size:18px;margin:0 0 4px;font-weight:600;text-wrap:balance}
+figcaption p{margin:0;max-width:68ch;color:var(--ink)}
+figcaption p + p{margin-top:8px;color:var(--muted)}
+.sum{background:var(--panel);border:1px solid var(--hair);border-radius:6px;padding:18px}
+.sum h2{font-size:22px;margin:0 0 12px;font-weight:600}
+.four{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.four div{border:1px solid var(--hair);border-radius:4px;padding:10px 12px}
+.four .k{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;color:var(--muted);display:block}
+.four .v{font-family:var(--mono);font-size:24px;font-weight:500;font-variant-numeric:tabular-nums}
+.four .pos .v{color:var(--blue)} .four .dir .v{color:var(--green)}
+.sum p{margin:12px 0 0;max-width:68ch}
+section h2{font-size:20px;margin:0 0 10px;font-weight:600}
+section ul{margin:0;padding-left:20px;max-width:70ch}
+section li{margin:0 0 9px}
+dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:8px 18px;max-width:78ch}
+dt{font-family:var(--mono);font-size:14px;font-weight:600;padding-top:2px}
+dd{margin:0}
+@media (max-width:560px){ .four{grid-template-columns:repeat(2,1fr)} dl{grid-template-columns:1fr;gap:2px 0} dd{margin-bottom:10px} }
+
+/* drawing marks */
+svg text{font-family:var(--mono);fill:var(--ink)}
+.lab{font-size:13px;font-weight:500;letter-spacing:.02em}
+.lab.small{font-size:12px;font-weight:400;fill:var(--muted)}
+.lab.red{fill:var(--red)} .lab.green{fill:var(--green)} .lab.purple{fill:var(--purple)}
+.num{font-size:13px;font-weight:600;fill:var(--blue)}
+.num.big{font-size:15px}
+.halo{paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round}
+.rline{stroke:var(--red);stroke-width:1.5;fill:none}
+.gline{stroke:var(--green);stroke-width:3;fill:none;stroke-linecap:round}
+.back{opacity:.36}
+.card{fill:var(--card-fill);stroke:var(--purple);stroke-width:1.6}
+.rule{stroke:var(--blue);stroke-width:.8;opacity:.55}
+.unit{stroke:var(--ink);stroke-width:4.5;stroke-linecap:round}
+.rspot{fill:var(--red)} .ospot{fill:var(--ink)} .gspot{fill:var(--green);stroke:var(--panel);stroke-width:1.5}
+.leader{stroke:var(--muted);stroke-width:1;fill:none}
+.leader.gl{stroke:var(--green)}
+.tf-muted{fill:var(--muted)} .tf-green{fill:var(--green)} .tf-purple{fill:var(--purple)} .tf-ink{fill:var(--ink)}
+.axisarrow{stroke:var(--purple);stroke-width:1.4}
+.axis{stroke:var(--ink);stroke-width:1.1}
+.plane{fill:var(--plane-fill);stroke:var(--muted);stroke-width:.8;stroke-dasharray:5 4}
+.wedge-b{fill:var(--wedge-b)} .wedge-a{fill:var(--wedge-a)}
+.arc-b{fill:none;stroke:var(--ink);stroke-width:1.2}
+.arc-a{fill:none;stroke:var(--green);stroke-width:1.2}
+.shadow{stroke:var(--green);stroke-width:1.6;stroke-dasharray:9 4}
+.plumb{stroke:var(--muted);stroke-width:1.1;stroke-dasharray:3 4}
+.tick{fill:none;stroke:var(--muted);stroke-width:1}
+.kline{stroke:var(--blue);stroke-width:2.6;stroke-linecap:round}
+.pt{fill:var(--ink);stroke:var(--panel);stroke-width:1.5}
+.letter{font-size:17px;font-weight:600}
+.eqtick{stroke:var(--ink);stroke-width:1.4}
+.tf-blue{fill:var(--blue)} .lab.blue{fill:var(--blue)} .bpt{fill:var(--blue);stroke:var(--panel);stroke-width:1.5}
+.turn{fill:none;stroke:var(--ink);stroke-width:1.2;stroke-dasharray:5 4}
+.status{font-size:15px;color:var(--muted);max-width:70ch;margin:0}
+.kthin{stroke:var(--blue);stroke-width:1.7;fill:none}
+.gthin{stroke:var(--green);stroke-width:1.7;fill:none}
+.zline{stroke:var(--ink);stroke-width:2.8;stroke-linecap:round}
+.across{stroke:var(--purple);stroke-width:1.5}
+.vplane{fill:var(--wedge-a);stroke:var(--green);stroke-width:.8;stroke-dasharray:5 4}
+.card2{fill:none;stroke:var(--purple);stroke-width:1.1;stroke-dasharray:6 4}
+.dashlevel{stroke:var(--ink);stroke-width:1.3;stroke-dasharray:7 4}
+.count-lab{font-size:19px;font-weight:600}
+.tf-red{fill:var(--red)}
+.pline{stroke:var(--green);stroke-width:2.6;stroke-linecap:round}
+.gpt{fill:var(--green);stroke:var(--panel);stroke-width:1.5}
+.next{font-size:16px;margin:0}
+.next a{color:var(--blue)}
+dd .std{color:var(--muted)}
+.node{fill:var(--panel);stroke:var(--ink);stroke-width:1.5}
+.cellbox{fill:none;stroke:var(--hair);stroke-width:1}
+.unreached{fill:var(--panel);stroke:var(--red);stroke-width:2.2}
+.rowname{font-size:15px;font-weight:600;letter-spacing:.03em}
+.rowrule{stroke:var(--hair);stroke-width:1}
+.arrowline{fill:none;stroke:var(--ink);stroke-width:1.5}
+.bigsym{font-size:26px;font-weight:500}
+.rthick{stroke:var(--red);stroke-width:2.6;stroke-linecap:round}
+.c2{stroke:var(--muted);stroke-width:1;stroke-dasharray:5 4;opacity:.75}
+.c2dot{fill:var(--muted)}
+.chain{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;align-items:stretch}
+.chain div{border:1px solid var(--hair);border-radius:4px;padding:10px 12px;background:var(--panel);position:relative}
+.chain .n{font-family:var(--mono);font-size:12.5px;color:var(--muted);display:block}
+.chain .t{font-weight:600;display:block}
+.chain .d{font-size:14.5px;color:var(--muted);display:block;margin-top:2px}
+@media (max-width:640px){ .chain{grid-template-columns:1fr 1fr} }
+.hop{fill:none;stroke:var(--ink);stroke-width:1.4}
+.step{stroke:var(--ink);stroke-width:2;fill:none}
+.step.back{opacity:.6}
+.lab.green{fill:var(--green)}
+.tf-green{fill:var(--green)}
+.square{stroke:var(--ink);stroke-width:1.1;stroke-dasharray:4 4}
+.slit{stroke:var(--ink);stroke-width:5;stroke-linecap:round}
+.hole{fill:var(--panel);stroke:var(--ink);stroke-width:2.5}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:620px;font-variant-numeric:tabular-nums}
+th,td{border:1px solid var(--hair);padding:9px 12px;text-align:left;vertical-align:top}
+thead th{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--muted)}
+tbody th{font-weight:600}
+td{font-family:var(--mono);font-size:15px}
+td.fixed{color:var(--muted)} td.free{color:var(--green);font-weight:600} td.all{color:var(--blue);font-weight:600}
+td small,th small{display:block;font-family:var(--display);font-size:13px;font-weight:400;color:var(--muted)}
+.count{font-family:var(--mono);font-weight:600;white-space:nowrap}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <p class="eyebrow">Plate · foundations, 1 of 2</p>
+  <h1>Correspondences and Circuits</h1>
+  <p>What an involution is made of, one requirement at a time, and the patterns a reversible correspondence can have.</p>
+</header>
+
+<figure>
+  <div class="draw"><svg viewBox="0 0 1000 640" role="img" aria-label="Four rows, each adding one requirement: a distinction, a correspondence, a reversible correspondence, an involution. A fifth row shows the identity.">
+<defs><marker id="tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-muted"/></marker><marker id="tipg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-green"/></marker><marker id="tipp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-purple"/></marker><marker id="tipi" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-ink"/></marker><marker id="tipb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-blue"/></marker><marker id="tipr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-red"/></marker></defs>
+<text x="30.0" y="58.0" class="rowname" text-anchor="start"><tspan x="30.0" dy="0">1  A DISTINCTION</tspan></text>
+<text x="30.0" y="80.0" class="lab" text-anchor="start"><tspan x="30.0" dy="0">two things told apart</tspan></text>
+<text x="720.0" y="86.0" class="bigsym" text-anchor="middle"><tspan x="720.0" dy="0">≠</tspan></text>
+<line x1="30.0" y1="140.0" x2="970.0" y2="140.0" class="rowrule" />
+<circle cx="630.0" cy="80.0" r="7" class="pt"/>
+<circle cx="810" cy="80" r="7" class="hole"/>
+<text x="30.0" y="178.0" class="rowname" text-anchor="start"><tspan x="30.0" dy="0">2  A CORRESPONDENCE</tspan></text>
+<text x="30.0" y="200.0" class="lab" text-anchor="start"><tspan x="30.0" dy="0">a rule sending each thing</tspan><tspan x="30.0" dy="16">to some thing</tspan></text>
+<path d="M540.0,191.0 Q675.0,133.0 810.0,191.0" class="arrowline" marker-end="url(#tipi)"/>
+<path d="M720.0,191.0 Q765.0,157.0 810.0,191.0" class="arrowline" marker-end="url(#tipi)"/>
+<path d="M630.0,209.0 Q585.0,239.0 540.0,209.0" class="arrowline" marker-end="url(#tipi)"/>
+<path d="M810.0,209.0 Q765.0,239.0 720.0,209.0" class="arrowline" marker-end="url(#tipi)"/>
+<path d="M894.0,191.0 C876.0,154.0 924.0,154.0 906.0,191.0" class="arrowline" marker-end="url(#tipi)"/>
+<circle cx="540.0" cy="200.0" r="6" class="pt"/>
+<circle cx="630.0" cy="200.0" r="6" class="pt"/>
+<circle cx="720.0" cy="200.0" r="6" class="pt"/>
+<circle cx="810.0" cy="200.0" r="6" class="pt"/>
+<circle cx="900.0" cy="200.0" r="6" class="pt"/>
+<line x1="30.0" y1="260.0" x2="970.0" y2="260.0" class="rowrule" />
+<text x="810.0" y="246.0" class="lab small" text-anchor="middle"><tspan x="810.0" dy="0">two arrive here</tspan></text>
+<text x="630.0" y="246.0" class="lab small" text-anchor="middle"><tspan x="630.0" dy="0">none arrives here</tspan></text>
+<text x="30.0" y="298.0" class="rowname" text-anchor="start"><tspan x="30.0" dy="0">3  A REVERSIBLE CORRESPONDENCE</tspan></text>
+<text x="30.0" y="320.0" class="lab" text-anchor="start"><tspan x="30.0" dy="0">each thing is left once</tspan><tspan x="30.0" dy="16">and reached once;</tspan><tspan x="30.0" dy="16">run backwards, it is a different rule</tspan></text>
+<path d="M540.0,311.0 Q585.0,277.0 630.0,311.0" class="arrowline" marker-end="url(#tipi)"/>
+<path d="M630.0,311.0 Q720.0,265.0 810.0,311.0" class="arrowline" marker-end="url(#tipi)"/>
+<path d="M810.0,311.0 Q855.0,277.0 900.0,311.0" class="arrowline" marker-end="url(#tipi)"/>
+<path d="M900.0,329.0 Q810.0,363.0 720.0,329.0" class="arrowline" marker-end="url(#tipi)"/>
+<path d="M720.0,329.0 Q630.0,363.0 540.0,329.0" class="arrowline" marker-end="url(#tipi)"/>
+<circle cx="540.0" cy="320.0" r="6" class="pt"/>
+<circle cx="630.0" cy="320.0" r="6" class="pt"/>
+<circle cx="720.0" cy="320.0" r="6" class="pt"/>
+<circle cx="810.0" cy="320.0" r="6" class="pt"/>
+<circle cx="900.0" cy="320.0" r="6" class="pt"/>
+<line x1="30.0" y1="380.0" x2="970.0" y2="380.0" class="rowrule" />
+<text x="30.0" y="418.0" class="rowname" text-anchor="start"><tspan x="30.0" dy="0">4  AN INVOLUTION</tspan></text>
+<text x="30.0" y="440.0" class="lab" text-anchor="start"><tspan x="30.0" dy="0">run backwards, it is</tspan><tspan x="30.0" dy="16">the same rule</tspan></text>
+<path d="M540.0,431.0 Q585.0,397.0 630.0,431.0" class="arrowline" marker-end="url(#tipi)" marker-start="url(#tipi)"/>
+<path d="M720.0,431.0 Q765.0,397.0 810.0,431.0" class="arrowline" marker-end="url(#tipi)" marker-start="url(#tipi)"/>
+<path d="M894.0,431.0 C876.0,394.0 924.0,394.0 906.0,431.0" class="arrowline" marker-end="url(#tipi)"/>
+<circle cx="540.0" cy="440.0" r="6" class="pt"/>
+<circle cx="630.0" cy="440.0" r="6" class="pt"/>
+<circle cx="720.0" cy="440.0" r="6" class="pt"/>
+<circle cx="810.0" cy="440.0" r="6" class="pt"/>
+<circle cx="900.0" cy="440.0" r="6" class="pt"/>
+<line x1="30.0" y1="500.0" x2="970.0" y2="500.0" class="rowrule" />
+<text x="585.0" y="470.0" class="lab small" text-anchor="middle"><tspan x="585.0" dy="0">a pair</tspan></text>
+<text x="765.0" y="470.0" class="lab small" text-anchor="middle"><tspan x="765.0" dy="0">a pair</tspan></text>
+<text x="900.0" y="470.0" class="lab small" text-anchor="middle"><tspan x="900.0" dy="0">its own partner</tspan></text>
+<text x="30.0" y="548.0" class="rowname" text-anchor="start"><tspan x="30.0" dy="0">THE IDENTITY</tspan></text>
+<text x="30.0" y="570.0" class="lab" text-anchor="start"><tspan x="30.0" dy="0">simpler than an involution,</tspan><tspan x="30.0" dy="16">but it does nothing</tspan></text>
+<path d="M534.0,561.0 C516.0,524.0 564.0,524.0 546.0,561.0" class="arrowline" marker-end="url(#tipi)"/>
+<circle cx="540.0" cy="570.0" r="6" class="pt"/>
+<path d="M624.0,561.0 C606.0,524.0 654.0,524.0 636.0,561.0" class="arrowline" marker-end="url(#tipi)"/>
+<circle cx="630.0" cy="570.0" r="6" class="pt"/>
+<path d="M714.0,561.0 C696.0,524.0 744.0,524.0 726.0,561.0" class="arrowline" marker-end="url(#tipi)"/>
+<circle cx="720.0" cy="570.0" r="6" class="pt"/>
+<path d="M804.0,561.0 C786.0,524.0 834.0,524.0 816.0,561.0" class="arrowline" marker-end="url(#tipi)"/>
+<circle cx="810.0" cy="570.0" r="6" class="pt"/>
+<path d="M894.0,561.0 C876.0,524.0 924.0,524.0 906.0,561.0" class="arrowline" marker-end="url(#tipi)"/>
+<circle cx="900.0" cy="570.0" r="6" class="pt"/>
+</svg></div>
+  <figcaption>
+    <h2>1. The ladder: each row adds one requirement</h2>
+    <p>An arrow means "is sent to". The dots are set in a row only so that they can be drawn; an arrow may run either way or return to its own dot. In any correspondence one arrow leaves each dot. Row 3 adds the requirement that every dot is reached once, which is what "reversible" means. Row 4 adds that the backward rule is the same as the forward rule.</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <div class="draw"><svg viewBox="0 0 1000 530" role="img" aria-label="One example of each pattern. On three dots: the identity, one pair, one circuit of three, and two examples that are not reversible. On four dots: the identity, one pair, two pairs, a circuit of three with one dot sent to itself, and a circuit of four.">
+<defs><marker id="tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-muted"/></marker><marker id="tipg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-green"/></marker><marker id="tipp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-purple"/></marker><marker id="tipi" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-ink"/></marker><marker id="tipb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-blue"/></marker><marker id="tipr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-red"/></marker></defs>
+<text x="30.0" y="30.0" class="rowname" text-anchor="start"><tspan x="30.0" dy="0">THREE DOTS  ·  27 correspondences, 6 of them reversible</tspan></text>
+<rect x="52.0" y="50.0" width="116.0" height="126.0" rx="5" class="cellbox"/>
+<path d="M115.0,80.0 C125.0,62.0 95.0,62.0 105.0,80.0" class="arrowline" marker-end="url(#tipi)"/>
+<path d="M71.1,138.7 C50.5,139.0 65.5,165.0 76.1,147.3" class="arrowline" marker-end="url(#tipi)"/>
+<path d="M143.9,147.3 C154.5,165.0 169.5,139.0 148.9,138.7" class="arrowline" marker-end="url(#tipi)"/>
+<circle cx="110.0" cy="88.0" r="4.6" class="pt"/>
+<circle cx="80.6" cy="139.0" r="4.6" class="pt"/>
+<circle cx="139.4" cy="139.0" r="4.6" class="pt"/>
+<text x="110.0" y="196.0" class="lab" text-anchor="middle"><tspan x="110.0" dy="0">THE IDENTITY</tspan><tspan x="110.0" dy="15">1 of the 6</tspan></text>
+<rect x="212.0" y="50.0" width="116.0" height="126.0" rx="5" class="cellbox"/>
+<path d="M275.0,80.0 C285.0,62.0 255.0,62.0 265.0,80.0" class="arrowline" marker-end="url(#tipi)"/>
+<line x1="249.6" y1="139.0" x2="290.4" y2="139.0" class="arrowline" marker-end="url(#tipi)" marker-start="url(#tipi)"/>
+<circle cx="270.0" cy="88.0" r="4.6" class="pt"/>
+<circle cx="240.6" cy="139.0" r="4.6" class="pt"/>
+<circle cx="299.4" cy="139.0" r="4.6" class="pt"/>
+<text x="270.0" y="196.0" class="lab" text-anchor="middle"><tspan x="270.0" dy="0">ONE PAIR</tspan><tspan x="270.0" dy="15">3 of the 6</tspan><tspan x="270.0" dy="15">involutions</tspan></text>
+<rect x="372.0" y="50.0" width="116.0" height="126.0" rx="5" class="cellbox"/>
+<line x1="425.5" y1="95.8" x2="405.1" y2="131.2" class="arrowline" marker-end="url(#tipi)"/>
+<line x1="409.6" y1="139.0" x2="450.4" y2="139.0" class="arrowline" marker-end="url(#tipi)"/>
+<line x1="454.9" y1="131.2" x2="434.5" y2="95.8" class="arrowline" marker-end="url(#tipi)"/>
+<circle cx="430.0" cy="88.0" r="4.6" class="pt"/>
+<circle cx="400.6" cy="139.0" r="4.6" class="pt"/>
+<circle cx="459.4" cy="139.0" r="4.6" class="pt"/>
+<text x="430.0" y="196.0" class="lab" text-anchor="middle"><tspan x="430.0" dy="0">ONE CIRCUIT</tspan><tspan x="430.0" dy="15">OF THREE</tspan><tspan x="430.0" dy="15">2 of the 6</tspan></text>
+<line x1="545.0" y1="44.0" x2="545.0" y2="248.0" class="rowrule" />
+<rect x="602.0" y="50.0" width="116.0" height="126.0" rx="5" class="cellbox"/>
+<line x1="655.5" y1="95.8" x2="635.1" y2="131.2" class="arrowline" marker-end="url(#tipi)"/>
+<line x1="639.6" y1="139.0" x2="680.4" y2="139.0" class="arrowline" marker-end="url(#tipi)" marker-start="url(#tipi)"/>
+<circle cx="660.0" cy="88.0" r="5" class="unreached"/>
+<circle cx="630.6" cy="139.0" r="4.6" class="pt"/>
+<circle cx="689.4" cy="139.0" r="4.6" class="pt"/>
+<text x="660.0" y="196.0" class="lab red" text-anchor="middle"><tspan x="660.0" dy="0">NOT REVERSIBLE</tspan><tspan x="660.0" dy="15">one dot reached</tspan><tspan x="660.0" dy="15">by nothing</tspan><tspan x="660.0" dy="15">18 like this</tspan></text>
+<rect x="782.0" y="50.0" width="116.0" height="126.0" rx="5" class="cellbox"/>
+<path d="M845.0,80.0 C855.0,62.0 825.0,62.0 835.0,80.0" class="arrowline" marker-end="url(#tipi)"/>
+<line x1="815.1" y1="131.2" x2="835.5" y2="95.8" class="arrowline" marker-end="url(#tipi)"/>
+<line x1="864.9" y1="131.2" x2="844.5" y2="95.8" class="arrowline" marker-end="url(#tipi)"/>
+<circle cx="840.0" cy="88.0" r="4.6" class="pt"/>
+<circle cx="810.6" cy="139.0" r="5" class="unreached"/>
+<circle cx="869.4" cy="139.0" r="5" class="unreached"/>
+<text x="840.0" y="196.0" class="lab red" text-anchor="middle"><tspan x="840.0" dy="0">NOT REVERSIBLE</tspan><tspan x="840.0" dy="15">all sent</tspan><tspan x="840.0" dy="15">to one dot</tspan><tspan x="840.0" dy="15">3 like this</tspan></text>
+<line x1="30.0" y1="268.0" x2="970.0" y2="268.0" class="rowrule" />
+<text x="30.0" y="300.0" class="rowname" text-anchor="start"><tspan x="30.0" dy="0">FOUR DOTS  ·  24 reversible correspondences, in five patterns</tspan></text>
+<rect x="52.0" y="326.0" width="116.0" height="116.0" rx="5" class="cellbox"/>
+<path d="M78.2,345.1 C72.5,325.3 51.3,346.5 71.1,352.2" class="arrowline" marker-end="url(#tipi)"/>
+<path d="M71.1,415.8 C51.3,421.5 72.5,442.7 78.2,422.9" class="arrowline" marker-end="url(#tipi)"/>
+<path d="M141.8,422.9 C147.5,442.7 168.7,421.5 148.9,415.8" class="arrowline" marker-end="url(#tipi)"/>
+<path d="M148.9,352.2 C168.7,346.5 147.5,325.3 141.8,345.1" class="arrowline" marker-end="url(#tipi)"/>
+<circle cx="80.3" cy="354.3" r="4.6" class="pt"/>
+<circle cx="80.3" cy="413.7" r="4.6" class="pt"/>
+<circle cx="139.7" cy="413.7" r="4.6" class="pt"/>
+<circle cx="139.7" cy="354.3" r="4.6" class="pt"/>
+<text x="110.0" y="462.0" class="lab" text-anchor="middle"><tspan x="110.0" dy="0">THE IDENTITY</tspan><tspan x="110.0" dy="15">1 of the 24</tspan></text>
+<rect x="232.0" y="326.0" width="116.0" height="116.0" rx="5" class="cellbox"/>
+<path d="M258.2,345.1 C252.5,325.3 231.3,346.5 251.1,352.2" class="arrowline" marker-end="url(#tipi)"/>
+<path d="M251.1,415.8 C231.3,421.5 252.5,442.7 258.2,422.9" class="arrowline" marker-end="url(#tipi)"/>
+<line x1="319.7" y1="404.7" x2="319.7" y2="363.3" class="arrowline" marker-end="url(#tipi)" marker-start="url(#tipi)"/>
+<circle cx="260.3" cy="354.3" r="4.6" class="pt"/>
+<circle cx="260.3" cy="413.7" r="4.6" class="pt"/>
+<circle cx="319.7" cy="413.7" r="4.6" class="pt"/>
+<circle cx="319.7" cy="354.3" r="4.6" class="pt"/>
+<text x="290.0" y="462.0" class="lab" text-anchor="middle"><tspan x="290.0" dy="0">ONE PAIR</tspan><tspan x="290.0" dy="15">6 of the 24</tspan><tspan x="290.0" dy="15">involutions</tspan></text>
+<rect x="412.0" y="326.0" width="116.0" height="116.0" rx="5" class="cellbox"/>
+<line x1="440.3" y1="363.3" x2="440.3" y2="404.7" class="arrowline" marker-end="url(#tipi)" marker-start="url(#tipi)"/>
+<line x1="499.7" y1="404.7" x2="499.7" y2="363.3" class="arrowline" marker-end="url(#tipi)" marker-start="url(#tipi)"/>
+<circle cx="440.3" cy="354.3" r="4.6" class="pt"/>
+<circle cx="440.3" cy="413.7" r="4.6" class="pt"/>
+<circle cx="499.7" cy="413.7" r="4.6" class="pt"/>
+<circle cx="499.7" cy="354.3" r="4.6" class="pt"/>
+<text x="470.0" y="462.0" class="lab" text-anchor="middle"><tspan x="470.0" dy="0">TWO PAIRS</tspan><tspan x="470.0" dy="15">3 of the 24</tspan><tspan x="470.0" dy="15">involutions</tspan></text>
+<rect x="602.0" y="326.0" width="116.0" height="116.0" rx="5" class="cellbox"/>
+<path d="M628.2,345.1 C622.5,325.3 601.3,346.5 621.1,352.2" class="arrowline" marker-end="url(#tipi)"/>
+<line x1="639.3" y1="413.7" x2="680.7" y2="413.7" class="arrowline" marker-end="url(#tipi)"/>
+<line x1="689.7" y1="404.7" x2="689.7" y2="363.3" class="arrowline" marker-end="url(#tipi)"/>
+<line x1="683.3" y1="360.7" x2="636.7" y2="407.3" class="arrowline" marker-end="url(#tipi)"/>
+<circle cx="630.3" cy="354.3" r="4.6" class="pt"/>
+<circle cx="630.3" cy="413.7" r="4.6" class="pt"/>
+<circle cx="689.7" cy="413.7" r="4.6" class="pt"/>
+<circle cx="689.7" cy="354.3" r="4.6" class="pt"/>
+<text x="660.0" y="462.0" class="lab" text-anchor="middle"><tspan x="660.0" dy="0">ONE CIRCUIT</tspan><tspan x="660.0" dy="15">OF THREE, one dot</tspan><tspan x="660.0" dy="15">sent to itself</tspan><tspan x="660.0" dy="15">8 of the 24</tspan></text>
+<rect x="792.0" y="326.0" width="116.0" height="116.0" rx="5" class="cellbox"/>
+<line x1="820.3" y1="363.3" x2="820.3" y2="404.7" class="arrowline" marker-end="url(#tipi)"/>
+<line x1="829.3" y1="413.7" x2="870.7" y2="413.7" class="arrowline" marker-end="url(#tipi)"/>
+<line x1="879.7" y1="404.7" x2="879.7" y2="363.3" class="arrowline" marker-end="url(#tipi)"/>
+<line x1="870.7" y1="354.3" x2="829.3" y2="354.3" class="arrowline" marker-end="url(#tipi)"/>
+<circle cx="820.3" cy="354.3" r="4.6" class="pt"/>
+<circle cx="820.3" cy="413.7" r="4.6" class="pt"/>
+<circle cx="879.7" cy="413.7" r="4.6" class="pt"/>
+<circle cx="879.7" cy="354.3" r="4.6" class="pt"/>
+<text x="850.0" y="462.0" class="lab" text-anchor="middle"><tspan x="850.0" dy="0">ONE CIRCUIT</tspan><tspan x="850.0" dy="15">OF FOUR</tspan><tspan x="850.0" dy="15">6 of the 24</tspan></text>
+</svg></div>
+  <figcaption>
+    <h2>2. The patterns: one example of each</h2>
+    <p>Follow the arrows of a reversible correspondence from any dot and you return to it. Every dot lies on one closed circuit. That is forced by "every dot is reached once"; it is not an extra rule. So one reversible correspondence differs in pattern from another only in the lengths of its circuits. Three dots allow three patterns, four dots allow five.</p>
+    <p>A small loop is a dot sent to itself: a circuit of length 1. A line with a head at each end is a pair: a circuit of length 2. A red ring is a dot reached by nothing.</p>
+  </figcaption>
+</figure>
+
+<div class="sum">
+  <h2>What the patterns say</h2>
+  <ul style="margin:0;padding-left:20px;max-width:70ch">
+    <li>An involution is a reversible correspondence with no circuit longer than 2.</li>
+    <li>The identity is one with no circuit longer than 1.</li>
+    <li>"Run backwards, it is a different rule" holds exactly when some circuit has length 3 or more.</li>
+  </ul>
+</div>
+
+<figure>
+  <div class="draw"><svg viewBox="0 0 1000 530" role="img" aria-label="Four rows. Closed circuits of length one, two and three. An endless chain: the whole numbers under add 1. Change the sign: pairs, and zero sent to itself. A chain with a beginning: the counting numbers under add 1, where 1 is reached by nothing.">
+<defs><marker id="tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-muted"/></marker><marker id="tipg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-green"/></marker><marker id="tipp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-purple"/></marker><marker id="tipi" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-ink"/></marker><marker id="tipb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-blue"/></marker><marker id="tipr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" class="tf-red"/></marker></defs>
+<text x="30.0" y="50.0" class="rowname" text-anchor="start"><tspan x="30.0" dy="0">CLOSED CIRCUITS</tspan></text>
+<text x="30.0" y="72.0" class="lab" text-anchor="start"><tspan x="30.0" dy="0">follow the arrows and</tspan><tspan x="30.0" dy="16">you return to the start</tspan></text>
+<text x="30.0" y="108.0" class="lab green" text-anchor="start"><tspan x="30.0" dy="0">reversible</tspan></text>
+<line x1="30.0" y1="140.0" x2="970.0" y2="140.0" class="rowrule" />
+<path d="M514.0,65.0 C496.0,30.0 544.0,30.0 526.0,65.0" class="arrowline" marker-end="url(#tipi)"/>
+<circle cx="520.0" cy="74.0" r="5.4" class="pt"/>
+<text x="520.0" y="100.0" class="lab small" text-anchor="middle"><tspan x="520.0" dy="0">length 1</tspan></text>
+<path d="M620.0,65.0 Q660.0,35.0 700.0,65.0" class="arrowline" marker-end="url(#tipi)" marker-start="url(#tipi)"/>
+<circle cx="620.0" cy="74.0" r="5.4" class="pt"/>
+<circle cx="700.0" cy="74.0" r="5.4" class="pt"/>
+<text x="660.0" y="100.0" class="lab small" text-anchor="middle"><tspan x="660.0" dy="0">length 2</tspan></text>
+<line x1="823.6" y1="46.4" x2="796.4" y2="73.6" class="arrowline" marker-end="url(#tipi)"/>
+<line x1="799.0" y1="80.0" x2="861.0" y2="80.0" class="arrowline" marker-end="url(#tipi)"/>
+<line x1="863.6" y1="73.6" x2="836.4" y2="46.4" class="arrowline" marker-end="url(#tipi)"/>
+<circle cx="830.0" cy="40.0" r="5.4" class="pt"/>
+<circle cx="790.0" cy="80.0" r="5.4" class="pt"/>
+<circle cx="870.0" cy="80.0" r="5.4" class="pt"/>
+<text x="830.0" y="100.0" class="lab small" text-anchor="middle"><tspan x="830.0" dy="0">length 3</tspan></text>
+<text x="940.0" y="78.0" class="lab small" text-anchor="middle"><tspan x="940.0" dy="0">and so on</tspan></text>
+<text x="30.0" y="178.0" class="rowname" text-anchor="start"><tspan x="30.0" dy="0">AN ENDLESS CHAIN</tspan></text>
+<text x="30.0" y="200.0" class="lab" text-anchor="start"><tspan x="30.0" dy="0">all whole numbers,</tspan><tspan x="30.0" dy="16">rule: add 1</tspan></text>
+<text x="30.0" y="236.0" class="lab green" text-anchor="start"><tspan x="30.0" dy="0">reversible; it never closes</tspan></text>
+<line x1="30.0" y1="268.0" x2="970.0" y2="268.0" class="rowrule" />
+<path d="M560.0,193.0 Q598.0,163.0 636.0,193.0" class="arrowline" marker-end="url(#tipi)"/>
+<path d="M636.0,193.0 Q674.0,163.0 712.0,193.0" class="arrowline" marker-end="url(#tipi)"/>
+<path d="M712.0,193.0 Q750.0,163.0 788.0,193.0" class="arrowline" marker-end="url(#tipi)"/>
+<path d="M788.0,193.0 Q826.0,163.0 864.0,193.0" class="arrowline" marker-end="url(#tipi)"/>
+<path d="M498.0,193.0 Q529.0,163.0 560.0,193.0" class="arrowline" marker-end="url(#tipi)"/>
+<path d="M864.0,193.0 Q895.0,163.0 926.0,193.0" class="arrowline" marker-end="url(#tipi)"/>
+<text x="484.0" y="207.0" class="bigsym" text-anchor="middle"><tspan x="484.0" dy="0">…</tspan></text>
+<text x="942.0" y="207.0" class="bigsym" text-anchor="middle"><tspan x="942.0" dy="0">…</tspan></text>
+<circle cx="560.0" cy="202.0" r="5.4" class="pt"/>
+<text x="560.0" y="228.0" class="num" text-anchor="middle"><tspan x="560.0" dy="0">−2</tspan></text>
+<circle cx="636.0" cy="202.0" r="5.4" class="pt"/>
+<text x="636.0" y="228.0" class="num" text-anchor="middle"><tspan x="636.0" dy="0">−1</tspan></text>
+<circle cx="712.0" cy="202.0" r="5.4" class="pt"/>
+<text x="712.0" y="228.0" class="num" text-anchor="middle"><tspan x="712.0" dy="0">0</tspan></text>
+<circle cx="788.0" cy="202.0" r="5.4" class="pt"/>
+<text x="788.0" y="228.0" class="num" text-anchor="middle"><tspan x="788.0" dy="0">1</tspan></text>
+<circle cx="864.0" cy="202.0" r="5.4" class="pt"/>
+<text x="864.0" y="228.0" class="num" text-anchor="middle"><tspan x="864.0" dy="0">2</tspan></text>
+<text x="30.0" y="312.0" class="rowname" text-anchor="start"><tspan x="30.0" dy="0">CHANGE THE SIGN</tspan></text>
+<text x="30.0" y="334.0" class="lab" text-anchor="start"><tspan x="30.0" dy="0">all whole numbers,</tspan><tspan x="30.0" dy="16">rule: n is sent to −n</tspan></text>
+<text x="30.0" y="370.0" class="lab green" text-anchor="start"><tspan x="30.0" dy="0">reversible, and an involution</tspan></text>
+<line x1="30.0" y1="402.0" x2="970.0" y2="402.0" class="rowrule" />
+<path d="M652.0,327.0 Q718.0,311.0 784.0,327.0" class="arrowline" marker-end="url(#tipi)" marker-start="url(#tipi)"/>
+<path d="M586.0,327.0 Q718.0,297.0 850.0,327.0" class="arrowline" marker-end="url(#tipi)" marker-start="url(#tipi)"/>
+<path d="M520.0,327.0 Q718.0,283.0 916.0,327.0" class="arrowline" marker-end="url(#tipi)" marker-start="url(#tipi)"/>
+<path d="M712.0,345.0 C694.0,380.0 742.0,380.0 724.0,345.0" class="arrowline" marker-end="url(#tipi)"/>
+<circle cx="520.0" cy="336.0" r="5.4" class="pt"/>
+<text x="520.0" y="362.0" class="num" text-anchor="middle"><tspan x="520.0" dy="0">−3</tspan></text>
+<circle cx="586.0" cy="336.0" r="5.4" class="pt"/>
+<text x="586.0" y="362.0" class="num" text-anchor="middle"><tspan x="586.0" dy="0">−2</tspan></text>
+<circle cx="652.0" cy="336.0" r="5.4" class="pt"/>
+<text x="652.0" y="362.0" class="num" text-anchor="middle"><tspan x="652.0" dy="0">−1</tspan></text>
+<circle cx="718.0" cy="336.0" r="5.4" class="pt"/>
+<circle cx="784.0" cy="336.0" r="5.4" class="pt"/>
+<text x="784.0" y="362.0" class="num" text-anchor="middle"><tspan x="784.0" dy="0">1</tspan></text>
+<circle cx="850.0" cy="336.0" r="5.4" class="pt"/>
+<text x="850.0" y="362.0" class="num" text-anchor="middle"><tspan x="850.0" dy="0">2</tspan></text>
+<circle cx="916.0" cy="336.0" r="5.4" class="pt"/>
+<text x="916.0" y="362.0" class="num" text-anchor="middle"><tspan x="916.0" dy="0">3</tspan></text>
+<text x="734.0" y="362.0" class="num" text-anchor="start"><tspan x="734.0" dy="0">0</tspan></text>
+<text x="486.0" y="341.0" class="bigsym" text-anchor="middle"><tspan x="486.0" dy="0">…</tspan></text>
+<text x="950.0" y="341.0" class="bigsym" text-anchor="middle"><tspan x="950.0" dy="0">…</tspan></text>
+<text x="30.0" y="440.0" class="rowname" text-anchor="start"><tspan x="30.0" dy="0">A CHAIN WITH A BEGINNING</tspan></text>
+<text x="30.0" y="462.0" class="lab" text-anchor="start"><tspan x="30.0" dy="0">counting numbers 1, 2, 3, …</tspan><tspan x="30.0" dy="16">rule: add 1</tspan></text>
+<text x="30.0" y="498.0" class="lab red" text-anchor="start"><tspan x="30.0" dy="0">not reversible: 1 is reached by nothing</tspan></text>
+<path d="M560.0,455.0 Q598.0,425.0 636.0,455.0" class="arrowline" marker-end="url(#tipi)"/>
+<path d="M636.0,455.0 Q674.0,425.0 712.0,455.0" class="arrowline" marker-end="url(#tipi)"/>
+<path d="M712.0,455.0 Q750.0,425.0 788.0,455.0" class="arrowline" marker-end="url(#tipi)"/>
+<path d="M788.0,455.0 Q826.0,425.0 864.0,455.0" class="arrowline" marker-end="url(#tipi)"/>
+<path d="M864.0,455.0 Q895.0,425.0 926.0,455.0" class="arrowline" marker-end="url(#tipi)"/>
+<text x="942.0" y="469.0" class="bigsym" text-anchor="middle"><tspan x="942.0" dy="0">…</tspan></text>
+<circle cx="560.0" cy="464.0" r="5.4" class="unreached"/>
+<text x="560.0" y="490.0" class="num" text-anchor="middle"><tspan x="560.0" dy="0">1</tspan></text>
+<circle cx="636.0" cy="464.0" r="5.4" class="pt"/>
+<text x="636.0" y="490.0" class="num" text-anchor="middle"><tspan x="636.0" dy="0">2</tspan></text>
+<circle cx="712.0" cy="464.0" r="5.4" class="pt"/>
+<text x="712.0" y="490.0" class="num" text-anchor="middle"><tspan x="712.0" dy="0">3</tspan></text>
+<circle cx="788.0" cy="464.0" r="5.4" class="pt"/>
+<text x="788.0" y="490.0" class="num" text-anchor="middle"><tspan x="788.0" dy="0">4</tspan></text>
+<circle cx="864.0" cy="464.0" r="5.4" class="pt"/>
+<text x="864.0" y="490.0" class="num" text-anchor="middle"><tspan x="864.0" dy="0">5</tspan></text>
+</svg></div>
+  <figcaption>
+    <h2>3. Infinitely many things: closure is no longer forced</h2>
+    <p>With finitely many dots the fresh dots run out, so following the arrows must return to the start. With infinitely many things they never run out, and a second kind of piece becomes possible: an endless chain, running forever in both directions. A reversible correspondence on infinitely many things is made of closed circuits and endless chains, and nothing else. An involution is one with no circuit longer than 2 and no endless chain.</p>
+    <p>The last row is not reversible. No two numbers arrive at the same place, yet 1 is reached by nothing. With finitely many dots that cannot happen; with infinitely many, "no two arrive at the same place" and "every one is reached" are two separate checks.</p>
+  </figcaption>
+</figure>
+
+<p class="next">Next: <a href="beneath-the-involution.html">Beneath the Involution</a> (beneath-the-involution.html), where the involution is built from incidence.</p>
+
+<p class="status"><strong>Status.</strong> Classical. The examples in figure 2 are picked from a complete listing made by the drawing code, which asserts every count shown (27, 6, 18, 3; 24 as 1, 6, 3, 8, 6). Nothing beyond that was checked.</p>
+
+<section>
+  <h2>Terms</h2>
+  <p class="status" style="margin-bottom:12px">The plain words are the plate's own. The standard name, for looking things up elsewhere, follows each in grey.</p>
+  <dl>
+    <dt>correspondence</dt><dd>A rule sending each thing of a collection to some thing of the same collection. <span class="std">Standard: a map, or function, from a set to itself.</span></dd>
+    <dt>reversible</dt><dd>Every thing is reached once, so the rule can be run backwards. <span class="std">Standard: a bijection; for finitely many things, a permutation.</span></dd>
+    <dt>no two arrive at the same place</dt><dd>One of the two checks for infinitely many things. <span class="std">Standard: one-to-one, or injective.</span></dd>
+    <dt>every one is reached</dt><dd>The other check. <span class="std">Standard: onto, or surjective.</span></dd>
+    <dt>circuit</dt><dd>A closed chain of arrows: follow them and return to the start. Its length is the number of dots on it. <span class="std">Standard: a cycle.</span></dd>
+    <dt>pair</dt><dd>A circuit of length 2. <span class="std">Standard: a 2-cycle, or transposition.</span></dd>
+    <dt>pattern</dt><dd>The list of circuit lengths of a reversible correspondence. <span class="std">Standard: its cycle type.</span></dd>
+    <dt>endless chain</dt><dd>A chain of arrows with no beginning and no end, visiting nothing twice. <span class="std">Standard: an infinite orbit.</span></dd>
+    <dt>chain with a beginning</dt><dd>A chain of arrows starting at a thing reached by nothing.</dd>
+    <dt>involution</dt><dd>A reversible correspondence whose backward rule is its forward rule. Equivalently: no circuit longer than 2, and no endless chain. <span class="std">Standard: involution.</span></dd>
+    <dt>identity</dt><dd>The correspondence sending each thing to itself. <span class="std">Standard: identity.</span></dd>
+  </dl>
+</section>
+</main>
+</body>
+</html>
