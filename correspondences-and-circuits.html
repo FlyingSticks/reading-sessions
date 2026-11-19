@@ -206,7 +206,7 @@ td small,th small{display:block;font-family:var(--display);font-size:13px;font-w
 <text x="765.0" y="470.0" class="lab small" text-anchor="middle"><tspan x="765.0" dy="0">a pair</tspan></text>
 <text x="900.0" y="470.0" class="lab small" text-anchor="middle"><tspan x="900.0" dy="0">its own partner</tspan></text>
 <text x="30.0" y="548.0" class="rowname" text-anchor="start"><tspan x="30.0" dy="0">THE IDENTITY</tspan></text>
-<text x="30.0" y="570.0" class="lab" text-anchor="start"><tspan x="30.0" dy="0">the involution that does nothing:</tspan><tspan x="30.0" dy="16">every thing is sent to itself</tspan></text>
+<text x="30.0" y="570.0" class="lab" text-anchor="start"><tspan x="30.0" dy="0">every thing is sent to itself;</tspan><tspan x="30.0" dy="16">by convention not an involution</tspan></text>
 <path d="M534.0,561.0 C516.0,524.0 564.0,524.0 546.0,561.0" class="arrowline" marker-end="url(#tipi)"/>
 <circle cx="540.0" cy="570.0" r="6" class="pt"/>
 <path d="M624.0,561.0 C606.0,524.0 654.0,524.0 636.0,561.0" class="arrowline" marker-end="url(#tipi)"/>
@@ -220,7 +220,7 @@ td small,th small{display:block;font-family:var(--display);font-size:13px;font-w
 </svg></div>
   <figcaption>
     <h2>1. The ladder: each row adds one requirement</h2>
-    <p>An arrow means "is sent to". The dots are set in a row only so that they can be drawn; an arrow may run either way or return to its own dot. In any correspondence one arrow leaves each dot. Row 3 adds the requirement that every dot is reached exactly once, which is what "reversible" means. Row 4 adds that the backward rule is the same as the forward rule. The identity, in the last row, meets that requirement too: it is counted as an involution, the one that does nothing.</p>
+    <p>An arrow means "is sent to". The dots are set in a row only so that they can be drawn; an arrow may run either way or return to its own dot. In any correspondence one arrow leaves each dot. Row 3 adds the requirement that every dot is reached exactly once, which is what "reversible" means. Row 4 adds that the backward rule is the same as the forward rule. The identity, in the last row, meets that requirement too, but emptily: it moves nothing, so there is nothing to undo. By convention it is not counted as an involution. An involution must move at least one thing.</p>
   </figcaption>
 </figure>
 
@@ -235,7 +235,7 @@ td small,th small{display:block;font-family:var(--display);font-size:13px;font-w
 <circle cx="110.0" cy="88.0" r="4.6" class="pt"/>
 <circle cx="80.6" cy="139.0" r="4.6" class="pt"/>
 <circle cx="139.4" cy="139.0" r="4.6" class="pt"/>
-<text x="110.0" y="196.0" class="lab" text-anchor="middle"><tspan x="110.0" dy="0">THE IDENTITY</tspan><tspan x="110.0" dy="15">1 of the 6</tspan><tspan x="110.0" dy="15">the involution that</tspan><tspan x="110.0" dy="15">does nothing</tspan></text>
+<text x="110.0" y="196.0" class="lab" text-anchor="middle"><tspan x="110.0" dy="0">THE IDENTITY</tspan><tspan x="110.0" dy="15">1 of the 6</tspan><tspan x="110.0" dy="15">moves nothing;</tspan><tspan x="110.0" dy="15">not an involution</tspan></text>
 <rect x="212.0" y="50.0" width="116.0" height="126.0" rx="5" class="cellbox"/>
 <path d="M275.0,80.0 C285.0,62.0 255.0,62.0 265.0,80.0" class="arrowline" marker-end="url(#tipi)"/>
 <line x1="249.6" y1="139.0" x2="290.4" y2="139.0" class="arrowline" marker-end="url(#tipi)" marker-start="url(#tipi)"/>
@@ -278,7 +278,7 @@ td small,th small{display:block;font-family:var(--display);font-size:13px;font-w
 <circle cx="80.3" cy="413.7" r="4.6" class="pt"/>
 <circle cx="139.7" cy="413.7" r="4.6" class="pt"/>
 <circle cx="139.7" cy="354.3" r="4.6" class="pt"/>
-<text x="110.0" y="462.0" class="lab" text-anchor="middle"><tspan x="110.0" dy="0">THE IDENTITY</tspan><tspan x="110.0" dy="15">1 of the 24</tspan><tspan x="110.0" dy="15">the involution that</tspan><tspan x="110.0" dy="15">does nothing</tspan></text>
+<text x="110.0" y="462.0" class="lab" text-anchor="middle"><tspan x="110.0" dy="0">THE IDENTITY</tspan><tspan x="110.0" dy="15">1 of the 24</tspan><tspan x="110.0" dy="15">moves nothing;</tspan><tspan x="110.0" dy="15">not an involution</tspan></text>
 <rect x="232.0" y="326.0" width="116.0" height="116.0" rx="5" class="cellbox"/>
 <path d="M258.2,345.1 C252.5,325.3 231.3,346.5 251.1,352.2" class="arrowline" marker-end="url(#tipi)"/>
 <path d="M251.1,415.8 C231.3,421.5 252.5,442.7 258.2,422.9" class="arrowline" marker-end="url(#tipi)"/>
@@ -327,10 +327,11 @@ td small,th small{display:block;font-family:var(--display);font-size:13px;font-w
 <div class="sum">
   <h2>What the patterns say</h2>
   <ul style="margin:0;padding-left:20px;max-width:70ch">
-    <li>On finitely many things, an involution is a reversible correspondence with no circuit longer than 2.</li>
-    <li>The identity is the one with no circuit longer than 1. It counts as an involution: the one that does nothing.</li>
+    <li>On finitely many things, an involution is a reversible correspondence with at least one pair and no circuit longer than 2.</li>
+    <li>The identity is the one with no circuit longer than 1. It has no pair, so by convention it is not counted as an involution.</li>
     <li>On finitely many things, "run backwards, it is a different rule" holds exactly when some circuit has length 3 or more.</li>
     <li>For infinitely many things, add "and no endless chain" to the first, and "or there is an endless chain" to the third (figure 3).</li>
+    <li>Counting: three dots have 3 involutions (the three with one pair). Four dots have 9 (six with one pair, three with two pairs).</li>
   </ul>
 </div>
 
@@ -424,7 +425,7 @@ td small,th small{display:block;font-family:var(--display);font-size:13px;font-w
 </svg></div>
   <figcaption>
     <h2>3. Infinitely many things: closure is no longer forced</h2>
-    <p>With finitely many dots the fresh dots run out, so following the arrows must return to the start. With infinitely many things they never run out, and a second kind of piece becomes possible: an endless chain. Every arrow of it points the same way; it is endless in both directions in the sense that it has no last dot going forward and no first dot going backward. A reversible correspondence on infinitely many things is made of closed circuits and endless chains, and nothing else. An involution is one with no circuit longer than 2 and no endless chain.</p>
+    <p>With finitely many dots the fresh dots run out, so following the arrows must return to the start. With infinitely many things they never run out, and a second kind of piece becomes possible: an endless chain. Every arrow of it points the same way; it is endless in both directions in the sense that it has no last dot going forward and no first dot going backward. A reversible correspondence on infinitely many things is made of closed circuits and endless chains, and nothing else. An involution is one with at least one pair, no circuit longer than 2 and no endless chain.</p>
     <p>The last row is not reversible. No two numbers arrive at the same place, yet 1 is reached by nothing. With finitely many dots that cannot happen; with infinitely many, "no two arrive at the same place" and "every one is reached" are two separate checks.</p>
   </figcaption>
 </figure>
@@ -439,7 +440,7 @@ td small,th small{display:block;font-family:var(--display);font-size:13px;font-w
 
 <p class="next">Next: <a href="beneath-the-involution.html">Beneath the Involution</a> (beneath-the-involution.html), where the involution is built from incidence.</p>
 
-<p class="status"><strong>Audit.</strong> Audited outside on 19 November 2026 and amended. The audit found that the plate treated the identity in two ways, as an involution in some places and as something apart in others (it is now counted as an involution throughout); that the statements about circuits needed "on finitely many things"; that "run backwards, it is a different rule" had been written as if true of every reversible correspondence; and that the example labelled "18 like this" stands for three arrangements, not one.</p>
+<p class="status"><strong>Audit.</strong> Audited outside on 19 November 2026 and amended. The audit found that the plate treated the identity in two ways, as an involution in some places and as something apart in others (one convention is now used throughout: the identity is not counted as an involution. The plate first settled on the opposite convention; it was reversed later the same day to agree with the book, whose Involution entry counts three among its six maps, and with the usual practice in geometry); that the statements about circuits needed "on finitely many things"; that "run backwards, it is a different rule" had been written as if true of every reversible correspondence; and that the example labelled "18 like this" stands for three arrangements, not one.</p>
 
 <p class="status"><strong>Status.</strong> Classical. The examples in figure 2 are picked from a complete listing made by the drawing code, which asserts every count shown (27, 6, 18, 3; 24 as 1, 6, 3, 8, 6). Nothing beyond that was checked.</p>
 
@@ -458,8 +459,8 @@ td small,th small{display:block;font-family:var(--display);font-size:13px;font-w
     <dt>pattern</dt><dd>How many circuits of each length a reversible correspondence on finitely many things has, setting aside which thing is which. <span class="std">Standard: its cycle type.</span></dd>
     <dt>endless chain</dt><dd>A chain of arrows with no beginning and no end, visiting nothing twice. <span class="std">Standard: a two-way infinite orbit of a bijection.</span></dd>
     <dt>chain with a beginning</dt><dd>A chain of arrows starting at a thing reached by nothing.</dd>
-    <dt>involution</dt><dd>A reversible correspondence whose backward rule is its forward rule. Equivalently: no circuit longer than 2, and no endless chain. The identity is included. <span class="std">Standard: involution.</span></dd>
-    <dt>identity</dt><dd>The correspondence sending each thing to itself. It is an involution, the one that does nothing. <span class="std">Standard: identity.</span></dd>
+    <dt>involution</dt><dd>A reversible correspondence whose backward rule is its forward rule. By convention the identity is not counted. Equivalently: at least one pair, no circuit longer than 2, and no endless chain. <span class="std">Standard: involution.</span></dd>
+    <dt>identity</dt><dd>The correspondence sending each thing to itself. Its backward rule is its forward rule, but it moves nothing, and by convention it is not counted as an involution. <span class="std">Standard: identity.</span></dd>
   </dl>
 </section>
 </main>
