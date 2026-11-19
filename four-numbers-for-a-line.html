@@ -96,7 +96,7 @@ svg text{font-family:var(--mono);fill:var(--ink)}
 <header>
   <p class="eyebrow">Plate · lines in space</p>
   <h1>Four Numbers for a Line</h1>
-  <p>A straight line in space is named by four numbers measured against one fixed card: two for where the line pierces the card, two for which way the line points.</p>
+  <p>A straight line in space that pierces a fixed card is named by four numbers measured against that card: two for where the line pierces it, two for which way the line points.</p>
 </header>
 
 <figure>
@@ -264,11 +264,13 @@ svg text{font-family:var(--mono);fill:var(--ink)}
   <ul>
     <li><strong>One card.</strong> Panels 2 and 3 show the same card in the same place. All four numbers are measured against it.</li>
     <li><strong>The card need not be square to the lines.</strong> Here it is not: if it were, α and β would both be 0.</li>
-    <li><strong>A line has no arrowhead.</strong> The pairs (α, β) and (−α, β + 180°) describe the same family. Keeping β between −90° and +90° gives each family exactly one pair.</li>
-    <li><strong>One exception.</strong> A family lying parallel to the card never pierces it, so it has no piercing spot and no four numbers on this card.</li>
-    <li><strong>What is convention and what is not.</strong> The zero mark, the unit of length, the turn of the card and the card itself are choices. Changing them changes the numbers. It does not move the line, and it does not change the count: four.</li>
+    <li><strong>A line has no arrowhead.</strong> The pairs (α, β) and (−α, β + 180°) describe the same family. Keeping both α and β strictly between −90° and +90° gives each family that pierces the card exactly one pair.</li>
+    <li><strong>The exception.</strong> A family whose direction is parallel to the card has no four numbers on this card. Each of its lines either misses the card altogether or lies in it, and in neither case pierces the card at one spot.</li>
+    <li><strong>What is convention and what is not.</strong> The zero mark, the unit of length, the turn of the card and the card itself are choices. Changing them changes some or all of the numbers (and a different card must still be pierced by the line). It does not move the line, and it does not change the count: four.</li>
   </ul>
 </section>
+
+<p style="font-size:15px;color:var(--muted);max-width:70ch;margin:0"><strong>Audit.</strong> Audited outside on 19 November 2026 and amended. The audit found that a line lying in the card is an exception as well as a line that misses it, that the ranges of α and β must be strict, and that the definition of "shadow" failed for the part of a line below the level plane.</p>
 
 <section>
   <h2>Terms</h2>
@@ -280,7 +282,7 @@ svg text{font-family:var(--mono);fill:var(--ink)}
     <dt>x′, y′, z′</dt><dd>Lines through the piercing spot: x′ parallel to across, y′ parallel to up, z′ square to the card.</dd>
     <dt>level plane</dt><dd>The plane through x′ and z′.</dd>
     <dt>plumb line</dt><dd>A line parallel to y′, used to drop a point onto the level plane.</dd>
-    <dt>shadow</dt><dd>The line in the level plane directly beneath the green line; its plan projection.</dd>
+    <dt>shadow</dt><dd>The line in the level plane directly above or below the green line, reached from it by plumb lines; its plan projection. A line parallel to UP has a single point for a shadow, and no bearing.</dd>
     <dt>bearing β</dt><dd>The angle in the level plane from z′ (β = 0) to the shadow.</dd>
     <dt>altitude α</dt><dd>The upright angle from the shadow (α = 0) to the line.</dd>
   </dl>

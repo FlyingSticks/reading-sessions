@@ -115,7 +115,7 @@ td small,th small{display:block;font-family:var(--display);font-size:13px;font-w
 <header>
   <p class="eyebrow">Plate · lines in space</p>
   <h1>Pinhole, Double Slit and the Number Four</h1>
-  <p>A line in space takes four numbers. A camera fixes two of them in advance and leaves two free. The pinhole and the double slit differ only in which two they fix.</p>
+  <p>A line in space takes four numbers. A camera fixes two of them in advance and leaves two free. In the two-card scheme used on this plate, the pinhole and the double slit differ in which two they fix.</p>
 </header>
 
 <figure>
@@ -337,7 +337,7 @@ td small,th small{display:block;font-family:var(--display);font-size:13px;font-w
     </tbody>
   </table>
   </div>
-  <p>Both cameras are congruences, of different kinds. Through a general point each has exactly one ray. A general plane contains no ray of the pinhole, because it misses C, and exactly one ray of the double slit: the plane meets each slit once, and the ray joins the two meeting points. The double slit's congruence is the one in the title of <em>One Congruence, Two Readings</em>; the two slits are its focal lines.</p>
+  <p>Both cameras are congruences, of different kinds. Through a general point each has exactly one ray. For the pinhole, "general" leaves out only C. For the double slit it leaves out every point of card 1 and card 2: a point of a slit lies on many rays, and any other point of those two cards lies on none. A general plane contains no ray of the pinhole, because it misses C, and exactly one ray of the double slit: the plane meets each slit once, and the ray joins the two meeting points. Here "general" leaves out the planes parallel to a slit and the planes containing one. The double slit's congruence is the one in the title of <em>One Congruence, Two Readings</em>; the two slits are its focal lines.</p>
 </div>
 
 <figure>
@@ -388,8 +388,8 @@ td small,th small{display:block;font-family:var(--display);font-size:13px;font-w
 </svg></div>
   <figcaption>
     <h2>4. The pairing that keeps every ray in place</h2>
-    <p>Take any point P. One ray passes through it, crossing slit a at A and slit b at B. Pair P with the point P′ of that ray for which (P, P′; A, B) = −1. Here P is one third of the way from A to B, and P′ lies as far behind A as B lies in front of it.</p>
-    <p>Do this for every point of space and the result is a map that undoes itself when applied twice. The lines it carries onto themselves are the rays of the double slit, together with the two slits. So the family of rays is the set of lines that one map leaves in place.</p>
+    <p>Take any point P that is not on card 1 or card 2. One ray passes through it, crossing slit a at A and slit b at B. Pair P with the point P′ of that ray for which (P, P′; A, B) = −1. Here P is one third of the way from A to B, and P′ lies as far behind A as B lies in front of it.</p>
+    <p>Do this for every such point, and pair each point of the two slits with itself. The result is a map that undoes itself when applied twice. It needs the points at infinity to be counted as points: a point midway between the cards is paired with one. The lines it carries onto themselves are the rays of the double slit, together with the two slits. So the family of rays is the set of lines that one map leaves in place.</p>
   </figcaption>
 </figure>
 
@@ -504,7 +504,7 @@ td small,th small{display:block;font-family:var(--display);font-size:13px;font-w
   <figcaption>
     <h2>5. Where the second meaning appears: slit b at infinity</h2>
     <p>Slit a is parallel to UP, so the planes at right angles to it are the level planes. All level planes share one line at infinity, their common horizon. Let slit b be that line. A line meets slit b exactly when it is level, so the rays are now the level lines crossing slit a, and every ray meets slit a at a right angle.</p>
-    <p>A paraline has no vanishing points, so nothing at infinity has a place on the drawing. Slit b is shown by one level plane: every direction in that plane is a point of slit b. B is shown by the arrowheads on the ray; both arrowheads point to the same B. With B at infinity, the harmonic partner of P is the point P′ that has A as midpoint. The pairing has become the half-turn about slit a, which preserves distance: a congruence in the second meaning.</p>
+    <p>A paraline has no vanishing points, so nothing at infinity has a place on the drawing. Slit b is shown by one level plane: every direction in that plane is a point of slit b. B is shown by the arrowheads on the ray; both arrowheads point to the same B. With B at infinity, the harmonic partner of P is the point P′ that has A as midpoint. The pairing has become the half-turn about slit a, which preserves distance: a congruence in the second meaning. The right angle between slit a and the level planes is essential to that, as panel 6 explains.</p>
   </figcaption>
 </figure>
 
@@ -573,20 +573,22 @@ td small,th small{display:block;font-family:var(--display);font-size:13px;font-w
   <figcaption>
     <h2>6. As slit b recedes, P′ closes in on the half-turn position</h2>
     <p>One ray, drawn four times and measured along itself, with A at 0 and P at 1. While B is at a finite place, AP′ and AP are unequal and the pairing does not preserve distance. As B moves out, P′ moves in: −3, −2, −1.25. Only with B at infinity does P′ reach −1, where AP′ = AP.</p>
-    <p>So the pairing of panel 4 preserves distance in this case only. It is the pushbroom corner of the book: one slit at a finite depth, the other at infinity. The two meanings name different things, a family and a map, and they are tied together at that one corner.</p>
+    <p>Reaching −1 is needed for the pairing to preserve distance, and it is not enough. Slit b must also be the horizon of the planes at right angles to slit a, as in panel 5. If slit b is at infinity but oblique to slit a, A is still the midpoint of P and P′ on every ray, and distances are distorted all the same. So the pairing of panel 4 preserves distance in one arrangement only: one slit at a finite place, and the other the horizon of the planes at right angles to it. In the book that is the pushbroom corner, whose two slits are at right angles. The two meanings name different things, a family and a map, and they are tied together at that one corner.</p>
   </figcaption>
 </figure>
 
-<p class="status"><strong>Status.</strong> Panels 4, 5 and 6 state classical facts. A numerical check on this plate's own slits (check-congruence.py, 9/9) confirms that the pairing undoes itself, carries the green ray onto itself, carries a line that is not a ray to a different line, and preserves distance in the half-turn case but not in general. One related claim does not hold: that the seam pairing of Chapter 3, VM · VI = VP², is this map restricted to a line. It was tested on 12 November (check-the-two-slit-involution.js) and struck.</p>
+<p class="status"><strong>Status.</strong> Panels 4, 5 and 6 state classical facts. A numerical check (check-congruence.py, rewritten after the audit, 20/20) tests on random samples: that one ray passes through a point off the cards; that the pairing undoes itself and carries lines to lines; that rays are carried onto themselves and other lines are not; that a plane parallel to neither slit holds one ray; that the pairing tends to the half-turn as a level slit b recedes; and that with slit b receding obliquely A remains the midpoint while distance is not preserved. A numerical check is evidence on the cases sampled, not a proof. One related claim does not hold: that the seam pairing of Chapter 3, VM · VI = VP², is this map restricted to a line. It was tested on 12 November (check-the-two-slit-involution.js) and struck.</p>
+
+<p class="status"><strong>Audit.</strong> Audited outside on 19 November 2026 and amended. The audit found three things of substance: that "AP′ = AP" does not by itself make the pairing preserve distance, since the right angle is also needed; that the crossed-slit statement fails in ordinary space for lines parallel to a slit; and that two assertions of the first check script tested almost nothing. It also asked for the points and planes left out by "general" to be named.</p>
 
 <section>
   <h2>What the plate shows</h2>
   <ul>
-    <li><strong>A point costs two numbers; a slit costs one.</strong> Requiring a line to pass through a point fixes two of its four numbers. Requiring it to cross a slit fixes one.</li>
+    <li><strong>A point costs two numbers; a slit costs one.</strong> Requiring a line to pass through a point imposes two conditions on its four numbers. Requiring it to cross a slit imposes one. On this plate the pinhole lies on a card and each slit runs along a ruling of a card, so each condition shows up as one number held fixed.</li>
     <li><strong>Both cameras leave two.</strong> That is why each produces a two-number family of rays, enough to fill a flat picture and no more.</li>
-    <li><strong>A pinhole is two slits crossed on one card.</strong> A slit parallel to ACROSS at up₂ = 0.83 and a slit parallel to UP at across₂ = 0.68, both cut in card 2, cross at C. Their common opening is the pinhole. The double slit is such a pair of cuts placed on two different cards, one cut on each. Stated for the families of lines: when the two slits cross at C, the lines meeting both fall into two pieces, the lines through C and the lines lying in the card. The pinhole is the first piece.</li>
-    <li><strong>The free numbers are not the same kind in the two cameras.</strong> In the pinhole both free numbers sit on one card and amount to a direction from C. In the double slit one sits on each card, and the rays have no common point.</li>
-    <li><strong>Through a general point of space</strong> there is exactly one ray of the pinhole, and exactly one ray of this double slit.</li>
+    <li><strong>A pinhole is two slits crossed on one card.</strong> A slit parallel to ACROSS at up₂ = 0.83 and a slit parallel to UP at across₂ = 0.68, both cut in card 2, cross at C. Their common opening is the pinhole. The double slit is such a pair of cuts placed on two different cards, one cut on each. Stated for the families of lines: when the two slits cross at C, the lines meeting both fall into two pieces: the lines through C, and the lines lying in the card. One exception in ordinary space: a line in the card parallel to one of the slits never meets that slit. Count parallels as meeting at infinity and the exception goes. The pinhole is the first piece.</li>
+    <li><strong>The free numbers are not the same kind in the two cameras.</strong> In the pinhole both free numbers sit on one card and amount to a direction from C. (A ray through C parallel to card 1 has a direction but no landing spot.) In the double slit one sits on each card, and the rays have no common point.</li>
+    <li><strong>Through a general point of space</strong> there is exactly one ray of the pinhole, and exactly one ray of this double slit. The points left out by "general" are named in the addendum.</li>
   </ul>
 </section>
 
@@ -597,7 +599,7 @@ td small,th small{display:block;font-family:var(--display);font-size:13px;font-w
     <li><strong>Card 1</strong> is the card of the previous plate, with the same zero mark, unit of length, ACROSS and UP.</li>
     <li><strong>Card 2</strong> is parallel to card 1 and 2 units in front of it. Its zero mark O₂ lies on the line through O₁ square to both cards, and its ACROSS and UP are parallel to those of card 1.</li>
     <li><strong>The slits are straight here.</strong> A curved slit, such as a half-circle cut in a sphere, still costs one number, so the count 4 − 1 − 1 = 2 is unchanged. What changes is that the fixed number can no longer be read as a single ruling on a card, and a general point may lie on more than one ray.</li>
-    <li><strong>One exception, as before.</strong> A line parallel to the cards pierces neither, and has no numbers in this scheme.</li>
+    <li><strong>The exception, as before.</strong> A line whose direction is parallel to the cards has no numbers in this scheme. It misses both cards, or lies in one and misses the other.</li>
   </ul>
 </section>
 </main>

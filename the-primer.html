@@ -187,37 +187,47 @@ td.std2{color:var(--green)}
 <section class="plate"><p class="eyebrow">plate 1 · four-numbers-for-a-line.html</p>
 <h2><a href="four-numbers-for-a-line.html">Four Numbers for a Line</a></h2>
 <p>A straight line in space is named by four numbers measured against one fixed card: two for where it pierces the card, two for which way it points.</p>
+<p class="status" style="margin-bottom:12px"><strong>Audit.</strong> Audited outside on 19 November 2026 and amended.</p>
 <div class="tbl"><table><thead><tr><th>What is claimed</th><th>Standing</th></tr></thead><tbody>
-<tr><td class="claim">A line in space takes four numbers.</td><td class="standing">classical</td></tr>
-<tr><td class="claim">Changing the card changes the numbers and not the count.</td><td class="standing">classical</td></tr>
-<tr><td class="claim">A line parallel to the card has no numbers in this scheme.</td><td class="standing">classical</td></tr>
+<tr><td class="claim">A line that pierces the card is named by four numbers; the lines of space form a four-number family.</td><td class="standing">classical; audited</td></tr>
+<tr><td class="claim">With α and β both strictly between −90° and +90°, each direction that pierces the card has exactly one pair.</td><td class="standing">classical; audited</td></tr>
+<tr><td class="claim">Changing the card changes some or all of the numbers and not the count.</td><td class="standing">classical; audited</td></tr>
+<tr><td class="claim">A line whose direction is parallel to the card, whether it misses the card or lies in it, has no numbers in this scheme.</td><td class="standing">classical; audited (the audit added the lines lying in the card)</td></tr>
 <tr><td class="claim">The three drawings are one projection of one set of coordinates.</td><td class="standing">computed by the drawing code; no separate check</td></tr>
 </tbody></table></div>
 <p class="toward"><strong>Toward the book.</strong> Chapter 1. The book's one object is a <a href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#congruence">line congruence</a>, which its glossary calls a two-parameter family of lines. This plate supplies the number that "two" is taken from: four.</p></section>
 <section class="plate"><p class="eyebrow">plate 2 · pinhole-double-slit-and-four.html</p>
 <h2><a href="pinhole-double-slit-and-four.html">Pinhole, Double Slit and the Number Four</a></h2>
 <p>A camera fixes two of a line&#x27;s four numbers in advance and leaves two free. A pinhole fixes both on one card; a double slit fixes one on each. An addendum sets out the two meanings of &quot;congruence&quot;.</p>
+<p class="status" style="margin-bottom:12px"><strong>Audit.</strong> Audited outside on 19 November 2026 and amended. Its check script was rewritten.</p>
 <div class="tbl"><table><thead><tr><th>What is claimed</th><th>Standing</th></tr></thead><tbody>
-<tr><td class="claim">A point costs two numbers; a slit costs one. Pinhole: 4 − 2 = 2. Double slit: 4 − 1 − 1 = 2.</td><td class="standing">classical</td></tr>
-<tr><td class="claim">Through a general point there is one ray of the pinhole and one ray of the double slit.</td><td class="standing">classical</td></tr>
-<tr><td class="claim">A pinhole is two slits crossed on one card; the family then falls into the lines through C and the lines lying in the card.</td><td class="standing">classical; not checked here</td></tr>
-<tr><td class="claim">The pairing (P, P′; A, B) = −1 carries every ray onto itself, and becomes a half-turn when slit b is at infinity.</td><td class="standing">check-congruence.py, 9/9</td></tr>
+<tr><td class="claim">A point imposes two conditions on a line&#x27;s four numbers; a slit imposes one. Pinhole: 4 − 2 = 2. Double slit: 4 − 1 − 1 = 2.</td><td class="standing">classical; audited</td></tr>
+<tr><td class="claim">Through a general point there is one ray of the pinhole and one ray of the double slit. Left out: C; and every point of the two cards.</td><td class="standing">classical; audited; sampled in check-congruence.py</td></tr>
+<tr><td class="claim">A pinhole is two slits crossed on one card; the lines meeting both are the lines through C and the lines lying in the card, except, in ordinary space, lines in the card parallel to a slit.</td><td class="standing">classical; audited (the exception is the audit&#x27;s); sampled in the check</td></tr>
+<tr><td class="claim">The pairing (P, P′; A, B) = −1 undoes itself, carries lines to lines, and carries exactly the rays and the two slits onto themselves.</td><td class="standing">classical; audited; check-congruence.py, 20/20</td></tr>
+<tr><td class="claim">The pairing preserves distance only when one slit is the horizon of the planes at right angles to the other. A being the midpoint of P and P′ is not enough.</td><td class="standing">classical; audited (the audit&#x27;s correction); oblique counter-example in the check</td></tr>
+<tr class="struck"><td class="claim">Wherever slit b is at infinity and AP′ = AP, the pairing preserves distance.</td><td class="standing">STRUCK: audit of 19 November; false when slit b is oblique to slit a</td></tr>
 <tr class="struck"><td class="claim">The seam pairing of Chapter 3 is this pairing restricted to a line.</td><td class="standing">STRUCK: tested 12 November, check-the-two-slit-involution.js</td></tr>
 </tbody></table></div>
 <p class="toward"><strong>Toward the book.</strong> Chapter 1: <a href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#congruence">Line congruence</a>, <a href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#slit">Slit</a>, <a href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#pinhole">Pinhole</a> (the book's entry: both slits at one depth, every line through one centre), <a href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#pushbroom">Pushbroom</a>. Chapter 8: <a href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#dissociation">Anamorphic dissociation</a> says the pinhole spends its whole ray budget at one point and the double slit spends it along each slit. That is this plate's "a point costs two, a slit costs one" in the book's words.</p></section>
 <section class="plate"><p class="eyebrow">plate 3 · level-and-square-to-the-card.html</p>
 <h2><a href="level-and-square-to-the-card.html">Level, and Square to the Card</a></h2>
 <p>&quot;At a right angle to slit a&quot; (level, bearing free) is kept apart from &quot;square to the card&quot; (one direction). Slit b at infinity is the whole horizon of level directions. An addendum treats sign: one point at infinity, two senses.</p>
+<p class="status" style="margin-bottom:12px"><strong>Audit.</strong> Audited outside on 19 November 2026 and amended.</p>
 <div class="tbl"><table><thead><tr><th>What is claimed</th><th>Standing</th></tr></thead><tbody>
-<tr><td class="claim">Slit b as one direction gives a one-number family; slit b as the horizon gives a two-number family.</td><td class="standing">classical</td></tr>
-<tr><td class="claim">At a finite depth the rays are tilted; the tilt goes to 0 as slit b recedes.</td><td class="standing">tilts computed by the drawing code</td></tr>
-<tr><td class="claim">In a paraline the horizon shows only as every level plane carrying the same fan of directions.</td><td class="standing">classical</td></tr>
-<tr><td class="claim">The pairing of P with P′ is one mirror on the line (sign −1) and two mirrors, a half-turn, in space (sign +1).</td><td class="standing">classical; no check run</td></tr>
+<tr><td class="claim">Slit b as one direction gives a one-number family; slit b as the horizon gives a two-number family (ordinary lines only).</td><td class="standing">classical; audited</td></tr>
+<tr><td class="claim">At a finite depth the rays are tilted; the tilt goes to 0 as slit b recedes.</td><td class="standing">tilts computed by the drawing code; audited</td></tr>
+<tr><td class="claim">A level line receding at a fixed height tends to the horizon, whatever its bearing.</td><td class="standing">classical; audited (the audit&#x27;s wording)</td></tr>
+<tr class="struck"><td class="claim">Any level line in the second card, whatever its bearing, tends to the horizon.</td><td class="standing">STRUCK: audit of 19 November; a card parallel to the first holds level lines of one bearing only</td></tr>
+<tr><td class="claim">In a paraline the horizon shows only as every level plane carrying the same fan of directions.</td><td class="standing">classical; audited</td></tr>
+<tr><td class="claim">Sign belongs to a map, not to a pairing. The mirror with point A (−1), the half-turn about slit a (+1) and a mirror with a plane (−1) all make the same pairing on the ray.</td><td class="standing">classical; audited; no check run</td></tr>
+<tr class="struck"><td class="claim">The same pairing has sign −1 on the line and +1 one dimension up.</td><td class="standing">STRUCK: audit of 19 November; it conflated a map with its restriction to a line</td></tr>
 </tbody></table></div>
 <p class="toward"><strong>Toward the book.</strong> Chapter 1: <a href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#pushbroom">Pushbroom</a>, a corner of the <a href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#ratesquare">rate square</a>. Compare the book's <a href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#planeinf">Plane at infinity</a> in Chapter 2, which is used there as a point on a depth line; the plate's horizon is a line in that plane. The sign addendum belongs with the mirror thread, not with the book.</p></section>
 <section class="plate"><p class="eyebrow">plate 4 · correspondences-and-circuits.html</p>
 <h2><a href="correspondences-and-circuits.html">Correspondences and Circuits</a></h2>
 <p>What an involution is made of, one requirement at a time, and the patterns a reversible correspondence can have: closed circuits, and for infinitely many things, endless chains.</p>
+<p class="status" style="margin-bottom:12px"><strong>Audit.</strong> Not yet audited outside.</p>
 <div class="tbl"><table><thead><tr><th>What is claimed</th><th>Standing</th></tr></thead><tbody>
 <tr><td class="claim">A reversible correspondence on finitely many things is a set of closed circuits.</td><td class="standing">classical</td></tr>
 <tr><td class="claim">An involution is one with no circuit longer than 2 (and, for infinitely many things, no endless chain).</td><td class="standing">classical</td></tr>
@@ -227,6 +237,7 @@ td.std2{color:var(--green)}
 <section class="plate"><p class="eyebrow">plate 5 · beneath-the-involution.html</p>
 <h2><a href="beneath-the-involution.html">Beneath the Involution</a></h2>
 <p>In geometry the involution is built from incidence. The harmonic partner is constructed by joins and meets alone, applied to every point to give an involution, and shown to need no measure.</p>
+<p class="status" style="margin-bottom:12px"><strong>Audit.</strong> Not yet audited outside.</p>
 <div class="tbl"><table><thead><tr><th>What is claimed</th><th>Standing</th></tr></thead><tbody>
 <tr><td class="claim">The construction of figure 1 yields the harmonic partner, (P, P′; A, B) = −1.</td><td class="standing">asserted numerically for two constructions</td></tr>
 <tr><td class="claim">The result does not depend on the choice of S and T.</td><td class="standing">a theorem (Desargues); stated, not demonstrated</td></tr>
@@ -240,8 +251,8 @@ td.std2{color:var(--green)}
 </ul></section>
 <section class="plate"><p class="eyebrow">ledger</p><h2>Open items</h2>
 <ul>
-  <li><strong>No outside audit.</strong> None of plates 1 to 5 has been audited by anyone but their maker.</li>
-  <li><strong>Unchecked statements.</strong> On plate 2, the falling of the crossed-slit family into two pieces. In conversation only, and on no plate: that the pinhole and "all lines in one plane" are duals and the double slit is its own dual. The book's Chapter 5 treats duality in its own terms; the two have not been compared.</li>
+  <li><strong>Audits.</strong> Plates 1, 2 and 3 were audited outside on 19 November 2026 and amended; what was struck is shown struck in their tables. Plates 4 and 5, the concordance and this index have not been audited.</li>
+  <li><strong>Unchecked statements.</strong> In conversation only, and on no plate: that the pinhole and "all lines in one plane" are duals and the double slit is its own dual. The book's Chapter 5 treats duality in its own terms; the two have not been compared.</li>
   <li><strong>Possible overlap.</strong> Plate 5, figures 1 and 2, may repeat plate 9 of the mirror thread. Not compared.</li>
   <li><strong>"Toward the book" is a pointer, not a claim.</strong> Each such paragraph names where in the book the idea is used. None asserts that a plate proves anything in the book.</li>
   <li><strong>Viewing.</strong> The plates were viewed in Chrome, light theme. Not in Safari, and not all in the dark theme.</li>
