@@ -422,10 +422,18 @@ td small,th small{display:block;font-family:var(--display);font-size:13px;font-w
 </svg></div>
   <figcaption>
     <h2>3. Infinitely many things: closure is no longer forced</h2>
-    <p>With finitely many dots the fresh dots run out, so following the arrows must return to the start. With infinitely many things they never run out, and a second kind of piece becomes possible: an endless chain, running forever in both directions. A reversible correspondence on infinitely many things is made of closed circuits and endless chains, and nothing else. An involution is one with no circuit longer than 2 and no endless chain.</p>
+    <p>With finitely many dots the fresh dots run out, so following the arrows must return to the start. With infinitely many things they never run out, and a second kind of piece becomes possible: an endless chain. Every arrow of it points the same way; it is endless in both directions in the sense that it has no last dot going forward and no first dot going backward. A reversible correspondence on infinitely many things is made of closed circuits and endless chains, and nothing else. An involution is one with no circuit longer than 2 and no endless chain.</p>
     <p>The last row is not reversible. No two numbers arrive at the same place, yet 1 is reached by nothing. With finitely many dots that cannot happen; with infinitely many, "no two arrive at the same place" and "every one is reached" are two separate checks.</p>
   </figcaption>
 </figure>
+
+<div class="sum">
+  <h2>Reading figure 3: "sent to" and "reached by"</h2>
+  <p>Both phrases describe one arrow. "n is sent to m": the arrow's tail is at n and its head is at m. "m is reached by n": the same arrow, described from the head end.</p>
+  <p><strong>The endless chain.</strong> Every arrow in that row points to the right. Take the dot −1. Forward question, "where is −1 sent?": to 0, since −1 + 1 = 0. Then 0 is sent to 1, and so on, without end. Backward question, "which number is sent to −1?": −2, since −2 + 1 = −1. And −2 is reached by −3, and so on, without end. The same holds beyond the drawn dots: −3 is sent to −2, and −3 is reached by −4. "Endless in both directions" means only this: there is no last dot going forward and no first dot going backward. No arrow points to the left.</p>
+  <p><strong>The chain with a beginning.</strong> Ask the backward question of 1: which counting number is sent to 1? It would have to be 0, and 0 is not in the collection. So no arrowhead lands on 1. That is the whole content of "1 is reached by nothing": an arrow leaves 1 (to 2), and no arrow arrives at 1. The red ring marks that dot.</p>
+  <p><strong>Why that breaks reversibility.</strong> Reversing means turning every arrow around, so the rule becomes "subtract 1". On all whole numbers that works everywhere. On the counting numbers it fails at 1: 1 − 1 = 0 is not in the collection, so the reversed rule has nowhere to send 1.</p>
+</div>
 
 <p class="next">Next: <a href="beneath-the-involution.html">Beneath the Involution</a> (beneath-the-involution.html), where the involution is built from incidence.</p>
 
@@ -436,6 +444,8 @@ td small,th small{display:block;font-family:var(--display);font-size:13px;font-w
   <p class="status" style="margin-bottom:12px">The plain words are the plate's own. The standard name, for looking things up elsewhere, follows each in grey.</p>
   <dl>
     <dt>correspondence</dt><dd>A rule sending each thing of a collection to some thing of the same collection. <span class="std">Standard: a map, or function, from a set to itself.</span></dd>
+    <dt>sent to</dt><dd>"n is sent to m": the arrow's tail is at n and its head is at m. <span class="std">Standard: m is the image of n.</span></dd>
+    <dt>reached by</dt><dd>"m is reached by n": the same arrow, described from the head end. "Reached by nothing": no arrowhead lands there. <span class="std">Standard: n is a preimage of m; reached by nothing means not in the image.</span></dd>
     <dt>reversible</dt><dd>Every thing is reached once, so the rule can be run backwards. <span class="std">Standard: a bijection; for finitely many things, a permutation.</span></dd>
     <dt>no two arrive at the same place</dt><dd>One of the two checks for infinitely many things. <span class="std">Standard: one-to-one, or injective.</span></dd>
     <dt>every one is reached</dt><dd>The other check. <span class="std">Standard: onto, or surjective.</span></dd>
