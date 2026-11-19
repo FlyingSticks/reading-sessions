@@ -159,7 +159,7 @@ td small,th small{display:block;font-family:var(--display);font-size:13px;font-w
     <div><span class="n">step 1</span><span class="t">Incidence</span><span class="d">join two points; meet two lines</span></div>
     <div><span class="n">step 2</span><span class="t">The harmonic relation</span><span class="d">the value −1, reached by joins and meets alone (figure 1)</span></div>
     <div><span class="n">step 3</span><span class="t">The involution</span><span class="d">the harmonic relation applied to every point (figure 2)</span></div>
-    <div><span class="n">step 4</span><span class="t">Products of involutions</span><span class="d">two mirrors make a turn; the mirror thread starts at step 3 and builds here</span></div>
+    <div><span class="n">step 4</span><span class="t">Products of involutions</span><span class="d">two crossing mirrors make a turn; the mirror thread starts at step 3 and builds here</span></div>
   </div>
 </div>
 
@@ -207,8 +207,8 @@ td small,th small{display:block;font-family:var(--display);font-size:13px;font-w
 </svg></div>
   <figcaption>
     <h2>1. From incidence to −1: a partner for P, with no measuring</h2>
-    <p>Given A, B and P on a line. Every step is a join or a meet. (1) Choose any point S off the line and join it to A, B and P. (2) Choose any point T on the line S P. The line A T meets S B at U, and the line B T meets S A at V. (3) The line U V meets the given line at P′, the harmonic partner of P. Here A is at 0, B at 6, P at 4.5, and P′ lands at 9.</p>
-    <p>That P′ does not depend on the choice of S and T is a theorem; it rests on Desargues' theorem. The dashed construction is one instance of it. It is shown as evidence, not as a demonstration.</p>
+    <p>Given three different points A, B and P on a line. Every step is a join or a meet, and lines that come out parallel are counted as meeting at infinity. (1) Choose any point S off the line and join it to A, B and P. (2) Choose any point T on the line S P, other than S and P. The line A T meets S B at U, and the line B T meets S A at V. (3) The line U V meets the given line at P′, the harmonic partner of P. Here A is at 0, B at 6, P at 4.5, and P′ lands at 9.</p>
+    <p>That P′ does not depend on the choice of S and T is a theorem; it rests on Desargues' theorem, which holds in the ordinary plane. The dashed construction is one instance of it. It is shown as evidence, not as a demonstration.</p>
   </figcaption>
 </figure>
 
@@ -253,8 +253,8 @@ td small,th small{display:block;font-family:var(--display);font-size:13px;font-w
 </svg></div>
   <figcaption>
     <h2>2. From −1 to the involution: do it for every point</h2>
-    <p>Keep A and B and repeat the construction for each point of the line. Every point gets a partner, and the partner's partner is the point itself. In the words of the previous plate: every point lies on a circuit of length 2, except A and B, which are circuits of length 1, and there is no endless chain. That is an involution, on infinitely many points.</p>
-    <p>The midpoint M is paired with the point at infinity. That is how incidence, which has no ruler, can still say "midpoint".</p>
+    <p>Keep A and B and repeat the construction for every other point of the line, its point at infinity included. The construction does not work at A or at B, so pair each of those with itself. Every point now has a partner, and the partner's partner is the point itself. In the words of the previous plate: every point lies on a circuit of length 2, except A and B, each of which is sent to itself, and there is no endless chain. That is an involution, on infinitely many points.</p>
+    <p>The midpoint M is paired with the point at infinity. So once the point at infinity of the line is given, incidence can construct the midpoint with no ruler. Incidence alone cannot: which point counts as "at infinity" has to be supplied first.</p>
   </figcaption>
 </figure>
 
@@ -328,13 +328,13 @@ td small,th small{display:block;font-family:var(--display);font-size:13px;font-w
 <text x="640.0" y="440.0" class="lab blue" text-anchor="start"><tspan x="640.0" dy="0">AP : PB = 4.5 : 1.5 = 3</tspan></text>
 <text x="640.0" y="464.0" class="lab red" text-anchor="start"><tspan x="640.0" dy="0">AQ : QB = 8 : −2 = −4</tspan></text>
 <text x="640.0" y="496.0" class="count-lab" text-anchor="start"><tspan x="640.0" dy="0">3 ÷ (−4) = −0.75</tspan></text>
-<text x="640.0" y="518.0" class="lab" text-anchor="start"><tspan x="640.0" dy="0">the sizes differ: a measurement is left over</tspan></text>
+<text x="640.0" y="518.0" class="lab" text-anchor="start"><tspan x="640.0" dy="0">the sizes differ: a number other than −1 is left</tspan></text>
 <line x1="30.0" y1="562.0" x2="970.0" y2="562.0" class="rowrule" />
 </svg></div>
   <figcaption>
     <h2>3. Why no measure is needed: the cancelling</h2>
     <p>Write XY for the stretch from X to Y, counted plus when it runs from A toward B and minus the other way. P divides A B in the ratio AP : PB, and its partner in the ratio AP′ : P′B. Two things cancel. Each ratio is a length over a length, so the unit cancels. Then the two ratios are set against each other and their common size cancels too. Only the sign is left.</p>
-    <p>So −1 says two things, neither needing a number: equal (the same proportion) and opposite (one inside A B, one outside). The third row is the caution: for a fourth point that is not the partner, nothing cancels and a measurement is left over.</p>
+    <p>So −1 says two things, neither needing a number: equal (the same proportion) and opposite (one inside A B, one outside). The third row is the caution: for a fourth point that is not the partner, the unit still cancels but the two sizes do not, and a number other than −1 is left.</p>
   </figcaption>
 </figure>
 
@@ -370,16 +370,19 @@ td small,th small{display:block;font-family:var(--display);font-size:13px;font-w
 <text x="650.0" y="170.0" class="count-lab" text-anchor="start"><tspan x="650.0" dy="0">3 ÷ (−3) = −1</tspan></text>
 <text x="650.0" y="232.0" class="rowname" text-anchor="start"><tspan x="650.0" dy="0">ON THE PICTURE LINE</tspan></text>
 <text x="650.0" y="256.0" class="lab blue" text-anchor="start"><tspan x="650.0" dy="0">A₁P₁ : P₁B₁ = 4.62 : 0.93 = 4.97</tspan></text>
-<text x="650.0" y="278.0" class="lab red" text-anchor="start"><tspan x="650.0" dy="0">A₁P′₁ : P′₁B₁ = 6.95 : −1.4 = −4.97</tspan></text>
+<text x="650.0" y="278.0" class="lab red" text-anchor="start"><tspan x="650.0" dy="0">A₁P′₁ : P′₁B₁ = 6.95 : −1.40 = −4.97</tspan></text>
 <text x="650.0" y="306.0" class="count-lab" text-anchor="start"><tspan x="650.0" dy="0">4.97 ÷ (−4.97) = −1</tspan></text>
-<text x="650.0" y="330.0" class="lab" text-anchor="start"><tspan x="650.0" dy="0">every stretch has changed;</tspan><tspan x="650.0" dy="16">the ratios have changed;</tspan><tspan x="650.0" dy="16">equal and opposite has not</tspan></text>
+<text x="650.0" y="330.0" class="lab" text-anchor="start"><tspan x="650.0" dy="0">every stretch here has changed;</tspan><tspan x="650.0" dy="16">the ratios have changed;</tspan><tspan x="650.0" dy="16">equal and opposite has not</tspan></text>
+<text x="650.0" y="392.0" class="lab small" text-anchor="start"><tspan x="650.0" dy="0">ratios computed before rounding</tspan></text>
 </svg></div>
   <figcaption>
     <h2>4. The same four points in perspective</h2>
-    <p>Project the four points from an eye E onto a second line, the picture line. Every stretch is different there, and the two ratios are no longer 3 and −3 but 4.97 and −4.97. They are still equal and opposite, so the result is still −1. This is the stronger sense of "no measure": a perspective view changes every length and every ratio of lengths, and leaves the harmonic relation alone.</p>
-    <p>The numbers on the picture line are computed from the drawing and rounded to two places.</p>
+    <p>Project the four points from an eye E onto a second line, the picture line. Every stretch is different there, and the two ratios are no longer 3 and −3 but 4.97 and −4.97. They are still equal and opposite, so the result is still −1. This is the stronger sense of "no measure": a perspective view in general changes lengths and ratios of lengths, and it always leaves the harmonic relation alone.</p>
+    <p>The numbers on the picture line are computed from the drawing and rounded to two places. The two ratios are computed from the unrounded lengths, which is why dividing the rounded figures gives very slightly different values.</p>
   </figcaption>
 </figure>
+
+<p class="status"><strong>Audit.</strong> Audited outside on 19 November 2026 and amended. The audit found that the plate credited incidence alone with the midpoint, when the point at infinity has to be given first; that "nothing cancels and a measurement is left over" was wrong, since the unit still cancels and what is left is a plain number; and that the construction needed its conditions stated (three different points, T other than S and P, parallels meeting at infinity). It confirmed the attribution to Desargues' theorem and all the arithmetic.</p>
 
 <p class="status"><strong>Status.</strong> Classical. The drawing code asserts the harmonic relation for both constructions in figure 1 and that they reach the same P′, for every pair in figure 2, for the first two rows of figure 3, and for the picture line in figure 4. The independence from S and T in figure 1 is stated as a theorem and is not demonstrated here. I have not compared figures 1 and 2 against plate 9 of the mirror thread, which they may overlap.</p>
 
@@ -393,8 +396,8 @@ td small,th small{display:block;font-family:var(--display);font-size:13px;font-w
     <dt>stays</dt><dd>Said of a point that is its own partner. <span class="std">Standard: a fixed point.</span></dd>
     <dt>stretch XY</dt><dd>The length from X to Y along the line, counted plus in the chosen sense and minus against it. Reversing the chosen sense changes every sign and no ratio. <span class="std">Standard: a directed, or signed, length.</span></dd>
     <dt>divides A B in the ratio</dt><dd>Said of a point X on the line: the ratio AX : XB, plus when X is between A and B, minus when X is outside. <span class="std">Standard: the division ratio.</span></dd>
-    <dt>the −1</dt><dd>The first ratio divided by the second. <span class="std">Standard: the cross-ratio of the four points; −1 is its harmonic value.</span></dd>
-    <dt>picture line</dt><dd>The line onto which the four points are projected from the eye in figure 4. <span class="std">Standard: the image line of a central projection, or perspectivity.</span></dd>
+    <dt>the −1</dt><dd>The first division ratio divided by the second, with the four points taken in the order A, B, P, P′. <span class="std">Standard: the cross-ratio (A, B; P, P′), which always equals (P, P′; A, B). −1 is its harmonic value; for four points in general it takes other values, as in the third row of figure 3.</span></dd>
+    <dt>picture line</dt><dd>The line onto which the four points are projected from the eye in figure 4. <span class="std">Standard: the image line under a central projection. The projection itself is called a perspectivity.</span></dd>
     <dt>involution</dt><dd>A reversible correspondence whose backward rule is its forward rule; see the previous plate. <span class="std">Standard: involution.</span></dd>
   </dl>
 </section>
