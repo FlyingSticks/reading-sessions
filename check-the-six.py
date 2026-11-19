@@ -1,0 +1,93 @@
+# Check for the plate "The Six on Three Dots".
+# Part 1: the six reversible correspondences on three dots (top, left, right), under "then".
+# Part 2: the book's six maps of a value L, under "then", and the match between the two.
+# Exact arithmetic throughout. Run: python3 check-the-six.py
+from itertools import permutations
+TOP, LEFT, RIGHT = 0, 1, 2
+I  = (0, 1, 2)            # the identity
+LR = (0, 2, 1)            # exchange left, right (top sent to itself)
+LT = (1, 0, 2)            # exchange left, top   (right sent to itself)
+RT = (2, 1, 0)            # exchange right, top  (left sent to itself)
+ACW = (1, 2, 0)           # circuit left -> right -> top -> left : top->left, left->right, right->top
+CW  = (2, 0, 1)           # circuit left -> top -> right -> left : top->right, left->top, right->left
+SIX = {'identity': I, 'exchange left,right': LR, 'exchange left,top': LT, 'exchange right,top': RT,
+       'circuit left>right>top': ACW, 'circuit left>top>right': CW}
+def then(a, b):           # do a first, b second
+    return tuple(b[a[i]] for i in range(3))
+ok = total = 0
+def check(name, cond):
+    global ok, total
+    total += 1; ok += bool(cond)
+    print(('pass  ' if cond else 'FAIL  ') + name)
+
+vals = list(SIX.values())
+check('the six listed are all six rearrangements of three dots', set(vals) == set(permutations(range(3))))
+check('closed: each of the 36 "a then b" is one of the six', all(then(a, b) in vals for a in vals for b in vals))
+check('each row of the table holds each of the six exactly once', all(len({then(a, b) for b in vals}) == 6 for a in vals))
+check('each column of the table holds each of the six exactly once', all(len({then(a, b) for a in vals}) == 6 for b in vals))
+check('identity then a = a, and a then identity = a', all(then(I, a) == a == then(a, I) for a in vals))
+check('each exchange done twice is the identity', all(then(a, a) == I for a in (LR, LT, RT)))
+check('each circuit done twice is the other circuit', then(ACW, ACW) == CW and then(CW, CW) == ACW)
+check('each circuit done three times is the identity', all(then(then(a, a), a) == I for a in (ACW, CW)))
+check('one circuit then the other is the identity, in either order', then(ACW, CW) == I == then(CW, ACW))
+ex = (LR, LT, RT)
+check('two different exchanges in turn always give a circuit (6 cases)', all(then(a, b) in (ACW, CW) for a in ex for b in ex if a != b))
+check('reversing the order of two different exchanges gives the other circuit', all(then(a, b) != then(b, a) for a in ex for b in ex if a != b))
+check('an exchange then a circuit, or a circuit then an exchange, is always an exchange (12 cases)',
+      all(then(a, c) in ex and then(c, a) in ex for a in ex for c in (ACW, CW)))
+keep = (I, ACW, CW)
+check('identity and the two circuits are closed among themselves (9 cases)', all(then(a, b) in keep for a in keep for b in keep))
+check('exchange then exchange is never an exchange (9 cases)', all(then(a, b) in keep for a in ex for b in ex))
+same = sum(then(a, b) == then(b, a) for a in vals for b in vals)
+check('of the 36 ordered pairs, 18 give the same result in either order and 18 do not', same == 18)
+check('worked example: exchange right,top then exchange left,right = circuit left>right>top', then(RT, LR) == ACW)
+check('worked example reversed: exchange left,right then exchange right,top = circuit left>top>right', then(LR, RT) == CW)
+check('"then" needs no brackets: (a then b) then c = a then (b then c), all 216 cases',
+      all(then(then(a, b), c) == then(a, then(b, c)) for a in vals for b in vals for c in vals))
+
+# ---- Part 2: the book's six maps, each written (a*L + b) / (c*L + d) ----
+from fractions import Fraction as F
+from math import gcd
+INF = 'inf'
+def norm(m):
+    a, b, c, d = m
+    g = gcd(gcd(abs(a), abs(b)), gcd(abs(c), abs(d)))
+    m = tuple(x // g for x in m)
+    first = next(x for x in m if x != 0)
+    return tuple(-x for x in m) if first < 0 else m
+def mthen(m, n):          # do map m first, map n second: n(m(L))
+    a, b, c, d = m; p, q, r, s = n
+    return norm((p * a + q * c, p * b + q * d, r * a + s * c, r * b + s * d))
+def ap(m, x):
+    a, b, c, d = m
+    if x == INF:
+        return INF if c == 0 else F(a, c)
+    den = c * x + d
+    return INF if den == 0 else (a * x + b) / den
+MAPS = {'L': (1, 0, 0, 1), '1-L': (-1, 1, 0, 1), '1/L': (0, 1, 1, 0), 'L/(L-1)': (1, 0, 1, -1),
+        '1/(1-L)': (0, 1, -1, 1), '(L-1)/L': (1, -1, 1, 0)}
+MAPS = {k: norm(v) for k, v in MAPS.items()}
+DOTVAL = {TOP: INF, LEFT: F(0), RIGHT: F(1)}     # top is infinity, left is 0, right is 1
+VALDOT = {v: k for k, v in DOTVAL.items()}
+def as_dots(m):
+    return tuple(VALDOT[ap(m, DOTVAL[i])] for i in range(3))
+mv = list(MAPS.values())
+check('each of the six maps sends the set {0, 1, inf} onto itself', all(set(ap(m, x) for x in DOTVAL.values()) == set(DOTVAL.values()) for m in mv))
+check('the six maps give six different rearrangements of 0, 1, inf', len({as_dots(m) for m in mv}) == 6)
+check('closed: each of the 36 "map then map" is one of the six maps', all(mthen(m, n) in mv for m in mv for n in mv))
+check('the match respects "then", all 36 cases: dots of (m then n) = (dots of m) then (dots of n)',
+      all(as_dots(mthen(m, n)) == then(as_dots(m), as_dots(n)) for m in mv for n in mv))
+check('1-L (Complement) is exchange left,right', as_dots(MAPS['1-L']) == LR)
+check('1/L (Reciprocal) is exchange left,top', as_dots(MAPS['1/L']) == LT)
+check('L/(L-1) (Third) is exchange right,top', as_dots(MAPS['L/(L-1)']) == RT)
+check('1/(1-L) is the circuit left>right>top, that is 0 > 1 > inf > 0', as_dots(MAPS['1/(1-L)']) == ACW)
+check('(L-1)/L is the circuit left>top>right, that is 0 > inf > 1 > 0', as_dots(MAPS['(L-1)/L']) == CW)
+check('Complement then Reciprocal = 1/(1-L)', mthen(MAPS['1-L'], MAPS['1/L']) == MAPS['1/(1-L)'])
+check('Reciprocal then Complement = (L-1)/L, the other circuit', mthen(MAPS['1/L'], MAPS['1-L']) == MAPS['(L-1)/L'])
+check('Third then Complement = 1/(1-L)', mthen(MAPS['L/(L-1)'], MAPS['1-L']) == MAPS['1/(1-L)'])
+check('Complement and Reciprocal, done in turn in every way, produce all six maps',
+      (lambda gen: len(gen) == 6)((lambda: (lambda s: [s.update({mthen(x, g) for x in list(s) for g in (MAPS['1-L'], MAPS['1/L'])}) for _ in range(6)] and s)({MAPS['L']}))()))
+# spot check that composing the formulas really is composing the maps, at a value that is none of 0, 1, inf
+x = F(7, 3)
+check('formula check at L = 7/3: (m then n)(L) = n(m(L)), all 36', all(ap(mthen(m, n), x) == ap(n, ap(m, x)) for m in mv for n in mv))
+print(f'{ok}/{total}')
