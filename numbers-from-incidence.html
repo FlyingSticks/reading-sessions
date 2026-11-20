@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Numbers from Incidence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: a drafting plate. Three stacked figures drawn from one projection, captions beneath each, conventions and glossary after. */
+:root{
+  --bg:#f3f5f7; --panel:#ffffff; --ink:#1b2430; --muted:#5a6676; --hair:#c9d1db;
+  --red:#c2362c; --green:#18804a; --purple:#7446b0; --blue:#1f55c0;
+  --card-fill:rgba(116,70,176,.10); --plane-fill:rgba(60,72,90,.10);
+  --wedge-b:rgba(60,72,90,.26); --wedge-a:rgba(24,128,74,.22);
+  --display:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#11151b; --panel:#181d25; --ink:#e7ebf1; --muted:#9aa6b6; --hair:#364050;
+    --red:#ff8073; --green:#55cf8e; --purple:#b99cf0; --blue:#86acff;
+    --card-fill:rgba(185,156,240,.13); --plane-fill:rgba(200,210,225,.10);
+    --wedge-b:rgba(200,210,225,.24); --wedge-a:rgba(85,207,142,.22);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#11151b; --panel:#181d25; --ink:#e7ebf1; --muted:#9aa6b6; --hair:#364050;
+  --red:#ff8073; --green:#55cf8e; --purple:#b99cf0; --blue:#86acff;
+  --card-fill:rgba(185,156,240,.13); --plane-fill:rgba(200,210,225,.10);
+  --wedge-b:rgba(200,210,225,.24); --wedge-a:rgba(85,207,142,.22);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--display);font-size:17px;line-height:1.55}
+main{max-width:980px;margin:0 auto;padding:28px 18px 64px;display:flex;flex-direction:column;gap:28px}
+header h1{font-size:30px;line-height:1.15;margin:0 0 8px;font-weight:600;letter-spacing:-.01em;text-wrap:balance}
+header p{margin:0;color:var(--muted);max-width:65ch}
+.eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+figure{margin:0;background:var(--panel);border:1px solid var(--hair);border-radius:6px;overflow:hidden}
+.draw{overflow-x:auto}
+.draw svg{display:block;width:100%;min-width:680px;height:auto}
+figcaption{border-top:1px solid var(--hair);padding:14px 18px 16px}
+figcaption h2{font-size:18px;margin:0 0 4px;font-weight:600;text-wrap:balance}
+figcaption p{margin:0;max-width:68ch;color:var(--ink)}
+figcaption p + p{margin-top:8px;color:var(--muted)}
+.sum{background:var(--panel);border:1px solid var(--hair);border-radius:6px;padding:18px}
+.sum h2{font-size:22px;margin:0 0 12px;font-weight:600}
+.four{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.four div{border:1px solid var(--hair);border-radius:4px;padding:10px 12px}
+.four .k{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;color:var(--muted);display:block}
+.four .v{font-family:var(--mono);font-size:24px;font-weight:500;font-variant-numeric:tabular-nums}
+.four .pos .v{color:var(--blue)} .four .dir .v{color:var(--green)}
+.sum p{margin:12px 0 0;max-width:68ch}
+section h2{font-size:20px;margin:0 0 10px;font-weight:600}
+section ul{margin:0;padding-left:20px;max-width:70ch}
+section li{margin:0 0 9px}
+dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:8px 18px;max-width:78ch}
+dt{font-family:var(--mono);font-size:14px;font-weight:600;padding-top:2px}
+dd{margin:0}
+@media (max-width:560px){ .four{grid-template-columns:repeat(2,1fr)} dl{grid-template-columns:1fr;gap:2px 0} dd{margin-bottom:10px} }
+
+/* drawing marks */
+svg text{font-family:var(--mono);fill:var(--ink)}
+.lab{font-size:13px;font-weight:500;letter-spacing:.02em}
+.lab.small{font-size:12px;font-weight:400;fill:var(--muted)}
+.lab.red{fill:var(--red)} .lab.green{fill:var(--green)} .lab.purple{fill:var(--purple)}
+.num{font-size:13px;font-weight:600;fill:var(--blue)}
+.num.big{font-size:15px}
+.halo{paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round}
+.rline{stroke:var(--red);stroke-width:1.5;fill:none}
+.gline{stroke:var(--green);stroke-width:3;fill:none;stroke-linecap:round}
+.back{opacity:.36}
+.card{fill:var(--card-fill);stroke:var(--purple);stroke-width:1.6}
+.rule{stroke:var(--blue);stroke-width:.8;opacity:.55}
+.unit{stroke:var(--ink);stroke-width:4.5;stroke-linecap:round}
+.rspot{fill:var(--red)} .ospot{fill:var(--ink)} .gspot{fill:var(--green);stroke:var(--panel);stroke-width:1.5}
+.leader{stroke:var(--muted);stroke-width:1;fill:none}
+.leader.gl{stroke:var(--green)}
+.tf-muted{fill:var(--muted)} .tf-green{fill:var(--green)} .tf-purple{fill:var(--purple)} .tf-ink{fill:var(--ink)}
+.axisarrow{stroke:var(--purple);stroke-width:1.4}
+.axis{stroke:var(--ink);stroke-width:1.1}
+.plane{fill:var(--plane-fill);stroke:var(--muted);stroke-width:.8;stroke-dasharray:5 4}
+.wedge-b{fill:var(--wedge-b)} .wedge-a{fill:var(--wedge-a)}
+.arc-b{fill:none;stroke:var(--ink);stroke-width:1.2}
+.arc-a{fill:none;stroke:var(--green);stroke-width:1.2}
+.shadow{stroke:var(--green);stroke-width:1.6;stroke-dasharray:9 4}
+.plumb{stroke:var(--muted);stroke-width:1.1;stroke-dasharray:3 4}
+.tick{fill:none;stroke:var(--muted);stroke-width:1}
+.kline{stroke:var(--blue);stroke-width:2.6;stroke-linecap:round}
+.pt{fill:var(--ink);stroke:var(--panel);stroke-width:1.5}
+.letter{font-size:17px;font-weight:600}
+.eqtick{stroke:var(--ink);stroke-width:1.4}
+.tf-blue{fill:var(--blue)} .lab.blue{fill:var(--blue)} .bpt{fill:var(--blue);stroke:var(--panel);stroke-width:1.5}
+.turn{fill:none;stroke:var(--ink);stroke-width:1.2;stroke-dasharray:5 4}
+.status{font-size:15px;color:var(--muted);max-width:70ch;margin:0}
+.kthin{stroke:var(--blue);stroke-width:1.7;fill:none}
+.gthin{stroke:var(--green);stroke-width:1.7;fill:none}
+.zline{stroke:var(--ink);stroke-width:2.8;stroke-linecap:round}
+.across{stroke:var(--purple);stroke-width:1.5}
+.vplane{fill:var(--wedge-a);stroke:var(--green);stroke-width:.8;stroke-dasharray:5 4}
+.card2{fill:none;stroke:var(--purple);stroke-width:1.1;stroke-dasharray:6 4}
+.dashlevel{stroke:var(--ink);stroke-width:1.3;stroke-dasharray:7 4}
+.count-lab{font-size:19px;font-weight:600}
+.tf-red{fill:var(--red)}
+.pline{stroke:var(--green);stroke-width:2.6;stroke-linecap:round}
+.gpt{fill:var(--green);stroke:var(--panel);stroke-width:1.5}
+.next{font-size:16px;margin:0}
+.next a{color:var(--blue)}
+dd .std{color:var(--muted)}
+.node{fill:var(--panel);stroke:var(--ink);stroke-width:1.5}
+.cellbox{fill:none;stroke:var(--hair);stroke-width:1}
+.unreached{fill:var(--panel);stroke:var(--red);stroke-width:2.2}
+.rowname{font-size:15px;font-weight:600;letter-spacing:.03em}
+.rowrule{stroke:var(--hair);stroke-width:1}
+.arrowline{fill:none;stroke:var(--ink);stroke-width:1.5}
+.bigsym{font-size:26px;font-weight:500}
+.rthick{stroke:var(--red);stroke-width:2.6;stroke-linecap:round}
+.c2{stroke:var(--muted);stroke-width:1;stroke-dasharray:5 4;opacity:.75}
+.c2dot{fill:var(--muted)}
+.chain{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;align-items:stretch}
+.chain div{border:1px solid var(--hair);border-radius:4px;padding:10px 12px;background:var(--panel);position:relative}
+.chain .n{font-family:var(--mono);font-size:12.5px;color:var(--muted);display:block}
+.chain .t{font-weight:600;display:block}
+.chain .d{font-size:14.5px;color:var(--muted);display:block;margin-top:2px}
+@media (max-width:640px){ .chain{grid-template-columns:1fr 1fr} }
+.hop{fill:none;stroke:var(--ink);stroke-width:1.4}
+.step{stroke:var(--ink);stroke-width:2;fill:none}
+.step.back{opacity:.6}
+.lab.green{fill:var(--green)}
+.tf-green{fill:var(--green)}
+.square{stroke:var(--ink);stroke-width:1.1;stroke-dasharray:4 4}
+.slit{stroke:var(--ink);stroke-width:5;stroke-linecap:round}
+.hole{fill:var(--panel);stroke:var(--ink);stroke-width:2.5}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:620px;font-variant-numeric:tabular-nums}
+th,td{border:1px solid var(--hair);padding:9px 12px;text-align:left;vertical-align:top}
+thead th{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--muted)}
+tbody th{font-weight:600}
+td{font-family:var(--mono);font-size:15px}
+td.fixed{color:var(--muted)} td.free{color:var(--green);font-weight:600} td.all{color:var(--blue);font-weight:600}
+td small,th small{display:block;font-family:var(--display);font-size:13px;font-weight:400;color:var(--muted)}
+.count{font-family:var(--mono);font-weight:600;white-space:nowrap}
+.g-i{fill:none;stroke:var(--muted);stroke-width:1.5}
+.g-c{fill:none;stroke:var(--green);stroke-width:1.6}
+.g-x{fill:none;stroke:var(--blue);stroke-width:1.6}
+.g-k{fill:none;stroke:var(--ink);stroke-width:1.5}
+.keyline{stroke:var(--hair);stroke-width:1.2}
+.tint-x{fill:var(--blue);opacity:.09}
+.gridheavy{stroke:var(--muted);stroke-width:1.6}
+.sum li{margin:0 0 9px}
+.triface{fill:var(--plane-fill);stroke:var(--ink);stroke-width:1.4}
+.mirrorline{stroke:var(--blue);stroke-width:1.5;stroke-dasharray:7 5}
+.flagfill{fill:var(--red)}
+.flagpole{stroke:var(--red);stroke-width:2.4;stroke-linecap:round}
+.addhead{margin:8px 0 -8px}
+.addhead h2{font-size:22px;margin:0 0 4px;font-weight:600}
+.addhead p{margin:0;color:var(--muted);max-width:68ch}
+
+.rung{stroke:var(--blue);stroke-width:1.1;fill:none;opacity:.8}
+.slant{stroke:var(--green);stroke-width:1.1;fill:none;opacity:.8}
+.rung.hot,.slant.hot{stroke-width:2;opacity:1}
+.kpt{fill:var(--purple);stroke:var(--panel);stroke-width:1.2}
+.ring{fill:none;stroke:var(--red);stroke-width:2}
+.stepno{font-size:13px;font-weight:600;fill:var(--ink)}
+.controls{display:grid;grid-template-columns:1fr;gap:12px;padding:14px 18px;border-top:1px solid var(--hair)}
+.controls label{display:grid;grid-template-columns:minmax(150px,300px) 1fr;gap:4px 14px;align-items:center;font-size:15px}
+.controls input[type=range]{width:100%;accent-color:var(--blue)}
+.controls input:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.controls .val{font-family:var(--mono);font-size:13.5px;color:var(--muted);grid-column:1/-1}
+@media (max-width:560px){.controls label{grid-template-columns:1fr}}
+.readout{padding:0 18px 14px}
+.readout table{min-width:520px}
+.readout td,.readout th{padding:6px 10px;font-size:14px}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <p class="eyebrow">Plate 7 · bridge to Chapter 2</p>
+  <h1>Numbers from Incidence</h1>
+  <p>The plate <a href="beneath-the-involution.html" style="color:var(--blue)">Beneath the Involution</a> (beneath-the-involution.html) built the harmonic partner with joins and meets and no ruler. This plate repeats one construction of that kind and puts a number on point after point of a line, still with no ruler. Three points must be given first, and they are given names: 0, 1 and ∞. Index: <a href="the-primer.html" style="color:var(--blue)">the primer</a> (the-primer.html).</p>
+</header>
+
+<div class="sum">
+  <h2>What is given, and what the names mean</h2>
+  <ul style="margin:0;padding-left:20px;max-width:70ch">
+    <li><strong>A line ℓ and three different points on it:</strong> O, E and V.</li>
+    <li><strong>Three names:</strong> O is named 0, E is named 1, V is named ∞. A name is a label. It is not a measurement, and nothing on this plate is measured to make the marks.</li>
+    <li><strong>On this plate the sign ∞ is only the name of the point V.</strong> V may be drawn on the page like any other point. V is a point at infinity, in the sense of the plate <a href="level-and-square-to-the-card.html" style="color:var(--blue)">Level, and Square to the Card</a>, only in the one case where it is drawn off the page and lines through it are drawn parallel.</li>
+    <li><strong>Two helpers, chosen freely:</strong> a point U that is not on ℓ, and a line k through V that is not ℓ and does not pass through U.</li>
+  </ul>
+</div>
+
+<figure>
+  <div class="draw"><svg id="f1" viewBox="0 0 1000 410" role="img" aria-label="A line with points named 0, 1 and infinity. Five joins and meets, numbered in order, produce the point named 2."></svg></div>
+  <figcaption>
+    <h2>1. One step: from 0 and 1 to 2</h2>
+    <p>The small numerals 1 to 5 give the order of drawing. (1) Join O to U and E to U; these two lines are <em>rungs</em>. (2) The rungs meet the helper line k at O′ and E′. (3) Join O to E′; this line is a <em>slant</em>, and it meets the line U V at W. (4) Join E to W, a second slant; it meets k at 2′. (5) Join 2′ to U, a third rung; it meets ℓ at the ringed point. That point is named 2.</p>
+    <p>Every one of the five is a join of two points or a meet of two lines. Blue marks the rungs (lines through U), green the slants (lines through W), purple the two lines through V. The red ring is a drawing mark only; it shows which point the step produced.</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <div class="draw"><svg id="f2" viewBox="0 0 1000 400" role="img" aria-label="The step repeated forward and backward gives marks named minus 2 to 6 and beyond. Three sliders move the point named infinity and the two helpers."></svg></div>
+  <div class="controls">
+    <label for="s-r">Where V, the point named ∞, is drawn<input type="range" id="s-r" min="0" max="300" step="2" value="110"><span class="val" id="v-r"></span></label>
+    <label for="s-u">Helper point U: left or right<input type="range" id="s-u" min="260" max="620" step="2" value="400"></label>
+    <label for="s-k">Helper line k: lower or higher<input type="range" id="s-k" min="60" max="170" step="1" value="112"></label>
+  </div>
+  <div class="readout"><div class="tbl"><table><thead><tr><th>name of the mark</th><th>drawn distance from O, in units</th><th>number read back from the drawn distances</th></tr></thead><tbody id="rb"></tbody></table></div></div>
+  <figcaption>
+    <h2>2. The step, repeated: a scale with no ruler</h2>
+    <p>The same step, started from 1 and 2, gives 3; from 2 and 3 it gives 4; and so on. Run in the other order (rung first, then slant) it goes backward from 0 to −1 and −2. The three sliders change the drawing in three ways. Move the two helper sliders: the rungs and slants move, and the marks on ℓ do not. Move the first slider: the marks do move, because V is one of the three given points.</p>
+    <p>The table reads each mark back. One unit is the drawn stretch from 0 to 1. The last column is computed from drawn distances only, by the formula under "Reading a number back", and it returns the name of the mark wherever V is drawn. Marks are not drawn when they would fall closer together than a small fixed gap on the page, or off the page, and none is drawn past the mark named 12; the construction itself has no last step.</p>
+  </figcaption>
+</figure>
+
+<div class="sum">
+  <h2>Reading a number back</h2>
+  <p style="margin-top:0">Write OX for the drawn distance from O to a mark X, counted as positive to the right of O and negative to the left, and write v for the drawn distance from O to V, both in units. Then</p>
+  <p style="font-family:var(--mono)">number of X = OX · (v − 1) / (v − OX)</p>
+  <p>When V is off the page the fraction (v − 1) / (v − OX) is 1, and the number of X is simply OX. The formula is the cross-ratio (X, E; O, V), written with the same convention as the −1 of the earlier plate: (A, B; C, D) = (AC · BD) / (AD · BC), each pair of letters standing for a signed stretch.</p>
+  <p>Turned round, the formula says where mark n is drawn:</p>
+  <p style="font-family:var(--mono)">drawn distance of mark n = n · v / (v − 1 + n)</p>
+  <p style="color:var(--muted)">Two things follow. First, every mark is tied to its neighbours by the harmonic relation of the earlier plate: (n − 1, n + 1; n, V) = −1, so mark n + 1 is the harmonic partner of mark n − 1 with respect to mark n and V. The whole scale could be built with that one construction. Second, the distances of the marks from V, taken as one over each distance, go up in equal steps.</p>
+</div>
+
+<figure>
+  <div class="draw"><svg id="f3" viewBox="0 0 1000 370" role="img" aria-label="Three rulers with the same marks 0, 1, 2 and onward. On the first the steps are drawn equal. On the second and third the marks crowd toward the point named infinity."></svg></div>
+  <figcaption>
+    <h2>3. The same numbers, drawn three ways</h2>
+    <p>Three drawings of one scale. In each, 0 and 1 are drawn in the same two places (the two thin upright lines), and the marks are made by the construction of figure 1. Only the place of V differs. With V off the page the steps are drawn equal. With V on the page the marks crowd toward V and never reach it.</p>
+    <p>The numbers are the same in all three. Equal steps and crowded steps are two drawings of one incidence figure, and no join or meet tells them apart. What tells them apart is a ruler laid on the page, which this plate has not used.</p>
+  </figcaption>
+</figure>
+
+<figure>
+  <div class="draw"><svg id="f4" viewBox="0 0 1000 410" role="img" aria-label="The two slants of the four-sided figure O, E, E prime, O prime cross at C. The rung through C meets the line at the point named one half. Backward steps give minus 1 and minus 2."></svg></div>
+  <figcaption>
+    <h2>4. Between the marks, and before 0</h2>
+    <p>O, E, E′ and O′ are the corners of a four-sided figure. Join O to E′ and E to O′; the two lines cross at C. The rung through C meets ℓ at the ringed point, which is named ½. It is the harmonic partner of V with respect to 0 and 1. Stepping on from ½ gives 1½, 2½ and the rest of the halves.</p>
+    <p>The thin lines to the left of O are the backward steps to −1 and −2. On this drawing the marks to the left spread apart as those to the right crowd together.</p>
+  </figcaption>
+</figure>
+
+<div class="sum">
+  <h2>What is claimed</h2>
+  <div class="tbl"><table><thead><tr><th>What is claimed</th><th>Standing</th></tr></thead><tbody>
+  <tr><td class="claim">7.1 Given O, E and V on a line, the step of figure 1 produces one further point, and it is the same point whatever U and k are chosen.</td><td class="standing">a classical theorem resting on Desargues' theorem; stated, not demonstrated; in the check for four choices of U and k</td></tr>
+  <tr><td class="claim">7.2 Each mark is the harmonic partner of the mark two before it, with respect to the mark between them and V: (n − 1, n + 1; n, V) = −1.</td><td class="standing">classical; in the check</td></tr>
+  <tr><td class="claim">7.3 The number of a mark is the cross-ratio (X, E; O, V) of drawn distances. A perspective view of the whole figure changes the drawn distances and leaves every number alone.</td><td class="standing">classical; in the check, for one view</td></tr>
+  <tr><td class="claim">7.4 Mark n is drawn at distance n · v / (v − 1 + n) from O. With V off the page the steps are equal. With V on the page, one over the distance from V goes up in equal steps.</td><td class="standing">classical; in the check</td></tr>
+  <tr><td class="claim">7.5 The construction of figure 4 gives ½, the harmonic partner of V with respect to 0 and 1. Backward steps give −1, −2 and −3.</td><td class="standing">classical; in the check</td></tr>
+  <tr><td class="claim">7.6 Every fraction, positive or negative, is reached by finitely many joins and meets from O, E and V, and no other number is.</td><td class="standing">classical (the net of rationality); stated, not demonstrated, not in the check beyond the whole numbers, ½ and 1½</td></tr>
+  <tr><td class="claim">7.7 The sum and the product of two numbers on the line can each be constructed by joins and meets.</td><td class="standing">classical (von Staudt); stated only: not drawn, not in the check</td></tr>
+  </tbody></table></div>
+  <p style="color:var(--muted)">On 7.6: numbers that are not fractions, such as the square root of 2, need one more assumption about the line, that it has no gaps. That assumption is not an incidence statement and is not used on this plate.</p>
+</div>
+
+<div class="sum">
+  <h2>Toward the book</h2>
+  <p style="margin-top:0;color:var(--muted)">The book's site could not be reached from the session that built this plate. The pointers below were written from the primer's index and concordance and from earlier session records, not from the book's pages, and none of them has been checked against <a href="https://flyingsticks.github.io/one-congruence-two-readings/chapter-2.html" style="color:var(--blue)">Chapter 2</a>.</p>
+  <ul style="margin:0;padding-left:20px;max-width:70ch">
+    <li><strong>Two graduations.</strong> Chapter 2, Law and gauge, has two ways of graduating a depth line, which the book calls Reach (equal steps) and Turn (harmonic steps). Compare figure 3: its first ruler has equal steps and its other two have harmonic steps. This plate's statement is that the three rulers carry the same numbers and differ only in where V is drawn. Whether the book's Turn is this scale with V at a particular point of the book's rig has not been worked out here.</li>
+    <li><strong>Three named points.</strong> The plate <a href="the-six-on-three-dots.html" style="color:var(--blue)">The Six on Three Dots</a> read the book's 0, 1 and ∞ as the picture plane, the station and the plane at infinity, from the entry <a href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#degenerate" style="color:var(--blue)">Degenerate orbit</a>. That reading is unaudited. If it holds, a depth line of the book is a line with three named points, and this plate says how every other number on it follows from those three.</li>
+    <li><strong>The point named ∞.</strong> Compare the book's <a href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#planeinf" style="color:var(--blue)">Plane at infinity</a>, which the concordance records as defining a point of a line. On this plate V is that kind of point only when it is drawn off the page.</li>
+    <li><strong>Not claimed.</strong> Nothing here is said about the book's law, its rates, or which graduation belongs to which reading. A page on the reading-sessions shelf, the-gauge.html, reports the same −1 at every tick for the 1984 transfer construction; that page was not re-run for this plate.</li>
+  </ul>
+</div>
+
+<p class="next">This is the last plate planned for the primer. Back to <a href="the-primer.html">the primer</a> (the-primer.html).</p>
+
+<p class="status"><strong>Status.</strong> Classical. Every point in the four figures is computed by the drawing code from joins and meets, not typed in; the last column of the table under figure 2 is computed from the drawn distances. A separate script, check-numbers-from-incidence.py, repeats the construction in exact arithmetic on a line in general position, with V off the page and at three places on the line, and confirms claims 7.1 to 7.5; it passes 43 of 43. Claims 7.6 and 7.7 are quoted from the classical theory and are not checked. Built 19 November 2026. Not yet audited outside. The pointers under "Toward the book" were not checked against the book. Viewed in Chrome, light theme; not in Safari.</p>
+
+<section>
+  <h2>Terms</h2>
+  <p class="status" style="margin-bottom:12px">The plain words are the plate's own. The standard name, for looking things up elsewhere, follows each in grey.</p>
+  <dl>
+    <dt>ℓ</dt><dd>The line that receives the marks. <span class="std">Standard: the base line of the scale.</span></dd>
+    <dt>O, E, V</dt><dd>The three given points of ℓ. Letters are for points of the drawing. <span class="std">Standard: the fundamental points of the scale.</span></dd>
+    <dt>named 0, 1, ∞</dt><dd>The names given to O, E and V. Numerals are for names. <span class="std">Standard: the coordinates 0, 1 and ∞ of the fundamental points.</span></dd>
+    <dt>U, k</dt><dd>The helper point and the helper line, chosen freely subject to the conditions in the first box. <span class="std">Standard: auxiliary elements of the construction.</span></dd>
+    <dt>rung</dt><dd>A line through U. <span class="std">Standard: a line of the pencil with vertex U.</span></dd>
+    <dt>slant</dt><dd>A line through W. <span class="std">Standard: a line of the pencil with vertex W.</span></dd>
+    <dt>W</dt><dd>The point where the first slant, O E′, meets the line U V. <span class="std">Standard: with U and V, a point of the vanishing line of the net.</span></dd>
+    <dt>O′, E′, 2′</dt><dd>The points where the rungs through O, E and 2 meet k.</dd>
+    <dt>step</dt><dd>The five joins and meets of figure 1, started from any two neighbouring marks.</dd>
+    <dt>mark</dt><dd>A point of ℓ produced by steps. <span class="std">Standard: a point of the harmonic net, or net of rationality, also called a Möbius net.</span></dd>
+    <dt>number of a mark</dt><dd>The name the construction gives it. <span class="std">Standard: its projective coordinate with respect to O, E and V.</span></dd>
+    <dt>unit</dt><dd>The drawn stretch from 0 to 1, used only for reading the drawing with a ruler.</dd>
+    <dt>OX, v</dt><dd>Drawn distances from O, in units, positive to the right: OX to a mark X, v to V. <span class="std">Standard: signed, or directed, lengths.</span></dd>
+    <dt>read back</dt><dd>To compute the number of a mark from drawn distances. <span class="std">Standard: to evaluate the cross-ratio (X, E; O, V).</span></dd>
+    <dt>scale</dt><dd>The line together with all its marks and their numbers. <span class="std">Standard: a projective scale.</span></dd>
+    <dt>equal steps</dt><dd>Marks drawn the same distance apart; this happens when V is off the page. <span class="std">Standard: an arithmetic progression; an affine scale.</span></dd>
+    <dt>crowd toward V</dt><dd>Said of the marks when V is on the page. <span class="std">Standard: the distances from V form a harmonic progression.</span></dd>
+    <dt>fraction</dt><dd>A whole number divided by a whole number that is not 0. <span class="std">Standard: a rational number.</span></dd>
+    <dt>perspective view</dt><dd>As on the earlier plate: the figure seen from a point and redrawn on another plane. <span class="std">Standard: a central projection; more generally a projective map.</span></dd>
+  </dl>
+</section>
+</main>
+<script>
+(function(){
+"use strict";
+/* All four figures are drawn by this code from joins and meets.
+   A point is [x,y,w]; a line is the cross product of two points; a meet is the cross product of two lines. */
+var X=function(a,b){return [a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];};
+var P=function(x,y){return [x,y,1];};
+var N=function(p){return Math.abs(p[2])>1e-9?[p[0]/p[2],p[1]/p[2],1]:p;};
+var fin=function(p){return Math.abs(p[2])>1e-9;};
+function net(o){
+  var O=P(o.xO,o.Y),E=P(o.xO+o.d,o.Y);
+  var V=o.r>1e-9?P(o.xO+o.d/o.r,o.Y):[1,0,0];
+  var U=P(o.ux,o.Y-o.uh),K=P(o.xO-60,o.Y-o.kh);
+  var l=X(O,E),k=X(V,K),uv=X(U,V);
+  var Op=N(X(X(O,U),k)),Ep=N(X(X(E,U),k));
+  var W=N(X(X(O,Ep),uv));
+  var fwd=function(A){var Bp=N(X(X(A,W),k));return [N(X(X(Bp,U),l)),Bp];};
+  var bwd=function(A){var Ap=N(X(X(A,U),k));return [N(X(X(Ap,W),l)),Ap];};
+  var m={0:O,1:E},mp={0:Op,1:Ep},A=E,n,t;
+  var lim=fin(V)?Math.min(V[0]-1,975):975;
+  for(n=2;n<=(o.cap||60);n++){t=fwd(A);if(!fin(t[0])||t[0][0]<A[0]+(o.gap||6)||t[0][0]>lim)break;m[n]=t[0];mp[n]=t[1];A=t[0];}
+  var hi=n-1;A=O;
+  for(n=-1;n>=-(o.back===undefined?12:o.back);n--){t=bwd(A);if(!fin(t[0])||t[0][0]>=A[0]||t[0][0]<30)break;m[n]=t[0];mp[n]=N(X(X(t[0],U),k));A=t[0];}
+  var lo=n+1;
+  var C=N(X(X(O,Ep),X(E,Op)));
+  var H=N(X(X(U,C),l));
+  return {o:o,O:O,E:E,V:V,U:U,W:W,l:l,k:k,uv:uv,m:m,mp:mp,lo:lo,hi:hi,C:C,H:H,Op:Op,Ep:Ep};
+}
+function readback(g,Xp){var s=(Xp[0]-g.o.xO)/g.o.d,r=g.o.r;return s*(1-r)/(1-s*r);}
+var f=function(v){return (Math.round(v*10)/10).toFixed(1);};
+function seg(a,b,c){return '<line class="'+c+'" x1="'+f(a[0])+'" y1="'+f(a[1])+'" x2="'+f(b[0])+'" y2="'+f(b[1])+'"/>';}
+function dot(p,c,r){return '<circle class="'+c+'" cx="'+f(p[0])+'" cy="'+f(p[1])+'" r="'+r+'"/>';}
+function txt(x,y,s,c,a){return '<text class="'+c+' halo" x="'+f(x)+'" y="'+f(y)+'" text-anchor="'+(a||'middle')+'">'+s+'</text>';}
+function yOn(L,x){return -(L[0]*x+L[2])/L[1];}
+function across(g,L,c){var x2=fin(g.V)?Math.min(g.V[0],985):985;return seg([15,yOn(L,15)],[x2,yOn(L,x2)],c);}
+function base(g){
+  var h=across(g,g.k,'across')+across(g,g.uv,'across');
+  h+=seg([15,g.o.Y],[985,g.o.Y],'zline');
+  return h;
+}
+function vmark(g){
+  if(fin(g.V)&&g.V[0]<985) return dot(g.V,'rspot',6)+txt(g.V[0],g.o.Y+26,'∞','num big tf-red');
+  return txt(978,g.o.Y+46,'∞ is off the page, to the right →','lab small','end');
+}
+function numlab(n){return n<0?'−'+(-n):''+n;}
+function marks(g,from,to){
+  var h='',last=-1e9,n;
+  for(n=from;n<=to;n++){ if(!g.m[n])continue;
+    h+=dot(g.m[n],'pt',4.5);
+    if(g.m[n][0]-last>=26){h+=txt(g.m[n][0],g.o.Y+26,numlab(n),'num big');last=g.m[n][0];}
+  }
+  return h;
+}
+
+/* figure 1: one step */
+function fig1(){
+  var g=net({xO:120,d:90,Y:340,r:0.11,ux:330,uh:255,kh:112}),h=base(g);
+  var two=g.m[2],twop=g.mp[2];
+  h+=seg(g.O,g.U,'rung hot')+seg(g.E,g.U,'rung hot');
+  h+=seg(g.O,g.W,'slant hot')+seg(g.E,g.W,'slant hot');
+  h+=seg(two,g.U,'rung hot');
+  h+=dot(g.Op,'kpt',4)+dot(g.Ep,'kpt',4)+dot(twop,'kpt',4);
+  h+=dot(g.U,'pt',4.5)+dot(g.W,'gpt',4.5)+dot(g.O,'pt',4.5)+dot(g.E,'pt',4.5);
+  h+='<circle class="ring" cx="'+f(two[0])+'" cy="'+f(two[1])+'" r="9"/>'+dot(two,'pt',4.5);
+  h+=vmark(g);
+  h+=txt(g.O[0],366,'0','num big')+txt(g.E[0],366,'1','num big')+txt(two[0],366,'2','num big');
+  h+=txt(g.O[0],388,'O','lab small')+txt(g.E[0],388,'E','lab small')+(fin(g.V)?txt(g.V[0],388,'V','lab small'):'');
+  h+=txt(g.U[0]-12,g.U[1]-8,'U','lab','end')+txt(g.W[0]+12,g.W[1]-8,'W','lab green','start');
+  h+=txt(g.Op[0]-10,g.Op[1]-7,'O′','lab purple','end')+txt(g.Ep[0]-9,g.Ep[1]-8,'E′','lab purple','end')+txt(twop[0]+10,twop[1]-8,'2′','lab purple','start');
+  h+=txt(40,yOn(g.k,40)-8,'k','lab purple','start')+txt(600,yOn(g.uv,600)-12,'line U V','lab purple','start');
+  h+=txt(24,g.o.Y-10,'the line ℓ','lab small','start');
+  var mid=function(a,b,t){return [a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t];},q;
+  q=mid(g.O,g.U,0.2);h+=txt(q[0]-12,q[1],'1','stepno');
+  q=mid(g.E,g.U,0.2);h+=txt(q[0]-12,q[1],'1','stepno');
+  h+=txt(640,yOn(g.k,640)-8,'2','stepno');
+  q=mid(g.Ep,g.W,0.5);h+=txt(q[0]-12,q[1]-2,'3','stepno');
+  q=mid(twop,g.W,0.5);h+=txt(q[0]+13,q[1]+4,'4','stepno');
+  q=mid(two,twop,0.5);h+=txt(q[0]+12,q[1]+4,'5','stepno');
+  document.getElementById('f1').innerHTML=h;
+}
+
+/* figure 2: the whole scale, with three sliders */
+function fig2(){
+  var r=+document.getElementById('s-r').value/1000;
+  var ux=+document.getElementById('s-u').value, kh=+document.getElementById('s-k').value;
+  var g=net({xO:200,d:80,Y:340,r:r,ux:ux,uh:255,kh:kh,back:2,cap:12,gap:12}),h=base(g),n;
+  for(n=g.lo;n<=g.hi;n++){h+=seg(g.m[n],g.U,'rung');if(g.m[n+1])h+=seg(g.m[n],g.W,'slant');}
+  for(n=g.lo;n<=g.hi;n++)h+=dot(g.mp[n],'kpt',3);
+  h+=dot(g.U,'pt',4.5)+dot(g.W,'gpt',4.5)+marks(g,g.lo,g.hi)+vmark(g);
+  h+=txt(g.U[0]-12,g.U[1]-8,'U','lab','end')+txt(g.W[0]+12,g.W[1]-8,'W','lab green','start');
+  h+=txt(24,yOn(g.k,24)-8,'k','lab purple','start');
+  document.getElementById('f2').innerHTML=h;
+  document.getElementById('v-r').textContent=r>1e-9?'V is drawn '+(1/r).toFixed(1)+' units to the right of O (one unit = the drawn stretch from 0 to 1)':'V is off the page: k and the line U V are drawn parallel to ℓ';
+  var rows='';
+  for(n=-2;n<=6;n++){ if(!g.m[n]){rows+='<tr><td>'+numlab(n)+'</td><td class="fixed">not drawn</td><td class="fixed">not drawn</td></tr>';continue;}
+    var s=(g.m[n][0]-g.o.xO)/g.o.d,b=readback(g,g.m[n]);
+    rows+='<tr><td>'+numlab(n)+'</td><td>'+s.toFixed(3).replace('-','−')+'</td><td class="all">'+(Math.abs(b)<5e-4?0:b).toFixed(3).replace('-','−')+'</td></tr>';}
+  document.getElementById('rb').innerHTML=rows;
+}
+
+/* figure 3: the same numbers drawn three ways */
+function fig3(){
+  var rs=[0,0.1,0.2],cap=['V off the page: the steps are drawn equal','V drawn 10 units from O','V drawn 5 units from O'],h='',i;
+  h+=seg([120,30],[120,330],'leader')+seg([190,30],[190,330],'leader');
+  for(i=0;i<3;i++){
+    var Y=95+i*105,g=net({xO:120,d:70,Y:Y,r:rs[i],ux:300,uh:255,kh:112,back:0,gap:9});
+    h+=seg([15,Y],[985,Y],'zline')+marks(g,0,g.hi)+vmark(g);
+    h+=txt(204,Y-22,cap[i],'lab','start');
+  }
+  document.getElementById('f3').innerHTML=h;
+}
+
+/* figure 4: one half, and steps backward */
+function fig4(){
+  var g=net({xO:380,d:80,Y:340,r:0.14,ux:590,uh:255,kh:112,back:2}),h=base(g);
+  h+=seg(g.O,g.U,'rung')+seg(g.E,g.U,'rung');
+  h+=seg(g.O,g.Ep,'slant hot')+seg(g.E,g.Op,'slant hot');
+  h+=seg(g.U,g.H,'rung hot');
+  if(g.m[-1]){h+=seg(g.W,g.m[-1],'slant')+seg(g.m[-1],g.U,'rung');}
+  if(g.m[-2]){h+=seg(g.W,g.m[-2],'slant');}
+  h+=dot(g.Op,'kpt',4)+dot(g.Ep,'kpt',4)+(g.m[-1]?dot(g.mp[-1],'kpt',4):'');
+  h+=dot(g.C,'gpt',4.5)+dot(g.U,'pt',4.5)+dot(g.W,'gpt',4.5);
+  h+=marks(g,g.lo,1)+'<circle class="ring" cx="'+f(g.H[0])+'" cy="'+f(g.H[1])+'" r="9"/>'+dot(g.H,'pt',4.5)+txt(g.H[0],g.o.Y+26,'½','num big tf-red');
+  h+=vmark(g);
+  h+=txt(g.U[0]-12,g.U[1]-8,'U','lab','end')+txt(g.W[0]+12,g.W[1]-8,'W','lab green','start');
+  h+=txt(g.C[0]+13,g.C[1]+4,'C','lab green','start');
+  h+=txt(g.Op[0],g.Op[1]-12,'O′','lab purple','middle')+txt(g.Ep[0]+10,g.Ep[1]-8,'E′','lab purple','start');
+  h+=txt(24,yOn(g.k,24)-8,'k','lab purple','start');
+  document.getElementById('f4').innerHTML=h;
+}
+fig1();fig2();fig3();fig4();
+['s-r','s-u','s-k'].forEach(function(id){document.getElementById(id).addEventListener('input',fig2);});
+})();
+
+</script>
+</body>
+</html>
