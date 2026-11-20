@@ -45,6 +45,31 @@ check('worked example reversed: exchange left,right then exchange right,top = ci
 check('"then" needs no brackets: (a then b) then c = a then (b then c), all 216 cases',
       all(then(then(a, b), c) == then(a, then(b, c)) for a in vals for b in vals for c in vals))
 
+# ---- Addendum: odd and even, and the triangle ----
+from itertools import product
+from functools import reduce
+import math
+for k in range(7):
+    got = {reduce(then, seq, I) for seq in product(ex, repeat=k)}
+    want = set(keep) if k % 2 == 0 else set(ex)
+    check(f'every way of doing {k} exchanges in turn gives ' + ('the identity or a circuit' if k % 2 == 0 else 'an exchange') + f' ({3 ** k} ways)', got <= want)
+C = [(0.0, -1.0), (-math.cos(math.radians(30)), 0.5), (math.cos(math.radians(30)), 0.5)]   # top, left, right; y runs down, as drawn
+def refl(p, i):               # mirror in the line through the centre and corner i
+    a = 2 * math.atan2(C[i][1], C[i][0])
+    return (math.cos(a) * p[0] + math.sin(a) * p[1], math.sin(a) * p[0] - math.cos(a) * p[1])
+def near(p, q): return abs(p[0] - q[0]) < 1e-9 and abs(p[1] - q[1]) < 1e-9
+MIR = {TOP: LR, LEFT: RT, RIGHT: LT}
+check('each mirror line of the triangle moves the corners exactly as its exchange moves the dots (3 mirrors)',
+      all(near(refl(C[j], i), C[MIR[i][j]]) for i in range(3) for j in range(3)))
+def turn(p, deg):
+    t = math.radians(deg); return (p[0] * math.cos(t) - p[1] * math.sin(t), p[0] * math.sin(t) + p[1] * math.cos(t))
+pt = (0.3, -0.2)
+check('two different mirrors in turn are a turn through 120 degrees, one way or the other (6 cases)',
+      all(near(refl(refl(pt, i), j), turn(pt, 120)) or near(refl(refl(pt, i), j), turn(pt, -120)) for i in range(3) for j in range(3) if i != j))
+check('the turn made by two mirrors moves the corners as "exchange then exchange" moves the dots (6 cases)',
+      all(near(refl(refl(C[c], i), j), C[then(MIR[i], MIR[j])[c]]) for i in range(3) for j in range(3) if i != j for c in range(3)))
+check('the angle between two mirror lines is 60 degrees', abs(abs(math.degrees(math.atan2(C[0][1], C[0][0]) - math.atan2(C[1][1], C[1][0]))) % 180 - 60) < 1e-9 or abs(abs(math.degrees(math.atan2(C[0][1], C[0][0]) - math.atan2(C[1][1], C[1][0]))) % 180 - 120) < 1e-9)
+
 # ---- Part 2: the book's six maps, each written (a*L + b) / (c*L + d) ----
 from fractions import Fraction as F
 from math import gcd
