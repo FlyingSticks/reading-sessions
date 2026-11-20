@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How It Goes Together</title>
+<style>
+/* Layout idea: one figure (three bodies of work around one object), then the
+   table that the figure's tags J1 to J9 point into, then holdings and terms. */
+:root{
+  --bg:#fbfaf6; --ink:#22211d; --soft:#6b675e; --rule:#d9d5c9; --panel:#f2efe6;
+  --shown:#2f7a2f; --rhyme:#8a6a1f; --struck:#b02a24; --open:#6b675e;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:-apple-system,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1b1a17; --ink:#ece8dc; --soft:#a8a394; --rule:#3d3a33; --panel:#26241f;
+    --shown:#7cc47c; --rhyme:#d9b45a; --struck:#f0837c; --open:#a8a394;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1b1a17; --ink:#ece8dc; --soft:#a8a394; --rule:#3d3a33; --panel:#26241f;
+  --shown:#7cc47c; --rhyme:#d9b45a; --struck:#f0837c; --open:#a8a394;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.5}
+main{max-width:860px;margin:0 auto;padding:28px 18px 60px;display:flex;flex-direction:column;gap:30px}
+h1{font-size:30px;line-height:1.15;margin:0;font-weight:600;text-wrap:balance}
+h2{font-size:20px;margin:0 0 10px;font-weight:600;text-wrap:balance}
+h3{font-size:17px;margin:0 0 4px;font-weight:600}
+p{margin:0 0 10px;max-width:66ch}
+.byline{font-family:var(--sans);font-size:13px;color:var(--soft);margin-top:8px}
+a{color:inherit;text-decoration-color:var(--soft);text-underline-offset:2px}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+figure{margin:0}
+.fig{overflow-x:auto;border:1px solid var(--rule);background:var(--panel);border-radius:4px}
+.fig svg{display:block;width:100%;min-width:560px;height:auto}
+figcaption{font-size:15px;color:var(--soft);margin-top:8px;max-width:70ch}
+svg text{font-family:var(--sans);fill:var(--ink)}
+.box{fill:var(--bg);stroke:var(--ink);stroke-width:1.4}
+.t1{font-size:15px;font-weight:700}
+.t2{font-size:12.5px}
+.t3{font-size:12px;fill:var(--soft)}
+.e{fill:none;stroke-width:2.2}
+.e.shown{stroke:var(--shown)}
+.e.rhyme{stroke:var(--rhyme);stroke-dasharray:9 6}
+.e.struck{stroke:var(--struck);stroke-dasharray:2 5}
+.e.open{stroke:var(--open);stroke-dasharray:1 7;stroke-linecap:round}
+.e.order{stroke:var(--ink);stroke-width:1.4}
+.tag circle{fill:var(--bg);stroke:var(--ink);stroke-width:1}
+.tag text{font-size:11.5px;font-weight:700;text-anchor:middle}
+.strike{stroke:var(--struck);stroke-width:2}
+.legend{display:flex;flex-wrap:wrap;gap:8px 22px;font-family:var(--sans);font-size:13.5px;margin-top:10px}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.legend svg{width:44px;height:10px;min-width:0;flex:none}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:15.5px}
+th,td{text-align:left;vertical-align:top;padding:8px 10px 8px 0;border-bottom:1px solid var(--rule)}
+th{font-family:var(--sans);font-size:12.5px;font-weight:700;color:var(--soft);letter-spacing:.03em}
+td.n{font-family:var(--sans);font-weight:700;white-space:nowrap}
+.pill{font-family:var(--sans);font-size:12.5px;font-weight:700;white-space:nowrap}
+.pill.shown{color:var(--shown)} .pill.rhyme{color:var(--rhyme)}
+.pill.struck{color:var(--struck)} .pill.open{color:var(--open)}
+.note{display:block;font-family:var(--sans);font-size:12.5px;color:var(--soft);margin-top:2px}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:22px}
+ol,ul{margin:0;padding-left:20px}
+li{margin:2px 0}
+.cols li{font-size:15.5px}
+dl{margin:0;display:grid;grid-template-columns:minmax(120px,190px) 1fr;gap:6px 16px;font-size:15.5px}
+dt{font-weight:600} dd{margin:0}
+@media (max-width:520px){dl{grid-template-columns:1fr} dt{margin-top:6px}}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <h1>How It Goes Together</h1>
+  <p class="byline">A map of three bodies of work and the joins between them. 19 November 2026. Not audited outside. The file names assume this page sits in the same folder as the plates.</p>
+</header>
+
+<section>
+  <p>There are three bodies of work: the book, the primer that stands in front of it, and the mirror thread that runs beside both. One object occurs in all three, the involution, with the value −1. The figure shows which joins between them have been shown, which are only a rhyme, and which one was tested and struck.</p>
+
+  <figure>
+    <div class="fig">
+    <svg viewBox="0 0 800 540" role="img" aria-label="Three bodies of work, the primer, the book and the mirror thread, each joined to the involution, with nine joins marked shown, rhyme, struck or open.">
+      <defs>
+        <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="currentColor"/></marker>
+      </defs>
+
+      <!-- joins -->
+      <line class="e order" x1="290" y1="78" x2="468" y2="78" marker-end="url(#arr)" style="color:var(--ink)"/>
+      <line class="e shown" x1="200" y1="126" x2="334" y2="227"/>
+      <line class="e shown" x1="560" y1="126" x2="426" y2="227"/>
+      <line class="e shown" x1="380" y1="410" x2="380" y2="320"/>
+      <path class="e shown" d="M110 126 C110 330,150 458,255 458"/>
+      <path class="e shown" d="M600 126 C600 330,600 440,505 440"/>
+      <path class="e struck" d="M640 126 C650 360,660 458,505 458"/>
+      <path class="e rhyme" d="M680 126 C700 380,720 476,505 476"/>
+      <path class="e open" d="M710 126 C760 400,780 494,505 494"/>
+
+      <!-- bodies -->
+      <rect class="box" x="40" y="30" width="250" height="96" rx="3"/>
+      <text class="t1" x="56" y="58">The primer</text>
+      <text class="t2" x="56" y="80">Lines in Space</text>
+      <text class="t3" x="56" y="102">6 plates built, 1 planned</text>
+
+      <rect class="box" x="470" y="30" width="250" height="96" rx="3"/>
+      <text class="t1" x="486" y="58">The book</text>
+      <text class="t2" x="486" y="80">One Congruence, Two Readings</text>
+      <text class="t3" x="486" y="102">8 chapters; the destination</text>
+
+      <rect class="box" x="255" y="410" width="250" height="96" rx="3"/>
+      <text class="t1" x="271" y="438">The mirror thread</text>
+      <text class="t2" x="271" y="460">13 plates</text>
+      <text class="t3" x="271" y="482">mirror → product → sign → measure</text>
+
+      <circle class="box" cx="380" cy="262" r="58"/>
+      <text class="t1" x="380" y="258" text-anchor="middle">the involution</text>
+      <text class="t2" x="380" y="279" text-anchor="middle">value −1</text>
+
+      <!-- tags -->
+      <g class="tag"><circle cx="380" cy="78" r="13"/><text x="380" y="82">J6</text></g>
+      <g class="tag"><circle cx="267" cy="176" r="13"/><text x="267" y="180">J2</text></g>
+      <g class="tag"><circle cx="493" cy="176" r="13"/><text x="493" y="180">J3</text></g>
+      <g class="tag"><circle cx="380" cy="365" r="13"/><text x="380" y="369">J1</text></g>
+      <g class="tag"><circle cx="143" cy="368" r="13"/><text x="143" y="372">J4</text></g>
+      <g class="tag"><circle cx="588" cy="360" r="13"/><text x="588" y="364">J5</text></g>
+      <g class="tag"><circle cx="634" cy="380" r="13"/><text x="634" y="384">J7</text><line class="strike" x1="638" y1="270" x2="652" y2="284"/><line class="strike" x1="638" y1="284" x2="652" y2="270"/></g>
+      <g class="tag"><circle cx="681" cy="396" r="13"/><text x="681" y="400">J8</text></g>
+      <g class="tag"><circle cx="729" cy="413" r="13"/><text x="729" y="417">J9</text></g>
+    </svg>
+    </div>
+    <div class="legend" aria-label="Legend">
+      <span><svg viewBox="0 0 44 10"><line class="e shown" x1="0" y1="5" x2="44" y2="5"/></svg>shown</span>
+      <span><svg viewBox="0 0 44 10"><line class="e rhyme" x1="0" y1="5" x2="44" y2="5"/></svg>rhyme</span>
+      <span><svg viewBox="0 0 44 10"><line class="e struck" x1="0" y1="5" x2="44" y2="5"/></svg>struck (with a cross)</span>
+      <span><svg viewBox="0 0 44 10"><line class="e open" x1="0" y1="5" x2="44" y2="5"/></svg>open</span>
+      <span><svg viewBox="0 0 44 10"><line class="e order" x1="0" y1="5" x2="40" y2="5" marker-end="url(#arr)" style="color:var(--ink)"/></svg>reading order</span>
+    </div>
+    <figcaption>Figure 1. Each tag J1 to J9 is one join, stated in the table below. The style of a line gives the standing of the join. The colours on this page mark standing only; they are not the book's rig colours.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2>The joins</h2>
+  <div class="scroll">
+  <table>
+    <thead><tr><th>Tag</th><th>Between</th><th>What the join says</th><th>Standing</th></tr></thead>
+    <tbody>
+    <tr><td class="n">J1</td><td>Thread, involution</td><td>The mirror with line m is an involution: a harmonic pairing with line m and centre K. <span class="note">Thread plate 9.</span></td><td><span class="pill shown">shown</span><span class="note">audited outside</span></td></tr>
+    <tr><td class="n">J2</td><td>Primer, involution</td><td>The involution is reached from plain correspondences: reversible, at least one pair, no circuit longer than 2. On a line it is the harmonic pairing. <span class="note">Primer plates 4 and 5.</span></td><td><span class="pill shown">shown</span><span class="note">audited outside</span></td></tr>
+    <tr><td class="n">J3</td><td>Book, involution</td><td>The lines meeting two skew slits a and b are exactly the lines that one involution of space carries onto themselves. The involution pairs P with P′ where (P, P′; A, B) = −1. <span class="note">check-the-two-slit-involution.js</span></td><td><span class="pill shown">shown</span><span class="note">classical; checked by script; not audited outside</span></td></tr>
+    <tr><td class="n">J4</td><td>Primer, thread</td><td>Each exchange of two dots is a mirror of the triangle. Odd or even, counted in exchanges, is the thread's sign, counted in mirrors. <span class="note">Primer plate 6, addendum; check-the-six.py</span></td><td><span class="pill shown">shown</span><span class="note">three dots only; checked by script; not audited outside</span></td></tr>
+    <tr><td class="n">J5</td><td>Book, thread</td><td>Put slit b at infinity, perpendicular to slit a. The involution of J3 becomes the half-turn about a: a distance-preserving map, and the product of two perpendicular mirrors. The two meanings of “congruence” meet in this one case. <span class="note">the-two-congruences-v1.html; thread plate 3 at 90°.</span></td><td><span class="pill shown">shown</span><span class="note">classical; not audited outside</span></td></tr>
+    <tr><td class="n">J6</td><td>Primer → book</td><td>The primer's words point to the book's glossary entries. Plate 6 points to Chapter 4; the planned plate 7 will point to Chapter 2. One pointer was withdrawn as an overreach: plate 2 to “Anamorphic dissociation”. <span class="note">the-concordance.html</span></td><td><span class="pill shown">shown</span><span class="note">audited against quoted glossary entries, not against the chapters</span></td></tr>
+    <tr><td class="n">J7</td><td>Book, thread</td><td>The book's seam pairing is the involution of J3 read on one line.</td><td><span class="pill struck">struck</span><span class="note">tested by script and found false</span></td></tr>
+    <tr><td class="n">J8</td><td>Book, thread</td><td>The same form on both sides: a product equal to a square (Chapter 3's VM · VI = VP², the plates' x · x′ = constant), and one datum stated two ways with −1 where they meet.</td><td><span class="pill rhyme">rhyme</span><span class="note">every involution on a line, written from its centre, has this form</span></td></tr>
+    <tr><td class="n">J9</td><td>Book, thread</td><td>The thread's measure (a cross-ratio read on the horizon) and the book's gauges (Reach, Turn).</td><td><span class="pill open">open</span><span class="note">no statement made, none tested</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section>
+  <h2>The three bodies of work</h2>
+  <div class="cols">
+    <div>
+      <h3>The primer</h3>
+      <p><a href="the-primer.html">Lines in Space: a Primer</a>, with <a href="the-concordance.html">the concordance</a>.</p>
+      <ol>
+        <li><a href="four-numbers-for-a-line.html">Four numbers for a line</a></li>
+        <li><a href="pinhole-double-slit-and-four.html">Pinhole, double slit, and four</a></li>
+        <li><a href="level-and-square-to-the-card.html">Level and square to the card</a></li>
+        <li><a href="correspondences-and-circuits.html">Correspondences and circuits</a></li>
+        <li><a href="beneath-the-involution.html">Beneath the involution</a></li>
+        <li><a href="the-six-on-three-dots.html">The six on three dots</a></li>
+        <li>Numbers from incidence (planned)</li>
+      </ol>
+      <p style="margin-top:8px">Beside it: <a href="the-count-v1.html">the count</a>, <a href="the-two-congruences-v1.html">the two congruences</a>.</p>
+    </div>
+    <div>
+      <h3>The mirror thread</h3>
+      <p><a href="the-thread.html">The thread</a>, index. Five framework documents stand behind it, the fifth a concordance.</p>
+      <ol>
+        <li><a href="mirrors.html">Mirrors</a></li>
+        <li><a href="sign.html">Sign</a> (optional)</li>
+        <li><a href="the-pair-v1.html">The pair</a></li>
+        <li><a href="the-parallel-pair-v1.html">The parallel pair</a></li>
+        <li><a href="the-glide-v1.html">The glide</a></li>
+        <li><a href="the-third-mirror-v1.html">The third mirror</a></li>
+        <li><a href="the-fold-v4.html">The fold</a></li>
+        <li><a href="the-three-pairs-v2.html">Three pairs</a></li>
+        <li><a href="the-involution-v1.html">The involution</a></li>
+        <li><a href="the-absolute-v1.html">The absolute</a></li>
+        <li><a href="the-root-v1.html">The root</a></li>
+        <li><a href="the-measure-v1.html">The measure</a></li>
+        <li><a href="the-distance-v1.html">The distance</a></li>
+      </ol>
+    </div>
+    <div>
+      <h3>The book</h3>
+      <p><a href="https://flyingsticks.github.io/one-congruence-two-readings/">One Congruence, Two Readings</a></p>
+      <ol>
+        <li>The congruence</li>
+        <li>Law and gauge</li>
+        <li>The seam</li>
+        <li>The group</li>
+        <li>Duality</li>
+        <li>What the readings buy</li>
+        <li>Plates</li>
+        <li>The frame</li>
+      </ol>
+      <p style="margin-top:8px">Its subject: the family of lines meeting two slits, read once as a drawing (glide) and once as a camera (cross-slit).</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Standing of the plates</h2>
+  <ul>
+    <li><strong>Audited outside:</strong> thread plates 6, 9, 10, 11 and 12; primer plates 1 to 5; the primer index and the concordance.</li>
+    <li><strong>No outside audit on record:</strong> thread plates 1 to 5, 7, 8 and 13; primer plate 6 and its addendum; the count; the two congruences; this map.</li>
+    <li><strong>Not built:</strong> primer plate 7.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Terms</h2>
+  <dl>
+    <dt>involution</dt><dd>A reversible rule that is its own backward rule and is not the identity. Applied twice it returns everything; applied once it moves at least one thing. The book's convention.</dd>
+    <dt>harmonic pairing</dt><dd>The pairing of P with P′ on a line through two fixed points A and B, where (P, P′; A, B) = −1.</dd>
+    <dt>congruence (book)</dt><dd>A family of lines in space: here, the lines meeting both slits.</dd>
+    <dt>congruence (plates)</dt><dd>A distance-preserving map.</dd>
+    <dt>shown</dt><dd>Stated on a plate or in a check script and supported there. The note under it says how far the support goes.</dd>
+    <dt>rhyme</dt><dd>A likeness of form with no statement that one thing is the other.</dd>
+    <dt>struck</dt><dd>Stated, tested, and found false.</dd>
+    <dt>open</dt><dd>Not yet stated as a claim.</dd>
+    <dt>seam</dt><dd>The book's word for where the drawing reading and the camera reading agree.</dd>
+  </dl>
+</section>
+</main>
+</body>
+</html>
