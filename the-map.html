@@ -41,6 +41,8 @@ figure{margin:0}
 .fig{overflow-x:auto;border:1px solid var(--rule);background:var(--panel);border-radius:4px}
 .fig svg{display:block;width:100%;min-width:560px;height:auto}
 figcaption{font-size:15px;color:var(--soft);margin-top:8px;max-width:70ch}
+figcaption p{margin:0 0 8px;max-width:none}
+figcaption p:last-child{margin-bottom:0}
 svg text{font-family:var(--sans);fill:var(--ink)}
 .box{fill:var(--bg);stroke:var(--ink);stroke-width:1.4}
 .t1{font-size:15px;font-weight:700}
@@ -55,6 +57,8 @@ svg text{font-family:var(--sans);fill:var(--ink)}
 .tag circle{fill:var(--bg);stroke:var(--ink);stroke-width:1}
 .tag text{font-size:11.5px;font-weight:700;text-anchor:middle}
 .strike{stroke:var(--struck);stroke-width:2}
+.pairline{stroke:var(--ink);stroke-width:1.2}
+.moved{fill:var(--bg);stroke:var(--ink);stroke-width:1.6}
 .legend{display:flex;flex-wrap:wrap;gap:8px 22px;font-family:var(--sans);font-size:13.5px;margin-top:10px}
 .legend span{display:inline-flex;align-items:center;gap:8px}
 .legend svg{width:44px;height:10px;min-width:0;flex:none}
@@ -80,17 +84,18 @@ dt{font-weight:600} dd{margin:0}
 <main>
 <header>
   <h1>How It Goes Together</h1>
-  <p class="byline">A map of three bodies of work and the joins between them. 19 November 2026; revised the same day when primer plate 7 was built. Not audited outside. The file names assume this page sits in the same folder as the plates.</p>
+  <p class="byline">A map of three bodies of work and the joins between them. 19 November 2026; revised the same day when primer plate 7 was built; revised 20 November 2026 (the circle, the opening paragraph, the caption of figure 1, the rows J2 and J4, two entries under Terms, and a note on the reading of J1 to J5). Not audited outside. The file names assume this page sits in the same folder as the plates.</p>
 </header>
 
 <section>
-  <p>There are three bodies of work: the book, the primer that stands in front of it, and the mirror thread that runs beside both. One object occurs in all three, the involution, with the value −1. The figure shows which joins between them have been shown, which are only a rhyme, and which one was tested and struck.</p>
+  <p>There are three bodies of work: the book, the primer that stands in front of it, and the mirror thread that runs beside both. One kind of object occurs in all three: the involution. It is not one and the same map in each. In the thread it is a mirror of the plane, in the primer a pairing of dots or of the points of a line, in the book a map of space. The figure shows which joins between them have been shown, which are only a rhyme, and which one was tested and struck.</p>
 
   <figure>
     <div class="fig">
-    <svg viewBox="0 0 800 540" role="img" aria-label="Three bodies of work, the primer, the book and the mirror thread, each joined to the involution, with nine joins marked shown, rhyme, struck or open.">
+    <svg viewBox="0 0 800 540" role="img" aria-label="Three bodies of work, the primer, the book and the mirror thread, each joined to the involution, with nine joins marked shown, rhyme, struck or open. The circle for the involution holds two ringed dots joined by an arrow with a head at each end, and the words: applied twice, it returns everything.">
       <defs>
         <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="currentColor"/></marker>
+        <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="currentColor"/></marker>
       </defs>
 
       <!-- joins -->
@@ -120,15 +125,19 @@ dt{font-weight:600} dd{margin:0}
       <text class="t2" x="271" y="460">13 plates</text>
       <text class="t3" x="271" y="482">mirror → product → sign → measure</text>
 
-      <circle class="box" cx="380" cy="262" r="58"/>
-      <text class="t1" x="380" y="258" text-anchor="middle">the involution</text>
-      <text class="t2" x="380" y="279" text-anchor="middle">value −1</text>
+      <circle class="box" cx="380" cy="262" r="84"/>
+      <text class="t1" x="380" y="232" text-anchor="middle">the involution</text>
+      <line class="pairline" x1="358" y1="254" x2="402" y2="254" marker-start="url(#arr2)" marker-end="url(#arr2)" style="color:var(--ink)"/>
+      <circle class="moved" cx="352" cy="254" r="4.2"/>
+      <circle class="moved" cx="408" cy="254" r="4.2"/>
+      <text class="t2" x="380" y="281" text-anchor="middle">Applied twice,</text>
+      <text class="t2" x="380" y="298" text-anchor="middle">it returns everything.</text>
 
       <!-- tags -->
       <g class="tag"><circle cx="380" cy="78" r="13"/><text x="380" y="82">J6</text></g>
       <g class="tag"><circle cx="267" cy="176" r="13"/><text x="267" y="180">J2</text></g>
       <g class="tag"><circle cx="493" cy="176" r="13"/><text x="493" y="180">J3</text></g>
-      <g class="tag"><circle cx="380" cy="365" r="13"/><text x="380" y="369">J1</text></g>
+      <g class="tag"><circle cx="380" cy="378" r="13"/><text x="380" y="382">J1</text></g>
       <g class="tag"><circle cx="143" cy="368" r="13"/><text x="143" y="372">J4</text></g>
       <g class="tag"><circle cx="588" cy="360" r="13"/><text x="588" y="364">J5</text></g>
       <g class="tag"><circle cx="634" cy="380" r="13"/><text x="634" y="384">J7</text><line class="strike" x1="638" y1="270" x2="652" y2="284"/><line class="strike" x1="638" y1="284" x2="652" y2="270"/></g>
@@ -143,7 +152,12 @@ dt{font-weight:600} dd{margin:0}
       <span><svg viewBox="0 0 44 10"><line class="e open" x1="0" y1="5" x2="44" y2="5"/></svg>open</span>
       <span><svg viewBox="0 0 44 10"><line class="e order" x1="0" y1="5" x2="40" y2="5" marker-end="url(#arr)" style="color:var(--ink)"/></svg>reading order</span>
     </div>
-    <figcaption>Figure 1. Each tag J1 to J9 is one join, stated in the table below. The style of a line gives the standing of the join. The colours on this page mark standing only; they are not the book's rig colours.</figcaption>
+    <figcaption>
+      <p>Figure 1. Each tag J1 to J9 is one join, stated in the table below. The style of a line gives the standing of the join. The colours on this page mark standing only; they are not the book's rig colours.</p>
+      <p><strong>The circle.</strong> The two ringed dots are one pair of partners: the involution sends each to the other, which is what the arrow with a head at each end shows. “Applied twice, it returns everything” is true of every involution on this page. Together with “applied once, it moves at least one thing”, it is the whole definition (see Terms). The circle says nothing more than that, and it gives no number.</p>
+      <p><strong>Where −1 is stated.</strong> Not in the circle, because it does not hold for every involution on this page. It is stated join by join in the table. In J1, J3 and J5, and for the involution on a line in J2, a point and its partner lie on a line that carries two points that stay, and they divide those two in cross-ratio −1. An involution on dots (primer plate 4, also in J2) has no cross-ratio.</p>
+      <p><strong>A second number.</strong> An involution that keeps distances, such as a mirror or a half-turn, also has a sign as a map, +1 or −1: one −1 for each direction it reverses, multiplied. A mirror reverses one direction: −1. The half-turn of J5 reverses two: (−1) × (−1) = +1, although each of its pairs has cross-ratio −1. The two numbers are different numbers. <span class="note">check-the-map-caption.py</span></p>
+    </figcaption>
   </figure>
 </section>
 
@@ -154,9 +168,9 @@ dt{font-weight:600} dd{margin:0}
     <thead><tr><th>Tag</th><th>Between</th><th>What the join says</th><th>Standing</th></tr></thead>
     <tbody>
     <tr><td class="n">J1</td><td>Thread, involution</td><td>The mirror with line m is an involution: a harmonic pairing with line m and centre K. <span class="note">Thread plate 9.</span></td><td><span class="pill shown">shown</span><span class="note">audited outside</span></td></tr>
-    <tr><td class="n">J2</td><td>Primer, involution</td><td>The involution is reached from plain correspondences: reversible, at least one pair, no circuit longer than 2. On a line it is the harmonic pairing. <span class="note">Primer plates 4 and 5.</span></td><td><span class="pill shown">shown</span><span class="note">audited outside</span></td></tr>
+    <tr><td class="n">J2</td><td>Primer, involution</td><td>The involution is reached from plain correspondences: reversible, at least one pair, no circuit longer than 2 (plate 4). Plate 5 then builds one involution on a line: the harmonic pairing with two points A and B that stay. It does not say that every involution on a line is of that kind. <span class="note">Primer plates 4 and 5.</span></td><td><span class="pill shown">shown</span><span class="note">audited outside</span></td></tr>
     <tr><td class="n">J3</td><td>Book, involution</td><td>The lines meeting two skew slits a and b are exactly the lines that one involution of space carries onto themselves. The involution pairs P with P′ where (P, P′; A, B) = −1. <span class="note">check-the-two-slit-involution.js</span></td><td><span class="pill shown">shown</span><span class="note">classical; checked by script; not audited outside</span></td></tr>
-    <tr><td class="n">J4</td><td>Primer, thread</td><td>Each exchange of two dots is a mirror of the triangle. Odd or even, counted in exchanges, is the thread's sign, counted in mirrors. <span class="note">Primer plate 6, addendum; check-the-six.py</span></td><td><span class="pill shown">shown</span><span class="note">three dots only; checked by script; not audited outside</span></td></tr>
+    <tr><td class="n">J4</td><td>Primer, thread</td><td>Each exchange of two dots is a mirror of the triangle. Odd or even, counted in exchanges, is the thread's sign, counted in mirrors. The −1 of this join is that sign. It is not a cross-ratio; no four points on a line appear in it. <span class="note">Primer plate 6, addendum; check-the-six.py</span></td><td><span class="pill shown">shown</span><span class="note">three dots only; checked by script; not audited outside</span></td></tr>
     <tr><td class="n">J5</td><td>Book, thread</td><td>Put slit b at infinity, perpendicular to slit a. The involution of J3 becomes the half-turn about a: a distance-preserving map, and the product of two perpendicular mirrors. The two meanings of “congruence” meet in this one case. <span class="note">the-two-congruences-v1.html; thread plate 3 at 90°.</span></td><td><span class="pill shown">shown</span><span class="note">classical; not audited outside</span></td></tr>
     <tr><td class="n">J6</td><td>Primer → book</td><td>The primer's words point to the book's glossary entries. Plate 6 points to Chapter 4 and plate 7 to Chapter 2. One pointer was withdrawn as an overreach: plate 2 to “Anamorphic dissociation”. <span class="note">the-concordance.html</span></td><td><span class="pill shown">shown</span><span class="note">plates 1 to 5: audited against quoted glossary entries, not against the chapters; plates 6 and 7: not audited</span></td></tr>
     <tr><td class="n">J7</td><td>Book, thread</td><td>The book's seam pairing is the involution of J3 read on one line.</td><td><span class="pill struck">struck</span><span class="note">tested by script and found false</span></td></tr>
@@ -226,6 +240,7 @@ dt{font-weight:600} dd{margin:0}
   <ul>
     <li><strong>Audited outside:</strong> thread plates 6, 9, 10, 11 and 12; primer plates 1 to 5; the primer index and the concordance.</li>
     <li><strong>No outside audit on record:</strong> thread plates 1 to 5, 7, 8 and 13; primer plates 6 and 7; the count; the two congruences; this map.</li>
+    <li><strong>Read on 20 November 2026:</strong> the joins J1 to J5 were read against their sources, by the map's maker, to see which kind of involution each uses. J2, J4 and J5 were read from the published copies of primer plates 4, 5 and 6 and of the two congruences. J1 was read from thread plate 9's table of claims as first built, before its audit amendments. J3 was read from the reported results of check-the-two-slit-involution.js, which was not run again. Thread plate 3, which J5 also cites, was not read.</li>
   </ul>
 </section>
 
@@ -234,6 +249,8 @@ dt{font-weight:600} dd{margin:0}
   <dl>
     <dt>involution</dt><dd>A reversible rule that is its own backward rule and is not the identity. Applied twice it returns everything; applied once it moves at least one thing. The book's convention.</dd>
     <dt>harmonic pairing</dt><dd>The pairing of P with P′ on a line through two fixed points A and B, where (P, P′; A, B) = −1.</dd>
+    <dt>cross-ratio −1</dt><dd>The cross-ratio (P, P′; A, B) of a pair of partners P, P′ and the two points A, B that stay on their line, when the pairing is harmonic. It belongs to four points on a line. Primer plate 5, figure 3, computes it.</dd>
+    <dt>sign of a map</dt><dd>+1 for an even number of mirrors, −1 for an odd number. It belongs to a whole distance-preserving map, not to a pair of points. It is a different number from the cross-ratio −1.</dd>
     <dt>congruence (book)</dt><dd>A family of lines in space: here, the lines meeting both slits.</dd>
     <dt>congruence (plates)</dt><dd>A distance-preserving map.</dd>
     <dt>shown</dt><dd>Stated on a plate or in a check script and supported there. The note under it says how far the support goes.</dd>
