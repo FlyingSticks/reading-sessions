@@ -10,9 +10,13 @@ The construction, by joins and meets only:
   step forward :  X' = XW.k ,  next = X'U.l
   step backward:  X' = XU.k ,  previous = X'W.l
 Run:  python3 check-numbers-from-incidence.py
+
+Amended 21 November 2026 after the outside audit: an unused import removed;
+one check removed because an earlier check already covered it (see 7.5 below);
+a check added for the pointer "The same progression" under "Toward the book".
 """
 from fractions import Fraction as F
-import itertools, sys
+import sys
 
 def cross(a,b): return (a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0])
 def same(a,b):  return cross(a,b)==(0,0,0)
@@ -94,7 +98,8 @@ for name,V in Vs.items():
     ok(all(same(h[0],x) for x in h) and cr(coord(h[0],O,E),F(1),F(0),tv)==F(1,2), f"7.5 one half ({name})")
     ok(cr(coord(nets[0].fwd(h[0]),O,E),F(1),F(0),tv)==F(3,2), f"7.5 three halves ({name})")
     ok(cr(coord(h[0],O,E),tv,F(0),F(1))==-1, f"7.5 one half is the harmonic partner of V about 0 and 1 ({name})")
-    ok(all(cr(t[n],F(1),F(0),tv)==n for n in range(LO,0)), f"7.5 backward steps give -1, -2, -3 ({name})")
+    # 7.5 "backward steps give -1, -2, -3" needs no check of its own: the 7.3 check above
+    #     already reads back every mark from LO = -3 upward, the backward ones included.
 
 # 7.3 (second half) a perspective view of the whole figure: construct in the view, compare
 M=((F(3),F(1),F(2)),(F(-1),F(4),F(1)),(F(1,7),F(2,9),F(5)))
@@ -107,6 +112,16 @@ for name,V in Vs.items():
     O2n=(O2[0]/O2[2],O2[1]/O2[2],F(1)); E2n=(E2[0]/E2[2],E2[1]/E2[2],F(1))
     tv2=coord(V2,O2n,E2n)
     ok(all(cr(coord(mb[n],O2n,E2n),F(1),F(0),tv2)==n for n in mb), f"7.3 read back in the view is still n ({name})")
+
+# Toward the book, "The same progression": with V drawn at twice the distance of the mark named 1,
+# and distances measured with the stretch O V as the unit, mark n is drawn at n/(n+1);
+# V is then at 1, and the mark named -1 is at infinity.
+V2=onl(2); netT=Net(O,E,V2,*aux[0])
+mT={0:O,1:E}
+for n in range(2,HI+1): mT[n]=netT.fwd(mT[n-1])
+ok(all(coord(mT[n],O,E)/2==F(n,n+1) for n in mT), "the same progression: with V at 2, mark n is drawn at n/(n+1) of the stretch O V")
+ok(coord(V2,O,E)/2==1, "the same progression: V is then at 1")
+ok(netT.bwd(O)[2]==0, "the same progression: the mark named -1 is then at infinity")
 
 print(f"{tally[1]} of {tally[0]} passed")
 sys.exit(0 if tally[0]==tally[1] else 1)

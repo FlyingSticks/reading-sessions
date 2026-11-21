@@ -162,7 +162,10 @@ td small,th small{display:block;font-family:var(--display);font-size:13px;font-w
 .rung{stroke:var(--blue);stroke-width:1.1;fill:none;opacity:.8}
 .slant{stroke:var(--green);stroke-width:1.1;fill:none;opacity:.8}
 .rung.hot,.slant.hot{stroke-width:2;opacity:1}
+.diag{stroke:var(--ink);stroke-width:2;fill:none}
 .kpt{fill:var(--purple);stroke:var(--panel);stroke-width:1.2}
+td.claim,td.standing{font-family:var(--display)}
+s.struck{color:var(--muted)}
 .ring{fill:none;stroke:var(--red);stroke-width:2}
 .stepno{font-size:13px;font-weight:600;fill:var(--ink)}
 .controls{display:grid;grid-template-columns:1fr;gap:12px;padding:14px 18px;border-top:1px solid var(--hair)}
@@ -189,7 +192,7 @@ td small,th small{display:block;font-family:var(--display);font-size:13px;font-w
   <ul style="margin:0;padding-left:20px;max-width:70ch">
     <li><strong>A line ℓ and three different points on it:</strong> O, E and V.</li>
     <li><strong>Three names:</strong> O is named 0, E is named 1, V is named ∞. A name is a label. It is not a measurement, and nothing on this plate is measured to make the marks.</li>
-    <li><strong>On this plate the sign ∞ is only the name of the point V.</strong> V may be drawn on the page like any other point. V is a point at infinity, in the sense of the plate <a href="level-and-square-to-the-card.html" style="color:var(--blue)">Level, and Square to the Card</a>, only in the one case where it is drawn off the page and lines through it are drawn parallel.</li>
+    <li><strong>On this plate the sign ∞ is only the name of the point V.</strong> V may be drawn on the page like any other point. V is a point at infinity of the drawing, in the sense of the plate <a href="level-and-square-to-the-card.html" style="color:var(--blue)">Level, and Square to the Card</a>, only in the one limiting case where it has no finite place on the line and all lines through it are drawn parallel to ℓ. A point that is merely beyond the edge of the page is not at infinity.</li>
     <li><strong>Two helpers, chosen freely:</strong> a point U that is not on ℓ, and a line k through V that is not ℓ and does not pass through U.</li>
   </ul>
 </div>
@@ -207,7 +210,7 @@ td small,th small{display:block;font-family:var(--display);font-size:13px;font-w
   <div class="draw"><svg id="f2" viewBox="0 0 1000 400" role="img" aria-label="The step repeated forward and backward gives marks named minus 2 to 6 and beyond. Three sliders move the point named infinity and the two helpers."></svg></div>
   <div class="controls">
     <label for="s-r">Where V, the point named ∞, is drawn<input type="range" id="s-r" min="0" max="300" step="2" value="110"><span class="val" id="v-r"></span></label>
-    <label for="s-u">Helper point U: left or right<input type="range" id="s-u" min="260" max="620" step="2" value="400"></label>
+    <label for="s-u">Helper point U: left or right<input type="range" id="s-u" min="330" max="690" step="2" value="480"></label>
     <label for="s-k">Helper line k: lower or higher<input type="range" id="s-k" min="60" max="170" step="1" value="112"></label>
   </div>
   <div class="readout"><div class="tbl"><table><thead><tr><th>name of the mark</th><th>drawn distance from O, in units</th><th>number read back from the drawn distances</th></tr></thead><tbody id="rb"></tbody></table></div></div>
@@ -222,26 +225,27 @@ td small,th small{display:block;font-family:var(--display);font-size:13px;font-w
   <h2>Reading a number back</h2>
   <p style="margin-top:0">Write OX for the drawn distance from O to a mark X, counted as positive to the right of O and negative to the left, and write v for the drawn distance from O to V, both in units. Then</p>
   <p style="font-family:var(--mono)">number of X = OX · (v − 1) / (v − OX)</p>
-  <p>When V is off the page the fraction (v − 1) / (v − OX) is 1, and the number of X is simply OX. The formula is the cross-ratio (X, E; O, V), written with the same convention as the −1 of the earlier plate: (A, B; C, D) = (AC · BD) / (AD · BC), each pair of letters standing for a signed stretch.</p>
+  <p>When V is at infinity there is no distance v. The fraction (v − 1) / (v − OX) is then replaced by 1, the value it approaches as V is drawn further and further away, and the number of X is simply OX. The formula is the cross-ratio (X, E; O, V), written with the same convention as the −1 of the earlier plate: (A, B; C, D) = (AC · BD) / (AD · BC), each pair of letters standing for a signed stretch.</p>
   <p>Turned round, the formula says where mark n is drawn:</p>
   <p style="font-family:var(--mono)">drawn distance of mark n = n · v / (v − 1 + n)</p>
-  <p style="color:var(--muted)">Two things follow. First, every mark is tied to its neighbours by the harmonic relation of the earlier plate: (n − 1, n + 1; n, V) = −1, so mark n + 1 is the harmonic partner of mark n − 1 with respect to mark n and V. The whole scale could be built with that one construction. Second, the distances of the marks from V, taken as one over each distance, go up in equal steps.</p>
+  <p style="color:var(--muted)">If n = 1 − v is a whole number, the bottom of that fraction is 0 for that mark: the mark is at infinity.</p>
+  <p style="color:var(--muted)">Two things follow. First, every mark is tied to its neighbours by the harmonic relation of the earlier plate: (n − 1, n + 1; n, V) = −1, so mark n + 1 is the harmonic partner of mark n − 1 with respect to mark n and V. The whole scale could be built with that one construction. Second, take the signed distance from each mark to V, and then one over it: these change by equal steps from each mark to the next.</p>
 </div>
 
 <figure>
   <div class="draw"><svg id="f3" viewBox="0 0 1000 370" role="img" aria-label="Three rulers with the same marks 0, 1, 2 and onward. On the first the steps are drawn equal. On the second and third the marks crowd toward the point named infinity."></svg></div>
   <figcaption>
     <h2>3. The same numbers, drawn three ways</h2>
-    <p>Three drawings of one scale. In each, 0 and 1 are drawn in the same two places (the two thin upright lines), and the marks are made by the construction of figure 1. Only the place of V differs. With V off the page the steps are drawn equal. With V on the page the marks crowd toward V and never reach it.</p>
+    <p>Three drawings of one scale. In each, 0 and 1 are drawn in the same two places (the two thin upright lines), and the marks are made by the construction of figure 1. Only the place of V differs. With V at infinity the steps are drawn equal. With V at a finite place the marks crowd toward V and never reach it.</p>
     <p>The numbers are the same in all three. Equal steps and crowded steps are two drawings of one incidence figure, and no join or meet tells them apart. What tells them apart is a ruler laid on the page, which this plate has not used.</p>
   </figcaption>
 </figure>
 
 <figure>
-  <div class="draw"><svg id="f4" viewBox="0 0 1000 410" role="img" aria-label="The two slants of the four-sided figure O, E, E prime, O prime cross at C. The rung through C meets the line at the point named one half. Backward steps give minus 1 and minus 2."></svg></div>
+  <div class="draw"><svg id="f4" viewBox="0 0 1000 410" role="img" aria-label="The two diagonals of the four-sided figure O, E, E prime, O prime cross at C. The rung through C meets the line at the point named one half. Backward steps give minus 1 and minus 2."></svg></div>
   <figcaption>
     <h2>4. Between the marks, and before 0</h2>
-    <p>O, E, E′ and O′ are the corners of a four-sided figure. Join O to E′ and E to O′; the two lines cross at C. The rung through C meets ℓ at the ringed point, which is named ½. It is the harmonic partner of V with respect to 0 and 1. Stepping on from ½ gives 1½, 2½ and the rest of the halves.</p>
+    <p>O, E, E′ and O′ are the corners of a four-sided figure. Join O to E′ and E to O′; the two lines cross at C. The line O E′ is a slant and is drawn green. The line E O′ does not pass through W, so it is not a slant, and it is drawn dark. The rung through C meets ℓ at the ringed point, which is named ½. It is the harmonic partner of V with respect to 0 and 1. Stepping on from ½ with the same W gives 1½, 2½ and the rest of the halves.</p>
     <p>The thin lines to the left of O are the backward steps to −1 and −2. On this drawing the marks to the left spread apart as those to the right crowd together.</p>
   </figcaption>
 </figure>
@@ -252,28 +256,32 @@ td small,th small{display:block;font-family:var(--display);font-size:13px;font-w
   <tr><td class="claim">7.1 Given O, E and V on a line, the step of figure 1 produces one further point, and it is the same point whatever U and k are chosen.</td><td class="standing">a classical theorem resting on Desargues' theorem; stated, not demonstrated; in the check for four choices of U and k</td></tr>
   <tr><td class="claim">7.2 Each mark is the harmonic partner of the mark two before it, with respect to the mark between them and V: (n − 1, n + 1; n, V) = −1.</td><td class="standing">classical; in the check</td></tr>
   <tr><td class="claim">7.3 The number of a mark is the cross-ratio (X, E; O, V) of drawn distances. A perspective view of the whole figure changes the drawn distances and leaves every number alone.</td><td class="standing">classical; in the check, for one view</td></tr>
-  <tr><td class="claim">7.4 Mark n is drawn at distance n · v / (v − 1 + n) from O. With V off the page the steps are equal. With V on the page, one over the distance from V goes up in equal steps.</td><td class="standing">classical; in the check</td></tr>
+  <tr><td class="claim">7.4 Mark n is drawn at distance n · v / (v − 1 + n) from O. With V at infinity the steps are equal. With V at a finite place, one over the signed distance from a mark to V changes by equal steps from each mark to the next.</td><td class="standing">classical; in the check</td></tr>
   <tr><td class="claim">7.5 The construction of figure 4 gives ½, the harmonic partner of V with respect to 0 and 1. Backward steps give −1, −2 and −3.</td><td class="standing">classical; in the check</td></tr>
-  <tr><td class="claim">7.6 Every fraction, positive or negative, is reached by finitely many joins and meets from O, E and V, and no other number is.</td><td class="standing">classical (the net of rationality); stated, not demonstrated, not in the check beyond the whole numbers, ½ and 1½</td></tr>
+  <tr><td class="claim">7.6 Every fraction, positive, negative or 0, is the number of a point reached by finitely many joins and meets from O, E and V, and no other number is. "Reached" here means that the point comes out the same whatever free helpers are chosen along the way.</td><td class="standing">classical (the net of rationality); stated, not demonstrated, not in the check beyond the whole numbers, ½ and 1½</td></tr>
   <tr><td class="claim">7.7 The sum and the product of two numbers on the line can each be constructed by joins and meets.</td><td class="standing">classical (von Staudt); stated only: not drawn, not in the check</td></tr>
   </tbody></table></div>
-  <p style="color:var(--muted)">On 7.6: numbers that are not fractions, such as the square root of 2, need one more assumption about the line, that it has no gaps. That assumption is not an incidence statement and is not used on this plate.</p>
+  <p style="color:var(--muted)">On 7.6: numbers that are not fractions, such as the square root of 2, are never reached by finitely many joins and meets. Matching them with points of the line needs two further assumptions, neither of which is an incidence statement: that the points of the line have an order, and that this order has no gaps. With both, such a number is matched with a point as the cut between the fractions below it and the fractions above it. Neither assumption is used on this plate.</p>
 </div>
 
 <div class="sum">
   <h2>Toward the book</h2>
-  <p style="margin-top:0;color:var(--muted)">The book's site could not be reached from the session that built this plate. The pointers below were written from the primer's index and concordance and from earlier session records, not from the book's pages, and none of them has been checked against <a href="https://flyingsticks.github.io/one-congruence-two-readings/chapter-2.html" style="color:var(--blue)">Chapter 2</a>.</p>
+  <p style="margin-top:0;color:var(--muted)">These pointers were audited on 21 November 2026 against the book's glossary entries, which were quoted to the auditor word for word, and were rewritten afterwards. The auditor did not read the chapters. The chapter numbers are taken from the tags on the glossary entries.</p>
   <ul style="margin:0;padding-left:20px;max-width:70ch">
-    <li><strong>Two graduations.</strong> Chapter 2, Law and gauge, has two ways of graduating a depth line, which the book calls Reach (equal steps) and Turn (harmonic steps). Compare figure 3: its first ruler has equal steps and its other two have harmonic steps. This plate's statement is that the three rulers carry the same numbers and differ only in where V is drawn. Whether the book's Turn is this scale with V at a particular point of the book's rig has not been worked out here.</li>
-    <li><strong>Three named points.</strong> The plate <a href="the-six-on-three-dots.html" style="color:var(--blue)">The Six on Three Dots</a> read the book's 0, 1 and ∞ as the picture plane, the station and the plane at infinity, from the entry <a href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#degenerate" style="color:var(--blue)">Degenerate orbit</a>. That reading is unaudited. If it holds, a depth line of the book is a line with three named points, and this plate says how every other number on it follows from those three.</li>
-    <li><strong>The point named ∞.</strong> Compare the book's <a href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#planeinf" style="color:var(--blue)">Plane at infinity</a>, which the concordance records as defining a point of a line. On this plate V is that kind of point only when it is drawn off the page.</li>
+    <li><strong>Two graduations.</strong> The book's entries <a href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#depth-gauge" style="color:var(--blue)">Depth gauge</a>, <a href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#reach" style="color:var(--blue)">Reach</a> and <a href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#turn" style="color:var(--blue)">Turn</a>, all of Chapter 2, contrast two graduations of a depth line. Reach has equal steps and keeps the plane at infinity at ∞. Turn sends the plane at infinity to the finite mark 1 and a station to ∞, so that depth steps k become the harmonic progression k/(k + 1). Compare figure 3: its first ruler spaces the marks 0, 1, 2 and onward equally, and its other two space them in a harmonic progression that crowds toward V. There is one difference. Figure 3 keeps the whole-number names on the crowded marks. Turn gives the crowded places new numbers, k/(k + 1).</li>
+    <li><strong>The same progression.</strong> The progression k/(k + 1) of the Turn entry matches the drawn places of this plate's marks 0, 1, 2 and onward when V is drawn at twice the distance of the mark named 1, and distances are measured with the stretch O V as the unit: mark n is then drawn at n/(n + 1). On that reading V is the book's plane at infinity, at 1, and the mark named −1 is at infinity, which is where the Turn entry puts the station. This is in the check. It settles the question the earlier wording of this plate left open.</li>
+    <li><strong>Three pins.</strong> The book's <a href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#pin" style="color:var(--blue)">Pin</a> entry says that three distinguished points fix the three freedoms of a coordinate on a line: "Three pins make a ruler." This plate's three given points O, E and V play the role of three pins. They must be given before a scale of numbers is fixed on the line. From them every fraction follows by joins and meets, and the number of any point of the line is read back as the cross-ratio (X, E; O, V).</li>
+    <li><strong>The point named ∞.</strong> Which of the book's points this plate's V stands for depends on how the names of the marks are read. If the names are read as Reach's steps, V is the book's <a href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#planeinf" style="color:var(--blue)">Plane at infinity</a> in all three rulers of figure 3: at infinity in the first, and at a finite place in the other two. If the names are read as Turn's numbers, the point named ∞ is the book's <a href="https://flyingsticks.github.io/one-congruence-two-readings/glossary.html#station" style="color:var(--blue)">Station</a>, and the plane at infinity is the point named 1. <s class="struck">On this plate V is that kind of point only when it is drawn off the page.</s> <span style="color:var(--muted)">Struck: the audit found it wrong.</span></li>
+    <li><strong>A caution about the sign ∞.</strong> In the book's Turn and Depth gauge entries the sign ∞ stands in some places for the plane at infinity and in others for the value ∞. On this plate ∞ is only ever a name, the name of V.</li>
     <li><strong>Not claimed.</strong> Nothing here is said about the book's law, its rates, or which graduation belongs to which reading. A page on the reading-sessions shelf, the-gauge.html, reports the same −1 at every tick for the 1984 transfer construction; that page was not re-run for this plate.</li>
   </ul>
 </div>
 
 <p class="next">This is the last plate planned for the primer. Back to <a href="the-primer.html">the primer</a> (the-primer.html).</p>
 
-<p class="status"><strong>Status.</strong> Classical. Every point in the four figures is computed by the drawing code from joins and meets, not typed in; the last column of the table under figure 2 is computed from the drawn distances. A separate script, check-numbers-from-incidence.py, repeats the construction in exact arithmetic on a line in general position, with V off the page and at three places on the line, and confirms claims 7.1 to 7.5; it passes 43 of 43. Claims 7.6 and 7.7 are quoted from the classical theory and are not checked. Built 19 November 2026. Not yet audited outside. The pointers under "Toward the book" were not checked against the book. Viewed in Chrome, light theme; not in Safari.</p>
+<p class="status"><strong>Audit.</strong> Audited outside on 21 November 2026, in two passes, and amended. The first pass found the mathematics sound. It found a fault in figure 2's drawing code, by which the line U V could vanish or stop short of U and W at some slider settings; the numeral 2 of figure 1 set far from the points O′ and E′ that it marks; the line E O′ of figure 4 called a slant and drawn as one; that claim 7.4 needed "signed distance" and could not say the steps always "go up"; and that claim 7.6 needed 0 and the condition about free helpers. The second pass ruled four statements imprecise: "drawn off the page" said of a point at infinity; "one more assumption" where two are needed for numbers that are not fractions; "Möbius net" said of a net on a line; and the vanishing line credited to the net when it belongs to the helper U. Of the three pointers to the book, it found two to overreach and one wrong. All three are rewritten, the wrong sentence is shown struck, and two pointers that the auditor allowed in weaker wording were added ("The same progression" and "Three pins").</p>
+
+<p class="status"><strong>Status.</strong> Classical. Every point in the four figures is computed by the drawing code from joins and meets, not typed in; the last column of the table under figure 2 is computed from the drawn distances. A separate script, check-numbers-from-incidence.py, repeats the construction in exact arithmetic on a line in general position, with V at infinity and at three finite places on the line, and confirms claims 7.1 to 7.5 and the pointer "The same progression"; it passes 42 of 42. Claims 7.6 and 7.7 are quoted from the classical theory and are not checked. Built 19 November 2026; amended 21 November 2026 after the audit. Viewed in Chrome, light and dark themes; not in Safari.</p>
 
 <section>
   <h2>Terms</h2>
@@ -285,17 +293,17 @@ td small,th small{display:block;font-family:var(--display);font-size:13px;font-w
     <dt>U, k</dt><dd>The helper point and the helper line, chosen freely subject to the conditions in the first box. <span class="std">Standard: auxiliary elements of the construction.</span></dd>
     <dt>rung</dt><dd>A line through U. <span class="std">Standard: a line of the pencil with vertex U.</span></dd>
     <dt>slant</dt><dd>A line through W. <span class="std">Standard: a line of the pencil with vertex W.</span></dd>
-    <dt>W</dt><dd>The point where the first slant, O E′, meets the line U V. <span class="std">Standard: with U and V, a point of the vanishing line of the net.</span></dd>
+    <dt>W</dt><dd>The point where the first slant, O E′, meets the line U V. <span class="std">Standard: with U and V, a point of the vanishing line of the helper grid of rungs and slants; in projective terms, the line of centres of the two perspectivities ℓ → k → ℓ. That line depends on the free choice of U. It does not belong to the marks, which stay where they are when U is moved.</span></dd>
     <dt>O′, E′, 2′</dt><dd>The points where the rungs through O, E and 2 meet k.</dd>
     <dt>step</dt><dd>The five joins and meets of figure 1, started from any two neighbouring marks.</dd>
-    <dt>mark</dt><dd>A point of ℓ produced by steps. <span class="std">Standard: a point of the harmonic net, or net of rationality, also called a Möbius net.</span></dd>
+    <dt>mark</dt><dd>A point of ℓ produced by steps. <span class="std">Standard: a point of the harmonic net, or net of rationality, on a line.</span></dd>
     <dt>number of a mark</dt><dd>The name the construction gives it. <span class="std">Standard: its projective coordinate with respect to O, E and V.</span></dd>
     <dt>unit</dt><dd>The drawn stretch from 0 to 1, used only for reading the drawing with a ruler.</dd>
     <dt>OX, v</dt><dd>Drawn distances from O, in units, positive to the right: OX to a mark X, v to V. <span class="std">Standard: signed, or directed, lengths.</span></dd>
     <dt>read back</dt><dd>To compute the number of a mark from drawn distances. <span class="std">Standard: to evaluate the cross-ratio (X, E; O, V).</span></dd>
     <dt>scale</dt><dd>The line together with all its marks and their numbers. <span class="std">Standard: a projective scale.</span></dd>
-    <dt>equal steps</dt><dd>Marks drawn the same distance apart; this happens when V is off the page. <span class="std">Standard: an arithmetic progression; an affine scale.</span></dd>
-    <dt>crowd toward V</dt><dd>Said of the marks when V is on the page. <span class="std">Standard: the distances from V form a harmonic progression.</span></dd>
+    <dt>equal steps</dt><dd>Marks drawn the same distance apart; this happens when V is at infinity. <span class="std">Standard: an arithmetic progression; an affine scale.</span></dd>
+    <dt>crowd toward V</dt><dd>Said of the marks when V is at a finite place. <span class="std">Standard: the distances from V form a harmonic progression.</span></dd>
     <dt>fraction</dt><dd>A whole number divided by a whole number that is not 0. <span class="std">Standard: a rational number.</span></dd>
     <dt>perspective view</dt><dd>As on the earlier plate: the figure seen from a point and redrawn on another plane. <span class="std">Standard: a central projection; more generally a projective map.</span></dd>
   </dl>
@@ -335,7 +343,13 @@ function seg(a,b,c){return '<line class="'+c+'" x1="'+f(a[0])+'" y1="'+f(a[1])+'
 function dot(p,c,r){return '<circle class="'+c+'" cx="'+f(p[0])+'" cy="'+f(p[1])+'" r="'+r+'"/>';}
 function txt(x,y,s,c,a){return '<text class="'+c+' halo" x="'+f(x)+'" y="'+f(y)+'" text-anchor="'+(a||'middle')+'">'+s+'</text>';}
 function yOn(L,x){return -(L[0]*x+L[2])/L[1];}
-function across(g,L,c){var x2=fin(g.V)?Math.min(g.V[0],985):985;return seg([15,yOn(L,15)],[x2,yOn(L,x2)],c);}
+function across(g,L,c){
+  /* clip the whole line to the frame; works for any slope, upright lines included */
+  var xs=[15,985],ys=[8,g.o.Y+52],pts=[],i,x,y;
+  if(Math.abs(L[1])>1e-9){for(i=0;i<2;i++){y=-(L[0]*xs[i]+L[2])/L[1];if(y>=ys[0]&&y<=ys[1])pts.push([xs[i],y]);}}
+  if(Math.abs(L[0])>1e-9){for(i=0;i<2;i++){x=-(L[1]*ys[i]+L[2])/L[0];if(x>xs[0]&&x<xs[1])pts.push([x,ys[i]]);}}
+  return pts.length>=2?seg(pts[0],pts[1],c):'';
+}
 function base(g){
   var h=across(g,g.k,'across')+across(g,g.uv,'across');
   h+=seg([15,g.o.Y],[985,g.o.Y],'zline');
@@ -343,7 +357,8 @@ function base(g){
 }
 function vmark(g){
   if(fin(g.V)&&g.V[0]<985) return dot(g.V,'rspot',6)+txt(g.V[0],g.o.Y+26,'∞','num big tf-red');
-  return txt(978,g.o.Y+46,'∞ is off the page, to the right →','lab small','end');
+  if(fin(g.V)) return txt(978,g.o.Y+46,'V, named ∞, is off the page, to the right →','lab small','end');
+  return txt(978,g.o.Y+46,'V, named ∞, is at infinity: it has no place on the drawing','lab small','end');
 }
 function numlab(n){return n<0?'−'+(-n):''+n;}
 function marks(g,from,to){
@@ -375,7 +390,7 @@ function fig1(){
   var mid=function(a,b,t){return [a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t];},q;
   q=mid(g.O,g.U,0.2);h+=txt(q[0]-12,q[1],'1','stepno');
   q=mid(g.E,g.U,0.2);h+=txt(q[0]-12,q[1],'1','stepno');
-  h+=txt(640,yOn(g.k,640)-8,'2','stepno');
+  q=mid(g.Op,g.Ep,0.4);h+=txt(q[0],q[1]+17,'2','stepno');
   q=mid(g.Ep,g.W,0.5);h+=txt(q[0]-12,q[1]-2,'3','stepno');
   q=mid(twop,g.W,0.5);h+=txt(q[0]+13,q[1]+4,'4','stepno');
   q=mid(two,twop,0.5);h+=txt(q[0]+12,q[1]+4,'5','stepno');
@@ -386,14 +401,14 @@ function fig1(){
 function fig2(){
   var r=+document.getElementById('s-r').value/1000;
   var ux=+document.getElementById('s-u').value, kh=+document.getElementById('s-k').value;
-  var g=net({xO:200,d:80,Y:340,r:r,ux:ux,uh:255,kh:kh,back:2,cap:12,gap:12}),h=base(g),n;
+  var g=net({xO:300,d:70,Y:340,r:r,ux:ux,uh:255,kh:kh,back:2,cap:12,gap:12}),h=base(g),n;
   for(n=g.lo;n<=g.hi;n++){h+=seg(g.m[n],g.U,'rung');if(g.m[n+1])h+=seg(g.m[n],g.W,'slant');}
   for(n=g.lo;n<=g.hi;n++)h+=dot(g.mp[n],'kpt',3);
   h+=dot(g.U,'pt',4.5)+dot(g.W,'gpt',4.5)+marks(g,g.lo,g.hi)+vmark(g);
   h+=txt(g.U[0]-12,g.U[1]-8,'U','lab','end')+txt(g.W[0]+12,g.W[1]-8,'W','lab green','start');
   h+=txt(24,yOn(g.k,24)-8,'k','lab purple','start');
   document.getElementById('f2').innerHTML=h;
-  document.getElementById('v-r').textContent=r>1e-9?'V is drawn '+(1/r).toFixed(1)+' units to the right of O (one unit = the drawn stretch from 0 to 1)':'V is off the page: k and the line U V are drawn parallel to ℓ';
+  document.getElementById('v-r').textContent=r>1e-9?'V is drawn '+(1/r).toFixed(1)+' units to the right of O (one unit = the drawn stretch from 0 to 1)':'V is at infinity: k and the line U V are drawn parallel to ℓ';
   var rows='';
   for(n=-2;n<=6;n++){ if(!g.m[n]){rows+='<tr><td>'+numlab(n)+'</td><td class="fixed">not drawn</td><td class="fixed">not drawn</td></tr>';continue;}
     var s=(g.m[n][0]-g.o.xO)/g.o.d,b=readback(g,g.m[n]);
@@ -403,7 +418,7 @@ function fig2(){
 
 /* figure 3: the same numbers drawn three ways */
 function fig3(){
-  var rs=[0,0.1,0.2],cap=['V off the page: the steps are drawn equal','V drawn 10 units from O','V drawn 5 units from O'],h='',i;
+  var rs=[0,0.1,0.2],cap=['V at infinity: the steps are drawn equal','V drawn 10 units from O','V drawn 5 units from O'],h='',i;
   h+=seg([120,30],[120,330],'leader')+seg([190,30],[190,330],'leader');
   for(i=0;i<3;i++){
     var Y=95+i*105,g=net({xO:120,d:70,Y:Y,r:rs[i],ux:300,uh:255,kh:112,back:0,gap:9});
@@ -417,7 +432,7 @@ function fig3(){
 function fig4(){
   var g=net({xO:380,d:80,Y:340,r:0.14,ux:590,uh:255,kh:112,back:2}),h=base(g);
   h+=seg(g.O,g.U,'rung')+seg(g.E,g.U,'rung');
-  h+=seg(g.O,g.Ep,'slant hot')+seg(g.E,g.Op,'slant hot');
+  h+=seg(g.O,g.Ep,'slant hot')+seg(g.E,g.Op,'diag');
   h+=seg(g.U,g.H,'rung hot');
   if(g.m[-1]){h+=seg(g.W,g.m[-1],'slant')+seg(g.m[-1],g.U,'rung');}
   if(g.m[-2]){h+=seg(g.W,g.m[-2],'slant');}
